@@ -864,6 +864,11 @@ class Extensions {
     /**
      * @type {Integer (UInt32)}
      */
+    static DEBUG_FORMAT_USER_SMALL_NO_IGNORE_INACCESSIBLE_MEM => 67108864
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DEBUG_FORMAT_USER_SMALL_IGNORE_INACCESSIBLE_MEM => 134217728
 
     /**

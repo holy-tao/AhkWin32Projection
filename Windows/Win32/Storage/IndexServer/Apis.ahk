@@ -216,6 +216,16 @@ class IndexServer {
     static DBPROP_ENABLEROWSETEVENTS => 16
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static DBPROP_SESSION_ID => 17
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DBPROP_QUERY_ID => 18
+
+    /**
      * @type {Guid}
      */
     static DBPROPSET_CIFRMWRKCORE_EXT => Guid("{afafaca5-b5d1-11d0-8c62-00c04fc2db8d}")

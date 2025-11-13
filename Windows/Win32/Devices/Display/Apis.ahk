@@ -536,6 +536,16 @@ class Display {
     /**
      * @type {Integer (UInt32)}
      */
+    static IOCTL_GET_SCALAR_MULTIPLIER_CAPS => 2297868
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_SET_SCALAR_MULTIPLIER => 2297872
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static IOCTL_MIPI_DSI_QUERY_CAPS => 2298880
 
     /**

@@ -14,7 +14,17 @@ class POWER_LIMIT_TYPES{
     /**
      * @type {Integer (Int32)}
      */
+    static PowerLimitType1 => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static PowerLimitBurst => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PowerLimitType2 => 1
 
     /**
      * @type {Integer (Int32)}
@@ -24,7 +34,17 @@ class POWER_LIMIT_TYPES{
     /**
      * @type {Integer (Int32)}
      */
+    static PowerLimitType3 => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static PowerLimitPreemptive => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PowerLimitType4 => 3
 
     /**
      * @type {Integer (Int32)}

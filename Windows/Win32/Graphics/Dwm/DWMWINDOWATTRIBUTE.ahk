@@ -171,8 +171,13 @@ class DWMWINDOWATTRIBUTE{
     static DWMWA_REDIRECTIONBITMAP_ALPHA => 39
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static DWMWA_BORDER_MARGINS => 40
+
+    /**
      * The maximum recognized <b>DWMWINDOWATTRIBUTE</b> value, used for validation purposes.
      * @type {Integer (Int32)}
      */
-    static DWMWA_LAST => 40
+    static DWMWA_LAST => 41
 }

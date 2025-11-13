@@ -41,15 +41,13 @@ class IPixelFilter extends IFilter{
 
     /**
      * 
-     * @param {Pointer<Integer>} pixelBufferLength 
-     * @param {Pointer<Pointer<Integer>>} pixelBuffer 
-     * @returns {HRESULT} 
+     * @param {Float} scalingFactor 
+     * @param {Pointer<RECT>} sourceRect 
+     * @param {Integer} pixelBufferSize 
+     * @returns {Integer} 
      */
-    GetPixelsForImage(pixelBufferLength, pixelBuffer) {
-        pixelBufferLengthMarshal := pixelBufferLength is VarRef ? "uint*" : "ptr"
-        pixelBufferMarshal := pixelBuffer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, pixelBufferLengthMarshal, pixelBufferLength, pixelBufferMarshal, pixelBuffer, "HRESULT")
-        return result
+    GetPixelsForImage(scalingFactor, sourceRect, pixelBufferSize) {
+        result := ComCall(9, this, "float", scalingFactor, "ptr", sourceRect, "uint", pixelBufferSize, "char*", &pixelBuffer := 0, "HRESULT")
+        return pixelBuffer
     }
 }

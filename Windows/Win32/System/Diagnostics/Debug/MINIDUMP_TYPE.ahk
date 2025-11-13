@@ -245,4 +245,14 @@ class MINIDUMP_TYPE{
      * @type {Integer (Int32)}
      */
     static MiniDumpValidTypeFlags => 33554431
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MiniDumpNoIgnoreInaccessibleMemory => 33554432
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MiniDumpValidTypeFlagsEx => 67108863
 }

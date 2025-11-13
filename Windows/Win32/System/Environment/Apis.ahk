@@ -1226,5 +1226,48 @@ class Environment {
         return result
     }
 
+    /**
+     * 
+     * @param {BOOL} RestrictAccess 
+     * @returns {BOOL} 
+     */
+    static EnclaveRestrictContainingProcessAccess(RestrictAccess) {
+        result := DllCall("vertdll.dll\EnclaveRestrictContainingProcessAccess", "int", RestrictAccess, "int*", &PreviouslyRestricted := 0, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return PreviouslyRestricted
+    }
+
+    /**
+     * 
+     * @param {Pointer} EnclaveAddress 
+     * @param {Pointer} UnsecureAddress 
+     * @param {Pointer} NumberOfBytes 
+     * @returns {HRESULT} 
+     */
+    static EnclaveCopyIntoEnclave(EnclaveAddress, UnsecureAddress, NumberOfBytes) {
+        result := DllCall("vertdll.dll\EnclaveCopyIntoEnclave", "ptr", EnclaveAddress, "ptr", UnsecureAddress, "ptr", NumberOfBytes, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer} UnsecureAddress 
+     * @param {Pointer} EnclaveAddress 
+     * @param {Pointer} NumberOfBytes 
+     * @returns {HRESULT} 
+     */
+    static EnclaveCopyOutOfEnclave(UnsecureAddress, EnclaveAddress, NumberOfBytes) {
+        result := DllCall("vertdll.dll\EnclaveCopyOutOfEnclave", "ptr", UnsecureAddress, "ptr", EnclaveAddress, "ptr", NumberOfBytes, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
 ;@endregion Methods
 }

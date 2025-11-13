@@ -10,7 +10,7 @@
  */
 class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -180,8 +180,24 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     /**
      * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
      */
-    EXPERIMENTAL_pHmacSecret {
+    pHmacSecret {
         get => NumGet(this, 144, "ptr")
         set => NumPut("ptr", value, this, 144)
+    }
+
+    /**
+     * @type {BOOL}
+     */
+    bThirdPartyPayment {
+        get => NumGet(this, 152, "int")
+        set => NumPut("int", value, this, 152)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwTransports {
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
     }
 }

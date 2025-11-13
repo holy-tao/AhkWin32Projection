@@ -279,6 +279,11 @@ class Power {
     /**
      * @type {Guid}
      */
+    static GUID_DEVICE_POWER_ADAPTER => Guid("{f76c6c62-7dea-43cd-8689-d9a4af3d8557}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_CLASS_INPUT => Guid("{4d1e55b2-f16f-11cf-88cb-001111000030}")
 
     /**
@@ -295,6 +300,16 @@ class Power {
      * @type {Guid}
      */
     static GUID_DEVINTERFACE_POWER_LIMIT => Guid("{8f366301-091e-4056-b92f-958b27625fce}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVINTERFACE_TEMPERATURE_SENSOR => Guid("{2a6c8538-7895-4d56-8567-795d3844858a}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVINTERFACE_CUSTOMIZED_IO => Guid("{2ed8544a-8eef-4033-b2a0-04aaa507cecb}")
 
     /**
      * @type {Integer (UInt32)}
@@ -449,6 +464,21 @@ class Power {
     /**
      * @type {Integer (UInt32)}
      */
+    static IOCTL_QUERY_CUSTOMIZED_IO_CAPABILITIES => 2704000
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_QUERY_CUSTOMIZED_INPUT_FROM_PLATFORM => 2704004
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_SEND_CUSTOMIZED_OUTPUT_TO_PLATFORM => 2720392
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MAX_ACTIVE_COOLING_LEVELS => 10
 
     /**
@@ -460,6 +490,16 @@ class Power {
      * @type {Integer (UInt32)}
      */
     static PASSIVE_COOLING => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static THERMAL_WAIT_READ_TIMEOUT_IMMEDIATE => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static THERMAL_WAIT_READ_TIMEOUT_NONE => 4294967295
 
     /**
      * @type {Integer (UInt32)}
@@ -699,6 +739,21 @@ class Power {
     /**
      * @type {Integer (UInt32)}
      */
+    static BATTERY_NOTIFY_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BATTERY_NOTIFY_VERSION_2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CHARGE_REQUIREMENT_MAX_POWER_SOURCE_TYPES => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static BATTERY_MINIPORT_UPDATE_DATA_VER_1 => 1
 
     /**
@@ -720,6 +775,21 @@ class Power {
      * @type {Integer (UInt32)}
      */
     static BATTERY_CLASS_MINOR_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BATTERY_CLASS_MINOR_VERSION_2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ADAPTER_CLASS_MAJOR_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ADAPTER_CLASS_MINOR_VERSION => 0
 
     /**
      * @type {Guid}

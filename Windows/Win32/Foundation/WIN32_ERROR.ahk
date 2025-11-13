@@ -2499,6 +2499,11 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_CLOUD_FILE_HYDRATION_NOT_AVAILABLE => 523
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_ARITHMETIC_OVERFLOW => 534
 
     /**
@@ -7539,6 +7544,26 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_VSM_KEY_CI_POLICY_ROLLBACK_DETECTED => 4562
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_VSMIDK_KEYGEN_FAILURE => 4563
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_VSMIDK_EXPORT_FAILURE => 4564
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_VSMIDK_MODULUS_MISMATCH => 4565
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_PLATFORM_MANIFEST_NOT_AUTHORIZED => 4570
 
     /**
@@ -8760,6 +8785,16 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_CNU_NOT_READY => 6256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CAMERA_INVALID_CONFIGURATION => 6350
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CAMERA_INSUFFICIENT_BANDWIDTH => 6351
 
     /**
      * @type {Integer (UInt32)}
@@ -14649,6 +14684,11 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_CANNOT_COMPOSE_APISET_EXTENSION => 15380
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_CANNOT_SWITCH_RUNLEVEL => 15400
 
     /**
@@ -15065,6 +15105,21 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_BLOCKED_BY_PENDING_PACKAGE_REMOVAL => 15676
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_PACKAGE_REPOSITORY_ROOT_CORRUPTED => 15677
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_PACKAGE_MANIFEST_NOT_FOUND => 15678
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_DEPLOYMENT_BLOCKED_BY_REMOVEDEFAULTPACKAGES_POLICY => 15679
 
     /**
      * @type {Integer (UInt32)}

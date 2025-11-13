@@ -78,7 +78,32 @@ class HTTP_FEATURE_ID{
     /**
      * @type {Integer (Int32)}
      */
-    static HttpFeatureLast => 12
+    static HttpFeatureIdleConnectionTimeoutRequestProperty => 12
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureDisableAiaFlag => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureDscp => 14
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureQueryCipherInfo => 15
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureQueryInitialPacketTtl => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureLast => 17
 
     /**
      * Specifies the maximum number of supported features.

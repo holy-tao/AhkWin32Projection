@@ -259,4 +259,9 @@ class STORAGE_PROPERTY_ID{
      * @type {Integer (Int32)}
      */
     static StorageDeviceProtocolSpecificPropertyEx => 68
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorageHwCryptoProperty => 69
 }

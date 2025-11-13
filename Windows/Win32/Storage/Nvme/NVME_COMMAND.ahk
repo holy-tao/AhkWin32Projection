@@ -49,6 +49,7 @@
 #Include .\NVME_CDW10_CREATE_IO_QUEUE.ahk
 #Include .\NVME_CDW11_CREATE_IO_CQ.ahk
 #Include .\NVME_CDW11_CREATE_IO_SQ.ahk
+#Include .\NVME_CDW10_DELETE_IO_QUEUE.ahk
 #Include .\NVME_CDW10_DATASET_MANAGEMENT.ahk
 #Include .\NVME_CDW11_DATASET_MANAGEMENT.ahk
 #Include .\NVME_CDW10_SECURITY_SEND_RECEIVE.ahk
@@ -84,6 +85,9 @@
 #Include .\NVME_CDW12_ZONE_APPEND.ahk
 #Include .\NVME_CDW15_ZONE_APPEND.ahk
 #Include .\NVME_CDW10_DEVICE_SELF_TEST.ahk
+#Include .\NVME_CDW10_DISCOVERY_INFO_MGMT.ahk
+#Include .\NVME_CDW12_VERIFYCOMMAND.ahk
+#Include .\NVME_CDW15_VERIFY_COMMAND.ahk
 
 /**
  * 
@@ -705,6 +709,23 @@ class NVME_COMMAND extends Win32Struct
         CDW15 {
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _DELETEIOQUEUE extends Win32Struct {
+        static sizeof => 240
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_DELETE_IO_QUEUE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_DELETE_IO_QUEUE(0, this)
+                return this.__CDW10
+            }
         }
     
     }
@@ -1759,6 +1780,63 @@ class NVME_COMMAND extends Win32Struct
     
     }
 
+    class _DISCOVERYINFOMGMT extends Win32Struct {
+        static sizeof => 240
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_DISCOVERY_INFO_MGMT}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_DISCOVERY_INFO_MGMT(0, this)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
     class _VENDORSPECIFIC extends Win32Struct {
         static sizeof => 240
         static packingSize => 8
@@ -1809,6 +1887,66 @@ class NVME_COMMAND extends Win32Struct
         CDW15 {
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _VERIFYCOMMAND extends Win32Struct {
+        static sizeof => 240
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LBALOW {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LBAHIGH {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {NVME_CDW12_VERIFYCOMMAND}
+         */
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_VERIFYCOMMAND(8, this)
+                return this.__CDW12
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EILBRT {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {NVME_CDW15_VERIFY_COMMAND}
+         */
+        CDW15{
+            get {
+                if(!this.HasProp("__CDW15"))
+                    this.__CDW15 := NVME_CDW15_VERIFY_COMMAND(24, this)
+                return this.__CDW15
+            }
         }
     
     }
@@ -1898,6 +2036,17 @@ class NVME_COMMAND extends Win32Struct
             if(!this.HasProp("__CREATEIOSQ"))
                 this.__CREATEIOSQ := %this.__Class%._CREATEIOSQ(48, this)
             return this.__CREATEIOSQ
+        }
+    }
+
+    /**
+     * @type {_DELETEIOQUEUE}
+     */
+    DELETEIOQUEUE{
+        get {
+            if(!this.HasProp("__DELETEIOQUEUE"))
+                this.__DELETEIOQUEUE := %this.__Class%._DELETEIOQUEUE(48, this)
+            return this.__DELETEIOQUEUE
         }
     }
 
@@ -2100,6 +2249,17 @@ class NVME_COMMAND extends Win32Struct
     }
 
     /**
+     * @type {_DISCOVERYINFOMGMT}
+     */
+    DISCOVERYINFOMGMT{
+        get {
+            if(!this.HasProp("__DISCOVERYINFOMGMT"))
+                this.__DISCOVERYINFOMGMT := %this.__Class%._DISCOVERYINFOMGMT(48, this)
+            return this.__DISCOVERYINFOMGMT
+        }
+    }
+
+    /**
      * @type {_VENDORSPECIFIC}
      */
     VENDORSPECIFIC{
@@ -2107,6 +2267,17 @@ class NVME_COMMAND extends Win32Struct
             if(!this.HasProp("__VENDORSPECIFIC"))
                 this.__VENDORSPECIFIC := %this.__Class%._VENDORSPECIFIC(48, this)
             return this.__VENDORSPECIFIC
+        }
+    }
+
+    /**
+     * @type {_VERIFYCOMMAND}
+     */
+    VERIFYCOMMAND{
+        get {
+            if(!this.HasProp("__VERIFYCOMMAND"))
+                this.__VERIFYCOMMAND := %this.__Class%._VERIFYCOMMAND(48, this)
+            return this.__VERIFYCOMMAND
         }
     }
 }

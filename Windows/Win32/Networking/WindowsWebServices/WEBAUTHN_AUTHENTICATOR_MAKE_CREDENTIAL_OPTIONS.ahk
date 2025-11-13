@@ -11,7 +11,7 @@
  */
 class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -176,8 +176,32 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     /**
      * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
      */
-    EXPERIMENTAL_pPRFGlobalEval {
+    pPRFGlobalEval {
         get => NumGet(this, 128, "ptr")
         set => NumPut("ptr", value, this, 128)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    cCredentialHints {
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
+    }
+
+    /**
+     * @type {Pointer<PWSTR>}
+     */
+    ppwszCredentialHints {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
+    }
+
+    /**
+     * @type {BOOL}
+     */
+    bThirdPartyPayment {
+        get => NumGet(this, 152, "int")
+        set => NumPut("int", value, this, 152)
     }
 }

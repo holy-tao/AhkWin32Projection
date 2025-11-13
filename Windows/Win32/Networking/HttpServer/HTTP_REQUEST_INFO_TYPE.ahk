@@ -74,4 +74,19 @@ class HTTP_REQUEST_INFO_TYPE{
      * @type {Integer (Int32)}
      */
     static HttpRequestInfoTypeTcpInfoV2 => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestInfoTypeTransportIdleConnectionTimeout => 12
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestInfoTypeDscpTag => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestInfoTypeInitialPacketTtl => 14
 }

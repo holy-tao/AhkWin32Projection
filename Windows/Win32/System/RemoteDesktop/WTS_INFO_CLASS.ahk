@@ -224,4 +224,9 @@ class WTS_INFO_CLASS{
      * @type {Integer (Int32)}
      */
     static WTSIsRemoteSession => 29
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WTSSessionActivityId => 30
 }

@@ -328,6 +328,11 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static IOCTL_STORAGE_GET_SYSTEM_FEATURE_SUPPORT => 2968604
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static IOCTL_STORAGE_RESET_BUS => 2969600
 
     /**
@@ -349,6 +354,11 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static IOCTL_STORAGE_PERSISTENT_RESERVE_OUT => 3002396
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_STORAGE_MINIPORT_PASSTHROUGH_REQUEST => 3002448
 
     /**
      * @type {Integer (UInt32)}
@@ -553,6 +563,11 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static STORAGE_FEATURE_SUPPORT_V1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static STORAGE_DEVICE_FLAGS_RANDOM_DEVICEGUID_REASON_CONFLICT => 1
 
     /**
@@ -689,6 +704,16 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static STORAGE_CRYPTO_DESCRIPTOR_VERSION_2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_CRYPTO_CAPABILITY_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_CRYPTO_DESCRIPTOR_VERSION_1 => 1
 
     /**
      * @type {Integer (UInt32)}

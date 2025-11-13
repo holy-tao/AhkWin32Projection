@@ -379,6 +379,16 @@ class CLSCTX{
     static CLSCTX_ALLOW_LOWER_TRUST_REGISTRATION => 67108864
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static CLSCTX_SERVER_MUST_BE_EQUAL_OR_GREATER_PRIVILEGE => 134217728
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CLSCTX_DO_NOT_ELEVATE_SERVER => 268435456
+
+    /**
      * Used for loading Proxy/Stub DLLs.
      * 
      * 

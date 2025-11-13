@@ -499,5 +499,10 @@ class POWER_INFORMATION_LEVEL{
     /**
      * @type {Integer (Int32)}
      */
-    static PowerInformationLevelMaximum => 98
+    static SystemPowerSourceState => 98
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PowerInformationLevelMaximum => 99
 }

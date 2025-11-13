@@ -41,7 +41,7 @@
  */
 class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
 {
-    static sizeof => 328
+    static sizeof => 336
 
     static packingSize => 8
 
@@ -481,5 +481,13 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     GuardMemcpyFunctionPointer {
         get => NumGet(this, 320, "uint")
         set => NumPut("uint", value, this, 320)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UmaFunctionPointers {
+        get => NumGet(this, 328, "uint")
+        set => NumPut("uint", value, this, 328)
     }
 }

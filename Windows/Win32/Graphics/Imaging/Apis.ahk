@@ -420,6 +420,16 @@ class Imaging {
     /**
      * @type {Guid}
      */
+    static GUID_WICPixelFormat24bppRGBGain => Guid("{a5022b24-7109-443b-9948-25b6ed8f39fd}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_WICPixelFormat32bppBGRGain => Guid("{837d6738-208a-43e0-8995-79ab74407402}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_WICPixelFormat16bppBGR555 => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc909}")
 
     /**
@@ -1150,6 +1160,11 @@ class Imaging {
     /**
      * @type {Guid}
      */
+    static GUID_MetadataFormatGainMap => Guid("{568d3138-c446-4ec2-a7a8-59abb16d21e3}")
+
+    /**
+     * @type {Guid}
+     */
     static CLSID_WICUnknownMetadataReader => Guid("{699745c2-5066-4b82-a8e3-d40478dbec8c}")
 
     /**
@@ -1576,6 +1591,16 @@ class Imaging {
      * @type {Guid}
      */
     static CLSID_WICJpegXLAnimFrameMetadataWriter => Guid("{d1ce58a8-06e0-4b6f-8fc1-577560bd5ad9}")
+
+    /**
+     * @type {Guid}
+     */
+    static CLSID_WICGainMapMetadataReader => Guid("{3ac32daf-27b9-4af5-b0ab-d1189dcf34b3}")
+
+    /**
+     * @type {Guid}
+     */
+    static CLSID_WICGainMapMetadataWriter => Guid("{6f845268-a92e-4a02-b002-a67c362800b2}")
 ;@endregion Constants
 
 ;@region Methods

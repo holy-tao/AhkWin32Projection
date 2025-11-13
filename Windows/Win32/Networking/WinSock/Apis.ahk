@@ -722,6 +722,16 @@ class WinSock {
     /**
      * @type {Integer (UInt32)}
      */
+    static SO_RECEIVED_HOPLIMIT => 12304
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SO_RECEIVED_PROCESSOR => 12305
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WSK_SO_BASE => 16384
 
     /**

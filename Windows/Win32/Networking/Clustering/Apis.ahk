@@ -441,6 +441,11 @@ class Clustering {
     static CLUSAPI_NODE_RESUME_FAILBACK_PINNED_VMS_ONLY => 4
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static CLUSAPI_NODE_RESUME_FAILBACK_VMS_FORCEFULLY => 8
+
+    /**
      * @type {Integer (UInt64)}
      */
     static CLUSGRP_STATUS_LOCKED_MODE => 1
@@ -1668,6 +1673,11 @@ class Clustering {
     /**
      * @type {String}
      */
+    static CLUSREG_NAME_NODE_FAILBACK_ERROR_CODE => "FailbackErrorCode"
+
+    /**
+     * @type {String}
+     */
     static CLUSREG_NAME_NODE_HYPERTHREADING_ENABLED => "HyperthreadingEnabled"
 
     /**
@@ -2839,6 +2849,11 @@ class Clustering {
      * @type {String}
      */
     static CLUSREG_NAME_CLOUDWITNESS_CONTAINER_NAME => "ContainerName"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_CLOUDWITNESS_MANAGED_IDENTITY => "IsManagedIdentity"
 
     /**
      * @type {String}

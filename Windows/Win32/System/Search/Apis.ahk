@@ -17064,6 +17064,16 @@ class Search {
     /**
      * @type {Integer (Int32)}
      */
+    static CI_DATABASE_DECRYPTION_FAILED => -1073473480
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CI_DATABASE_ENCRYPTION_FAILED => -1073473479
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static FILTER_E_NO_IMAGE_FRAMES => -2147215602
 
     /**

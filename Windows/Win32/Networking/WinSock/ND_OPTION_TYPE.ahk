@@ -70,4 +70,9 @@ class ND_OPTION_TYPE{
      * @type {Integer (Int32)}
      */
     static ND_OPT_DNSSL => 31
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ND_OPT_PREF64 => 38
 }

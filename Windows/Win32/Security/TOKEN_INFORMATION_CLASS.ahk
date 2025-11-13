@@ -324,8 +324,13 @@ class TOKEN_INFORMATION_CLASS{
     static TokenLoggingInformation => 49
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static TokenLearningMode => 50
+
+    /**
      * The maximum value for this enumeration.
      * @type {Integer (Int32)}
      */
-    static MaxTokenInfoClass => 50
+    static MaxTokenInfoClass => 51
 }

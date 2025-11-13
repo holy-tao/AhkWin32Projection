@@ -11,7 +11,7 @@ class NVME_ASYNC_EVENT_ERROR_STATUS_CODES{
     /**
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_ERROR_INVALID_SUBMISSION_QUEUE => 0
+    static NVME_ASYNC_ERROR_WRITE_TO_INVALID_DOORBELL_REGISTER => 0
 
     /**
      * @type {Integer (Int32)}

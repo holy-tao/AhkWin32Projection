@@ -11,7 +11,7 @@
  */
 class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -179,5 +179,21 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     pbJsonExt {
         get => NumGet(this, 136, "ptr")
         set => NumPut("ptr", value, this, 136)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    cCredentialHints {
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
+    }
+
+    /**
+     * @type {Pointer<PWSTR>}
+     */
+    ppwszCredentialHints {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 }

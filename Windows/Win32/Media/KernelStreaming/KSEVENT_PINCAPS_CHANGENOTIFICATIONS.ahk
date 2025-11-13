@@ -15,4 +15,9 @@ class KSEVENT_PINCAPS_CHANGENOTIFICATIONS{
      * @type {Integer (Int32)}
      */
     static KSEVENT_PINCAPS_JACKINFOCHANGE => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static KSEVENT_PINCAPS_INVALIDATECLIENTS => 2
 }

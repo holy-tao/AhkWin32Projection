@@ -65,4 +65,9 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE{
      * @type {Integer (Int32)}
      */
     static VideoBlackScreenDiagnostics => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VideoForceCompositionRender => 17
 }

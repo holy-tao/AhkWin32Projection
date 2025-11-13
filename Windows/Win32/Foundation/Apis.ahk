@@ -7482,6 +7482,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_APISET_COMPOSE_FAILURE => -1073700511
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_NOT_APPCONTAINER => -1073700352
 
     /**
@@ -7763,6 +7768,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_CLOUD_FILE_US_MESSAGE_TIMEOUT => -1073688799
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_CLOUD_FILE_HYDRATION_NOT_AVAILABLE => -1073688798
 
     /**
      * @type {Integer (Int32)}
@@ -11067,6 +11077,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_CAMERA_INVALID_CONFIGURATION => -1071710208
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_CAMERA_INSUFFICIENT_BANDWIDTH => -1071710207
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_FVE_LOCKED_VOLUME => -1071579136
 
     /**
@@ -11448,6 +11468,76 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_FVE_PCR_BOOT_LOCK_BOUNDARY => -1071579055
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_FW_UPDATE_TPM_BINDINGS_NOT_REFRESHED => -1071579054
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_INVALID_TPM_BINDING_CONFIGURATION => -1071579053
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_TOO_MANY_TPM_BINDINGS => -1071579052
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_TPM_BINDING_ASSOCIATION_FAILURE => -1071579051
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_ORPHANED_PCR_DIGEST_DATUM => -1071579050
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_HW_ACCELERATED_ENCRYPTION_NOT_ALLOWED => -1071579049
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_NO_MATCHING_TPM_BINDINGS => -1071579048
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_TPMPV2_USED_FAILURE => -1071579047
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_NO_TPM_BINDINGS => -1071579046
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_FW_UPDATE_PCRS_BLOCK => -1071579044
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_FW_UPDATE_PCRS_NOT_EXCLUDED => -1071579043
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_FAILED_TO_UNWRAP_HW_WRAPPED_KEY => -1071579042
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_HARDWARE_CRYPTO_ACCELERATOR_NOT_FIPS_COMPLIANT => -1071579041
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_HARDWARE_CRYPTO_KEY_MANAGER_NOT_FIPS_COMPLIANT => -1071579040
 
     /**
      * @type {Integer (Int32)}
@@ -12973,6 +13063,16 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_TPM_PPI_FUNCTION_UNSUPPORTED => -1071050746
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_TPM_IN_EXCLUSIVE_MODE => -1071050745
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_TPM_REBOOT_REQUIRED => -1071050744
 
     /**
      * @type {Integer (Int32)}
@@ -15317,6 +15417,26 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_VSM_KEY_CI_POLICY_ROLLBACK_DETECTED => -1069219838
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VSMIDK_KEYGEN_FAILURE => -1069219837
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VSMIDK_EXPORT_FAILURE => -1069219836
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VSMIDK_MODULUS_MISMATCH => -1069219835
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_APPEXEC_CONDITION_NOT_SATISFIED => -1058275328
 
     /**
@@ -15603,6 +15723,56 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_ACCELERATOR_SUBMISSION_QUEUE_FULL => -1058078719
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_APNONCE_INVALID => -1073445552
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_BAD_DEVICE_ACCESS_TOKEN_FORMAT => -1073445551
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_ASSERTION_MALFORMED => -1073445550
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_INVALID_TENANT => -1073445549
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_INVALID_DEVICE => -1073445548
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_INVALID_ACCESS_TOKEN => -1073445546
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_INVALID_BINDING_KEY_ID => -1073445545
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_CANT_FIND_ROOT_CERT => -1073445543
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_ASSERTION_INVALID => -1073445542
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_AAD_CLOUDAP_E_CALLER_MISMATCH => -1073445541
 
     /**
      * @type {Integer (UInt32)}
@@ -19383,6 +19553,16 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static CO_E_CANCEL_DISABLED => -2147417792
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CO_E_SERVER_CANNOT_BE_EQUAL_OR_GREATER_PRIVILEGE => -2147417791
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CO_E_CANNOT_ACTIVATE_CROSS_PACKAGE_IN_SESSION_0 => -2147417790
 
     /**
      * @type {Integer (Int32)}
@@ -25302,6 +25482,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static TBS_E_TPM_IN_EXCLUSIVE_MODE => -2144845801
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TBS_E_TPM_REBOOT_REQUIRED => -2144845800
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static TPMAPI_E_INVALID_STATE => -2144796416
 
     /**
@@ -27132,7 +27322,7 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static FVE_E_DEVICE_NOT_JOINED => -2144272160
+    static FVE_E_DEVICE_NOT_JOINED_AAD => -2144272160
 
     /**
      * @type {Integer (Int32)}
@@ -27177,12 +27367,12 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static FVE_E_AAD_SERVER_FAIL_RETRY_AFTER => -2144272151
+    static FVE_E_AAD_SERVER_FAIL_RETRY_AFTER_AAD => -2144272151
 
     /**
      * @type {Integer (Int32)}
      */
-    static FVE_E_AAD_SERVER_FAIL_BACKOFF => -2144272150
+    static FVE_E_AAD_SERVER_FAIL_BACKOFF_AAD => -2144272150
 
     /**
      * @type {Integer (Int32)}
@@ -27303,6 +27493,96 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static FVE_E_PCR_BOOT_LOCK_BOUNDARY => -1070530302
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_FW_UPDATE_TPM_BINDINGS_NOT_REFRESHED => -1070530301
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_EXCEED_MAX_LIMIT_RP_IN_MEID => -1070530300
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_INVALID_TPM_BINDING_CONFIGURATION => -1070530299
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_TOO_MANY_TPM_BINDINGS => -1070530298
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_TPM_BINDING_ASSOCIATION_FAILURE => -1070530297
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_ORPHANED_PCR_DIGEST_DATUM => -1070530296
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_HW_ACCELERATED_ENCRYPTION_NOT_ALLOWED => -1070530295
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_NO_MATCHING_TPM_BINDINGS => -1070530294
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_TPMPV2_USED_FAILURE => -1070530293
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_NO_TPM_BINDINGS => -1070530292
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_FW_UPDATE_PCRS_BLOCK => -1070530290
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_FW_UPDATE_PCRS_NOT_EXCLUDED => -1070530289
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_DEVICE_NOT_JOINED => -2144272112
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_AAD_SERVER_FAIL_RETRY_AFTER => -2144272111
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_AAD_SERVER_FAIL_BACKOFF => -2144272110
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_FAILED_TO_UNWRAP_HW_WRAPPED_KEY => -1070530285
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_HARDWARE_CRYPTO_ACCELERATOR_NOT_FIPS_COMPLIANT => -1070530284
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_HARDWARE_CRYPTO_KEY_MANAGER_NOT_FIPS_COMPLIANT => -1070530283
 
     /**
      * @type {Integer (Int32)}
@@ -30547,6 +30827,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static WINCODEC_ERR_UNSUPPORTEDTONEMAPPING => -2003292265
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static MILERR_OBJECTBUSY => -2003304447
 
     /**
@@ -30743,6 +31028,91 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static MILERR_DISPLAYID_ACCESS_DENIED => -2003304287
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_DEVICE_CREATION_FAILURE => -2003304272
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_INTEL_DEVICE_CREATION_FAILURE => -2003304271
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_AMD_DEVICE_CREATION_FAILURE => -2003304270
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_NVIDIA_DEVICE_CREATION_FAILURE => -2003304269
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_QC_DEVICE_CREATION_FAILURE => -2003304268
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_SWAPCHAIN_CREATION_FAILURE => -2003304256
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_INTEL_SWAPCHAIN_CREATION_FAILURE => -2003304255
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_AMD_SWAPCHAIN_CREATION_FAILURE => -2003304254
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_NVIDIA_SWAPCHAIN_CREATION_FAILURE => -2003304253
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_QC_SWAPCHAIN_CREATION_FAILURE => -2003304252
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_IDD_SWAPCHAIN_CREATION_FAILURE => -2003304251
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_PRESENT_FAILURE => -2003304240
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_INTEL_PRESENT_FAILURE => -2003304239
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_AMD_PRESENT_FAILURE => -2003304238
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_NVIDIA_PRESENT_FAILURE => -2003304237
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_QC_PRESENT_FAILURE => -2003304236
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MILERR_IDD_PRESENT_FAILURE => -2003304235
 
     /**
      * @type {Integer (Int32)}
@@ -32727,17 +33097,52 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static SQLITE_E_IOERR_VNODE => -2018567678
+    static SQLITE_E_IOERR_VNODE => -2018567414
 
     /**
      * @type {Integer (Int32)}
      */
-    static SQLITE_E_IOERR_AUTH => -2018567677
+    static SQLITE_E_IOERR_AUTH => -2018567158
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_IOERR_BEGIN_ATOMIC => -2018566902
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_IOERR_COMMIT_ATOMIC => -2018566646
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_IOERR_ROLLBACK_ATOMIC => -2018566390
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_IOERR_DATA => -2018566134
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_IOERR_CORRUPTFS => -2018565878
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_IOERR_IN_PAGE => -2018565622
 
     /**
      * @type {Integer (Int32)}
      */
     static SQLITE_E_LOCKED_SHAREDCACHE => -2018574074
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_LOCKED_VTAB => -2018573818
 
     /**
      * @type {Integer (Int32)}
@@ -32748,6 +33153,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static SQLITE_E_BUSY_SNAPSHOT => -2018573819
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_BUSY_TIMEOUT => -2018573563
 
     /**
      * @type {Integer (Int32)}
@@ -32772,7 +33182,27 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static SQLITE_E_CANTOPEN_DIRTYWAL => -2018573042
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_CANTOPEN_SYMLINK => -2018572786
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static SQLITE_E_CORRUPT_VTAB => -2018574069
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_CORRUPT_SEQUENCE => -2018573813
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_CORRUPT_INDEX => -2018573557
 
     /**
      * @type {Integer (Int32)}
@@ -32793,6 +33223,16 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static SQLITE_E_READONLY_DBMOVED => -2018573304
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_READONLY_CANTINIT => -2018573048
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_READONLY_DIRECTORY => -2018572792
 
     /**
      * @type {Integer (Int32)}
@@ -32852,6 +33292,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static SQLITE_E_CONSTRAINT_PINNED => -2018571501
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_CONSTRAINT_DATATYPE => -2018571245
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static SQLITE_E_NOTICE_RECOVER_WAL => -2018574053
 
     /**
@@ -32862,7 +33312,17 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static SQLITE_E_NOTICE_RECOVER_RBU => -2018573541
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static SQLITE_E_WARNING_AUTOINDEX => -2018574052
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SQLITE_E_AUTH_USER => -2018574057
 
     /**
      * @type {Integer (Int32)}
@@ -33598,6 +34058,31 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static ERROR_ACCELERATOR_SUBMISSION_QUEUE_FULL => -920190976
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_DIGEST_ALGO_NOT_SUPPORTED => -920125440
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_CONFLICT => -920125439
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_CLEANED_UP_NA => -920125438
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_CLEANED_UP_STATE_CHANGE => -920125437
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_DIGEST_ALGO_NOT_PRESENT => -920125436
 
     /**
      * @type {Integer (Int32)}

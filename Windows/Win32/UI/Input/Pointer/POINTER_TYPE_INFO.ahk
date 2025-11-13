@@ -30,6 +30,17 @@ class POINTER_TYPE_INFO extends Win32Struct
     }
 
     /**
+     * @type {POINTER_INFO}
+     */
+    pointerInfo{
+        get {
+            if(!this.HasProp("__pointerInfo"))
+                this.__pointerInfo := POINTER_INFO(8, this)
+            return this.__pointerInfo
+        }
+    }
+
+    /**
      * @type {POINTER_TOUCH_INFO}
      */
     touchInfo{

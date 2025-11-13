@@ -561,6 +561,11 @@ class WindowsProgramming {
     /**
      * @type {Integer (UInt32)}
      */
+    static FILE_FLAG_DISALLOW_PATH_REDIRECTS => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FAIL_FAST_GENERATE_EXCEPTION_ADDRESS => 1
 
     /**

@@ -7,7 +7,7 @@
  */
 class EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -65,21 +65,5 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS extends Win32Struct
     pbAuthenticatorInfo {
         get => NumGet(this, 48, "ptr")
         set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbPluginIdKey {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPluginIdKey {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
     }
 }

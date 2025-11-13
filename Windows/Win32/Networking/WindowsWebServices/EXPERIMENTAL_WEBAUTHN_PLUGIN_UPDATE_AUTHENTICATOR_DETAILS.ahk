@@ -7,7 +7,7 @@
  */
 class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -54,7 +54,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Str
     /**
      * @type {Integer}
      */
-    cbPluginIdKey {
+    cbAuthenticatorInfo {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
     }
@@ -62,56 +62,8 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Str
     /**
      * @type {Pointer<Integer>}
      */
-    pbPluginIdKey {
+    pbAuthenticatorInfo {
         get => NumGet(this, 48, "ptr")
         set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbAuthenticatorInfo {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbAuthenticatorInfo {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbNonce {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbNonce {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbSignature {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSignature {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
     }
 }

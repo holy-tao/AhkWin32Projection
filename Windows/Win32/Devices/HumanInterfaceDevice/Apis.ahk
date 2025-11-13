@@ -3308,6 +3308,11 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_CONSUMER_10 => 32
 
     /**
@@ -5524,6 +5529,21 @@ class HumanInterfaceDevice {
      * @type {Integer (UInt16)}
      */
     static HID_USAGE_CONSUMER_CONTACT_MISC => 1300
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BRIGHTNESS_NEXT => 1301
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BRIGHTNESS_PREVIOUS => 1302
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT_LEVEL_SUGGESTION => 1303
 
     /**
      * @type {Integer (UInt16)}

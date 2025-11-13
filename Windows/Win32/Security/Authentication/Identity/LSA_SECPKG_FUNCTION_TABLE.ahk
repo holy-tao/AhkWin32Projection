@@ -9,7 +9,7 @@
  */
 class LSA_SECPKG_FUNCTION_TABLE extends Win32Struct
 {
-    static sizeof => 512
+    static sizeof => 528
 
     static packingSize => 8
 
@@ -598,5 +598,21 @@ class LSA_SECPKG_FUNCTION_TABLE extends Win32Struct
     GetClientInfoEx {
         get => NumGet(this, 504, "ptr")
         set => NumPut("ptr", value, this, 504)
+    }
+
+    /**
+     * @type {Pointer<PLSA_GET_SECPKG_FAILURE_REASON>}
+     */
+    GetSecpkgFailureReason {
+        get => NumGet(this, 512, "ptr")
+        set => NumPut("ptr", value, this, 512)
+    }
+
+    /**
+     * @type {Pointer<PLSA_SET_SECPKG_FAILURE_REASON>}
+     */
+    SetSecpkgFailureReason {
+        get => NumGet(this, 520, "ptr")
+        set => NumPut("ptr", value, this, 520)
     }
 }

@@ -6058,6 +6058,19 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_StorageProviderFileDateShared {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b2f9b9d6-fec4-4dd5-94d7-8957488c807b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_StorageProviderFileFlags {
         get {
             value := PROPERTYKEY()
@@ -6110,12 +6123,38 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_StorageProviderFileRemoteLocation {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b2f9b9d6-fec4-4dd5-94d7-8957488c807b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_StorageProviderFileRemoteUri {
         get {
             value := PROPERTYKEY()
             static fmtid_guid := Guid("{fceff153-e839-4cf3-a9e7-ea22832094b8}")
             value.fmtid := fmtid_guid.ptr
             value.pid := 112
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_StorageProviderFileSharedBy {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b2f9b9d6-fec4-4dd5-94d7-8957488c807b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
             return value
         }
     }
@@ -6142,6 +6181,19 @@ class EnhancedStorage {
             static fmtid_guid := Guid("{b2f9b9d6-fec4-4dd5-94d7-8957488c807b}")
             value.fmtid := fmtid_guid.ptr
             value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_StorageProviderFullyQualifiedId {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fceff153-e839-4cf3-a9e7-ea22832094b8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 119
             return value
         }
     }
@@ -6259,6 +6311,19 @@ class EnhancedStorage {
             static fmtid_guid := Guid("{fceff153-e839-4cf3-a9e7-ea22832094b8}")
             value.fmtid := fmtid_guid.ptr
             value.pid := 110
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_StorageProviderUserId {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b2f9b9d6-fec4-4dd5-94d7-8957488c807b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
             return value
         }
     }
@@ -14571,6 +14636,19 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_Search_AutoCategory {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b725f130-47ef-101a-a5f1-02608c9eebac}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 31
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_Search_AutoSummary {
         get {
             value := PROPERTYKEY()
@@ -14707,6 +14785,32 @@ class EnhancedStorage {
      * @type {Integer (Int32)}
      */
     static MATCH_KIND_SEMANTIC => 2
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_Search_MatchTags {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{49691c90-7e17-101a-a91c-08002b2ecda9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 30
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_Search_OcrContent {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b725f130-47ef-101a-a5f1-02608c9eebac}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 28
+            return value
+        }
+    }
 
     /**
      * @type {PROPERTYKEY}
@@ -14880,6 +14984,32 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_ActivityDate {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{30c8eef4-a832-41e2-ab32-e3c3ca28fd29}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_ActivityIcon {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{30c8eef4-a832-41e2-ab32-e3c3ca28fd29}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_ActivityInfo {
         get {
             value := PROPERTYKEY()
@@ -14975,6 +15105,45 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_Home_RecommendationActivityDate {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{30c8eef4-a832-41e2-ab32-e3c3ca28fd29}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_Home_RecommendationProviderSource {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{5ca9b1cb-c69f-404b-abc6-fd336793a6a7}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_Home_RecommendationReasonIcon {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{30c8eef4-a832-41e2-ab32-e3c3ca28fd29}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_Home_Recommended {
         get {
             value := PROPERTYKEY()
@@ -15046,6 +15215,19 @@ class EnhancedStorage {
             static fmtid_guid := Guid("{28636aa6-953d-11d2-b5d6-00c04fd918d0}")
             value.fmtid := fmtid_guid.ptr
             value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_Shell_CopilotKeyProviderFastPathMessage {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{38652bca-4329-4e74-86f9-39cf29345eea}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
             return value
         }
     }
