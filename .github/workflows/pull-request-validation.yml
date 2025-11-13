@@ -6,8 +6,9 @@ on:
 
 jobs:
   label:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Run Labeler
         uses: actions/labeler@v6
@@ -21,9 +22,15 @@ jobs:
     with:
       mode: changed
     secrets: inherit
+    permissions:
+      contents: read
+      checks: write
 
   unit-tests:
     needs: [label]
     if: contains(github.event.pull_request.labels.*.name, 'ahk')
     uses: ./.github/workflows/ahk-unit-tests.yml
     secrets: inherit
+    permissions:
+      contents: read
+      checks: write
