@@ -1,5 +1,5 @@
 changelog:
-  exclode:
+  exclude:
     labels:
       - chore
       - ignore-for-release

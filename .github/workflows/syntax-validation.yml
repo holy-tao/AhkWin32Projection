@@ -1,0 +1,91 @@
+name: Syntax Validation
+
+on:
+  workflow_dispatch:
+    inputs: &validation-inputs
+      mode:
+        description: "Validation mode (changed = only changed files, all = all .ahk files)"
+        required: false
+        default: "changed"
+        type: choice
+        options:
+          - changed
+          - all
+  workflow_call:
+    inputs:
+      mode:
+        description: "Validation mode (changed = only changed files, all = all .ahk files)"
+        required: false
+        default: "changed"
+        type: string
+
+jobs:
+  syntax-validation:
+    name: Syntax Validation
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      checks: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install AutoHotkey V2
+        uses: holy-tao/install-autohotkey@v1
+        with:
+          version: v2.0.19
+
+      - name: Enable AHK validator problem matcher
+        run: echo "::add-matcher::.github/problem-matchers/ahk.json"
+
+      - name: Determine files to validate
+        id: files
+        shell: pwsh
+        run: |
+          if ("${{ inputs.mode }}" -eq "all") {
+            $files = Get-ChildItem -Recurse -Include *.ahk | ForEach-Object { $_.FullName }
+          }
+          elseif ("${{ github.event_name }}" -eq "pull_request" -and $env:GITHUB_BASE_REF) {
+            git fetch origin +refs/heads/${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+            $files = @(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | Where-Object { $_ -like "*.ahk" })
+          }
+          else {
+            # Fallback for standalone runs on branches
+            $defaultBranch = "origin/${{ github.event.repository.default_branch }}"
+            git fetch origin +refs/heads/${{ github.event.repository.default_branch }}:$defaultBranch
+            $files = @(git diff --name-only $defaultBranch HEAD | Where-Object { $_ -like "*.ahk" })
+          }
+
+          if (-not $files) {
+            Write-Output "No .ahk files to validate."
+            '' | Out-File files.txt
+          } else {
+            $files | Out-File files.txt
+            Write-Output "Files to validate:`n$($files -join "`n")"
+          }
+
+          echo "files=$(Get-Content files.txt -Raw)" >> $env:GITHUB_OUTPUT
+
+      - name: Validate .ahk Files
+        if: ${{ steps.files.outputs.files != '' }}
+        shell: pwsh
+        run: |
+          $files = Get-Content files.txt | Where-Object { $_.Trim() -ne '' }
+          ./Tests/ValidateAhkFiles.ps1 -AhkExePath "$PWD/autohotkey/AutoHotkey64.exe" -Files $files 2>&1 | Tee-Object -FilePath Tests/validation.log
+
+          Write-Output "Generating summary report..."
+          ./Tests/AhkValidationMarkdownReport.ps1 -LogPath Tests/validation.log -OutPath Tests/validation-results.md
+          Write-Output "Done!"
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Validation Results
+          path: |
+            Tests/validation.log
+            Tests/validation-results.md
