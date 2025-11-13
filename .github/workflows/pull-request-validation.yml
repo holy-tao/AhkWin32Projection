@@ -6,6 +6,8 @@ on:
 jobs:
   syntax-validation:
     uses: ./.github/workflows/syntax-validation.yml
+    with:
+      mode: changed
     secrets: inherit
 
   unit-tests:
