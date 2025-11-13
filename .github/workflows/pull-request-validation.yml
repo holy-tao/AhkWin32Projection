@@ -2,14 +2,28 @@ name: Pull Request Validation
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 jobs:
+  label:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Labeler
+        uses: actions/labeler@v6
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
   syntax-validation:
+    needs: [label]
+    if: contains(github.event.pull_request.labels.*.name, 'ahk')
     uses: ./.github/workflows/syntax-validation.yml
     with:
       mode: changed
     secrets: inherit
 
   unit-tests:
+    needs: [label]
+    if: contains(github.event.pull_request.labels.*.name, 'ahk')
     uses: ./.github/workflows/ahk-unit-tests.yml
     secrets: inherit
