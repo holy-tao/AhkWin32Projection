@@ -667,6 +667,11 @@ class WinHttp {
     /**
      * @type {Integer (UInt32)}
      */
+    static WINHTTP_OPTION_SERVER_CERT_CHAIN_BUILD_FLAGS => 148
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WINHTTP_OPTION_CONNECTION_STATS_V1 => 150
 
     /**
@@ -847,6 +852,11 @@ class WinHttp {
     /**
      * @type {Integer (UInt32)}
      */
+    static WINHTTP_OPTION_SERVER_CERT_CHAIN_BUILD_CACHE_ONLY => 199
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WINHTTP_OPTION_QUIC_STATS_V2 => 200
 
     /**
@@ -892,7 +902,22 @@ class WinHttp {
     /**
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_LAST_OPTION => 209
+    static WINHTTP_OPTION_DSCP_TAG => 210
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_HTTP11_DOWNGRADE_TTL => 211
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_SESSION_ERROR_LOG_GUID => 212
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_LAST_OPTION => 212
 
     /**
      * @type {Integer (UInt32)}
@@ -1063,6 +1088,21 @@ class WinHttp {
      * @type {Integer (UInt32)}
      */
     static WINHTTP_PROXY_DISABLE_AUTH_LOCAL_SERVICE => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_SERVER_CERT_CHAIN_CACHE_ONLY_URL_RETRIEVAL => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_SERVER_CERT_CHAIN_DISABLE_AIA => 8192
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_SERVER_CERT_CHAIN_REVOCATION_CHECK_CACHE_ONLY => 2147483648
 
     /**
      * @type {Integer (UInt32)}
@@ -2923,6 +2963,26 @@ class WinHttp {
      * @type {Integer (UInt32)}
      */
     static WINHTTP_FEATURE_FAST_FORWARD_RESPONSE => 90
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_DISABLE_AIA_FLAG => 91
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_DSCP_TAG => 92
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_HTTP11_DOWNGRADE_TTL => 93
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_SESSION_ERROR_LOG_GUID => 94
 ;@endregion Constants
 
 ;@region Methods

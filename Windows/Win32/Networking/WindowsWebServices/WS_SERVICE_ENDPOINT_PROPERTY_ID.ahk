@@ -199,4 +199,9 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID{
      * @type {Integer (Int32)}
      */
     static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS => 14
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS_PER_IP => 15
 }

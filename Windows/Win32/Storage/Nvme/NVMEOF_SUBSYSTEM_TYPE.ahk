@@ -14,12 +14,17 @@ class NVMEOF_SUBSYSTEM_TYPE{
     /**
      * @type {Integer (Int32)}
      */
-    static NvmeofSubsysTypeDiscovery => 1
+    static NvmeofSubsysTypeDiscReferral => 1
 
     /**
      * @type {Integer (Int32)}
      */
     static NvmeofSubsysTypeIo => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NvmeofSubsysTypeDiscCurrent => 3
 
     /**
      * @type {Integer (Int32)}

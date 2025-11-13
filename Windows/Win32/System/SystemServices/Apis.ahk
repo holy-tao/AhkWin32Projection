@@ -273,426 +273,6 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static PRODUCT_STANDARD_SERVER_CORE => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_SOLUTION_EMBEDDEDSERVER_CORE => 57
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PROFESSIONAL_EMBEDDED => 58
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED => 65
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_AUTOMOTIVE => 85
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_INDUSTRY_A => 86
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_THINPC => 87
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_A => 88
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_INDUSTRY => 89
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_E => 90
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_INDUSTRY_E => 91
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_INDUSTRY_A_E => 92
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CORE_ARM => 97
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_INDUSTRY_EVAL => 105
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_INDUSTRY_E_EVAL => 106
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_EVAL => 107
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_EMBEDDED_E_EVAL => 108
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_NANO_SERVER => 109
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUD_STORAGE_SERVER => 110
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CORE_CONNECTED => 111
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PROFESSIONAL_STUDENT => 112
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CORE_CONNECTED_N => 113
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PROFESSIONAL_STUDENT_N => 114
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CORE_CONNECTED_SINGLELANGUAGE => 115
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CORE_CONNECTED_COUNTRYSPECIFIC => 116
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CONNECTED_CAR => 117
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_INDUSTRY_HANDHELD => 118
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PPI_PRO => 119
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_ARM64_SERVER => 120
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUD_HOST_INFRASTRUCTURE_SERVER => 124
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PROFESSIONAL_S => 127
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PROFESSIONAL_S_N => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_HOLOGRAPHIC => 135
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_HOLOGRAPHIC_BUSINESS => 136
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PRO_SINGLE_LANGUAGE => 138
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PRO_CHINA => 139
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_ENTERPRISE_SUBSCRIPTION => 140
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_ENTERPRISE_SUBSCRIPTION_N => 141
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_DATACENTER_NANO_SERVER => 143
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_STANDARD_NANO_SERVER => 144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_DATACENTER_WS_SERVER_CORE => 147
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_STANDARD_WS_SERVER_CORE => 148
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_UTILITY_VM => 149
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_DATACENTER_EVALUATION_SERVER_CORE => 159
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_STANDARD_EVALUATION_SERVER_CORE => 160
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PRO_FOR_EDUCATION => 164
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_PRO_FOR_EDUCATION_N => 165
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURE_SERVER_CORE => 168
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURE_NANO_SERVER => 169
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_ENTERPRISEG => 171
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_ENTERPRISEGN => 172
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_SERVERRDSH => 175
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUD => 178
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUDN => 179
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_HUBOS => 180
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_ONECOREUPDATEOS => 182
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUDE => 183
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTOS => 185
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUDEN => 186
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTEDGEOS => 187
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTENTERPRISE => 188
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_LITE => 189
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTENTERPRISES => 191
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_XBOX_SYSTEMOS => 192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_XBOX_GAMEOS => 194
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_XBOX_ERAOS => 195
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_XBOX_DURANGOHOSTOS => 196
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_XBOX_SCARLETTHOSTOS => 197
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_XBOX_KEYSTONE => 198
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURE_SERVER_CLOUDHOST => 199
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURE_SERVER_CLOUDMOS => 200
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUDEDITIONN => 202
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_CLOUDEDITION => 203
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_VALIDATION => 204
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTENTERPRISESK => 205
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTENTERPRISEK => 206
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_IOTENTERPRISESEVAL => 207
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURE_SERVER_AGENTBRIDGE => 208
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURE_SERVER_NANOHOST => 209
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_WNC => 210
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_AZURESTACKHCI_SERVER_CORE => 406
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_DATACENTER_SERVER_AZURE_EDITION => 407
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_DATACENTER_SERVER_CORE_AZURE_EDITION => 408
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PRODUCT_UNLICENSED => 2882382797
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static LANG_NEUTRAL => 0
 
     /**
@@ -4453,7 +4033,7 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static POLICY_AUDIT_SUBCATEGORY_COUNT => 59
+    static POLICY_AUDIT_SUBCATEGORY_COUNT => 60
 
     /**
      * @type {Integer (UInt32)}
@@ -4778,12 +4358,17 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_ALL => 511
+    static JOB_OBJECT_UILIMIT_INJECTION => 512
 
     /**
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UI_VALID_FLAGS => 511
+    static JOB_OBJECT_UILIMIT_ALL => 1023
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JOB_OBJECT_UI_VALID_FLAGS => 1023
 
     /**
      * @type {Integer (UInt32)}
@@ -6398,6 +5983,11 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_THROTTLE_MAXIMUM_2 => Guid("{bc5038f7-23e0-4960-96da-33abaf5935ee}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_THROTTLE_MINIMUM => Guid("{893dee8e-2bef-41e0-89c6-b55d0929964c}")
 
     /**
@@ -6408,12 +5998,22 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_THROTTLE_MINIMUM_2 => Guid("{893dee8e-2bef-41e0-89c6-b55d0929964e}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_FREQUENCY_LIMIT => Guid("{75b0ae3f-bce0-45a7-8c89-c9611c25e100}")
 
     /**
      * @type {Guid}
      */
     static GUID_PROCESSOR_FREQUENCY_LIMIT_1 => Guid("{75b0ae3f-bce0-45a7-8c89-c9611c25e101}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_FREQUENCY_LIMIT_2 => Guid("{75b0ae3f-bce0-45a7-8c89-c9611c25e102}")
 
     /**
      * @type {Guid}
@@ -6594,6 +6194,11 @@ class SystemServices {
      * @type {Guid}
      */
     static GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1 => Guid("{36687f9e-e3a5-4dbf-b1dc-15eb381c6864}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_2 => Guid("{36687f9e-e3a5-4dbf-b1dc-15eb381c6865}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6853,12 +6458,22 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_2 => Guid("{619b7505-003b-4e82-b7a6-4dd29c300973}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP => Guid("{4b70f900-cdd9-4e66-aa26-ae8417f98173}")
 
     /**
      * @type {Guid}
      */
     static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_1 => Guid("{4b70f900-cdd9-4e66-aa26-ae8417f98174}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_2 => Guid("{4b70f900-cdd9-4e66-aa26-ae8417f98175}")
 
     /**
      * @type {Guid}
@@ -6943,6 +6558,11 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_RESOURCE_PRIORITY_2 => Guid("{603fe9ce-8d01-4b48-a968-1d706c28fd5e}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_HETEROGENEOUS_POLICY => Guid("{7f2f5cfa-f10c-4823-b5e1-e93ae85f46b5}")
 
     /**
@@ -6979,6 +6599,21 @@ class SystemServices {
      * @type {Guid}
      */
     static GUID_PROCESSOR_HETERO_CONTAINMENT_POLICY => Guid("{60fbe21b-efd9-49f2-b066-8674d8e9f423}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_EFFICIENCY_IMP_UTIL_THRESHOLD => Guid("{6ece9e1f-b6dd-42bf-b1b7-5a512b10c092}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_HYBRID_IMP_UTIL_THRESHOLD => Guid("{12fd031f-53d2-4bf4-ac6d-c699fc9538c7}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_WPS_MIN_EFFICIENCY_THRESHOLD => Guid("{5ba7419a-295c-4b02-841b-66799388d6da}")
 
     /**
      * @type {Guid}
@@ -9898,6 +9533,11 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static IMAGE_ENCLAVE_POLICY_STRICT_MEMORY => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static IMAGE_ENCLAVE_FLAG_PRIMARY_IMAGE => 1
 
     /**
@@ -10414,6 +10054,11 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static FAST_FAIL_INVALID_EXTENDED_STATE => 76
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FAST_FAIL_KERNEL_POINTER_EXPECTED => 77
 
     /**
      * @type {Integer (UInt32)}

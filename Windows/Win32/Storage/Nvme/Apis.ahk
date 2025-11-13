@@ -38,6 +38,11 @@ class Nvme {
     /**
      * @type {Integer (UInt32)}
      */
+    static NVME_CONTROLLER_ID_STAT_PERSIST => 65534
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NVME_CONTROLLER_ID_DYN => 65535
 
     /**
@@ -473,27 +478,52 @@ class Nvme {
     /**
      * @type {Integer (UInt32)}
      */
-    static NVMEOF_NUM_AEN_DISC_CTRL => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NVMEOF_NUM_AEN_IO_CTRL => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NVME_FABRICS_COMMAND => 127
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static NVMEOF_PROPERTY_SIZE_4Bytes => 0
 
     /**
      * @type {Integer (UInt32)}
      */
     static NVMEOF_PROPERTY_SIZE_8Bytes => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVME_DISCOVERY_INFO_MGMT_EKTYPE_PORTID => 63
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVME_DISCOVERY_INFO_MGMT_EKTYPE_TRADDR => 95
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVMEOF_DHCHAP_PROTOCOL_ID => 1
+
+    /**
+     * @type {String}
+     */
+    static NVMEOF_DHCHAP_PREFIX_V1 => "DHHC-1:"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVMEOF_DHCHAP_REPLY_CVAL_NOTVALID => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVMEOF_DHCHAP_REPLY_CVAL_VALID => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVMEOF_DHCHAP_SUCCESS1_RVAL_NOTVALID => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVMEOF_DHCHAP_SUCCESS1_RVAL_VALID => 1
 ;@endregion Constants
 
 ;@region Methods

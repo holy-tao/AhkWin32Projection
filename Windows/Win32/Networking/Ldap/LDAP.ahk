@@ -22,12 +22,12 @@
  */
 class LDAP extends Win32Struct
 {
-    static sizeof => 184
+    static sizeof => 192
 
     static packingSize => 8
 
     class _ld_sb extends Win32Struct {
-        static sizeof => 184
+        static sizeof => 192
         static packingSize => 8
 
         /**
@@ -202,5 +202,13 @@ class LDAP extends Win32Struct
     ld_options {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ld_maxvalrange {
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 }

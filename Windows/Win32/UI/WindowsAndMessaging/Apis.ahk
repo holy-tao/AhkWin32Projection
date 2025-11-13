@@ -939,6 +939,11 @@ class WindowsAndMessaging {
     /**
      * @type {Integer (UInt32)}
      */
+    static WTS_SESSION_DESKTOP_READY => 15
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MSGF_DIALOGBOX => 0
 
     /**
@@ -6674,6 +6679,11 @@ class WindowsAndMessaging {
     /**
      * @type {Integer (UInt32)}
      */
+    static CURSOR_INVISIBLE => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static RIM_INPUT => 0
 
     /**
@@ -6959,12 +6969,22 @@ class WindowsAndMessaging {
     /**
      * @type {Integer (UInt32)}
      */
+    static WM_INTERCEPTED_WINDOW_ACTION => 838
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WM_TOOLTIPDISMISS => 837
 
     /**
      * @type {Integer (UInt32)}
      */
     static INVALID_MONITOR_TOPOLOGY_ID => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WM_CLOAKED_STATE_CHANGED => 839
 
     /**
      * @type {HBITMAP}
@@ -26752,6 +26772,46 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {HWND} topLevelWindow 
+     * @returns {BOOL} 
+     */
+    static ConvertToInterceptWindow(topLevelWindow) {
+        topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
+
+        result := DllCall("USER32.dll\ConvertToInterceptWindow", "ptr", topLevelWindow, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} topLevelWindow 
+     * @param {Pointer<BOOL>} isIntercept 
+     * @returns {BOOL} 
+     */
+    static IsInterceptWindow(topLevelWindow, isIntercept) {
+        topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
+
+        isInterceptMarshal := isIntercept is VarRef ? "int*" : "ptr"
+
+        result := DllCall("USER32.dll\IsInterceptWindow", "ptr", topLevelWindow, isInterceptMarshal, isIntercept, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} hwnd 
+     * @param {Pointer<WINDOW_ACTION>} pAction 
+     * @returns {BOOL} 
+     */
+    static ApplyWindowAction(hwnd, pAction) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("USER32.dll\ApplyWindowAction", "ptr", hwnd, "ptr", pAction, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} topLevelWindow 
      * @param {Integer} processHandleCount 
      * @param {Pointer<HANDLE>} processHandleArray 
      * @returns {BOOL} 
@@ -26797,6 +26857,33 @@ class WindowsAndMessaging {
      */
     static GetCurrentMonitorTopologyId() {
         result := DllCall("USER32.dll\GetCurrentMonitorTopologyId", "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} hwnd 
+     * @param {BOOL} fRegister 
+     * @returns {BOOL} 
+     */
+    static RegisterCloakedNotification(hwnd, fRegister) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("USER32.dll\RegisterCloakedNotification", "ptr", hwnd, "int", fRegister, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} hwnd 
+     * @param {POINT} ptCursor 
+     * @param {Integer} moveSizeCode 
+     * @returns {BOOL} 
+     */
+    static EnterMoveSizeLoop(hwnd, ptCursor, moveSizeCode) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("USER32.dll\EnterMoveSizeLoop", "ptr", hwnd, "ptr", ptCursor, "int", moveSizeCode, "int")
         return result
     }
 

@@ -307,6 +307,16 @@ class Certificates {
     /**
      * @type {String}
      */
+    static wszOCSPREVPROP_ALLOWUSERONLYCRLS => "AllowUserOnlyCrls"
+
+    /**
+     * @type {String}
+     */
+    static wszOCSPREVPROP_ALLOWCAONLYCRLS => "AllowCAOnlyCrls"
+
+    /**
+     * @type {String}
+     */
     static szBACKUPANNOTATION => "Cert Server Backup Interface"
 
     /**
@@ -1963,6 +1973,16 @@ class Certificates {
      * @type {Integer (UInt32)}
      */
     static CRLF_PARTITION_ZERO_EXCLUSIVE => 8388608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRLF_CONTAINS_ONLY_CACERTS => 16777216
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRLF_CONTAINS_ONLY_USERCERTS => 33554432
 
     /**
      * @type {Integer (UInt32)}
@@ -3817,6 +3837,11 @@ class Certificates {
     /**
      * @type {String}
      */
+    static wszPROPLINTERCERTIFICATE => "LinterCertificate"
+
+    /**
+     * @type {String}
+     */
     static wszPROPCHALLENGE => "Challenge"
 
     /**
@@ -3993,6 +4018,11 @@ class Certificates {
      * @type {String}
      */
     static wszAT_TESTROOT => "@TestRoot"
+
+    /**
+     * @type {String}
+     */
+    static wszPROPLINTCERTIFICATE => "LintCertificate"
 
     /**
      * @type {String}

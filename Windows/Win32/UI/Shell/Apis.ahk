@@ -7761,6 +7761,11 @@ class Shell {
     /**
      * @type {Integer (Int32)}
      */
+    static COPYENGINE_E_SUPPRESS_DIALOG => -2144927664
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static NETCACHE_E_NEGATIVE_CACHE => -2144927488
 
     /**

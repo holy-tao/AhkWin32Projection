@@ -119,6 +119,11 @@ class NTSTATUS_FACILITY_CODE{
     /**
      * @type {Integer (UInt32)}
      */
+    static FACILITY_CAMERA => 31
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FACILITY_DRIVER_FRAMEWORK => 32
 
     /**

@@ -239,5 +239,15 @@ class DEVICEFAMILYDEVICEFORM{
     /**
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_MAX => 45
+    static DEVICEFAMILYDEVICEFORM_GAMING_HANDHELD => 46
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DEVICEFAMILYDEVICEFORM_GAMING_CONSOLE => 47
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DEVICEFAMILYDEVICEFORM_MAX => 47
 }

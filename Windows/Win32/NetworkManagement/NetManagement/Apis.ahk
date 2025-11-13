@@ -179,6 +179,11 @@ class NetManagement {
     /**
      * @type {Integer (UInt32)}
      */
+    static LM_DNS_MAX_NAME_LENGTH => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CRYPT_KEY_LEN => 7
 
     /**

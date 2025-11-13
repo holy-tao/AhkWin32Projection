@@ -843,6 +843,11 @@ class Usb {
     /**
      * @type {Integer (UInt32)}
      */
+    static EUSB2_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR_TYPE => 18
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static USB_OTG_DESCRIPTOR_TYPE => 9
 
     /**
@@ -1499,6 +1504,16 @@ class Usb {
      * @type {Integer (UInt32)}
      */
     static USB_SUPERSPEEDPLUS_ISOCHRONOUS_MAX_BYTESPERINTERVAL => 16777215
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static USB_HIGHSPEED_EUSB2_ISOCHRONOUS_MIN_BYTESPERINTERVAL => 3073
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static USB_HIGHSPEED_EUSB2_ISOCHRONOUS_MAX_BYTESPERINTERVAL => 6144
 
     /**
      * @type {Integer (UInt32)}

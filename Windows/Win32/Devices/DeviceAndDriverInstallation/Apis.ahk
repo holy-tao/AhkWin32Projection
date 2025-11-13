@@ -621,6 +621,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {Guid}
      */
+    static GUID_DEVCLASS_THERMAL => Guid("{ca301ce1-74fc-45ea-a557-461ef48b9e37}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_DEVCLASS_UNKNOWN => Guid("{4d36e97e-e325-11ce-bfc1-08002be10318}")
 
     /**

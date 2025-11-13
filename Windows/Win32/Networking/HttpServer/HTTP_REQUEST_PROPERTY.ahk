@@ -75,4 +75,19 @@ class HTTP_REQUEST_PROPERTY{
      * @type {Integer (Int32)}
      */
     static HttpRequestPropertyTlsClientHello => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyTransportIdleConnectionTimeout => 12
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyDscpTag => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyTlsCipherInfo => 14
 }

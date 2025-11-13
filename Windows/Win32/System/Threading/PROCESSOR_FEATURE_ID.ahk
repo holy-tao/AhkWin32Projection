@@ -315,4 +315,139 @@ class PROCESSOR_FEATURE_ID{
      * @type {Integer (UInt32)}
      */
     static PF_MOVDIR64B_INSTRUCTION_AVAILABLE => 61
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_LSE2_AVAILABLE => 62
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_RESERVED_FEATURE => 63
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SHA3_INSTRUCTIONS_AVAILABLE => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SHA512_INSTRUCTIONS_AVAILABLE => 65
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_V82_I8MM_INSTRUCTIONS_AVAILABLE => 66
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_V82_FP16_INSTRUCTIONS_AVAILABLE => 67
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_V86_BF16_INSTRUCTIONS_AVAILABLE => 68
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_V86_EBF16_INSTRUCTIONS_AVAILABLE => 69
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_INSTRUCTIONS_AVAILABLE => 70
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME2_INSTRUCTIONS_AVAILABLE => 71
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME2_1_INSTRUCTIONS_AVAILABLE => 72
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME2_2_INSTRUCTIONS_AVAILABLE => 73
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_AES_INSTRUCTIONS_AVAILABLE => 74
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_SBITPERM_INSTRUCTIONS_AVAILABLE => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_SF8MM4_INSTRUCTIONS_AVAILABLE => 76
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_SF8MM8_INSTRUCTIONS_AVAILABLE => 77
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_SF8DP2_INSTRUCTIONS_AVAILABLE => 78
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_SF8DP4_INSTRUCTIONS_AVAILABLE => 79
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_SF8FMA_INSTRUCTIONS_AVAILABLE => 80
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_F8F32_INSTRUCTIONS_AVAILABLE => 81
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_F8F16_INSTRUCTIONS_AVAILABLE => 82
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_F16F16_INSTRUCTIONS_AVAILABLE => 83
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_B16B16_INSTRUCTIONS_AVAILABLE => 84
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_F64F64_INSTRUCTIONS_AVAILABLE => 85
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_I16I64_INSTRUCTIONS_AVAILABLE => 86
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_LUTv2_INSTRUCTIONS_AVAILABLE => 87
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SME_FA64_INSTRUCTIONS_AVAILABLE => 88
 }

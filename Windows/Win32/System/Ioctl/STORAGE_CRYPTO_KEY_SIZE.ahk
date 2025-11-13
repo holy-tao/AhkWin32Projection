@@ -30,4 +30,34 @@ class STORAGE_CRYPTO_KEY_SIZE{
      * @type {Integer (Int32)}
      */
     static StorageCryptoKeySize512Bits => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorageCryptoKeySizeMax => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoKeySizeUnknown => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoKeySize128Bits => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoKeySize192Bits => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoKeySize256Bits => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoKeySize512Bits => 4
 }

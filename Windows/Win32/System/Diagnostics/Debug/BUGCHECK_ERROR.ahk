@@ -2644,6 +2644,11 @@ class BUGCHECK_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static STORAGE_DRIVER_LIVEDUMP => 519
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static XBOX_VMCTRL_CS_TIMEOUT => 854
 
     /**

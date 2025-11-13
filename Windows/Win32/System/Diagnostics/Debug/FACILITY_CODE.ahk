@@ -779,6 +779,11 @@ class FACILITY_CODE{
     /**
      * @type {Integer (UInt32)}
      */
+    static FACILITY_PPF => 2344
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FACILITY_PIX => 2748
 
     /**

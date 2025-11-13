@@ -2990,6 +2990,26 @@ class MediaFoundation {
     /**
      * @type {Guid}
      */
+    static MFSampleExtension_FramePsnrYuv => Guid("{1c633a3d-566f-4752-833b-2907df5415e1}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFSampleExtension_VideoEncodeQPMap => Guid("{2c68a331-b712-49ca-860a-3a1d58237d88}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFSampleExtension_VideoEncodeBitsUsedMap => Guid("{6894263d-e6e2-4bcc-849d-8570365f5114}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFSampleExtension_VideoEncodeSatdMap => Guid("{adf61d96-c2d3-4b57-a138-dde4d351eaa9}")
+
+    /**
+     * @type {Guid}
+     */
     static MFSampleExtension_PhotoThumbnail => Guid("{74bbc85c-c8bb-42dc-b586-da17ffd35dcc}")
 
     /**
@@ -3406,6 +3426,16 @@ class MediaFoundation {
      * @type {Guid}
      */
     static MFVideoFormat_I420 => Guid("{30323449-0000-0010-8000-00aa00389b71}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFVideoFormat_I422 => Guid("{32323449-0000-0010-8000-00aa00389b71}")
+
+    /**
+     * @type {Guid}
+     */
+    static MFVideoFormat_I444 => Guid("{34343449-0000-0010-8000-00aa00389b71}")
 
     /**
      * @type {Guid}
@@ -7431,6 +7461,11 @@ class MediaFoundation {
      * @type {Integer (Int32)}
      */
     static MF_E_CAMERA_PRIVACY_NOT_ALLOWED => -1072842856
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MF_E_CAMERA_FSPROFILE_INVALID => -1072842854
 
     /**
      * @type {Integer (UInt32)}

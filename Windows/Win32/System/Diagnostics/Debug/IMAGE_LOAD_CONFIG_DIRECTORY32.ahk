@@ -482,4 +482,12 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
         get => NumGet(this, 192, "uint")
         set => NumPut("uint", value, this, 192)
     }
+
+    /**
+     * @type {Integer}
+     */
+    UmaFunctionPointers {
+        get => NumGet(this, 196, "uint")
+        set => NumPut("uint", value, this, 196)
+    }
 }

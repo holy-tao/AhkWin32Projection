@@ -121,7 +121,17 @@ class NVME_ADMIN_COMMANDS{
     /**
      * @type {Integer (Int32)}
      */
+    static NVME_ADMIN_COMMAND_DISCOVERY_INFO_MGMT => 33
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static NVME_ADMIN_COMMAND_DOORBELL_BUFFER_CONFIG => 124
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_ADMIN_COMMAND_FABRICS => 127
 
     /**
      * @type {Integer (Int32)}

@@ -9,20 +9,20 @@ class NVMEOF_SECURE_CHANNEL{
     /**
      * @type {Integer (Int32)}
      */
-    static NvmeofFSCUnspecified => 0
+    static NvmeofSCUnspecified => 0
 
     /**
      * @type {Integer (Int32)}
      */
-    static NvmeofFSCRequired => 1
+    static NvmeofSCRequired => 1
 
     /**
      * @type {Integer (Int32)}
      */
-    static NvmeofFSCNotRequired => 2
+    static NvmeofSCNotRequired => 2
 
     /**
      * @type {Integer (Int32)}
      */
-    static NvmeofFSCReserved => 3
+    static NvmeofSCReserved => 3
 }

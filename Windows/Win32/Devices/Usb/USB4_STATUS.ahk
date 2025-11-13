@@ -109,6 +109,11 @@ class USB4_STATUS{
     /**
      * @type {Integer (Int32)}
      */
+    static PollingSkipped => 252
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static PollingTimeout => 253
 
     /**

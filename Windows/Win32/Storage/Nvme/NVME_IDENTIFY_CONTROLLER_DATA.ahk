@@ -20,7 +20,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
         /**
          * This bitfield backs the following members:
-         * - MultiPCIePorts
+         * - MultiPorts
          * - MultiControllers
          * - SRIOV
          * - ANAR
@@ -35,7 +35,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         /**
          * @type {Integer}
          */
-        MultiPCIePorts {
+        MultiPorts {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
@@ -2121,13 +2121,37 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    TMPTHHA {
+        get => NumGet(this, 384, "char")
+        set => NumPut("char", value, this, 384)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved3 {
+        get => NumGet(this, 385, "char")
+        set => NumPut("char", value, this, 385)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CQT {
+        get => NumGet(this, 386, "ushort")
+        set => NumPut("ushort", value, this, 386)
+    }
+
+    /**
      * @type {Array<Byte>}
      */
-    Reserved3{
+    Reserved4{
         get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 384, 128, Primitive, "char")
-            return this.__Reserved3ProxyArray
+            if(!this.HasProp("__Reserved4ProxyArray"))
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 388, 124, Primitive, "char")
+            return this.__Reserved4ProxyArray
         }
     }
 
@@ -2393,12 +2417,20 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    DCTYPE {
+        get => NumGet(this, 1806, "char")
+        set => NumPut("char", value, this, 1806)
+    }
+
+    /**
      * @type {Array<Byte>}
      */
     Reserved8{
         get {
             if(!this.HasProp("__Reserved8ProxyArray"))
-                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1806, 242, Primitive, "char")
+                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1807, 241, Primitive, "char")
             return this.__Reserved8ProxyArray
         }
     }

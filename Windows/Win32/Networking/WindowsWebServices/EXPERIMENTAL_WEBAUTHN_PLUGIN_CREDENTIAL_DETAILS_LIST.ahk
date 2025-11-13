@@ -7,7 +7,7 @@
  */
 class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -33,37 +33,5 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct
     pCredentialDetails {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbNonce {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbNonce {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbSignature {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSignature {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
     }
 }

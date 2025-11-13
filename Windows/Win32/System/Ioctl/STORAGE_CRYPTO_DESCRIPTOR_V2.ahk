@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
+#Include .\STORAGE_CRYPTO_KEY_TYPE.ahk
 #Include .\STORAGE_CRYPTO_CAPABILITY_V2.ahk
 
 /**
@@ -53,30 +55,25 @@ class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - FIPS
-     * - Reserved
-     * @type {Integer}
+     * @type {STORAGE_SECURITY_COMPLIANCE_BITMASK}
      */
-    _bitfield {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+    SecurityComplianceBitmask{
+        get {
+            if(!this.HasProp("__SecurityComplianceBitmask"))
+                this.__SecurityComplianceBitmask := STORAGE_SECURITY_COMPLIANCE_BITMASK(20, this)
+            return this.__SecurityComplianceBitmask
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_CRYPTO_KEY_TYPE}
      */
-    FIPS {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+    KeyTypeBitmask{
+        get {
+            if(!this.HasProp("__KeyTypeBitmask"))
+                this.__KeyTypeBitmask := STORAGE_CRYPTO_KEY_TYPE(22, this)
+            return this.__KeyTypeBitmask
+        }
     }
 
     /**

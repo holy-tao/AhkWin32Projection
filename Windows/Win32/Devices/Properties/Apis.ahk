@@ -700,6 +700,58 @@ class Properties {
     /**
      * @type {DEVPROPKEY}
      */
+    static DEVPKEY_Device_ContainerModelName {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{7d0300e4-4fb7-493d-8a95-656f00e6a271}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Device_ContainerManufacturer {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{7d0300e4-4fb7-493d-8a95-656f00e6a271}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Device_ContainerCategories {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{7d0300e4-4fb7-493d-8a95-656f00e6a271}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Device_ContainerIcon {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{7d0300e4-4fb7-493d-8a95-656f00e6a271}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
     static DEVPKEY_Device_Model {
         get {
             value := DEVPROPKEY()

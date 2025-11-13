@@ -1873,6 +1873,31 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEVENT_VSM_SEALED_SI_POLICY => 327738
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_VSM_DRTM_KEYROLL_DETECTED => 327739
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_VSM_SRTM_UNSEAL_POLICY => 327740
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_VSM_SRTM_ANTI_ROLLBACK_COUNTER => 327741
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_VTL1_DUMP_CONFIG => 327744
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEVENT_NOAUTHORITY => 393217
 
     /**

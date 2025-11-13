@@ -35,6 +35,16 @@ class GdiplusStartupParams{
     static GdiplusStartupReserved0 => 4
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static GdiplusStartupReserved1 => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static GdiplusStartupReserved2 => 16
+
+    /**
      * Specifies a transparency mask for startup.
      * @type {Integer (Int32)}
      */

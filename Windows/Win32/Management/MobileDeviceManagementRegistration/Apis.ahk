@@ -215,6 +215,11 @@ class MobileDeviceManagementRegistration {
     static MENROLL_E_CUSTOMSERVERERROR => -2145910734
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MENROLL_E_SERVER429 => -2145910733
+
+    /**
      * @type {Integer (UInt32)}
      */
     static MDM_REGISTRATION_FACILITY_CODE => 25

@@ -48,4 +48,9 @@ class NotificationProcessing{
      * @type {Integer (Int32)}
      */
     static NotificationProcessing_CurrentThenMostRecent => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NotificationProcessing_ImportantCurrentThenMostRecent => 5
 }

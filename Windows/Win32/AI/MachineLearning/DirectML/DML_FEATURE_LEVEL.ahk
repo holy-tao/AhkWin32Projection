@@ -82,4 +82,14 @@ class DML_FEATURE_LEVEL{
      * @type {Integer (Int32)}
      */
     static DML_FEATURE_LEVEL_6_2 => 25088
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_6_3 => 25344
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_6_4 => 25600
 }

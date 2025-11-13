@@ -1578,6 +1578,11 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static POLICY_MODE_COUNT => 11
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static LSA_LOOKUP_ISOLATED_AS_LOCAL => 2147483648
 
     /**
@@ -2324,6 +2329,11 @@ class Identity {
      * @type {Guid}
      */
     static Audit_DetailedTracking_TokenRightAdjusted => Guid("{0cce924a-69ae-11d9-bed3-505054503030}")
+
+    /**
+     * @type {Guid}
+     */
+    static Audit_Logon_AccessRights => Guid("{0cce924b-69ae-11d9-bed3-505054503030}")
 
     /**
      * @type {Guid}
@@ -3664,6 +3674,11 @@ class Identity {
      * @type {Integer (UInt32)}
      */
     static PRIMARY_CRED_FOR_PASSWORD_CHANGE => 8388608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRIMARY_CRED_LOCAL_USER => 16777216
 
     /**
      * @type {Integer (UInt32)}

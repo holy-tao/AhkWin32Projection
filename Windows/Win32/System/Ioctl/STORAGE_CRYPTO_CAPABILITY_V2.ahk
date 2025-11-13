@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -76,29 +77,13 @@ class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - FIPS
-     * - Reserved
-     * @type {Integer}
+     * @type {STORAGE_SECURITY_COMPLIANCE_BITMASK}
      */
-    _bitfield {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FIPS {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+    SecurityComplianceBitmask{
+        get {
+            if(!this.HasProp("__SecurityComplianceBitmask"))
+                this.__SecurityComplianceBitmask := STORAGE_SECURITY_COMPLIANCE_BITMASK(28, this)
+            return this.__SecurityComplianceBitmask
+        }
     }
 }

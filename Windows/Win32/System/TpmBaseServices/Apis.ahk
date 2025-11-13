@@ -291,6 +291,19 @@ class TpmBaseServices {
     }
 
     /**
+     * 
+     * @param {Pointer<TBS_CONTEXT_PARAMS>} pContextParams 
+     * @param {Pointer<Pointer<Void>>} phContext 
+     * @returns {Integer} 
+     */
+    static Tbsi_Tpm_Vendor_Maintenance_Mode(pContextParams, phContext) {
+        phContextMarshal := phContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsi_Tpm_Vendor_Maintenance_Mode", "ptr", pContextParams, phContextMarshal, phContext, "uint")
+        return result
+    }
+
+    /**
      * Closes a context handle, which releases resources associated with the context in TBS and closes the binding handle used to communicate with TBS.
      * @param {Pointer<Void>} hContext A handle of the context to be closed.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.

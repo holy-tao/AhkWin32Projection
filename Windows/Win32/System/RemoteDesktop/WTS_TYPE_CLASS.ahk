@@ -25,4 +25,14 @@ class WTS_TYPE_CLASS{
      * @type {Integer (Int32)}
      */
     static WTSTypeSessionInfoLevel1 => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WTSTypeCloudAuthServerNonce => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WTSTypeSerializedUserCredential => 4
 }

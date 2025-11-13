@@ -9,7 +9,7 @@
  */
 class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -72,7 +72,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    EXPERIMENTAL_pwszAuthenticatorName {
+    pwszAuthenticatorName {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }
@@ -80,7 +80,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     /**
      * @type {Integer}
      */
-    EXPERIMENTAL_cbAuthenticatorLogo {
+    cbAuthenticatorLogo {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -88,8 +88,24 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     /**
      * @type {Pointer<Integer>}
      */
-    EXPERIMENTAL_pbAuthenticatorLogo {
+    pbAuthenticatorLogo {
         get => NumGet(this, 56, "ptr")
         set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
+     * @type {BOOL}
+     */
+    bThirdPartyPayment {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwTransports {
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 }

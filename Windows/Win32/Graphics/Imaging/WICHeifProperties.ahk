@@ -15,4 +15,14 @@ class WICHeifProperties{
      * @type {Integer (Int32)}
      */
     static WICHeifOrientation => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WICHeifLayeredImageCanvasColor => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WICHeifLayeredImageLayerPositions => 3
 }

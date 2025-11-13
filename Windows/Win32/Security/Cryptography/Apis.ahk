@@ -2138,6 +2138,11 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static MS_PLUTON_CRYPTO_PROVIDER => "Microsoft Pluton Cryptographic Provider"
+
+    /**
+     * @type {String}
+     */
     static TPM_RSA_SRK_SEAL_KEY => "MICROSOFT_PCP_KSP_RSA_SEAL_KEY_3BD1C4BF-004E-4E2F-8A4D-0BF633DCB074"
 
     /**
@@ -3459,6 +3464,51 @@ class Cryptography {
      * @type {String}
      */
     static NCRYPT_SCARD_NGC_KEY_NAME => "SmartCardNgcKeyName"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_EKCERT_PROPERTY => "PLUTON_EKCERT"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_EKPUB_PROPERTY => "PLUTON_EKPUB"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_RSA_EKCERT_PROPERTY => "PLUTON_RSA_EKCERT"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_RSA_EKPUB_PROPERTY => "PLUTON_RSA_EKPUB"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_ECC_EKCERT_PROPERTY => "PLUTON_ECC_EKCERT"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_ECC_EKPUB_PROPERTY => "PLUTON_ECC_EKPUB"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_SESSION_ID_PROPERTY => "PLUTON_SESSION_ID"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_KDF_PARENT_KEY_UNIQUE_NAME_PROPERTY => "PlutonKdfParentKeyUniqueName"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PLUTON_KDF_PARAMS_BUFFER_DESC_PROPERTY => "PlutonKdfParamsBufferDesc"
 
     /**
      * @type {String}

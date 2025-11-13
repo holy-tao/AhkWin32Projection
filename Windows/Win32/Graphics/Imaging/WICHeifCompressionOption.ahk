@@ -25,4 +25,19 @@ class WICHeifCompressionOption{
      * @type {Integer (Int32)}
      */
     static WICHeifCompressionAV1 => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WICHeifCompressionJpegXL => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WICHeifCompressionBrotli => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WICHeifCompressionDeflate => 6
 }

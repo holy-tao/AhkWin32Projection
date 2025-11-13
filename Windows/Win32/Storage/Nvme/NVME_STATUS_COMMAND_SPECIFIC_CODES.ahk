@@ -226,6 +226,16 @@ class NVME_STATUS_COMMAND_SPECIFIC_CODES{
     /**
      * @type {Integer (Int32)}
      */
+    static NVME_STATUS_INVALID_DISCOVERY_INFORMATION => 47
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_INSUFFICIENT_DISCOVERY_RESOURCES => 50
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static NVME_STATUS_STREAM_RESOURCE_ALLOCATION_FAILED => 127
 
     /**

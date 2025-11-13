@@ -47,12 +47,22 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static EXPERIMENTAL_WEBAUTHN_API_VERSION_8 => 1008
+    static WEBAUTHN_API_VERSION_8 => 8
 
     /**
      * @type {Integer (UInt32)}
      */
-    static WEBAUTHN_API_CURRENT_VERSION => 7
+    static WEBAUTHN_API_VERSION_9 => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_API_CURRENT_VERSION => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_RP_ENTITY_INFORMATION_VERSION_1 => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -63,6 +73,11 @@ class WindowsWebServices {
      * @type {Integer (UInt32)}
      */
     static WEBAUTHN_MAX_USER_ID_LENGTH => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_USER_ENTITY_INFORMATION_VERSION_1 => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -182,7 +197,42 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static WEBAUTHN_CTAP_TRANSPORT_FLAGS_MASK => 63
+    static WEBAUTHN_CTAP_TRANSPORT_SMART_CARD => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_FLAGS_MASK => 127
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_USB_STRING => "usb"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_NFC_STRING => "nfc"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_BLE_STRING => "ble"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_SMART_CARD_STRING => "smart-card"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_HYBRID_STRING => "hybrid"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CTAP_TRANSPORT_INTERNAL_STRING => "internal"
 
     /**
      * @type {Integer (UInt32)}
@@ -212,12 +262,17 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static EXPERIMENTAL_WEBAUTHN_CREDENTIAL_DETAILS_VERSION_3 => 1003
+    static WEBAUTHN_CREDENTIAL_DETAILS_VERSION_3 => 3
 
     /**
      * @type {Integer (UInt32)}
      */
-    static WEBAUTHN_CREDENTIAL_DETAILS_CURRENT_VERSION => 2
+    static WEBAUTHN_CREDENTIAL_DETAILS_VERSION_4 => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_CREDENTIAL_DETAILS_CURRENT_VERSION => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -365,6 +420,21 @@ class WindowsWebServices {
     static WEBAUTHN_LARGE_BLOB_SUPPORT_PREFERRED => 2
 
     /**
+     * @type {String}
+     */
+    static WEBAUTHN_CREDENTIAL_HINT_SECURITY_KEY => "security-key"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CREDENTIAL_HINT_CLIENT_DEVICE => "client-device"
+
+    /**
+     * @type {String}
+     */
+    static WEBAUTHN_CREDENTIAL_HINT_HYBRID => "hybrid"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_1 => 1
@@ -402,12 +472,12 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static EXPERIMENTAL_WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_8 => 1008
+    static WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_8 => 8
 
     /**
      * @type {Integer (UInt32)}
      */
-    static WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_CURRENT_VERSION => 7
+    static WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_CURRENT_VERSION => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -467,7 +537,12 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_CURRENT_VERSION => 7
+    static WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_VERSION_8 => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS_CURRENT_VERSION => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -547,12 +622,17 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static EXPERIMENTAL_WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_7 => 1007
+    static WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_7 => 7
 
     /**
      * @type {Integer (UInt32)}
      */
-    static WEBAUTHN_CREDENTIAL_ATTESTATION_CURRENT_VERSION => 6
+    static WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_8 => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WEBAUTHN_CREDENTIAL_ATTESTATION_CURRENT_VERSION => 8
 
     /**
      * @type {Integer (UInt32)}

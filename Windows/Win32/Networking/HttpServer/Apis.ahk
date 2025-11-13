@@ -427,6 +427,36 @@ class HttpServer {
     /**
      * @type {Integer (UInt32)}
      */
+    static HTTP_CERT_CHECK_MODE_NO_REVOCATION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_CERT_CHECK_MODE_CACHED_REVOCATION => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_CERT_CHECK_MODE_USE_REVOCATION_FRESHNESS => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_CERT_CHECK_MODE_CACHED_URLS => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_CERT_CHECK_MODE_NO_AIA => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_CERT_CHECK_MODE_NO_USAGE_CHECK => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static HTTP_SSL_CERT_SHA_HASH_LENGTH => 20
 
     /**
@@ -1112,6 +1142,28 @@ class HttpServer {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpSetRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Input, "uint", InputPropertySize, "ptr", Overlapped, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {HANDLE} RequestQueueHandle 
+     * @param {Integer} Id 
+     * @param {Integer} PropertyId 
+     * @param {Pointer} Qualifier 
+     * @param {Integer} QualifierSize 
+     * @param {Pointer} Output 
+     * @param {Integer} OutputBufferSize 
+     * @param {Pointer<Integer>} BytesReturned 
+     * @param {Pointer<OVERLAPPED>} Overlapped 
+     * @returns {Integer} 
+     */
+    static HttpQueryRequestProperty(RequestQueueHandle, Id, PropertyId, Qualifier, QualifierSize, Output, OutputBufferSize, BytesReturned, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpQueryRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Qualifier, "uint", QualifierSize, "ptr", Output, "uint", OutputBufferSize, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped, "uint")
         return result
     }
 

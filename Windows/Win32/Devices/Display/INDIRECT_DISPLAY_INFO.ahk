@@ -8,7 +8,7 @@
  */
 class INDIRECT_DISPLAY_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -45,5 +45,21 @@ class INDIRECT_DISPLAY_INFO extends Win32Struct
     DisplayAdapterTargetBase {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DriverVersionMajor {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DriverVersionMinor {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

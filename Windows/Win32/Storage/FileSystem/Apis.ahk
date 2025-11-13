@@ -7877,6 +7877,106 @@ class FileSystem {
     }
 
     /**
+     * 
+     * @param {PWSTR} lpFileName 
+     * @param {Integer} dwDesiredAccess 
+     * @param {Integer} dwShareMode 
+     * @param {Integer} dwCreationDisposition 
+     * @param {Pointer<CREATEFILE3_EXTENDED_PARAMETERS>} pCreateExParams 
+     * @returns {HANDLE} 
+     */
+    static CreateFile3(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+        result := DllCall("KERNEL32.dll\CreateFile3", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
+        return HANDLE({Value: result}, True)
+    }
+
+    /**
+     * 
+     * @param {PSTR} lpPathName 
+     * @param {Integer} dwDesiredAccess 
+     * @param {Integer} dwShareMode 
+     * @param {Integer} DirectoryFlags 
+     * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
+     * @returns {HANDLE} 
+     */
+    static CreateDirectory2A(lpPathName, dwDesiredAccess, dwShareMode, DirectoryFlags, lpSecurityAttributes) {
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+
+        result := DllCall("KERNEL32.dll\CreateDirectory2A", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, "int", DirectoryFlags, "ptr", lpSecurityAttributes, "ptr")
+        return HANDLE({Value: result}, True)
+    }
+
+    /**
+     * 
+     * @param {PWSTR} lpPathName 
+     * @param {Integer} dwDesiredAccess 
+     * @param {Integer} dwShareMode 
+     * @param {Integer} DirectoryFlags 
+     * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
+     * @returns {HANDLE} 
+     */
+    static CreateDirectory2W(lpPathName, dwDesiredAccess, dwShareMode, DirectoryFlags, lpSecurityAttributes) {
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+
+        result := DllCall("KERNEL32.dll\CreateDirectory2W", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, "int", DirectoryFlags, "ptr", lpSecurityAttributes, "ptr")
+        return HANDLE({Value: result}, True)
+    }
+
+    /**
+     * 
+     * @param {PSTR} lpPathName 
+     * @param {Integer} DirectoryFlags 
+     * @returns {BOOL} 
+     */
+    static RemoveDirectory2A(lpPathName, DirectoryFlags) {
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+
+        result := DllCall("KERNEL32.dll\RemoveDirectory2A", "ptr", lpPathName, "int", DirectoryFlags, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} lpPathName 
+     * @param {Integer} DirectoryFlags 
+     * @returns {BOOL} 
+     */
+    static RemoveDirectory2W(lpPathName, DirectoryFlags) {
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+
+        result := DllCall("KERNEL32.dll\RemoveDirectory2W", "ptr", lpPathName, "int", DirectoryFlags, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} lpFileName 
+     * @param {Integer} Flags 
+     * @returns {BOOL} 
+     */
+    static DeleteFile2A(lpFileName, Flags) {
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+        result := DllCall("KERNEL32.dll\DeleteFile2A", "ptr", lpFileName, "uint", Flags, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} lpFileName 
+     * @param {Integer} Flags 
+     * @returns {BOOL} 
+     */
+    static DeleteFile2W(lpFileName, Flags) {
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
+        result := DllCall("KERNEL32.dll\DeleteFile2W", "ptr", lpFileName, "uint", Flags, "int")
+        return result
+    }
+
+    /**
      * Copies an existing file to a new file. The behavior of this function is identical to CopyFile, except that this function adheres to the Universal Windows Platform app security model.
      * @param {PWSTR} lpExistingFileName The name of an existing file.
      *     

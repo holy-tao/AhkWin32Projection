@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\WTS_CLOUD_AUTH_HANDLE.ahk
 #Include ..\..\Foundation\Apis.ahk
 
 /**
@@ -3127,6 +3128,88 @@ class RemoteDesktop {
     }
 
     /**
+     * 
+     * @param {Pointer<Guid>} activityId 
+     * @returns {WTS_CLOUD_AUTH_HANDLE} 
+     */
+    static WTSCloudAuthOpen(activityId) {
+        result := DllCall("WTSAPI32.dll\WTSCloudAuthOpen", "ptr", activityId, "ptr")
+        return WTS_CLOUD_AUTH_HANDLE({Value: result}, True)
+    }
+
+    /**
+     * 
+     * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static WTSCloudAuthClose(cloudAuthHandle) {
+        cloudAuthHandle := cloudAuthHandle is Win32Handle ? NumGet(cloudAuthHandle, "ptr") : cloudAuthHandle
+
+        DllCall("WTSAPI32.dll\WTSCloudAuthClose", "ptr", cloudAuthHandle)
+    }
+
+    /**
+     * 
+     * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
+     * @param {Pointer<PWSTR>} serverNonce 
+     * @returns {BOOL} 
+     */
+    static WTSCloudAuthGetServerNonce(cloudAuthHandle, serverNonce) {
+        cloudAuthHandle := cloudAuthHandle is Win32Handle ? NumGet(cloudAuthHandle, "ptr") : cloudAuthHandle
+
+        serverNonceMarshal := serverNonce is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WTSAPI32.dll\WTSCloudAuthGetServerNonce", "ptr", cloudAuthHandle, serverNonceMarshal, serverNonce, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
+     * @param {Pointer} assertion 
+     * @param {Integer} assertionLength 
+     * @param {PWSTR} resourceId 
+     * @param {Pointer<Pointer<WTS_SERIALIZED_USER_CREDENTIAL>>} userCredential 
+     * @returns {BOOL} 
+     */
+    static WTSCloudAuthConvertAssertionToSerializedUserCredential(cloudAuthHandle, assertion, assertionLength, resourceId, userCredential) {
+        cloudAuthHandle := cloudAuthHandle is Win32Handle ? NumGet(cloudAuthHandle, "ptr") : cloudAuthHandle
+        resourceId := resourceId is String ? StrPtr(resourceId) : resourceId
+
+        userCredentialMarshal := userCredential is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WTSAPI32.dll\WTSCloudAuthConvertAssertionToSerializedUserCredential", "ptr", cloudAuthHandle, "ptr", assertion, "uint", assertionLength, "ptr", resourceId, userCredentialMarshal, userCredential, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
+     * @param {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} userCredential 
+     * @param {Pointer<HANDLE>} token 
+     * @returns {BOOL} 
+     */
+    static WTSCloudAuthNetworkLogonWithSerializedCredential(cloudAuthHandle, userCredential, token) {
+        cloudAuthHandle := cloudAuthHandle is Win32Handle ? NumGet(cloudAuthHandle, "ptr") : cloudAuthHandle
+
+        result := DllCall("WTSAPI32.dll\WTSCloudAuthNetworkLogonWithSerializedCredential", "ptr", cloudAuthHandle, "ptr", userCredential, "ptr", token, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} userCredential 
+     * @param {Pointer<Pointer<WTS_SERIALIZED_USER_CREDENTIAL>>} duplicatedUserCredential 
+     * @returns {BOOL} 
+     */
+    static WTSCloudAuthDuplicateSerializedUserCredential(userCredential, duplicatedUserCredential) {
+        duplicatedUserCredentialMarshal := duplicatedUserCredential is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WTSAPI32.dll\WTSCloudAuthDuplicateSerializedUserCredential", "ptr", userCredential, duplicatedUserCredentialMarshal, duplicatedUserCredential, "int")
+        return result
+    }
+
+    /**
      * Enables or disables Child Sessions.
      * @param {BOOL} bEnable Indicates whether to enable or disable child sessions. Pass <b>TRUE</b> if child sessions are to be enabled or <b>FALSE</b> otherwise.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
@@ -3163,6 +3246,18 @@ class RemoteDesktop {
         pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WTSAPI32.dll\WTSGetChildSessionId", pSessionIdMarshal, pSessionId, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BOOL>} pbActiveSessionExists 
+     * @returns {BOOL} 
+     */
+    static WTSActiveSessionExists(pbActiveSessionExists) {
+        pbActiveSessionExistsMarshal := pbActiveSessionExists is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WTSAPI32.dll\WTSActiveSessionExists", pbActiveSessionExistsMarshal, pbActiveSessionExists, "int")
         return result
     }
 

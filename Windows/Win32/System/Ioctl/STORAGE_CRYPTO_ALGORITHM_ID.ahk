@@ -35,4 +35,29 @@ class STORAGE_CRYPTO_ALGORITHM_ID{
      * @type {Integer (Int32)}
      */
     static StorageCryptoAlgorithmMax => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoAlgorithmUnknown => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoAlgorithmXTSAES => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoAlgorithmBitlockerAESCBC => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoAlgorithmAESECB => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorCryptoAlgorithmESSIVAESCBC => 4
 }
