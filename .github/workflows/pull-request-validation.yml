@@ -1,0 +1,13 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+
+jobs:
+  syntax-validation:
+    uses: ./.github/workflows/syntax-validation.yml
+    secrets: inherit
+
+  unit-tests:
+    uses: ./.github/workflows/ahk-unit-tests.yml
+    secrets: inherit
