@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+    outputs:
+      all-labels: ${{ steps.label.outputs.all-labels }}
     steps:
       - name: Run Labeler
         id: label
