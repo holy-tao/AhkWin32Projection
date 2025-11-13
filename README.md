@@ -27,6 +27,7 @@ With rich IntelliSense features and full documentation directly in your IDE:
   - [Table of Contents](#table-of-contents)
   - [What Is This?](#what-is-this)
   - [Usage](#usage)
+    - [Don't Want 31,000 Files?](#dont-want-31000-files)	 
     - [Common Namespaces](#common-namespaces)
   - [Structs](#structs)
     - [Creating Structs](#creating-structs)
@@ -75,6 +76,21 @@ Files are organized by namespace:
 #Include <AhkWin32Projection\Windows\Win32\Foundation\RECT>
 #Include <AhkWin32Projection\Windows\Win32\UI\Controls\HDITEMW>
 ```
+
+### Don't Want 31,000 Files?
+You can use `Fetch-AhkWin32.ps1` to download only the types you need and their dependencies. This allows you to follow a pattern like CsWin32's `NativeMethods.txt`-based source generation. Specfy types either at the command line or in a text file, and only those types and the files they #Include will be downloaded. For versioning, you can anchor the script to a tag or a branch.
+
+```pwsh
+.\Fetch-AhkWin32.ps1 -Types "Windows.Win32.Networking.WinHttp.IWinHttpRequest","Windows.Win32.Networking.WinHttp.IWinHttpRequestEvents" -OutDir "./Lib"
+```
+
+The script will generate a .ahk stub that #Includes the types you told it to download, so in your code, all you need to do in your code is include it:
+
+```autohotkey
+#Include ./Lib/Win32.includes.ahk
+```
+
+See the [wiki](https://github.com/holy-tao/AhkWin32Projection/wiki/Fetch%E2%80%90AhkWin32.ps1) for more usage details.
 
 ### Common Namespaces
 Namespaces can be unintuitive and they aren't really mapped to headers, so a few common namespaces are listed here. GitHub's file search functionality is also great if you're looking for something specific. Namespaces come directly from the metadata, so they won't be changed unless Microsoft changes them.
