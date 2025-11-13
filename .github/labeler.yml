@@ -4,7 +4,7 @@ documentation:
   - head-branch:
     - '^doc'
 
-feature:
+enhancement:
   - head-branch:
     - '^feature'
     - '^feat'
@@ -17,6 +17,7 @@ ahk:
 bug:
   - head-branch:
     - '^fix'
+    - 'fix'
     - '^bug'
 
 chore:
