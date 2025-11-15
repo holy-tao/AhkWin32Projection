@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout parent repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: holy-tao/AhkWin32Structs-Generator
           ssh-key: ${{ secrets.GENERATOR_DEPLOY_KEY }}
