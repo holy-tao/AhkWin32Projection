@@ -9,6 +9,7 @@ on:
 
 jobs:
   update-parent:
+    if: contains(github.event.pull_request.labels.*.name, 'ahk')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout parent repository
