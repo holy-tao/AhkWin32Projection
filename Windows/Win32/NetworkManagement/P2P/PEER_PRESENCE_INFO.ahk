@@ -20,7 +20,7 @@ class PEER_PRESENCE_INFO extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_presence_status">PEER_PRESENCE_STATUS</a> enumeration value that indicates the current availability or level of participation by the peer in a peer collaboration network.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     status {

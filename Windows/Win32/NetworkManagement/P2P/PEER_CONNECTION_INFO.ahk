@@ -64,7 +64,7 @@ class PEER_CONNECTION_INFO extends Win32Struct
 
     /**
      * Specifies the address of a remote node. The address is contained in a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_ADDRESS}
      */
     address{

@@ -49,7 +49,7 @@ class Isolation {
      * 
      * @param {Pointer<Void>} Reserved 
      * @returns {BOOL} 
-     * @deprecated
+     * @deprecated IsProcessInWDAGContainer is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static IsProcessInWDAGContainer(Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
@@ -64,7 +64,7 @@ class Isolation {
     /**
      * 
      * @returns {BOOL} 
-     * @deprecated
+     * @deprecated IsProcessInIsolatedContainer is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static IsProcessInIsolatedContainer() {
         result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", &isProcessInIsolatedContainer := 0, "int")

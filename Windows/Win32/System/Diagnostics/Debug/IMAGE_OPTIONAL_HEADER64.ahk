@@ -651,7 +651,7 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
 
     /**
      * This member is obsolete.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     LoaderFlags {

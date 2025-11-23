@@ -36,7 +36,7 @@ class PEER_OBJECT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains information which describes the peer object.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     data{

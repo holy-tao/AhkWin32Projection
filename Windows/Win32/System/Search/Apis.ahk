@@ -17454,7 +17454,7 @@ class Search {
      * @param {Pointer<Void>} ParameterValue 
      * @param {Pointer<Integer>} StrLen_or_Ind 
      * @returns {Integer} 
-     * @deprecated
+     * @deprecated ODBC API: SQLBindParam is deprecated. Please use SQLBindParameter instead.
      */
     static SQLBindParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
         StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
@@ -17617,7 +17617,7 @@ class Search {
      * @param {Integer} Value 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetconnectoption-function
-     * @deprecated
+     * @deprecated ODBC API: SQLSetConnectOption is deprecated. Please use SQLSetConnectAttr instead.
      */
     static SQLSetConnectOption(ConnectionHandle, Option, Value) {
         ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
@@ -17662,7 +17662,7 @@ class Search {
      * @param {Pointer<Integer>} StrLen_or_Ind 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetparam-function
-     * @deprecated
+     * @deprecated ODBC API: SQLSetParam is deprecated. Please use SQLBindParameter instead.
      */
     static SQLSetParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
         StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
@@ -17680,7 +17680,7 @@ class Search {
      * @param {Integer} Value 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetstmtoption-function
-     * @deprecated
+     * @deprecated ODBC API: SQLSetStmtOption is deprecated. Please use SQLSetStmtAttr instead.
      */
     static SQLSetStmtOption(StatementHandle, Option, Value) {
         StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
@@ -18421,7 +18421,7 @@ class Search {
      * @param {Pointer<Void>} Value 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetconnectoption-function
-     * @deprecated
+     * @deprecated ODBC API: SQLGetConnectOption is deprecated. Please use SQLGetConnectAttr instead.
      */
     static SQLGetConnectOption(ConnectionHandle, Option, Value) {
         ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
@@ -18593,7 +18593,7 @@ class Search {
      * @param {Pointer<Void>} Value 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetstmtoption-function
-     * @deprecated
+     * @deprecated ODBC API: SQLGetStmtOption is deprecated. Please use SQLGetStmtAttr instead.
      */
     static SQLGetStmtOption(StatementHandle, Option, Value) {
         StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"

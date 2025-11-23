@@ -21,7 +21,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     eventType {
@@ -30,7 +30,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_WATCHLIST_CHANGED_DATA}
      */
     watchListChangedData{
@@ -42,7 +42,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_PRESENCE_CHANGED_DATA}
      */
     presenceChangedData{
@@ -54,7 +54,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_APPLICATION_CHANGED_DATA}
      */
     applicationChangedData{
@@ -66,7 +66,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_OBJECT_CHANGED_DATA}
      */
     objectChangedData{
@@ -78,7 +78,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_ENDPOINT_CHANGED_DATA}
      */
     endpointChangedData{
@@ -90,7 +90,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA}
      */
     peopleNearMeChangedData{
@@ -102,7 +102,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_REQUEST_STATUS_CHANGED_DATA}
      */
     requestStatusChangedData{

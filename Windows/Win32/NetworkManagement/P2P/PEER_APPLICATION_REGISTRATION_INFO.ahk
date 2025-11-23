@@ -24,7 +24,7 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_application">PEER_APPLICATION</a> structure that contains the specific peer application data.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_APPLICATION}
      */
     application{

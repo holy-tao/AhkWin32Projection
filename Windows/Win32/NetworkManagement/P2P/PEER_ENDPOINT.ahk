@@ -26,7 +26,7 @@ class PEER_ENDPOINT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure that contains the IPv6 network address of the endpoint.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_ADDRESS}
      */
     address{

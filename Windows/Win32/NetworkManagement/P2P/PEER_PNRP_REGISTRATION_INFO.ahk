@@ -70,7 +70,7 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains a pointer to an opaque byte buffer containing application-specific data for the peer endpoint (such as a message or an image).
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     payload{

@@ -86,7 +86,7 @@ class ID2D1Factory extends IUnknown{
      * @param {Pointer<Float>} dpiY 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-getdesktopdpi
-     * @deprecated
+     * @deprecated Deprecated. Use DisplayInformation::LogicalDpi for Windows Store Apps or GetDpiForWindow for desktop apps.
      */
     GetDesktopDpi(dpiX, dpiY) {
         dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"

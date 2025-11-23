@@ -10750,7 +10750,7 @@ class Debug {
      * @param {Integer} flags 
      * @param {PSTR} FilePath 
      * @returns {BOOL} 
-     * @deprecated
+     * @deprecated 
      */
     static FindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags, FilePath) {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
@@ -10774,7 +10774,7 @@ class Debug {
      * @param {Integer} three 
      * @param {PSTR} FilePath 
      * @returns {BOOL} 
-     * @deprecated
+     * @deprecated 
      */
     static FindFileInSearchPath(hprocess, SearchPathA, FileName, one, two, three, FilePath) {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
@@ -10793,7 +10793,7 @@ class Debug {
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback 
      * @param {Pointer<Void>} UserContext 
      * @returns {BOOL} 
-     * @deprecated
+     * @deprecated 
      */
     static SymEnumSym(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -10817,7 +10817,7 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratesymbols64
-     * @deprecated
+     * @deprecated 
      */
     static SymEnumerateSymbols64(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -10846,7 +10846,7 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratesymbolsw64
-     * @deprecated
+     * @deprecated 
      */
     static SymEnumerateSymbolsW64(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -10875,7 +10875,7 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratesymbols
-     * @deprecated
+     * @deprecated 
      */
     static SymEnumerateSymbols(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -10904,7 +10904,7 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratesymbolsw
-     * @deprecated
+     * @deprecated 
      */
     static SymEnumerateSymbolsW(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess

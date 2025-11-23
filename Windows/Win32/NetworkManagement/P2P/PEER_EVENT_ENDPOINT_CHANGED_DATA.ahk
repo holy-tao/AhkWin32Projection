@@ -20,7 +20,7 @@ class PEER_EVENT_ENDPOINT_CHANGED_DATA extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure that contains the contact information for the contact who changed endpoints.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_CONTACT>}
      */
     pContact {
@@ -30,7 +30,7 @@ class PEER_EVENT_ENDPOINT_CHANGED_DATA extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the new active endpoint for  the peer specified in <i>pContact</i>.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_ENDPOINT>}
      */
     pEndpoint {

@@ -13,7 +13,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI
- * @deprecated
+ * @deprecated WSAPROTOCOL_INFOW
  */
 class WSAPROTOCOL_INFOA extends Win32Struct
 {

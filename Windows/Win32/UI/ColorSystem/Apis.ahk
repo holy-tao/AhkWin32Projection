@@ -1573,7 +1573,7 @@ class ColorSystem {
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolordirectorya
-     * @deprecated
+     * @deprecated GetColorDirectoryW is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static GetColorDirectoryA(pMachineName, pBuffer, pdwSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -1593,7 +1593,7 @@ class ColorSystem {
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolordirectoryw
-     * @deprecated
+     * @deprecated GetColorDirectoryA is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static GetColorDirectoryW(pMachineName, pBuffer, pdwSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName

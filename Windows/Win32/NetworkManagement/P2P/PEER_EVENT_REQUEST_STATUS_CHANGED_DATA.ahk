@@ -20,7 +20,7 @@ class PEER_EVENT_REQUEST_STATUS_CHANGED_DATA extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the peer endpoint information for the contact whose change in request status raised the event.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_ENDPOINT>}
      */
     pEndpoint {

@@ -70,7 +70,7 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_watch_permission">PEER_WATCH_PERMISSION</a> enumeration value that specifies the watch permissions for this contact.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     WatcherPermissions {
@@ -80,7 +80,7 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains the security credentials for the contact in an opaque byte buffer.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     credentials{

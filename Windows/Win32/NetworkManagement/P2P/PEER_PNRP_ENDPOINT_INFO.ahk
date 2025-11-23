@@ -52,7 +52,7 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains application-specific data for the peer endpoint (such as a message or an image).
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     payload{

@@ -30,7 +30,7 @@ class PEER_INVITATION extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains opaque data describing possible additional application-specific settings (for example, an address and port on which the activity will occur, or a specific video codec to use). This data is limited to 16K.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     applicationData{

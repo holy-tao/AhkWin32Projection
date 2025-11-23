@@ -15,7 +15,7 @@ class PEER_GRAPH_EVENT_REGISTRATION extends Win32Struct
 
     /**
      * Specifies the type of peer event the application requires notifications for. The per events that can be registered for are specified by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_graph_event_type">PEER_GRAPH_EVENT_TYPE</a> enumeration.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     eventType {

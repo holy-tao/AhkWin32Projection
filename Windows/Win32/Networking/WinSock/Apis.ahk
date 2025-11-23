@@ -8042,7 +8042,7 @@ class WinSock {
      * <b>inet_addr</b> returns the value <b>INADDR_ANY</b>. If <b>NULL</b> is passed in the <i>cp</i> parameter, then 
      * <b>inet_addr</b> returns the value <b>INADDR_NONE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-inet_addr
-     * @deprecated
+     * @deprecated inet_pton() or InetPton()
      * @since windows8.1
      */
     static inet_addr(cp) {
@@ -8063,7 +8063,7 @@ class WinSock {
      * @returns {PSTR} If no error occurs, 
      * <b>inet_ntoa</b> returns a character pointer to a static buffer containing the text address in standard ".'' notation. Otherwise, it returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-inet_ntoa
-     * @deprecated
+     * @deprecated inet_ntop() or InetNtop()
      * @since windows8.1
      */
     static inet_ntoa(in_R) {
@@ -10241,7 +10241,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-gethostbyaddr
-     * @deprecated
+     * @deprecated getnameinfo() or GetNameInfoW()
      * @since windows8.1
      */
     static gethostbyaddr(addr, len, type) {
@@ -10372,7 +10372,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-gethostbyname
-     * @deprecated
+     * @deprecated getaddrinfo() or GetAddrInfoW()
      * @since windows8.1
      */
     static gethostbyname(name) {
@@ -11211,7 +11211,7 @@ class WinSock {
      * This function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0.
      * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaisblocking
-     * @deprecated
+     * @deprecated Winsock 2
      */
     static WSAIsBlocking() {
         A_LastError := 0
@@ -11227,7 +11227,7 @@ class WinSock {
      * This function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaunhookblockinghook
-     * @deprecated
+     * @deprecated Winsock 2
      */
     static WSAUnhookBlockingHook() {
         A_LastError := 0
@@ -11244,7 +11244,7 @@ class WinSock {
      * @param {Pointer<FARPROC>} lpBlockFunc 
      * @returns {Pointer<FARPROC>} 
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsasetblockinghook
-     * @deprecated
+     * @deprecated Winsock 2
      */
     static WSASetBlockingHook(lpBlockFunc) {
         A_LastError := 0
@@ -11260,7 +11260,7 @@ class WinSock {
      * The WSACancelBlockingCall function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsacancelblockingcall
-     * @deprecated
+     * @deprecated Winsock 2
      */
     static WSACancelBlockingCall() {
         A_LastError := 0
@@ -11408,7 +11408,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncgetservbyname
-     * @deprecated
+     * @deprecated getservbyname()
      * @since windows5.0
      */
     static WSAAsyncGetServByName(hWnd, wMsg, name, proto, buf, buflen) {
@@ -11562,7 +11562,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncgetservbyport
-     * @deprecated
+     * @deprecated getservbyport()
      * @since windows5.0
      */
     static WSAAsyncGetServByPort(hWnd, wMsg, port, proto, buf, buflen) {
@@ -11712,7 +11712,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncgetprotobyname
-     * @deprecated
+     * @deprecated getprotobyname()
      * @since windows5.0
      */
     static WSAAsyncGetProtoByName(hWnd, wMsg, name, buf, buflen) {
@@ -11862,7 +11862,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncgetprotobynumber
-     * @deprecated
+     * @deprecated getprotobynumber()
      * @since windows5.0
      */
     static WSAAsyncGetProtoByNumber(hWnd, wMsg, number, buf, buflen) {
@@ -12007,7 +12007,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncgethostbyname
-     * @deprecated
+     * @deprecated GetAddrInfoExW()
      * @since windows5.0
      */
     static WSAAsyncGetHostByName(hWnd, wMsg, name, buf, buflen) {
@@ -12159,7 +12159,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncgethostbyaddr
-     * @deprecated
+     * @deprecated getnameinfo() or GetNameInfoW()
      * @since windows5.0
      */
     static WSAAsyncGetHostByAddr(hWnd, wMsg, addr, len, type, buf, buflen) {
@@ -12250,7 +12250,7 @@ class WinSock {
      * <a href="/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a>, since in both cases the error indicates that there is no asynchronous operation in progress with the indicated handle. (Trivial exception: zero is always an invalid asynchronous task handle.) The Windows Sockets specification does not prescribe how a conformant Windows Sockets provider should distinguish between the two cases. For maximum portability, a Windows Sockets application should treat the two errors as equivalent.</div>
      * <div> </div>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsacancelasyncrequest
-     * @deprecated
+     * @deprecated 
      * @since windows5.0
      */
     static WSACancelAsyncRequest(hAsyncTaskHandle) {
@@ -12442,7 +12442,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsaasyncselect
-     * @deprecated
+     * @deprecated WSAEventSelect()
      * @since windows5.0
      */
     static WSAAsyncSelect(s, hWnd, wMsg, lEvent) {
@@ -13222,7 +13222,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaconnectbynamea
-     * @deprecated
+     * @deprecated WSAConnectByNameW()
      * @since windows8.1
      */
     static WSAConnectByNameA(s, nodename, servicename, LocalAddressLength, LocalAddress, RemoteAddressLength, RemoteAddress, timeout) {
@@ -13547,7 +13547,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaduplicatesocketa
-     * @deprecated
+     * @deprecated WSADuplicateSocketW()
      * @since windows8.1
      */
     static WSADuplicateSocketA(s, dwProcessId, lpProtocolInfo) {
@@ -13867,7 +13867,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaenumprotocolsa
-     * @deprecated
+     * @deprecated WSAEnumProtocolsW()
      * @since windows8.1
      */
     static WSAEnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
@@ -14440,7 +14440,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsagetqosbyname
-     * @deprecated
+     * @deprecated 
      * @since windows5.0
      */
     static WSAGetQOSByName(s, lpQOSName, lpQOS) {
@@ -15524,7 +15524,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsarecvdisconnect
-     * @deprecated
+     * @deprecated WSARecv()
      * @since windows5.0
      */
     static WSARecvDisconnect(s, lpInboundDisconnectData) {
@@ -16425,7 +16425,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsasenddisconnect
-     * @deprecated
+     * @deprecated WSASend()
      * @since windows5.0
      */
     static WSASendDisconnect(s, lpOutboundDisconnectData) {
@@ -17496,7 +17496,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsasocketa
-     * @deprecated
+     * @deprecated WSASocketW()
      * @since windows8.1
      */
     static WSASocketA(af, type, protocol, lpProtocolInfo, g, dwFlags) {
@@ -18372,7 +18372,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaaddresstostringa
-     * @deprecated
+     * @deprecated WSAAddressToStringW()
      * @since windows8.1
      */
     static WSAAddressToStringA(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
@@ -18537,7 +18537,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsastringtoaddressa
-     * @deprecated
+     * @deprecated WSAStringToAddressW()
      * @since windows8.1
      */
     static WSAStringToAddressA(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
@@ -18900,7 +18900,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsalookupservicebegina
-     * @deprecated
+     * @deprecated WSALookupServiceBeginW()
      * @since windows8.1
      */
     static WSALookupServiceBeginA(lpqsRestrictions, dwControlFlags, lphLookup) {
@@ -19489,7 +19489,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsalookupservicenexta
-     * @deprecated
+     * @deprecated WSALookupServiceNextW()
      * @since windows8.1
      */
     static WSALookupServiceNextA(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
@@ -20134,7 +20134,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsainstallserviceclassa
-     * @deprecated
+     * @deprecated WSAInstallServiceClassW()
      * @since windows5.0
      */
     static WSAInstallServiceClassA(lpServiceClassInfo) {
@@ -20473,7 +20473,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsagetserviceclassinfoa
-     * @deprecated
+     * @deprecated WSAGetServiceClassInfoW()
      * @since windows5.0
      */
     static WSAGetServiceClassInfoA(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
@@ -20665,7 +20665,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaenumnamespaceprovidersa
-     * @deprecated
+     * @deprecated WSAEnumNameSpaceProvidersW()
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersA(lpdwBufferLength, lpnspBuffer) {
@@ -20802,7 +20802,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsaenumnamespaceprovidersexa
-     * @deprecated
+     * @deprecated WSAEnumNameSpaceProvidersW()
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersExA(lpdwBufferLength, lpnspBuffer) {
@@ -20990,7 +20990,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsagetserviceclassnamebyclassida
-     * @deprecated
+     * @deprecated WSAGetServiceClassNameByClassIdW()
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
@@ -21243,7 +21243,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock2/nf-winsock2-wsasetservicea
-     * @deprecated
+     * @deprecated WSASetServiceW()
      * @since windows8.1
      */
     static WSASetServiceA(lpqsRegInfo, essoperation, dwControlFlags) {
@@ -22646,7 +22646,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winsock/nf-winsock-wsarecvex
-     * @deprecated
+     * @deprecated WSARecv()
      * @since windows5.0
      */
     static WSARecvEx(s, buf, len, flags) {
@@ -26712,7 +26712,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ws2tcpip/nf-ws2tcpip-getaddrinfoexa
-     * @deprecated
+     * @deprecated GetAddrInfoExW()
      * @since windows6.0.6000
      */
     static GetAddrInfoExA(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult, timeout, lpOverlapped, lpCompletionRoutine, lpNameHandle) {
@@ -27320,7 +27320,7 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ws2tcpip/nf-ws2tcpip-setaddrinfoexa
-     * @deprecated
+     * @deprecated SetAddrInfoExW()
      * @since windows8.1
      */
     static SetAddrInfoExA(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, dwFlags, dwNameSpace, lpNspId, timeout, lpOverlapped, lpCompletionRoutine, lpNameHandle) {
@@ -27556,7 +27556,7 @@ class WinSock {
      * <b>addrinfoex</b> structure or structures is also freed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//ws2tcpip/nf-ws2tcpip-freeaddrinfoex
-     * @deprecated
+     * @deprecated FreeAddrInfoExW()
      * @since windows8.1
      */
     static FreeAddrInfoEx(pAddrInfoEx) {

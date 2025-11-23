@@ -15,7 +15,7 @@ class PEER_APP_LAUNCH_INFO extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure that contains information about the contact that sent the request to the local peer to launch the application referenced by the application.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_CONTACT>}
      */
     pContact {
@@ -25,7 +25,7 @@ class PEER_APP_LAUNCH_INFO extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains information about the specific endpoint of the contact that sent the request to the local peer to launch the application referenced by the application
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_ENDPOINT>}
      */
     pEndpoint {
@@ -35,7 +35,7 @@ class PEER_APP_LAUNCH_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_invitation">PEER_INVITATION</a> structure that contains the invitation to launch a specific peer application application on the local peer.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_INVITATION>}
      */
     pInvitation {
