@@ -51,7 +51,7 @@ class PEER_NODE_INFO extends Win32Struct
 
     /**
      * Points to  an array of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structures that indicate which addresses and  ports this instance is listening to for group traffic. This member is required and has no default value.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_ADDRESS>}
      */
     pAddresses {

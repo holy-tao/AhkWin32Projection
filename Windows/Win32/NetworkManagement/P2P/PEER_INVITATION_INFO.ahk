@@ -277,7 +277,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * <b>Windows Vista or later.</b>           The <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_authentication_scheme">PEER_GROUP_AUTHENTICATION_SCHEME</a> enumeration value that indicates the type of authentication used to validate the peer group invitee.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     authScheme {

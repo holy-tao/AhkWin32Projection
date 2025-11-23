@@ -125,7 +125,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * <b>Windows Vista or later.</b> GUID value that indicates the peer group role for which the password is required for authentication.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<Guid>}
      */
     groupPasswordRole {

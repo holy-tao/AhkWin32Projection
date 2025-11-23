@@ -24,7 +24,7 @@ class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct
 
     /**
      * Specifies the type of change to a record or record type.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     changeType {

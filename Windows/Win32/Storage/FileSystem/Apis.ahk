@@ -12283,7 +12283,7 @@ class FileSystem {
      * @param {Pointer<Integer>} pcbMetadata 
      * @param {Pointer<Pointer<Integer>>} ppbMetadata 
      * @returns {Integer} 
-     * @deprecated
+     * @deprecated 
      */
     static GetEncryptedFileMetadata(lpFileName, pcbMetadata, ppbMetadata) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -12304,7 +12304,7 @@ class FileSystem {
      * @param {Integer} dwOperation 
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pCertificatesAdded 
      * @returns {Integer} 
-     * @deprecated
+     * @deprecated 
      */
     static SetEncryptedFileMetadata(lpFileName, pbOldMetadata, pbNewMetadata, pOwnerHash, dwOperation, pCertificatesAdded) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -12320,7 +12320,7 @@ class FileSystem {
      * 
      * @param {Pointer<Integer>} pbMetadata 
      * @returns {String} Nothing - always returns an empty string
-     * @deprecated
+     * @deprecated 
      */
     static FreeEncryptedFileMetadata(pbMetadata) {
         pbMetadataMarshal := pbMetadata is VarRef ? "char*" : "ptr"

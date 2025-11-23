@@ -19,7 +19,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     eventType {
@@ -28,7 +28,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     dwStatus {
@@ -37,7 +37,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_INCOMING_DATA}
      */
     incomingData{
@@ -49,7 +49,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_RECORD_CHANGE_DATA}
      */
     recordChangeData{
@@ -61,7 +61,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_CONNECTION_CHANGE_DATA}
      */
     connectionChangeData{
@@ -73,7 +73,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_MEMBER_CHANGE_DATA}
      */
     memberChangeData{

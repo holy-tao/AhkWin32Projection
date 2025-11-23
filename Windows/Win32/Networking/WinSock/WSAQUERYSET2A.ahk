@@ -22,7 +22,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI
- * @deprecated
+ * @deprecated WSAQUERYSET2W
  */
 class WSAQUERYSET2A extends Win32Struct
 {

@@ -70,7 +70,7 @@ class IFolderView2 extends IFolderView{
      * @param {Pointer<PROPVARIANT>} propvar 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewproperty
-     * @deprecated
+     * @deprecated 
      */
     SetViewProperty(pidl, propkey, propvar) {
         result := ComCall(19, this, "ptr", pidl, "ptr", propkey, "ptr", propvar, "HRESULT")
@@ -83,7 +83,7 @@ class IFolderView2 extends IFolderView{
      * @param {Pointer<PROPERTYKEY>} propkey 
      * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewproperty
-     * @deprecated
+     * @deprecated 
      */
     GetViewProperty(pidl, propkey) {
         ppropvar := PROPVARIANT()
@@ -97,7 +97,7 @@ class IFolderView2 extends IFolderView{
      * @param {PWSTR} pszPropList 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-settileviewproperties
-     * @deprecated
+     * @deprecated 
      */
     SetTileViewProperties(pidl, pszPropList) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
@@ -112,7 +112,7 @@ class IFolderView2 extends IFolderView{
      * @param {PWSTR} pszPropList 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setextendedtileviewproperties
-     * @deprecated
+     * @deprecated 
      */
     SetExtendedTileViewProperties(pidl, pszPropList) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList

@@ -63,7 +63,7 @@ class PEER_EVENT_CONNECTION_CHANGE_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     status {

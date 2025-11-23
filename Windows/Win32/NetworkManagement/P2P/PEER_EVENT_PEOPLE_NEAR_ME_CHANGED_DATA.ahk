@@ -22,7 +22,7 @@ class PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_change_type">PEER_CHANGE_TYPE</a> enumeration value that describes the type of change that occurred for a contact available on the local subnet.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     changeType {
@@ -32,7 +32,7 @@ class PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_people_near_me">PEER_PEOPLE_NEAR_ME</a> structure that contains the peer endpoint information for the contact on the subnet that raised the change event.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PEER_PEOPLE_NEAR_ME>}
      */
     pPeopleNearMe {

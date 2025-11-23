@@ -24,7 +24,7 @@ class PEER_EVENT_MEMBER_CHANGE_DATA extends Win32Struct
 
     /**
      * <b>PEER_MEMBER_CHANGE_TYPE</b> enumeration value that specifies the change event that occurred, such as a member joining or leaving.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     changeType {

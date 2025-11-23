@@ -43,7 +43,7 @@ class PEER_EVENT_INCOMING_DATA extends Win32Struct
 
     /**
      * Specifies the actual data received.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     data{

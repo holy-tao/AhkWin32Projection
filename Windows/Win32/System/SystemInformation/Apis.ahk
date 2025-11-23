@@ -713,7 +713,7 @@ class SystemInformation {
      * 
      * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
-     * @deprecated
+     * @deprecated 
      * @since windows5.0
      */
     static GetVersion() {
@@ -1362,7 +1362,7 @@ class SystemInformation {
      * <a href="/windows/desktop/api/winnt/ns-winnt-osversioninfoa">OSVERSIONINFO</a> or 
      * <a href="/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversionexa
-     * @deprecated
+     * @deprecated 
      * @since windows5.0
      */
     static GetVersionExA(lpVersionInformation) {
@@ -1392,7 +1392,7 @@ class SystemInformation {
      * <a href="/windows/desktop/api/winnt/ns-winnt-osversioninfoa">OSVERSIONINFO</a> or 
      * <a href="/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversionexw
-     * @deprecated
+     * @deprecated 
      * @since windows5.0
      */
     static GetVersionExW(lpVersionInformation) {

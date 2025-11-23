@@ -229,7 +229,7 @@ class FileHistory {
      * If the File History Service is not started yet and this parameter is <b>FALSE</b>, this function fails and returns an unsuccessful <b>HRESULT</b> value.
      * @returns {FH_SERVICE_PIPE_HANDLE} On successful return, this parameter contains a non-NULL handle representing a newly opened communication channel to the File History Service.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceopenpipe
-     * @deprecated
+     * @deprecated FhServiceOpenPipe is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceOpenPipe(StartServiceIfStopped) {
@@ -246,7 +246,7 @@ class FileHistory {
      * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceclosepipe
-     * @deprecated
+     * @deprecated FhServiceClosePipe is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceClosePipe(Pipe) {
@@ -267,7 +267,7 @@ class FileHistory {
      * If <b>FALSE</b>, the File History Service is instructed to use normal priority I/O for the immediate backup scheduled by this function. This results in faster backups but negatively affects the responsiveness and performance of user applications.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhservicestartbackup
-     * @deprecated
+     * @deprecated FhServiceStartBackup is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceStartBackup(Pipe, LowPriorityIo) {
@@ -288,7 +288,7 @@ class FileHistory {
      * If <b>FALSE</b>, this function only stops the ongoing backup cycle.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhservicestopbackup
-     * @deprecated
+     * @deprecated FhServiceStopBackup is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceStopBackup(Pipe, StopTracking) {
@@ -306,7 +306,7 @@ class FileHistory {
      * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhservicereloadconfiguration
-     * @deprecated
+     * @deprecated FhServiceReloadConfiguration is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceReloadConfiguration(Pipe) {
@@ -324,7 +324,7 @@ class FileHistory {
      * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceblockbackup
-     * @deprecated
+     * @deprecated FhServiceBlockBackup is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceBlockBackup(Pipe) {
@@ -342,7 +342,7 @@ class FileHistory {
      * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceunblockbackup
-     * @deprecated
+     * @deprecated FhServiceUnblockBackup is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static FhServiceUnblockBackup(Pipe) {

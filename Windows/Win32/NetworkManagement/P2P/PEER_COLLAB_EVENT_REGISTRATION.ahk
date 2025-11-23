@@ -15,7 +15,7 @@ class PEER_COLLAB_EVENT_REGISTRATION extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_collab_event_type">PEER_COLLAB_EVENT_TYPE</a> enumeration value that specifies the type of peer collaboration network event for which to register.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     eventType {

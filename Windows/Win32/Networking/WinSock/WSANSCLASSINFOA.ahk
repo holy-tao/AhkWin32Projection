@@ -19,7 +19,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI
- * @deprecated
+ * @deprecated WSANSCLASSINFOW
  */
 class WSANSCLASSINFOA extends Win32Struct
 {

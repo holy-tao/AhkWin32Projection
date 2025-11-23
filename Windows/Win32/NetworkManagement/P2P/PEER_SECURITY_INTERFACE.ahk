@@ -76,7 +76,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Pointer to a callback function that is called when a record requires validation. This member is optional and can be <b>NULL</b>. If <b>pfnSecureRecord</b> is <b>NULL</b>, this member must also be <b>NULL</b>.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PFNPEER_VALIDATE_RECORD>}
      */
     pfnValidateRecord {
@@ -86,7 +86,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Pointer to a callback function that is called when a record must be secured. This member is optional and can be <b>NULL</b>. If <b>pfnValidateRecord</b> is <b>NULL</b>, this member must also be <b>NULL</b>.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PFNPEER_SECURE_RECORD>}
      */
     pfnSecureRecord {
@@ -96,7 +96,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Pointer to a callback function used to free any data allocated by the callback pointed to by <b>pfnSecureRecord</b>. This member is optional and can be <b>NULL</b>.
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PFNPEER_FREE_SECURITY_DATA>}
      */
     pfnFreeSecurityData {
@@ -106,7 +106,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @deprecated
+     * @deprecated 
      * @type {Pointer<PFNPEER_ON_PASSWORD_AUTH_FAILED>}
      */
     pfnAuthFailed {

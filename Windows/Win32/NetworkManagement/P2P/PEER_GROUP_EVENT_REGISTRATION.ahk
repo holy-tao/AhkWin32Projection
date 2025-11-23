@@ -15,7 +15,7 @@ class PEER_GROUP_EVENT_REGISTRATION extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_event_type">PEER_GROUP_EVENT_TYPE</a> that specifies the peer group event type to register for.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     eventType {

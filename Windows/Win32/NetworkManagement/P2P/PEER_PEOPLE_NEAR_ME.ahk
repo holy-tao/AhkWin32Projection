@@ -29,7 +29,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the IPv6 network address of the peer whose endpoint shares the same subnet.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_ENDPOINT}
      */
     endpoint{

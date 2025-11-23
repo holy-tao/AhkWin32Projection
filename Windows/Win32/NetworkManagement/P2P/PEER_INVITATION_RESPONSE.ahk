@@ -15,7 +15,7 @@ class PEER_INVITATION_RESPONSE extends Win32Struct
 
     /**
      * [PEER_INVITATION_RESPONSE_TYPE](./ne-p2p-peer_invitation_response_type.md) enumeration value that specifies the action the peer takes in response to the invitation.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     action {

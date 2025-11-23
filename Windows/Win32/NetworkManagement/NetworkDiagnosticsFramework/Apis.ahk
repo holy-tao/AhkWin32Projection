@@ -176,7 +176,7 @@ class NetworkDiagnosticsFramework {
      * 
      * A handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreateincident
-     * @deprecated
+     * @deprecated NdfCreateIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateIncident(helperClassName, celt, attributes) {
@@ -210,7 +210,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewinsockincident
-     * @deprecated
+     * @deprecated NdfCreateWinSockIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateWinSockIncident(sock, host, port, appId, userId) {
@@ -234,7 +234,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewebincident
-     * @deprecated
+     * @deprecated NdfCreateWebIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateWebIncident(url) {
@@ -262,7 +262,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewebincidentex
-     * @deprecated
+     * @deprecated NdfCreateWebIncidentEx is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateWebIncidentEx(url, useWinHTTP, moduleName) {
@@ -285,7 +285,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatesharingincident
-     * @deprecated
+     * @deprecated NdfCreateSharingIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateSharingIncident(UNCPath) {
@@ -312,7 +312,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatednsincident
-     * @deprecated
+     * @deprecated NdfCreateDNSIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateDNSIncident(hostname, queryType) {
@@ -331,7 +331,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreateconnectivityincident
-     * @deprecated
+     * @deprecated NdfCreateConnectivityIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateConnectivityIncident() {
@@ -353,7 +353,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatenetconnectionincident
-     * @deprecated
+     * @deprecated NdfCreateNetConnectionIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static NdfCreateNetConnectionIncident(id) {
@@ -382,7 +382,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatepnrpincident
-     * @deprecated
+     * @deprecated NdfCreatePnrpIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId) {
@@ -421,7 +421,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreategroupingincident
-     * @deprecated
+     * @deprecated NdfCreateGroupingIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Addresses, appId) {
@@ -479,7 +479,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfexecutediagnosis
-     * @deprecated
+     * @deprecated NdfExecuteDiagnosis is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfExecuteDiagnosis(handle, hwnd) {
@@ -521,7 +521,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcloseincident
-     * @deprecated
+     * @deprecated NdfCloseIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCloseIncident(handle) {
@@ -628,7 +628,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfdiagnoseincident
-     * @deprecated
+     * @deprecated NdfDiagnoseIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
@@ -712,7 +712,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Other failure codes are returned if the repair failed to execute. In that case, the client can call <b>NdfRepairIncident</b> again with a different repair.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfrepairincident
-     * @deprecated
+     * @deprecated NdfRepairIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfRepairIncident(Handle, RepairEx, dwWait) {
@@ -755,7 +755,7 @@ class NetworkDiagnosticsFramework {
      * 
      *  Any result other than S_OK should be interpreted as an error.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcancelincident
-     * @deprecated
+     * @deprecated NdfCancelIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfCancelIncident(Handle) {
@@ -777,7 +777,7 @@ class NetworkDiagnosticsFramework {
      * 
      * The location of the trace file.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfgettracefile
-     * @deprecated
+     * @deprecated NdfGetTraceFile is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfGetTraceFile(Handle) {
