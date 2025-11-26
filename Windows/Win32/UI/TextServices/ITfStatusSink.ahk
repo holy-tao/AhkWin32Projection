@@ -31,11 +31,11 @@ class ITfStatusSink extends IUnknown{
     static VTableNames => ["OnStatusChange"]
 
     /**
-     * 
-     * @param {ITfContext} pic 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfstatussink-onstatuschange
+     * ITfStatusSink::OnStatusChange method
+     * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface whose status has changed.
+     * @param {Integer} dwFlags Indicates that one of the dynamic flags changed.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfstatussink-onstatuschange
      */
     OnStatusChange(pic, dwFlags) {
         result := ComCall(3, this, "ptr", pic, "uint", dwFlags, "HRESULT")

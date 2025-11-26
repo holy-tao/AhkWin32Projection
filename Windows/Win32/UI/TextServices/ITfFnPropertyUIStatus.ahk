@@ -31,10 +31,27 @@ class ITfFnPropertyUIStatus extends ITfFunction{
     static VTableNames => ["GetStatus", "SetStatus"]
 
     /**
+     * ITfFnPropertyUIStatus::GetStatus method
+     * @param {Pointer<Guid>} refguidProp Specifies the property identifier. This can be a custom identifier or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-properties">predefined property</a> identifiers.
+     * @returns {Integer} Pointer to a <b>DWORD</b> that recevies the property UI status. This can be zero or the following value.
      * 
-     * @param {Pointer<Guid>} refguidProp 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TF_PROPUI_STATUS_SAVETOFILE"></a><a id="tf_propui_status_savetofile"></a><dl>
+     * <dt><b>TF_PROPUI_STATUS_SAVETOFILE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property can be serialized. If this value is not present, the property cannot be serialized.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus
      */
     GetStatus(refguidProp) {
         result := ComCall(4, this, "ptr", refguidProp, "uint*", &pdw := 0, "HRESULT")
@@ -42,11 +59,40 @@ class ITfFnPropertyUIStatus extends ITfFunction{
     }
 
     /**
+     * ITfFnPropertyUIStatus::SetStatus method
+     * @param {Pointer<Guid>} refguidProp Specifies the property identifier. This can be a custom identifier or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-properties">predefined property</a> identifiers.
+     * @param {Integer} dw Contains the new property UI status. See the <i>pdw</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus">ITfFnPropertyUIStatus::GetStatus</a> for possible values.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} refguidProp 
-     * @param {Integer} dw 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-setstatus
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The text service does not support this method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnpropertyuistatus-setstatus
      */
     SetStatus(refguidProp, dw) {
         result := ComCall(5, this, "ptr", refguidProp, "uint", dw, "HRESULT")

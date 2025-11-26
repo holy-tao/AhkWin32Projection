@@ -46,10 +46,14 @@ class IFileSaveDialog extends IFileDialog{
     static VTableNames => ["SetSaveAsItem", "SetProperties", "SetCollectedProperties", "GetProperties", "ApplyProperties"]
 
     /**
+     * Sets an item to be used as the initial entry in a Save As dialog.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-setsaveasitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesavedialog-setsaveasitem
      */
     SetSaveAsItem(psi) {
         result := ComCall(27, this, "ptr", psi, "HRESULT")
@@ -57,10 +61,14 @@ class IFileSaveDialog extends IFileDialog{
     }
 
     /**
+     * Provides a property store that defines the default values to be used for the item being saved.
+     * @param {IPropertyStore} pStore Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
-     * @param {IPropertyStore} pStore 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-setproperties
+     * Pointer to the interface that represents the property store that contains the associated metadata.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesavedialog-setproperties
      */
     SetProperties(pStore) {
         result := ComCall(28, this, "ptr", pStore, "HRESULT")
@@ -68,11 +76,17 @@ class IFileSaveDialog extends IFileDialog{
     }
 
     /**
+     * Specifies which properties will be collected in the save dialog.
+     * @param {IPropertyDescriptionList} pList Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a>*</b>
      * 
-     * @param {IPropertyDescriptionList} pList 
-     * @param {BOOL} fAppendDefault 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-setcollectedproperties
+     * Pointer to the interface that represents the list of properties to collect. This parameter can be <b>NULL</b>.
+     * @param {BOOL} fAppendDefault Type: <b>BOOL</b>
+     * 
+     * <b>TRUE</b> to show default properties for the currently selected filetype in addition to the properties specified by <i>pList</i>. <b>FALSE</b> to show only properties specified by <i>pList</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesavedialog-setcollectedproperties
      */
     SetCollectedProperties(pList, fAppendDefault) {
         result := ComCall(29, this, "ptr", pList, "int", fAppendDefault, "HRESULT")
@@ -80,9 +94,11 @@ class IFileSaveDialog extends IFileDialog{
     }
 
     /**
+     * Retrieves the set of property values for a saved item or an item in the process of being saved.
+     * @returns {IPropertyStore} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>**</b>
      * 
-     * @returns {IPropertyStore} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-getproperties
+     * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> that receives the property values.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesavedialog-getproperties
      */
     GetProperties() {
         result := ComCall(30, this, "ptr*", &ppStore := 0, "HRESULT")
@@ -90,13 +106,23 @@ class IFileSaveDialog extends IFileDialog{
     }
 
     /**
+     * Applies a set of properties to an item using the Shell's copy engine.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psi 
-     * @param {IPropertyStore} pStore 
-     * @param {HWND} hwnd 
-     * @param {IFileOperationProgressSink} pSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-applyproperties
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the file being saved. This is usually the item retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getresult">GetResult</a>.
+     * @param {IPropertyStore} pStore Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
+     * 
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> that represents the property values to be applied to the file. This can be the property store returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-getproperties">IFileSaveDialog::GetProperties</a>.
+     * @param {HWND} hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the application window.
+     * @param {IFileOperationProgressSink} pSink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * 
+     * Pointer to an optional <b>IFileOperationProgressSink</b> that the calling application can use if they want to be notified of the progress of the property stamping. This value may be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesavedialog-applyproperties
      */
     ApplyProperties(psi, pStore, hwnd, pSink) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

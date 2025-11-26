@@ -32,11 +32,11 @@ class IColumnMapperCreator extends IUnknown{
     static VTableNames => ["GetColumnMapper"]
 
     /**
-     * 
-     * @param {PWSTR} wcsMachineName 
-     * @param {PWSTR} wcsCatalogName 
-     * @returns {IColumnMapper} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmappercreator-getcolumnmapper
+     * Retrieves a column mapper object.
+     * @param {PWSTR} wcsMachineName Machine on which the catalog exists.
+     * @param {PWSTR} wcsCatalogName Catalog for which column mapper is requested.
+     * @returns {IColumnMapper} Stores the outgoing column mapper pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmappercreator-getcolumnmapper
      */
     GetColumnMapper(wcsMachineName, wcsCatalogName) {
         wcsMachineName := wcsMachineName is String ? StrPtr(wcsMachineName) : wcsMachineName

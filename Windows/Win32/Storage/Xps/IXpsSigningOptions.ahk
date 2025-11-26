@@ -42,9 +42,9 @@ class IXpsSigningOptions extends IUnknown{
     static VTableNames => ["GetSignatureId", "SetSignatureId", "GetSignatureMethod", "SetSignatureMethod", "GetDigestMethod", "SetDigestMethod", "GetSignaturePartName", "SetSignaturePartName", "GetPolicy", "SetPolicy", "GetSigningTimeFormat", "SetSigningTimeFormat", "GetCustomObjects", "GetCustomReferences", "GetCertificateSet", "GetFlags", "SetFlags"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignatureid
+     * Gets the value of the Id attribute of the Signature element.
+     * @returns {PWSTR} The value of the <b>Id</b> attribute of the <b>Signature</b> element. If  the <b>Id</b> attribute is not present, the method returns an empty string.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignatureid
      */
     GetSignatureId() {
         result := ComCall(3, this, "ptr*", &signatureId := 0, "HRESULT")
@@ -52,10 +52,10 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} signatureId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsignatureid
+     * Sets the value of the Id attribute of the Signature element.
+     * @param {PWSTR} signatureId The string value to be set as the <b>Id</b> attribute of the <b>Signature</b> element.  If this parameter is <b>NULL</b>, the <b>Id</b> attribute is cleared.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsignatureid
      */
     SetSignatureId(signatureId) {
         signatureId := signatureId is String ? StrPtr(signatureId) : signatureId
@@ -65,9 +65,11 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
+     * Gets the signature method.
+     * @returns {PWSTR} The signature method that is expressed as a URI. If no signature method has been set, a <b>NULL</b> pointer is returned.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignaturemethod
+     * The following signature methods have been tested in Windows 7:
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignaturemethod
      */
     GetSignatureMethod() {
         result := ComCall(5, this, "ptr*", &signatureMethod := 0, "HRESULT")
@@ -75,10 +77,12 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the signature method.
+     * @param {PWSTR} signatureMethod The signature method expressed as a URI.
      * 
-     * @param {PWSTR} signatureMethod 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsignaturemethod
+     * This parameter must refer to a valid signature method. The following signature methods have been tested in Windows 7:
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsignaturemethod
      */
     SetSignatureMethod(signatureMethod) {
         signatureMethod := signatureMethod is String ? StrPtr(signatureMethod) : signatureMethod
@@ -88,9 +92,11 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
+     * Gets the current digest method.
+     * @returns {PWSTR} The current digest method.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getdigestmethod
+     * The following digest methods have been tested in Windows 7:
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getdigestmethod
      */
     GetDigestMethod() {
         result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
@@ -98,10 +104,12 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the URI of the digest method.
+     * @param {PWSTR} digestMethod The URI of the digest method.
      * 
-     * @param {PWSTR} digestMethod 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setdigestmethod
+     * This parameter must refer to the URI of a valid digest method. The following digest methods have been tested in Windows 7:
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setdigestmethod
      */
     SetDigestMethod(digestMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
@@ -111,9 +119,11 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
+     * Gets the part name of the document's signature part.
+     * @returns {IOpcPartUri} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document's signature part.
      * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignaturepartname
+     * If a signature part name has not been set, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignaturepartname
      */
     GetSignaturePartName() {
         result := ComCall(9, this, "ptr*", &signaturePartName := 0, "HRESULT")
@@ -121,10 +131,12 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the part name of the document's signature part.
+     * @param {IOpcPartUri} signaturePartName The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document's signature part.
      * 
-     * @param {IOpcPartUri} signaturePartName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsignaturepartname
+     * If this parameter is <b>NULL</b>, this method will generate a random, unique part name for the signature part.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsignaturepartname
      */
     SetSignaturePartName(signaturePartName) {
         result := ComCall(10, this, "ptr", signaturePartName, "HRESULT")
@@ -132,9 +144,9 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getpolicy
+     * Gets the XPS_SIGN_POLICY value that specifies the signing policy.
+     * @returns {Integer} The logical <b>OR</b> of the <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_policy">XPS_SIGN_POLICY</a> value that specifies the signing policy.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getpolicy
      */
     GetPolicy() {
         result := ComCall(11, this, "int*", &policy := 0, "HRESULT")
@@ -142,10 +154,10 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} policy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setpolicy
+     * Sets the XPS_SIGN_POLICY value that represents the signing policy.
+     * @param {Integer} policy The logical <b>OR</b> of  the <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_policy">XPS_SIGN_POLICY</a> values to be set as the signing policy.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setpolicy
      */
     SetPolicy(policy) {
         result := ComCall(12, this, "int", policy, "HRESULT")
@@ -153,9 +165,9 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsigningtimeformat
+     * Gets the format of the signing time string.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> value that specifies the format of the signing time string.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsigningtimeformat
      */
     GetSigningTimeFormat() {
         result := ComCall(13, this, "int*", &timeFormat := 0, "HRESULT")
@@ -163,10 +175,10 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} timeFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsigningtimeformat
+     * Sets the format of the signing time string.
+     * @param {Integer} timeFormat The <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> value that specifies the format of the signing time string.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setsigningtimeformat
      */
     SetSigningTimeFormat(timeFormat) {
         result := ComCall(14, this, "int", timeFormat, "HRESULT")
@@ -174,9 +186,9 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureCustomObjectSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcustomobjects
+     * Gets a pointer to an IOpcSignatureCustomObjectSet interface that contains a set of signature custom objects.
+     * @returns {IOpcSignatureCustomObjectSet} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobjectset">IOpcSignatureCustomObjectSet</a> interface that contains a set of signature custom objects.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcustomobjects
      */
     GetCustomObjects() {
         result := ComCall(15, this, "ptr*", &customObjectSet := 0, "HRESULT")
@@ -184,9 +196,9 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureReferenceSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcustomreferences
+     * Gets a pointer to an IOpcSignatureReferenceSet interface, which contains a set of signature custom references.
+     * @returns {IOpcSignatureReferenceSet} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereferenceset">IOpcSignatureReferenceSet</a> interface, which contains a set of signature custom references.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcustomreferences
      */
     GetCustomReferences() {
         result := ComCall(16, this, "ptr*", &customReferenceSet := 0, "HRESULT")
@@ -194,9 +206,9 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcCertificateSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcertificateset
+     * Gets an IOpcCertificateSet interface, which can be used to add additional certificates to the signature.
+     * @returns {IOpcCertificateSet} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopccertificateset">IOpcCertificateSet</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcertificateset
      */
     GetCertificateSet() {
         result := ComCall(17, this, "ptr*", &certificateSet := 0, "HRESULT")
@@ -204,9 +216,9 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getflags
+     * Gets the XPS_SIGN_FLAGS value that specifies the signing flags to be used for this signature.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_flags">XPS_SIGN_FLAGS</a> value that specifies the signing flags to be used for this signature.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getflags
      */
     GetFlags() {
         result := ComCall(18, this, "int*", &flags := 0, "HRESULT")
@@ -214,84 +226,10 @@ class IXpsSigningOptions extends IUnknown{
     }
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} flags 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * Sets the XPS_SIGN_FLAGS value that specifies the signing flags to use for this signature.
+     * @param {Integer} flags The <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_flags">XPS_SIGN_FLAGS</a> value that specifies the signing flags to use for this signature.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-setflags
      */
     SetFlags(flags) {
         result := ComCall(19, this, "int", flags, "HRESULT")

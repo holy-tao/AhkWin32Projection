@@ -36,10 +36,10 @@ class IUIAnimationTimerUpdateHandler extends IUnknown{
     static VTableNames => ["OnUpdate", "SetTimerClientEventHandler", "ClearTimerClientEventHandler"]
 
     /**
-     * 
-     * @param {Float} timeNow 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimerupdatehandler-onupdate
+     * Handles update events from the timer.
+     * @param {Float} timeNow The current timer time, in seconds.
+     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_update_result">UI_ANIMATION_UPDATE_RESULT</a> enumeration, indicating whether any animation variables changed as a result of the update.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimerupdatehandler-onupdate
      */
     OnUpdate(timeNow) {
         result := ComCall(3, this, "double", timeNow, "int*", &result := 0, "HRESULT")
@@ -47,10 +47,11 @@ class IUIAnimationTimerUpdateHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUIAnimationTimerClientEventHandler} handler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimerupdatehandler-settimerclienteventhandler
+     * Specifies a handler for timer client status change events.
+     * @param {IUIAnimationTimerClientEventHandler} handler A handler for timer client events.  The specified object must implement
+     *                <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimerclienteventhandler">IUIAnimationTimerUpdateHandler</a>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimerupdatehandler-settimerclienteventhandler
      */
     SetTimerClientEventHandler(handler) {
         result := ComCall(4, this, "ptr", handler, "HRESULT")
@@ -58,9 +59,9 @@ class IUIAnimationTimerUpdateHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimerupdatehandler-cleartimerclienteventhandler
+     * Clears the handler for timer client status change events.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimerupdatehandler-cleartimerclienteventhandler
      */
     ClearTimerClientEventHandler() {
         result := ComCall(5, this, "HRESULT")

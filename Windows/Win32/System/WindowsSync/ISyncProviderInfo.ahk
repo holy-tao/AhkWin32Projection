@@ -41,10 +41,10 @@ class ISyncProviderInfo extends IPropertyStore{
     static VTableNames => ["GetSyncProvider"]
 
     /**
-     * 
-     * @param {Integer} dwClsContext 
-     * @returns {IRegisteredSyncProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderinfo-getsyncprovider
+     * Creates an instance of the synchronization provider.
+     * @param {Integer} dwClsContext The context in which the code that manages the newly created object will run. The only context supported is <b>CLSCTX_INPROC_SERVER</b>.
+     * @returns {IRegisteredSyncProvider} The instance of the synchronization provider.
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderinfo-getsyncprovider
      */
     GetSyncProvider(dwClsContext) {
         result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")

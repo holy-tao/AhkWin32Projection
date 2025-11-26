@@ -53,9 +53,10 @@ class ITCallInfoChangeEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_call
+     * The get_Call method returns the ITCallInfo interface on which call information has changed.
+     * @returns {ITCallInfo} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface on which information has changed.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfochangeevent-get_call
      */
     get_Call() {
         result := ComCall(7, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -63,9 +64,10 @@ class ITCallInfoChangeEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_cause
+     * The get_Cause method gets a CALLINFOCHANGE_CAUSE description of the change.
+     * @returns {Integer} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfochange_cause">CALLINFOCHANGE_CAUSE</a> description of the call event that has occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfochangeevent-get_cause
      */
     get_Cause() {
         result := ComCall(8, this, "int*", &pCIC := 0, "HRESULT")
@@ -73,9 +75,10 @@ class ITCallInfoChangeEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_callbackinstance
+     * The get_CallbackInstance method gets a pointer to the callback instance associated with this event.
+     * @returns {Integer} Pointer to callback instance returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfochangeevent-get_callbackinstance
      */
     get_CallbackInstance() {
         result := ComCall(9, this, "int*", &plCallbackInstance := 0, "HRESULT")

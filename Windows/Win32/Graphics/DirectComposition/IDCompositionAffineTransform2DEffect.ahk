@@ -31,10 +31,14 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetInterpolationMode", "SetBorderMode", "SetTransformMatrix", "SetTransformMatrixElement", "SetTransformMatrixElement1", "SetSharpness", "SetSharpness1"]
 
     /**
+     * Sets the interpolation mode of the effect.
+     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE</a></b>
      * 
-     * @param {Integer} interpolationMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
+     * Specifies the interpolation mode of the effect.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
      */
     SetInterpolationMode(interpolationMode) {
         result := ComCall(4, this, "int", interpolationMode, "HRESULT")
@@ -42,10 +46,14 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the border mode to use with the effect.
+     * @param {Integer} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_BORDER_MODE</a></b>
      * 
-     * @param {Integer} borderMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
+     * Specifies the border mode to use with the effect.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
      */
     SetBorderMode(borderMode) {
         result := ComCall(5, this, "int", borderMode, "HRESULT")
@@ -53,10 +61,14 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the transform matrix of the effect.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transformMatrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transformMatrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
+     * Specifies the transform matrix for the effect to use.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
      */
     SetTransformMatrix(transformMatrix) {
         result := ComCall(6, this, "ptr", transformMatrix, "HRESULT")

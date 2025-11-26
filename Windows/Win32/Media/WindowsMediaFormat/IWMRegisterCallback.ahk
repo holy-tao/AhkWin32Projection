@@ -31,11 +31,11 @@ class IWMRegisterCallback extends IUnknown{
     static VTableNames => ["Advise", "Unadvise"]
 
     /**
-     * 
-     * @param {IWMStatusCallback} pCallback 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistercallback-advise
+     * The Advise method registers the application to receive status messages from the sink object.
+     * @param {IWMStatusCallback} pCallback Pointer to the application's <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface. The application must implement this interface.
+     * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This is passed to the application in calls to <b>OnStatus</b>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmregistercallback-advise
      */
     Advise(pCallback, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -45,11 +45,11 @@ class IWMRegisterCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IWMStatusCallback} pCallback 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistercallback-unadvise
+     * The Unadvise method unregisters the application's IWMStatusCallback callback interface. Call this method when the application has finished using the sink object. It notifies the object to stop sending status events to the application.
+     * @param {IWMStatusCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface of an object.
+     * @param {Pointer<Void>} pvContext Generic pointer, for use by the application.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmregistercallback-unadvise
      */
     Unadvise(pCallback, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"

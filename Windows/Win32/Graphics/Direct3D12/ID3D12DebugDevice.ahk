@@ -31,10 +31,16 @@ class ID3D12DebugDevice extends IUnknown{
     static VTableNames => ["SetFeatureMask", "GetFeatureMask", "ReportLiveDeviceObjects"]
 
     /**
+     * Set a bit field of flags that will turn debug features on and off.
+     * @param {Integer} Mask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a></b>
      * 
-     * @param {Integer} Mask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-setfeaturemask
+     * Feature-mask flags, as a bitwise-OR'd combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a> enumeration constants.
+     *             If a flag is present, that feature will be set to on; otherwise, the feature will be set to off.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     *             <a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-setfeaturemask
      */
     SetFeatureMask(Mask) {
         result := ComCall(3, this, "int", Mask, "HRESULT")
@@ -42,9 +48,13 @@ class ID3D12DebugDevice extends IUnknown{
     }
 
     /**
+     * Gets a bit field of flags that indicates which debug features are on or off.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-getfeaturemask
+     * Mask of feature-mask flags,
+     *             as a bitwise OR'ed combination of <a href="/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a> enumeration constants.
+     *             If a flag is present, then that feature will be set to on, otherwise the feature will be set to off.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-getfeaturemask
      */
     GetFeatureMask() {
         result := ComCall(4, this, "int")
@@ -52,10 +62,16 @@ class ID3D12DebugDevice extends IUnknown{
     }
 
     /**
+     * Reports information about a device object's lifetime.
+     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a></b>
      * 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-reportlivedeviceobjects
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a> enumeration.
+     *             This method uses the value in <i>Flags</i> to determine the amount of information to report about a device object's lifetime.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     *             <a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-reportlivedeviceobjects
      */
     ReportLiveDeviceObjects(Flags) {
         result := ComCall(5, this, "int", Flags, "HRESULT")

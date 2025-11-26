@@ -44,10 +44,10 @@ class IMbnPinManagerEvents extends IUnknown{
     static VTableNames => ["OnPinListAvailable", "OnGetPinStateComplete"]
 
     /**
-     * 
-     * @param {IMbnPinManager} pinManager 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanagerevents-onpinlistavailable
+     * Notification method called by the Mobile Broadband service to indicate that the list of device PINs is available.
+     * @param {IMbnPinManager} pinManager Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> interface that represents the Mobile Broadband device for which the PIN list is available.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinmanagerevents-onpinlistavailable
      */
     OnPinListAvailable(pinManager) {
         result := ComCall(3, this, "ptr", pinManager, "HRESULT")
@@ -55,13 +55,22 @@ class IMbnPinManagerEvents extends IUnknown{
     }
 
     /**
+     * Notification method called by the Mobile Broadband service to indicate the completion of an asynchronous operation triggered by a call to the GetPinState method of IMbnPinManager.
+     * @param {IMbnPinManager} pinManager Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> interface that represents the Mobile Broadband device for which the operation was performed.
+     * @param {MBN_PIN_INFO} pinInfo A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains the device PIN information.
      * 
-     * @param {IMbnPinManager} pinManager 
-     * @param {MBN_PIN_INFO} pinInfo 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanagerevents-ongetpinstatecomplete
+     * If <b>pinInfo.pinState</b> is set to <b>MBN_PIN_STATE_NONE</b> then no PIN is expected to be entered by device.
+     * 
+     * If <b>pinInfo.pinState</b> is set to <b>MBN_PIN_STATE_ENTER</b> then the device is expecting a PIN to be entered and <b>pinInfo.pinType</b> represents the type of PIN expected by device.
+     * 
+     * If <b>pinInfo.pinState</b> is set to <b>MBN_PIN_STATE_UNBLOCK</b> then the device is PIN blocked and a PIN unblock operation should be tried to unblock the device. In this case, <b>pinInfo.pinType</b> represents the PIN type on which the unblock operation should be performed. 
+     * 
+     * 
+     * If <b>pinInfo.pinState</b> is set to <b>MBN_PIN_STATE_ENTER</b> or <b>MBN_PIN_STATE_UNBLOCK</b>, then <b>pinInfo.attemptsRemaining</b> contains the number of attempts remaining to enter a valid PIN or PIN unblock key (PUK). If the number of attempts remaining is unknown then <b>pinInfo.attemptsRemaining</b> is set to <b>MBN_ATTEMPTS_REMAINING_UNKNOWN</b>.
+     * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify this operation.
+     * @param {HRESULT} status The operation completion status.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinmanagerevents-ongetpinstatecomplete
      */
     OnGetPinStateComplete(pinManager, pinInfo, requestID, status) {
         result := ComCall(4, this, "ptr", pinManager, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")

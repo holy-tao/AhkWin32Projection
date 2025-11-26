@@ -48,20 +48,24 @@ class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode{
     static VTableNames => ["SetOutputBounds", "GetOutputBounds"]
 
     /**
+     * This sets the output bounds for the support transform.
+     * @param {Pointer<RECT>} outputBounds Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh847950(v=vs.85)">D2D1_RECT_L</a>*</b>
      * 
-     * @param {Pointer<RECT>} outputBounds 
+     * The output bounds.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-setoutputbounds
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-setoutputbounds
      */
     SetOutputBounds(outputBounds) {
         ComCall(4, this, "ptr", outputBounds)
     }
 
     /**
+     * Returns the output rectangle of the support transform.
+     * @param {Pointer<RECT>} outputBounds Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh847950(v=vs.85)">D2D1_RECT_L</a>*</b>
      * 
-     * @param {Pointer<RECT>} outputBounds 
+     * The output bounds.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-getoutputbounds
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1boundsadjustmenttransform-getoutputbounds
      */
     GetOutputBounds(outputBounds) {
         ComCall(5, this, "ptr", outputBounds)

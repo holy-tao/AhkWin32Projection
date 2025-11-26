@@ -38,12 +38,21 @@ class ID3D10Texture1D extends ID3D10Resource{
     static VTableNames => ["Map", "Unmap", "GetDesc"]
 
     /**
+     * Get a pointer to the data contained in a subresource, and deny the GPU access to that subresource.
+     * @param {Integer} Subresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Subresource 
-     * @param {Integer} MapType 
-     * @param {Integer} MapFlags 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10texture1d-map
+     * Index number of the subresource. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-d3d10calcsubresource">D3D10CalcSubresource</a> for more details.
+     * @param {Integer} MapType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP</a></b>
+     * 
+     * Specifies the CPU's read and write permissions for a resource. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP</a>.
+     * @param {Integer} MapFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map_flag">Flag</a> that specifies what the CPU should do when the GPU is busy. This flag is optional.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Pointer to the texture resource data.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10texture1d-map
      */
     Map(Subresource, MapType, MapFlags) {
         result := ComCall(10, this, "uint", Subresource, "int", MapType, "uint", MapFlags, "ptr*", &ppData := 0, "HRESULT")
@@ -51,20 +60,41 @@ class ID3D10Texture1D extends ID3D10Resource{
     }
 
     /**
+     * Invalidate the pointer to a resource that was retrieved by ID3D10Texture1D::Map, and re-enable the GPU's access to that resource.
+     * @remarks
      * 
-     * @param {Integer} Subresource 
+     * A subresource must be mapped before Unmap is called.
+     * 
+     * <table>
+     * <tr>
+     * <td>
+     * Differences between Direct3D 9 and Direct3D 10:
+     * 
+     * Unmap in Direct3D 10 is analogous to resource Unlock in Direct3D 9.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * 
+     * 
+     * @param {Integer} Subresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Subresource</a> to be unmapped. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-d3d10calcsubresource">D3D10CalcSubresource</a> for more details.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10texture1d-unmap
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10texture1d-unmap
      */
     Unmap(Subresource) {
         ComCall(11, this, "uint", Subresource)
     }
 
     /**
+     * Get the properties of the texture resource.
+     * @param {Pointer<D3D10_TEXTURE1D_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture1d_desc">D3D10_TEXTURE1D_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D10_TEXTURE1D_DESC>} pDesc 
+     * Pointer to a resource description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture1d_desc">D3D10_TEXTURE1D_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10texture1d-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10texture1d-getdesc
      */
     GetDesc(pDesc) {
         ComCall(12, this, "ptr", pDesc)

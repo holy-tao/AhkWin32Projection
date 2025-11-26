@@ -31,21 +31,51 @@ class IATSC_ETT extends IUnknown{
     static VTableNames => ["Initialize", "GetVersionNumber", "GetProtocolVersion", "GetEtmId", "GetExtendedMessageText"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {ISectionList} pSectionList 
-     * @param {IMpeg2Data} pMPEGData 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {ISectionList} pSectionList Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-isectionlist">ISectionList</a> interface of the <b>SectionList</b> object that contains the section data.
+     * @param {IMpeg2Data} pMPEGData Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-impeg2data">IMpeg2Data</a> interface of the MPEG-2 Sections and Tables filter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MPEG2_E_ALREADY_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object is already initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-initialize
      */
     Initialize(pSectionList, pMPEGData) {
         result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
@@ -53,9 +83,9 @@ class IATSC_ETT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getversionnumber
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the version_number field.
+     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -63,9 +93,9 @@ class IATSC_ETT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getprotocolversion
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the protocol_version field.
+     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getprotocolversion
      */
     GetProtocolVersion() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -73,9 +103,9 @@ class IATSC_ETT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getetmid
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the ETM_id field.
+     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getetmid
      */
     GetEtmId() {
         result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -83,11 +113,62 @@ class IATSC_ETT extends IUnknown{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Pointer<Integer>} pdwLength Receives the length of the title text, in bytes.
+     * @param {Pointer<Pointer<Integer>>} ppText Receives a pointer to the title text buffer. The method allocates the buffer and fills it with the title text, which is formatted as a Multiple String Structure as defined by ATSC PSIP Standard A/65. The caller must free the buffer by calling <b>CoTaskMemFree</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer<Integer>} pdwLength 
-     * @param {Pointer<Pointer<Integer>>} ppText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getextendedmessagetext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NULL pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The length of the text is zero.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_ett-getextendedmessagetext
      */
     GetExtendedMessageText(pdwLength, ppText) {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"

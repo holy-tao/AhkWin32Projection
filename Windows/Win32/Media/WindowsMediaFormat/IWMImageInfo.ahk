@@ -36,9 +36,9 @@ class IWMImageInfo extends IUnknown{
     static VTableNames => ["GetImageCount", "GetImage"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimagecount
+     * The GetImageCount method retrieves the number of images stored in a file using ID3v2 &#0034;APIC&#0034; frames. Images stored in the file using attributes in the Windows Media namespace, or any images stored in custom attributes, are not included in this count.
+     * @returns {Integer} Pointer to the number of images.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimagecount
      */
     GetImageCount() {
         result := ComCall(3, this, "uint*", &pcImages := 0, "HRESULT")
@@ -46,17 +46,80 @@ class IWMImageInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} wIndex 
-     * @param {Pointer<Integer>} pcchMIMEType 
-     * @param {PWSTR} pwszMIMEType 
-     * @param {Pointer<Integer>} pcchDescription 
-     * @param {PWSTR} pwszDescription 
+     * The GetImage method retrieves an image stored in a file as an ID3v2 &#0034;APIC&#0034; metadata frame.
+     * @param {Integer} wIndex <b>WORD</b> containing the image index. This is a number between zero, and one less than the image count retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimagecount">IWMImageInfo::GetImageCount</a>.
+     * @param {Pointer<Integer>} pcchMIMEType Pointer to a <b>WORD</b> containing the length, in wide characters, of <i>pwszMIMEType</i>, including the terminating <b>NULL</b> character. On the first call to this method, pass <b>NULL</b> as <i>pwszMIMEType</i> to retrieve the required number of characters.
+     * @param {PWSTR} pwszMIMEType Pointer to a wide-character <b>null</b>-terminated string containing the MIME Type associated with the image. Set to <b>NULL</b> on the first call and <i>pcchMIMEType</i> will be set to the number of wide characters, including the terminating <b>NULL</b>, in this string.
+     * @param {Pointer<Integer>} pcchDescription Pointer to a <b>WORD</b> containing the length, in wide characters, of <i>pwszDescription</i>, including the terminating <b>NULL</b> character. On the first call to this method, pass <b>NULL</b> as <i>pwszDescription</i> to retrieve the required number of characters.
+     * @param {PWSTR} pwszDescription Pointer to a wide-character <b>null</b>-terminated string containing the image description. Set to <b>NULL</b> on the first call and <i>pcchDescription</i> will be set to the number of wide characters, including the terminating <b>NULL</b>, in this string.
      * @param {Pointer<Integer>} pImageType 
-     * @param {Pointer<Integer>} pcbImageData 
-     * @param {Pointer<Integer>} pbImageData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimage
+     * @param {Pointer<Integer>} pcbImageData Pointer to a <b>DWORD</b> containing the length, in bytes, of the image pointed to by <i>pbImageData</i>. On the first call to this method, pass <b>NULL</b> as <i>pbImageData</i> to retrieve the required number of bytes.
+     * @param {Pointer<Integer>} pbImageData Pointer to a <b>BYTE</b> buffer containing the image data. Set to <b>NULL</b> on the first call and <i>pcbImageData</i> will be set to the number of bytes in the buffer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the following parameters is <b>NULL</b>.
+     * 
+     * <i>pcchMIMEType</i>
+     * 
+     * <b><i></i></b>
+     * 
+     * <i>pcbImageData</i>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the ID3 frames that should be in the file cannot be accessed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ASF_E_BUFFERTOOSMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value referenced by one of the following parameters is less than the required buffer size for the corresponding output parameter.
+     * 
+     * <i>pcchMIMEType</i>
+     * 
+     * <i>pcchDescription</i>
+     * 
+     * <i>pcbImageData</i>
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimage
      */
     GetImage(wIndex, pcchMIMEType, pwszMIMEType, pcchDescription, pwszDescription, pImageType, pcbImageData, pbImageData) {
         pwszMIMEType := pwszMIMEType is String ? StrPtr(pwszMIMEType) : pwszMIMEType

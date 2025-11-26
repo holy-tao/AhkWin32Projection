@@ -54,9 +54,9 @@ class ITextChildProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves this element's nearest ancestor provider that supports the Text control pattern.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textcontainer
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textcontainer
      */
     get_TextContainer() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -64,9 +64,9 @@ class ITextChildProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a text range that encloses this child element.
      * @returns {ITextRangeProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textrange
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textrange
      */
     get_TextRange() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")

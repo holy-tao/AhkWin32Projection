@@ -54,10 +54,14 @@ class IValueProvider extends IUnknown{
     }
 
     /**
+     * Sets the value of control.
+     * @param {PWSTR} val Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} val 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue
+     * The value to set. The provider is responsible for converting the value to the appropriate data type.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue
      */
     SetValue(val) {
         val := val is String ? StrPtr(val) : val
@@ -67,9 +71,21 @@ class IValueProvider extends IUnknown{
     }
 
     /**
+     * The value of the control.
+     * @remarks
+     * 
+     * Single-line edit controls support programmatic access to their contents by implementing <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-ivalueprovider">IValueProvider</a> (in addition to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextprovider">ITextProvider</a>). However, multi-line edit controls do not implement <b>IValueProvider</b>.
+     * 
+     * 
+     * To retrieve the textual contents of multi-line edit controls, the controls must implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextprovider">ITextProvider</a>. However, <b>ITextProvider</b> does not support setting the value of a control.
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-ivalueprovider">IValueProvider</a> does not support the retrieval of formatting information or substring values. Implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextprovider">ITextProvider</a> in these scenarios.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivalueprovider-get_value
      */
     get_Value() {
         pRetVal := BSTR()
@@ -78,9 +94,15 @@ class IValueProvider extends IUnknown{
     }
 
     /**
+     * Indicates whether the value of a control is read-only.
+     * @remarks
+     * 
+     * A control should have its IsEnabled property (<a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-automation-element-propids">UIA_IsEnabledPropertyId</a>) set to <b>TRUE</b> and its <b>IValueProvider::IsReadOnly</b> 
+     *             property set to <b>FALSE</b> before allowing a call to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue">IValueProvider::SetValue</a>.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_isreadonly
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivalueprovider-get_isreadonly
      */
     get_IsReadOnly() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")

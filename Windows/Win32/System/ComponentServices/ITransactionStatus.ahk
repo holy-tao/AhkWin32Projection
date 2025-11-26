@@ -31,10 +31,10 @@ class ITransactionStatus extends IUnknown{
     static VTableNames => ["SetTransactionStatus", "GetTransactionStatus"]
 
     /**
-     * 
-     * @param {HRESULT} hrStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionstatus-settransactionstatus
+     * Sets the transaction status to either committed or aborted. Do not use this method. It is used only internally by COM+.
+     * @param {HRESULT} hrStatus The status of the transaction.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionstatus-settransactionstatus
      */
     SetTransactionStatus(hrStatus) {
         result := ComCall(3, this, "int", hrStatus, "HRESULT")
@@ -42,10 +42,10 @@ class ITransactionStatus extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<HRESULT>} pHrStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionstatus-gettransactionstatus
+     * Retrieves the transaction status.
+     * @param {Pointer<HRESULT>} pHrStatus he status of the transaction. See Remarks section for more information.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionstatus-gettransactionstatus
      */
     GetTransactionStatus(pHrStatus) {
         pHrStatusMarshal := pHrStatus is VarRef ? "int*" : "ptr"

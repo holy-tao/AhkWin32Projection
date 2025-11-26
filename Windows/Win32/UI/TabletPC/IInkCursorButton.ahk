@@ -68,9 +68,14 @@ class IInkCursorButton extends IDispatch{
     }
 
     /**
+     * Gets the name of the object.
+     * @remarks
+     * 
+     * Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, WM_PAINT; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursorbutton-get_name
      */
     get_Name() {
         Name := BSTR()
@@ -90,9 +95,14 @@ class IInkCursorButton extends IDispatch{
     }
 
     /**
+     * Gets the state of a cursor button, such as whether the button is unavailable, up, or down.
+     * @remarks
+     * 
+     * For a detailed list of state values that you can use, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcursorbuttonstate">InkCursorButtonState</a> enumeration.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_state
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursorbutton-get_state
      */
     get_State() {
         result := ComCall(9, this, "int*", &CurrentState := 0, "HRESULT")

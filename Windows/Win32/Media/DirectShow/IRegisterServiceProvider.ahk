@@ -31,11 +31,11 @@ class IRegisterServiceProvider extends IUnknown{
     static VTableNames => ["RegisterService"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidService 
-     * @param {IUnknown} pUnkObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iregisterserviceprovider-registerservice
+     * The RegisterService method registers an object as a service.
+     * @param {Pointer<Guid>} guidService Service identifier (SID) of the service.
+     * @param {IUnknown} pUnkObject Pointer to the <b>IUnknown</b> interface of the service object, or <b>NULL</b> to unregister the service.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iregisterserviceprovider-registerservice
      */
     RegisterService(guidService, pUnkObject) {
         result := ComCall(3, this, "ptr", guidService, "ptr", pUnkObject, "HRESULT")

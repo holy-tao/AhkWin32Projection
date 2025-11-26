@@ -35,10 +35,14 @@ class IBrowserService4 extends IBrowserService3{
     static VTableNames => ["ActivateView", "SaveViewState", "_ResizeAllBorders"]
 
     /**
+     * Deprecated.
+     * @param {BOOL} fPendingView Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fPendingView 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-activateview
+     * Specifies whether the view is pending.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice4-activateview
      */
     ActivateView(fPendingView) {
         result := ComCall(97, this, "int", fPendingView, "HRESULT")
@@ -46,9 +50,11 @@ class IBrowserService4 extends IBrowserService3{
     }
 
     /**
+     * Deprecated.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-saveviewstate
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice4-saveviewstate
      */
     SaveViewState() {
         result := ComCall(98, this, "HRESULT")
@@ -56,9 +62,11 @@ class IBrowserService4 extends IBrowserService3{
     }
 
     /**
+     * Deprecated.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-_resizeallborders
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice4-_resizeallborders
      */
     _ResizeAllBorders() {
         result := ComCall(99, this, "HRESULT")

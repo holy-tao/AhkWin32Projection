@@ -53,9 +53,10 @@ class ITQOSEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_call
+     * The get_Call method gets a pointer to the ITCallInfo interface for the call on which the QOS event occurred.
+     * @returns {ITCallInfo} Points to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itqosevent-get_call
      */
     get_Call() {
         result := ComCall(7, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -63,9 +64,9 @@ class ITQOSEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_event
+     * The get_Event method gets the QOS_EVENT indicator.
+     * @returns {Integer} Indicator of the QOS event type.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itqosevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pQosEvent := 0, "HRESULT")
@@ -73,9 +74,9 @@ class ITQOSEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_mediatype
+     * The get_MediaType method gets the media type indicator.
+     * @returns {Integer} Indicates the media type for the call on which the QOS event occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itqosevent-get_mediatype
      */
     get_MediaType() {
         result := ComCall(9, this, "int*", &plMediaType := 0, "HRESULT")

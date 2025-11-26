@@ -32,9 +32,9 @@ class IDWriteTextLayout3 extends IDWriteTextLayout2{
     static VTableNames => ["InvalidateLayout", "SetLineSpacing", "GetLineSpacing", "GetLineMetrics"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-invalidatelayout
+     * Invalidates the layout, forcing layout to remeasure before calling the metrics or drawing functions. This is useful if the locality of a font changes, and layout should be redrawn, or if the size of a client implemented IDWriteInlineObject changes.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritetextlayout3-invalidatelayout
      */
     InvalidateLayout() {
         result := ComCall(80, this, "HRESULT")
@@ -42,10 +42,10 @@ class IDWriteTextLayout3 extends IDWriteTextLayout2{
     }
 
     /**
-     * 
-     * @param {Pointer<DWRITE_LINE_SPACING>} lineSpacingOptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-setlinespacing
+     * Set line spacing.
+     * @param {Pointer<DWRITE_LINE_SPACING>} lineSpacingOptions How to manage space between lines.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritetextlayout3-setlinespacing
      */
     SetLineSpacing(lineSpacingOptions) {
         result := ComCall(81, this, "ptr", lineSpacingOptions, "HRESULT")
@@ -53,9 +53,9 @@ class IDWriteTextLayout3 extends IDWriteTextLayout2{
     }
 
     /**
-     * 
-     * @returns {DWRITE_LINE_SPACING} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-getlinespacing
+     * Gets line spacing information.
+     * @returns {DWRITE_LINE_SPACING} How to manage space between lines.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritetextlayout3-getlinespacing
      */
     GetLineSpacing() {
         lineSpacingOptions := DWRITE_LINE_SPACING()
@@ -64,12 +64,13 @@ class IDWriteTextLayout3 extends IDWriteTextLayout2{
     }
 
     /**
-     * 
-     * @param {Pointer<DWRITE_LINE_METRICS1>} lineMetrics 
-     * @param {Integer} maxLineCount 
-     * @param {Pointer<Integer>} actualLineCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-getlinemetrics
+     * Retrieves properties of each line.
+     * @param {Pointer<DWRITE_LINE_METRICS1>} lineMetrics The array to fill with line information.
+     * @param {Integer} maxLineCount The maximum size of the lineMetrics array.
+     * @param {Pointer<Integer>} actualLineCount The actual size of the lineMetrics    
+     *      array that is needed.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritetextlayout3-getlinemetrics
      */
     GetLineMetrics(lineMetrics, maxLineCount, actualLineCount) {
         actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : "ptr"

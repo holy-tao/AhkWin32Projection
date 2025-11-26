@@ -37,11 +37,11 @@ class ILanguageExceptionStackBackTrace extends IUnknown{
     static VTableNames => ["GetStackBackTrace"]
 
     /**
-     * 
-     * @param {Integer} maxFramesToCapture 
-     * @param {Pointer<Pointer>} stackBackTrace 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionstackbacktrace-getstackbacktrace
+     * Retrieves the back stack trace.
+     * @param {Integer} maxFramesToCapture The maximum number of frames to capture.
+     * @param {Pointer<Pointer>} stackBackTrace An array containing the stack back trace; the maximum size is the <i>maxFramesToCapture</i>.
+     * @returns {Integer} On success, contains a pointer to the number of frames actually captured.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionstackbacktrace-getstackbacktrace
      */
     GetStackBackTrace(maxFramesToCapture, stackBackTrace) {
         stackBackTraceMarshal := stackBackTrace is VarRef ? "ptr*" : "ptr"

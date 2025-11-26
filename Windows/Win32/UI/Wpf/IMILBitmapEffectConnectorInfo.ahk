@@ -31,9 +31,11 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
     static VTableNames => ["GetIndex", "GetOptimalFormat", "GetNumberFormats", "GetFormat"]
 
     /**
+     * Retrieves the zero based index value for the pin.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getindex
+     * When this method returns, contains the zero based index value for the pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getindex
      */
     GetIndex() {
         result := ComCall(3, this, "uint*", &puiIndex := 0, "HRESULT")
@@ -41,9 +43,11 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the optimal pixel format for the pin.
+     * @returns {Guid} Type: <b>WICPixelFormatGUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getoptimalformat
+     * When this method returns, contains the optimal pixel format for the pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getoptimalformat
      */
     GetOptimalFormat() {
         pFormat := Guid()
@@ -52,9 +56,11 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the number of pixel formats supported by the pin.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getnumberformats
+     * When this method returns, contains the number of pixel formats supported by the pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getnumberformats
      */
     GetNumberFormats() {
         result := ComCall(5, this, "uint*", &pulNumberFormats := 0, "HRESULT")
@@ -62,10 +68,14 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the pixel format for the given pin.
+     * @param {Integer} ulIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} ulIndex 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getformat
+     * A zero based index value indicating the pin to retrieve the pixel format.
+     * @returns {Guid} Type: <b>WICPixelFormatGUID*</b>
+     * 
+     * When this method returns, contains the pixel format of the given pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getformat
      */
     GetFormat(ulIndex) {
         pFormat := Guid()

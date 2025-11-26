@@ -40,9 +40,9 @@ class ISensorDataReport extends IUnknown{
     static VTableNames => ["GetTimestamp", "GetSensorValue", "GetSensorValues"]
 
     /**
-     * 
-     * @returns {SYSTEMTIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-gettimestamp
+     * Retrieves the time at which the data report was created.
+     * @returns {SYSTEMTIME} Address of a <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> variable that receives the time stamp.
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensordatareport-gettimestamp
      */
     GetTimestamp() {
         pTimeStamp := SYSTEMTIME()
@@ -51,10 +51,10 @@ class ISensorDataReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<PROPERTYKEY>} pKey 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalue
+     * Retrieves a single data field value from the data report.
+     * @param {Pointer<PROPERTYKEY>} pKey <b>REFPROPERTYKEY</b> indicating the data field to retrieve.
+     * @returns {PROPVARIANT} Address of a <b>PROPVARIANT</b> that receives the data field value.
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalue
      */
     GetSensorValue(pKey) {
         pValue := PROPVARIANT()
@@ -63,10 +63,10 @@ class ISensorDataReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IPortableDeviceKeyCollection} pKeys 
-     * @returns {IPortableDeviceValues} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalues
+     * Retrieves a collection of data field values.
+     * @param {IPortableDeviceKeyCollection} pKeys Pointer to the <a href="https://docs.microsoft.com/previous-versions//ms739549(v=vs.85)">IPortableDeviceKeyCollection</a> interface that contains the data fields for which to retrieve values. Set to <b>NULL</b> to retrieve values for all supported data fields.
+     * @returns {IPortableDeviceValues} Address of an <a href="https://docs.microsoft.com/previous-versions//ms740012(v=vs.85)">IPortableDeviceValues</a> interface pointer that receives the pointer to the retrieved values.
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalues
      */
     GetSensorValues(pKeys) {
         result := ComCall(5, this, "ptr", pKeys, "ptr*", &ppValues := 0, "HRESULT")

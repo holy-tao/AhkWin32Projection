@@ -31,10 +31,10 @@ class IPlayToControl extends IUnknown{
     static VTableNames => ["Connect", "Disconnect"]
 
     /**
-     * 
-     * @param {IMFSharingEngineClassFactory} pFactory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytocontrol-connect
+     * Connects the media element to the media sharing engine.
+     * @param {IMFSharingEngineClassFactory} pFactory A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/nn-mfsharingengine-imfsharingengineclassfactory">IMFSharingEngineClassFactory</a> interface. The media element uses this interface to create the Sharing Engine.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-iplaytocontrol-connect
      */
     Connect(pFactory) {
         result := ComCall(3, this, "ptr", pFactory, "HRESULT")
@@ -42,9 +42,9 @@ class IPlayToControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytocontrol-disconnect
+     * Disconnects the media element from the media sharing engine.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-iplaytocontrol-disconnect
      */
     Disconnect() {
         result := ComCall(4, this, "HRESULT")

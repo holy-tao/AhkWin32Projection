@@ -35,9 +35,9 @@ class IMbnConnectionContext extends IUnknown{
     static VTableNames => ["GetProvisionedContexts", "SetProvisionedContext"]
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontext-getprovisionedcontexts
+     * Gets a list of connection contexts.
+     * @returns {Pointer<SAFEARRAY>} A list of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_context">MBN_CONTEXT</a> values that represent connection contexts stored in the device. On error, this array is <b>NULL</b>. When successful, the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectioncontext-getprovisionedcontexts
      */
     GetProvisionedContexts() {
         result := ComCall(3, this, "ptr*", &provisionedContexts := 0, "HRESULT")
@@ -45,11 +45,11 @@ class IMbnConnectionContext extends IUnknown{
     }
 
     /**
-     * 
-     * @param {MBN_CONTEXT} provisionedContexts 
-     * @param {PWSTR} providerID 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontext-setprovisionedcontext
+     * Adds or updates a provisioned context.
+     * @param {MBN_CONTEXT} provisionedContexts An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_context">MBN_CONTEXT</a> structure that specifies the provisioned context to be stored in the device or SIM.
+     * @param {PWSTR} providerID A string that represents the network provider ID for which the provisioned context should be stored.  The device should return the added provisioned context in response to any subsequent query when a SIM with this home provider ID is in the device.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectioncontext-setprovisionedcontext
      */
     SetProvisionedContext(provisionedContexts, providerID) {
         providerID := providerID is String ? StrPtr(providerID) : providerID

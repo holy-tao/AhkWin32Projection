@@ -36,10 +36,28 @@ class IMFTopologyServiceLookupClient extends IUnknown{
     static VTableNames => ["InitServicePointers", "ReleaseServicePointers"]
 
     /**
+     * Signals the mixer or presenter to query the enhanced video renderer (EVR) for interface pointers.
+     * @param {IMFTopologyServiceLookup} pLookup Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imftopologyservicelookup">IMFTopologyServiceLookup</a> interface. To query the EVR for an interface, call <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookup-lookupservice">IMFTopologyServiceLookup::LookupService</a>.
+     * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFTopologyServiceLookup} pLookup 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imftopologyservicelookupclient-initservicepointers
      */
     InitServicePointers(pLookup) {
         result := ComCall(3, this, "ptr", pLookup, "HRESULT")
@@ -47,9 +65,27 @@ class IMFTopologyServiceLookupClient extends IUnknown{
     }
 
     /**
+     * Signals the object to release the interface pointers obtained from the enhanced video renderer (EVR).
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookupclient-releaseservicepointers
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imftopologyservicelookupclient-releaseservicepointers
      */
     ReleaseServicePointers() {
         result := ComCall(4, this, "HRESULT")

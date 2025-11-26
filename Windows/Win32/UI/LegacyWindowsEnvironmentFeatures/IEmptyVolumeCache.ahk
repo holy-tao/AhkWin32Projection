@@ -36,24 +36,77 @@ class IEmptyVolumeCache extends IUnknown{
     static VTableNames => ["Initialize", "GetSpaceUsed", "Purge", "ShowProperties", "Deactivate"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {HKEY} hkRegKey 
-     * @param {PWSTR} pcwszVolume 
-     * @param {Pointer<PWSTR>} ppwszDisplayName 
-     * @param {Pointer<PWSTR>} ppwszDescription 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the disk cleanup handler, based on the information stored under the specified registry key.
+     * @param {HKEY} hkRegKey Type: <b>HKEY</b>
+     * 
+     * A handle to the registry key that holds the information about the handler object.
+     * @param {PWSTR} pcwszVolume Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a null-terminated Unicode string with the volume root—for example, "C:\".
+     * @param {Pointer<PWSTR>} ppwszDisplayName Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a null-terminated Unicode string with the name that will be displayed in the disk cleanup manager's list of handlers. If no value is assigned, the registry value will be used.
+     * @param {Pointer<PWSTR>} ppwszDescription Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a null-terminated Unicode string that will be displayed when this object is selected from the disk cleanup manager's list of available disk cleanup handlers. If no value is assigned, the registry value will be used.
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * 
+     * The flags that are used to pass information to the handler and back to the disk cleanup manager.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There are no files to delete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cleanup operation was ended prematurely.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cleanup operation failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache-initialize
      */
     Initialize(hkRegKey, pcwszVolume, ppwszDisplayName, ppwszDescription, pdwFlags) {
         hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey
@@ -68,10 +121,14 @@ class IEmptyVolumeCache extends IUnknown{
     }
 
     /**
+     * Requests the amount of disk space that the disk cleanup handler can free.
+     * @param {IEmptyVolumeCacheCallBack} picb Type: <b>IEmptyVolumeCacheCallback*</b>
      * 
-     * @param {IEmptyVolumeCacheCallBack} picb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-getspaceused
+     * A pointer to the disk cleanup manager's <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nn-emptyvc-iemptyvolumecachecallback">IEmptyVolumeCacheCallback</a> interface. This pointer can be used to call that interface's <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-scanprogress">ScanProgress</a> method to report on the progress of the operation.
+     * @returns {Integer} Type: <b>DWORDLONG*</b>
+     * 
+     * The amount of disk space, in bytes, that the handler can free. This value will be displayed in the disk cleanup manager's list, to the right of the handler's check box. To indicate that you do not know how much disk space can be freed, set this parameter to -1, and "???MB" will be displayed. If you set the <b>EVCF_DONTSHOWIFZERO</b> flag when <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-initialize">Initialize</a> was called, setting <i>pdwSpaceUsed</i> to zero will notify the disk cleanup manager to omit the handler from its list.
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache-getspaceused
      */
     GetSpaceUsed(picb) {
         result := ComCall(4, this, "uint*", &pdwlSpaceUsed := 0, "ptr", picb, "HRESULT")
@@ -79,11 +136,46 @@ class IEmptyVolumeCache extends IUnknown{
     }
 
     /**
+     * Notifies the handler to start deleting its unneeded files.
+     * @param {Integer} dwlSpaceToFree Type: <b>DWORDLONG</b>
      * 
-     * @param {Integer} dwlSpaceToFree 
-     * @param {IEmptyVolumeCacheCallBack} picb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-purge
+     * The amount of disk space that the handler should free. If this parameter is set to -1, the handler should delete all its files.
+     * @param {IEmptyVolumeCacheCallBack} picb Type: <b>IEmptyVolumeCacheCallback*</b>
+     * 
+     * A pointer to the disk cleanup manager's <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nn-emptyvc-iemptyvolumecachecallback">IEmptyVolumeCacheCallBack</a> interface. This pointer can be used to call the interface's <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-purgeprogress">PurgeProgress</a> method to report on the progress of the operation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was ended prematurely. This value is usually returned when <a href="/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-purgeprogress">PurgeProgress</a> returns E_ABORT. This typically happens when the user cancels the operation by clicking the disk cleanup manager's <b>Cancel</b> button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache-purge
      */
     Purge(dwlSpaceToFree, picb) {
         result := ComCall(5, this, "uint", dwlSpaceToFree, "ptr", picb, "HRESULT")
@@ -91,10 +183,43 @@ class IEmptyVolumeCache extends IUnknown{
     }
 
     /**
+     * Notifies the handler to display its UI.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-showproperties
+     * The parent window to be used when displaying the UI.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user changed one or more settings.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No settings were changed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache-showproperties
      */
     ShowProperties(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -104,9 +229,11 @@ class IEmptyVolumeCache extends IUnknown{
     }
 
     /**
+     * Notifies the handler that the disk cleanup manager is shutting down.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-deactivate
+     * A flag that can be set to return information to the disk cleanup manager. It can have the following value.
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache-deactivate
      */
     Deactivate() {
         result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")

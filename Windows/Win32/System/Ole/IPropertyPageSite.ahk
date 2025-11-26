@@ -39,10 +39,10 @@ class IPropertyPageSite extends IUnknown{
     static VTableNames => ["OnStatusChange", "GetLocaleID", "GetPageContainer", "TranslateAccelerator"]
 
     /**
-     * 
+     * Informs the frame that the property page managed by this site has changed its state, that is, one or more property values have been changed in the page. Property pages should call this method whenever changes occur in their dialog boxes.
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-onstatuschange
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-onstatuschange
      */
     OnStatusChange(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
@@ -50,9 +50,9 @@ class IPropertyPageSite extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid
+     * Retrieves the locale identifier (an LCID) that a property page can use to adjust its locale-specific settings.
+     * @returns {Integer} A pointer to a variable that receives the locale identifier. See <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifier-constants-and-strings">Language Identifier Constants and Strings</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-getlocaleid
      */
     GetLocaleID() {
         result := ComCall(4, this, "uint*", &pLocaleID := 0, "HRESULT")
@@ -60,9 +60,9 @@ class IPropertyPageSite extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getpagecontainer
+     * Retrieves a pointer to the object representing the entire property frame dialog box that contains all the pages. Calling this method could potentially allow one page to navigate to another.
+     * @returns {IUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer variable that receives the interface pointer to the container object. If an error occurs, the implementation must set *<i>ppUnk</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-getpagecontainer
      */
     GetPageContainer() {
         result := ComCall(5, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -70,10 +70,50 @@ class IPropertyPageSite extends IUnknown{
     }
 
     /**
+     * Passes a keystroke to the property frame for processing.
+     * @param {Pointer<MSG>} pMsg A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure to be processed.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer<MSG>} pMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-translateaccelerator
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The page site did not process the message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The page site does not support keyboard processing.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-translateaccelerator
      */
     TranslateAccelerator(pMsg) {
         result := ComCall(6, this, "ptr", pMsg, "HRESULT")

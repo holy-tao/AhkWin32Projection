@@ -33,10 +33,10 @@ class IGetContextProperties extends IUnknown{
     static VTableNames => ["Count", "GetProperty", "EnumNames"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetcontextproperties-count
+     * Counts the number of context properties.
+     * @param {Pointer<Integer>} plCount The number of current context properties.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-igetcontextproperties-count
      */
     Count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -46,11 +46,11 @@ class IGetContextProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetcontextproperties-getproperty
+     * Retrieves the value of the specified context property.
+     * @param {BSTR} name The name of a current context property.
+     * @param {Pointer<VARIANT>} pProperty The value(s) of the property.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-igetcontextproperties-getproperty
      */
     GetProperty(name, pProperty) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -60,9 +60,9 @@ class IGetContextProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumNames} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetcontextproperties-enumnames
+     * Retrieves a list of the names of the current context properties.
+     * @returns {IEnumNames} An <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-ienumnames">IEnumNames</a> interface providing access to a list of the names of the current context properties.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-igetcontextproperties-enumnames
      */
     EnumNames() {
         result := ComCall(5, this, "ptr*", &ppenum := 0, "HRESULT")

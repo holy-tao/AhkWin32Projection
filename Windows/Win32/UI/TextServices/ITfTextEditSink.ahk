@@ -31,12 +31,12 @@ class ITfTextEditSink extends IUnknown{
     static VTableNames => ["OnEndEdit"]
 
     /**
-     * 
-     * @param {ITfContext} pic 
-     * @param {Integer} ecReadOnly 
-     * @param {ITfEditRecord} pEditRecord 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftexteditsink-onendedit
+     * ITfTextEditSink::OnEndEdit method
+     * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface for the edited context.
+     * @param {Integer} ecReadOnly Specifies a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfeditcookie">TfEditCookie</a> value for read-only access to the context.
+     * @param {ITfEditRecord} pEditRecord Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfeditrecord">ITfEditRecord</a> interface used to access the modifications to the context.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftexteditsink-onendedit
      */
     OnEndEdit(pic, ecReadOnly, pEditRecord) {
         result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pEditRecord, "HRESULT")

@@ -32,14 +32,26 @@ class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
     static VTableNames => ["GetPatterns", "MatchesPattern", "CreateInstance"]
 
     /**
+     * Gets the metadata patterns associated with the metadata reader.
+     * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} guidContainerFormat 
-     * @param {Integer} cbSize 
-     * @param {Pointer} pPattern 
-     * @param {Pointer<Integer>} pcCount 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-getpatterns
+     * The cointainer format GUID.
+     * @param {Integer} cbSize Type: <b>UINT</b>
+     * 
+     * The size, in bytes, of the <i>pPattern</i> buffer.
+     * @param {Pointer} pPattern Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ns-wincodecsdk-wicmetadatapattern">WICMetadataPattern</a>*</b>
+     * 
+     * Pointer that receives the metadata patterns.
+     * @param {Pointer<Integer>} pcCount Type: <b>UINT*</b>
+     * 
+     * Pointer that receives the number of metadata patterns.
+     * @param {Pointer<Integer>} pcbActual Type: <b>UINT*</b>
+     * 
+     * Pointer that receives the size, in bytes, needed to obtain the metadata patterns.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-getpatterns
      */
     GetPatterns(guidContainerFormat, cbSize, pPattern, pcCount, pcbActual) {
         pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
@@ -50,11 +62,17 @@ class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
     }
 
     /**
+     * Determines if a stream contains a metadata item pattern.
+     * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} guidContainerFormat 
-     * @param {IStream} pIStream 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-matchespattern
+     * The container format of the metadata item.
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * 
+     * The stream to search for the metadata pattern.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * Pointer that receives <c>TRUE</code> if the stream contains the pattern; otherwise, <code>FALSE</c>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-matchespattern
      */
     MatchesPattern(guidContainerFormat, pIStream) {
         result := ComCall(19, this, "ptr", guidContainerFormat, "ptr", pIStream, "int*", &pfMatches := 0, "HRESULT")
@@ -62,9 +80,11 @@ class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
     }
 
     /**
+     * Creates an instance of an IWICMetadataReader.
+     * @returns {IWICMetadataReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a>**</b>
      * 
-     * @returns {IWICMetadataReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-createinstance
+     * Pointer that receives a pointer to a metadata reader.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-createinstance
      */
     CreateInstance() {
         result := ComCall(20, this, "ptr*", &ppIReader := 0, "HRESULT")

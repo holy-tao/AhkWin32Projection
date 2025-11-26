@@ -41,10 +41,10 @@ class IMFSensorProfileCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {IMFSensorProfile} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-getprofile
+     * Retrieves the specified profile.
+     * @param {Integer} Index Index of the profile to retrieve.
+     * @returns {IMFSensorProfile} On success, returns a double pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofile">IMFSensorProfile</a> object that describes the specified sensor profile.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprofilecollection-getprofile
      */
     GetProfile(Index) {
         result := ComCall(4, this, "uint", Index, "ptr*", &ppProfile := 0, "HRESULT")
@@ -52,10 +52,10 @@ class IMFSensorProfileCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFSensorProfile} pProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-addprofile
+     * Adds the specified profile to the collection.
+     * @param {IMFSensorProfile} pProfile Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofile">IMFSensorProfile</a> object describing the profile to add.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprofilecollection-addprofile
      */
     AddProfile(pProfile) {
         result := ComCall(5, this, "ptr", pProfile, "HRESULT")
@@ -63,10 +63,10 @@ class IMFSensorProfileCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<SENSORPROFILEID>} ProfileId 
-     * @returns {IMFSensorProfile} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-findprofile
+     * Finds a profile based on the specified profile ID.
+     * @param {Pointer<SENSORPROFILEID>} ProfileId Pointer to the The ID of the profile to find.
+     * @returns {IMFSensorProfile} On success, returns a double pointer to the profile.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprofilecollection-findprofile
      */
     FindProfile(ProfileId) {
         result := ComCall(6, this, "ptr", ProfileId, "ptr*", &ppProfile := 0, "HRESULT")
@@ -74,20 +74,20 @@ class IMFSensorProfileCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
+     * Removes a profile based on the specified index.
+     * @param {Integer} Index The index of the profile to remove.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-removeprofilebyindex
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprofilecollection-removeprofilebyindex
      */
     RemoveProfileByIndex(Index) {
         ComCall(7, this, "uint", Index)
     }
 
     /**
-     * 
-     * @param {Pointer<SENSORPROFILEID>} ProfileId 
+     * Removes the specified profile based on the specified profile ID.
+     * @param {Pointer<SENSORPROFILEID>} ProfileId Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ns-mfidl-sensorprofileid">SENSORPROFILEID</a> of the profile to remove.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-removeprofile
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprofilecollection-removeprofile
      */
     RemoveProfile(ProfileId) {
         ComCall(8, this, "ptr", ProfileId)

@@ -32,9 +32,9 @@ class IXpsPrintJob extends IUnknown{
     static VTableNames => ["Cancel", "GetJobStatus"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-ixpsprintjob-cancel
+     * Cancels the print job.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nf-xpsprint-ixpsprintjob-cancel
      */
     Cancel() {
         result := ComCall(3, this, "HRESULT")
@@ -42,9 +42,9 @@ class IXpsPrintJob extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {XPS_JOB_STATUS} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus
+     * Gets the current status of the print job.
+     * @returns {XPS_JOB_STATUS} The current status of the print job. For information about the data that is returned in this structure, see <a href="https://docs.microsoft.com/windows/win32/api/xpsprint/ns-xpsprint-xps_job_status">XPS_JOB_STATUS</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus
      */
     GetJobStatus() {
         jobStatus := XPS_JOB_STATUS()

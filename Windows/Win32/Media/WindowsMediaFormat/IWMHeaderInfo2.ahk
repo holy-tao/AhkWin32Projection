@@ -36,9 +36,9 @@ class IWMHeaderInfo2 extends IWMHeaderInfo{
     static VTableNames => ["GetCodecInfoCount", "GetCodecInfo"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfocount
+     * The GetCodecInfoCount method retrieves the number of codecs for which information is available.
+     * @returns {Integer} Pointer to a count of codecs for which information is available.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfocount
      */
     GetCodecInfoCount() {
         result := ComCall(15, this, "uint*", &pcCodecInfos := 0, "HRESULT")
@@ -46,17 +46,17 @@ class IWMHeaderInfo2 extends IWMHeaderInfo{
     }
 
     /**
-     * 
-     * @param {Integer} wIndex 
-     * @param {Pointer<Integer>} pcchName 
-     * @param {PWSTR} pwszName 
-     * @param {Pointer<Integer>} pcchDescription 
-     * @param {PWSTR} pwszDescription 
-     * @param {Pointer<Integer>} pCodecType 
-     * @param {Pointer<Integer>} pcbCodecInfo 
-     * @param {Pointer<Integer>} pbCodecInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfo
+     * The GetCodecInfo method retrieves information about a codec that is used to create the content of a file.
+     * @param {Integer} wIndex <b>DWORD</b>that contains the zero-based codec index.
+     * @param {Pointer<Integer>} pcchName On input, pointer to the length of <i>pwszName</i> in wide characters. On output, pointer to a count of the characters that are used in <i>pwszName</i>.This includes the terminating <b>null</b> character.
+     * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string buffer into which the name of the codec is copied.
+     * @param {Pointer<Integer>} pcchDescription On input, pointer to the length of <i>pwszDescription</i> in wide characters. On output, pointer to a count of the characters that are used in <i>pwszDescription</i>. This includes the terminating <b>null</b> character.
+     * @param {PWSTR} pwszDescription Pointer to a wide-character <b>null</b>-terminated string buffer into which the description of the codec is copied.
+     * @param {Pointer<Integer>} pCodecType Pointer to one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_codec_info_type">WMT_CODEC_INFO_TYPE</a> enumeration type.
+     * @param {Pointer<Integer>} pcbCodecInfo On input, pointer to the length of <i>pbCodecInfo</i>, in bytes. On output, pointer to a count of the bytes used in <i>pbCodecInfo</i>.
+     * @param {Pointer<Integer>} pbCodecInfo Pointer to a byte array.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfo
      */
     GetCodecInfo(wIndex, pcchName, pwszName, pcchDescription, pwszDescription, pCodecType, pcbCodecInfo, pbCodecInfo) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName

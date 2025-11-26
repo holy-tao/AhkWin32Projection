@@ -32,9 +32,9 @@ class IAppxContentGroup extends IUnknown{
     static VTableNames => ["GetName", "GetFiles"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroup-getname
+     * Gets the name of the content group.
+     * @returns {PWSTR} The content group name.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroup-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &groupName := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IAppxContentGroup extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IAppxContentGroupFilesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
+     * Gets files from a content group.
+     * @returns {IAppxContentGroupFilesEnumerator} An enumerator for getting content group files.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
      */
     GetFiles() {
         result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")

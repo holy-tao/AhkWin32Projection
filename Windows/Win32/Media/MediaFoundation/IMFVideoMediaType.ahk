@@ -38,9 +38,9 @@ class IMFVideoMediaType extends IMFMediaType{
     static VTableNames => ["GetVideoFormat", "GetVideoRepresentation"]
 
     /**
-     * 
-     * @returns {Pointer<MFVIDEOFORMAT>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideoformat
+     * GetVideoFormat is no longer available for use as of Windows 7.
+     * @returns {Pointer<MFVIDEOFORMAT>} This method returns a pointer to an <a href="/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfvideomediatype-getvideoformat
      */
     GetVideoFormat() {
         result := ComCall(38, this, "ptr")
@@ -48,11 +48,11 @@ class IMFVideoMediaType extends IMFMediaType{
     }
 
     /**
-     * 
-     * @param {Guid} guidRepresentation 
-     * @param {Integer} lStride 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
+     * Retrieves an alternative representation of the media type.
+     * @param {Guid} guidRepresentation GUID that specifies the representation to retrieve. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation">IMFMediaType::GetRepresentation</a>.
+     * @param {Integer} lStride Stride of the video surface, in bytes. If the stride is unknown, set this value to 0. If the value is 0, the method computes the stride from the image width and assumes that there is no padding.
+     * @returns {Pointer<Void>} Receives a pointer to a structure that contains the representation. The method allocates the memory for the structure. The caller must release the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-freerepresentation">IMFMediaType::FreeRepresentation</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
      */
     GetVideoRepresentation(guidRepresentation, lStride) {
         result := ComCall(39, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "int", lStride, "HRESULT")

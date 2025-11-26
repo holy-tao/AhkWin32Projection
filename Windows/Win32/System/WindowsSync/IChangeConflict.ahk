@@ -32,9 +32,9 @@ class IChangeConflict extends IUnknown{
     static VTableNames => ["GetDestinationProviderConflictingChange", "GetSourceProviderConflictingChange", "GetDestinationProviderConflictingData", "GetSourceProviderConflictingData", "GetResolveActionForChange", "SetResolveActionForChange", "GetResolveActionForChangeUnit", "SetResolveActionForChangeUnit"]
 
     /**
-     * 
-     * @returns {ISyncChange} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingchange
+     * Gets the change metadata from the destination provider.
+     * @returns {ISyncChange} Returns the change metadata from the destination provider.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingchange
      */
     GetDestinationProviderConflictingChange() {
         result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ISyncChange} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingchange
+     * Gets the change metadata from the source provider.
+     * @returns {ISyncChange} Returns the change metadata from the source provider.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingchange
      */
     GetSourceProviderConflictingChange() {
         result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingdata
+     * Gets an object that can be used to retrieve item data for the change item from the destination replica.
+     * @returns {IUnknown} Returns an object that can be used to retrieve item data for the change item from the destination replica.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingdata
      */
     GetDestinationProviderConflictingData() {
         result := ComCall(5, this, "ptr*", &ppConflictingData := 0, "HRESULT")
@@ -62,9 +62,9 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingdata
+     * Gets an object that can be used to retrieve item data for the change item from the source replica.
+     * @returns {IUnknown} Returns an object that can be used to retrieve item data for the change item from the source replica.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingdata
      */
     GetSourceProviderConflictingData() {
         result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "HRESULT")
@@ -72,10 +72,39 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
+     * Gets the conflict resolution action for the conflict.
+     * @param {Pointer<Integer>} pResolveAction Returns the conflict resolution action for the conflict.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pResolveAction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getresolveactionforchange
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getresolveactionforchange
      */
     GetResolveActionForChange(pResolveAction) {
         pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
@@ -85,10 +114,50 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
+     * Sets a conflict resolution action for the conflict.
+     * @param {Integer} resolveAction The conflict resolution action for the conflict.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} resolveAction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-setresolveactionforchange
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INTERNAL_ERROR </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An internal error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-setresolveactionforchange
      */
     SetResolveActionForChange(resolveAction) {
         result := ComCall(8, this, "int", resolveAction, "HRESULT")
@@ -96,11 +165,40 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
+     * Gets the conflict resolution action for the conflicting change unit change.
+     * @param {ISyncChangeUnit} pChangeUnit The change unit for which to retrieve the conflict resolution action.
+     * @param {Pointer<Integer>} pResolveAction The conflict resolution action that is specified for <i>pChangeUnit</i>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {ISyncChangeUnit} pChangeUnit 
-     * @param {Pointer<Integer>} pResolveAction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getresolveactionforchangeunit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getresolveactionforchangeunit
      */
     GetResolveActionForChangeUnit(pChangeUnit, pResolveAction) {
         pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
@@ -110,11 +208,51 @@ class IChangeConflict extends IUnknown{
     }
 
     /**
+     * Sets a conflict resolution action for the conflicting change unit change.
+     * @param {ISyncChangeUnit} pChangeUnit The change unit for which to set the conflict resolution action.
+     * @param {Integer} resolveAction The conflict resolution action to set for <i>pChangeUnit</i>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {ISyncChangeUnit} pChangeUnit 
-     * @param {Integer} resolveAction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-setresolveactionforchangeunit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INTERNAL_ERROR </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * When the conflict is an update-delete conflict, or when no conflict exists.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-setresolveactionforchangeunit
      */
     SetResolveActionForChangeUnit(pChangeUnit, resolveAction) {
         result := ComCall(10, this, "ptr", pChangeUnit, "int", resolveAction, "HRESULT")

@@ -31,12 +31,20 @@ class IDXGIFactory5 extends IDXGIFactory4{
     static VTableNames => ["CheckFeatureSupport"]
 
     /**
+     * Used to check for hardware feature support.
+     * @param {Integer} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a></b>
      * 
-     * @param {Integer} Feature 
-     * @param {Pointer} pFeatureSupportData 
-     * @param {Integer} FeatureSupportDataSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgifactory5-checkfeaturesupport
+     * Specifies one member of  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a> to query support for.
+     * @param {Pointer} pFeatureSupportData Type: <b>void*</b>
+     * 
+     * Specifies a pointer to a buffer that will be filled with data that describes the feature support.
+     * @param {Integer} FeatureSupportDataSize Type: <b>UINT</b>
+     * 
+     * The size, in bytes, of <i>pFeatureSupportData</i>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/nf-dxgi1_5-idxgifactory5-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
         result := ComCall(28, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")

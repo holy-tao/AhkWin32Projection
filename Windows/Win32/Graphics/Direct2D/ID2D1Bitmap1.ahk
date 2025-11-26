@@ -51,19 +51,28 @@ class ID2D1Bitmap1 extends ID2D1Bitmap{
     static VTableNames => ["GetColorContext", "GetOptions", "GetSurface", "Map", "Unmap"]
 
     /**
+     * Gets the color context information associated with the bitmap.
+     * @remarks
      * 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
+     * If the bitmap was created without specifying a color context, the returned context is <b>NULL</b>.
+     * 
+     * 
+     * @param {Pointer<ID2D1ColorContext>} colorContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1colorcontext">ID2D1ColorContext</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the  color context interface associated with the bitmap.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-getcolorcontext
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmap1-getcolorcontext
      */
     GetColorContext(colorContext) {
         ComCall(11, this, "ptr*", colorContext)
     }
 
     /**
+     * Gets the options used in creating the bitmap.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_bitmap_options">D2D1_BITMAP_OPTIONS</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-getoptions
+     * This method returns the options used.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmap1-getoptions
      */
     GetOptions() {
         result := ComCall(12, this, "int")
@@ -71,9 +80,11 @@ class ID2D1Bitmap1 extends ID2D1Bitmap{
     }
 
     /**
+     * Gets either the surface that was specified when the bitmap was created, or the default surface created when the bitmap was created.
+     * @returns {IDXGISurface} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgisurface">IDXGISurface</a>**</b>
      * 
-     * @returns {IDXGISurface} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-getsurface
+     * The underlying DXGI surface for the bitmap.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmap1-getsurface
      */
     GetSurface() {
         result := ComCall(13, this, "ptr*", &dxgiSurface := 0, "HRESULT")
@@ -81,10 +92,14 @@ class ID2D1Bitmap1 extends ID2D1Bitmap{
     }
 
     /**
+     * Maps the given bitmap into memory.
+     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_map_options">D2D1_MAP_OPTIONS</a></b>
      * 
-     * @param {Integer} options 
-     * @returns {D2D1_MAPPED_RECT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-map
+     * The options used in mapping the bitmap into memory.
+     * @returns {D2D1_MAPPED_RECT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_mapped_rect">D2D1_MAPPED_RECT</a>*</b>
+     * 
+     * When this method returns, contains a reference to the rectangle that is mapped into memory.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmap1-map
      */
     Map(options) {
         mappedRect := D2D1_MAPPED_RECT()
@@ -93,9 +108,30 @@ class ID2D1Bitmap1 extends ID2D1Bitmap{
     }
 
     /**
+     * Unmaps the bitmap from memory.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-unmap
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>One or more arguments are not valid.</td>
+     * </tr>
+     * <tr>
+     * <td>E_POINTER</td>
+     * <td>Pointer is not valid.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmap1-unmap
      */
     Unmap() {
         result := ComCall(15, this, "HRESULT")

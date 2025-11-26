@@ -35,10 +35,14 @@ class IDocViewSite extends IUnknown{
     static VTableNames => ["OnSetTitle"]
 
     /**
+     * Sets or retrieves the title of the site object.
+     * @param {Pointer<VARIANT>} pvTitle Type: <b>VARIANTARG*</b>
      * 
-     * @param {Pointer<VARIANT>} pvTitle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-idocviewsite-onsettitle
+     * Specifies the view title.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idocviewsite-onsettitle
      */
     OnSetTitle(pvTitle) {
         result := ComCall(3, this, "ptr", pvTitle, "HRESULT")

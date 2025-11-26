@@ -31,11 +31,11 @@ class ISnapinPropertiesCallback extends IUnknown{
     static VTableNames => ["AddPropertyName"]
 
     /**
-     * 
-     * @param {PWSTR} pszPropName 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nf-mmcobj-isnapinpropertiescallback-addpropertyname
+     * The AddPropertyName method adds a property, by name, for the snap-in to use.
+     * @param {PWSTR} pszPropName The property name.
+     * @param {Integer} dwFlags This parameter can be one or more of the following flags.
+     * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmcobj/nf-mmcobj-isnapinpropertiescallback-addpropertyname
      */
     AddPropertyName(pszPropName, dwFlags) {
         pszPropName := pszPropName is String ? StrPtr(pszPropName) : pszPropName

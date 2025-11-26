@@ -32,9 +32,9 @@ class IWMMediaProps extends IUnknown{
     static VTableNames => ["GetType", "GetMediaType", "SetMediaType"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-gettype
+     * The GetType method retrieves the major type of the media in the stream, input, or output described by the object to which the current IWMMediaProps interface belongs.
+     * @returns {Guid} Pointer to a GUID specifying the media type.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmediaprops-gettype
      */
     GetType() {
         pguidType := Guid()
@@ -43,10 +43,10 @@ class IWMMediaProps extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pcbType 
-     * @returns {WM_MEDIA_TYPE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
+     * The GetMediaType method retrieves a structure describing the media type.
+     * @param {Pointer<Integer>} pcbType On input, the size of the <i>pType</i> buffer. On output, if <i>pType</i> is set to <b>NULL</b>, the value this points to is set to the size of the buffer needed to hold the media type structure.
+     * @returns {WM_MEDIA_TYPE} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a> structure. If this parameter is set to <b>NULL</b>, this method returns the size of the buffer required in the <i>pcbType</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
      */
     GetMediaType(pcbType) {
         pcbTypeMarshal := pcbType is VarRef ? "uint*" : "ptr"
@@ -57,10 +57,50 @@ class IWMMediaProps extends IUnknown{
     }
 
     /**
+     * The SetMediaType method specifies the media type.
+     * @param {Pointer<WM_MEDIA_TYPE>} pType Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a> structure describing the input, stream, or output.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<WM_MEDIA_TYPE>} pType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-setmediatype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pType</i> parameter is <b>NULL</b>, cbFormat is 0 or too large, or pbFormat is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough available memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmediaprops-setmediatype
      */
     SetMediaType(pType) {
         result := ComCall(5, this, "ptr", pType, "HRESULT")

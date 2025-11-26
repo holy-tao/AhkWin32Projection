@@ -36,10 +36,10 @@ class IVMRVideoStreamControl9 extends IUnknown{
     static VTableNames => ["SetStreamActiveState", "GetStreamActiveState"]
 
     /**
-     * 
-     * @param {BOOL} fActive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrvideostreamcontrol9-setstreamactivestate
+     * The SetStreamActiveState method activates or inactivates an input stream.
+     * @param {BOOL} fActive Specifies the state of the stream. <b>TRUE</b> means active; <b>FALSE</b> means inactive.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrvideostreamcontrol9-setstreamactivestate
      */
     SetStreamActiveState(fActive) {
         result := ComCall(3, this, "int", fActive, "HRESULT")
@@ -47,9 +47,9 @@ class IVMRVideoStreamControl9 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrvideostreamcontrol9-getstreamactivestate
+     * The GetStreamActiveState method retrieves the state of the stream.
+     * @returns {BOOL} Receives the current state of the stream. <b>TRUE</b> means the stream is active; <b>FALSE</b> means that it is inactive.
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrvideostreamcontrol9-getstreamactivestate
      */
     GetStreamActiveState() {
         result := ComCall(4, this, "int*", &lpfActive := 0, "HRESULT")

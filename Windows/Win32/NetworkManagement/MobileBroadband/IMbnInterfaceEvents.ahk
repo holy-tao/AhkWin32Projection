@@ -44,10 +44,10 @@ class IMbnInterfaceEvents extends IUnknown{
     static VTableNames => ["OnInterfaceCapabilityAvailable", "OnSubscriberInformationChange", "OnReadyStateChange", "OnEmergencyModeChange", "OnHomeProviderAvailable", "OnPreferredProvidersChange", "OnSetPreferredProvidersComplete", "OnScanNetworkComplete"]
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-oninterfacecapabilityavailable
+     * This notification method is called by the Mobile Broadband service to indicate that interface capability information is available.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> whose capability information has become available.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-oninterfacecapabilityavailable
      */
     OnInterfaceCapabilityAvailable(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")
@@ -55,10 +55,10 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onsubscriberinformationchange
+     * This notification method is called by the Mobile Broadband service to indicate that the subscriber information for the device has changed.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents a device on which the subscriber information has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onsubscriberinformationchange
      */
     OnSubscriberInformationChange(newInterface) {
         result := ComCall(4, this, "ptr", newInterface, "HRESULT")
@@ -66,10 +66,10 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onreadystatechange
+     * This notification method is called by the Mobile Broadband service to indicate a change in an interface's ready state.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the Mobile Broadband device whose ready state has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onreadystatechange
      */
     OnReadyStateChange(newInterface) {
         result := ComCall(5, this, "ptr", newInterface, "HRESULT")
@@ -77,10 +77,10 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onemergencymodechange
+     * This notification method is called by the Mobile Broadband service to indicate that the emergency mode has changed.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the device whose emergency mode has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onemergencymodechange
      */
     OnEmergencyModeChange(newInterface) {
         result := ComCall(6, this, "ptr", newInterface, "HRESULT")
@@ -88,10 +88,10 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onhomeprovideravailable
+     * This notification method is called by the Mobile Broadband service to indicate that home provider information for the device is available.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the device whose home provider information has become available.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onhomeprovideravailable
      */
     OnHomeProviderAvailable(newInterface) {
         result := ComCall(7, this, "ptr", newInterface, "HRESULT")
@@ -99,10 +99,10 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onpreferredproviderschange
+     * This notification method is called by the Mobile Broadband service to indicate a change in a device's preferred provider list.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the Mobile Broadband device whose preferred provider list has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onpreferredproviderschange
      */
     OnPreferredProvidersChange(newInterface) {
         result := ComCall(8, this, "ptr", newInterface, "HRESULT")
@@ -110,12 +110,71 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
+     * This notification method is called by the Mobile Broadband service to indicate the completion of a SetPreferredProviders operation.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents a device on which this operation was performed.
+     * @param {Integer} requestID The request ID assigned by the Mobile Broadband service for this asynchronous operation.
+     * @param {HRESULT} status The operation completion status.
      * 
-     * @param {IMbnInterface} newInterface 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onsetpreferredproviderscomplete
+     * The following table lists the valid values for this status.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="S_OK"></a><a id="s_ok"></a><dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation  was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="E_MBN_PIN_REQUIRED"></a><a id="e_mbn_pin_required"></a><dl>
+     * <dt><b>E_MBN_PIN_REQUIRED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device requires a PIN to be entered for this operation to complete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="E_MBN_SIM_NOT_INSERTED"></a><a id="e_mbn_sim_not_inserted"></a><dl>
+     * <dt><b>E_MBN_SIM_NOT_INSERTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The SIM is not inserted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="E_MBN_BAD_SIM"></a><a id="e_mbn_bad_sim"></a><dl>
+     * <dt><b>E_MBN_BAD_SIM</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A bad SIM is inserted in the device.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HRESULT_FROM_WIN32_ERROR_NOT_SUPPORTED_"></a><a id="hresult_from_win32_error_not_supported_"></a><dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device does not support this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onsetpreferredproviderscomplete
      */
     OnSetPreferredProvidersComplete(newInterface, requestID, status) {
         result := ComCall(9, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")
@@ -123,12 +182,12 @@ class IMbnInterfaceEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onscannetworkcomplete
+     * This notification method is called by the Mobile Broadband service to indicate the completion of a network scan.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents a device on which this operation was performed.
+     * @param {Integer} requestID The request ID assigned by the Mobile Broadband service for this notification.
+     * @param {HRESULT} status The operation completion status
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfaceevents-onscannetworkcomplete
      */
     OnScanNetworkComplete(newInterface, requestID, status) {
         result := ComCall(10, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")

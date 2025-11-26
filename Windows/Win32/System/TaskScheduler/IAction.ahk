@@ -85,10 +85,15 @@ class IAction extends IDispatch{
     }
 
     /**
+     * Gets or sets the identifier of the action.
+     * @remarks
+     * 
+     * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
+     * 
      * 
      * @param {Pointer<BSTR>} pId 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iaction-get_id
      */
     get_Id(pId) {
         result := ComCall(7, this, "ptr", pId, "HRESULT")
@@ -96,10 +101,15 @@ class IAction extends IDispatch{
     }
 
     /**
+     * Gets or sets the identifier of the action.
+     * @remarks
+     * 
+     * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
+     * 
      * 
      * @param {BSTR} Id 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-put_id
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iaction-put_id
      */
     put_Id(Id) {
         Id := Id is String ? BSTR.Alloc(Id).Value : Id
@@ -109,10 +119,17 @@ class IAction extends IDispatch{
     }
 
     /**
+     * Gets the type of action.
+     * @remarks
+     * 
+     * The action type is defined when the action is created and cannot be changed later. For information on creating an action, see <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iactioncollection-create">IActionCollection.Create</a>.
+     * 
+     * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
+     * 
      * 
      * @param {Pointer<Integer>} pType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-get_type
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iaction-get_type
      */
     get_Type(pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"

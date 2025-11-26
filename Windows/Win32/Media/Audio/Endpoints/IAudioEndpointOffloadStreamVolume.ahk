@@ -31,9 +31,9 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
     static VTableNames => ["GetVolumeChannelCount", "SetChannelVolumes", "GetChannelVolumes"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getvolumechannelcount
+     * The GetVolumeChannelCount method retrieves the number of available audio channels in the offloaded stream.
+     * @returns {Integer} A pointer to the number of available audio channels in the offloaded stream.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getvolumechannelcount
      */
     GetVolumeChannelCount() {
         result := ComCall(3, this, "uint*", &pu32ChannelCount := 0, "HRESULT")
@@ -41,13 +41,13 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} u32ChannelCount 
-     * @param {Pointer<Float>} pf32Volumes 
-     * @param {Integer} u32CurveType 
-     * @param {Pointer<Integer>} pCurveDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes
+     * The SetChannelVolumes method sets the volume levels for the various audio channels in the offloaded stream.
+     * @param {Integer} u32ChannelCount Indicates the number of available audio channels in the offloaded stream.
+     * @param {Pointer<Float>} pf32Volumes A pointer to the volume levels for the various audio channels in the offloaded stream.
+     * @param {Integer} u32CurveType A value from the [AUDIO_CURVE_TYPE](/windows-hardware/drivers/ddi/content/ksmedia/ne-ksmedia-audio_curve_type) enumeration specifying the curve to use when changing the channel volumes.
+     * @param {Pointer<Integer>} pCurveDuration A **LONGLONG** value specifying the curve duration in hundred nanosecond units.
+     * @returns {HRESULT} The <b>SetChannelVolumes</b> method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes
      */
     SetChannelVolumes(u32ChannelCount, pf32Volumes, u32CurveType, pCurveDuration) {
         pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
@@ -58,10 +58,10 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} u32ChannelCount 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getchannelvolumes
+     * The GetChannelVolumes method retrieves the volume levels for the various audio channels in the offloaded stream.
+     * @param {Integer} u32ChannelCount Indicates the numer of available audio channels in the offloaded stream.
+     * @returns {Float} A pointer to the volume levels for the various  audio channels in the offloaded stream.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getchannelvolumes
      */
     GetChannelVolumes(u32ChannelCount) {
         result := ComCall(5, this, "uint", u32ChannelCount, "float*", &pf32Volumes := 0, "HRESULT")

@@ -37,12 +37,20 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     static VTableNames => ["GetOutput", "TransformPoint", "TransformRect", "HasAffineTransform", "HasInverseTransform", "GetAffineMatrix"]
 
     /**
+     * Performs pixel processing for the bitmap effect.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {IMILBitmapEffectRenderContext} pContext 
-     * @param {Pointer<VARIANT_BOOL>} pfModifyInPlace 
-     * @returns {IWICBitmapSource} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-getoutput
+     * A zero based index value indicating which output pin to use for output.
+     * @param {IMILBitmapEffectRenderContext} pContext Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a>*</b>
+     * 
+     * The render context to use to determine how the effect should be rendered.
+     * @param {Pointer<VARIANT_BOOL>} pfModifyInPlace Type: <b>VARIANT_BOOL*</b>
+     * 
+     * A value that indicates whether the effect should attempt to modify the input image in place.
+     * @returns {IWICBitmapSource} Type: <b>IWICBitmapSource**</b>
+     * 
+     * When this method returns, contains a pointer to the effect output.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-getoutput
      */
     GetOutput(uiIndex, pContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
@@ -52,13 +60,23 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     }
 
     /**
+     * Transforms the given point.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {Pointer<MilPoint2D>} p 
-     * @param {VARIANT_BOOL} fForwardTransform 
-     * @param {IMILBitmapEffectRenderContext} pContext 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
+     * A zero based index value indicating the output pin through which to transform the point.
+     * @param {Pointer<MilPoint2D>} p Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milpoint2d">MIL_2DPOINTD</a>*</b>
+     * 
+     * A pointer to the point to transform.
+     * @param {VARIANT_BOOL} fForwardTransform Type: <b>VARIANT_BOOL</b>
+     * 
+     * A value indicating whether the point is being transformed from front to back in the effects graph.
+     * @param {IMILBitmapEffectRenderContext} pContext Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a>*</b>
+     * 
+     * The render context to use for the transformation.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
+     * 
+     * When this method returns, contains a value indicating whether the point transformed to a known location.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
      */
     TransformPoint(uiIndex, p, fForwardTransform, pContext) {
         result := ComCall(4, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "short*", &pfPointTransformed := 0, "HRESULT")
@@ -66,13 +84,23 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     }
 
     /**
+     * Transforms the output of the given rectangle.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {Pointer<MilRectD>} p 
-     * @param {VARIANT_BOOL} fForwardTransform 
-     * @param {IMILBitmapEffectRenderContext} pContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformrect
+     * A zero based index value indicating the output pin through which to transform the rectangle.
+     * @param {Pointer<MilRectD>} p Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milrectd">MIL_RECTD</a>*</b>
+     * 
+     * A pointer to the rectangle to transform.
+     * @param {VARIANT_BOOL} fForwardTransform Type: <b>VARIANT_BOOL</b>
+     * 
+     * A value indicating whether the rectangle is being transformed from front to back in the effects graph.
+     * @param {IMILBitmapEffectRenderContext} pContext Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a>*</b>
+     * 
+     * The render context to use for the transformation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-transformrect
      */
     TransformRect(uiIndex, p, fForwardTransform, pContext) {
         result := ComCall(5, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "HRESULT")
@@ -80,10 +108,14 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     }
 
     /**
+     * Determines whether the effect has an affine transform.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
+     * A zero based index value indicating the output pin through which to query.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
+     * 
+     * When this method returns, contains a value indicating whether the effect has an affine transform.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
      */
     HasAffineTransform(uiIndex) {
         result := ComCall(6, this, "uint", uiIndex, "short*", &pfAffine := 0, "HRESULT")
@@ -91,10 +123,14 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     }
 
     /**
+     * Determines whether the effect has an inverse transform.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
+     * A zero based index value indicating the output pin through which to query.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
+     * 
+     * When this method returns, contains a value indicating whether the effect has an inverse transform.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
      */
     HasInverseTransform(uiIndex) {
         result := ComCall(7, this, "uint", uiIndex, "short*", &pfHasInverse := 0, "HRESULT")
@@ -102,11 +138,17 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     }
 
     /**
+     * Retrieves the affine transormation matrix for the effect.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {Pointer<MilMatrix3x2D>} pMatrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-getaffinematrix
+     * A zero based index value indicating the output pin through which to retrieve the affine matrix.
+     * @param {Pointer<MilMatrix3x2D>} pMatrix Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milmatrix3x2d">MIL_MATRIX3X2D</a>*</b>
+     * 
+     * When this method returns, contains a pointer to the affine matrix describing the effects transform.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-getaffinematrix
      */
     GetAffineMatrix(uiIndex, pMatrix) {
         result := ComCall(8, this, "uint", uiIndex, "ptr", pMatrix, "HRESULT")

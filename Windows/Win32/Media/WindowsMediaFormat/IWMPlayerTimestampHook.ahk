@@ -31,10 +31,10 @@ class IWMPlayerTimestampHook extends IUnknown{
     static VTableNames => ["MapTimestamp"]
 
     /**
-     * 
-     * @param {Integer} rtIn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nf-wmdxva-iwmplayertimestamphook-maptimestamp
+     * The MapTimestamp method is called by the WMV Decoder DMO to enable the source filter to provide the decoder with a time stamp. The decoder applies the time stamp to the sample before delivering the sample to the video renderer.
+     * @param {Integer} rtIn Time stamp previously applied by the DMO.
+     * @returns {Integer} Time stamp to be applied to the sample.
+     * @see https://docs.microsoft.com/windows/win32/api//wmdxva/nf-wmdxva-iwmplayertimestamphook-maptimestamp
      */
     MapTimestamp(rtIn) {
         result := ComCall(3, this, "int64", rtIn, "int64*", &prtOut := 0, "HRESULT")

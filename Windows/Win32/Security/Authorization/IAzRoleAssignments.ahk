@@ -47,10 +47,10 @@ class IAzRoleAssignments extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the IAzRoleAssignment object at the specified index in the IAzRoleAssignments collection.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignments-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroleassignments-get_item
      */
     get_Item(Index) {
         pvarObtPtr := VARIANT()
@@ -59,9 +59,9 @@ class IAzRoleAssignments extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of IAzRoleAssignments objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignments-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroleassignments-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IAzRoleAssignments extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an IEnumVARIANT interface on an object that can be used to enumerate the IAzRoleAssignments collection. This property is hidden within Visual Basic and Visual Basic Scripting Edition (VBScript).
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignments-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroleassignments-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnumPtr := 0, "HRESULT")

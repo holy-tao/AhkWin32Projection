@@ -31,9 +31,11 @@ class IQueryCodePage extends IUnknown{
     static VTableNames => ["GetCodePage", "SetCodePage"]
 
     /**
+     * Retrieves the numeric value (Code Page identifier) of the ANSI code page.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iquerycodepage-getcodepage
+     * The numeric value (Code Page identifier) of the ANSI code page.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iquerycodepage-getcodepage
      */
     GetCodePage() {
         result := ComCall(3, this, "uint*", &puiCodePage := 0, "HRESULT")
@@ -41,10 +43,14 @@ class IQueryCodePage extends IUnknown{
     }
 
     /**
+     * Sets the numeric value of the ANSI code page to a specified code page identifier.
+     * @param {Integer} uiCodePage Type: <b>UINT</b>
      * 
-     * @param {Integer} uiCodePage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iquerycodepage-setcodepage
+     * The numeric value of the ANSI code page you want to set.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iquerycodepage-setcodepage
      */
     SetCodePage(uiCodePage) {
         result := ComCall(4, this, "uint", uiCodePage, "HRESULT")

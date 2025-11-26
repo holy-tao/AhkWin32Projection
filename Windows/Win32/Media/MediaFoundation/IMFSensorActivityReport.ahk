@@ -32,11 +32,11 @@ class IMFSensorActivityReport extends IUnknown{
     static VTableNames => ["GetFriendlyName", "GetSymbolicLink", "GetProcessCount", "GetProcessActivity"]
 
     /**
-     * 
-     * @param {PWSTR} FriendlyName 
-     * @param {Integer} cchFriendlyName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getfriendlyname
+     * Gets the friendly name for the sensor associated with the report.
+     * @param {PWSTR} FriendlyName The string into which the sensor friendly name is written.
+     * @param {Integer} cchFriendlyName The character count of the <i>FriendlyName</i> string.
+     * @returns {Integer} Receives the number of characters that were written into the <i>FriendlyName</i> string.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivityreport-getfriendlyname
      */
     GetFriendlyName(FriendlyName, cchFriendlyName) {
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
@@ -46,11 +46,11 @@ class IMFSensorActivityReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} SymbolicLink 
-     * @param {Integer} cchSymbolicLink 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getsymboliclink
+     * Gets the symbolic link for the sensor associated with the report.
+     * @param {PWSTR} SymbolicLink The string into which the sensor symbolic link is written.
+     * @param {Integer} cchSymbolicLink The character count of the <i>SymbolicLink</i> string.
+     * @returns {Integer} Receives the number of characters that were written into the <i>SymbolicLink</i> string.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivityreport-getsymboliclink
      */
     GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
@@ -60,9 +60,9 @@ class IMFSensorActivityReport extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocesscount
+     * Gets the count of IMFSensorProcessActivity objects, representing the current activity of a process associated with the sensor, that are available to be retrieved.
+     * @returns {Integer} A pointer in which the process count is stored.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivityreport-getprocesscount
      */
     GetProcessCount() {
         result := ComCall(5, this, "uint*", &pcCount := 0, "HRESULT")
@@ -70,10 +70,10 @@ class IMFSensorActivityReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {IMFSensorProcessActivity} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocessactivity
+     * Gets an IMFSensorProcessActivity object representing the current process activity of a sensor.
+     * @param {Integer} Index The index of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprocessactivity">IMFSensorProcessActivity</a> to retrieve. This value must be less than the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocesscount">GetProcessCount</a>.
+     * @returns {IMFSensorProcessActivity} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprocessactivity">IMFSensorProcessActivity</a> associated with the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivityreport-getprocessactivity
      */
     GetProcessActivity(Index) {
         result := ComCall(6, this, "uint", Index, "ptr*", &ppProcessActivity := 0, "HRESULT")

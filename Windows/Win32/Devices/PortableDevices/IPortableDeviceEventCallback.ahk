@@ -31,10 +31,10 @@ class IPortableDeviceEventCallback extends IUnknown{
     static VTableNames => ["OnEvent"]
 
     /**
-     * 
-     * @param {IPortableDeviceValues} pEventParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceeventcallback-onevent
+     * The OnEvent method is called by the SDK to notify the application about asynchronous events.
+     * @param {IPortableDeviceValues} pEventParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that contains event details.
+     * @returns {HRESULT} Any values returned by the application are ignored by Windows Portable Devices.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceeventcallback-onevent
      */
     OnEvent(pEventParameters) {
         result := ComCall(3, this, "ptr", pEventParameters, "HRESULT")

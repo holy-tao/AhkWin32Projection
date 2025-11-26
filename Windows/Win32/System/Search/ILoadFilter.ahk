@@ -36,90 +36,17 @@ class ILoadFilter extends IUnknown{
     static VTableNames => ["LoadIFilter", "LoadIFilterFromStorage", "LoadIFilterFromStream"]
 
     /**
-     * Retrieves IFilter from path name for object.
-     * @param {PWSTR} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
-     * @param {Pointer<FILTERED_DATA_SOURCES>} pFilteredSources 
-     * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
-     * @param {BOOL} fUseDefault 
-     * @param {Pointer<Guid>} pFilterClsid 
-     * @param {Pointer<Integer>} SearchDecSize 
-     * @param {Pointer<Pointer<Integer>>} pwcsSearchDesc 
-     * @param {Pointer<IFilter>} ppIFilt 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was denied access to the filter file.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function encountered an invalid handle, probably due to a low-memory situation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function received an invalid parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not have sufficient memory or other resources to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unknown error has occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-loadifilter
+     * Retrieves and loads the most appropriate filter that is mapped to a Shell data source.
+     * @param {PWSTR} pwcsPath Pointer to a comma-delimited null-terminated Unicode string buffer that specifies the path of the file to be filtered. This parameter can be null.
+     * @param {Pointer<FILTERED_DATA_SOURCES>} pFilteredSources Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/filtereg/ns-filtereg-filtered_data_sources">FILTERED_DATA_SOURCES</a> structure that specifies parameters for a Shell data source for which a filter is loaded. This parameter cannot be null.
+     * @param {IUnknown} pUnkOuter If the object is being created as part of an aggregate, specify a pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate.
+     * @param {BOOL} fUseDefault If <b>TRUE</b>, use the default filter; if <b>FALSE</b>, proceed with the most appropriate filter that is available.
+     * @param {Pointer<Guid>} pFilterClsid Pointer to the CLSID (CLSID_FilterRegistration) that receives the class identifier of the returned filter.
+     * @param {Pointer<Integer>} SearchDecSize Not implemented.
+     * @param {Pointer<Pointer<Integer>>} pwcsSearchDesc Not implemented.
+     * @param {Pointer<IFilter>} ppIFilt The address of a pointer to an implementation of an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface that <b>LoadIFilter</b> selects.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//filtereg/nf-filtereg-iloadfilter-loadifilter
      */
     LoadIFilter(pwcsPath, pFilteredSources, pUnkOuter, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
@@ -132,7 +59,7 @@ class ILoadFilter extends IUnknown{
     }
 
     /**
-     * 
+     * Do not use:\_this method is not implemented.
      * @param {IStorage} pStg 
      * @param {IUnknown} pUnkOuter 
      * @param {PWSTR} pwcsOverride 
@@ -141,8 +68,8 @@ class ILoadFilter extends IUnknown{
      * @param {Pointer<Integer>} SearchDecSize 
      * @param {Pointer<Pointer<Integer>>} pwcsSearchDesc 
      * @param {Pointer<IFilter>} ppIFilt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/filtereg/nf-filtereg-iloadfilter-loadifilterfromstorage
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//filtereg/nf-filtereg-iloadfilter-loadifilterfromstorage
      */
     LoadIFilterFromStorage(pStg, pUnkOuter, pwcsOverride, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         pwcsOverride := pwcsOverride is String ? StrPtr(pwcsOverride) : pwcsOverride
@@ -155,7 +82,7 @@ class ILoadFilter extends IUnknown{
     }
 
     /**
-     * 
+     * Do not use:\_this method is not implemented.
      * @param {IStream} pStm 
      * @param {Pointer<FILTERED_DATA_SOURCES>} pFilteredSources 
      * @param {IUnknown} pUnkOuter 
@@ -164,8 +91,8 @@ class ILoadFilter extends IUnknown{
      * @param {Pointer<Integer>} SearchDecSize 
      * @param {Pointer<Pointer<Integer>>} pwcsSearchDesc 
      * @param {Pointer<IFilter>} ppIFilt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/filtereg/nf-filtereg-iloadfilter-loadifilterfromstream
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//filtereg/nf-filtereg-iloadfilter-loadifilterfromstream
      */
     LoadIFilterFromStream(pStm, pFilteredSources, pUnkOuter, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"

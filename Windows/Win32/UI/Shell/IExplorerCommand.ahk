@@ -36,10 +36,14 @@ class IExplorerCommand extends IUnknown{
     static VTableNames => ["GetTitle", "GetIcon", "GetToolTip", "GetCanonicalName", "GetState", "Invoke", "GetFlags", "EnumSubCommands"]
 
     /**
+     * Gets the title text of the button or menu item that launches a specified Windows Explorer command item.
+     * @param {IShellItemArray} psiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psiItemArray 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettitle
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * Pointer to a buffer that, when this method returns successfully, receives the title string.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-gettitle
      */
     GetTitle(psiItemArray) {
         result := ComCall(3, this, "ptr", psiItemArray, "ptr*", &ppszName := 0, "HRESULT")
@@ -47,10 +51,14 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
+     * Gets an icon resource string of the icon associated with the specified Windows Explorer command item.
+     * @param {IShellItemArray} psiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psiItemArray 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-geticon
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * Pointer to a buffer that, when this method returns successfully, receives the resource string that identifies the icon source.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-geticon
      */
     GetIcon(psiItemArray) {
         result := ComCall(4, this, "ptr", psiItemArray, "ptr*", &ppszIcon := 0, "HRESULT")
@@ -58,10 +66,14 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
+     * Gets the tooltip string associated with a specified Windows Explorer command item.
+     * @param {IShellItemArray} psiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psiItemArray 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettooltip
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * Pointer to a buffer that, when this method returns successfully, receives the tooltip string.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-gettooltip
      */
     GetToolTip(psiItemArray) {
         result := ComCall(5, this, "ptr", psiItemArray, "ptr*", &ppszInfotip := 0, "HRESULT")
@@ -69,9 +81,11 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
+     * Gets the GUID of an Windows Explorer command.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getcanonicalname
+     * A pointer to a value that, when this method returns successfully, receives the command's GUID, under which it is declared in the registry.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-getcanonicalname
      */
     GetCanonicalName() {
         pguidCommandName := Guid()
@@ -80,11 +94,17 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
+     * Gets state information associated with a specified Windows Explorer command item.
+     * @param {IShellItemArray} psiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psiItemArray 
-     * @param {BOOL} fOkToBeSlow 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
+     * @param {BOOL} fOkToBeSlow Type: <b>BOOL</b>
+     * 
+     * <b>FALSE</b> if a verb object should not perform any memory intensive computations that could cause the UI thread to stop responding. The verb object should return E_PENDING in that case. If <b>TRUE</b>, those computations can be completed.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_expcmdstate">EXPCMDSTATE</a>*</b>
+     * 
+     * A pointer to a value that, when this method returns successfully, receives one or more Windows Explorer command states indicated by the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_expcmdstate">EXPCMDSTATE</a> constants.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
      */
     GetState(psiItemArray, fOkToBeSlow) {
         result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, "uint*", &pCmdState := 0, "HRESULT")
@@ -92,11 +112,17 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
+     * Invokes a Windows Explorer command.
+     * @param {IShellItemArray} psiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psiItemArray 
-     * @param {IBindCtx} pbc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-invoke
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface, which provides access to a bind context. This value can be <b>NULL</b> if no bind context is needed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-invoke
      */
     Invoke(psiItemArray, pbc) {
         result := ComCall(8, this, "ptr", psiItemArray, "ptr", pbc, "HRESULT")
@@ -104,9 +130,9 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags
+     * Gets the flags associated with a Windows Explorer command.
+     * @returns {Integer} Type: <b>EXPCMDFLAGS*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags
      */
     GetFlags() {
         result := ComCall(9, this, "uint*", &pFlags := 0, "HRESULT")
@@ -114,9 +140,11 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
+     * Retrieves an enemerator for a command's subcommands.
+     * @returns {IEnumExplorerCommand} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumexplorercommand">IEnumExplorerCommand</a>**</b>
      * 
-     * @returns {IEnumExplorerCommand} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-enumsubcommands
+     * When this method returns successfully, contains an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumexplorercommand">IEnumExplorerCommand</a> interface pointer that can be used to walk the set of subcommands.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-enumsubcommands
      */
     EnumSubCommands() {
         result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")

@@ -37,11 +37,17 @@ class IWICBitmapLock extends IUnknown{
     static VTableNames => ["GetSize", "GetStride", "GetDataPointer", "GetPixelFormat"]
 
     /**
+     * Retrieves the width and height, in pixels, of the locked rectangle.
+     * @param {Pointer<Integer>} puiWidth Type: <b>UINT*</b>
      * 
-     * @param {Pointer<Integer>} puiWidth 
-     * @param {Pointer<Integer>} puiHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getsize
+     * A pointer that receives the width of the locked rectangle.
+     * @param {Pointer<Integer>} puiHeight Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the height of the locked rectangle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getsize
      */
     GetSize(puiWidth, puiHeight) {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
@@ -52,9 +58,9 @@ class IWICBitmapLock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getstride
+     * Provides access to the stride value for the memory.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getstride
      */
     GetStride() {
         result := ComCall(4, this, "uint*", &pcbStride := 0, "HRESULT")
@@ -62,11 +68,17 @@ class IWICBitmapLock extends IUnknown{
     }
 
     /**
+     * Gets the pointer to the top left pixel in the locked rectangle.
+     * @param {Pointer<Integer>} pcbBufferSize Type: <b>UINT*</b>
      * 
-     * @param {Pointer<Integer>} pcbBufferSize 
-     * @param {Pointer<Pointer<Integer>>} ppbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getdatapointer
+     * A pointer that receives the size of the buffer.
+     * @param {Pointer<Pointer<Integer>>} ppbData Type: <b>BYTE**</b>
+     * 
+     * A pointer that receives a pointer to the top left pixel in the locked rectangle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getdatapointer
      */
     GetDataPointer(pcbBufferSize, ppbData) {
         pcbBufferSizeMarshal := pcbBufferSize is VarRef ? "uint*" : "ptr"
@@ -77,9 +89,11 @@ class IWICBitmapLock extends IUnknown{
     }
 
     /**
-     * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @returns {Guid} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
+     * Gets the pixel format of for the locked area of pixels. This can be used to compute the number of bytes-per-pixel in the locked area.
+     * @returns {Guid} Type: <b>WICPixelFormatGUID*</b>
+     * 
+     * A pointer that receives the pixel format GUID of the locked area.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmaplock-getpixelformat
      */
     GetPixelFormat() {
         pPixelFormat := Guid()

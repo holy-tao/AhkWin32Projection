@@ -31,10 +31,14 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
     static VTableNames => ["SetHttpMethod", "GetHttpMethod"]
 
     /**
+     * Overrides the default HTTP method used for a BITS transfer.
+     * @param {PWSTR} method Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} method 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-sethttpmethod
+     * A pointer to a constant null-terminated string of wide characters containing the HTTP method name.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-sethttpmethod
      */
     SetHttpMethod(method) {
         method := method is String ? StrPtr(method) : method
@@ -44,9 +48,11 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
     }
 
     /**
+     * Retrieves a wide string containing the HTTP method name for the BITS transfer. By default, download jobs will be &quot;GET&quot;, and upload and upload-reply jobs will be &quot;BITS_POST&quot;.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-gethttpmethod
+     * The address of a pointer to a null-terminated string of wide characters. If successful, the method updates the pointer to point to a string containing the HTTP method name. When you're done with this string, free it with a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-gethttpmethod
      */
     GetHttpMethod() {
         result := ComCall(12, this, "ptr*", &method := 0, "HRESULT")

@@ -31,9 +31,9 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetDataBroadcastID", "GetIDSelectorBytes"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-gettag
+     * Gets the tag that identifies a Digital Video Broadcast (DVB) data broadcast ID descriptor.
+     * @returns {Integer} Receives the descriptor tag. For data broadcast ID descriptors, this value is 0x66.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getlength
+     * Gets the length (in bytes) of a Digital Video Broadcast (DVB) data broadcast ID descriptor.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getdatabroadcastid
+     * Gets the identifier that identifies the network broadcast from a Digital Video Broadcast (DVB) data broadcast descriptor.
+     * @returns {Integer} Receives the broadcaster ID.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getdatabroadcastid
      */
     GetDataBroadcastID() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -61,10 +61,10 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbLen 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getidselectorbytes
+     * Gets the data from the selector in a Digital Video Broadcast (DVB) data broadcast ID descriptor. The selector is defined by the broadcast standard for the network.
+     * @param {Pointer<Integer>} pbLen Specifies or gets the number of selector bytes for this descriptor.
+     * @returns {Integer} Receives the selector bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getidselectorbytes
      */
     GetIDSelectorBytes(pbLen) {
         pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"

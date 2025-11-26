@@ -31,12 +31,20 @@ class IDXGISwapChain4 extends IDXGISwapChain3{
     static VTableNames => ["SetHDRMetaData"]
 
     /**
+     * This method sets High Dynamic Range (HDR) and Wide Color Gamut (WCG) header metadata.
+     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_hdr_metadata_type">DXGI_HDR_METADATA_TYPE</a></b>
      * 
-     * @param {Integer} Type 
-     * @param {Integer} Size 
-     * @param {Pointer<Void>} pMetaData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata
+     * Specifies one member of the  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_hdr_metadata_type">DXGI_HDR_METADATA_TYPE</a> enum.
+     * @param {Integer} Size Type: <b>UINT</b>
+     * 
+     * Specifies the size of <i>pMetaData</i>, in bytes.
+     * @param {Pointer<Void>} pMetaData Type: <b>void*</b>
+     * 
+     * Specifies a void pointer that references the metadata, if it exists. Refer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10">DXGI_HDR_METADATA_HDR10</a> structure.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata
      */
     SetHDRMetaData(Type, Size, pMetaData) {
         pMetaDataMarshal := pMetaData is VarRef ? "ptr" : "ptr"

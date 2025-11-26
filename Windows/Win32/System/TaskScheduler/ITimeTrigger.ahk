@@ -47,10 +47,10 @@ class ITimeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets a delay time that is randomly added to the start time of the trigger.
      * @param {Pointer<BSTR>} pRandomDelay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itimetrigger-get_randomdelay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itimetrigger-get_randomdelay
      */
     get_RandomDelay(pRandomDelay) {
         result := ComCall(20, this, "ptr", pRandomDelay, "HRESULT")
@@ -58,10 +58,10 @@ class ITimeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets a delay time that is randomly added to the start time of the trigger.
      * @param {BSTR} randomDelay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itimetrigger-put_randomdelay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itimetrigger-put_randomdelay
      */
     put_RandomDelay(randomDelay) {
         randomDelay := randomDelay is String ? BSTR.Alloc(randomDelay).Value : randomDelay

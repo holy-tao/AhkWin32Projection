@@ -48,9 +48,11 @@ class ID2D1Layer extends ID2D1Resource{
     static VTableNames => ["GetSize"]
 
     /**
+     * Gets the size of the layer in device-independent pixels.
+     * @returns {D2D_SIZE_F} Type: <b><a href="/windows/win32/Direct2D/d2d1-size-f">D2D1_SIZE_F</a></b>
      * 
-     * @returns {D2D_SIZE_F} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1layer-getsize
+     * The size of the layer in device-independent pixels.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1layer-getsize
      */
     GetSize() {
         result := ComCall(4, this, "ptr")

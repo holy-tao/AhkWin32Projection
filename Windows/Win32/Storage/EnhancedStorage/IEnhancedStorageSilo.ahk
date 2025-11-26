@@ -39,9 +39,9 @@ class IEnhancedStorageSilo extends IUnknown{
     static VTableNames => ["GetInfo", "GetActions", "SendCommand", "GetPortableDevice", "GetDevicePath"]
 
     /**
-     * 
-     * @returns {SILO_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getinfo
+     * Returns the descriptive information associated with the silo object.
+     * @returns {SILO_INFO} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ehstorapi/ns-ehstorapi-silo_info">SILO_INFO</a> object containing descriptive information associated with the silo.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getinfo
      */
     GetInfo() {
         pSiloInfo := SILO_INFO()
@@ -50,11 +50,40 @@ class IEnhancedStorageSilo extends IUnknown{
     }
 
     /**
+     * Returns an enumeration of all actions available to the silo object.
+     * @param {Pointer<Pointer<IEnhancedStorageSiloAction>>} pppIEnhancedStorageSiloActions Array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstoragesiloaction">IEnhancedStorageAction</a> interface objects that represent the actions available for the silo object. This array is allocated within the API when at least one action is available to the silo.
+     * @param {Pointer<Integer>} pcEnhancedStorageSiloActions Count of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstoragesiloaction">IEnhancedStorageAction</a> pointers returned. This value indicates the dimension of the  array represented by <i>pppIEnhancedStorageSilos</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Pointer<IEnhancedStorageSiloAction>>} pppIEnhancedStorageSiloActions 
-     * @param {Pointer<Integer>} pcEnhancedStorageSiloActions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getactions
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more ACTs were found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pppIEnhancedStorageSiloActions</i> or  <i>pcEnhancedStorageSiloActions</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getactions
      */
     GetActions(pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActions) {
         pppIEnhancedStorageSiloActionsMarshal := pppIEnhancedStorageSiloActions is VarRef ? "ptr*" : "ptr"
@@ -65,13 +94,13 @@ class IEnhancedStorageSilo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Command 
-     * @param {Pointer<Integer>} pbCommandBuffer 
-     * @param {Integer} cbCommandBuffer 
-     * @param {Pointer<Integer>} pcbResponseBuffer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-sendcommand
+     * Sends a raw silo command to the silo object. This method is utilized to communicate with a silo which is not represented by a driver.
+     * @param {Integer} Command The silo command to be issued. 8 bits of this value are placed in the byte at position 3 of the CDB sent to the device; i.e. the second byte of the <b>SecurityProtocolSpecific</b> field.
+     * @param {Pointer<Integer>} pbCommandBuffer The command payload sent to the device in the send data phase of the command.
+     * @param {Integer} cbCommandBuffer The count of bytes contained in the <i>pbCommandBuffer</i> buffer.
+     * @param {Pointer<Integer>} pcbResponseBuffer On method entry, contains the size of <i>pbResponseBuffer</i> in bytes. On method exit, it contains the count of bytes contained in the returned <i>pbResponse</i> buffer.
+     * @returns {Integer} The response payload that is returned to the host from the device in the receive data phase of the command.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesilo-sendcommand
      */
     SendCommand(Command, pbCommandBuffer, cbCommandBuffer, pcbResponseBuffer) {
         pbCommandBufferMarshal := pbCommandBuffer is VarRef ? "char*" : "ptr"
@@ -82,9 +111,9 @@ class IEnhancedStorageSilo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IPortableDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getportabledevice
+     * Obtains an IPortableDevice pointer used to issue commands to the corresponding Enhanced Storage silo driver.
+     * @returns {IPortableDevice} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevice">IPortableDevice</a>  object.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getportabledevice
      */
     GetPortableDevice() {
         result := ComCall(6, this, "ptr*", &ppIPortableDevice := 0, "HRESULT")
@@ -92,9 +121,9 @@ class IEnhancedStorageSilo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getdevicepath
+     * Retrieves the path to the silo device node. The returned string is suitable for passing to Windows System APIs such as CreateFile or SetupDiOpenDeviceInterface.
+     * @returns {PWSTR} A pointer to a string that represents the path to the Silo device node.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getdevicepath
      */
     GetDevicePath() {
         result := ComCall(7, this, "ptr*", &ppwszSiloDevicePath := 0, "HRESULT")

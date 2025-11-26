@@ -32,10 +32,12 @@ class IRawElementProviderWindowlessSite extends IUnknown{
     static VTableNames => ["GetAdjacentFragment", "GetRuntimeIdPrefix"]
 
     /**
-     * 
+     * Retrieves a fragment pointer for a fragment that is adjacent to the windowless Microsoft ActiveX control owned by this control site.
      * @param {Integer} direction 
-     * @returns {IRawElementProviderFragment} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getadjacentfragment
+     * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
+     * 
+     * Receives the adjacent fragment.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getadjacentfragment
      */
     GetAdjacentFragment(direction) {
         result := ComCall(3, this, "int", direction, "ptr*", &ppParent := 0, "HRESULT")
@@ -43,9 +45,11 @@ class IRawElementProviderWindowlessSite extends IUnknown{
     }
 
     /**
+     * Retrieves a Microsoft UI Automation runtime ID that is unique to the windowless Microsoft ActiveX control site.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getruntimeidprefix
+     * Receives the runtime ID.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getruntimeidprefix
      */
     GetRuntimeIdPrefix() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")

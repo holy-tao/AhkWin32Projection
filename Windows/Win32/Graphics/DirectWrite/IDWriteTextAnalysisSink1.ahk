@@ -31,15 +31,39 @@ class IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink{
     static VTableNames => ["SetGlyphOrientation"]
 
     /**
+     * The text analyzer calls back to this to report the actual orientation of each character for shaping and drawing.
+     * @param {Integer} textPosition Type: <b>UINT32 </b>
      * 
-     * @param {Integer} textPosition 
-     * @param {Integer} textLength 
-     * @param {Integer} glyphOrientationAngle 
-     * @param {Integer} adjustedBidiLevel 
-     * @param {BOOL} isSideways 
-     * @param {BOOL} isRightToLeft 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation
+     * The starting position to report from.
+     * @param {Integer} textLength Type: <b>UINT32 </b>
+     * 
+     * Number of UTF-16 units of the reported range.
+     * @param {Integer} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a>-typed value that specifies the angle of the glyphs within the text
+     *     range (pass to <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getglyphorientationtransform">IDWriteTextAnalyzer1::GetGlyphOrientationTransform</a> to get the world
+     *     relative transform).
+     * @param {Integer} adjustedBidiLevel Type: <b>UINT8</b>
+     * 
+     * The adjusted bidi level to be used by
+     *     the client layout for reordering runs. This will differ from the
+     *     resolved bidi level retrieved from the source for cases such as
+     *     Arabic stacked top-to-bottom, where the glyphs are still shaped
+     *     as RTL, but the runs are TTB along with any CJK or Latin.
+     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * 
+     * Whether the glyphs are rotated on their side,
+     *     which is the default case for CJK and the case stacked Latin
+     * @param {BOOL} isRightToLeft Type: <b>BOOL</b>
+     * 
+     * Whether the script should be shaped as
+     *     right-to-left. For Arabic stacked top-to-bottom, even when the
+     *     adjusted bidi level is coerced to an even level, this will still
+     *     be true.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a successful code or an error code to abort analysis.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation
      */
     SetGlyphOrientation(textPosition, textLength, glyphOrientationAngle, adjustedBidiLevel, isSideways, isRightToLeft) {
         result := ComCall(7, this, "uint", textPosition, "uint", textLength, "int", glyphOrientationAngle, "char", adjustedBidiLevel, "int", isSideways, "int", isRightToLeft, "HRESULT")

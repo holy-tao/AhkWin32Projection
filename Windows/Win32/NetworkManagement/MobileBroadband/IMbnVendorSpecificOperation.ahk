@@ -35,10 +35,10 @@ class IMbnVendorSpecificOperation extends IUnknown{
     static VTableNames => ["SetVendorSpecific"]
 
     /**
-     * 
-     * @param {Pointer<SAFEARRAY>} vendorSpecificData 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnvendorspecificoperation-setvendorspecific
+     * Sends a request to the underlying Mobile Broadband device miniport driver.
+     * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array that is passed in to the miniport driver.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnvendorspecificoperation-setvendorspecific
      */
     SetVendorSpecific(vendorSpecificData) {
         result := ComCall(3, this, "ptr", vendorSpecificData, "uint*", &requestID := 0, "HRESULT")

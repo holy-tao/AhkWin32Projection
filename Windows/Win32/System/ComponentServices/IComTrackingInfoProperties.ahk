@@ -31,9 +31,9 @@ class IComTrackingInfoProperties extends IUnknown{
     static VTableNames => ["PropCount", "GetPropName"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoproperties-propcount
+     * Retrieves the number of properties defined for a tracking information object.
+     * @returns {Integer} The number of properties defined for the object.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfoproperties-propcount
      */
     PropCount() {
         result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IComTrackingInfoProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulIndex 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoproperties-getpropname
+     * Retrieves the name of the property corresponding to the specified index number.
+     * @param {Integer} ulIndex The index of the property.
+     * @returns {PWSTR} The name of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfoproperties-getpropname
      */
     GetPropName(ulIndex) {
         result := ComCall(4, this, "uint", ulIndex, "ptr*", &ppszPropName := 0, "HRESULT")

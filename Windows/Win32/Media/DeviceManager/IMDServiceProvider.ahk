@@ -32,9 +32,9 @@ class IMDServiceProvider extends IUnknown{
     static VTableNames => ["GetDeviceCount", "EnumDevices"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdserviceprovider-getdevicecount
+     * The GetDeviceCount method returns the number of installed physical or software devices that are currently attached and are known by the service provider.
+     * @returns {Integer} Pointer to a <b>DWORD</b> containing the count of known devices.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdserviceprovider-getdevicecount
      */
     GetDeviceCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IMDServiceProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMDSPEnumDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdserviceprovider-enumdevices
+     * The EnumDevices method enumerates the installed physical or software devices that are currently attached and are known by the service provider.
+     * @returns {IMDSPEnumDevice} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-imdspenumdevice">IMDSPEnumDevice</a> interface. If the service provider implements <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdserviceprovider2-createdevice">IMDServiceProvider2::CreateDevice</a>, this enumerator should only enumerate non-Plug and Play devices.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdserviceprovider-enumdevices
      */
     EnumDevices() {
         result := ComCall(4, this, "ptr*", &ppEnumDevice := 0, "HRESULT")

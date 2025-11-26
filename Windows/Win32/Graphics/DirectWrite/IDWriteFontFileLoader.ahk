@@ -37,11 +37,18 @@ class IDWriteFontFileLoader extends IUnknown{
     static VTableNames => ["CreateStreamFromKey"]
 
     /**
+     * Creates a font file stream object that encapsulates an open file resource.
+     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
      * 
-     * @param {Pointer} fontFileReferenceKey 
-     * @param {Integer} fontFileReferenceKeySize 
-     * @returns {IDWriteFontFileStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey
+     * A pointer to a font file reference key that uniquely identifies the font file resource
+     *      within the scope of the font loader being used. The buffer allocated for this key must at least be the size, in bytes, specified by <i> fontFileReferenceKeySize</i>.
+     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * 
+     * The size of font file reference key, in bytes.
+     * @returns {IDWriteFontFileStream} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey
      */
     CreateStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         result := ComCall(3, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")

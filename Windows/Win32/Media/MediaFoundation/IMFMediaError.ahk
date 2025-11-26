@@ -38,9 +38,9 @@ class IMFMediaError extends IUnknown{
     static VTableNames => ["GetErrorCode", "GetExtendedErrorCode", "SetErrorCode", "SetExtendedErrorCode"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-geterrorcode
+     * Gets the error code.
+     * @returns {Integer} Returns a value from the <a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaerror-geterrorcode
      */
     GetErrorCode() {
         result := ComCall(3, this, "ushort")
@@ -48,9 +48,9 @@ class IMFMediaError extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-getextendederrorcode
+     * Gets the extended error code.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that gives additional information about the last error.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaerror-getextendederrorcode
      */
     GetExtendedErrorCode() {
         result := ComCall(4, this, "HRESULT")
@@ -58,10 +58,10 @@ class IMFMediaError extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} error 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-seterrorcode
+     * Sets the error code.
+     * @param {Integer} error The error code, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> value.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaerror-seterrorcode
      */
     SetErrorCode(error) {
         result := ComCall(5, this, "int", error, "HRESULT")
@@ -69,10 +69,10 @@ class IMFMediaError extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} error 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-setextendederrorcode
+     * Sets the extended error code.
+     * @param {HRESULT} error An <b>HRESULT</b> value that gives additional information about the last error.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaerror-setextendederrorcode
      */
     SetExtendedErrorCode(error) {
         result := ComCall(6, this, "int", error, "HRESULT")

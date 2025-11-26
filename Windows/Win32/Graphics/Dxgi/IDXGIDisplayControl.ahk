@@ -55,9 +55,11 @@ class IDXGIDisplayControl extends IUnknown{
     static VTableNames => ["IsStereoEnabled", "SetStereoEnabled"]
 
     /**
+     * Retrieves a Boolean value that indicates whether the operating system's stereoscopic 3D display behavior is enabled.
+     * @returns {BOOL} <b>IsStereoEnabled</b> returns TRUE when the operating system's stereoscopic 3D display behavior is enabled and FALSE when this behavior is disabled.
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidisplaycontrol-isstereoenabled
+     * <b>Platform Update for Windows 7:  </b>On Windows 7 or Windows Server 2008 R2 with the <a href="https://support.microsoft.com/help/2670838">Platform Update for Windows 7</a> installed, <b>IsStereoEnabled</b> always returns FALSE because stereoscopic 3D display behavior isn’t available with the Platform Update for Windows 7. For more info about the Platform Update for Windows 7, see <a href="/windows/desktop/direct3darticles/platform-update-for-windows-7">Platform Update for Windows 7</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgidisplaycontrol-isstereoenabled
      */
     IsStereoEnabled() {
         result := ComCall(3, this, "int")
@@ -65,10 +67,15 @@ class IDXGIDisplayControl extends IUnknown{
     }
 
     /**
+     * Set a Boolean value to either enable or disable the operating system's stereoscopic 3D display behavior.
+     * @remarks
      * 
-     * @param {BOOL} enabled 
+     * <b>Platform Update for Windows 7:  </b>On Windows 7 or Windows Server 2008 R2 with the <a href="https://support.microsoft.com/help/2670838">Platform Update for Windows 7</a> installed, <b>SetStereoEnabled</b> doesn't change stereoscopic 3D display behavior because stereoscopic 3D display behavior isn’t available with the Platform Update for Windows 7. For more info about the Platform Update for Windows 7, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/platform-update-for-windows-7">Platform Update for Windows 7</a>.
+     * 
+     * 
+     * @param {BOOL} enabled A Boolean value that either enables or disables the operating system's stereoscopic 3D display behavior. TRUE enables the operating system's stereoscopic 3D display behavior and FALSE disables it.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidisplaycontrol-setstereoenabled
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgidisplaycontrol-setstereoenabled
      */
     SetStereoEnabled(enabled) {
         ComCall(4, this, "int", enabled)

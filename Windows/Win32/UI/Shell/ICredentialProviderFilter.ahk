@@ -36,14 +36,30 @@ class ICredentialProviderFilter extends IUnknown{
     static VTableNames => ["Filter", "UpdateRemoteCredential"]
 
     /**
+     * Evaluates whether a list of credential providers should be allowed to provide credential tiles.
+     * @param {Integer} cpus Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a></b>
      * 
-     * @param {Integer} cpus 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Guid>} rgclsidProviders 
-     * @param {Pointer<BOOL>} rgbAllow 
-     * @param {Integer} cProviders 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderfilter-filter
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a> value that declares the scenarios in which a credential provider is supported.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * Usage scenario flags. This parameter is valid only if <i>cpus</i> is CPUS_CREDUI. They are defined in Wincred.h.
+     * @param {Pointer<Guid>} rgclsidProviders Type: <b>GUID*</b>
+     * 
+     * A pointer to an array of credential provider CLSIDs.
+     * @param {Pointer<BOOL>} rgbAllow Type: <b>BOOL*</b>
+     * 
+     * On entry, a pointer to an array of <b>BOOL</b> values, one for each corresponding member of the <i>rgclsidProviders</i> array, all initialized to <b>TRUE</b>. 
+     * 
+     *                     
+     * 
+     * On exit, contains <b>TRUE</b> if the corresponding credential provider in <i>rgclsidProviders</i> is allowed to provide a credential tile; otherwise, <b>FALSE</b>.
+     * @param {Integer} cProviders Type: <b>DWORD</b>
+     * 
+     * The number of members in <i>rgbAllow</i> or <i>rgclsidProviders</i> (they should be the same).
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialproviderfilter-filter
      */
     Filter(cpus, dwFlags, rgclsidProviders, rgbAllow, cProviders) {
         rgbAllowMarshal := rgbAllow is VarRef ? "int*" : "ptr"
@@ -53,10 +69,14 @@ class ICredentialProviderFilter extends IUnknown{
     }
 
     /**
+     * Updates a credential from a remote session.
+     * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcsIn Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a>*</b>
      * 
-     * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcsIn 
-     * @returns {CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderfilter-updateremotecredential
+     * A constant pointer to a <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a> structure.
+     * @returns {CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialproviderfilter-updateremotecredential
      */
     UpdateRemoteCredential(pcpcsIn) {
         pcpcsOut := CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION()

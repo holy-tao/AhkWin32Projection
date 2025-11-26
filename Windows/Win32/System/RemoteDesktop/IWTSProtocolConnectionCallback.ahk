@@ -31,9 +31,11 @@ class IWTSProtocolConnectionCallback extends IUnknown{
     static VTableNames => ["OnReady", "BrokenConnection", "StopScreenUpdates", "RedrawWindow", "DisplayIOCtl"]
 
     /**
+     * IWTSProtocolConnectionCallback::OnReady is no longer available. Instead, use IWRdsProtocolConnectionCallback::OnReady.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-onready
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-onready
      */
     OnReady() {
         result := ComCall(3, this, "HRESULT")
@@ -41,11 +43,13 @@ class IWTSProtocolConnectionCallback extends IUnknown{
     }
 
     /**
+     * IWTSProtocolConnectionCallback::BrokenConnection is no longer available. Instead, use IWRdsProtocolConnectionCallback::BrokenConnection.
+     * @param {Integer} Reason This parameter is not used.
+     * @param {Integer} Source This parameter is not used.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Reason 
-     * @param {Integer} Source 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-brokenconnection
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-brokenconnection
      */
     BrokenConnection(Reason, Source) {
         result := ComCall(4, this, "uint", Reason, "uint", Source, "HRESULT")
@@ -53,9 +57,11 @@ class IWTSProtocolConnectionCallback extends IUnknown{
     }
 
     /**
+     * IWTSProtocolConnectionCallback::StopScreenUpdates is no longer available. Instead, use IWRdsProtocolConnectionCallback::StopScreenUpdates.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-stopscreenupdates
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-stopscreenupdates
      */
     StopScreenUpdates() {
         result := ComCall(5, this, "HRESULT")
@@ -63,12 +69,12 @@ class IWTSProtocolConnectionCallback extends IUnknown{
     }
 
     /**
-     * The RedrawWindow function updates the specified rectangle or region in a window's client area.
-     * @param {Pointer<WTS_SMALL_RECT>} rect 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * IWTSProtocolConnectionCallback::RedrawWindow is no longer available. Instead, use IWRdsProtocolConnectionCallback::RedrawWindow.
+     * @param {Pointer<WTS_SMALL_RECT>} rect A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_small_rect">WTS_SMALL_RECT</a> structure that contains the x and y coordinates of the screen to redraw. A value of <b>NULL</b> requests that the entire screen be redrawn.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-redrawwindow
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-redrawwindow
      */
     RedrawWindow(rect) {
         result := ComCall(6, this, "ptr", rect, "HRESULT")
@@ -76,10 +82,12 @@ class IWTSProtocolConnectionCallback extends IUnknown{
     }
 
     /**
+     * IWTSProtocolConnectionCallback::DisplayIOCtl is no longer available.
+     * @param {Pointer<WTS_DISPLAY_IOCTL>} DisplayIOCtl A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_display_ioctl">WTS_DISPLAY_IOCTL</a> structure that contains data to be sent to the display driver loaded in the session.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Pointer<WTS_DISPLAY_IOCTL>} DisplayIOCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-displayioctl
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-displayioctl
      */
     DisplayIOCtl(DisplayIOCtl) {
         result := ComCall(7, this, "ptr", DisplayIOCtl, "HRESULT")

@@ -36,11 +36,11 @@ class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
     static VTableNames => ["GetByteRanges", "SetCacheLimit", "IsBackgroundTransferActive"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pcRanges 
-     * @param {Pointer<Pointer<MF_BYTE_STREAM_CACHE_RANGE>>} ppRanges 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-getbyteranges
+     * Gets the ranges of bytes that are currently stored in the cache.
+     * @param {Pointer<Integer>} pcRanges Receives the number of ranges returned in the <i>ppRanges</i> array.
+     * @param {Pointer<Pointer<MF_BYTE_STREAM_CACHE_RANGE>>} ppRanges Receives an array of <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_byte_stream_cache_range">MF_BYTE_STREAM_CACHE_RANGE</a> structures. Each structure specifies a range of bytes stored in the cache. The caller must free the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamcachecontrol2-getbyteranges
      */
     GetByteRanges(pcRanges, ppRanges) {
         pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
@@ -51,10 +51,10 @@ class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
     }
 
     /**
-     * 
-     * @param {Integer} qwBytes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-setcachelimit
+     * Limits the cache size.
+     * @param {Integer} qwBytes The maximum number of bytes to store in the cache, or <b>ULONGLONG_MAX </b> for no limit.  The default value is no limit.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamcachecontrol2-setcachelimit
      */
     SetCacheLimit(qwBytes) {
         result := ComCall(5, this, "uint", qwBytes, "HRESULT")
@@ -62,9 +62,9 @@ class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-isbackgroundtransferactive
+     * Queries whether background transfer is active.
+     * @returns {BOOL} Receives the value <b>TRUE</b> if background transfer is currently active, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamcachecontrol2-isbackgroundtransferactive
      */
     IsBackgroundTransferActive() {
         result := ComCall(6, this, "int*", &pfActive := 0, "HRESULT")

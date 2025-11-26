@@ -40,11 +40,12 @@ class IProvideTaskPage extends IUnknown{
     static VTableNames => ["GetPage"]
 
     /**
-     * 
-     * @param {Integer} tpType 
-     * @param {BOOL} fPersistChanges 
-     * @returns {HPROPSHEETPAGE} 
-     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-iprovidetaskpage-getpage
+     * This method retrieves one or more property sheet pages associated with a task object.
+     * @param {Integer} tpType One of the following 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ne-mstask-taskpage">TASKPAGE</a> enumeration values that specify the page to return.
+     * @param {BOOL} fPersistChanges Specifies whether changes to the task object are made persistent automatically. If <b>TRUE</b>, the page updates the persistent task object automatically if there is a change made on release. If <b>FALSE</b>, the caller is responsible for making task object changes persistent by calling <b>IPersistFile::Save</b> on the task object.
+     * @returns {HPROPSHEETPAGE} Handle to the returned property sheet page of the task object. This handle can then be used to display the page.
+     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-iprovidetaskpage-getpage
      */
     GetPage(tpType, fPersistChanges) {
         phPage := HPROPSHEETPAGE()

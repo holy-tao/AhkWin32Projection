@@ -36,12 +36,63 @@ class IWSDInboundAttachment extends IWSDAttachment{
     static VTableNames => ["Read", "Close"]
 
     /**
+     * Retrieves attachment data from a message sent by a remote host.
+     * @param {Pointer<Integer>} pBuffer Pointer to a buffer receiving the data read from the attachment stream. The application program is responsible for allocating and freeing this data buffer.
+     * @param {Integer} dwBytesToRead Size of the <i>pBuffer</i> input buffer, in bytes.
+     * @param {Pointer<Integer>} pdwNumberOfBytesRead Pointer to a <b>DWORD</b> containing the number of bytes of data read from the attachment stream into the <i>pBuffer</i> input buffer.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {Pointer<Integer>} pBuffer 
-     * @param {Integer} dwBytesToRead 
-     * @param {Pointer<Integer>} pdwNumberOfBytesRead 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdinboundattachment-read
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The end of the attachment stream has been reached.  
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pBuffer</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pdwNumberofBytesRead</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdattachment/nf-wsdattachment-iwsdinboundattachment-read
      */
     Read(pBuffer, dwBytesToRead, pdwNumberOfBytesRead) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -52,9 +103,32 @@ class IWSDInboundAttachment extends IWSDAttachment{
     }
 
     /**
+     * Closes the current attachment MIME data stream.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdinboundattachment-close
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdattachment/nf-wsdattachment-iwsdinboundattachment-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")

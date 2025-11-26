@@ -72,9 +72,13 @@ class IGPMResult extends IDispatch{
     }
 
     /**
+     * Returns the overall status of a GPMC operation, such as a copy, restore, backup, or import. If no error occurred during the operation, the method returns a success code; otherwise the method returns a failure code.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmresult-overallstatus
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmresult-overallstatus
      */
     OverallStatus() {
         result := ComCall(9, this, "HRESULT")

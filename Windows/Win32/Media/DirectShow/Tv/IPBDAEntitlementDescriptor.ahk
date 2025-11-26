@@ -31,9 +31,9 @@ class IPBDAEntitlementDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetToken"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettag
+     * Gets the tag that uniquely identifies an entitlement descriptor in a Protected Broadcast Driver Architecture (PBDA) transport stream.
+     * @returns {Integer} Receives the tag value. For PBDA entitlement descriptors, this value is 0x80.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IPBDAEntitlementDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-getlength
+     * Gets the length of the entitlement descriptor in a Protected Broadcast Driver Architecture (PBDA) transport stream, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -51,11 +51,11 @@ class IPBDAEntitlementDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Integer>>} ppbTokenBuffer 
-     * @param {Pointer<Integer>} pdwTokenLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettoken
+     * Gets the entitlement token from the entitlement descriptor in a Protected Broadcast Driver Architecture (PBDA) transport stream.
+     * @param {Pointer<Pointer<Integer>>} ppbTokenBuffer Pointer to a buffer that receives the entitlement token. The caller must free this memory after use.
+     * @param {Pointer<Integer>} pdwTokenLength Receives the entitlement token length.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettoken
      */
     GetToken(ppbTokenBuffer, pdwTokenLength) {
         ppbTokenBufferMarshal := ppbTokenBuffer is VarRef ? "ptr*" : "ptr"

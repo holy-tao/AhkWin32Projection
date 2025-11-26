@@ -62,9 +62,11 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
     static VTableNames => ["CheckWindowState", "Resize", "GetHwnd"]
 
     /**
+     * Indicates whether the HWND associated with this render target is occluded.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-checkwindowstate
+     * A value that indicates whether the HWND associated with this render target is occluded.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1hwndrendertarget-checkwindowstate
      */
     CheckWindowState() {
         result := ComCall(57, this, "int")
@@ -83,9 +85,11 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
     }
 
     /**
+     * Returns the HWND associated with this render target.
+     * @returns {HWND} Type: <b>HWND</b>
      * 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-gethwnd
+     * The HWND associated with this render target.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1hwndrendertarget-gethwnd
      */
     GetHwnd() {
         result := ComCall(59, this, "ptr")

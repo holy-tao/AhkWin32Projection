@@ -31,11 +31,14 @@ class IExtendView extends IUnknown{
     static VTableNames => ["GetViews"]
 
     /**
-     * 
-     * @param {IDataObject} pDataObject 
-     * @param {IViewExtensionCallback} pViewExtensionCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendview-getviews
+     * The GetViews method retrieves information about the extended view and adds extended views to the result pane.
+     * @param {IDataObject} pDataObject A pointer to the snap-in data object.
+     * @param {IViewExtensionCallback} pViewExtensionCallback A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iviewextensioncallback">IViewExtensionCallback</a> interface. The view extension snap-in uses the 
+     * IViewExtensionCallback interface to add information about the extended view. The snap-in can also call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iviewextensioncallback-addview">IViewExtensionCallback::AddView</a> method multiple times to add multiple extended views. The value in pViewExtensionCallback is valid only during the call to <b>IExtendView::GetViews</b>; view extension snap-ins must not save this pointer for later use.
+     * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendview-getviews
      */
     GetViews(pDataObject, pViewExtensionCallback) {
         result := ComCall(3, this, "ptr", pDataObject, "ptr", pViewExtensionCallback, "HRESULT")

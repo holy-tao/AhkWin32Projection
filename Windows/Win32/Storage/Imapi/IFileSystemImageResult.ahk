@@ -80,9 +80,9 @@ class IFileSystemImageResult extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_imagestream
+     * Retrieves the burn image stream.
+     * @returns {IStream} An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the burn image.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_imagestream
      */
     get_ImageStream() {
         result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
@@ -90,9 +90,9 @@ class IFileSystemImageResult extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IProgressItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_progressitems
+     * Retrieves the progress item block mapping collection.
+     * @returns {IProgressItems} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-iprogressitems">IProgressItems</a> interface that contains a collection of progress items. Each progress item identifies the blocks written since the previous progress status was taken.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_progressitems
      */
     get_ProgressItems() {
         result := ComCall(8, this, "ptr*", &pVal := 0, "HRESULT")
@@ -100,9 +100,9 @@ class IFileSystemImageResult extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_totalblocks
+     * Retrieves the number of blocks in the result image.
+     * @returns {Integer} Number of blocks to burn on the disc.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_totalblocks
      */
     get_TotalBlocks() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -110,9 +110,9 @@ class IFileSystemImageResult extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_blocksize
+     * Retrieves the size, in bytes, of a block of data.
+     * @returns {Integer} Number of bytes in a block.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_blocksize
      */
     get_BlockSize() {
         result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
@@ -120,9 +120,9 @@ class IFileSystemImageResult extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_discid
+     * Retrieves the disc volume name for this file system image.
+     * @returns {BSTR} String that contains the volume name for this file system image.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_discid
      */
     get_DiscId() {
         pVal := BSTR()

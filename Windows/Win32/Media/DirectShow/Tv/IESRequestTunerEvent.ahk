@@ -35,9 +35,9 @@ class IESRequestTunerEvent extends IESEvent{
     static VTableNames => ["GetPriority", "GetReason", "GetConsequences", "GetEstimatedTime"]
 
     /**
-     * 
+     * Gets a code that indicates the priority of a device request for exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getpriority
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getpriority
      */
     GetPriority() {
         result := ComCall(8, this, "char*", &pbyPriority := 0, "HRESULT")
@@ -45,9 +45,9 @@ class IESRequestTunerEvent extends IESEvent{
     }
 
     /**
-     * 
+     * Gets a code that indicates the reason a device is requesting exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getreason
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getreason
      */
     GetReason() {
         result := ComCall(9, this, "char*", &pbyReason := 0, "HRESULT")
@@ -55,9 +55,9 @@ class IESRequestTunerEvent extends IESEvent{
     }
 
     /**
-     * 
+     * Gets a code that indicates the consequences of a device request for exclusive access to a tuner and its Conditional Access Services (CAS).
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getconsequences
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getconsequences
      */
     GetConsequences() {
         result := ComCall(10, this, "char*", &pbyConsequences := 0, "HRESULT")
@@ -65,9 +65,9 @@ class IESRequestTunerEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getestimatedtime
+     * Gets a value indicating the amount of time that a device estimates it needs exclusive access to a tuner and its Conditional Access Services (CAS).
+     * @returns {Integer} Gets the estimated time that exclusive access is needed, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesrequesttunerevent-getestimatedtime
      */
     GetEstimatedTime() {
         result := ComCall(11, this, "uint*", &pdwEstimatedTime := 0, "HRESULT")

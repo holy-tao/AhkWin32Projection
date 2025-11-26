@@ -36,10 +36,10 @@ class IVPNotify extends IVPBaseNotify{
     static VTableNames => ["SetDeinterlaceMode", "GetDeinterlaceMode"]
 
     /**
-     * 
-     * @param {Integer} mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-setdeinterlacemode
+     * Sets the mode (such as bob or weave).
+     * @param {Integer} mode Specified mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify-setdeinterlacemode
      */
     SetDeinterlaceMode(mode) {
         result := ComCall(4, this, "int", mode, "HRESULT")
@@ -47,10 +47,10 @@ class IVPNotify extends IVPBaseNotify{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
+     * The GetDeinterlaceMode method retrieves the mode (such as bob or weave).
+     * @param {Pointer<Integer>} pMode Pointer to the retrieved mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
      */
     GetDeinterlaceMode(pMode) {
         pModeMarshal := pMode is VarRef ? "int*" : "ptr"

@@ -44,12 +44,12 @@ class IMbnConnectionEvents extends IUnknown{
     static VTableNames => ["OnConnectComplete", "OnDisconnectComplete", "OnConnectStateChange", "OnVoiceCallStateChange"]
 
     /**
-     * 
-     * @param {IMbnConnection} newConnection 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
+     * Notification method that signals the completion of a connection operation.
+     * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device on which the connection operation has completed.
+     * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the connection operation.
+     * @param {HRESULT} status The completion status.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
      */
     OnConnectComplete(newConnection, requestID, status) {
         result := ComCall(3, this, "ptr", newConnection, "uint", requestID, "int", status, "HRESULT")
@@ -57,12 +57,12 @@ class IMbnConnectionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnConnection} newConnection 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
+     * Notification method that indicates that a disconnection operation has been performed.
+     * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection that has been disconnected.
+     * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the disconnection operation.
+     * @param {HRESULT} status The operation completion status.  This can only be <b>S_OK</b>.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
      */
     OnDisconnectComplete(newConnection, requestID, status) {
         result := ComCall(4, this, "ptr", newConnection, "uint", requestID, "int", status, "HRESULT")
@@ -70,10 +70,10 @@ class IMbnConnectionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnConnection} newConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectstatechange
+     * Notification method that indicates whether the connection state of the device has changed.
+     * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection on which the state has changed due to a system or network initiated change.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-onconnectstatechange
      */
     OnConnectStateChange(newConnection) {
         result := ComCall(5, this, "ptr", newConnection, "HRESULT")
@@ -81,10 +81,10 @@ class IMbnConnectionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnConnection} newConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-onvoicecallstatechange
+     * Notification method that indicates a change in the voice call state of a device.
+     * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection for which the voice call state has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-onvoicecallstatechange
      */
     OnVoiceCallStateChange(newConnection) {
         result := ComCall(6, this, "ptr", newConnection, "HRESULT")

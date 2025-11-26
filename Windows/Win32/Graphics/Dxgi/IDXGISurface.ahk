@@ -40,9 +40,11 @@ class IDXGISurface extends IDXGIDeviceSubObject{
     static VTableNames => ["GetDesc", "Map", "Unmap"]
 
     /**
+     * Get a description of the surface.
+     * @returns {DXGI_SURFACE_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_surface_desc">DXGI_SURFACE_DESC</a>*</b>
      * 
-     * @returns {DXGI_SURFACE_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface-getdesc
+     * A pointer to the surface description (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_surface_desc">DXGI_SURFACE_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgisurface-getdesc
      */
     GetDesc() {
         pDesc := DXGI_SURFACE_DESC()
@@ -51,10 +53,22 @@ class IDXGISurface extends IDXGIDeviceSubObject{
     }
 
     /**
+     * Get a pointer to the data contained in the surface, and deny GPU access to the surface.
+     * @param {Integer} MapFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} MapFlags 
-     * @returns {DXGI_MAPPED_RECT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface-map
+     * CPU read-write flags. These flags can be combined with a logical OR.
+     * 
+     * 
+     * 
+     * <ul>
+     * <li>DXGI_MAP_READ - Allow CPU read access.</li>
+     * <li>DXGI_MAP_WRITE - Allow CPU write access.</li>
+     * <li>DXGI_MAP_DISCARD - Discard the previous contents of a resource when it is mapped.</li>
+     * </ul>
+     * @returns {DXGI_MAPPED_RECT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_mapped_rect">DXGI_MAPPED_RECT</a>*</b>
+     * 
+     * A pointer to the surface data (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_mapped_rect">DXGI_MAPPED_RECT</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgisurface-map
      */
     Map(MapFlags) {
         pLockedRect := DXGI_MAPPED_RECT()
@@ -63,9 +77,11 @@ class IDXGISurface extends IDXGIDeviceSubObject{
     }
 
     /**
+     * Invalidate the pointer to the surface retrieved by IDXGISurface::Map and re-enable GPU access to the resource.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface-unmap
+     * Returns S_OK if successful; otherwise, returns one of the error codes that are described in the <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a> topic.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgisurface-unmap
      */
     Unmap() {
         result := ComCall(10, this, "HRESULT")

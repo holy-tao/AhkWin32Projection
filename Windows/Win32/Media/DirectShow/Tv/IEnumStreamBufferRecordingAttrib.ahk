@@ -37,11 +37,11 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cRequest 
-     * @param {Pointer<STREAMBUFFER_ATTRIBUTE>} pStreamBufferAttribute 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-next
+     * The Next method returns a specified number of attributes in the enumeration sequence.
+     * @param {Integer} cRequest The number of attributes to retrieve.
+     * @param {Pointer<STREAMBUFFER_ATTRIBUTE>} pStreamBufferAttribute Pointer to an array of size <i>cRequest</i>. The array is filled with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/ns-sbe-streambuffer_attribute">STREAMBUFFER_ATTRIBUTE</a> structures.
+     * @returns {Integer} Pointer to a variable that receives the number of attributes that are returned in the <i>pStreamBufferAttribute</i> array. This parameter can be <b>NULL</b> if <i>cRequest</i> is 1.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-next
      */
     Next(cRequest, pStreamBufferAttribute) {
         result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, "uint*", &pcReceived := 0, "HRESULT")
@@ -49,10 +49,39 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
     }
 
     /**
+     * The Skip method skips over a specified number of attributes.
+     * @param {Integer} cRecords The number of attributes to skip.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} cRecords 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Skipped past the end of the sequence.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-skip
      */
     Skip(cRecords) {
         result := ComCall(4, this, "uint", cRecords, "HRESULT")
@@ -60,9 +89,9 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-reset
+     * The Reset method resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -70,9 +99,9 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumStreamBufferRecordingAttrib} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-clone
+     * The Clone method makes a copy of the enumerator object. The returned object starts with the same enumeration state as the original.
+     * @returns {IEnumStreamBufferRecordingAttrib} Address of a variable that receives a pointer to the <b>IEnumStreamBufferRecordingAttrib</b> interface of the new enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "HRESULT")

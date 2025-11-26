@@ -37,13 +37,75 @@ class IAppxPackageWriter extends IUnknown{
     static VTableNames => ["AddPayloadFile", "Close"]
 
     /**
+     * Adds a new payload file to the app package.
+     * @param {PWSTR} fileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} fileName 
-     * @param {PWSTR} contentType 
-     * @param {Integer} compressionOption 
-     * @param {IStream} inputStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagewriter-addpayloadfile
+     * The name of the payload file. The file name path must be relative to the root of the package.
+     * @param {PWSTR} contentType Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
+     * 
+     * The string specifying the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">content type</a> of  <i>fileName</i>.
+     * @param {Integer} compressionOption Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_compression_option">APPX_COMPRESSION_OPTION</a></b>
+     * 
+     * The type of compression to use  to store <i>fileName</i> in the package.
+     * @param {IStream} inputStream Type: <b>IStream*</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> providing the contents of <i>fileName</i>.
+     *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code that includes, but is not limited to, those in the following table. Error OPC codes, in addition to  OPC_E_DUPLICATE_PART may result. If the method fails, the package writer will close in a failed state and can't be used any more.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The compression option specified by <i>compressionOption</i> is not one of the values of the <a href="/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_compression_option">APPX_COMPRESSION_OPTION</a> enumeration.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_VALID_STATE </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The writer is closed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_NAME)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The file name specified is not a valid file name or is a reserved name for a footprint file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OPC_E_DUPLICATE_PART</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The file name specified is already in use in the package. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter-addpayloadfile
      */
     AddPayloadFile(fileName, contentType, compressionOption, inputStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -54,10 +116,43 @@ class IAppxPackageWriter extends IUnknown{
     }
 
     /**
+     * Writes footprint files at the end of the app package, and closes the package writer object's output stream.
+     * @param {IStream} manifest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} manifest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagewriter-close
+     * The stream that provides the contents of the manifest for the package. The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code that includes, but is not limited to, those in the following table. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_VALID_STATE </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The writer is closed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>APPX_E_INVALID_MANIFEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input stream contains a manifest that is not valid. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter-close
      */
     Close(manifest) {
         result := ComCall(4, this, "ptr", manifest, "HRESULT")

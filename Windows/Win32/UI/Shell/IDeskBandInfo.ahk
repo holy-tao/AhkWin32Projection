@@ -31,11 +31,15 @@ class IDeskBandInfo extends IUnknown{
     static VTableNames => ["GetDefaultBandWidth"]
 
     /**
+     * Gets the band width that the bandsite initially uses to set the default width when the band is added.
+     * @param {Integer} dwBandID Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwBandID 
-     * @param {Integer} dwViewMode 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskbandinfo-getdefaultbandwidth
+     * The band ID.
+     * @param {Integer} dwViewMode Type: <b>DWORD</b>
+     * @returns {Integer} Type: <b>int*</b>
+     * 
+     * A pointer to the band width.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ideskbandinfo-getdefaultbandwidth
      */
     GetDefaultBandWidth(dwBandID, dwViewMode) {
         result := ComCall(3, this, "uint", dwBandID, "uint", dwViewMode, "int*", &pnWidth := 0, "HRESULT")

@@ -59,9 +59,9 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currenttracknumber
+     * Retrieves the current track number being written to the media.
+     * @returns {Integer} Track number, ranging from 1 through 99.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currenttracknumber
      */
     get_CurrentTrackNumber() {
         result := ComCall(14, this, "int*", &value := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currentaction
+     * Retrieves the current write action being performed.
+     * @returns {Integer} Current write action being performed. For a list of possible actions, see  the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_tao_write_action">IMAPI_FORMAT2_TAO_WRITE_ACTION</a> enumeration type.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currentaction
      */
     get_CurrentAction() {
         result := ComCall(15, this, "int*", &value := 0, "HRESULT")
@@ -79,9 +79,9 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_elapsedtime
+     * Retrieves the total elapsed time of the write operation.
+     * @returns {Integer} Elapsed time, in seconds, of the write operation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_elapsedtime
      */
     get_ElapsedTime() {
         result := ComCall(16, this, "int*", &value := 0, "HRESULT")
@@ -89,9 +89,9 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_remainingtime
+     * Retrieves the estimated remaining time of the write operation.
+     * @returns {Integer} Estimated time, in seconds, needed for the remainder of the write operation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_remainingtime
      */
     get_RemainingTime() {
         result := ComCall(17, this, "int*", &value := 0, "HRESULT")

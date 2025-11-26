@@ -37,9 +37,11 @@ class IShellImageDataAbort extends IUnknown{
     static VTableNames => ["QueryAbort"]
 
     /**
+     * Aborts an IShellImageData process such as Decode, Draw, or Scale. This is a callback method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedataabort-queryabort
+     * Returns S_OK if the <a href="/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> process should continue, or S_FALSE if it should be aborted.
+     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedataabort-queryabort
      */
     QueryAbort() {
         result := ComCall(3, this, "HRESULT")

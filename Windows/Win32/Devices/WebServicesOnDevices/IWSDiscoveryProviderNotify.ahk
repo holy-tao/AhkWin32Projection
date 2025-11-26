@@ -31,10 +31,10 @@ class IWSDiscoveryProviderNotify extends IUnknown{
     static VTableNames => ["Add", "Remove", "SearchFailed", "SearchComplete"]
 
     /**
-     * 
-     * @param {IWSDiscoveredService} pService 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-add
+     * Provides information on either a newly announced discovery host (from a Hello message), or a match to a user initiated query.
+     * @param {IWSDiscoveredService} pService A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveredservice">IWSDiscoveredService</a> interface that represents a remote discovery host.
+     * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-add
      */
     Add(pService) {
         result := ComCall(3, this, "ptr", pService, "HRESULT")
@@ -42,10 +42,10 @@ class IWSDiscoveryProviderNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IWSDiscoveredService} pService 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-remove
+     * Provides information on a recently departed discovery host (from a Bye message).
+     * @param {IWSDiscoveredService} pService A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveredservice">IWSDiscoveredService</a> interface that represents a remote discovery host.
+     * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-remove
      */
     Remove(pService) {
         result := ComCall(4, this, "ptr", pService, "HRESULT")
@@ -53,11 +53,11 @@ class IWSDiscoveryProviderNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} hr 
-     * @param {PWSTR} pszTag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-searchfailed
+     * Is called to indicate a user initiated search has failed.
+     * @param {HRESULT} hr Cause of the search failure which initiated this callback.  A value of <b>S_FALSE</b> indicates the search completed without issuing any Add callbacks.
+     * @param {PWSTR} pszTag Optional identifier tag for this search.  May be <b>NULL</b>.
+     * @returns {HRESULT} The return value is not meaningful.  An implementer should return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-searchfailed
      */
     SearchFailed(hr, pszTag) {
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
@@ -67,10 +67,10 @@ class IWSDiscoveryProviderNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszTag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-searchcomplete
+     * Called to indicate a user initiated search has successfully completed and no more matches for the search will be accepted.
+     * @param {PWSTR} pszTag Search tag passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> search method.
+     * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveryprovidernotify-searchcomplete
      */
     SearchComplete(pszTag) {
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag

@@ -218,12 +218,45 @@ class IITResultSet extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lRowIndex 
+     * Gets the property in the specified row and column and fills the given property object.
+     * @param {Integer} lRowIndex Row where property belongs.
      * @param {Integer} lColumnIndex 
-     * @param {Pointer<CProperty>} Prop 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-get
+     * @param {Pointer<CProperty>} Prop Column where property belongs.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The row was successfully retrieved.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTEXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The row or column does not exist in the row set.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitresultset-get
      */
     Get(lRowIndex, lColumnIndex, Prop) {
         result := ComCall(17, this, "int", lRowIndex, "int", lColumnIndex, "ptr", Prop, "HRESULT")
@@ -256,10 +289,30 @@ class IITResultSet extends IUnknown{
     }
 
     /**
+     * Gets the number of rows in a result set.
+     * @param {Pointer<Integer>} lNumberOfRows Number of rows.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} lNumberOfRows 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-getrowcount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The number of rows was successfully retrieved.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitresultset-getrowcount
      */
     GetRowCount(lNumberOfRows) {
         lNumberOfRowsMarshal := lNumberOfRows is VarRef ? "int*" : "ptr"

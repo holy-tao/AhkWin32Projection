@@ -31,11 +31,32 @@ class ID2D1ConcreteTransform extends ID2D1TransformNode{
     static VTableNames => ["SetOutputBuffer", "SetCached"]
 
     /**
+     * Sets the properties of the output buffer of the specified transform node.
+     * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
-     * @param {Integer} bufferPrecision 
-     * @param {Integer} channelDepth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setoutputbuffer
+     * The number of bits and the type of the output buffer.
+     * @param {Integer} channelDepth Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth">D2D1_CHANNEL_DEPTH</a></b>
+     * 
+     * The number of channels in the output buffer (1 or 4).
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>One or more arguments are not valid</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setoutputbuffer
      */
     SetOutputBuffer(bufferPrecision, channelDepth) {
         result := ComCall(4, this, "int", bufferPrecision, "int", channelDepth, "HRESULT")
@@ -43,10 +64,12 @@ class ID2D1ConcreteTransform extends ID2D1TransformNode{
     }
 
     /**
+     * Sets whether the output of the specified transform is cached.
+     * @param {BOOL} isCached Type: <b>BOOL</b>
      * 
-     * @param {BOOL} isCached 
+     * <b>TRUE</b> if the output should be cached; otherwise,  <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setcached
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1concretetransform-setcached
      */
     SetCached(isCached) {
         ComCall(5, this, "int", isCached)

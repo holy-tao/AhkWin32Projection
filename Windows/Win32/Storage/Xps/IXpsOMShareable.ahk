@@ -31,9 +31,9 @@ class IXpsOMShareable extends IUnknown{
     static VTableNames => ["GetOwner", "GetType"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-getowner
+     * Gets the IUnknown interface of the parent.
+     * @returns {IUnknown} A pointer to the <b>IUnknown</b> interface of the parent.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-getowner
      */
     GetOwner() {
         result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IXpsOMShareable extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
+     * Gets the object type of the interface.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_object_type">XPS_OBJECT_TYPE</a> value that describes the interface that is derived from <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
      */
     GetType() {
         result := ComCall(4, this, "int*", &type := 0, "HRESULT")

@@ -52,11 +52,17 @@ class IDragSourceHelper extends IUnknown{
     static VTableNames => ["InitializeFromBitmap", "InitializeFromWindow"]
 
     /**
+     * Initializes the drag-image manager for a windowless control.
+     * @param {Pointer<SHDRAGIMAGE>} pshdi Type: <b>LPSHDRAGIMAGE</b>
      * 
-     * @param {Pointer<SHDRAGIMAGE>} pshdi 
-     * @param {IDataObject} pDataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefrombitmap
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shdragimage">SHDRAGIMAGE</a> structure that contains information about the bitmap.
+     * @param {IDataObject} pDataObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * 
+     * A pointer to the data object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefrombitmap
      */
     InitializeFromBitmap(pshdi, pDataObject) {
         result := ComCall(3, this, "ptr", pshdi, "ptr", pDataObject, "HRESULT")
@@ -64,12 +70,20 @@ class IDragSourceHelper extends IUnknown{
     }
 
     /**
+     * Initializes the drag-image manager for a control with a window.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<POINT>} ppt 
-     * @param {IDataObject} pDataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefromwindow
+     * A handle to the window that receives the <b>DI_GETDRAGIMAGE</b> message. This value can be <b>NULL</b>.
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor. This value can be <b>NULL</b>.
+     * @param {IDataObject} pDataObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * 
+     * A pointer to the data object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefromwindow
      */
     InitializeFromWindow(hwnd, ppt, pDataObject) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

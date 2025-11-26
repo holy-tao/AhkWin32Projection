@@ -31,9 +31,11 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     static VTableNames => ["GetMetadataFormat", "GetContainerFormats", "GetDeviceManufacturer", "GetDeviceModels", "DoesRequireFullStream", "DoesSupportPadding", "DoesRequireFixedSize"]
 
     /**
+     * Retrieves the metadata format of the metadata handler.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getmetadataformat
+     * Pointer that receives the metadata format GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getmetadataformat
      */
     GetMetadataFormat() {
         pguidMetadataFormat := Guid()
@@ -42,11 +44,20 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves the container formats supported by the metadata handler.
+     * @param {Integer} cContainerFormats Type: <b>UINT</b>
      * 
-     * @param {Integer} cContainerFormats 
-     * @param {Pointer<Guid>} pguidContainerFormats 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
+     * The size of the <i>pguidContainerFormats</i> array.
+     * @param {Pointer<Guid>} pguidContainerFormats Type: <b>GUID*</b>
+     * 
+     * Pointer to an array that receives the container formats supported by the metadata handler.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual number of GUIDs added to the array.
+     *                
+     * 
+     * To obtain the number of supported container formats, pass <c>NULL</c> to <i>pguidContainerFormats</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
      */
     GetContainerFormats(cContainerFormats, pguidContainerFormats) {
         result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
@@ -54,11 +65,17 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves the device manufacturer of the metadata handler.
+     * @param {Integer} cchDeviceManufacturer Type: <b>UINT</b>
      * 
-     * @param {Integer} cchDeviceManufacturer 
-     * @param {PWSTR} wzDeviceManufacturer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemanufacturer
+     * The size of the <i>wzDeviceManufacturer</i> buffer.
+     * @param {PWSTR} wzDeviceManufacturer Type: <b>WCHAR*</b>
+     * 
+     * Pointer to the buffer that receives the name of the device manufacturer.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual string buffer length needed to obtain the entire name of the device manufacturer.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemanufacturer
      */
     GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
@@ -68,11 +85,17 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves the device models that support the metadata handler.
+     * @param {Integer} cchDeviceModels Type: <b>UINT</b>
      * 
-     * @param {Integer} cchDeviceModels 
-     * @param {PWSTR} wzDeviceModels 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemodels
+     * The length of the <i>wzDeviceModels</i> buffer.
+     * @param {PWSTR} wzDeviceModels Type: <b>WCHAR*</b>
+     * 
+     * Pointer that receives the device models supported by the metadata handler.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual length needed to retrieve the device models.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemodels
      */
     GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
@@ -82,9 +105,11 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     }
 
     /**
+     * Determines if the handler requires a full stream.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefullstream
+     * Pointer that receives <b>TRUE</b> if a full stream is required; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefullstream
      */
     DoesRequireFullStream() {
         result := ComCall(15, this, "int*", &pfRequiresFullStream := 0, "HRESULT")
@@ -92,9 +117,11 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     }
 
     /**
+     * Determines if the metadata handler supports padding.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doessupportpadding
+     * Pointer that receives <b>TRUE</b> if padding is supported; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doessupportpadding
      */
     DoesSupportPadding() {
         result := ComCall(16, this, "int*", &pfSupportsPadding := 0, "HRESULT")
@@ -102,9 +129,11 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     }
 
     /**
+     * Determines if the metadata handler requires a fixed size.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefixedsize
+     * Pointer that receives <b>TRUE</b> if a fixed size is required; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefixedsize
      */
     DoesRequireFixedSize() {
         result := ComCall(17, this, "int*", &pfFixedSize := 0, "HRESULT")

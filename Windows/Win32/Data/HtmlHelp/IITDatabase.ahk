@@ -31,12 +31,48 @@ class IITDatabase extends IUnknown{
     static VTableNames => ["Open", "Close", "CreateObject", "GetObject", "GetObjectPersistence"]
 
     /**
+     * Opens a database.
+     * @param {PWSTR} lpszHost Host name. You can pass NULL if calling the <b>Open</b> method locally, otherwise this string should contain the host description string, described below.
+     * @param {PWSTR} lpszMoniker Name of database file to open. This should include the full path to the file name, if calling locally. If calling using HTTP, this should contain the ISAPI extension DLL name followed by the relative path to the database file, for example: 
      * 
-     * @param {PWSTR} lpszHost 
-     * @param {PWSTR} lpszMoniker 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-open
+     * <c>isapiext.dll?path1\path2\db.its</c>
+     * @param {Integer} dwFlags Currently not used.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The database was successfully opened.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E*</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface errors that can occur as storage is opened.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-open
      */
     Open(lpszHost, lpszMoniker, dwFlags) {
         lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
@@ -47,9 +83,29 @@ class IITDatabase extends IUnknown{
     }
 
     /**
+     * Closes a database.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-close
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The database was successfully closed.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")
@@ -57,11 +113,64 @@ class IITDatabase extends IUnknown{
     }
 
     /**
+     * Creates an unnamed object you can reference in the future through the *pdwObjInstance parameter.
+     * @param {Pointer<Guid>} rclsid Class ID for object.
+     * @param {Pointer<Integer>} pdwObjInstance Identifier for object.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} rclsid 
-     * @param {Pointer<Integer>} pdwObjInstance 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-createobject
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object was successfully created.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument was not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTINIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The database has not been opened.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The memory required for internal structures could not be allocated.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-createobject
      */
     CreateObject(rclsid, pdwObjInstance) {
         pdwObjInstanceMarshal := pdwObjInstance is VarRef ? "uint*" : "ptr"
@@ -71,16 +180,67 @@ class IITDatabase extends IUnknown{
     }
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {Integer} dwObjInstance 
+     * Retrieves a specified IUnknown-based interface on the object identified by the dwObjInstance parameter.
+     * @param {Integer} dwObjInstance Identifier for object.
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
+     * @param {Pointer<Pointer<Void>>} ppvObj Interface ID requested.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation completed successfully.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument was not valid.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTINIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The database has not been opened.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The memory required for internal structures could not be allocated.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-getobject
      */
     GetObject(dwObjInstance, riid, ppvObj) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"

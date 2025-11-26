@@ -53,14 +53,24 @@ class IContextMenu extends IUnknown{
     static VTableNames => ["QueryContextMenu", "InvokeCommand", "GetCommandString"]
 
     /**
+     * Adds commands to a shortcut menu.
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
-     * @param {HMENU} hmenu 
-     * @param {Integer} indexMenu 
-     * @param {Integer} idCmdFirst 
-     * @param {Integer} idCmdLast 
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-querycontextmenu
+     * A handle to the shortcut menu. The handler should specify this handle when adding menu items.
+     * @param {Integer} indexMenu Type: <b>UINT</b>
+     * 
+     * The zero-based position at which to insert the first new menu item.
+     * @param {Integer} idCmdFirst Type: <b>UINT</b>
+     * 
+     * The minimum value that the handler can specify for a menu item identifier.
+     * @param {Integer} idCmdLast Type: <b>UINT</b>
+     * 
+     * The maximum value that the handler can specify for a menu item identifier.
+     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If successful, returns an <b>HRESULT</b> value that has its severity value set to SEVERITY_SUCCESS and its code value set to the offset of the largest command identifier that was assigned, plus one. For example, if <i>idCmdFirst</i> is set to 5 and you add three items to the menu with command identifiers of 5, 7, and 8, the return value should be MAKE_HRESULT(SEVERITY_SUCCESS, 0, 8 - 5 + 1). Otherwise, it returns a COM error value.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenu-querycontextmenu
      */
     QueryContextMenu(hmenu, indexMenu, idCmdFirst, idCmdLast, uFlags) {
         hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
@@ -70,10 +80,14 @@ class IContextMenu extends IUnknown{
     }
 
     /**
+     * Carries out the command associated with a shortcut menu item.
+     * @param {Pointer<CMINVOKECOMMANDINFO>} pici Type: <b>LPCMINVOKECOMMANDINFO</b>
      * 
-     * @param {Pointer<CMINVOKECOMMANDINFO>} pici 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfo">CMINVOKECOMMANDINFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfoex">CMINVOKECOMMANDINFOEX</a> structure that contains specifics about the command.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand
      */
     InvokeCommand(pici) {
         result := ComCall(4, this, "ptr", pici, "HRESULT")
@@ -81,13 +95,21 @@ class IContextMenu extends IUnknown{
     }
 
     /**
+     * Gets information about a shortcut menu command, including the help string and the language-independent, or canonical, name for the command.
+     * @param {Pointer} idCmd Type: <b>UINT_PTR</b>
      * 
-     * @param {Pointer} idCmd 
-     * @param {Integer} uType 
-     * @param {PSTR} pszName 
-     * @param {Integer} cchMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-getcommandstring
+     * Menu command identifier offset.
+     * @param {Integer} uType Type: <b>UINT</b>
+     * @param {PSTR} pszName Type: <b>LPSTR</b>
+     * 
+     * The address of the buffer to receive the null-terminated string being retrieved.
+     * @param {Integer} cchMax Type: <b>UINT</b>
+     * 
+     * Size of the buffer, in characters, to receive the null-terminated string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenu-getcommandstring
      */
     GetCommandString(idCmd, uType, pszName, cchMax) {
         static pReserved := 0 ;Reserved parameters must always be NULL

@@ -40,9 +40,11 @@ class IFaxAccountOutgoingQueue extends IDispatch{
     static VTableNames => ["GetJobs", "GetJob"]
 
     /**
+     * Returns the collection of outbound fax jobs in the queue for the current fax account.
+     * @returns {IFaxOutgoingJobs} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutgoingjobs">IFaxOutgoingJobs</a>**</b>
      * 
-     * @returns {IFaxOutgoingJobs} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountoutgoingqueue-getjobs
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjobs">FaxOutgoingJobs</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountoutgoingqueue-getjobs
      */
     GetJobs() {
         result := ComCall(7, this, "ptr*", &pFaxOutgoingJobs := 0, "HRESULT")
@@ -50,10 +52,14 @@ class IFaxAccountOutgoingQueue extends IDispatch{
     }
 
     /**
+     * Returns an outgoing fax job in the job queue of the current fax account according to the job's ID.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrJobId 
-     * @returns {IFaxOutgoingJob} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountoutgoingqueue-getjob
+     * Specifies the job ID.
+     * @returns {IFaxOutgoingJob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutgoingjob2">IFaxOutgoingJob2</a>**</b>
+     * 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob">FaxOutgoingJob</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountoutgoingqueue-getjob
      */
     GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId

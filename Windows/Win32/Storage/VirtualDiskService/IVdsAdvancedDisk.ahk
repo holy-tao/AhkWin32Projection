@@ -48,10 +48,10 @@ class IVdsAdvancedDisk extends IUnknown{
     static VTableNames => ["GetPartitionProperties", "QueryPartitions", "CreatePartition", "DeletePartition", "ChangeAttributes", "AssignDriveLetter", "DeleteDriveLetter", "GetDriveLetter", "FormatPartition", "Clean"]
 
     /**
-     * 
-     * @param {Integer} ullOffset 
-     * @returns {VDS_PARTITION_PROP} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-getpartitionproperties
+     * Returns the properties of the partition identified by the partition offset.
+     * @param {Integer} ullOffset The partition offset.
+     * @returns {VDS_PARTITION_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_prop">VDS_PARTITION_PROP</a>structure allocated and passed in by the caller.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-getpartitionproperties
      */
     GetPartitionProperties(ullOffset) {
         pPartitionProp := VDS_PARTITION_PROP()
@@ -60,11 +60,42 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Returns the details of all partitions on the current disk.
+     * @param {Pointer<Pointer<VDS_PARTITION_PROP>>} ppPartitionPropArray A pointer to the array of 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_prop">VDS_PARTITION_PROP</a> structures passed in by the caller. Callers must free this array by using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @param {Pointer<Integer>} plNumberOfPartitions A pointer to the number of elements in the array returned in the <i>ppPartitionPropArray</i> parameter.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Pointer<Pointer<VDS_PARTITION_PROP>>} ppPartitionPropArray 
-     * @param {Pointer<Integer>} plNumberOfPartitions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-querypartitions
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The query was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The disk contains no partitions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-querypartitions
      */
     QueryPartitions(ppPartitionPropArray, plNumberOfPartitions) {
         ppPartitionPropArrayMarshal := ppPartitionPropArray is VarRef ? "ptr*" : "ptr"
@@ -75,12 +106,16 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ullOffset 
-     * @param {Integer} ullSize 
-     * @param {Pointer<CREATE_PARTITION_PARAMETERS>} para 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-createpartition
+     * Creates a partition on a basic disk. The IVdsCreatePartitionEx::CreatePartitionEx method supersedes this method.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {Integer} ullSize The size, in bytes, of the new partition.
+     * @param {Pointer<CREATE_PARTITION_PARAMETERS>} para The pointer to parameters defined by the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a> 
+     *       structure.
+     * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer, which 
+     *       VDS initializes on return. Callers must release the interface. Use this pointer to cancel, wait for, or query 
+     *       the status of the operation.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-createpartition
      */
     CreatePartition(ullOffset, ullSize, para) {
         result := ComCall(5, this, "uint", ullOffset, "uint", ullSize, "ptr", para, "ptr*", &ppAsync := 0, "HRESULT")
@@ -88,12 +123,119 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Deletes a partition from a basic disk.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {BOOL} bForce If this parameter is set to <b>TRUE</b>, VDS deletes all partitions unconditionally (excluding OEM, ESP or MSR). If it is set to <b>FALSE</b>, the operation 
+     *       fails if the partition is in use. A partition is considered to be in use if calls to lock or dismount the volume fail.
+     * @param {BOOL} bForceProtected If this parameter is set to <b>TRUE</b>, VDS deletes all protected partitions (including OEM, ESP and MSR) unconditionally. If it is set to <b>FALSE</b>, the 
+     *       operation fails if the partition is protected.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Integer} ullOffset 
-     * @param {BOOL} bForce 
-     * @param {BOOL} bForceProtected 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-deletepartition
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition was deleted successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_INVALID_OPERATION</b></dt>
+     * <dt>0x80042415L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The media does not support this operation. For example, you cannot delete a partition on a CD-ROM.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_NOT_SUPPORTED</b></dt>
+     * <dt>0x80042400L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This operation is not supported on dynamic disks.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_PARTITION_NOT_EMPTY</b></dt>
+     * <dt>0x80042408L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The extended partition is not empty.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_BAD_PROVIDER_DATA</b></dt>
+     * <dt>0x80042441L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This value indicates a provider error. The operation is aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_DEVICE_IN_USE</b></dt>
+     * <dt>0x80042413L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition is in use.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_S_ACCESS_PATH_NOT_DELETED</b></dt>
+     * <dt>0x00044244L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition was deleted successfully, but VDS failed to remove the access paths.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_S_UPDATE_BOOTFILE_FAILED</b></dt>
+     * <dt>0x00042434L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition was deleted successfully, but VDS failed to update the boot options in the Boot Configuration Data (BCD) store.
+     * 
+     * <b>Windows Server 2003:  </b>Boot options are stored in the boot.ini file on an x86 or x64 system 
+     *         or NVRAM on an Itanium system.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-deletepartition
      */
     DeletePartition(ullOffset, bForce, bForceProtected) {
         result := ComCall(6, this, "uint", ullOffset, "int", bForce, "int", bForceProtected, "HRESULT")
@@ -101,11 +243,65 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Modifies the attributes of the partition.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {Pointer<CHANGE_ATTRIBUTES_PARAMETERS>} para The attribute parameters defined by  the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-change_attributes_parameters">CHANGE_ATTRIBUTES_PARAMETERS</a> structure.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Integer} ullOffset 
-     * @param {Pointer<CHANGE_ATTRIBUTES_PARAMETERS>} para 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-changeattributes
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_NOT_SUPPORTED</b></dt>
+     * <dt>0x80042400L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported on dynamic disks, or the disk is  removable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_INVALID_OPERATION</b></dt>
+     * <dt>0x80042415L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition is an extended partition. Extended partitions have no attributes to change.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042405L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-changeattributes
      */
     ChangeAttributes(ullOffset, para) {
         result := ComCall(7, this, "uint", ullOffset, "ptr", para, "HRESULT")
@@ -113,11 +309,65 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Assigns a drive letter to an existing OEM, ESP, or unknown partition.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {Integer} wcLetter The drive letter to assign.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Integer} ullOffset 
-     * @param {Integer} wcLetter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-assigndriveletter
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The drive letter was assigned successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_DRIVE_LETTER_NOT_FREE</b></dt>
+     * <dt>0x8004255CL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified drive letter is already assigned to another partition or volume.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_INVALID_OPERATION</b></dt>
+     * <dt>0x80042415L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition is on a removable media; otherwise,  the partition is not an OEM, ESP or unknown partition.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042405L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-assigndriveletter
      */
     AssignDriveLetter(ullOffset, wcLetter) {
         result := ComCall(8, this, "uint", ullOffset, "char", wcLetter, "HRESULT")
@@ -125,11 +375,53 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Deletes a drive letter assigned to an OEM, ESP, or unknown partition.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {Integer} wcLetter The drive letter to delete.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Integer} ullOffset 
-     * @param {Integer} wcLetter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-deletedriveletter
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The drive letter was deleted successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_INVALID_OPERATION</b></dt>
+     * <dt>0x80042415L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition is on a removable media; otherwise the partition is not an OEM, ESP or unknown partition.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042405L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-deletedriveletter
      */
     DeleteDriveLetter(ullOffset, wcLetter) {
         result := ComCall(9, this, "uint", ullOffset, "char", wcLetter, "HRESULT")
@@ -137,11 +429,53 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Returns the drive letter assigned to an OEM, ESP, or unknown partition.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {PWSTR} pwcLetter A pointer to a buffer that receives the drive letter.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Integer} ullOffset 
-     * @param {PWSTR} pwcLetter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-getdriveletter
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_INVALID_OPERATION</b></dt>
+     * <dt>0x80042415L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition is on a removable media; otherwise, the partition is not an OEM, ESP, or unknown partition.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042405L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-getdriveletter
      */
     GetDriveLetter(ullOffset, pwcLetter) {
         pwcLetter := pwcLetter is String ? StrPtr(pwcLetter) : pwcLetter
@@ -151,16 +485,24 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ullOffset 
-     * @param {Integer} type 
-     * @param {PWSTR} pwszLabel 
-     * @param {Integer} dwUnitAllocationSize 
-     * @param {BOOL} bForce 
-     * @param {BOOL} bQuickFormat 
-     * @param {BOOL} bEnableCompression 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-formatpartition
+     * Formats an existing OEM, ESP, or unknown partition.
+     * @param {Integer} ullOffset The partition offset.
+     * @param {Integer} type A 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a> enumeration value that specifies the file system to be used. Must be one of the following: VDS_FST_NTFS, VDS_FST_FAT, VDS_FST_FAT32, or VDS_FST_UDF.
+     * @param {PWSTR} pwszLabel A string representing the volume label.
+     * @param {Integer} dwUnitAllocationSize The size of the allocation unit for the file system in bytes, which is usually between 512 and 
+     *       65536.
+     * @param {BOOL} bForce If <b>TRUE</b>, the partition is formatted even while in use; otherwise, the operation 
+     *       fails.
+     * @param {BOOL} bQuickFormat If <b>TRUE</b>, VDS performs a quick format. A quick format does not verify each sector 
+     *       on the volume.
+     * @param {BOOL} bEnableCompression If <b>TRUE</b>, enables compression on the newly formatted file system. Compression is a 
+     *       feature of NTFS and cannot be 
+     *       set for FAT and FAT32 file systems.
+     * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer, which 
+     *       VDS initializes on return. Callers must release the interface. Use this pointer to cancel, wait for, or query 
+     *       the status of the operation.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-formatpartition
      */
     FormatPartition(ullOffset, type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
@@ -170,12 +512,45 @@ class IVdsAdvancedDisk extends IUnknown{
     }
 
     /**
+     * Removes partition information and uninitializes basic or dynamic disks.Windows Server 2003:  The Clean method is not supported for removable devices.
+     * @param {BOOL} bForce If <b>TRUE</b>, cleans a disk containing data volumes or ESP partitions.
+     * @param {BOOL} bForceOEM If <b>TRUE</b>, cleans a MBR-based disk containing the known OEM partitions in the following table or cleans a 
+     *       GPT-based disk containing any OEM partition. An OEM partition has the GPT_ATTRIBUTE_PLATFORM_REQUIRED flag set 
+     *       on a GPT-based disk.
+     *       
      * 
-     * @param {BOOL} bForce 
-     * @param {BOOL} bForceOEM 
-     * @param {BOOL} bFullClean 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-clean
+     * <table>
+     * <tr>
+     * <th>Partition type</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>0x12</td>
+     * <td>An EISA partition.</td>
+     * </tr>
+     * <tr>
+     * <td>0x84</td>
+     * <td>A hibernation partition for laptops.</td>
+     * </tr>
+     * <tr>
+     * <td>0xA0</td>
+     * <td>A diagnostic partition for some HP laptops.</td>
+     * </tr>
+     * <tr>
+     * <td>0xDE</td>
+     * <td>A partition defined by Dell.</td>
+     * </tr>
+     * <tr>
+     * <td>0xFE</td>
+     * <td>An IBM IML partition.</td>
+     * </tr>
+     * </table>
+     * @param {BOOL} bFullClean If <b>TRUE</b>, cleans the entire disk by replacing the data on each sector with zeros; otherwise, this method cleans 
+     *       only the first and the last megabytes on the disk.
+     * @returns {IVdsAsync} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface 
+     *       pointer, which VDS initializes on return. Callers must release the interface. Use this pointer to cancel, wait 
+     *       for, or query the status of the operation.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsadvanceddisk-clean
      */
     Clean(bForce, bForceOEM, bFullClean) {
         result := ComCall(12, this, "int", bForce, "int", bForceOEM, "int", bFullClean, "ptr*", &ppAsync := 0, "HRESULT")

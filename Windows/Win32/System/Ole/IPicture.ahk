@@ -167,9 +167,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {OLE_HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_handle
+     * Retrieves the handle to the picture managed within this picture object to a specified location.
+     * @returns {OLE_HANDLE} A pointer to a variable that receives the handle. The caller is responsible for this handle upon successful return. The variable is set to <b>NULL</b> on failure.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_handle
      */
     get_Handle() {
         pHandle := OLE_HANDLE()
@@ -178,9 +178,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {OLE_HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_hpal
+     * Retrieves a copy of the palette currently used by the picture object.
+     * @returns {OLE_HANDLE} A pointer to a variable that receives the palette handle. The variable is set to <b>NULL</b> on failure.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_hpal
      */
     get_hPal() {
         phPal := OLE_HANDLE()
@@ -189,9 +189,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_type
+     * Retrieves the current type of the picture contained in the picture object.
+     * @returns {Integer} Pointer to a variable that receives the picture type. The Type property can have any one of the values contained in the <a href="https://docs.microsoft.com/windows/desktop/com/pictype-constants">PICTYPE</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_type
      */
     get_Type() {
         result := ComCall(5, this, "short*", &pType := 0, "HRESULT")
@@ -199,9 +199,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_width
+     * Retrieves the current width of the picture in the picture object.
+     * @returns {Integer} A pointer to a variable that receives the width.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_width
      */
     get_Width() {
         result := ComCall(6, this, "int*", &pWidth := 0, "HRESULT")
@@ -209,9 +209,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_height
+     * Retrieves the current height of the picture in the picture object.
+     * @returns {Integer} A pointer to a variable that receives the height.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_height
      */
     get_Height() {
         result := ComCall(7, this, "int*", &pHeight := 0, "HRESULT")
@@ -219,19 +219,59 @@ class IPicture extends IUnknown{
     }
 
     /**
+     * Renders (draws) a specified portion of the picture defined by the offset (xSrc,ySrc) of the source picture and the dimensions to copy (cxSrc,xySrc).
+     * @param {HDC} hDC A handle of the device context on which to render the image.
+     * @param {Integer} x The horizontal coordinate in <i>hdc</i> at which to place the rendered image.
+     * @param {Integer} y The vertical coordinate in <i>hdc</i> at which to place the rendered image.
+     * @param {Integer} cx The horizontal dimension (width) of the destination rectangle.
+     * @param {Integer} cy The vertical dimension (height) of the destination rectangle
+     * @param {Integer} xSrc The horizontal offset in the source picture from which to start copying.
+     * @param {Integer} ySrc The vertical offset in the source picture from which to start copying.
+     * @param {Integer} cxSrc The horizontal extent to copy from the source picture.
+     * @param {Integer} cySrc The vertical extent to copy from the source picture.
+     * @param {Pointer<RECT>} pRcWBounds A pointer to a rectangle containing the position of the destination within a metafile device context if <i>hdc</i> is a metafile DC. Cannot be <b>NULL</b> in such cases.
+     * @returns {HRESULT} This method supports the standard return values E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY, as well as the following:
      * 
-     * @param {HDC} hDC 
-     * @param {Integer} x 
-     * @param {Integer} y 
-     * @param {Integer} cx 
-     * @param {Integer} cy 
-     * @param {Integer} xSrc 
-     * @param {Integer} ySrc 
-     * @param {Integer} cxSrc 
-     * @param {Integer} cySrc 
-     * @param {Pointer<RECT>} pRcWBounds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-render
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The picture was rendered successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The address in <i>prcWBounds</i> is not valid when <i>hdc</i> contains a metafile device context.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CTL_E_INVALIDPROPERTYVALUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter <i>cx</i>, <i>cy</i>, <i>cxSrc</i>, or <i>cySrc</i> has a value of zero.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-render
      */
     Render(hDC, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
@@ -241,10 +281,10 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @param {OLE_HANDLE} hPal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-set_hpal
+     * Assigns a GDI palette to the picture contained in the picture object.
+     * @param {OLE_HANDLE} hPal A handle to the GDI palette assigned to the picture.
+     * @returns {HRESULT} This method supports the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-set_hpal
      */
     set_hPal(hPal) {
         hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
@@ -254,9 +294,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HDC} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_curdc
+     * Retrieves the handle of the current device context. This property is valid only for bitmap pictures.
+     * @returns {HDC} A pointer a variable that receives the device context.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_curdc
      */
     get_CurDC() {
         phDC := HDC()
@@ -265,12 +305,12 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HDC} hDCIn 
-     * @param {Pointer<HDC>} phDCOut 
-     * @param {Pointer<OLE_HANDLE>} phBmpOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-selectpicture
+     * Selects a bitmap picture into a given device context, and returns the device context in which the picture was previously selected as well as the picture's GDI handle. This method works in conjunction with IPicture::get_CurDC.
+     * @param {HDC} hDCIn A handle for the device context in which to select the picture.
+     * @param {Pointer<HDC>} phDCOut A pointer to a variable that receives the previous device context. This parameter can be <b>NULL</b> if the caller does not need this information. Ownership of the device context is always the responsibility of the caller.
+     * @param {Pointer<OLE_HANDLE>} phBmpOut A pointer to a variable that receives the GDI handle of the picture. This parameter can be <b>NULL</b> if the caller does not need the handle. Ownership of this handle is determined by the <i>fOwn</i> parameter passed to <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatepictureindirect">OleCreatePictureIndirect</a>. Pictures loaded from a stream always own their resources.
+     * @returns {HRESULT} This method supports the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-selectpicture
      */
     SelectPicture(hDCIn, phDCOut, phBmpOut) {
         hDCIn := hDCIn is Win32Handle ? NumGet(hDCIn, "ptr") : hDCIn
@@ -280,9 +320,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat
+     * Retrieves the current value of the picture's KeepOriginalFormat property.
+     * @returns {BOOL} A pointer to a variable that receives the value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_keeporiginalformat
      */
     get_KeepOriginalFormat() {
         result := ComCall(12, this, "int*", &pKeep := 0, "HRESULT")
@@ -290,10 +330,10 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} keep 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat
+     * Sets the value of the picture's KeepOriginalFormat property.
+     * @param {BOOL} keep Specifies the new value to assign to the property.
+     * @returns {HRESULT} This method returns S_OK on success and E_FAIL otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-put_keeporiginalformat
      */
     put_KeepOriginalFormat(keep) {
         result := ComCall(13, this, "int", keep, "HRESULT")
@@ -301,9 +341,9 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-picturechanged
+     * Notifies the picture object that its picture resource has changed. This method only calls IPropertyNotifySink::OnChanged with DISPID_PICT_HANDLE for any connected sinks.
+     * @returns {HRESULT} This method S_OK if it succeeds and E_FAIL if the picture object is uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-picturechanged
      */
     PictureChanged() {
         result := ComCall(14, this, "HRESULT")
@@ -311,11 +351,11 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} pStream 
-     * @param {BOOL} fSaveMemCopy 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-saveasfile
+     * Saves the picture's data into a stream in the same format that it would save itself into a file. Bitmaps use the BMP file format, metafiles the WMF format, and icons the ICO format.
+     * @param {IStream} pStream A pointer to the stream into which the picture writes its data.
+     * @param {BOOL} fSaveMemCopy A flag indicating whether to save a copy of the picture in memory.
+     * @returns {Integer} Pointer to a variable that receives the number of bytes written into the stream. This value can be <b>NULL</b>, indicating that the caller does not require this information.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-saveasfile
      */
     SaveAsFile(pStream, fSaveMemCopy) {
         result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", &pCbSize := 0, "HRESULT")
@@ -323,9 +363,11 @@ class IPicture extends IUnknown{
     }
 
     /**
+     * Retrieves the current set of the picture's bit attributes.
+     * @returns {Integer} A pointer to a variable that receives the value of the Attributes property.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_attributes
+     * The Attributes property can contain any combination of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-pictureattributes">PICTUREATTRIBUTES</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipicture-get_attributes
      */
     get_Attributes() {
         result := ComCall(16, this, "uint*", &pDwAttr := 0, "HRESULT")

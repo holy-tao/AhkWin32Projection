@@ -39,9 +39,9 @@ class IUpdateDownloadContent extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the location of the download content on the server that hosts the update.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent-get_downloadurl
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontent-get_downloadurl
      */
     get_DownloadUrl() {
         retval := BSTR()

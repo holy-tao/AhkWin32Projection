@@ -54,10 +54,15 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
+     * Accesses the value of the specified property exposed by this catalog object.
+     * @remarks
+     * 
+     * For information regarding properties exposed by catalog objects in each collection, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
+     * 
      * 
      * @param {BSTR} bstrPropName 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_value
      */
     get_Value(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
@@ -68,11 +73,16 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
+     * Accesses the value of the specified property exposed by this catalog object.
+     * @remarks
+     * 
+     * For information regarding properties exposed by catalog objects in each collection, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
+     * 
      * 
      * @param {BSTR} bstrPropName 
      * @param {VARIANT} val 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-put_value
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-put_value
      */
     put_Value(bstrPropName, val) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
@@ -82,9 +92,16 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
+     * Retrieves the key property of the object.
+     * @remarks
+     * 
+     * The key property serves as the primary identifier for a collection. In some cases, it is a GUID, such as CLSID for a component; in some cases, it is the object name, as with roles. The key property of a collection is identified in the documentation for each specific collection of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
+     * 
+     * If you add a new object and save it with the key property of an existing object, you overwrite the existing object.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_key
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_key
      */
     get_Key() {
         pvarRetVal := VARIANT()
@@ -93,9 +110,14 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
+     * Retrieves the name property of the object.
+     * @remarks
+     * 
+     * The name property of a collection is identified in the documentation for each specific collection of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_name
      */
     get_Name() {
         pvarRetVal := VARIANT()
@@ -104,10 +126,10 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropName 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-ispropertyreadonly
+     * Indicates whether the specified property can be modified using Value.
+     * @param {BSTR} bstrPropName The name of the property to be modified.
+     * @returns {VARIANT_BOOL} If this value is True, you cannot modify the property. Otherwise, you can modify the property.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-ispropertyreadonly
      */
     IsPropertyReadOnly(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
@@ -117,9 +139,9 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether all properties were successfully read from the catalog data store.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_valid
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_valid
      */
     get_Valid() {
         result := ComCall(12, this, "short*", &pbRetVal := 0, "HRESULT")
@@ -127,10 +149,10 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropName 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-ispropertywriteonly
+     * Indicates whether the specified property can be read using Value.
+     * @param {BSTR} bstrPropName The name of the property to be read.
+     * @returns {VARIANT_BOOL} If this value is True, you cannot read the property. Otherwise, you can read the property.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-ispropertywriteonly
      */
     IsPropertyWriteOnly(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName

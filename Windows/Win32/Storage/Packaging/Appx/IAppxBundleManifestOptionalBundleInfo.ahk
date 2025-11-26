@@ -33,9 +33,9 @@ class IAppxBundleManifestOptionalBundleInfo extends IUnknown{
     static VTableNames => ["GetPackageId", "GetFileName", "GetPackageInfoItems"]
 
     /**
-     * Gets the package identifier (ID) for the specified process.
-     * @returns {IAppxManifestPackageId} 
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
+     * Retrieves an object that represents the identity of the &lt;OptionalBundle&gt;.
+     * @returns {IAppxManifestPackageId} The package identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getpackageid
      */
     GetPackageId() {
         result := ComCall(3, this, "ptr*", &packageId := 0, "HRESULT")
@@ -43,9 +43,11 @@ class IAppxBundleManifestOptionalBundleInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the file-name attribute of the &lt;OptionalBundle&gt;.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getfilename
+     * A string that contains the file name of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getfilename
      */
     GetFileName() {
         result := ComCall(4, this, "ptr*", &fileName := 0, "HRESULT")
@@ -53,9 +55,11 @@ class IAppxBundleManifestOptionalBundleInfo extends IUnknown{
     }
 
     /**
+     * Retrieves optional packages in the bundle.
+     * @returns {IAppxBundleManifestPackageInfoEnumerator} Type: <b>IAppxBundleManifestPackageInfoEnumerator**</b>
      * 
-     * @returns {IAppxBundleManifestPackageInfoEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getpackageinfoitems
+     *  An enumerator over all payload packages in a &lt;OptionalBundle&gt; element of a bundle.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getpackageinfoitems
      */
     GetPackageInfoItems() {
         result := ComCall(5, this, "ptr*", &packageInfoItems := 0, "HRESULT")

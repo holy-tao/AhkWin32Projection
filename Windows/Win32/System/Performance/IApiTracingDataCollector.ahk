@@ -111,9 +111,9 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that indicates whether PLA logs only the function name.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapinamesonly
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_logapinamesonly
      */
     get_LogApiNamesOnly() {
         result := ComCall(32, this, "short*", &logapinames := 0, "HRESULT")
@@ -121,10 +121,10 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that indicates whether PLA logs only the function name.
      * @param {VARIANT_BOOL} logapinames 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_logapinamesonly
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_logapinamesonly
      */
     put_LogApiNamesOnly(logapinames) {
         result := ComCall(33, this, "short", logapinames, "HRESULT")
@@ -132,9 +132,14 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether API tracing logs calls that are imported directly by the application.
+     * @remarks
+     * 
+     * This property has meaning for x86 architectures only.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapisrecursively
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_logapisrecursively
      */
     get_LogApisRecursively() {
         result := ComCall(34, this, "short*", &logrecursively := 0, "HRESULT")
@@ -142,10 +147,15 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether API tracing logs calls that are imported directly by the application.
+     * @remarks
+     * 
+     * This property has meaning for x86 architectures only.
+     * 
      * 
      * @param {VARIANT_BOOL} logrecursively 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_logapisrecursively
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_logapisrecursively
      */
     put_LogApisRecursively(logrecursively) {
         result := ComCall(35, this, "short", logrecursively, "HRESULT")
@@ -153,9 +163,14 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets the path to the executable file whose API calls you want to trace.
+     * @remarks
+     * 
+     * If the executable file is currently running, the trace occurs the next time the executable file runs, not at this time.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_exepath
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_exepath
      */
     get_ExePath() {
         exepath := BSTR()
@@ -164,10 +179,15 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets the path to the executable file whose API calls you want to trace.
+     * @remarks
+     * 
+     * If the executable file is currently running, the trace occurs the next time the executable file runs, not at this time.
+     * 
      * 
      * @param {BSTR} exepath 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_exepath
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_exepath
      */
     put_ExePath(exepath) {
         exepath := exepath is String ? BSTR.Alloc(exepath).Value : exepath
@@ -177,9 +197,9 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
-     * 
+     * Retrieves or sets the name of the log file that contains the API trace data.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logfilepath
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_logfilepath
      */
     get_LogFilePath() {
         logfilepath := BSTR()
@@ -188,10 +208,10 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
-     * 
+     * Retrieves or sets the name of the log file that contains the API trace data.
      * @param {BSTR} logfilepath 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_logfilepath
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_logfilepath
      */
     put_LogFilePath(logfilepath) {
         logfilepath := logfilepath is String ? BSTR.Alloc(logfilepath).Value : logfilepath
@@ -201,9 +221,22 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets the list of modules to include in the trace.
+     * @remarks
+     * 
+     * If you do not set this property, the trace will  include the following modules:
+     * 
+     * <ul>
+     * <li>Advapi32.dll</li>
+     * <li>Gdi32.dll</li>
+     * <li>Kernel32.dll</li>
+     * <li>User32.dll</li>
+     * </ul>
+     * This property  limits the  trace to a subset of those DLLs. For example, you can use this property to limit the trace to only Kernel32.dll and Advapi32.dll.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_includemodules
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_includemodules
      */
     get_IncludeModules() {
         result := ComCall(40, this, "ptr*", &includemodules := 0, "HRESULT")
@@ -211,10 +244,23 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets the list of modules to include in the trace.
+     * @remarks
+     * 
+     * If you do not set this property, the trace will  include the following modules:
+     * 
+     * <ul>
+     * <li>Advapi32.dll</li>
+     * <li>Gdi32.dll</li>
+     * <li>Kernel32.dll</li>
+     * <li>User32.dll</li>
+     * </ul>
+     * This property  limits the  trace to a subset of those DLLs. For example, you can use this property to limit the trace to only Kernel32.dll and Advapi32.dll.
+     * 
      * 
      * @param {Pointer<SAFEARRAY>} includemodules 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_includemodules
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_includemodules
      */
     put_IncludeModules(includemodules) {
         result := ComCall(41, this, "ptr", includemodules, "HRESULT")
@@ -222,9 +268,14 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets the list of functions to include in the trace.
+     * @remarks
+     * 
+     * You can use this property to limit the functions that PLA logs to this list of functions only.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_includeapis
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_includeapis
      */
     get_IncludeApis() {
         result := ComCall(42, this, "ptr*", &includeapis := 0, "HRESULT")
@@ -232,10 +283,15 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
+     * Retrieves or sets the list of functions to include in the trace.
+     * @remarks
+     * 
+     * You can use this property to limit the functions that PLA logs to this list of functions only.
+     * 
      * 
      * @param {Pointer<SAFEARRAY>} includeapis 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_includeapis
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_includeapis
      */
     put_IncludeApis(includeapis) {
         result := ComCall(43, this, "ptr", includeapis, "HRESULT")
@@ -243,9 +299,9 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
-     * 
+     * Retrieves or sets the list of functions to exclude from the trace.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_excludeapis
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-get_excludeapis
      */
     get_ExcludeApis() {
         result := ComCall(44, this, "ptr*", &excludeapis := 0, "HRESULT")
@@ -253,10 +309,10 @@ class IApiTracingDataCollector extends IDataCollector{
     }
 
     /**
-     * 
+     * Retrieves or sets the list of functions to exclude from the trace.
      * @param {Pointer<SAFEARRAY>} excludeapis 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_excludeapis
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-iapitracingdatacollector-put_excludeapis
      */
     put_ExcludeApis(excludeapis) {
         result := ComCall(45, this, "ptr", excludeapis, "HRESULT")

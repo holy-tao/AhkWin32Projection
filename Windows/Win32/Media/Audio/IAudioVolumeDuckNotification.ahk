@@ -49,11 +49,11 @@ class IAudioVolumeDuckNotification extends IUnknown{
     static VTableNames => ["OnVolumeDuckNotification", "OnVolumeUnduckNotification"]
 
     /**
-     * 
-     * @param {PWSTR} sessionID 
-     * @param {Integer} countCommunicationSessions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiovolumeducknotification-onvolumeducknotification
+     * The OnVolumeDuckNotification method sends a notification about a pending system ducking event.
+     * @param {PWSTR} sessionID A string containing the session instance identifier of the communications session that raises the  the auto-ducking event. To get the session instance identifier, call <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessioninstanceidentifier">IAudioSessionControl2::GetSessionInstanceIdentifier</a>.
+     * @param {Integer} countCommunicationSessions The number of active communications sessions. If there are n sessions, the sessions are numbered from 0 to –1.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiovolumeducknotification-onvolumeducknotification
      */
     OnVolumeDuckNotification(sessionID, countCommunicationSessions) {
         sessionID := sessionID is String ? StrPtr(sessionID) : sessionID
@@ -63,10 +63,10 @@ class IAudioVolumeDuckNotification extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} sessionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiovolumeducknotification-onvolumeunducknotification
+     * The OnVolumeUnduckNotification method sends a notification about a pending system unducking event.
+     * @param {PWSTR} sessionID A string containing the session instance identifier of the terminating communications session that intiated the ducking. To get the session instance identifier, call <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessioninstanceidentifier">IAudioSessionControl2::GetSessionInstanceIdentifier</a>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiovolumeducknotification-onvolumeunducknotification
      */
     OnVolumeUnduckNotification(sessionID) {
         sessionID := sessionID is String ? StrPtr(sessionID) : sessionID

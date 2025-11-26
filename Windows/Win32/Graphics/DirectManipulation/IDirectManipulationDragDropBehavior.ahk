@@ -38,10 +38,23 @@ class IDirectManipulationDragDropBehavior extends IUnknown{
     static VTableNames => ["SetConfiguration", "GetStatus"]
 
     /**
+     * Sets the configuration of the drag-drop interaction for the viewport this behavior is attached to.
+     * @param {Integer} configuration Combination  of values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_configuration">DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION</a>.
      * 
-     * @param {Integer} configuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-setconfiguration
+     * For the configuration to be valid, <i>configuration</i> must contain exactly one of the following three values:
+     * <ul>
+     * <li><b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_ONLY</b></li>
+     * <li><b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_DRAG</b></li>
+     * <li><b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HOLD_DRAG</b></li>
+     * </ul>
+     * 
+     * 
+     * If <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_ONLY</b> or  <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_DRAG</b> is specified, one of <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_VERTICAL</b> or <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HORIZONTAL</b> is required.
+     * 
+     * 
+     * If <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HOLD_DRAG</b> is specified, both <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_VERTICAL</b> and <b>DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HORIZONTAL</b> are required.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-setconfiguration
      */
     SetConfiguration(configuration) {
         result := ComCall(3, this, "int", configuration, "HRESULT")
@@ -49,9 +62,9 @@ class IDirectManipulationDragDropBehavior extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-getstatus
+     * Gets the status of the drag-drop interaction for the viewport this behavior is attached to.
+     * @returns {Integer} One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status">DIRECTMANIPULATION_DRAG_DROP_STATUS</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-getstatus
      */
     GetStatus() {
         result := ComCall(4, this, "int*", &status := 0, "HRESULT")

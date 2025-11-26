@@ -31,10 +31,16 @@ class ID3D12DeviceChild extends ID3D12Object{
     static VTableNames => ["GetDevice"]
 
     /**
+     * Gets a pointer to the device that created this interface.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12devicechild-getdevice
+     * The globally unique identifier (<b>GUID</b>) for the device interface.
+     *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the device can be obtained by using the __uuidof() macro.
+     *             For example, __uuidof(<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>) will get the <b>GUID</b> of the interface to a device.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a> interface for the device.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12devicechild-getdevice
      */
     GetDevice(riid) {
         result := ComCall(7, this, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")

@@ -31,12 +31,42 @@ class ICheckSxsConfig extends IUnknown{
     static VTableNames => ["IsSameSxsConfig"]
 
     /**
+     * Determines whether the side-by-side assembly has the specified configuration.
+     * @param {PWSTR} wszSxsName A text string that contains the file name of the side-by-side assembly. The proper extension is added automatically.
+     * @param {PWSTR} wszSxsDirectory A text string that contains the directory of the side-by-side assembly.
+     * @param {PWSTR} wszSxsAppName A text string that contains the name of the application domain.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG and E_OUTOFMEMORY, as well as the following values.
      * 
-     * @param {PWSTR} wszSxsName 
-     * @param {PWSTR} wszSxsDirectory 
-     * @param {PWSTR} wszSxsAppName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ichecksxsconfig-issamesxsconfig
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current side-by-side assembly has the specified configuration.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current side-by-side assembly does not have the specified configuration.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ichecksxsconfig-issamesxsconfig
      */
     IsSameSxsConfig(wszSxsName, wszSxsDirectory, wszSxsAppName) {
         wszSxsName := wszSxsName is String ? StrPtr(wszSxsName) : wszSxsName

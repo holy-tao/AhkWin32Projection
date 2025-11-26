@@ -71,9 +71,11 @@ class ID2D1Factory extends IUnknown{
     static VTableNames => ["ReloadSystemMetrics", "GetDesktopDpi", "CreateRectangleGeometry", "CreateRoundedRectangleGeometry", "CreateEllipseGeometry", "CreateGeometryGroup", "CreateTransformedGeometry", "CreatePathGeometry", "CreateStrokeStyle", "CreateDrawingStateBlock", "CreateWicBitmapRenderTarget", "CreateHwndRenderTarget", "CreateDxgiSurfaceRenderTarget", "CreateDCRenderTarget"]
 
     /**
+     * Forces the factory to refresh any system defaults that it might have changed since factory creation.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-reloadsystemmetrics
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1factory-reloadsystemmetrics
      */
     ReloadSystemMetrics() {
         result := ComCall(3, this, "HRESULT")
@@ -81,11 +83,21 @@ class ID2D1Factory extends IUnknown{
     }
 
     /**
+     * Retrieves the current desktop dots per inch (DPI). To refresh this value, call ReloadSystemMetrics.
+     * @remarks
      * 
-     * @param {Pointer<Float>} dpiX 
-     * @param {Pointer<Float>} dpiY 
+     * Use this method to obtain the system DPI when setting physical pixel values, such as when you specify the size of a window.
+     * 
+     * 
+     * 
+     * @param {Pointer<Float>} dpiX Type: <b>FLOAT*</b>
+     * 
+     *  When this method returns, contains the horizontal DPI of the desktop. You must allocate storage for this parameter.
+     * @param {Pointer<Float>} dpiY Type: <b>FLOAT*</b>
+     * 
+     * When this method returns, contains the vertical DPI of the desktop. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-getdesktopdpi
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1factory-getdesktopdpi
      * @deprecated Deprecated. Use DisplayInformation::LogicalDpi for Windows Store Apps or GetDpiForWindow for desktop apps.
      */
     GetDesktopDpi(dpiX, dpiY) {
@@ -129,12 +141,20 @@ class ID2D1Factory extends IUnknown{
     }
 
     /**
+     * Creates an ID2D1GeometryGroup, which is an object that holds other geometries.
+     * @param {Integer} fillMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
      * 
-     * @param {Integer} fillMode 
-     * @param {Pointer<ID2D1Geometry>} geometries 
-     * @param {Integer} geometriesCount 
-     * @returns {ID2D1GeometryGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup
+     * A value that specifies the rule that a composite shape uses to determine whether a given point is part of the geometry.
+     * @param {Pointer<ID2D1Geometry>} geometries Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>**</b>
+     * 
+     * An array containing the geometry objects to add to the geometry group. The number of elements in this array is indicated by the <i>geometriesCount</i> parameter.
+     * @param {Integer} geometriesCount Type: <b>UINT</b>
+     * 
+     * The number of elements in <i>geometries</i>.
+     * @returns {ID2D1GeometryGroup} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup">ID2D1GeometryGroup</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the geometry group created by this method.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1factory-creategeometrygroup
      */
     CreateGeometryGroup(fillMode, geometries, geometriesCount) {
         result := ComCall(8, this, "int", fillMode, "ptr*", geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
@@ -154,9 +174,11 @@ class ID2D1Factory extends IUnknown{
     }
 
     /**
+     * Creates an empty ID2D1PathGeometry.
+     * @returns {ID2D1PathGeometry} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1pathgeometry">ID2D1PathGeometry</a>**</b>
      * 
-     * @returns {ID2D1PathGeometry} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createpathgeometry
+     * When this method returns, contains the address to a pointer to the path geometry created by this method.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1factory-createpathgeometry
      */
     CreatePathGeometry() {
         result := ComCall(10, this, "ptr*", &pathGeometry := 0, "HRESULT")
@@ -227,10 +249,14 @@ class ID2D1Factory extends IUnknown{
     }
 
     /**
+     * Creates a render target that draws to a Windows Graphics Device Interface (GDI) device context.
+     * @param {Pointer<D2D1_RENDER_TARGET_PROPERTIES>} renderTargetProperties Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_render_target_properties">D2D1_RENDER_TARGET_PROPERTIES</a>*</b>
      * 
-     * @param {Pointer<D2D1_RENDER_TARGET_PROPERTIES>} renderTargetProperties 
-     * @returns {ID2D1DCRenderTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createdcrendertarget
+     * The rendering mode, pixel format, remoting options, DPI information, and the minimum DirectX support required for hardware rendering.  To enable the device context (DC) render target to work with GDI, set the DXGI format to <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_B8G8R8A8_UNORM</a> and the alpha mode to <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-d2d1_alpha_mode">D2D1_ALPHA_MODE_PREMULTIPLIED</a> or <b>D2D1_ALPHA_MODE_IGNORE</b>. For more information about pixel formats, see  <a href="https://docs.microsoft.com/windows/win32/Direct2D/supported-pixel-formats-and-alpha-modes">Supported Pixel  Formats and Alpha Modes</a>.
+     * @returns {ID2D1DCRenderTarget} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1dcrendertarget">ID2D1DCRenderTarget</a>**</b>
+     * 
+     * When this method returns, <i>dcRenderTarget</i> contains the address of the pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1dcrendertarget">ID2D1DCRenderTarget</a> created by the method.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1factory-createdcrendertarget
      */
     CreateDCRenderTarget(renderTargetProperties) {
         result := ComCall(16, this, "ptr", renderTargetProperties, "ptr*", &dcRenderTarget := 0, "HRESULT")

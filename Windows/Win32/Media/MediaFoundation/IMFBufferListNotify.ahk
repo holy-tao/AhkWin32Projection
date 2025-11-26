@@ -31,18 +31,18 @@ class IMFBufferListNotify extends IUnknown{
     static VTableNames => ["OnAddSourceBuffer", "OnRemoveSourceBuffer"]
 
     /**
-     * 
+     * Indicates that a IMFSourceBuffer has been added.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onaddsourcebuffer
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onaddsourcebuffer
      */
     OnAddSourceBuffer() {
         ComCall(3, this)
     }
 
     /**
-     * 
+     * Indicates that a IMFSourceBuffer has been removed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onremovesourcebuffer
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onremovesourcebuffer
      */
     OnRemoveSourceBuffer() {
         ComCall(4, this)

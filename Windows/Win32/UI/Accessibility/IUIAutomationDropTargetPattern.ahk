@@ -60,9 +60,14 @@ class IUIAutomationDropTargetPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a localized string that describes what happens when the user drops the grabbed element on this drop target.
+     * @remarks
+     * 
+     * This property describes the default effect that happens when the user drops a grabbed element on a target, such as moving or copying the element.  This property can be a short string such as "move", or a longer one such as "insert into Main group".  The string is always localized.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffect
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffect
      */
     get_CurrentDropTargetEffect() {
         retVal := BSTR()
@@ -71,9 +76,14 @@ class IUIAutomationDropTargetPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a cached localized string that describes what happens when the user drops the grabbed element on this drop target.
+     * @remarks
+     * 
+     * This property describes the default effect that happens when the user drops a grabbed element on a target, such as moving or copying the element.  This property can be a short string such as "move", or a longer one such as "insert into Main group".  The string is always localized.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffect
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffect
      */
     get_CachedDropTargetEffect() {
         retVal := BSTR()
@@ -82,9 +92,14 @@ class IUIAutomationDropTargetPattern extends IUnknown{
     }
 
     /**
+     * Retrieves an array of localized strings that enumerate the full set of effects that can happen when the user drops a grabbed element on this drop target as part of a drag-and-drop operation.
+     * @remarks
+     * 
+     * Some drag operations support a set of different drop effects. For example, a drag operation that is initiated with a right-click might display a menu of options for the action that occurs when the element is dropped.  To find out the set of effects that can happen when the grabbed element is dropped, a client can query the DropEffects property of the dragged element.  This property can contain short strings such as "move", or longer ones such as "insert into Main group".  The strings are always localized.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffects
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffects
      */
     get_CurrentDropTargetEffects() {
         result := ComCall(5, this, "ptr*", &retVal := 0, "HRESULT")
@@ -92,9 +107,14 @@ class IUIAutomationDropTargetPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a cached array of localized strings that enumerate the full set of effects that can happen when the user drops a grabbed element on this drop target as part of a drag-and-drop operation.
+     * @remarks
+     * 
+     * Some drag operations support a set of different drop effects. For example, a drag operation that is initiated with a right-click might display a menu of options for the action that occurs when the element is dropped.  To find out the set of effects that can happen when the grabbed element is dropped, a client can query the DropEffects property of the dragged element.  This property can contain short strings such as "move", or longer ones such as "insert into Main group".  The strings are always localized.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffects
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffects
      */
     get_CachedDropTargetEffects() {
         result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")

@@ -70,9 +70,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_duration
+     * The get_Duration method retrieves the duration of the stream.
+     * @returns {Float} Pointer to a variable that receives the total stream length, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-get_duration
      */
     get_Duration() {
         result := ComCall(7, this, "double*", &plength := 0, "HRESULT")
@@ -80,10 +80,61 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
+     * The put_CurrentPosition method sets the current position, relative to the total duration of the stream.
+     * @param {Float} llTime New position, in seconds.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
-     * @param {Float} llTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_currentposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Graph was paused and is in transition back to a running state.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-put_currentposition
      */
     put_CurrentPosition(llTime) {
         result := ComCall(8, this, "double", llTime, "HRESULT")
@@ -91,9 +142,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_currentposition
+     * The get_CurrentPosition method retrieves the current position, relative to the total duration of the stream.
+     * @returns {Float} Pointer to a variable that receives the current position, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-get_currentposition
      */
     get_CurrentPosition() {
         result := ComCall(9, this, "double*", &pllTime := 0, "HRESULT")
@@ -101,9 +152,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_stoptime
+     * The get_StopTime method retrieves the time at which the playback will stop, relative to the duration of the stream.
+     * @returns {Float} Pointer to a variable that receives the stop time, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-get_stoptime
      */
     get_StopTime() {
         result := ComCall(10, this, "double*", &pllTime := 0, "HRESULT")
@@ -111,10 +162,50 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
+     * The put_StopTime method sets the time at which the playback will stop, relative to the duration of the stream.
+     * @param {Float} llTime Stop time, in seconds.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Float} llTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_stoptime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-put_stoptime
      */
     put_StopTime(llTime) {
         result := ComCall(11, this, "double", llTime, "HRESULT")
@@ -122,9 +213,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_prerolltime
+     * The get_PrerollTime method retrieves the amount of data that will be queued before the start position.
+     * @returns {Float} Pointer to a variable that receives the preroll time, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-get_prerolltime
      */
     get_PrerollTime() {
         result := ComCall(12, this, "double*", &pllTime := 0, "HRESULT")
@@ -132,10 +223,39 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
+     * The put_PrerollTime method sets the amount of data that will be queued before the start position.
+     * @param {Float} llTime Preroll time, in seconds.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Float} llTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_prerolltime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-put_prerolltime
      */
     put_PrerollTime(llTime) {
         result := ComCall(13, this, "double", llTime, "HRESULT")
@@ -143,10 +263,50 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
+     * The put_Rate method sets the playback rate.
+     * @param {Float} dRate Playback rate. Must not be zero.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Float} dRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_rate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-put_rate
      */
     put_Rate(dRate) {
         result := ComCall(14, this, "double", dRate, "HRESULT")
@@ -154,9 +314,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_rate
+     * The get_Rate method retrieves the playback rate.
+     * @returns {Float} Pointer to a variable that receives the playback rate.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-get_rate
      */
     get_Rate() {
         result := ComCall(15, this, "double*", &pdRate := 0, "HRESULT")
@@ -164,9 +324,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-canseekforward
+     * The CanSeekForward method determines whether the filter graph can seek forward in the stream.
+     * @returns {Integer} Pointer to a variable that receives the value OATRUE if the graph can seek forward, or OAFALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-canseekforward
      */
     CanSeekForward() {
         result := ComCall(16, this, "int*", &pCanSeekForward := 0, "HRESULT")
@@ -174,9 +334,9 @@ class IMediaPosition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-canseekbackward
+     * The CanSeekBackward method determines whether the filter graph can seek backward in the stream.
+     * @returns {Integer} Pointer to a variable that receives the value OATRUE if the graph can seek backward, or OAFALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-imediaposition-canseekbackward
      */
     CanSeekBackward() {
         result := ComCall(17, this, "int*", &pCanSeekBackward := 0, "HRESULT")

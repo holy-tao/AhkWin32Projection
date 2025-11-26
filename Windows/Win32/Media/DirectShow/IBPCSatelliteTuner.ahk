@@ -31,11 +31,11 @@ class IBPCSatelliteTuner extends IAMTuner{
     static VTableNames => ["get_DefaultSubChannelTypes", "put_DefaultSubChannelTypes", "IsTapingPermitted"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} plDefaultVideoType 
-     * @param {Pointer<Integer>} plDefaultAudioType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibpcsatellitetuner-get_defaultsubchanneltypes
+     * Note  The IBPCSatelliteTuner interface is deprecated. Gets the default sub-channel types.
+     * @param {Pointer<Integer>} plDefaultVideoType Receives a provider-specific service type for video.
+     * @param {Pointer<Integer>} plDefaultAudioType Receives a provider-specific service type for audio.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ibpcsatellitetuner-get_defaultsubchanneltypes
      */
     get_DefaultSubChannelTypes(plDefaultVideoType, plDefaultAudioType) {
         plDefaultVideoTypeMarshal := plDefaultVideoType is VarRef ? "int*" : "ptr"
@@ -46,11 +46,11 @@ class IBPCSatelliteTuner extends IAMTuner{
     }
 
     /**
-     * 
-     * @param {Integer} lDefaultVideoType 
-     * @param {Integer} lDefaultAudioType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibpcsatellitetuner-put_defaultsubchanneltypes
+     * Note  The IBPCSatelliteTuner interface is deprecated. Sets the default sub-channel types.
+     * @param {Integer} lDefaultVideoType Provider-specific service type for video.
+     * @param {Integer} lDefaultAudioType Provider-specific service type for audio.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ibpcsatellitetuner-put_defaultsubchanneltypes
      */
     put_DefaultSubChannelTypes(lDefaultVideoType, lDefaultAudioType) {
         result := ComCall(19, this, "int", lDefaultVideoType, "int", lDefaultAudioType, "HRESULT")
@@ -58,9 +58,9 @@ class IBPCSatelliteTuner extends IAMTuner{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibpcsatellitetuner-istapingpermitted
+     * Note  The IBPCSatelliteTuner interface is deprecated. Queries whether taping is permitted.
+     * @returns {HRESULT} Returns S_OK if taping is permitted or S_FALSE if taping is not permitted.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ibpcsatellitetuner-istapingpermitted
      */
     IsTapingPermitted() {
         result := ComCall(20, this, "HRESULT")

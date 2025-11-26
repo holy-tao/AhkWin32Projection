@@ -32,12 +32,14 @@ class IEnumUnknown extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Retrieves the specified number of items in the enumeration sequence.
+     * @param {Integer} celt The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
+     * @param {Pointer<IUnknown>} rgelt An array of enumerated items.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<IUnknown>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-next
+     * The enumerator is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>, and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through each pointer enumerated. If <i>celt</i> is greater than 1, the caller must also pass a non-NULL pointer passed to <i>pceltFetched</i> to know how many pointers to release.
+     * @param {Pointer<Integer>} pceltFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested.
+     * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +49,10 @@ class IEnumUnknown extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-skip
+     * Skips over the specified number of items in the enumeration sequence.
+     * @param {Integer} celt The number of items to be skipped.
+     * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -58,9 +60,9 @@ class IEnumUnknown extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-reset
+     * Resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} The return value is S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +70,9 @@ class IEnumUnknown extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumunknown-clone
+     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * @returns {IEnumUnknown} A pointer to the cloned enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumunknown-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

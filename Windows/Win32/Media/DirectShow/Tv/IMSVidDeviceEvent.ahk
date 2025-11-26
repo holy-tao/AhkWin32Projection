@@ -36,12 +36,12 @@ class IMSVidDeviceEvent extends IDispatch{
     static VTableNames => ["StateChange"]
 
     /**
-     * 
-     * @param {IMSVidDevice} lpd 
-     * @param {Integer} oldState 
-     * @param {Integer} newState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddeviceevent-statechange
+     * This topic applies to Windows XP or later.
+     * @param {IMSVidDevice} lpd Pointer to the device object that signaled the change.
+     * @param {Integer} oldState Specifies the old state as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-msvidctlstatelist">MSVidCtlStateList</a> value.
+     * @param {Integer} newState Specifies the new state as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-msvidctlstatelist">MSVidCtlStateList</a> value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddeviceevent-statechange
      */
     StateChange(lpd, oldState, newState) {
         result := ComCall(7, this, "ptr", lpd, "int", oldState, "int", newState, "HRESULT")

@@ -31,9 +31,9 @@ class IWMMutualExclusion extends IWMStreamList{
     static VTableNames => ["GetType", "SetType"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion-gettype
+     * The GetType method retrieves the GUID of the type of mutual exclusion required.
+     * @returns {Guid} Pointer to a GUID that specifies the type of mutual exclusion.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion-gettype
      */
     GetType() {
         pguidType := Guid()
@@ -42,10 +42,39 @@ class IWMMutualExclusion extends IWMStreamList{
     }
 
     /**
+     * The SetType method specifies the GUID of the type of mutual exclusion required.
+     * @param {Pointer<Guid>} guidType GUID specifying the type of mutual exclusion. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion-gettype">IWMMutualExclusion::GetType</a>
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Guid>} guidType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion-settype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid type.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmutualexclusion-settype
      */
     SetType(guidType) {
         result := ComCall(7, this, "ptr", guidType, "HRESULT")

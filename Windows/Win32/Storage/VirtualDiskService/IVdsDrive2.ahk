@@ -32,9 +32,13 @@ class IVdsDrive2 extends IUnknown{
     static VTableNames => ["GetProperties2"]
 
     /**
-     * 
-     * @returns {VDS_DRIVE_PROP2} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive2-getproperties2
+     * Returns the properties of a drive object.
+     * @returns {VDS_DRIVE_PROP2} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_prop2">VDS_DRIVE_PROP2</a> structure 
+     *       allocated and passed in by the caller. VDS allocates memory for the 
+     *       <b>pwszFriendlyName</b> and <b>pwszIdentification</b> member strings. 
+     *       Callers must free the strings by using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function. This parameter is required and cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdrive2-getproperties2
      */
     GetProperties2() {
         pDriveProp2 := VDS_DRIVE_PROP2()

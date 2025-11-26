@@ -39,13 +39,21 @@ class IShellTaskScheduler extends IUnknown{
     static VTableNames => ["AddTask", "RemoveTasks", "CountTasks", "Status"]
 
     /**
+     * Adds a task to the scheduler's background queue.
+     * @param {IRunnableTask} prt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irunnabletask">IRunnableTask</a>*</b>
      * 
-     * @param {IRunnableTask} prt 
-     * @param {Pointer<Guid>} rtoid 
-     * @param {Pointer} lParam 
-     * @param {Integer} dwPriority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
+     * A pointer to an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irunnabletask">IRunnableTask</a> interface representing the task to add to the queue.
+     * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
+     * 
+     * A GUID identifying the owner of the task. This information can be used to group tasks for later <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks">counting</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks">removal</a> by owner.
+     * @param {Pointer} lParam Type: <b>DWORD_PTR</b>
+     * 
+     * A pointer to a user-defined <b>DWORD</b> value allowing the task to be identified within the tasks owned by <i>rtoid</i>. This is used to identify single tasks or to subgroup them, for instance associating the task with a particular item such as an item in a ListView. This parameter can be zero.
+     * @param {Integer} dwPriority Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
      */
     AddTask(prt, rtoid, lParam, dwPriority) {
         result := ComCall(3, this, "ptr", prt, "ptr", rtoid, "ptr", lParam, "uint", dwPriority, "HRESULT")
@@ -53,12 +61,20 @@ class IShellTaskScheduler extends IUnknown{
     }
 
     /**
+     * Removes tasks from the scheduler's background queue.
+     * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
      * 
-     * @param {Pointer<Guid>} rtoid 
-     * @param {Pointer} lParam 
-     * @param {BOOL} bWaitIfRunning 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
+     * A GUID identifying the owner of the tasks to remove.
+     * @param {Pointer} lParam Type: <b>DWORD_PTR</b>
+     * 
+     * A pointer to a user-defined <b>DWORD</b> value that allows the task to be identified within the tasks owned by <i>rtoid</i>. Set this value to 0 to remove all tasks for the owner specified by <i>rtoid</i>.
+     * @param {BOOL} bWaitIfRunning Type: <b>BOOL</b>
+     * 
+     * <b>TRUE</b> if you want a currently running task to complete before removing it, <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
      */
     RemoveTasks(rtoid, lParam, bWaitIfRunning) {
         result := ComCall(4, this, "ptr", rtoid, "ptr", lParam, "int", bWaitIfRunning, "HRESULT")
@@ -66,10 +82,14 @@ class IShellTaskScheduler extends IUnknown{
     }
 
     /**
+     * Counts tasks with the same owner ID in the scheduler's queue.
+     * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
      * 
-     * @param {Pointer<Guid>} rtoid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks
+     * A GUID identifying the owner of the tasks. Supplying a specific ID will count only those tasks tagged with that owner ID. To count all items in the queue, pass TOID_NULL.
+     * @returns {Integer} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks
      */
     CountTasks(rtoid) {
         result := ComCall(5, this, "ptr", rtoid, "uint")
@@ -77,17 +97,17 @@ class IShellTaskScheduler extends IUnknown{
     }
 
     /**
-     * The Status enumeration indicates the result of a Windows GDI+ method call.
-     * @remarks
+     * Sets the release status and background thread timeout for the current task.
+     * @param {Integer} dwReleaseStatus Type: <b>DWORD</b>
      * 
-     * If you construct a GDI+ object and then immediately call the 
-     * 				<b>GetLastStatus</b> method of that object, you can determine whether the constructor succeeded or failed. In such cases, 
-     * 				<b>GetLastStatus</b> might return <b><b>OutOfMemory</b></b> even though there was plenty of memory available to create the object. Several GDI+ constructors set the status to <b><b>OutOfMemory</b></b> when they fail regardless of the reason for failure.
+     * The following flag or 0.
+     * @param {Integer} dwThreadTimeout Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwReleaseStatus 
-     * @param {Integer} dwThreadTimeout 
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/ne-gdiplustypes-status
+     * Not used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-status
      */
     Status(dwReleaseStatus, dwThreadTimeout) {
         result := ComCall(6, this, "uint", dwReleaseStatus, "uint", dwThreadTimeout, "HRESULT")

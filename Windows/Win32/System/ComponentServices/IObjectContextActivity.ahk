@@ -41,10 +41,10 @@ class IObjectContextActivity extends IUnknown{
     static VTableNames => ["GetActivityId"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} pGUID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextactivity-getactivityid
+     * Retrieves the GUID associated with the current activity.
+     * @param {Pointer<Guid>} pGUID A reference to the GUID associated with the current activity.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextactivity-getactivityid
      */
     GetActivityId(pGUID) {
         result := ComCall(3, this, "ptr", pGUID, "HRESULT")

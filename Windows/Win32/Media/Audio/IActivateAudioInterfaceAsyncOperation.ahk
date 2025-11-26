@@ -37,11 +37,29 @@ class IActivateAudioInterfaceAsyncOperation extends IUnknown{
     static VTableNames => ["GetActivateResult"]
 
     /**
-     * 
+     * Gets the results of an asynchronous activation of a WASAPI interface initiated by an application calling the ActivateAudioInterfaceAsync function.
      * @param {Pointer<HRESULT>} activateResult 
      * @param {Pointer<IUnknown>} activatedInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfaceasyncoperation-getactivateresult
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ILLEGAL_METHOD_CALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was called before the asynchronous operation was complete. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfaceasyncoperation-getactivateresult
      */
     GetActivateResult(activateResult, activatedInterface) {
         activateResultMarshal := activateResult is VarRef ? "int*" : "ptr"

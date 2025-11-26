@@ -36,10 +36,10 @@ class IMSVidTunerEvent extends IMSVidInputDeviceEvent{
     static VTableNames => ["TuneChanged"]
 
     /**
-     * 
-     * @param {IMSVidTuner} lpd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidtunerevent-tunechanged
+     * This topic applies to Windows XP or later.
+     * @param {IMSVidTuner} lpd Pointer to the <b>MSVidTuner</b> object that fired the event.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidtunerevent-tunechanged
      */
     TuneChanged(lpd) {
         result := ComCall(7, this, "ptr", lpd, "HRESULT")

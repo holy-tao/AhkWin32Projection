@@ -31,10 +31,14 @@ class IShellService extends IUnknown{
     static VTableNames => ["SetOwner"]
 
     /**
+     * Deprecated. Declares an owner reference to the service object.
+     * @param {IUnknown} punkOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkOwner 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ishellservice-setowner
+     * The address of an interface pointer to the owner object. If <b>NULL</b>, the object should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> to release the existing reference.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ishellservice-setowner
      */
     SetOwner(punkOwner) {
         result := ComCall(3, this, "ptr", punkOwner, "HRESULT")

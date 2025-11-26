@@ -95,9 +95,9 @@ class IOpcPart extends IUnknown{
     static VTableNames => ["GetRelationshipSet", "GetContentStream", "GetName", "GetContentType", "GetCompressionOptions"]
 
     /**
-     * 
-     * @returns {IOpcRelationshipSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getrelationshipset
+     * Gets a relationship set object that represents the Relationships part that stores relationships that have the part as their source.
+     * @returns {IOpcRelationshipSet} A pointer to a relationship set object that represents the Relationships part  that stores all relationships that have the part as their source.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpart-getrelationshipset
      */
     GetRelationshipSet() {
         result := ComCall(3, this, "ptr*", &relationshipSet := 0, "HRESULT")
@@ -105,9 +105,9 @@ class IOpcPart extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcontentstream
+     * Gets a stream that provides read/write access to part content.
+     * @returns {IStream} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of a stream that provides read and write access to part content.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpart-getcontentstream
      */
     GetContentStream() {
         result := ComCall(4, this, "ptr*", &stream := 0, "HRESULT")
@@ -115,9 +115,11 @@ class IOpcPart extends IUnknown{
     }
 
     /**
+     * Gets a part URI object that represents the part name.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object that represents the part name.
      * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getname
+     * Part names conform to specific syntax specified in the <i>OPC</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpart-getname
      */
     GetName() {
         result := ComCall(5, this, "ptr*", &name := 0, "HRESULT")
@@ -125,9 +127,9 @@ class IOpcPart extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcontenttype
+     * Gets the media type of part content.
+     * @returns {PWSTR} The media  type of part content, as specified by the package format designer and adhering to <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC 2616: HTTP/1.1</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpart-getcontenttype
      */
     GetContentType() {
         result := ComCall(6, this, "ptr*", &contentType := 0, "HRESULT")
@@ -135,9 +137,9 @@ class IOpcPart extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcompressionoptions
+     * Gets a value that describes the way part content is compressed.
+     * @returns {Integer} A value that describes the way part content is compressed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpart-getcompressionoptions
      */
     GetCompressionOptions() {
         result := ComCall(7, this, "int*", &compressionOptions := 0, "HRESULT")

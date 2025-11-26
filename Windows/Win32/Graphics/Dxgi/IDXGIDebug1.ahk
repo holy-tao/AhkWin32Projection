@@ -38,27 +38,27 @@ class IDXGIDebug1 extends IDXGIDebug{
     static VTableNames => ["EnableLeakTrackingForThread", "DisableLeakTrackingForThread", "IsLeakTrackingEnabledForThread"]
 
     /**
-     * 
+     * Starts tracking leaks for the current thread.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgidebug1-enableleaktrackingforthread
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgidebug1-enableleaktrackingforthread
      */
     EnableLeakTrackingForThread() {
         ComCall(4, this)
     }
 
     /**
-     * 
+     * Stops tracking leaks for the current thread.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgidebug1-disableleaktrackingforthread
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgidebug1-disableleaktrackingforthread
      */
     DisableLeakTrackingForThread() {
         ComCall(5, this)
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgidebug1-isleaktrackingenabledforthread
+     * Gets a value indicating whether leak tracking is turned on for the current thread.
+     * @returns {BOOL} <b>TRUE</b> if leak tracking is turned on for the current thread; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgidebug1-isleaktrackingenabledforthread
      */
     IsLeakTrackingEnabledForThread() {
         result := ComCall(6, this, "int")

@@ -37,11 +37,29 @@ class IWSDAsyncCallback extends IUnknown{
     static VTableNames => ["AsyncOperationComplete"]
 
     /**
+     * Indicates that the asynchronous operation has completed.
+     * @param {IWSDAsyncResult} pAsyncResult Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object that contains the user-defined state information passed to <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasyncresult-setcallback">IWSDAsyncResult::SetCallback</a>.
+     * @param {IUnknown} pAsyncState The state of the asynchronous operation.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {IWSDAsyncResult} pAsyncResult 
-     * @param {IUnknown} pAsyncState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete
      */
     AsyncOperationComplete(pAsyncResult, pAsyncState) {
         result := ComCall(3, this, "ptr", pAsyncResult, "ptr", pAsyncState, "HRESULT")

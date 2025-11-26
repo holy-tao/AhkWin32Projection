@@ -31,10 +31,10 @@ class IWMPPluginEnable extends IUnknown{
     static VTableNames => ["SetEnable", "GetEnable"]
 
     /**
-     * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmppluginenable-setenable
+     * The IWMPPluginEnable::SetEnable method retrieves a value indicating whether user has enabled the plug-in.
+     * @param {BOOL} fEnable A variable that receives a value indicating whether the user has enabled the plug-in.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmppluginenable-setenable
      */
     SetEnable(fEnable) {
         result := ComCall(3, this, "int", fEnable, "HRESULT")
@@ -42,10 +42,10 @@ class IWMPPluginEnable extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pfEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmppluginenable-getenable
+     * The IWMPPluginEnable::GetEnable method returns a value indicating whether Windows Media Player has enabled the plug-in.
+     * @param {Pointer<BOOL>} pfEnable Pointer to a <b>Boolean</b> value indicating whether the user has enabled the plug-in.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmppluginenable-getenable
      */
     GetEnable(pfEnable) {
         pfEnableMarshal := pfEnable is VarRef ? "int*" : "ptr"

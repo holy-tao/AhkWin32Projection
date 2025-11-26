@@ -39,10 +39,14 @@ class IObjectWithSelection extends IUnknown{
     static VTableNames => ["SetSelection", "GetSelection"]
 
     /**
+     * Provides the Shell item array that specifies the items included in the selection.
+     * @param {IShellItemArray} psia Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithselection-setselection
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> that represents the selected items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithselection-setselection
      */
     SetSelection(psia) {
         result := ComCall(3, this, "ptr", psia, "HRESULT")
@@ -50,10 +54,14 @@ class IObjectWithSelection extends IUnknown{
     }
 
     /**
+     * Gets the Shell item array that contains the selected items.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithselection-getselection
+     * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItemArray.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithselection-getselection
      */
     GetSelection(riid) {
         result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

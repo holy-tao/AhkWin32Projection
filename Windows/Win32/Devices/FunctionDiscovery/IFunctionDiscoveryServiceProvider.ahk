@@ -31,11 +31,11 @@ class IFunctionDiscoveryServiceProvider extends IUnknown{
     static VTableNames => ["Initialize"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IFunctionInstance} pIFunctionInstance 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes an object that provides a specific interface that has been bound to the resource represented by the function instance.
+     * @param {IFunctionInstance} pIFunctionInstance A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface that represents the underlying resource.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be used to communicate with the object.
+     * @returns {Pointer<Void>} The interface pointer requested in <i>riid</i>. Upon successful return, <i>*ppv</i> contains the requested interface pointer. Upon failure, <i>*ppv</i> contains <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryserviceprovider-initialize
      */
     Initialize(pIFunctionInstance, riid) {
         result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

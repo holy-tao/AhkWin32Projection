@@ -31,11 +31,11 @@ class IComAppEvents extends IUnknown{
     static VTableNames => ["OnAppActivation", "OnAppShutdown", "OnAppForceShutdown"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidApp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomappevents-onappactivation
+     * Generated when an application server starts.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomappevents-onappactivation
      */
     OnAppActivation(pInfo, guidApp) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -43,11 +43,11 @@ class IComAppEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidApp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomappevents-onappshutdown
+     * Generated when an application server shuts down.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomappevents-onappshutdown
      */
     OnAppShutdown(pInfo, guidApp) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -55,11 +55,11 @@ class IComAppEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidApp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomappevents-onappforceshutdown
+     * Generated when an application server is forced to shut down.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomappevents-onappforceshutdown
      */
     OnAppForceShutdown(pInfo, guidApp) {
         result := ComCall(5, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")

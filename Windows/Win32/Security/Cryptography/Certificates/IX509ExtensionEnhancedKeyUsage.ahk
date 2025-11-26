@@ -40,10 +40,31 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension{
     }
 
     /**
+     * Initializes the extension from a collection of IObjectId object identifiers (OIDs) that specify the intended uses of the public key.
+     * @param {IObjectIds} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> interface.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {IObjectIds} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionenhancedkeyusage-initializeencode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED)</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object is already initialized.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensionenhancedkeyusage-initializeencode
      */
     InitializeEncode(pValue) {
         result := ComCall(12, this, "ptr", pValue, "HRESULT")
@@ -51,11 +72,32 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension{
     }
 
     /**
+     * Initializes the extension from a Distinguished Encoding Rules (DER) encoded byte array that contains the extension value.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> parameter.
+     * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded extension.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Encoding 
-     * @param {BSTR} strEncodedData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionenhancedkeyusage-initializedecode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED)</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object is already initialized.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensionenhancedkeyusage-initializedecode
      */
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
@@ -65,9 +107,14 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension{
     }
 
     /**
+     * Retrieves a collection of key usage object identifiers (OIDs).
+     * @remarks
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extensionenhancedkeyusage-initializeencode">InitializeEncode</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extensionenhancedkeyusage-initializedecode">InitializeDecode</a> method to initialize the collection.  You can also call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extension-get_critical">Critical</a> property to specify and retrieve a Boolean value that identifies whether the extension is critical, and you can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extension-get_objectid">ObjectId</a> property to retrieve the OID associated with the extension.
+     * 
      * 
      * @returns {IObjectIds} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionenhancedkeyusage-get_enhancedkeyusage
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensionenhancedkeyusage-get_enhancedkeyusage
      */
     get_EnhancedKeyUsage() {
         result := ComCall(14, this, "ptr*", &ppValue := 0, "HRESULT")

@@ -44,14 +44,27 @@ class IUICollectionChangedEvent extends IUnknown{
     static VTableNames => ["OnChanged"]
 
     /**
+     * Called when an IUICollection changes.
+     * @param {Integer} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">UI_COLLECTIONCHANGE</a></b>
      * 
-     * @param {Integer} action 
-     * @param {Integer} oldIndex 
-     * @param {IUnknown} oldItem 
-     * @param {Integer} newIndex 
-     * @param {IUnknown} newItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">action</a> performed on the 
+     * 					<a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicollection">IUICollection</a>.
+     * @param {Integer} oldIndex Type: <b>UINT32</b>
+     * 
+     * Index of the old item on remove or replace; otherwise <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-ui-collection-invalidindex">UI_COLLECTION_INVALIDINDEX</a>.
+     * @param {IUnknown} oldItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * Pointer to the old item on remove or replace; otherwise <b>NULL</b>.
+     * @param {Integer} newIndex Type: <b>UINT32</b>
+     * 
+     * Index of the new item on insert, add, or replace; otherwise <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-ui-collection-invalidindex">UI_COLLECTION_INVALIDINDEX</a>.
+     * @param {IUnknown} newItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * Pointer to the new item on insert, add, or replace; otherwise <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged
      */
     OnChanged(action, oldIndex, oldItem, newIndex, newItem) {
         result := ComCall(3, this, "int", action, "uint", oldIndex, "ptr", oldItem, "uint", newIndex, "ptr", newItem, "HRESULT")

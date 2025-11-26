@@ -74,9 +74,10 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_guid
+     * The get_Guid method retrieves the globally-unique identifier (GUID) for the connection.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, on successful return, receives the GUID for the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnectionprops-get_guid
      */
     get_Guid() {
         pbstrGuid := BSTR()
@@ -85,9 +86,10 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_name
+     * The get_Name method retrieves the name of the connection.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, on successful return, receives the name of the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnectionprops-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -96,9 +98,10 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_devicename
+     * The get_DeviceName method retrieves the name of the device associated with the connection.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, on successful return, receives the name of the device associated with the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnectionprops-get_devicename
      */
     get_DeviceName() {
         pbstrDeviceName := BSTR()
@@ -107,9 +110,10 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_status
+     * The get_Status method retrieves the status of the connection.
+     * @returns {Integer} Pointer to a variable of type 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_status">NETCON_STATUS</a> that, on successful return, receives a code that specifies the status of the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnectionprops-get_status
      */
     get_Status() {
         result := ComCall(10, this, "int*", &pStatus := 0, "HRESULT")
@@ -117,9 +121,10 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_mediatype
+     * The get_MediaType method retrieves the media type for the connection.
+     * @returns {Integer} Pointer to a variable of type 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_mediatype">NETCON_MEDIATYPE</a> that, on successful return, receives a code that specifies the media type for the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnectionprops-get_mediatype
      */
     get_MediaType() {
         result := ComCall(11, this, "int*", &pMediaType := 0, "HRESULT")
@@ -127,9 +132,9 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_characteristics
+     * The get_Characteristics method retrieves the media type for the connection.
+     * @returns {Integer} Media types as defined by <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_mediatype">NETCON_MEDIATYPE</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetconnectionprops-get_characteristics
      */
     get_Characteristics() {
         result := ComCall(12, this, "uint*", &pdwFlags := 0, "HRESULT")

@@ -36,9 +36,9 @@ class IAudioEndpointLastBufferControl extends IUnknown{
     static VTableNames => ["IsLastBufferControlSupported", "ReleaseOutputDataPointerForLastBuffer"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-islastbuffercontrolsupported
+     * Indicates if last buffer control is supported.
+     * @returns {BOOL} <b>true</b> if last buffer control is supported; otherwise, <b>false</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-islastbuffercontrolsupported
      */
     IsLastBufferControlSupported() {
         result := ComCall(3, this, "int")
@@ -46,10 +46,10 @@ class IAudioEndpointLastBufferControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<APO_CONNECTION_PROPERTY>} pConnectionProperty 
+     * Releases the output data pointer for the last buffer.
+     * @param {Pointer<APO_CONNECTION_PROPERTY>} pConnectionProperty The APO connection property.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-releaseoutputdatapointerforlastbuffer
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-releaseoutputdatapointerforlastbuffer
      */
     ReleaseOutputDataPointerForLastBuffer(pConnectionProperty) {
         ComCall(4, this, "ptr", pConnectionProperty)

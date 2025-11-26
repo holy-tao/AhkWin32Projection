@@ -35,12 +35,12 @@ class IBDA_ISDBConditionalAccess extends IUnknown{
     static VTableNames => ["SetIsdbCasRequest"]
 
     /**
-     * 
-     * @param {Integer} ulRequestId 
-     * @param {Integer} ulcbRequestBufferLen 
-     * @param {Pointer<Integer>} pbRequestBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_isdbconditionalaccess-setisdbcasrequest
+     * Sends a conditional access system (CAS) command for Integrated Services Digital Broadcasting (ISDB).
+     * @param {Integer} ulRequestId The numeric code for the CAS command. The ARIB standard defines these values. Enumeration constants for some commands are defined in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/isdbcas-request-id">ISDBCAS_REQUEST_ID</a> enumeration.
+     * @param {Integer} ulcbRequestBufferLen Size of the <i>pbRequestBuffer</i> array, in bytes.
+     * @param {Pointer<Integer>} pbRequestBuffer Pointer to a byte array that contains the data for the command.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_isdbconditionalaccess-setisdbcasrequest
      */
     SetIsdbCasRequest(ulRequestId, ulcbRequestBufferLen, pbRequestBuffer) {
         pbRequestBufferMarshal := pbRequestBuffer is VarRef ? "char*" : "ptr"

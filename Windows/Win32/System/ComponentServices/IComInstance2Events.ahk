@@ -31,16 +31,16 @@ class IComInstance2Events extends IUnknown{
     static VTableNames => ["OnObjectCreate2", "OnObjectDestroy2"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<Guid>} tsid 
-     * @param {Integer} CtxtID 
-     * @param {Integer} ObjectID 
-     * @param {Pointer<Guid>} guidPartition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2
+     * Generated when a client creates an object.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
+     * @param {Pointer<Guid>} clsid The CLSID of the object being created.
+     * @param {Pointer<Guid>} tsid The transaction stream identifier, which is unique for correlation to objects.
+     * @param {Integer} CtxtID The context identifier for this object.
+     * @param {Integer} ObjectID The initial JIT-activated object.
+     * @param {Pointer<Guid>} guidPartition The partition identifier for which this instance is created.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2
      */
     OnObjectCreate2(pInfo, guidActivity, clsid, tsid, CtxtID, ObjectID, guidPartition) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", ObjectID, "ptr", guidPartition, "HRESULT")
@@ -48,11 +48,11 @@ class IComInstance2Events extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} CtxtID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectdestroy2
+     * Generated when a client releases an object.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} CtxtID The context identifier of the object.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icominstance2events-onobjectdestroy2
      */
     OnObjectDestroy2(pInfo, CtxtID) {
         result := ComCall(4, this, "ptr", pInfo, "uint", CtxtID, "HRESULT")

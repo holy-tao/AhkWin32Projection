@@ -43,9 +43,9 @@ class IPersistStream extends IPersist{
     static VTableNames => ["IsDirty", "Load", "Save", "GetSizeMax"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststream-isdirty
+     * Determines whether an object has changed since it was last saved to its stream.
+     * @returns {HRESULT} This method returns S_OK to indicate that the object has changed. Otherwise, it returns S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipersiststream-isdirty
      */
     IsDirty() {
         result := ComCall(4, this, "int")
@@ -53,10 +53,50 @@ class IPersistStream extends IPersist{
     }
 
     /**
+     * Initializes an object from the stream where it was saved previously.
+     * @param {IStream} pStm An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream from which the object should be loaded.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {IStream} pStm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststream-load
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object was not loaded due to lack of memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object was not loaded due to some reason other than a lack of memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipersiststream-load
      */
     Load(pStm) {
         result := ComCall(5, this, "ptr", pStm, "HRESULT")
@@ -64,11 +104,51 @@ class IPersistStream extends IPersist{
     }
 
     /**
+     * Saves an object to the specified stream.
+     * @param {IStream} pStm An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream into which the object should be saved.
+     * @param {BOOL} fClearDirty Indicates whether to clear the dirty flag after the save is complete. If <b>TRUE</b>, the flag should be cleared. If <b>FALSE</b>, the flag should be left unchanged.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {IStream} pStm 
-     * @param {BOOL} fClearDirty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststream-save
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_CANTSAVE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object could not save itself to the stream. This error could indicate, for example, that the object contains another object that is not serializable to a stream or that an <a href="/windows/desktop/api/objidl/nf-objidl-isequentialstream-write">ISequentialStream::Write</a> call returned STG_E_CANTSAVE.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_MEDIUMFULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object could not be saved because there is no space left on the storage device.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipersiststream-save
      */
     Save(pStm, fClearDirty) {
         result := ComCall(6, this, "ptr", pStm, "int", fClearDirty, "HRESULT")
@@ -76,9 +156,9 @@ class IPersistStream extends IPersist{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststream-getsizemax
+     * Retrieves the size of the stream needed to save the object.
+     * @returns {Integer} The size in bytes of the stream needed to save this object, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipersiststream-getsizemax
      */
     GetSizeMax() {
         result := ComCall(7, this, "uint*", &pcbSize := 0, "HRESULT")

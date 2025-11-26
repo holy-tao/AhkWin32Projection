@@ -31,9 +31,9 @@ class IMFVideoSampleAllocatorNotify extends IUnknown{
     static VTableNames => ["NotifyRelease"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatornotify-notifyrelease
+     * Called when a video sample is returned to the allocator.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatornotify-notifyrelease
      */
     NotifyRelease() {
         result := ComCall(3, this, "HRESULT")

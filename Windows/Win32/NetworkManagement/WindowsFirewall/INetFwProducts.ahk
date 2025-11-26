@@ -53,9 +53,9 @@ class INetFwProducts extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates the number of registered third-party firewall products.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproducts-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &count := 0, "HRESULT")
@@ -63,10 +63,10 @@ class INetFwProducts extends IDispatch{
     }
 
     /**
-     * 
-     * @param {INetFwProduct} product 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-register
+     * The Register method registers a third-party firewall product.
+     * @param {INetFwProduct} product The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwproduct">INetFwProduct</a> object that defines the product to be registered.
+     * @returns {IUnknown} The registration handle. The registration will be removed when this object is released.
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproducts-register
      */
     Register(product) {
         result := ComCall(8, this, "ptr", product, "ptr*", &registration := 0, "HRESULT")
@@ -74,10 +74,10 @@ class INetFwProducts extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {INetFwProduct} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-item
+     * The Item method returns the product with the specified index if it is in the collection.
+     * @param {Integer} index Index of the product to retrieve.
+     * @returns {INetFwProduct} Reference to the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwproduct">INetFwProduct</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproducts-item
      */
     Item(index) {
         result := ComCall(9, this, "int", index, "ptr*", &product := 0, "HRESULT")
@@ -85,9 +85,9 @@ class INetFwProducts extends IDispatch{
     }
 
     /**
-     * 
+     * Returns an object supporting IEnumVARIANT that can be used to iterate through all the registered third-party firewall products in the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproducts-get__newenum
      */
     get__NewEnum() {
         result := ComCall(10, this, "ptr*", &newEnum := 0, "HRESULT")

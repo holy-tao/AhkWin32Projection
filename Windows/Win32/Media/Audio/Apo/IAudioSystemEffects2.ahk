@@ -31,12 +31,12 @@ class IAudioSystemEffects2 extends IAudioSystemEffects{
     static VTableNames => ["GetEffectsList"]
 
     /**
-     * 
-     * @param {Pointer<Pointer<Guid>>} ppEffectsIds 
-     * @param {Pointer<Integer>} pcEffects 
-     * @param {HANDLE} Event 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffects2-geteffectslist
+     * The GetEffectsList method is used for retrieving the list of audio processing effects that are currently active, and stores an event to be signaled if the list changes.
+     * @param {Pointer<Pointer<Guid>>} ppEffectsIds Pointer to the list of GUIDs that represent audio processing effects. The caller is responsible for freeing this memory by calling CoTaskMemFree.
+     * @param {Pointer<Integer>} pcEffects A count of the audio processing effects in the list.
+     * @param {HANDLE} Event The HANDLE of the event that will be signaled if the list changes.
+     * @returns {HRESULT} The <b>GetEffectsList</b> method returns S_OK, If the method call is successful. If there are no effects in the list, the function still succeeds, <i>ppEffectsIds</i> returns a NULL pointer, and <i>pcEffects</i> returns a count of 0.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffects2-geteffectslist
      */
     GetEffectsList(ppEffectsIds, pcEffects, Event) {
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event

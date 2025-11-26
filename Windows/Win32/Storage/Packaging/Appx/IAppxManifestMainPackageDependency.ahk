@@ -31,9 +31,9 @@ class IAppxManifestMainPackageDependency extends IUnknown{
     static VTableNames => ["GetName", "GetPublisher", "GetPackageFamilyName"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getname
+     * Gets the name of the main package dependency from the AppxManifest.xml.
+     * @returns {PWSTR} The name of the main package dependency.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IAppxManifestMainPackageDependency extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpublisher
+     * Gets the publisher of the main package dependency from the AppxManifest.xml.
+     * @returns {PWSTR} The publisher of the main package dependency.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpublisher
      */
     GetPublisher() {
         result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
@@ -51,11 +51,9 @@ class IAppxManifestMainPackageDependency extends IUnknown{
     }
 
     /**
-     * Gets the package family name for the specified process.
-     * @returns {PWSTR} Type: <b>PWSTR</b>
-     * 
-     * The package family name.
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilyname
+     * Gets the package family name of the main package dependency from the AppxManifest.xml.
+     * @returns {PWSTR} The package family name of the main package dependency.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpackagefamilyname
      */
     GetPackageFamilyName() {
         result := ComCall(5, this, "ptr*", &packageFamilyName := 0, "HRESULT")

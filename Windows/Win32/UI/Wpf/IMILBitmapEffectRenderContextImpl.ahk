@@ -31,9 +31,11 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
     static VTableNames => ["GetUseSoftwareRenderer", "GetTransform", "UpdateTransform", "GetOutputBounds", "UpdateOutputBounds"]
 
     /**
+     * Gets a value that indicates whether to use software rendering.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getusesoftwarerenderer
+     * A pointer that receives a value that indicates whether to use software rendering.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getusesoftwarerenderer
      */
     GetUseSoftwareRenderer() {
         result := ComCall(3, this, "short*", &pfSoftware := 0, "HRESULT")
@@ -41,10 +43,14 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
     }
 
     /**
+     * Gets the matrix transform of the render context.
+     * @param {Pointer<MILMatrixF>} pMatrix Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milmatrixf">MILMatrixF</a>*</b>
      * 
-     * @param {Pointer<MILMatrixF>} pMatrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-gettransform
+     * The matrix transform of the render context.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-gettransform
      */
     GetTransform(pMatrix) {
         result := ComCall(4, this, "ptr", pMatrix, "HRESULT")
@@ -52,10 +58,14 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
     }
 
     /**
+     * Updates the output transform with the new matrix.
+     * @param {Pointer<MILMatrixF>} pMatrix Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milmatrixf">MILMatrixF</a>*</b>
      * 
-     * @param {Pointer<MILMatrixF>} pMatrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updatetransform
+     * The new transform to use.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updatetransform
      */
     UpdateTransform(pMatrix) {
         result := ComCall(5, this, "ptr", pMatrix, "HRESULT")
@@ -63,10 +73,14 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
     }
 
     /**
+     * Gets the output bounds of the render context.
+     * @param {Pointer<MilRectD>} pRect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milrectd">MIL_RECTD</a>*</b>
      * 
-     * @param {Pointer<MilRectD>} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getoutputbounds
+     * The output bounds.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getoutputbounds
      */
     GetOutputBounds(pRect) {
         result := ComCall(6, this, "ptr", pRect, "HRESULT")
@@ -74,10 +88,14 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
     }
 
     /**
+     * Updates the output bounds with the given region.
+     * @param {Pointer<MilRectD>} pRect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milrectd">MIL_RECTD</a>*</b>
      * 
-     * @param {Pointer<MilRectD>} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updateoutputbounds
+     * The new output bounds to use.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-updateoutputbounds
      */
     UpdateOutputBounds(pRect) {
         result := ComCall(7, this, "ptr", pRect, "HRESULT")

@@ -36,12 +36,43 @@ class IEnumVARIANT extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Retrieves the specified items in the enumeration sequence.
+     * @param {Integer} celt The number of elements to be retrieved
+     * @param {Pointer<VARIANT>} rgVar An array of at least size <i>celt</i> in which the elements are to be returned.
+     * @param {Pointer<Integer>} pCeltFetched The number of elements returned in <i>rgVar</i>, or NULL.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<VARIANT>} rgVar 
-     * @param {Pointer<Integer>} pCeltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The number of elements returned is <i>celt</i>.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The number of elements returned is less than <i>celt</i>.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-next
      */
     Next(celt, rgVar, pCeltFetched) {
         pCeltFetchedMarshal := pCeltFetched is VarRef ? "uint*" : "ptr"
@@ -51,10 +82,40 @@ class IEnumVARIANT extends IUnknown{
     }
 
     /**
+     * Attempts to skip over the next celt elements in the enumeration sequence.
+     * @param {Integer} celt The number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified number of elements was skipped.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The end of the sequence was reached before skipping the requested number of elements.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -62,9 +123,38 @@ class IEnumVARIANT extends IUnknown{
     }
 
     /**
+     * Resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -72,9 +162,9 @@ class IEnumVARIANT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-clone
+     * Creates a copy of the current state of enumeration.
+     * @returns {IEnumVARIANT} The clone enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

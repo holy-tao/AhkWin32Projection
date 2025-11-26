@@ -58,10 +58,10 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Integer} lVol 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-put_volume
+     * The put_Volume method specifies the audio renderer's volume level.
+     * @param {Integer} lVol Specifies the volume level, in units of .01 decibel (dB).
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-put_volume
      */
     put_Volume(lVol) {
         result := ComCall(16, this, "int", lVol, "HRESULT")
@@ -69,9 +69,9 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-get_volume
+     * The get_Volume method retrieves the audio renderer's volume level.
+     * @returns {Integer} Pointer to a variable that receives the volume level, in units of .01 decibel (dB).
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-get_volume
      */
     get_Volume() {
         result := ComCall(17, this, "int*", &lVol := 0, "HRESULT")
@@ -79,10 +79,10 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Integer} lBal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-put_balance
+     * The put_Balance method specifies the audio renderer's balance level.
+     * @param {Integer} lBal Specifies the balance level.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-put_balance
      */
     put_Balance(lBal) {
         result := ComCall(18, this, "int", lBal, "HRESULT")
@@ -90,9 +90,9 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-get_balance
+     * .
+     * @returns {Integer} Pointer to a variable that receives the balance level.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-get_balance
      */
     get_Balance() {
         result := ComCall(19, this, "int*", &lBal := 0, "HRESULT")

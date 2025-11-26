@@ -31,10 +31,39 @@ class IDot11AdHocInterfaceNotificationSink extends IUnknown{
     static VTableNames => ["OnConnectionStatusChange"]
 
     /**
+     * Notifies the client that the connection status of the network associated with the NIC has changed.
+     * @param {Integer} eStatus A pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status">DOT11_ADHOC_NETWORK_CONNECTION_STATUS</a> value that specifies the new connection state.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Integer} eStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterfacenotificationsink-onconnectionstatuschange
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterfacenotificationsink-onconnectionstatuschange
      */
     OnConnectionStatusChange(eStatus) {
         result := ComCall(3, this, "int", eStatus, "HRESULT")

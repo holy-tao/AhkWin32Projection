@@ -37,14 +37,14 @@ class IUIAutomationNotificationEventHandler extends IUnknown{
     static VTableNames => ["HandleNotificationEvent"]
 
     /**
-     * 
-     * @param {IUIAutomationElement} sender 
+     * Handles a Microsoft UI Automation notification event.
+     * @param {IUIAutomationElement} sender A pointer to the element that raised the event.
      * @param {Integer} notificationKind 
      * @param {Integer} notificationProcessing 
-     * @param {BSTR} displayString 
-     * @param {BSTR} activityId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationnotificationeventhandler-handlenotificationevent
+     * @param {BSTR} displayString A string to display in the notification message.
+     * @param {BSTR} activityId A unique non-localized string to identify an action or group of actions. This is used to pass additional information to the event handler.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationnotificationeventhandler-handlenotificationevent
      */
     HandleNotificationEvent(sender, notificationKind, notificationProcessing, displayString, activityId) {
         displayString := displayString is String ? BSTR.Alloc(displayString).Value : displayString

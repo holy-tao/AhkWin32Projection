@@ -31,10 +31,10 @@ class ITfCompartmentEventSink extends IUnknown{
     static VTableNames => ["OnChange"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rguid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmenteventsink-onchange
+     * ITfCompartmentEventSink::OnChange method
+     * @param {Pointer<Guid>} rguid Contains a GUID that identifies the compartment that changed.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmenteventsink-onchange
      */
     OnChange(rguid) {
         result := ComCall(3, this, "ptr", rguid, "HRESULT")

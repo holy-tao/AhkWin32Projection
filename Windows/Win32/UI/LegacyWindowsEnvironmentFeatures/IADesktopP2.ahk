@@ -55,9 +55,11 @@ class IADesktopP2 extends IUnknown{
     }
 
     /**
+     * Calls the UpdateAllDesktopSubscriptions function to update desktop subscriptions.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-iadesktopp2-updatealldesktopsubscriptions
+     * Returns S_OK if successful, or an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-iadesktopp2-updatealldesktopsubscriptions
      */
     UpdateAllDesktopSubscriptions() {
         result := ComCall(5, this, "HRESULT")

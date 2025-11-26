@@ -36,9 +36,9 @@ class IMSVidVideoRendererEvent extends IMSVidOutputDeviceEvent{
     static VTableNames => ["OverlayUnavailable"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererevent-overlayunavailable
+     * This topic applies to Windows XP or later.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererevent-overlayunavailable
      */
     OverlayUnavailable() {
         result := ComCall(8, this, "HRESULT")

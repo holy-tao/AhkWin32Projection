@@ -38,9 +38,9 @@ class ITMediaControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-start
+     * The Start method starts the action at the current location.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-start
      */
     Start() {
         result := ComCall(7, this, "HRESULT")
@@ -48,9 +48,9 @@ class ITMediaControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-stop
+     * The Stop method stops the current action and sets the current location to the beginning of the file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-stop
      */
     Stop() {
         result := ComCall(8, this, "HRESULT")
@@ -58,9 +58,9 @@ class ITMediaControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-pause
+     * The Pause method pauses the action, remaining at the current location in the file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-pause
      */
     Pause() {
         result := ComCall(9, this, "HRESULT")
@@ -68,9 +68,10 @@ class ITMediaControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-get_mediastate
+     * The get_MediaState method gets the current state of media on the file terminal.
+     * @returns {Integer} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_media_state">TERMINAL_MEDIA_STATE</a> descriptor of the current state of the file terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-get_mediastate
      */
     get_MediaState() {
         result := ComCall(10, this, "int*", &pTerminalMediaState := 0, "HRESULT")

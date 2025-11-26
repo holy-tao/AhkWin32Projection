@@ -31,9 +31,11 @@ class ID3D12Heap extends ID3D12Pageable{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Gets the heap description.
+     * @returns {D3D12_HEAP_DESC} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc">D3D12_HEAP_DESC</a></b>
      * 
-     * @returns {D3D12_HEAP_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/direct3d12/id3d12heap-getdesc
+     * Returns the <a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc">D3D12_HEAP_DESC</a> structure that describes the heap.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12heap-getdesc
      */
     GetDesc() {
         result := ComCall(8, this, "ptr")

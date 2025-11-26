@@ -117,9 +117,13 @@ class IOpcRelationship extends IUnknown{
     static VTableNames => ["GetId", "GetRelationshipType", "GetSourceUri", "GetTargetUri", "GetTargetMode"]
 
     /**
+     * Gets the unique identifier of the relationship.
+     * @returns {PWSTR} The identifier of the relationship.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getid
+     * The identifier of a relationship is arbitrary and local to the package, and, therefore, .
+     * 
+     * Valid identifiers conform to the restrictions for <b>xsd:ID</b>, which are  documented in section 3.3.8 ID of the <a href="https://www.w3.org/TR/xmlschema-2/#ID">W3C Recommendation, XML Schema Part 2: Datatypes Second Edition</a> (http://www.w3.org/TR/xmlschema-2/#ID).
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-getid
      */
     GetId() {
         result := ComCall(3, this, "ptr*", &relationshipIdentifier := 0, "HRESULT")
@@ -127,9 +131,11 @@ class IOpcRelationship extends IUnknown{
     }
 
     /**
+     * Gets the relationship type.
+     * @returns {PWSTR} Receives the relationship type, which is the qualified name of the relationship, as defined by the package format designer or the <i>OPC</i>.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getrelationshiptype
+     * For more information about relationship types see Remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-getrelationshiptype
      */
     GetRelationshipType() {
         result := ComCall(4, this, "ptr*", &relationshipType := 0, "HRESULT")
@@ -137,9 +143,9 @@ class IOpcRelationship extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getsourceuri
+     * Gets the URI of the relationship�source.
+     * @returns {IOpcUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> interface of the OPC URI object that represents the URI of the relationship source.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-getsourceuri
      */
     GetSourceUri() {
         result := ComCall(5, this, "ptr*", &sourceUri := 0, "HRESULT")
@@ -147,9 +153,11 @@ class IOpcRelationship extends IUnknown{
     }
 
     /**
+     * Gets the URI of the relationship�target.
+     * @returns {IUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface of the URI that represents the URI of the relationship's target.
      * 
-     * @returns {IUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargeturi
+     * If the relationship target is internal, the  target is a part and the URI of the target is relative to the URI of the source part.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-gettargeturi
      */
     GetTargetUri() {
         result := ComCall(6, this, "ptr*", &targetUri := 0, "HRESULT")
@@ -157,9 +165,13 @@ class IOpcRelationship extends IUnknown{
     }
 
     /**
+     * Gets a value that describes whether the relationship's target is internal or external to the package.
+     * @returns {Integer} A value  that describes whether the relationship's target is internal or external to the package.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargetmode
+     * If the target of the relationship is internal, the target is a part.
+     * 
+     * If the target of the relationship is external, the target is a resource outside of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-gettargetmode
      */
     GetTargetMode() {
         result := ComCall(7, this, "int*", &targetMode := 0, "HRESULT")

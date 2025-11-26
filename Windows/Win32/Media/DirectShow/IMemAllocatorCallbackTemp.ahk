@@ -31,10 +31,10 @@ class IMemAllocatorCallbackTemp extends IMemAllocator{
     static VTableNames => ["SetNotify", "GetFreeCount"]
 
     /**
-     * 
-     * @param {IMemAllocatorNotifyCallbackTemp} pNotify 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocatorcallbacktemp-setnotify
+     * The SetNotify method sets or removes a callback on the allocator. The allocator calls the callback method whenever the allocator's IMemAllocator::ReleaseBuffer method is called.
+     * @param {IMemAllocatorNotifyCallbackTemp} pNotify Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imemallocatornotifycallbacktemp">IMemAllocatorNotifyCallbackTemp</a> interface that will be used for the callback. The caller must implement the interface. Use the value <b>NULL</b> to remove the callback.
+     * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imemallocatorcallbacktemp-setnotify
      */
     SetNotify(pNotify) {
         result := ComCall(9, this, "ptr", pNotify, "HRESULT")
@@ -42,9 +42,9 @@ class IMemAllocatorCallbackTemp extends IMemAllocator{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocatorcallbacktemp-getfreecount
+     * The GetFreeCount method returns the number of free media samples. This number equals the total number of media samples minus the number of samples that are currently held by filters.
+     * @returns {Integer} Pointer to a variable that receives the number of free media samples.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imemallocatorcallbacktemp-getfreecount
      */
     GetFreeCount() {
         result := ComCall(10, this, "int*", &plBuffersFree := 0, "HRESULT")

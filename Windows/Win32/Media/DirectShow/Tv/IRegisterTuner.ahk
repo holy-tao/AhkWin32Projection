@@ -36,11 +36,11 @@ class IRegisterTuner extends IUnknown{
     static VTableNames => ["Register", "Unregister"]
 
     /**
-     * 
-     * @param {ITuner} pTuner 
-     * @param {IGraphBuilder} pGraph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iregistertuner-register
+     * This feature is expected to be available on a future version of the Windows operating system.
+     * @param {ITuner} pTuner Pointer to a variable that specifies the tuner.
+     * @param {IGraphBuilder} pGraph Pointer to a variable that specifies the graph filter provider.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iregistertuner-register
      */
     Register(pTuner, pGraph) {
         result := ComCall(3, this, "ptr", pTuner, "ptr", pGraph, "HRESULT")
@@ -48,9 +48,9 @@ class IRegisterTuner extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iregistertuner-unregister
+     * This feature is expected to be available on a future version of the Windows operating system.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iregistertuner-unregister
      */
     Unregister() {
         result := ComCall(4, this, "HRESULT")

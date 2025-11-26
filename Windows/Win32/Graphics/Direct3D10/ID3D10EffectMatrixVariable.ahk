@@ -31,10 +31,14 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     static VTableNames => ["SetMatrix", "GetMatrix", "SetMatrixArray", "GetMatrixArray", "SetMatrixTranspose", "GetMatrixTranspose", "SetMatrixTransposeArray", "GetMatrixTransposeArray"]
 
     /**
+     * Set a floating-point matrix.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrix
+     * A pointer to the first element in the matrix.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrix
      */
     SetMatrix(pData) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -44,10 +48,14 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a matrix.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrix
+     * A pointer to the first element in a matrix.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrix
      */
     GetMatrix(pData) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -57,12 +65,20 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set an array of floating-point matrices.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixarray
+     * A pointer to the first matrix.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of matrix elements to skip from the start of the array.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixarray
      */
     SetMatrixArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -72,12 +88,20 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get an array of matrices.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixarray
+     * A pointer to the first element of the first matrix in an array of matrices.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The offset (in number of matrices) between the start of the array and the first matrix returned.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of matrices in the returned array.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixarray
      */
     GetMatrixArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -87,10 +111,14 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Transpose and set a floating-point matrix.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtranspose
+     * A pointer to the first element of a matrix.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtranspose
      */
     SetMatrixTranspose(pData) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -100,10 +128,14 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Transpose and get a floating-point matrix.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtranspose
+     * A pointer to the first element of a transposed matrix.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtranspose
      */
     GetMatrixTranspose(pData) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -113,12 +145,20 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Transpose and set an array of floating-point matrices.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtransposearray
+     * A pointer to an array of matrices.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The offset (in number of matrices) between the start of the array and the first matrix to set.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of matrices in the array to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtransposearray
      */
     SetMatrixTransposeArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -128,12 +168,20 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Transpose and get an array of floating-point matrices.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtransposearray
+     * A pointer to the first element of an array of tranposed matrices.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The offset (in number of matrices) between the start of the array and the first matrix to get.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of matrices in the array to get.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtransposearray
      */
     GetMatrixTransposeArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"

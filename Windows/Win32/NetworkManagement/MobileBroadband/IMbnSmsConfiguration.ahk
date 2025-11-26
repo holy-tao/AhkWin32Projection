@@ -66,9 +66,19 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
+     * SMS default Service Center address.
+     * @remarks
+     * 
+     * When setting <i>scAddress</i>, the calling application must use either of these formats.
+     * 
+     * <ul>
+     * <li>"+ &lt;International Country Code&gt; &lt;SMS Service Center Number&gt;\0"</li>
+     * <li>"&lt;SMS Service Center Number&gt;\0"</li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_servicecenteraddress
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsmsconfiguration-get_servicecenteraddress
      */
     get_ServiceCenterAddress() {
         scAddress := BSTR()
@@ -77,10 +87,20 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
+     * SMS default Service Center address.
+     * @remarks
+     * 
+     * When setting <i>scAddress</i>, the calling application must use either of these formats.
+     * 
+     * <ul>
+     * <li>"+ &lt;International Country Code&gt; &lt;SMS Service Center Number&gt;\0"</li>
+     * <li>"&lt;SMS Service Center Number&gt;\0"</li>
+     * </ul>
+     * 
      * 
      * @param {PWSTR} scAddress 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-put_servicecenteraddress
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsmsconfiguration-put_servicecenteraddress
      */
     put_ServiceCenterAddress(scAddress) {
         scAddress := scAddress is String ? StrPtr(scAddress) : scAddress
@@ -90,9 +110,9 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
-     * 
+     * SMS message memory capacity.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_maxmessageindex
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsmsconfiguration-get_maxmessageindex
      */
     get_MaxMessageIndex() {
         result := ComCall(5, this, "uint*", &index := 0, "HRESULT")
@@ -100,9 +120,9 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
-     * 
+     * Maximum CDMA short message character length.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_cdmashortmsgsize
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsmsconfiguration-get_cdmashortmsgsize
      */
     get_CdmaShortMsgSize() {
         result := ComCall(6, this, "uint*", &shortMsgSize := 0, "HRESULT")
@@ -110,9 +130,9 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
-     * 
+     * Format in which newly received SMS should be reported by the device.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_smsformat
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsmsconfiguration-get_smsformat
      */
     get_SmsFormat() {
         result := ComCall(7, this, "int*", &smsFormat := 0, "HRESULT")
@@ -120,10 +140,10 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
-     * 
+     * Format in which newly received SMS should be reported by the device.
      * @param {Integer} smsFormat 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-put_smsformat
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsmsconfiguration-put_smsformat
      */
     put_SmsFormat(smsFormat) {
         result := ComCall(8, this, "int", smsFormat, "HRESULT")

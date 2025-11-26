@@ -69,9 +69,10 @@ class ITPrivateEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITAddress} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_address
+     * The get_Address method gets the ITAddress interface pointer to the private object involved in the event.
+     * @returns {ITAddress} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itprivateevent-get_address
      */
     get_Address() {
         result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
@@ -79,9 +80,10 @@ class ITPrivateEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_call
+     * The get_Call method returns a pointer to the ITCallInfo interface of the call on which the event occurred.
+     * @returns {ITCallInfo} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itprivateevent-get_call
      */
     get_Call() {
         result := ComCall(8, this, "ptr*", &ppCallInfo := 0, "HRESULT")
@@ -89,9 +91,10 @@ class ITPrivateEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallHub} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_callhub
+     * The get_CallHub method returns a pointer to the ITCallHub interface on which the event occurred.
+     * @returns {ITCallHub} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itprivateevent-get_callhub
      */
     get_CallHub() {
         result := ComCall(9, this, "ptr*", &ppCallHub := 0, "HRESULT")
@@ -99,9 +102,9 @@ class ITPrivateEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_eventcode
+     * The get_EventCode method returns a pointer to a provider-specific event descriptor.
+     * @returns {Integer} Pointer to the provider-specific event descriptor.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itprivateevent-get_eventcode
      */
     get_EventCode() {
         result := ComCall(10, this, "int*", &plEventCode := 0, "HRESULT")
@@ -109,9 +112,9 @@ class ITPrivateEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_eventinterface
+     * The get_EventInterface method returns a pointer to the IDispatch interface of the private object's event handler.
+     * @returns {IDispatch} Pointer to the <b>IDispatch</b> interface of the private object's event handler.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itprivateevent-get_eventinterface
      */
     get_EventInterface() {
         result := ComCall(11, this, "ptr*", &pEventInterface := 0, "HRESULT")

@@ -31,10 +31,10 @@ class ISynchronizeEvent extends ISynchronizeHandle{
     static VTableNames => ["SetEventHandle"]
 
     /**
-     * 
-     * @param {Pointer<HANDLE>} ph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizeevent-seteventhandle
+     * Assigns an event handle to a synchronization object.
+     * @param {Pointer<HANDLE>} ph A pointer to the event handle.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronizeevent-seteventhandle
      */
     SetEventHandle(ph) {
         result := ComCall(4, this, "ptr", ph, "HRESULT")

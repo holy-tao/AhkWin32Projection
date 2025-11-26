@@ -31,9 +31,9 @@ class IRunnableObject extends IUnknown{
     static VTableNames => ["GetRunningClass", "Run", "IsRunning", "LockRunning", "SetContainedObject"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-getrunningclass
+     * Retrieves the CLSID of a running object.
+     * @returns {Guid} A pointer to the object's class identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irunnableobject-getrunningclass
      */
     GetRunningClass() {
         lpClsid := Guid()
@@ -42,10 +42,10 @@ class IRunnableObject extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IBindCtx} pbc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-run
+     * Forces an object to run.
+     * @param {IBindCtx} pbc A pointer to the binding context of the run operation. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_UNEXPECTED, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irunnableobject-run
      */
     Run(pbc) {
         result := ComCall(4, this, "ptr", pbc, "HRESULT")
@@ -53,9 +53,9 @@ class IRunnableObject extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-isrunning
+     * Determines whether an object is currently in the running state.
+     * @returns {BOOL} If the object is in the running state, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irunnableobject-isrunning
      */
     IsRunning() {
         result := ComCall(5, this, "int")
@@ -63,11 +63,11 @@ class IRunnableObject extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} fLock 
-     * @param {BOOL} fLastUnlockCloses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-lockrunning
+     * Locks an already running object into its running state or unlocks it from its running state.
+     * @param {BOOL} fLock <b>TRUE</b> locks the object into its running state. <b>FALSE</b> unlocks the object from its running state.
+     * @param {BOOL} fLastUnlockCloses <b>TRUE</b> specifies that if the connection being released is the last external lock on the object, the object should close. <b>FALSE</b> specifies that the object should remain open until closed by the user or another process.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irunnableobject-lockrunning
      */
     LockRunning(fLock, fLastUnlockCloses) {
         result := ComCall(6, this, "int", fLock, "int", fLastUnlockCloses, "HRESULT")
@@ -75,10 +75,10 @@ class IRunnableObject extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} fContained 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-setcontainedobject
+     * Notifies an object that it is embedded in an OLE container, which ensures that reference counting is done correctly for containers that support links to embedded objects.
+     * @param {BOOL} fContained <b>TRUE</b> specifies that the object is contained in an OLE container. <b>FALSE</b> indicates that it is not.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irunnableobject-setcontainedobject
      */
     SetContainedObject(fContained) {
         result := ComCall(7, this, "int", fContained, "HRESULT")

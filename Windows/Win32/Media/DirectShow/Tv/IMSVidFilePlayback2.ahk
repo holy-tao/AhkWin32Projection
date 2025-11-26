@@ -51,10 +51,28 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
+     * @param {BSTR} FileName <b>BSTR</b> that contains the CLSID of the source filter. The <b>BSTR</b> must use the following format: <c>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</c>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} FileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback2-put__sourcefilter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback2-put__sourcefilter
      */
     put__SourceFilter(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
@@ -64,10 +82,28 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
+     * @param {Guid} FileName Specifies the CLSID of the source filter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Guid} FileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback2-put___sourcefilter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback2-put___sourcefilter
      */
     put___SourceFilter(FileName) {
         result := ComCall(35, this, "ptr", FileName, "HRESULT")

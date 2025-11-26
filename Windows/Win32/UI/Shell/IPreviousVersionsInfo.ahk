@@ -56,11 +56,24 @@ class IPreviousVersionsInfo extends IUnknown{
     static VTableNames => ["AreSnapshotsAvailable"]
 
     /**
+     * Queries for the availablilty of a Windows Server 2003 volume image recorded by the system at an earlier time.
+     * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszPath 
-     * @param {BOOL} fOkToBeSlow 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ipreviousversionsinfo-aresnapshotsavailable
+     * A null-terminated Unicode string containing the fully qualified path to a file or folder on the volume in question.
+     * 
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Only paths to files and folders stored on a Windows Server 2003 volume are currently supported.
+     *           </div>
+     * <div> </div>
+     * @param {BOOL} fOkToBeSlow Type: <b>BOOL</b>
+     * 
+     * A boolean value specifying whether a server should be contacted to determine the availability of stored volume images. For more details, see the Remarks section.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * A pointer to a boolean variable containing the result. This value is valid only if the method call succeeds; otherwise, it is undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ipreviousversionsinfo-aresnapshotsavailable
      */
     AreSnapshotsAvailable(pszPath, fOkToBeSlow) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath

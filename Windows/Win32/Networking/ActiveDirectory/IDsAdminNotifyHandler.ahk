@@ -31,21 +31,11 @@ class IDsAdminNotifyHandler extends IUnknown{
     static VTableNames => ["Initialize", "Begin", "Notify", "End"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IDataObject} pExtraInfo 
+     * Called to initialize the notification handler.
+     * @param {IDataObject} pExtraInfo Reserved. This parameter will be <b>NULL</b>.
      * @param {Pointer<Integer>} puEventFlags 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @returns {HRESULT} If the method succeeds, <b>S_OK</b> is returned. If the method fails,  a standard <b>HRESULT</b> value is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnotifyhandler-initialize
      */
     Initialize(pExtraInfo, puEventFlags) {
         puEventFlagsMarshal := puEventFlags is VarRef ? "uint*" : "ptr"
@@ -55,14 +45,15 @@ class IDsAdminNotifyHandler extends IUnknown{
     }
 
     /**
-     * 
+     * The IDsAdminNotifyHandler::Begin method is called when an event that the notification handler has requested is occurring. The notification handler specifies the events to receive notifications for when IDsAdminNotifyHandler::Initialize is called.
      * @param {Integer} uEvent 
-     * @param {IDataObject} pArg1 
-     * @param {IDataObject} pArg2 
+     * @param {IDataObject} pArg1 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface that supports the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cfstr-dsobjectnames-clipboard-format">CFSTR_DSOBJECTNAMES</a> clipboard format. The contents of the data object will vary depending on  the value of <i>uEvent</i>. For more information, see the Remarks section.
+     * @param {IDataObject} pArg2 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface that supports the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cfstr-dsobjectnames-clipboard-format">CFSTR_DSOBJECTNAMES</a> clipboard format. The value of this parameter and the contents of the data object will vary depending on the value of <i>uEvent</i>. For more information, see the Remarks section.
      * @param {Pointer<Integer>} puFlags 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-begin
+     * @param {Pointer<BSTR>} pBstr Pointer to a <b>BSTR</b> that receives a string that contains  the name and/or description of the notification handler. This string  is displayed in the confirmation dialog box. This string must be allocated by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> function. The caller must free this string when it is no longer required. If this parameter receives <b>NULL</b> or an empty string, the notification handler is not added to the confirmation dialog box and <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-notify">IDsAdminNotifyHandler::Notify</a> is not called.
+     * @returns {HRESULT} If the method succeeds, 
+     *       <b>S_OK</b> is returned. If the method fails, a standard <b>HRESULT</b> value is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnotifyhandler-begin
      */
     Begin(uEvent, pArg1, pArg2, puFlags, pBstr) {
         puFlagsMarshal := puFlags is VarRef ? "uint*" : "ptr"
@@ -72,11 +63,11 @@ class IDsAdminNotifyHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nItem 
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-notify
+     * Called for each object after the confirmation dialog box has been displayed and the notification handler is selected in the confirmation dialog box.
+     * @param {Integer} nItem Contains the index of the item in the <b>aObjects</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsobjectnames">DSOBJECTNAMES</a> structure supplied in the <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-begin">IDsAdminNotifyHandler::Begin</a> method.
+     * @param {Integer} uFlags Contains the flags supplied by the notification handler in the <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-begin">IDsAdminNotifyHandler::Begin</a> method.
+     * @returns {HRESULT} The return value from this method is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnotifyhandler-notify
      */
     Notify(nItem, uFlags) {
         result := ComCall(5, this, "uint", nItem, "uint", uFlags, "HRESULT")
@@ -84,9 +75,9 @@ class IDsAdminNotifyHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-end
+     * The IDsAdminNotifyHandler::End method is called after the notification event has occurred. This method is called even if the notification process is canceled.
+     * @returns {HRESULT} The return value from this method is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnotifyhandler-end
      */
     End() {
         result := ComCall(6, this, "HRESULT")

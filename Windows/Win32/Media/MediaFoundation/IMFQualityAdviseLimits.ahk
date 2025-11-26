@@ -31,9 +31,9 @@ class IMFQualityAdviseLimits extends IUnknown{
     static VTableNames => ["GetMaximumDropMode", "GetMinimumQualityLevel"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadviselimits-getmaximumdropmode
+     * Gets the maximum drop mode.
+     * @returns {Integer} Receives the maximum drop mode, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_drop_mode">MF_QUALITY_DROP_MODE</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadviselimits-getmaximumdropmode
      */
     GetMaximumDropMode() {
         result := ComCall(3, this, "int*", &peDropMode := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IMFQualityAdviseLimits extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadviselimits-getminimumqualitylevel
+     * Gets the minimum quality level that is supported by the component.
+     * @returns {Integer} Receives the minimum quality level, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_level">MF_QUALITY_LEVEL</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadviselimits-getminimumqualitylevel
      */
     GetMinimumQualityLevel() {
         result := ComCall(4, this, "int*", &peQualityLevel := 0, "HRESULT")

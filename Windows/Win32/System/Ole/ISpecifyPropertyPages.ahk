@@ -39,9 +39,9 @@ class ISpecifyPropertyPages extends IUnknown{
     static VTableNames => ["GetPages"]
 
     /**
-     * 
-     * @returns {CAUUID} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ispecifypropertypages-getpages
+     * Retrieves a list of property pages that can be displayed in this object's property sheet.
+     * @returns {CAUUID} A pointer to a caller-allocated <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-cauuid">CAUUID</a> structure that must be initialized and filled before returning. The <b>pElems</b> member in the structure is allocated by the callee with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed by the caller with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ispecifypropertypages-getpages
      */
     GetPages() {
         pPages := CAUUID()

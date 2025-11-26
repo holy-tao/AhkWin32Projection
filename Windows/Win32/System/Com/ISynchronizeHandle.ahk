@@ -32,9 +32,9 @@ class ISynchronizeHandle extends IUnknown{
     static VTableNames => ["GetHandle"]
 
     /**
-     * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizehandle-gethandle
+     * Retrieves a handle to the synchronization object.
+     * @returns {HANDLE} A pointer to the variable that receives a handle to the synchronization object.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronizehandle-gethandle
      */
     GetHandle() {
         ph := HANDLE()

@@ -32,9 +32,11 @@ class IWeakReferenceSource extends IUnknown{
     static VTableNames => ["GetWeakReference"]
 
     /**
+     * Retrieves a weak reference from an IWeakReferenceSource.
+     * @returns {IWeakReference} Type: [out, retval] <b><a href="https://docs.microsoft.com/windows/win32/api/weakreference/nn-weakreference-iweakreference">IWeakReference</a>**</b>
      * 
-     * @returns {IWeakReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/weakreference/nf-weakreference-iweakreferencesource-getweakreference
+     * The weak reference.
+     * @see https://docs.microsoft.com/windows/win32/api//weakreference/nf-weakreference-iweakreferencesource-getweakreference
      */
     GetWeakReference() {
         result := ComCall(3, this, "ptr*", &weakReference := 0, "HRESULT")

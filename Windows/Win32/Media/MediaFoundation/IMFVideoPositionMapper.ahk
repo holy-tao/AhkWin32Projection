@@ -31,15 +31,46 @@ class IMFVideoPositionMapper extends IUnknown{
     static VTableNames => ["MapOutputCoordinateToInputStream"]
 
     /**
+     * Maps output image coordinates to input image coordinates.
+     * @param {Float} xOut X-coordinate of the output image, normalized to the range [0...1].
+     * @param {Float} yOut Y-coordinate of the output image, normalized to the range [0...1].
+     * @param {Integer} dwOutputStreamIndex Output stream index for the coordinate mapping.
+     * @param {Integer} dwInputStreamIndex Input stream index for the coordinate mapping.
+     * @param {Pointer<Float>} pxIn Receives the mapped x-coordinate of the input image, normalized to the range [0...1].
+     * @param {Pointer<Float>} pyIn Receives the mapped y-coordinate of the input image, normalized to the range [0...1].
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Float} xOut 
-     * @param {Float} yOut 
-     * @param {Integer} dwOutputStreamIndex 
-     * @param {Integer} dwInputStreamIndex 
-     * @param {Pointer<Float>} pxIn 
-     * @param {Pointer<Float>} pyIn 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopositionmapper-mapoutputcoordinatetoinputstream
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The video renderer has been shut down.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideopositionmapper-mapoutputcoordinatetoinputstream
      */
     MapOutputCoordinateToInputStream(xOut, yOut, dwOutputStreamIndex, dwInputStreamIndex, pxIn, pyIn) {
         pxInMarshal := pxIn is VarRef ? "float*" : "ptr"

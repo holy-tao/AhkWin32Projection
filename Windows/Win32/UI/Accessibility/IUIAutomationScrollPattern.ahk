@@ -115,11 +115,13 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Scrolls the visible region of the content area horizontally and vertically.
      * @param {Integer} horizontalAmount 
      * @param {Integer} verticalAmount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-scroll
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-scroll
      */
     Scroll(horizontalAmount, verticalAmount) {
         result := ComCall(3, this, "int", horizontalAmount, "int", verticalAmount, "HRESULT")
@@ -127,11 +129,17 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
+     * Sets the horizontal and vertical scroll positions as a percentage of the total content area within the UI Automation element.
+     * @param {Float} horizontalPercent Type: <b>double</b>
      * 
-     * @param {Float} horizontalPercent 
-     * @param {Float} verticalPercent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-setscrollpercent
+     * The percentage of the total horizontal content area, or <b>UIA_ScrollPatternNoScroll</b> if the horizontal position is not to be set.
+     * @param {Float} verticalPercent Type: <b>double</b>
+     * 
+     * The percentage of the total vertical content area, or <b>UIA_ScrollPatternNoScroll</b> if the vertical position is not to be set.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-setscrollpercent
      */
     SetScrollPercent(horizontalPercent, verticalPercent) {
         result := ComCall(4, this, "double", horizontalPercent, "double", verticalPercent, "HRESULT")
@@ -139,9 +147,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the horizontal scroll position.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalscrollpercent
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalscrollpercent
      */
     get_CurrentHorizontalScrollPercent() {
         result := ComCall(5, this, "double*", &retVal := 0, "HRESULT")
@@ -149,9 +157,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the vertical scroll position.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalscrollpercent
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalscrollpercent
      */
     get_CurrentVerticalScrollPercent() {
         result := ComCall(6, this, "double*", &retVal := 0, "HRESULT")
@@ -159,9 +167,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the horizontal size of the viewable region of a scrollable element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalviewsize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalviewsize
      */
     get_CurrentHorizontalViewSize() {
         result := ComCall(7, this, "double*", &retVal := 0, "HRESULT")
@@ -169,9 +177,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the vertical size of the viewable region of a scrollable element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalviewsize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalviewsize
      */
     get_CurrentVerticalViewSize() {
         result := ComCall(8, this, "double*", &retVal := 0, "HRESULT")
@@ -179,9 +187,14 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
+     * Indicates whether the element can scroll horizontally.
+     * @remarks
+     * 
+     * This property can be dynamic. For example, the content area of the element might not be larger than the current viewable area, meaning that the property is <b>FALSE</b>. However, resizing the element or adding child items can increase the bounds of the content area beyond the viewable area, making the property <b>TRUE</b>.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontallyscrollable
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontallyscrollable
      */
     get_CurrentHorizontallyScrollable() {
         result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
@@ -189,9 +202,14 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
+     * Indicates whether the element can scroll vertically.
+     * @remarks
+     * 
+     * This property can be dynamic. For example, the content area of the element might not be larger than the current viewable area, meaning that the property is <b>FALSE</b>. However, resizing the element or adding child items can increase the bounds of the content area beyond the viewable area, making the property <b>TRUE</b>.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticallyscrollable
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticallyscrollable
      */
     get_CurrentVerticallyScrollable() {
         result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
@@ -199,9 +217,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached horizontal scroll position.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalscrollpercent
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalscrollpercent
      */
     get_CachedHorizontalScrollPercent() {
         result := ComCall(11, this, "double*", &retVal := 0, "HRESULT")
@@ -209,9 +227,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached vertical scroll position.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalscrollpercent
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalscrollpercent
      */
     get_CachedVerticalScrollPercent() {
         result := ComCall(12, this, "double*", &retVal := 0, "HRESULT")
@@ -219,9 +237,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached horizontal size of the viewable region of a scrollable element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalviewsize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalviewsize
      */
     get_CachedHorizontalViewSize() {
         result := ComCall(13, this, "double*", &retVal := 0, "HRESULT")
@@ -229,9 +247,9 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached vertical size of the viewable region of a scrollable element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalviewsize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalviewsize
      */
     get_CachedVerticalViewSize() {
         result := ComCall(14, this, "double*", &retVal := 0, "HRESULT")
@@ -239,9 +257,14 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a cached value that indicates whether the element can scroll horizontally.
+     * @remarks
+     * 
+     * This property can be dynamic. For example, the content area of the element might not be larger than the current viewable area, meaning that the property is <b>FALSE</b>. However, resizing the element or adding child items can increase the bounds of the content area beyond the viewable area, making the property <b>TRUE</b>.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontallyscrollable
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontallyscrollable
      */
     get_CachedHorizontallyScrollable() {
         result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
@@ -249,9 +272,14 @@ class IUIAutomationScrollPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a cached value that indicates whether the element can scroll vertically.
+     * @remarks
+     * 
+     * This property can be dynamic. For example, the content area of the element might not be larger than the current viewable area, meaning that the property is <b>FALSE</b>. However, resizing the element or adding child items can increase the bounds of the content area beyond the viewable area, making the property <b>TRUE</b>.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticallyscrollable
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticallyscrollable
      */
     get_CachedVerticallyScrollable() {
         result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")

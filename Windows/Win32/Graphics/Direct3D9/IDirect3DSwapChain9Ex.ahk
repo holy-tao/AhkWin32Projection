@@ -43,10 +43,14 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9{
     static VTableNames => ["GetLastPresentCount", "GetPresentStats", "GetDisplayModeEx"]
 
     /**
+     * Returns the number of times the swapchain has been processed.
+     * @param {Pointer<Integer>} pLastPresentCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @param {Pointer<Integer>} pLastPresentCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9ex-getlastpresentcount
+     * Pointer to a UINT to be filled with the number of times the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex">IDirect3DDevice9Ex::PresentEx</a> method has been called. The count will also be incremented by calling some other APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-setdialogboxmode">IDirect3DDevice9::SetDialogBoxMode</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * S_OK the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dswapchain9ex-getlastpresentcount
      */
     GetLastPresentCount(pLastPresentCount) {
         pLastPresentCountMarshal := pLastPresentCount is VarRef ? "uint*" : "ptr"
@@ -66,11 +70,17 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9{
     }
 
     /**
+     * Retrieves the display mode's spatial resolution, color resolution, refresh frequency, and rotation settings.
+     * @param {Pointer<D3DDISPLAYMODEEX>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a>*</b>
      * 
-     * @param {Pointer<D3DDISPLAYMODEEX>} pMode 
-     * @param {Pointer<Integer>} pRotation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9ex-getdisplaymodeex
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a> structure containing data about the display mode of the adapter. As opposed to the display mode of the device, which may not be active if the device does not own full-screen mode.
+     * @param {Pointer<Integer>} pRotation Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a> indicating the type of screen rotation the application will do. The value returned through this pointer is important when the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresentflag">D3DPRESENTFLAG_NOAUTOROTATE</a> flag is used; otherwise, it can be set to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dswapchain9ex-getdisplaymodeex
      */
     GetDisplayModeEx(pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"

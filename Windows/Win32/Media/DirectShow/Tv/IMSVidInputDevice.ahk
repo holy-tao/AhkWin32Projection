@@ -42,10 +42,10 @@ class IMSVidInputDevice extends IMSVidDevice{
     static VTableNames => ["IsViewable", "View"]
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} v 
+     * The IsViewable method determines whether this device can view the specified tune request.
+     * @param {Pointer<VARIANT>} v Specifies the tune request as a <b>VARIANT</b> type.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidinputdevice-isviewable
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidinputdevice-isviewable
      */
     IsViewable(v) {
         result := ComCall(16, this, "ptr", v, "short*", &pfViewable := 0, "HRESULT")
@@ -53,10 +53,10 @@ class IMSVidInputDevice extends IMSVidDevice{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} v 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidinputdevice-view
+     * The View method configures this input device to view the specified tune request.
+     * @param {Pointer<VARIANT>} v Specifies the tune request as a <b>VARIANT</b> type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidinputdevice-view
      */
     View(v) {
         result := ComCall(17, this, "ptr", v, "HRESULT")

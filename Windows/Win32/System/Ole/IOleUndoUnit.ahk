@@ -32,10 +32,10 @@ class IOleUndoUnit extends IUnknown{
     static VTableNames => ["Do", "GetDescription", "GetUnitType", "OnNextAdd"]
 
     /**
-     * 
-     * @param {IOleUndoManager} pUndoManager 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-do
+     * Instructs the undo unit to carry out its action. Note that if it contains child undo units, it must call their Do methods as well.
+     * @param {IOleUndoManager} pUndoManager A pointer to the undo manager. See <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleundomanager">IOleUndoManager</a>.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundounit-do
      */
     Do(pUndoManager) {
         result := ComCall(3, this, "ptr", pUndoManager, "HRESULT")
@@ -43,9 +43,9 @@ class IOleUndoUnit extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-getdescription
+     * Retrieves a description of the undo unit that can be used in the undo or redo user interface.
+     * @returns {BSTR} A pointer to string that describes this undo unit.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundounit-getdescription
      */
     GetDescription() {
         pBstr := BSTR()
@@ -54,11 +54,11 @@ class IOleUndoUnit extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pClsid 
-     * @param {Pointer<Integer>} plID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-getunittype
+     * Retrieves the CLSID and a type identifier for the undo unit.
+     * @param {Pointer<Guid>} pClsid A pointer to CLSID for the undo unit.
+     * @param {Pointer<Integer>} plID A pointer to the type identifier for the undo unit.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundounit-getunittype
      */
     GetUnitType(pClsid, plID) {
         plIDMarshal := plID is VarRef ? "int*" : "ptr"
@@ -68,9 +68,9 @@ class IOleUndoUnit extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-onnextadd
+     * Notifies the last undo unit in the collection that a new unit has been added.
+     * @returns {HRESULT} Implementations of this method always return S_OK. The <b>HRESULT</b> return type is used only for remotability.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundounit-onnextadd
      */
     OnNextAdd() {
         result := ComCall(6, this, "HRESULT")

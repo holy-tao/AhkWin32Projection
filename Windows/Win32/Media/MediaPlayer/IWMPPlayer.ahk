@@ -60,10 +60,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
+     * The get_enabled method retrieves a value indicating whether the Windows Media Player control is enabled.
+     * @param {Pointer<VARIANT_BOOL>} pbEnabled Pointer to a <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control is enabled.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_enabled
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-get_enabled
      */
     get_enabled(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
@@ -73,10 +91,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
+     * The put_enabled method specifies a value indicating whether the Windows Media Player control is enabled.
+     * @param {VARIANT_BOOL} bEnabled <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control is enabled.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {VARIANT_BOOL} bEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_enabled
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-put_enabled
      */
     put_enabled(bEnabled) {
         result := ComCall(29, this, "short", bEnabled, "HRESULT")
@@ -84,10 +120,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
+     * The get_fullScreen method retrieves a value indicating whether video content is played back in full-screen mode.
+     * @param {Pointer<VARIANT_BOOL>} pbFullScreen Pointer to a <b>VARIANT_BOOL</b> indicating whether video content is played back in full-screen mode. The default is <b>FALSE</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbFullScreen 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_fullscreen
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-get_fullscreen
      */
     get_fullScreen(pbFullScreen) {
         pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
@@ -97,10 +151,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
+     * The put_fullScreen method specifies a value indicating whether video content is played back in full-screen mode.
+     * @param {VARIANT_BOOL} bFullScreen <b>VARIANT_BOOL</b> indicating whether video content is played back in full-screen mode. The default is <b>FALSE</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {VARIANT_BOOL} bFullScreen 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_fullscreen
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-put_fullscreen
      */
     put_fullScreen(bFullScreen) {
         result := ComCall(31, this, "short", bFullScreen, "HRESULT")
@@ -108,10 +180,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
+     * The get_enableContextMenu method retrieves a value indicating whether to enable the context menu, which appears when the right mouse button is clicked.
+     * @param {Pointer<VARIANT_BOOL>} pbEnableContextMenu Pointer to a <b>VARIANT_BOOL</b> that indicates whether to the enable context menu. The default is <b>TRUE</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnableContextMenu 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_enablecontextmenu
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-get_enablecontextmenu
      */
     get_enableContextMenu(pbEnableContextMenu) {
         pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
@@ -121,10 +211,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
+     * The put_enableContextMenu method specifies a value indicating whether to enable the context menu, which appears when the right mouse button is clicked.
+     * @param {VARIANT_BOOL} bEnableContextMenu <b>VARIANT_BOOL</b> that indicates whether to the enable context menu. The default is <b>TRUE</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {VARIANT_BOOL} bEnableContextMenu 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_enablecontextmenu
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-put_enablecontextmenu
      */
     put_enableContextMenu(bEnableContextMenu) {
         result := ComCall(33, this, "short", bEnableContextMenu, "HRESULT")
@@ -132,10 +240,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
-     * 
+     * The put_uiMode method specifies a value indicating which controls are shown in the user interface.
      * @param {BSTR} bstrMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_uimode
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-put_uimode
      */
     put_uiMode(bstrMode) {
         bstrMode := bstrMode is String ? BSTR.Alloc(bstrMode).Value : bstrMode
@@ -145,10 +271,28 @@ class IWMPPlayer extends IWMPCore{
     }
 
     /**
-     * 
+     * The get_uiMode method retrieves a value indicating which controls are shown in the user interface.
      * @param {Pointer<BSTR>} pbstrMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_uimode
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer-get_uimode
      */
     get_uiMode(pbstrMode) {
         result := ComCall(35, this, "ptr", pbstrMode, "HRESULT")

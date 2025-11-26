@@ -37,11 +37,11 @@ class _IManipulationEvents extends IUnknown{
     static VTableNames => ["ManipulationStarted", "ManipulationDelta", "ManipulationCompleted"]
 
     /**
-     * 
-     * @param {Float} x 
-     * @param {Float} y 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationstarted
+     * Handles the event for when manipulation or inertia begins.
+     * @param {Float} x The origin x-coordinate in user-defined coordinates.
+     * @param {Float} y The origin y-coordinate in user-defined coordinates.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-_imanipulationevents-manipulationstarted
      */
     ManipulationStarted(x, y) {
         result := ComCall(3, this, "float", x, "float", y, "HRESULT")
@@ -49,21 +49,21 @@ class _IManipulationEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} x 
-     * @param {Float} y 
-     * @param {Float} translationDeltaX 
-     * @param {Float} translationDeltaY 
-     * @param {Float} scaleDelta 
-     * @param {Float} expansionDelta 
-     * @param {Float} rotationDelta 
-     * @param {Float} cumulativeTranslationX 
-     * @param {Float} cumulativeTranslationY 
-     * @param {Float} cumulativeScale 
-     * @param {Float} cumulativeExpansion 
-     * @param {Float} cumulativeRotation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationdelta
+     * Handles events that happen when a manipulated object changes.
+     * @param {Float} x The origin x-coordinate in user-defined coordinates.
+     * @param {Float} y The origin y-coordinate in user-defined coordinates.
+     * @param {Float} translationDeltaX The translation change about the x-axis in user-defined coordinates since the last event.
+     * @param {Float} translationDeltaY The translation change about the y-axis in user-defined coordinates since the last event.
+     * @param {Float} scaleDelta The scale change since the previous event as a percentage of the previous scale.
+     * @param {Float} expansionDelta The expansion change since the previous event in user-defined coordinates.
+     * @param {Float} rotationDelta The rotation change since the previous event in radians.
+     * @param {Float} cumulativeTranslationX The translation about the x-axis since the beginning of the manipulation in user-defined coordinates.
+     * @param {Float} cumulativeTranslationY The translation about the y-axis since the beginning of the manipulation in user-defined coordinates.
+     * @param {Float} cumulativeScale The scale change since the beginning of the manipulation as a percentage of the original size.
+     * @param {Float} cumulativeExpansion The expansion change since the beginning of the manipulation in user-defined coordinates.
+     * @param {Float} cumulativeRotation The rotation change since the beginning of the manipulation in radians.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-_imanipulationevents-manipulationdelta
      */
     ManipulationDelta(x, y, translationDeltaX, translationDeltaY, scaleDelta, expansionDelta, rotationDelta, cumulativeTranslationX, cumulativeTranslationY, cumulativeScale, cumulativeExpansion, cumulativeRotation) {
         result := ComCall(4, this, "float", x, "float", y, "float", translationDeltaX, "float", translationDeltaY, "float", scaleDelta, "float", expansionDelta, "float", rotationDelta, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "HRESULT")
@@ -71,16 +71,16 @@ class _IManipulationEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} x 
-     * @param {Float} y 
-     * @param {Float} cumulativeTranslationX 
-     * @param {Float} cumulativeTranslationY 
-     * @param {Float} cumulativeScale 
-     * @param {Float} cumulativeExpansion 
-     * @param {Float} cumulativeRotation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted
+     * Handles the event when manipulation or inertia finishes.
+     * @param {Float} x The origin x-coordinate in user-defined coordinates.
+     * @param {Float} y The origin y-coordinate in user-defined coordinates.
+     * @param {Float} cumulativeTranslationX The total translation about the x-axis since the beginning of the manipulation in user-defined coordinates.
+     * @param {Float} cumulativeTranslationY The total translation about the y-axis since the beginning of the manipulation in user-defined coordinates.
+     * @param {Float} cumulativeScale The total scale change since the beginning of the manipulation as a percentage of the original size.
+     * @param {Float} cumulativeExpansion The total expansion change since the beginning of the manipulation in user-defined coordinates.
+     * @param {Float} cumulativeRotation The total rotation change since the beginning of the manipulation in radians.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted
      */
     ManipulationCompleted(x, y, cumulativeTranslationX, cumulativeTranslationY, cumulativeScale, cumulativeExpansion, cumulativeRotation) {
         result := ComCall(5, this, "float", x, "float", y, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "HRESULT")

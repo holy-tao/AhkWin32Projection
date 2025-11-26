@@ -36,13 +36,23 @@ class ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcessorEnumerator{
     static VTableNames => ["CheckVideoProcessorFormatConversion"]
 
     /**
+     * Indicates whether the driver supports the specified combination of format and colorspace conversions.
+     * @param {Integer} InputFormat Type: <b>DXGI_FORMAT</b>
      * 
-     * @param {Integer} InputFormat 
-     * @param {Integer} InputColorSpace 
-     * @param {Integer} OutputFormat 
-     * @param {Integer} OutputColorSpace 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videoprocessorenumerator1-checkvideoprocessorformatconversion
+     * The format of the video processor input.
+     * @param {Integer} InputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * 
+     * The colorspace of the video processor input.
+     * @param {Integer} OutputFormat Type: <b>DXGI_FORMAT</b>
+     * 
+     * The format of the video processor output.
+     * @param {Integer} OutputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * 
+     * The colorspace of the video processor output.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * Pointer to a boolean that is set by the driver to indicate if the specified combination of format and colorspace conversions is supported. True if the conversion is supported; otherwise, false.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videoprocessorenumerator1-checkvideoprocessorformatconversion
      */
     CheckVideoProcessorFormatConversion(InputFormat, InputColorSpace, OutputFormat, OutputColorSpace) {
         result := ComCall(13, this, "int", InputFormat, "int", InputColorSpace, "int", OutputFormat, "int", OutputColorSpace, "int*", &pSupported := 0, "HRESULT")

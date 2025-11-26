@@ -36,10 +36,10 @@ class IBDA_DRIDRMService extends IUnknown{
     static VTableNames => ["SetDRM", "GetDRMStatus", "GetPairingStatus"]
 
     /**
-     * 
-     * @param {BSTR} bstrNewDrm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_dridrmservice-setdrm
+     * Selects a Digital Rights Management (DRM) application for a Media Transform Device (MTD) in a Protected Broadcast Device Architecture (PBDA) graph.
+     * @param {BSTR} bstrNewDrm Address of the GUID that identifies the new DRM application.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_dridrmservice-setdrm
      */
     SetDRM(bstrNewDrm) {
         bstrNewDrm := bstrNewDrm is String ? BSTR.Alloc(bstrNewDrm).Value : bstrNewDrm
@@ -49,11 +49,11 @@ class IBDA_DRIDRMService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrDrmUuidList 
-     * @param {Pointer<Guid>} DrmUuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_dridrmservice-getdrmstatus
+     * The GetDRMSTatus method returns the current status of the Digital Rights Management (DRM) system for a Media Transform Device (MTD) in a graph under the Protected Broadcast Device Architecture (PBDA).
+     * @param {Pointer<BSTR>} pbstrDrmUuidList Address of a variable that gets a comma-delimited string of UUID values that identify the DRM systems supported by the MTD. This method allocates the memory for the variable by calling <b>SysAllocString</b> and returns the associated pointer in this parameter. The caller is memory and is responsible for deallocating it by calling <b>SysFreeString</b>.
+     * @param {Pointer<Guid>} DrmUuid Address of a variable that gets a GUID identifying the active DRM system for the MTD.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_dridrmservice-getdrmstatus
      */
     GetDRMStatus(pbstrDrmUuidList, DrmUuid) {
         result := ComCall(4, this, "ptr", pbstrDrmUuidList, "ptr", DrmUuid, "HRESULT")

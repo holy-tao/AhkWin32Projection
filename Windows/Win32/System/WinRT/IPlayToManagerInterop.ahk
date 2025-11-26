@@ -31,11 +31,11 @@ class IPlayToManagerInterop extends IInspectable{
     static VTableNames => ["GetForWindow", "ShowPlayToUIForWindow"]
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-getforwindow
+     * Gets the PlayToManager instance for the specified window.
+     * @param {HWND} appWindow The window to get the <a href="https://docs.microsoft.com/uwp/api/windows.media.playto.playtomanager">PlayToManager</a> instance for.
+     * @param {Pointer<Guid>} riid The reference ID of the specified window.
+     * @returns {Pointer<Void>} The <a href="https://docs.microsoft.com/uwp/api/windows.media.playto.playtomanager">PlayToManager</a> instance for the specified window.
+     * @see https://docs.microsoft.com/windows/win32/api//playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
@@ -45,10 +45,10 @@ class IPlayToManagerInterop extends IInspectable{
     }
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-showplaytouiforwindow
+     * Displays the Play To UI for the specified window.
+     * @param {HWND} appWindow The window to show the Play To UI  for.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-showplaytouiforwindow
      */
     ShowPlayToUIForWindow(appWindow) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow

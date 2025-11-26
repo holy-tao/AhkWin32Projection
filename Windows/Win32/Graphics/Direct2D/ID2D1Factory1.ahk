@@ -42,10 +42,14 @@ class ID2D1Factory1 extends ID2D1Factory{
     static VTableNames => ["CreateDevice", "CreateStrokeStyle", "CreatePathGeometry", "CreateDrawingStateBlock", "CreateGdiMetafile", "RegisterEffectFromStream", "RegisterEffectFromString", "UnregisterEffect", "GetRegisteredEffects", "GetEffectProperties"]
 
     /**
+     * Creates a ID2D1Device object.
+     * @param {IDXGIDevice} dxgiDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a>*</b>
      * 
-     * @param {IDXGIDevice} dxgiDevice 
-     * @returns {ID2D1Device} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createdevice
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> object used when creating  the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a>.
+     * @returns {ID2D1Device} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a>**</b>
+     * 
+     * The requested <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-createdevice
      */
     CreateDevice(dxgiDevice) {
         result := ComCall(17, this, "ptr", dxgiDevice, "ptr*", &d2dDevice := 0, "HRESULT")
@@ -68,9 +72,11 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Creates an ID2D1PathGeometry1 object.
+     * @returns {ID2D1PathGeometry1} Type: <b>const **</b>
      * 
-     * @returns {ID2D1PathGeometry1} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createpathgeometry
+     * When this method returns, contains the address of a pointer to the newly created path geometry.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-createpathgeometry
      */
     CreatePathGeometry() {
         result := ComCall(19, this, "ptr*", &pathGeometry := 0, "HRESULT")
@@ -90,10 +96,14 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Creates a new ID2D1GdiMetafile object that you can use to replay metafile content.
+     * @param {IStream} metafileStream Type: <b>IStream*</b>
      * 
-     * @param {IStream} metafileStream 
-     * @returns {ID2D1GdiMetafile} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-creategdimetafile
+     * A stream object that has the metafile data.
+     * @returns {ID2D1GdiMetafile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1gdimetafile">ID2D1GdiMetafile</a>**</b>
+     * 
+     * The address of the newly created GDI metafile object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-creategdimetafile
      */
     CreateGdiMetafile(metafileStream) {
         result := ComCall(21, this, "ptr", metafileStream, "ptr*", &metafile := 0, "HRESULT")
@@ -101,14 +111,50 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Registers an effect within the factory instance with the property XML specified as a stream.
+     * @param {Pointer<Guid>} classId Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} classId 
-     * @param {IStream} propertyXml 
-     * @param {Pointer<D2D1_PROPERTY_BINDING>} bindings 
-     * @param {Integer} bindingsCount 
-     * @param {Pointer<PD2D1_EFFECT_FACTORY>} effectFactory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstream
+     * The identifier of the effect to be registered.
+     * @param {IStream} propertyXml Type: <b>IStream</b>
+     * 
+     * A list of the effect properties, types, and metadata.
+     * @param {Pointer<D2D1_PROPERTY_BINDING>} bindings Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding">D2D1_PROPERTY_BINDING</a>*</b>
+     * 
+     * An array of properties and methods.
+     * 
+     * This binds a property by name to a particular method implemented by the effect author to handle the property. 
+     *               The name must be found in the corresponding <i>propertyXml</i>.
+     * @param {Integer} bindingsCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_uint32_description">UINT32</a></b>
+     * 
+     * The number of bindings in the binding array.
+     * @param {Pointer<PD2D1_EFFECT_FACTORY>} effectFactory Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nc-d2d1_1-pd2d1_effect_factory">PD2D1_EFFECT_FACTORY</a></b>
+     * 
+     * The static factory that is used to create the corresponding effect.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *             
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Direct2D could not allocate sufficient memory to complete the call.
+     *                 </td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>An invalid parameter was passed to the returning function.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstream
      */
     RegisterEffectFromStream(classId, propertyXml, bindings, bindingsCount, effectFactory) {
         result := ComCall(22, this, "ptr", classId, "ptr", propertyXml, "ptr", bindings, "uint", bindingsCount, "ptr", effectFactory, "HRESULT")
@@ -116,14 +162,50 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Registers an effect within the factory instance with the property XML specified as a string.
+     * @param {Pointer<Guid>} classId Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} classId 
-     * @param {PWSTR} propertyXml 
-     * @param {Pointer<D2D1_PROPERTY_BINDING>} bindings 
-     * @param {Integer} bindingsCount 
-     * @param {Pointer<PD2D1_EFFECT_FACTORY>} effectFactory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstring
+     * The identifier of the effect to be registered.
+     * @param {PWSTR} propertyXml Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/chstring/nf-chstring-chstring-chstring(lpcwstr)">PCWSTR</a></b>
+     * 
+     * A list of the effect properties, types, and metadata.
+     * @param {Pointer<D2D1_PROPERTY_BINDING>} bindings Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding">D2D1_PROPERTY_BINDING</a>*</b>
+     * 
+     * An array of properties and methods.
+     * 
+     * This binds a property by name to a particular method implemented by the effect author to handle the property. 
+     *               The name must be found in the corresponding <i>propertyXml</i>.
+     * @param {Integer} bindingsCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_uint32_description">UINT32</a></b>
+     * 
+     * The number of bindings in the binding array.
+     * @param {Pointer<PD2D1_EFFECT_FACTORY>} effectFactory Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nc-d2d1_1-pd2d1_effect_factory">PD2D1_EFFECT_FACTORY</a></b>
+     * 
+     * The static factory that is used to create the corresponding effect.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *             
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Direct2D could not allocate sufficient memory to complete the call.
+     *                 </td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>An invalid parameter was passed to the returning function.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstring
      */
     RegisterEffectFromString(classId, propertyXml, bindings, bindingsCount, effectFactory) {
         propertyXml := propertyXml is String ? StrPtr(propertyXml) : propertyXml
@@ -133,10 +215,14 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Unregisters an effect within the factory instance that corresponds to the classId provided.
+     * @param {Pointer<Guid>} classId Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} classId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-unregistereffect
+     * The identifier of the effect to be unregistered.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * D2DERR_EFFECT_IS_NOT_REGISTERED if the effect is not registered, S_OK otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-unregistereffect
      */
     UnregisterEffect(classId) {
         result := ComCall(24, this, "ptr", classId, "HRESULT")
@@ -144,13 +230,42 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Returns the class IDs of the currently registered effects and global effects on this factory.
+     * @param {Pointer<Guid>} effects Type: <b><a href="https://docs.microsoft.com/windows/desktop/com/clsid">CLSID</a>*</b>
      * 
-     * @param {Pointer<Guid>} effects 
-     * @param {Integer} effectsCount 
-     * @param {Pointer<Integer>} effectsReturned 
-     * @param {Pointer<Integer>} effectsRegistered 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-getregisteredeffects
+     * When this method returns, contains an array of effects. <b>NULL</b> if no effects are retrieved.
+     * @param {Integer} effectsCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_uint32_description">UINT32</a></b>
+     * 
+     * The capacity of the <i>effects</i> array.
+     * @param {Pointer<Integer>} effectsReturned Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_uint32_description">UINT32</a>*</b>
+     * 
+     * When this method returns, contains the  number of effects copied into <i>effects</i>.
+     * @param {Pointer<Integer>} effectsRegistered Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_uint32_description">UINT32</a>*</b>
+     * 
+     * When this method returns, contains the number of effects currently registered in the system.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Direct2D could not allocate sufficient memory to complete the call.</td>
+     * </tr>
+     * <tr>
+     * <td>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</td>
+     * <td><i>effectsRegistered</i> is larger than <i>effectCount</i>.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-getregisteredeffects
      */
     GetRegisteredEffects(effects, effectsCount, effectsReturned, effectsRegistered) {
         effectsReturnedMarshal := effectsReturned is VarRef ? "uint*" : "ptr"
@@ -161,10 +276,14 @@ class ID2D1Factory1 extends ID2D1Factory{
     }
 
     /**
+     * Retrieves the properties of an effect.
+     * @param {Pointer<Guid>} effectId Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} effectId 
-     * @returns {ID2D1Properties} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-geteffectproperties
+     * The ID of the effect to retrieve properties from.
+     * @returns {ID2D1Properties} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1properties">ID2D1Properties</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the property interface that can be used to query the metadata of the effect.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1factory1-geteffectproperties
      */
     GetEffectProperties(effectId) {
         result := ComCall(26, this, "ptr", effectId, "ptr*", &properties := 0, "HRESULT")

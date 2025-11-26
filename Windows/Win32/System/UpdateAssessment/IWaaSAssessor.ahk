@@ -44,9 +44,9 @@ class IWaaSAssessor extends IUnknown{
     static VTableNames => ["GetOSUpdateAssessment"]
 
     /**
-     * 
-     * @returns {OSUpdateAssessment} 
-     * @see https://learn.microsoft.com/windows/win32/api/waasapi/nf-waasapi-iwaasassessor-getosupdateassessment
+     * Gets the OS update assessment by comparing the latest release OS version from Microsoft to the OS build running on the device.
+     * @returns {OSUpdateAssessment} On success, contains a pointer to the OS update assessment.
+     * @see https://docs.microsoft.com/windows/win32/api//waasapi/nf-waasapi-iwaasassessor-getosupdateassessment
      */
     GetOSUpdateAssessment() {
         result := OSUpdateAssessment()

@@ -31,11 +31,62 @@ class ITCollection2 extends ITCollection{
     static VTableNames => ["Add", "Remove"]
 
     /**
+     * The Add method inserts a new item into the collection at the specified index.
+     * @param {Integer} Index Specifies the location in the collection where the item should be added.
+     * @param {Pointer<VARIANT>} pVariant Pointer to a <b>VARIANT</b> containing the item to add.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection2-add
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pVariant</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Index</i> parameter does not specify a valid index.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory to reallocate the collection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection2-add
      */
     Add(Index, pVariant) {
         result := ComCall(10, this, "int", Index, "ptr", pVariant, "HRESULT")
@@ -43,10 +94,50 @@ class ITCollection2 extends ITCollection{
     }
 
     /**
+     * The Remove method deletes an item from the collection at the specified index.
+     * @param {Integer} Index Specifies the location in the collection of the item to remove.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection2-remove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Index</i> parameter does not specify a valid index.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory to reallocate the collection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection2-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")

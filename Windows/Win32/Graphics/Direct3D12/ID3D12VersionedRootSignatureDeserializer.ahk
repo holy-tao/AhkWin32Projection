@@ -36,10 +36,14 @@ class ID3D12VersionedRootSignatureDeserializer extends IUnknown{
     static VTableNames => ["GetRootSignatureDescAtVersion", "GetUnconvertedRootSignatureDesc"]
 
     /**
+     * Converts root signature description structures to a requested version.
+     * @param {Integer} convertToVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
      * 
-     * @param {Integer} convertToVersion 
-     * @returns {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getrootsignaturedescatversion
+     * Specifies the required <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a>.
+     * @returns {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">D3D12_VERSIONED_ROOT_SIGNATURE_DESC</a>**</b>
+     * 
+     * Contains the deserialized root signature in a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">D3D12_VERSIONED_ROOT_SIGNATURE_DESC</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getrootsignaturedescatversion
      */
     GetRootSignatureDescAtVersion(convertToVersion) {
         result := ComCall(3, this, "int", convertToVersion, "ptr*", &ppDesc := 0, "HRESULT")
@@ -47,9 +51,11 @@ class ID3D12VersionedRootSignatureDeserializer extends IUnknown{
     }
 
     /**
+     * Gets the layout of the root signature, without converting between root signature versions.
+     * @returns {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">D3D12_VERSIONED_ROOT_SIGNATURE_DESC</a></b>
      * 
-     * @returns {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc
+     * This method returns a deserialized root signature in a <a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">D3D12_VERSIONED_ROOT_SIGNATURE_DESC</a> structure that describes the layout of the root signature.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc
      */
     GetUnconvertedRootSignatureDesc() {
         result := ComCall(4, this, "ptr")

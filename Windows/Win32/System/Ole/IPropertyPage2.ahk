@@ -31,10 +31,39 @@ class IPropertyPage2 extends IPropertyPage{
     static VTableNames => ["EditProperty"]
 
     /**
+     * Specifies which field is to receive the focus when the property page is activated.
+     * @param {Integer} dispID The property that is to receive the focus.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} dispID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage2-editproperty
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method is not currently implemented; the interface is probably provided in anticipation of future work on this page.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypage2-editproperty
      */
     EditProperty(dispID) {
         result := ComCall(14, this, "int", dispID, "HRESULT")

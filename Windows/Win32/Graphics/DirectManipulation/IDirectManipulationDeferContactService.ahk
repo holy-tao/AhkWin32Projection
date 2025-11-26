@@ -31,11 +31,11 @@ class IDirectManipulationDeferContactService extends IUnknown{
     static VTableNames => ["DeferContact", "CancelContact", "CancelDeferral"]
 
     /**
-     * 
-     * @param {Integer} pointerId 
-     * @param {Integer} timeout 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-defercontact
+     * Specifies the amount of time to defer the execution of a call to SetContact for this pointerId.
+     * @param {Integer} pointerId The ID of the pointer.
+     * @param {Integer} timeout The duration of the deferral, in milliseconds. The maximum value is 500.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-defercontact
      */
     DeferContact(pointerId, timeout) {
         result := ComCall(3, this, "uint", pointerId, "uint", timeout, "HRESULT")
@@ -43,10 +43,10 @@ class IDirectManipulationDeferContactService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} pointerId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-cancelcontact
+     * Cancel all scheduled calls to SetContact for this pointerId.
+     * @param {Integer} pointerId The ID of the pointer.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-cancelcontact
      */
     CancelContact(pointerId) {
         result := ComCall(4, this, "uint", pointerId, "HRESULT")
@@ -54,10 +54,10 @@ class IDirectManipulationDeferContactService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} pointerId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-canceldeferral
+     * Cancel the deferral set in DeferContact and process the scheduled SetContact call for this pointerId.
+     * @param {Integer} pointerId The ID of the pointer.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-canceldeferral
      */
     CancelDeferral(pointerId) {
         result := ComCall(5, this, "uint", pointerId, "HRESULT")

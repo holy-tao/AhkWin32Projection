@@ -31,17 +31,46 @@ class ICallUnmarshal extends IUnknown{
     static VTableNames => ["Unmarshal", "ReleaseMarshalData"]
 
     /**
+     * Turns a marshaled packet of data back into an activation record that can then be invoked or manipulated in some other way.
+     * @param {Integer} iMethod The method number. If this parameter is -1, the method number will be determined from the data to be unmarshaled.
+     * @param {Pointer<Void>} pBuffer A pointer to the buffer from which the activation record is to be created.
+     * @param {Integer} cbBuffer The size of the buffer, in bytes.
+     * @param {BOOL} fForceBufferCopy Indicates whether the buffer should be copied and retained (nonzero) or the buffer will remain valid (zero).
+     * @param {Integer} dataRep The data representation with which the data was marshaled.
+     * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pcontext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure that contains information about the context in which unmarshaling is to be carried out.
+     * @param {Pointer<Integer>} pcbUnmarshalled A pointer to the number of bytes that were successfully unmarshaled.
+     * @param {Pointer<ICallFrame>} ppFrame A call frame bound to the umarshaled invocation.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} iMethod 
-     * @param {Pointer<Void>} pBuffer 
-     * @param {Integer} cbBuffer 
-     * @param {BOOL} fForceBufferCopy 
-     * @param {Integer} dataRep 
-     * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pcontext 
-     * @param {Pointer<Integer>} pcbUnmarshalled 
-     * @param {Pointer<ICallFrame>} ppFrame 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallunmarshal-unmarshal
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallunmarshal-unmarshal
      */
     Unmarshal(iMethod, pBuffer, cbBuffer, fForceBufferCopy, dataRep, pcontext, pcbUnmarshalled, ppFrame) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
@@ -52,15 +81,44 @@ class ICallUnmarshal extends IUnknown{
     }
 
     /**
+     * Releases resources that may be held by interface pointers residing in a packet of marshaled data. This method finds all interface pointers in the packet and calls the CoReleaseMarshalData function on each interface pointer.
+     * @param {Integer} iMethod The method number.
+     * @param {Pointer<Void>} pBuffer A pointer to the buffer containing the marshaled out parameters.
+     * @param {Integer} cbBuffer The size of the buffer, in bytes.
+     * @param {Integer} ibFirstRelease The first byte in the buffer to be released. A value of zero implies that the interface pointers in the whole buffer are to be released. The idea is that marshaled interface pointers prior to the indicated byte are assumed to have already been released by some other mechanism.
+     * @param {Integer} dataRep The data representation with which the data was marshaled.
+     * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pcontext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure that contains information about the context in which unmarshaling is to be carried out.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} iMethod 
-     * @param {Pointer<Void>} pBuffer 
-     * @param {Integer} cbBuffer 
-     * @param {Integer} ibFirstRelease 
-     * @param {Integer} dataRep 
-     * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pcontext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallunmarshal-releasemarshaldata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallunmarshal-releasemarshaldata
      */
     ReleaseMarshalData(iMethod, pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"

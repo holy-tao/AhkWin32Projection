@@ -31,9 +31,9 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetFutureUse1", "GetQualityLevel", "GetFutureUse2", "GetReferencePid"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-gettag
+     * Gets the tag that identifies a hierarchical transmission descriptor.
+     * @returns {Integer} Receives the tag value. For hierarchical transmission descriptors, this value is 0xC0.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getlength
+     * Gets the body length of an Integrated Services Digital Broadcasting (ISDB) hierarchical transmission descriptor, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getfutureuse1
+     * Gets the value of the 7-bit reserved_future_use field from an Integrated Services Digital Broadcasting (ISDB) hierarchical transmission descriptor.
+     * @returns {Integer} Receives the 7-bit reserved_future_use field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getfutureuse1
      */
     GetFutureUse1() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -61,9 +61,9 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getqualitylevel
+     * Gets the value of the quality_flag field from an Integrated Services Digital Broadcasting (ISDB) hierarchical transmission descriptor. This field indicates the quality level of the hierarchical stream construction.
+     * @returns {Integer} Receives the quality_flag field value. A value of 1 indicates a high-quality stream; a value of 0 indicates a low-quality stream.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getqualitylevel
      */
     GetQualityLevel() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -71,9 +71,9 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getfutureuse2
+     * Gets the value of the 3-bit reserved_future_use field from an Integrated Services Digital Broadcasting (ISDB) hierarchical transmission descriptor.
+     * @returns {Integer} Receives the 3-bit reserved_future_use field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getfutureuse2
      */
     GetFutureUse2() {
         result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
@@ -81,9 +81,9 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getreferencepid
+     * Gets the program ID (PID) of the primary hierarchical stream from a hierarchical transmission descriptor.
+     * @returns {Integer} Receives the PID value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getreferencepid
      */
     GetReferencePid() {
         result := ComCall(8, this, "ushort*", &pwVal := 0, "HRESULT")

@@ -43,9 +43,9 @@ class IGuideData extends IUnknown{
     static VTableNames => ["GetServices", "GetServiceProperties", "GetGuideProgramIDs", "GetProgramProperties", "GetScheduleEntryIDs", "GetScheduleEntryProperties"]
 
     /**
-     * 
-     * @returns {IEnumTuneRequests} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getservices
+     * The GetServices method retrieves a collection of tune requests representing all the services available in the tuning space.
+     * @returns {IEnumTuneRequests} Pointer to a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nn-bdatif-ienumtunerequests">IEnumTuneRequests</a> interface pointer. Use this interface to enumerate the properties. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedata-getservices
      */
     GetServices() {
         result := ComCall(3, this, "ptr*", &ppEnumTuneRequests := 0, "HRESULT")
@@ -53,10 +53,10 @@ class IGuideData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITuneRequest} pTuneRequest 
-     * @returns {IEnumGuideDataProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getserviceproperties
+     * The GetServiceProperties method retrieves the properties for a specified service.
+     * @param {ITuneRequest} pTuneRequest Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of a valid tune request. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nf-bdatif-iguidedata-getservices">IGuideData::GetServices</a> method to get a list of tune requests.
+     * @returns {IEnumGuideDataProperties} Pointer to a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nn-bdatif-ienumguidedataproperties">IEnumGuideDataProperties</a> interface pointer. Use this interface to enumerate the properties. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedata-getserviceproperties
      */
     GetServiceProperties(pTuneRequest) {
         result := ComCall(4, this, "ptr", pTuneRequest, "ptr*", &ppEnumProperties := 0, "HRESULT")
@@ -64,9 +64,9 @@ class IGuideData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getguideprogramids
+     * The GetGuideProgramIDs method returns a list of unique identifiers for all of the programs contained in all transport streams.
+     * @returns {IEnumVARIANT} Receives a pointer to the <b>IEnumVARIANT</b> interface. Use this interface to enumerate the collection. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedata-getguideprogramids
      */
     GetGuideProgramIDs() {
         result := ComCall(5, this, "ptr*", &pEnumPrograms := 0, "HRESULT")
@@ -74,10 +74,10 @@ class IGuideData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varProgramDescriptionID 
-     * @returns {IEnumGuideDataProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getprogramproperties
+     * The GetProgramProperties method retrieves the properties for a specified program.
+     * @param {VARIANT} varProgramDescriptionID Specifies the unique identifier for the program. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nf-bdatif-iguidedata-getguideprogramids">IGuideData::GetGuideProgramIDs</a> method to get a list of program identifiers.
+     * @returns {IEnumGuideDataProperties} Pointer to a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nn-bdatif-ienumguidedataproperties">IEnumGuideDataProperties</a> interface pointer. Use this interface to enumerate the properties. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedata-getprogramproperties
      */
     GetProgramProperties(varProgramDescriptionID) {
         result := ComCall(6, this, "ptr", varProgramDescriptionID, "ptr*", &ppEnumProperties := 0, "HRESULT")
@@ -85,9 +85,9 @@ class IGuideData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getscheduleentryids
+     * The GetScheduleEntryIDs method returns a list of unique identifiers for all of the schedule entries contained in all transport streams.
+     * @returns {IEnumVARIANT} Receives a pointer to the <b>IEnumVARIANT</b> interface. Use this interface to enumerate the collection. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedata-getscheduleentryids
      */
     GetScheduleEntryIDs() {
         result := ComCall(7, this, "ptr*", &pEnumScheduleEntries := 0, "HRESULT")
@@ -95,10 +95,10 @@ class IGuideData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varScheduleEntryDescriptionID 
-     * @returns {IEnumGuideDataProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getscheduleentryproperties
+     * The GetScheduleEntryProperties method retrieves the properties for a specified schedule entry.
+     * @param {VARIANT} varScheduleEntryDescriptionID Specifies the unique identifier for the schedule entry. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nf-bdatif-iguidedata-getscheduleentryids">IGuideData::GetScheduleEntryIDs</a> method to get a list of schedule entry identifiers.
+     * @returns {IEnumGuideDataProperties} Pointer to a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nn-bdatif-ienumguidedataproperties">IEnumGuideDataProperties</a> interface pointer. Use this interface to enumerate the properties. The caller must release the interface
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedata-getscheduleentryproperties
      */
     GetScheduleEntryProperties(varScheduleEntryDescriptionID) {
         result := ComCall(8, this, "ptr", varScheduleEntryDescriptionID, "ptr*", &ppEnumProperties := 0, "HRESULT")

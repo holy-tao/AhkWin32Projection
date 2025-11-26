@@ -37,10 +37,10 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2{
     static VTableNames => ["BroadcastEvent", "BroadcastEventEx", "COPPBlocked", "COPPUnblocked", "ContentPrimarilyAudio"]
 
     /**
-     * 
-     * @param {BSTR} Guid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent3-broadcastevent
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {BSTR} Guid GUID that specifies the event. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ibroadcastevent-fire">IBroadcastEvent::Fire</a>.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent3-broadcastevent
      */
     BroadcastEvent(Guid) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
@@ -50,14 +50,14 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2{
     }
 
     /**
-     * 
-     * @param {BSTR} Guid 
-     * @param {Integer} Param1 
-     * @param {Integer} Param2 
-     * @param {Integer} Param3 
-     * @param {Integer} Param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent3-broadcasteventex
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {BSTR} Guid GUID that specifies the event.
+     * @param {Integer} Param1 First implementation-dependent parameter.
+     * @param {Integer} Param2 Second implementation-dependent parameter.
+     * @param {Integer} Param3 Third implementation-dependent parameter.
+     * @param {Integer} Param4 Fourth implementation-dependent parameter.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent3-broadcasteventex
      */
     BroadcastEventEx(Guid, Param1, Param2, Param3, Param4) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
@@ -67,9 +67,9 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent3-coppblocked
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent3-coppblocked
      */
     COPPBlocked() {
         result := ComCall(20, this, "HRESULT")
@@ -77,9 +77,27 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent3-coppunblocked
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent3-coppunblocked
      */
     COPPUnblocked() {
         result := ComCall(21, this, "HRESULT")
@@ -87,9 +105,9 @@ class IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferSourceEvent2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent3-contentprimarilyaudio
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent3-contentprimarilyaudio
      */
     ContentPrimarilyAudio() {
         result := ComCall(22, this, "HRESULT")

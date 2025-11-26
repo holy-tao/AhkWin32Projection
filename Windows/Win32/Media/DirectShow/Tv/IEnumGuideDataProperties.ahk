@@ -37,12 +37,52 @@ class IEnumGuideDataProperties extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * The Next method retrieves the specified number of items in the enumeration sequence.
+     * @param {Integer} celt Specifies the number of items to retrieve.
+     * @param {Pointer<IGuideDataProperty>} ppprop Address of an array of size <i>celt</i>, allocated by the caller. The array is filled with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nn-bdatif-iguidedataproperty">IGuideDataProperty</a> interface pointers.
+     * @param {Pointer<Integer>} pcelt Receives the number of items received.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<IGuideDataProperty>} ppprop 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumguidedataproperties-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is at the end of the enumeration sequence.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NULL pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumguidedataproperties-next
      */
     Next(celt, ppprop, pcelt) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -52,10 +92,10 @@ class IEnumGuideDataProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumguidedataproperties-skip
+     * Not implemented for this release.
+     * @param {Integer} celt Specifies the number of items to skip.
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumguidedataproperties-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -63,9 +103,27 @@ class IEnumGuideDataProperties extends IUnknown{
     }
 
     /**
+     * The Reset method resets the enumerator to the first item in the collection.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumguidedataproperties-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumguidedataproperties-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -73,9 +131,9 @@ class IEnumGuideDataProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumGuideDataProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumguidedataproperties-clone
+     * Not implemented for this release.
+     * @returns {IEnumGuideDataProperties} Receives a pointer to the new collection's <b>IEnumGuideDataProperties</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumguidedataproperties-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

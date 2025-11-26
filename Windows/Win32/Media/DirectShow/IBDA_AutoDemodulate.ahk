@@ -36,9 +36,9 @@ class IBDA_AutoDemodulate extends IUnknown{
     static VTableNames => ["put_AutoDemodulate"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulate-put_autodemodulate
+     * The put_AutoDemodulate method instructs the BDA device filter to automatically detect signal characteristics.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_autodemodulate-put_autodemodulate
      */
     put_AutoDemodulate() {
         result := ComCall(3, this, "HRESULT")

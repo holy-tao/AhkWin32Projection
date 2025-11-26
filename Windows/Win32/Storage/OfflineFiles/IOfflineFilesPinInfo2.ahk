@@ -31,9 +31,9 @@ class IOfflineFilesPinInfo2 extends IOfflineFilesPinInfo{
     static VTableNames => ["IsPartlyPinned"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo2-ispartlypinned
+     * Determines whether the item is partly pinned.
+     * @returns {BOOL} Receives <b>TRUE</b> if the item has some child content that is pinned in the Offline Files cache, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilespininfo2-ispartlypinned
      */
     IsPartlyPinned() {
         result := ComCall(8, this, "int*", &pbPartlyPinned := 0, "HRESULT")

@@ -123,9 +123,20 @@ class IDirectDraw7 extends IUnknown{
     static VTableNames => ["Compact", "CreateClipper", "CreatePalette", "CreateSurface", "DuplicateSurface", "EnumDisplayModes", "EnumSurfaces", "FlipToGDISurface", "GetCaps", "GetDisplayMode", "GetFourCCCodes", "GetGDISurface", "GetMonitorFrequency", "GetScanLine", "GetVerticalBlankStatus", "Initialize", "RestoreDisplayMode", "SetCooperativeLevel", "SetDisplayMode", "WaitForVerticalBlank", "GetAvailableVidMem", "GetSurfaceFromDC", "RestoreAllSurfaces", "TestCooperativeLevel", "GetDeviceIdentifier", "StartModeTest", "EvaluateMode"]
 
     /**
+     * This method is not currently implemented.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-compact
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-compact
      */
     Compact() {
         result := ComCall(3, this, "HRESULT")
@@ -133,11 +144,11 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Creates a DirectDrawClipper object.
      * @param {Integer} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawClipper} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createclipper
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-createclipper
      */
     CreateClipper(param0, param2) {
         result := ComCall(4, this, "uint", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
@@ -145,12 +156,12 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * The CreatePalette function creates a logical palette.
+     * Creates a DirectDrawPalette object for this DirectDraw object.
      * @param {Integer} param0 
      * @param {Pointer<PALETTEENTRY>} param1 
      * @param {IUnknown} param3 
      * @returns {IDirectDrawPalette} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpalette
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-createpalette
      */
     CreatePalette(param0, param1, param3) {
         result := ComCall(5, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
@@ -158,11 +169,11 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Creates a DirectDrawSurface object for this DirectDraw object.
      * @param {Pointer<DDSURFACEDESC2>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createsurface
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-createsurface
      */
     CreateSurface(param0, param2) {
         result := ComCall(6, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
@@ -170,10 +181,10 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Duplicates a DirectDrawSurface object.
      * @param {IDirectDrawSurface7} param0 
      * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-duplicatesurface
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-duplicatesurface
      */
     DuplicateSurface(param0) {
         result := ComCall(7, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
@@ -181,13 +192,22 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Enumerates all the display modes that the hardware exposes through the DirectDraw object and that are compatible with a provided surface description.
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC2>} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<LPDDENUMMODESCALLBACK2>} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-enumdisplaymodes
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-enumdisplaymodes
      */
     EnumDisplayModes(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
@@ -197,13 +217,22 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Enumerates all the existing or possible surfaces that meet the specified surface description.
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC2>} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-enumsurfaces
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-enumsurfaces
      */
     EnumSurfaces(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
@@ -213,9 +242,19 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
+     * Makes the surface that the GDI writes to the primary surface.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-fliptogdisurface
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOTFOUND</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-fliptogdisurface
      */
     FlipToGDISurface() {
         result := ComCall(10, this, "HRESULT")
@@ -223,11 +262,21 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the capabilities of the device driver for the hardware and the hardware emulation layer (HEL).
      * @param {Pointer<DDCAPS_DX7>} param0 
      * @param {Pointer<DDCAPS_DX7>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getcaps
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * You can set only one of the two parameters to NULL to exclude it. If you set both to NULL, the method fails and returns DDERR_INVALIDPARAMS.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getcaps
      */
     GetCaps(param0, param1) {
         result := ComCall(11, this, "ptr", param0, "ptr", param1, "HRESULT")
@@ -235,10 +284,18 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the current display mode.
      * @param {Pointer<DDSURFACEDESC2>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getdisplaymode
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_UNSUPPORTEDMODE</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getdisplaymode
      */
     GetDisplayMode(param0) {
         result := ComCall(12, this, "ptr", param0, "HRESULT")
@@ -246,11 +303,20 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the four-character codes (FOURCC) that are supported by the DirectDraw object. This method can also retrieve the number of codes that are supported.
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getfourcccodes
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getfourcccodes
      */
     GetFourCCCodes(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -261,9 +327,9 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the DirectDrawSurface object that currently represents the surface memory that GDI is treating as the primary surface.
      * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getgdisurface
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getgdisurface
      */
     GetGDISurface() {
         result := ComCall(14, this, "ptr*", &param0 := 0, "HRESULT")
@@ -271,10 +337,18 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the frequency of the monitor that the DirectDraw object controls.
      * @param {Pointer<Integer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getmonitorfrequency
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getmonitorfrequency
      */
     GetMonitorFrequency(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -284,10 +358,19 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the scan line that is currently being drawn on the monitor.
      * @param {Pointer<Integer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getscanline
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_VERTICALBLANKINPROGRESS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getscanline
      */
     GetScanLine(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -297,10 +380,17 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the status of the vertical blank.
      * @param {Pointer<BOOL>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getverticalblankstatus
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getverticalblankstatus
      */
     GetVerticalBlankStatus(param0) {
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
@@ -310,20 +400,24 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
+     * Initializes a DirectDraw object that was created by using the CoCreateInstance COM function.
      * @param {Pointer<Guid>} param0 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_ALREADYINITIALIZED</li>
+     * <li>DDERR_DIRECTDRAWALREADYCREATED</li>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NODIRECTDRAWHW</li>
+     * <li>DDERR_NODIRECTDRAWSUPPORT</li>
+     * <li>DDERR_OUTOFMEMORY</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * This method is provided for compliance with the Component Object Model (COM). If you already used the <a href="/windows/desktop/api/ddraw/nf-ddraw-directdrawcreate">DirectDrawCreate</a> function to create a DirectDraw object, this method returns DDERR_ALREADYINITIALIZED. If you do not call <b>IDirectDraw7::Initialize</b> when you use <a href="/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> to create a DirectDraw object, any method that you call afterward returns DDERR_NOTINITIALIZED.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-initialize
      */
     Initialize(param0) {
         result := ComCall(18, this, "ptr", param0, "HRESULT")
@@ -331,9 +425,21 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
+     * Resets the mode of the display device hardware for the primary surface to what it was before the IDirectDraw7::SetDisplayMode method was called. Exclusive-level access is required to use this method.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-restoredisplaymode
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_LOCKEDSURFACES</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-restoredisplaymode
      */
     RestoreDisplayMode() {
         result := ComCall(19, this, "HRESULT")
@@ -341,11 +447,24 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Determines the top-level behavior of the application.
      * @param {HWND} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-setcooperativelevel
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_EXCLUSIVEMODEALREADYSET</li>
+     * <li>DDERR_HWNDALREADYSET</li>
+     * <li>DDERR_HWNDSUBCLASSED</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-setcooperativelevel
      */
     SetCooperativeLevel(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -355,14 +474,31 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the mode of the display-device hardware.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Integer} param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-setdisplaymode
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDMODE</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_LOCKEDSURFACES</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_UNSUPPORTEDMODE</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-setdisplaymode
      */
     SetDisplayMode(param0, param1, param2, param3, param4) {
         result := ComCall(21, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "uint", param4, "HRESULT")
@@ -370,11 +506,22 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Helps the application synchronize itself with the vertical-blank interval.
      * @param {Integer} param0 
      * @param {HANDLE} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-waitforverticalblank
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-waitforverticalblank
      */
     WaitForVerticalBlank(param0, param1) {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
@@ -384,12 +531,23 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the total amount of display memory available and the amount of display memory currently free for a given type of surface.
      * @param {Pointer<DDSCAPS2>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getavailablevidmem
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDCAPS</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NODIRECTDRAWHW</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getavailablevidmem
      */
     GetAvailableVidMem(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"
@@ -400,10 +558,10 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the IDirectDrawSurface7 interface for a surface, based on its GDI device context handle.
      * @param {HDC} param0 
      * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getsurfacefromdc
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getsurfacefromdc
      */
     GetSurfaceFromDC(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -413,9 +571,18 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
+     * Restores all the surfaces that were created for the DirectDraw object, in the order that they were created.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-restoreallsurfaces
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-restoreallsurfaces
      */
     RestoreAllSurfaces() {
         result := ComCall(25, this, "HRESULT")
@@ -423,9 +590,18 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
+     * Reports the current cooperative-level status of the DirectDraw device for a windowed or full-screen application.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK, which indicates that the calling application can continue.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-testcooperativelevel
+     * If it fails, the method can return one of the following error values (see Remarks):
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_EXCLUSIVEMODEALREADYSET</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * <li>DDERR_WRONGMODE</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-testcooperativelevel
      */
     TestCooperativeLevel() {
         result := ComCall(26, this, "HRESULT")
@@ -433,11 +609,15 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Obtains information about the device driver. This method can be used, with caution, to recognize specific hardware installations to implement workarounds for poor driver or chipset behavior.
      * @param {Pointer<DDDEVICEIDENTIFIER2>} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getdeviceidentifier
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return DDERR_INVALIDPARAMS.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-getdeviceidentifier
      */
     GetDeviceIdentifier(param0, param1) {
         result := ComCall(27, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -445,12 +625,33 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Initiates a test to update the system registry with refresh rate information for the current display adapter and monitor combination.
      * @param {Pointer<SIZE>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-startmodetest
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_CURRENTLYNOTAVAIL</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * <li>DDERR_NOTFOUND</li>
+     * <li>DDERR_TESTFINISHED</li>
+     * </ul>
+     * When the method is called with the DDSMT_ISTESTREQUIRED flag, it can return one of the following values:
+     * 
+     * <ul>
+     * <li>DDERR_NEWMODE</li>
+     * <li>DDERR_NODRIVERSUPPORT</li>
+     * <li>DDERR_NOMONITORINFORMATION</li>
+     * <li>DDERR_TESTFINISHED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-startmodetest
      */
     StartModeTest(param0, param1, param2) {
         result := ComCall(28, this, "ptr", param0, "uint", param1, "uint", param2, "HRESULT")
@@ -458,11 +659,23 @@ class IDirectDraw7 extends IUnknown{
     }
 
     /**
-     * 
+     * Used after a call to IDirectDraw7::StartModeTest to pass or fail each mode that the test presents and to step through the modes until the test is complete.
      * @param {Integer} param0 
      * @param {Pointer<Integer>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-evaluatemode
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails or on completion, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_TESTFINISHED</li>
+     * <li>DDERR_NEWMODE</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOTFOUND </li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdraw7-evaluatemode
      */
     EvaluateMode(param0, param1) {
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"

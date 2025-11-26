@@ -36,9 +36,11 @@ class ID2D1StrokeStyle1 extends ID2D1StrokeStyle{
     static VTableNames => ["GetStrokeTransformType"]
 
     /**
+     * Gets the stroke transform type.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type">D2D1_STROKE_TRANSFORM_TYPE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1strokestyle1-getstroketransformtype
+     * This method returns the stroke transform type.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1strokestyle1-getstroketransformtype
      */
     GetStrokeTransformType() {
         result := ComCall(13, this, "int")

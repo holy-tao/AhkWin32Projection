@@ -70,9 +70,11 @@ class IDWriteFontFamily extends IDWriteFontList{
     static VTableNames => ["GetFamilyNames", "GetFirstMatchingFont", "GetMatchingFonts"]
 
     /**
+     * Creates a localized strings object that contains the family names for the font family, indexed by locale name.
+     * @returns {IDWriteLocalizedStrings} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
      * 
-     * @returns {IDWriteLocalizedStrings} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getfamilynames
+     * The address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfamily-getfamilynames
      */
     GetFamilyNames() {
         result := ComCall(6, this, "ptr*", &names := 0, "HRESULT")
@@ -80,12 +82,20 @@ class IDWriteFontFamily extends IDWriteFontList{
     }
 
     /**
+     * Gets the font that best matches the specified properties.
+     * @param {Integer} weight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
-     * @param {Integer} weight 
-     * @param {Integer} stretch 
-     * @param {Integer} style 
-     * @returns {IDWriteFont} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getfirstmatchingfont
+     * A value that is used to match a requested font weight.
+     * @param {Integer} stretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * 
+     * A value that is used to match a requested font stretch.
+     * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * 
+     * A value that is used to match a requested font style.
+     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfamily-getfirstmatchingfont
      */
     GetFirstMatchingFont(weight, stretch, style) {
         result := ComCall(7, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFont := 0, "HRESULT")
@@ -93,12 +103,20 @@ class IDWriteFontFamily extends IDWriteFontList{
     }
 
     /**
+     * Gets a list of fonts in the font family ranked in order of how well they match the specified properties.
+     * @param {Integer} weight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
-     * @param {Integer} weight 
-     * @param {Integer} stretch 
-     * @param {Integer} style 
-     * @returns {IDWriteFontList} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getmatchingfonts
+     * A value that is used to match a requested font weight.
+     * @param {Integer} stretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * 
+     * A value that is used to match a requested font stretch.
+     * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * 
+     * A value that is used to match a requested font style.
+     * @returns {IDWriteFontList} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist">IDWriteFontList</a>**</b>
+     * 
+     * An address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist">IDWriteFontList</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfamily-getmatchingfonts
      */
     GetMatchingFonts(weight, stretch, style) {
         result := ComCall(8, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFonts := 0, "HRESULT")

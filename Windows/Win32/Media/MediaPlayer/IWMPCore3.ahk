@@ -34,11 +34,11 @@ class IWMPCore3 extends IWMPCore2{
     static VTableNames => ["newPlaylist", "newMedia"]
 
     /**
-     * 
-     * @param {BSTR} bstrName 
-     * @param {BSTR} bstrURL 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore3-newplaylist
+     * The newPlaylist method retrieves a pointer to an IWMPPlaylist interface for a new playlist.
+     * @param {BSTR} bstrName <b>BSTR</b> containing the playlist name.
+     * @param {BSTR} bstrURL <b>BSTR</b> containing the playlist URL.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcore3-newplaylist
      */
     newPlaylist(bstrName, bstrURL) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -49,10 +49,10 @@ class IWMPCore3 extends IWMPCore2{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrURL 
-     * @returns {IWMPMedia} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore3-newmedia
+     * The newMedia method retrieves a pointer to an IWMPMedia interface for a new media item.
+     * @param {BSTR} bstrURL <b>BSTR</b> containing the URL.
+     * @returns {IWMPMedia} Pointer to a pointer to an <b>IWMPMedia</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcore3-newmedia
      */
     newMedia(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL

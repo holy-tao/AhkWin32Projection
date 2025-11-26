@@ -31,11 +31,11 @@ class IBackgroundCopyFile4 extends IBackgroundCopyFile3{
     static VTableNames => ["GetPeerDownloadStats"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pFromOrigin 
-     * @param {Pointer<Integer>} pFromPeers 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibackgroundcopyfile4-getpeerdownloadstats
+     * Specifies statistics about the amount of data downloaded from peers and origin servers.
+     * @param {Pointer<Integer>} pFromOrigin Specifies the amount of file data downloaded from the originating server.
+     * @param {Pointer<Integer>} pFromPeers Specifies the amount of file data downloaded from a peer-to-peer source.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bits4_0/nf-bits4_0-ibackgroundcopyfile4-getpeerdownloadstats
      */
     GetPeerDownloadStats(pFromOrigin, pFromPeers) {
         pFromOriginMarshal := pFromOrigin is VarRef ? "uint*" : "ptr"

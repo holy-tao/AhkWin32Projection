@@ -31,10 +31,72 @@ class IDot11AdHocSecuritySettings extends IUnknown{
     static VTableNames => ["GetDot11AuthAlgorithm", "GetDot11CipherAlgorithm"]
 
     /**
+     * Gets the authentication algorithm associated with the security settings.
+     * @param {Pointer<Integer>} pAuth A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/ne-adhoc-dot11_adhoc_auth_algorithm">DOT11_ADHOC_AUTH_ALGORITHM</a> value that specifies the authentication algorithm.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Pointer<Integer>} pAuth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value pointed to by <i>pAuth</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method could not allocate the memory required to perform this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer <i>pAuth</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
      */
     GetDot11AuthAlgorithm(pAuth) {
         pAuthMarshal := pAuth is VarRef ? "int*" : "ptr"
@@ -44,10 +106,72 @@ class IDot11AdHocSecuritySettings extends IUnknown{
     }
 
     /**
+     * Gets the cipher algorithm associated with the security settings.
+     * @param {Pointer<Integer>} pCipher A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm">DOT11_ADHOC_CIPHER_ALGORITHM</a> value that specifies the cipher algorithm.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Pointer<Integer>} pCipher 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value pointed to by <i>pCipher</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method could not allocate the memory required to perform this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer <i>pCipher</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
      */
     GetDot11CipherAlgorithm(pCipher) {
         pCipherMarshal := pCipher is VarRef ? "int*" : "ptr"

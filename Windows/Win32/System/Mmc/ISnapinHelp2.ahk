@@ -31,9 +31,11 @@ class ISnapinHelp2 extends ISnapinHelp{
     static VTableNames => ["GetLinkedTopics"]
 
     /**
+     * Enables a snap-in to specify the names and locations of any HTML Help files that are linked to the snap-in's Help file (specified in the GetHelpTopic method).
+     * @returns {PWSTR} A pointer to the address of the null-terminated Unicode string that contains the path of one or more compiled Help files (.chm) that are linked to the snap-in's Help file. A semicolon is used to separate multiple file paths from each other.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinhelp2-getlinkedtopics
+     * When specifying the path, place the file anywhere and specify the full path name.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinhelp2-getlinkedtopics
      */
     GetLinkedTopics() {
         result := ComCall(4, this, "ptr*", &lpCompiledHelpFiles := 0, "HRESULT")

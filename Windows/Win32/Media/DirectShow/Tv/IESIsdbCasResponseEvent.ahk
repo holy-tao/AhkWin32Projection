@@ -35,9 +35,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
     static VTableNames => ["GetRequestId", "GetStatus", "GetDataLength", "GetResponseData"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getrequestid
+     * Gets the request identifier returned in an IsdbCasResponse event. The request identifier identifies the request originated by a PBDA media sink device (MSD).
+     * @returns {Integer} Receives the request identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesisdbcasresponseevent-getrequestid
      */
     GetRequestId() {
         result := ComCall(8, this, "uint*", &pRequestId := 0, "HRESULT")
@@ -45,9 +45,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
     }
 
     /**
-     * 
+     * Gets the response status returned in an IsdbCasResponse event.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getstatus
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesisdbcasresponseevent-getstatus
      */
     GetStatus() {
         result := ComCall(9, this, "uint*", &pStatus := 0, "HRESULT")
@@ -55,9 +55,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getdatalength
+     * Gets the length of response data returned in anIsdbCasResponse event.
+     * @returns {Integer} Receives the length of the response data, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesisdbcasresponseevent-getdatalength
      */
     GetDataLength() {
         result := ComCall(10, this, "uint*", &pRequestLength := 0, "HRESULT")
@@ -65,9 +65,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getresponsedata
+     * Gets the response data returned in an IsdbCasResponse event.
+     * @returns {Pointer<SAFEARRAY>} Pointer to a buffer that receives the response data. The caller must free this memory after use.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesisdbcasresponseevent-getresponsedata
      */
     GetResponseData() {
         result := ComCall(11, this, "ptr*", &pbData := 0, "HRESULT")

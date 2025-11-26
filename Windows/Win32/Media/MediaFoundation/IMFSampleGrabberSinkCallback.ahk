@@ -58,10 +58,28 @@ class IMFSampleGrabberSinkCallback extends IMFClockStateSink{
     static VTableNames => ["OnSetPresentationClock", "OnProcessSample", "OnShutdown"]
 
     /**
+     * Called when the presentation clock is set on the sample-grabber sink.
+     * @param {IMFPresentationClock} pPresentationClock Pointer to the presentation clock's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFPresentationClock} pPresentationClock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onsetpresentationclock
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onsetpresentationclock
      */
     OnSetPresentationClock(pPresentationClock) {
         result := ComCall(8, this, "ptr", pPresentationClock, "HRESULT")
@@ -69,15 +87,17 @@ class IMFSampleGrabberSinkCallback extends IMFClockStateSink{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidMajorMediaType 
-     * @param {Integer} dwSampleFlags 
-     * @param {Integer} llSampleTime 
-     * @param {Integer} llSampleDuration 
-     * @param {Pointer} pSampleBuffer 
-     * @param {Integer} dwSampleSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onprocesssample
+     * Called when the sample-grabber sink receives a new media sample.
+     * @param {Pointer<Guid>} guidMajorMediaType The major type that specifies the format of the data. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-type-guids">Major Media Types</a>.
+     * @param {Integer} dwSampleFlags Reserved.
+     * @param {Integer} llSampleTime The presentation time for this sample, in 100-nanosecond units.
+     *           If the sample does not have a presentation time, the value of this parameter is <b>_I64_MAX</b>.
+     * @param {Integer} llSampleDuration The duration of the sample, in 100-nanosecond units.
+     *           If the sample does not have a duration, the value of this parameter is <b>_I64_MAX</b>.
+     * @param {Pointer} pSampleBuffer A pointer to a buffer that contains the sample data.
+     * @param {Integer} dwSampleSize Size of the <i>pSampleBuffer</i> buffer, in bytes.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onprocesssample
      */
     OnProcessSample(guidMajorMediaType, dwSampleFlags, llSampleTime, llSampleDuration, pSampleBuffer, dwSampleSize) {
         result := ComCall(9, this, "ptr", guidMajorMediaType, "uint", dwSampleFlags, "int64", llSampleTime, "int64", llSampleDuration, "ptr", pSampleBuffer, "uint", dwSampleSize, "HRESULT")
@@ -85,9 +105,27 @@ class IMFSampleGrabberSinkCallback extends IMFClockStateSink{
     }
 
     /**
+     * Called when the sample-grabber sink is shut down.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onshutdown
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onshutdown
      */
     OnShutdown() {
         result := ComCall(10, this, "HRESULT")

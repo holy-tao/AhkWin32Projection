@@ -47,10 +47,17 @@ class IRegistrationTrigger extends ITrigger{
     }
 
     /**
+     * Gets or sets the amount of time between when the task is registered and when the task is started.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the boot delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-registrationtriggertype-element">Delay</a> element of the Task Scheduler schema.
+     * 
+     * If a task with a delayed registration trigger is registered, and the computer that the task is registered on is shutdown or restarted during  the delay (before the task runs), then the task will not run and the delay will be lost.
+     * 
      * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationtrigger-get_delay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationtrigger-get_delay
      */
     get_Delay(pDelay) {
         result := ComCall(20, this, "ptr", pDelay, "HRESULT")
@@ -58,10 +65,17 @@ class IRegistrationTrigger extends ITrigger{
     }
 
     /**
+     * Gets or sets the amount of time between when the task is registered and when the task is started.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the boot delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-registrationtriggertype-element">Delay</a> element of the Task Scheduler schema.
+     * 
+     * If a task with a delayed registration trigger is registered, and the computer that the task is registered on is shutdown or restarted during  the delay (before the task runs), then the task will not run and the delay will be lost.
+     * 
      * 
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationtrigger-put_delay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationtrigger-put_delay
      */
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay

@@ -32,10 +32,14 @@ class IRicheditWindowlessAccessibility extends IUnknown{
     static VTableNames => ["CreateProvider"]
 
     /**
+     * Obtains a Microsoft UI Automation provider object for the parent of a windowless rich edit control.
+     * @param {IRawElementProviderWindowlessSite} pSite Type: <b>IRawElementProviderWindowlessSite*</b>
      * 
-     * @param {IRawElementProviderWindowlessSite} pSite 
-     * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-iricheditwindowlessaccessibility-createprovider
+     * The ActiveX control site that hosts the windowless rich edit control.
+     * @returns {IRawElementProviderSimple} Type: <b>IRawElementProviderSimple**</b>
+     * 
+     * The UI Automation provider for the windowless rich edit control's parent.
+     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-iricheditwindowlessaccessibility-createprovider
      */
     CreateProvider(pSite) {
         result := ComCall(3, this, "ptr", pSite, "ptr*", &ppProvider := 0, "HRESULT")

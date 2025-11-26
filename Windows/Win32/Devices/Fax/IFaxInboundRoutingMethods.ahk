@@ -59,9 +59,11 @@ class IFaxInboundRoutingMethods extends IDispatch{
     }
 
     /**
+     * The IFaxInboundRoutingMethods::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the IFaxInboundRoutingMethods collection.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get__newenum
+     * Address of a pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -69,10 +71,18 @@ class IFaxInboundRoutingMethods extends IDispatch{
     }
 
     /**
+     * The IFaxInboundRoutingMethods::get_Item method returns a IFaxInboundRoutingMethod object from the IFaxInboundRoutingMethods collection.
+     * @param {VARIANT} vIndex Type: <b>VARIANT</b>
      * 
-     * @param {VARIANT} vIndex 
-     * @returns {IFaxInboundRoutingMethod} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_item
+     * <b>VARIANT</b> that specifies the item to retrieve from the collection. 
+     * 
+     *                     
+     * 
+     * If this parameter is type VT_I2 or VT_I4, the parameter specifies the index of the item to retrieve from the collection. The index is 1-based. If this parameter is type VT_BSTR, the parameter is a GUID that identifies the fax routing method to retrieve. Other types are not supported.
+     * @returns {IFaxInboundRoutingMethod} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethod">IFaxInboundRoutingMethod</a>**</b>
+     * 
+     * Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethod">IFaxInboundRoutingMethod</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_item
      */
     get_Item(vIndex) {
         result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxInboundRoutingMethod := 0, "HRESULT")
@@ -80,9 +90,9 @@ class IFaxInboundRoutingMethods extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxInboundRoutingMethods::get_Count property represents the number of objects in the IFaxInboundRoutingMethods collection. This is the total number of inbound routing methods associated with the fax server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")

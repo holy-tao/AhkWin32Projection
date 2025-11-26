@@ -31,11 +31,11 @@ class IDirectManipulationManager2 extends IDirectManipulationManager{
     static VTableNames => ["CreateBehavior"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager2-createbehavior
+     * Factory method to create a behavior.
+     * @param {Pointer<Guid>} clsid CLSID of the behavior. The CLSID specifies the type of behavior.
+     * @param {Pointer<Guid>} riid The IID of the behavior interface to create.
+     * @returns {Pointer<Void>} The new behavior object that implements the specified interface.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationmanager2-createbehavior
      */
     CreateBehavior(clsid, riid) {
         result := ComCall(10, this, "ptr", clsid, "ptr", riid, "ptr*", &object := 0, "HRESULT")

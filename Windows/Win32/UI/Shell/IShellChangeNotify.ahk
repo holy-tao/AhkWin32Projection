@@ -41,12 +41,20 @@ class IShellChangeNotify extends IUnknown{
     static VTableNames => ["OnChange"]
 
     /**
+     * Informs a namespace extension that an event has taken place that affects its items.
+     * @param {Integer} lEvent Type: <b>LONG</b>
      * 
-     * @param {Integer} lEvent 
-     * @param {Pointer<ITEMIDLIST>} pidl1 
-     * @param {Pointer<ITEMIDLIST>} pidl2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellchangenotify-onchange
+     * A value that describes the event that has occurred. Typically, only one event is specified at a time. If more than one event is specified, the values contained in the <i>pidl1</i> and <i>pidl2</i> parameters must be the same, respectively, for all specified events.The <i>lEvent</i> parameter may contain one or more of the following flags.
+     * @param {Pointer<ITEMIDLIST>} pidl1 Type: <b>PCIDLIST_ABSOLUTE</b>
+     * 
+     * The first event-dependent item identifier.
+     * @param {Pointer<ITEMIDLIST>} pidl2 Type: <b>PCIDLIST_ABSOLUTE</b>
+     * 
+     * The second event-dependent item identifier.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellchangenotify-onchange
      */
     OnChange(lEvent, pidl1, pidl2) {
         result := ComCall(3, this, "int", lEvent, "ptr", pidl1, "ptr", pidl2, "HRESULT")

@@ -44,9 +44,9 @@ class IMFStreamDescriptor extends IMFAttributes{
     static VTableNames => ["GetStreamIdentifier", "GetMediaTypeHandler"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier
+     * Retrieves an identifier for the stream.
+     * @returns {Integer} Receives the stream identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier
      */
     GetStreamIdentifier() {
         result := ComCall(33, this, "uint*", &pdwStreamIdentifier := 0, "HRESULT")
@@ -54,9 +54,9 @@ class IMFStreamDescriptor extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {IMFMediaTypeHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamdescriptor-getmediatypehandler
+     * Retrieves a media type handler for the stream. The media type handler can be used to enumerate supported media types for the stream, get the current media type, and set the media type.
+     * @returns {IMFMediaTypeHandler} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediatypehandler">IMFMediaTypeHandler</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfstreamdescriptor-getmediatypehandler
      */
     GetMediaTypeHandler() {
         result := ComCall(34, this, "ptr*", &ppMediaTypeHandler := 0, "HRESULT")

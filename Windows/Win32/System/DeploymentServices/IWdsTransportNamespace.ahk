@@ -122,9 +122,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Enables an application to retrieve the type of the namespace for this object.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_type
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_type
      */
     get_Type() {
         result := ComCall(7, this, "int*", &pType := 0, "HRESULT")
@@ -132,9 +132,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the unique namespace ID for a namespace that has been registered on the server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_id
      */
     get_Id() {
         result := ComCall(8, this, "uint*", &pulId := 0, "HRESULT")
@@ -142,9 +142,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the name of the namespace.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_name
      */
     get_Name() {
         pbszName := BSTR()
@@ -153,10 +153,10 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the name of the namespace.
      * @param {BSTR} bszName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_name
      */
     put_Name(bszName) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName
@@ -166,9 +166,17 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
+     * Sets or retrieves the user-friendly name of the namespace.
+     * @remarks
+     * 
+     * This property is optional and can be set to an empty string.
+     * 
+     * 
+     * This property cannot be set on a namespace that is or has been registered.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_friendlyname
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_friendlyname
      */
     get_FriendlyName() {
         pbszFriendlyName := BSTR()
@@ -177,10 +185,18 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
+     * Sets or retrieves the user-friendly name of the namespace.
+     * @remarks
+     * 
+     * This property is optional and can be set to an empty string.
+     * 
+     * 
+     * This property cannot be set on a namespace that is or has been registered.
+     * 
      * 
      * @param {BSTR} bszFriendlyName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_friendlyname
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_friendlyname
      */
     put_FriendlyName(bszFriendlyName) {
         bszFriendlyName := bszFriendlyName is String ? BSTR.Alloc(bszFriendlyName).Value : bszFriendlyName
@@ -190,9 +206,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the description of the namespace.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_description
      */
     get_Description() {
         pbszDescription := BSTR()
@@ -201,10 +217,10 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the description of the namespace.
      * @param {BSTR} bszDescription 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_description
      */
     put_Description(bszDescription) {
         bszDescription := bszDescription is String ? BSTR.Alloc(bszDescription).Value : bszDescription
@@ -214,9 +230,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the content provider for the namespace.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_contentprovider
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_contentprovider
      */
     get_ContentProvider() {
         pbszContentProvider := BSTR()
@@ -225,10 +241,10 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the content provider for the namespace.
      * @param {BSTR} bszContentProvider 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_contentprovider
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_contentprovider
      */
     put_ContentProvider(bszContentProvider) {
         bszContentProvider := bszContentProvider is String ? BSTR.Alloc(bszContentProvider).Value : bszContentProvider
@@ -238,9 +254,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the configuration information for the content provider of the namespace.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_configuration
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_configuration
      */
     get_Configuration() {
         pbszConfiguration := BSTR()
@@ -249,10 +265,10 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Sets or retrieves the configuration information for the content provider of the namespace.
      * @param {BSTR} bszConfiguration 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_configuration
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-put_configuration
      */
     put_Configuration(bszConfiguration) {
         bszConfiguration := bszConfiguration is String ? BSTR.Alloc(bszConfiguration).Value : bszConfiguration
@@ -262,9 +278,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Returns a value that indicates whether the namespace is registered on the server.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_registered
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_registered
      */
     get_Registered() {
         result := ComCall(19, this, "short*", &pbRegistered := 0, "HRESULT")
@@ -272,9 +288,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Returns a value that indicates whether the server has saved the namespace object of a deregistered namespace in memory until all active sessions are completed or terminated.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstoned
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstoned
      */
     get_Tombstoned() {
         result := ComCall(20, this, "short*", &pbTombstoned := 0, "HRESULT")
@@ -282,9 +298,14 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
+     * Returns the UTC date and time when the server saved the namespace object of a deregistered namespace.
+     * @remarks
+     * 
+     * If the namespace has not been deregistered, this property fails with an error that indicates that the namespace is not valid at this time.
+     * 
      * 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstonetime
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstonetime
      */
     get_TombstoneTime() {
         result := ComCall(21, this, "double*", &pTombstoneTime := 0, "HRESULT")
@@ -292,9 +313,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a value that indicates whether the server has started transmitting data under this namespace.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_transmissionstarted
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_transmissionstarted
      */
     get_TransmissionStarted() {
         result := ComCall(22, this, "short*", &pbTransmissionStarted := 0, "HRESULT")
@@ -302,9 +323,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-register
+     * Registers the namespace on the server.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-register
      */
     Register() {
         result := ComCall(23, this, "HRESULT")
@@ -312,10 +333,10 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} bTerminateSessions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-deregister
+     * Deregisters the namespace on the server.
+     * @param {VARIANT_BOOL} bTerminateSessions A boolean value indicating if sessions should be terminated.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-deregister
      */
     Deregister(bTerminateSessions) {
         result := ComCall(24, this, "short", bTerminateSessions, "HRESULT")
@@ -323,9 +344,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IWdsTransportNamespace} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-clone
+     * Copies the information from this namespace object into a new, unregistered namespace object in memory.
+     * @returns {IWdsTransportNamespace} An interface pointer to a new, unregistered copy of this namespace.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-clone
      */
     Clone() {
         result := ComCall(25, this, "ptr*", &ppWdsTransportNamespaceClone := 0, "HRESULT")
@@ -333,9 +354,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-refresh
+     * Resets the property values of the namespace with values from the server.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-refresh
      */
     Refresh() {
         result := ComCall(26, this, "HRESULT")
@@ -343,9 +364,9 @@ class IWdsTransportNamespace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IWdsTransportCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-retrievecontents
+     * Retrieves a collection of active transport content objects associated with the namespace.
+     * @returns {IWdsTransportCollection} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcollection">IWdsTransportCollection</a> object that contains a collection of <a href="https://docs.microsoft.com/windows/desktop/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcontent">IWdsTransportContent</a> objects that represent active sessions under this namespace.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-retrievecontents
      */
     RetrieveContents() {
         result := ComCall(27, this, "ptr*", &ppWdsTransportContents := 0, "HRESULT")

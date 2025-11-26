@@ -41,10 +41,14 @@ class ID3D10EffectDepthStencilVariable extends ID3D10EffectVariable{
     static VTableNames => ["GetDepthStencilState", "GetBackingStore"]
 
     /**
+     * Get a pointer to a depth-stencil interface.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10DepthStencilState} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getdepthstencilstate
+     * Index into an array of depth-stencil interfaces. If there is only one depth-stencil interface, use 0.
+     * @returns {ID3D10DepthStencilState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState</a>**</b>
+     * 
+     * The address of a pointer to a blend-state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getdepthstencilstate
      */
     GetDepthStencilState(Index) {
         result := ComCall(25, this, "uint", Index, "ptr*", &ppDepthStencilState := 0, "HRESULT")
@@ -52,10 +56,14 @@ class ID3D10EffectDepthStencilVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a pointer to a variable that contains depth-stencil state.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {D3D10_DEPTH_STENCIL_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getbackingstore
+     * Index into an array of depth-stencil-state descriptions. If there is only one depth-stencil variable in the effect, use 0.
+     * @returns {D3D10_DEPTH_STENCIL_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a>*</b>
+     * 
+     * A pointer to a depth-stencil-state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getbackingstore
      */
     GetBackingStore(Index) {
         pDepthStencilDesc := D3D10_DEPTH_STENCIL_DESC()

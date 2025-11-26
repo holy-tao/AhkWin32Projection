@@ -46,10 +46,10 @@ class IBurnVerification extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-put_burnverificationlevel
+     * Sets the Burn Verification Level.
+     * @param {Integer} value Value that defines the Burn Verification Level. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iburnverification-put_burnverificationlevel
      */
     put_BurnVerificationLevel(value) {
         result := ComCall(3, this, "int", value, "HRESULT")
@@ -57,9 +57,9 @@ class IBurnVerification extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
+     * Retrieves the current Burn Verification Level.
+     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a> enumeration that specifies the current the Burn Verification Level.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
      */
     get_BurnVerificationLevel() {
         result := ComCall(4, this, "int*", &value := 0, "HRESULT")

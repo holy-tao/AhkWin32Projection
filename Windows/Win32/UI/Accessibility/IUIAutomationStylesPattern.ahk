@@ -130,9 +130,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the identifier of the visual style associated with an element in a document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstyleid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstyleid
      */
     get_CurrentStyleId() {
         result := ComCall(3, this, "int*", &retVal := 0, "HRESULT")
@@ -140,9 +140,14 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the name of the visual style associated with an element in a document.
+     * @remarks
+     * 
+     * The style name typically indicates the role of the element in the document, such as “Heading 1.”
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstylename
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstylename
      */
     get_CurrentStyleName() {
         retVal := BSTR()
@@ -151,9 +156,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the fill color of an element in a document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentfillcolor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentfillcolor
      */
     get_CurrentFillColor() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
@@ -171,9 +176,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the shape of an element in a document.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentshape
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentshape
      */
     get_CurrentShape() {
         retVal := BSTR()
@@ -182,9 +187,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the color of the pattern used to fill an element in a document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentfillpatterncolor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentfillpatterncolor
      */
     get_CurrentFillPatternColor() {
         result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
@@ -192,9 +197,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a localized string that contains the list of extended properties for an element in a document.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentextendedproperties
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentextendedproperties
      */
     get_CurrentExtendedProperties() {
         retVal := BSTR()
@@ -217,9 +222,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached identifier of the visual style associated with an element in a document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstyleid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstyleid
      */
     get_CachedStyleId() {
         result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
@@ -227,9 +232,14 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the cached name of the visual style associated with an element in a document.
+     * @remarks
+     * 
+     * The style name typically indicates the role of the element in the document, such as “Heading 1.”
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstylename
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstylename
      */
     get_CachedStyleName() {
         retVal := BSTR()
@@ -238,9 +248,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached fill color of an element in a document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedfillcolor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedfillcolor
      */
     get_CachedFillColor() {
         result := ComCall(13, this, "int*", &retVal := 0, "HRESULT")
@@ -258,9 +268,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached shape of an element in a document.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedshape
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedshape
      */
     get_CachedShape() {
         retVal := BSTR()
@@ -269,9 +279,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached color of the pattern used to fill an element in a document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedfillpatterncolor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedfillpatterncolor
      */
     get_CachedFillPatternColor() {
         result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")
@@ -279,9 +289,9 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached localized string that contains the list of extended properties for an element in a document.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedextendedproperties
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedextendedproperties
      */
     get_CachedExtendedProperties() {
         retVal := BSTR()

@@ -36,10 +36,15 @@ class ID3D11RasterizerState1 extends ID3D11RasterizerState{
     static VTableNames => ["GetDesc1"]
 
     /**
+     * Gets the description for rasterizer state that you used to create the rasterizer-state object.
+     * @remarks
      * 
-     * @param {Pointer<D3D11_RASTERIZER_DESC1>} pDesc 
+     * You use the description for rasterizer state in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11device1-createrasterizerstate1">ID3D11Device1::CreateRasterizerState1</a> method to create the rasterizer-state object.
+     * 
+     * 
+     * @param {Pointer<D3D11_RASTERIZER_DESC1>} pDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-cd3d11_rasterizer_desc1">D3D11_RASTERIZER_DESC1</a> structure that receives a description of the rasterizer state. This rasterizer state can specify forced sample count.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11rasterizerstate1-getdesc1
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11rasterizerstate1-getdesc1
      */
     GetDesc1(pDesc) {
         ComCall(8, this, "ptr", pDesc)

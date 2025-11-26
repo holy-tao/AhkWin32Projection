@@ -42,9 +42,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetFrequency", "GetOrbitalPosition", "GetWestEastFlag", "GetPolarization", "GetModulation", "GetSymbolRate", "GetFECInner"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-gettag
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the descriptor tag.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getlength
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the length of the descriptor body, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -62,9 +62,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getfrequency
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the frequency field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getfrequency
      */
     GetFrequency() {
         result := ComCall(5, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -72,9 +72,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getorbitalposition
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the orbital_position field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getorbitalposition
      */
     GetOrbitalPosition() {
         result := ComCall(6, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -82,9 +82,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getwesteastflag
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the west_east_flag field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getwesteastflag
      */
     GetWestEastFlag() {
         result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
@@ -92,9 +92,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getpolarization
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the polarization field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getpolarization
      */
     GetPolarization() {
         result := ComCall(8, this, "char*", &pbVal := 0, "HRESULT")
@@ -102,9 +102,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getmodulation
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the modulation field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getmodulation
      */
     GetModulation() {
         result := ComCall(9, this, "char*", &pbVal := 0, "HRESULT")
@@ -112,9 +112,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getsymbolrate
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the symbol_rate field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getsymbolrate
      */
     GetSymbolRate() {
         result := ComCall(10, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -122,9 +122,9 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getfecinner
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the FEC_inner field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsatellitedeliverysystemdescriptor-getfecinner
      */
     GetFECInner() {
         result := ComCall(11, this, "char*", &pbVal := 0, "HRESULT")

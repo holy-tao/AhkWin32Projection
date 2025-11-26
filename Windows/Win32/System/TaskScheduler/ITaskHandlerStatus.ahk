@@ -39,11 +39,11 @@ class ITaskHandlerStatus extends IUnknown{
     static VTableNames => ["UpdateStatus", "TaskCompleted"]
 
     /**
-     * 
-     * @param {Integer} percentComplete 
-     * @param {BSTR} statusMessage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandlerstatus-updatestatus
+     * Tells the Task Scheduler about the percentage of completion of the COM handler.
+     * @param {Integer} percentComplete A value that indicates the percentage of completion for the COM handler.
+     * @param {BSTR} statusMessage The message that is displayed in the Task Scheduler UI.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandlerstatus-updatestatus
      */
     UpdateStatus(percentComplete, statusMessage) {
         statusMessage := statusMessage is String ? BSTR.Alloc(statusMessage).Value : statusMessage
@@ -53,10 +53,10 @@ class ITaskHandlerStatus extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} taskErrCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandlerstatus-taskcompleted
+     * Tells the Task Scheduler that the COM handler is completed.
+     * @param {HRESULT} taskErrCode The error code that the Task Scheduler will raise as an event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandlerstatus-taskcompleted
      */
     TaskCompleted(taskErrCode) {
         result := ComCall(4, this, "int", taskErrCode, "HRESULT")

@@ -32,10 +32,14 @@ class ITextStoryRanges2 extends ITextStoryRanges{
     static VTableNames => ["Item2"]
 
     /**
+     * Gets an ITextRange2 object for a story, by index, in a stories collection.
+     * @param {Integer} Index Type: <b>long</b>
      * 
-     * @param {Integer} Index 
-     * @returns {ITextRange2} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges2-item2
+     * The index of the story range. The default value is 1.
+     * @returns {ITextRange2} Type: <b>ITextRange2**</b>
+     * 
+     * The range.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges2-item2
      */
     Item2(Index) {
         result := ComCall(10, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")

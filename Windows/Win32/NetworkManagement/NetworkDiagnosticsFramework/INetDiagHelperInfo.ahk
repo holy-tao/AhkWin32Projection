@@ -31,11 +31,63 @@ class INetDiagHelperInfo extends IUnknown{
     static VTableNames => ["GetAttributeInfo"]
 
     /**
+     * The GetAttributeInfo method retrieves the list of key parameters needed by the Helper Class Extension.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the array pointed to by <i>pprgAttributeInfos</i>.
+     * @param {Pointer<Pointer<HelperAttributeInfo>>} pprgAttributeInfos A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-helperattributeinfo">HelperAttributeInfo</a> structures that contain helper class key parameters.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HelperAttributeInfo>>} pprgAttributeInfos 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperinfo-getattributeinfo
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the diagnoses or repairs.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelperinfo-getattributeinfo
      */
     GetAttributeInfo(pcelt, pprgAttributeInfos) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"

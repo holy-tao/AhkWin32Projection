@@ -35,10 +35,14 @@ class IDelegateFolder extends IUnknown{
     static VTableNames => ["SetItemAlloc"]
 
     /**
+     * Provides the delegate folder an IMalloc interface used to allocate and free item IDs.
+     * @param {IMalloc} pmalloc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a>*</b>
      * 
-     * @param {IMalloc} pmalloc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idelegatefolder-setitemalloc
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idelegatefolder-setitemalloc
      */
     SetItemAlloc(pmalloc) {
         result := ComCall(3, this, "ptr", pmalloc, "HRESULT")

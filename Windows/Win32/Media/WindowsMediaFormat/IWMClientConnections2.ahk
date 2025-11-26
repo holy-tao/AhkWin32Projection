@@ -31,16 +31,16 @@ class IWMClientConnections2 extends IWMClientConnections{
     static VTableNames => ["GetClientInfo"]
 
     /**
-     * 
-     * @param {Integer} dwClientNum 
-     * @param {PWSTR} pwszNetworkAddress 
-     * @param {Pointer<Integer>} pcchNetworkAddress 
-     * @param {PWSTR} pwszPort 
-     * @param {Pointer<Integer>} pcchPort 
-     * @param {PWSTR} pwszDNSName 
-     * @param {Pointer<Integer>} pcchDNSName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmclientconnections2-getclientinfo
+     * The GetClientInfo method retrieves information about a client attached to a writer network sink.
+     * @param {Integer} dwClientNum <b>DWORD</b> containing the client number.
+     * @param {PWSTR} pwszNetworkAddress Pointer to a wide-character <b>null</b>-terminated string containing the network address of the client. Pass <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcchNetworkAddress</i>.
+     * @param {Pointer<Integer>} pcchNetworkAddress Pointer to a <b>DWORD</b> containing the size of <i>pwszNetworkAddress</i>, in wide characters. This size includes the terminating <b>null</b> character.
+     * @param {PWSTR} pwszPort Pointer to a wide-character <b>null</b>-terminated string containing the network port of the client. Pass <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcchPort</i>.
+     * @param {Pointer<Integer>} pcchPort Pointer to a <b>DWORD</b> containing the size of <i>pwszPort</i>, in wide characters. This size includes the terminating <b>null</b> character.
+     * @param {PWSTR} pwszDNSName Pointer to a wide-character <b>null</b>-terminated string containing the name of the domain name server supporting the client. Pass <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcchDNSName</i>.
+     * @param {Pointer<Integer>} pcchDNSName Pointer to a <b>DWORD</b> containing the size of <i>pwszDNSName</i>, in wide characters. This size includes the terminating <b>null</b> character.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmclientconnections2-getclientinfo
      */
     GetClientInfo(dwClientNum, pwszNetworkAddress, pcchNetworkAddress, pwszPort, pcchPort, pwszDNSName, pcchDNSName) {
         pwszNetworkAddress := pwszNetworkAddress is String ? StrPtr(pwszNetworkAddress) : pwszNetworkAddress

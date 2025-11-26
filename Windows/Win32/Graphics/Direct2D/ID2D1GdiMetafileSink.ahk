@@ -31,12 +31,20 @@ class ID2D1GdiMetafileSink extends IUnknown{
     static VTableNames => ["ProcessRecord"]
 
     /**
+     * This method is called once for each record stored in a metafile.
+     * @param {Integer} recordType Type: <b>DWORD</b>
      * 
-     * @param {Integer} recordType 
-     * @param {Pointer<Void>} recordData 
-     * @param {Integer} recordDataSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafilesink-processrecord
+     * The type of the record.
+     * @param {Pointer<Void>} recordData Type: <b>void*</b>
+     * 
+     * The data for the record.
+     * @param {Integer} recordDataSize Type: <b>UINT</b>
+     * 
+     * The byte size of the record data.
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * Return true if the record is successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1gdimetafilesink-processrecord
      */
     ProcessRecord(recordType, recordData, recordDataSize) {
         recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"

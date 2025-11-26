@@ -50,9 +50,9 @@ class IATSCComponentType extends IMPEG2ComponentType{
     }
 
     /**
-     * 
+     * The get_Flags method queries whether an audio component is in AC-3 format.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsccomponenttype-get_flags
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsccomponenttype-get_flags
      */
     get_Flags() {
         result := ComCall(28, this, "int*", &Flags := 0, "HRESULT")
@@ -60,10 +60,10 @@ class IATSCComponentType extends IMPEG2ComponentType{
     }
 
     /**
-     * 
+     * The put_Flags method specifies whether an audio component is in AC-3 format.
      * @param {Integer} flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsccomponenttype-put_flags
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsccomponenttype-put_flags
      */
     put_Flags(flags) {
         result := ComCall(29, this, "int", flags, "HRESULT")

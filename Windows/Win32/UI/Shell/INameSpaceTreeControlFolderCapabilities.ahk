@@ -37,10 +37,14 @@ class INameSpaceTreeControlFolderCapabilities extends IUnknown{
     static VTableNames => ["GetFolderCapabilities"]
 
     /**
+     * Gets a folder's capability to be filtered through the System.IsPinnedToNameSpaceTree property key value and change notification registration status.
+     * @param {Integer} nfcMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a></b>
      * 
-     * @param {Integer} nfcMask 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrolfoldercapabilities-getfoldercapabilities
+     * The capabilities for which this method should retrieve values. Specify one or both of the following:
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a>*</b>
+     * 
+     * Pointer to a value that, when this method returns successfully, receives the capabilities requested in <i>nfcMask</i>. Except in the case of NSTCFC_NONE, bit values in positions not specifically requested in <i>nfcMask</i> do not necessarily reflect the capabilities and should not be used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacetreecontrolfoldercapabilities-getfoldercapabilities
      */
     GetFolderCapabilities(nfcMask) {
         result := ComCall(3, this, "int", nfcMask, "int*", &pnfcValue := 0, "HRESULT")

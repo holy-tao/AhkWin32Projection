@@ -40,10 +40,14 @@ class ICommDlgBrowser extends IUnknown{
     static VTableNames => ["OnDefaultCommand", "OnStateChange", "IncludeObject"]
 
     /**
+     * Called when a user double-clicks in the view or presses the ENTER key.
+     * @param {IShellView} ppshv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} ppshv 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser-ondefaultcommand
+     * A pointer to the view's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icommdlgbrowser-ondefaultcommand
      */
     OnDefaultCommand(ppshv) {
         result := ComCall(3, this, "ptr", ppshv, "HRESULT")
@@ -51,11 +55,15 @@ class ICommDlgBrowser extends IUnknown{
     }
 
     /**
+     * Called after a state, identified by the uChange parameter, has changed in the IShellView interface.
+     * @param {IShellView} ppshv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} ppshv 
-     * @param {Integer} uChange 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser-onstatechange
+     * A pointer to the view's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface.
+     * @param {Integer} uChange Type: <b>ULONG</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icommdlgbrowser-onstatechange
      */
     OnStateChange(ppshv, uChange) {
         result := ComCall(4, this, "ptr", ppshv, "uint", uChange, "HRESULT")
@@ -63,11 +71,17 @@ class ICommDlgBrowser extends IUnknown{
     }
 
     /**
+     * Allows the common dialog box to filter objects that the view displays.
+     * @param {IShellView} ppshv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} ppshv 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser-includeobject
+     * A pointer to the view's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>LPCITEMIDLIST</b>
+     * 
+     * A PIDL, relative to the folder, that identifies the object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The browser should return S_OK to include the object in the view, or S_FALSE to hide it.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icommdlgbrowser-includeobject
      */
     IncludeObject(ppshv, pidl) {
         result := ComCall(5, this, "ptr", ppshv, "ptr", pidl, "HRESULT")

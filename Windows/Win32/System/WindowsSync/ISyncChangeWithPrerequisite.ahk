@@ -37,9 +37,9 @@ class ISyncChangeWithPrerequisite extends IUnknown{
     static VTableNames => ["GetPrerequisiteKnowledge", "GetLearnedKnowledgeWithPrerequisite"]
 
     /**
-     * 
-     * @returns {ISyncKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangewithprerequisite-getprerequisiteknowledge
+     * Gets the minimum knowledge that a destination provider is required to have to process this change.
+     * @returns {ISyncKnowledge} The minimum knowledge that a destination provider is required to have to process this change.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangewithprerequisite-getprerequisiteknowledge
      */
     GetPrerequisiteKnowledge() {
         result := ComCall(3, this, "ptr*", &ppPrerequisiteKnowledge := 0, "HRESULT")
@@ -47,10 +47,10 @@ class ISyncChangeWithPrerequisite extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @returns {ISyncKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangewithprerequisite-getlearnedknowledgewithprerequisite
+     * Gets the knowledge that the destination replica learns when the destination provider applies this change, based on the prerequisite knowledge that is associated with the change.
+     * @param {ISyncKnowledge} pDestinationKnowledge The knowledge of a change unit that is contained in this change is not added to the returned learned knowledge when <i>pDestinationKnowledge</i> contains the prerequisite knowledge for the change unit.
+     * @returns {ISyncKnowledge} The knowledge that the destination replica learns when the destination provider applies this change, based on the prerequisite knowledge that is associated with the change.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangewithprerequisite-getlearnedknowledgewithprerequisite
      */
     GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge) {
         result := ComCall(4, this, "ptr", pDestinationKnowledge, "ptr*", &ppLearnedKnowledgeWithPrerequisite := 0, "HRESULT")

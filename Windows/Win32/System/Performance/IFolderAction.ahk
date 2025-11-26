@@ -70,9 +70,14 @@ class IFolderAction extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the interval to wait between applying the actions.
+     * @remarks
+     * 
+     * The time is determined by the age of the folder.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_age
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-get_age
      */
     get_Age() {
         result := ComCall(7, this, "uint*", &pulAge := 0, "HRESULT")
@@ -80,10 +85,15 @@ class IFolderAction extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the interval to wait between applying the actions.
+     * @remarks
+     * 
+     * The time is determined by the age of the folder.
+     * 
      * 
      * @param {Integer} ulAge 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_age
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-put_age
      */
     put_Age(ulAge) {
         result := ComCall(8, this, "uint", ulAge, "HRESULT")
@@ -91,9 +101,9 @@ class IFolderAction extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the minimum folder size that, when exceeded, initiates the actions.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_size
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-get_size
      */
     get_Size() {
         result := ComCall(9, this, "uint*", &pulAge := 0, "HRESULT")
@@ -101,10 +111,10 @@ class IFolderAction extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the minimum folder size that, when exceeded, initiates the actions.
      * @param {Integer} ulAge 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_size
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-put_size
      */
     put_Size(ulAge) {
         result := ComCall(10, this, "uint", ulAge, "HRESULT")
@@ -112,9 +122,9 @@ class IFolderAction extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the actions that the data manager is to take if both conditions (age and size) are met.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_actions
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-get_actions
      */
     get_Actions() {
         result := ComCall(11, this, "int*", &Steps := 0, "HRESULT")
@@ -122,10 +132,10 @@ class IFolderAction extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the actions that the data manager is to take if both conditions (age and size) are met.
      * @param {Integer} Steps 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_actions
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-put_actions
      */
     put_Actions(Steps) {
         result := ComCall(12, this, "int", Steps, "HRESULT")
@@ -133,9 +143,14 @@ class IFolderAction extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the destination of the cabinet file if the action is to send a cabinet file.
+     * @remarks
+     * 
+     * The data manager does not fail if it is not able to send the file.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_sendcabto
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-get_sendcabto
      */
     get_SendCabTo() {
         pbstrDestination := BSTR()
@@ -144,10 +159,15 @@ class IFolderAction extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the destination of the cabinet file if the action is to send a cabinet file.
+     * @remarks
+     * 
+     * The data manager does not fail if it is not able to send the file.
+     * 
      * 
      * @param {BSTR} bstrDestination 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_sendcabto
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderaction-put_sendcabto
      */
     put_SendCabTo(bstrDestination) {
         bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination

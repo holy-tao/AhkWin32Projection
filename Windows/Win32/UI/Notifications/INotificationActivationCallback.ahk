@@ -31,13 +31,13 @@ class INotificationActivationCallback extends IUnknown{
     static VTableNames => ["Activate"]
 
     /**
-     * 
-     * @param {PWSTR} appUserModelId 
-     * @param {PWSTR} invokedArgs 
-     * @param {Pointer<NOTIFICATION_USER_INPUT_DATA>} data 
-     * @param {Integer} count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/notificationactivationcallback/nf-notificationactivationcallback-inotificationactivationcallback-activate
+     * Called when a user interacts with a toast in the action center.
+     * @param {PWSTR} appUserModelId The unique identifier representing your app to the notification platform.
+     * @param {PWSTR} invokedArgs Arguments from the invoked button. <b>NULL</b> if the toast indicates the default activation and no launch arguments were specified in the XML payload.
+     * @param {Pointer<NOTIFICATION_USER_INPUT_DATA>} data The data from the input elements available on the notification toast.
+     * @param {Integer} count The number of <i>data</i> elements.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//notificationactivationcallback/nf-notificationactivationcallback-inotificationactivationcallback-activate
      */
     Activate(appUserModelId, invokedArgs, data, count) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId

@@ -38,10 +38,39 @@ class ITfEditSession extends IUnknown{
     static VTableNames => ["DoEditSession"]
 
     /**
+     * ITfEditSession::DoEditSession method
+     * @param {Integer} ec Contains a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfeditcookie">TfEditCookie</a> value that uniquely identifies the edit session. This cookie is used to access the context with methods such as <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-gettext">ITfRange::GetText</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ec 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfeditsession-doeditsession
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfeditsession-doeditsession
      */
     DoEditSession(ec) {
         result := ComCall(3, this, "uint", ec, "HRESULT")

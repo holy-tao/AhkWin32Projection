@@ -31,11 +31,11 @@ class IXpsOMPackageWriter3D extends IXpsOMPackageWriter{
     static VTableNames => ["AddModelTexture", "SetModelPrintTicket"]
 
     /**
-     * 
-     * @param {IOpcPartUri} texturePartName 
-     * @param {IStream} textureData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-addmodeltexture
+     * Creates a new 3D model texture from the specified texture part and stream.
+     * @param {IOpcPartUri} texturePartName The Open Package Convention (OPC)  name of the texture part. This part is added to the package and becomes a relationship target of the model part.
+     * @param {IStream} textureData A readable stream which holds 3D model texture. When calling this method, you must provide PNG or JPEG data.
+     * @returns {HRESULT} Returns the appropriate HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-addmodeltexture
      */
     AddModelTexture(texturePartName, textureData) {
         result := ComCall(8, this, "ptr", texturePartName, "ptr", textureData, "HRESULT")
@@ -43,11 +43,11 @@ class IXpsOMPackageWriter3D extends IXpsOMPackageWriter{
     }
 
     /**
-     * 
-     * @param {IOpcPartUri} printTicketPartName 
-     * @param {IStream} printTicketData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-setmodelprintticket
+     * Creates a print ticket with the specified part.
+     * @param {IOpcPartUri} printTicketPartName The part is added to package and becomes a target of relationship from model part.
+     * @param {IStream} printTicketData A readable stream that  holds the 3D model print ticket.
+     * @returns {HRESULT} Returns the appropriate HRESULT error code. Calling this method more than once per package writer returns the error XPS_E_MULTIPLE_PRINTICKETS_ON_DOCUMENT.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-setmodelprintticket
      */
     SetModelPrintTicket(printTicketPartName, printTicketData) {
         result := ComCall(9, this, "ptr", printTicketPartName, "ptr", printTicketData, "HRESULT")

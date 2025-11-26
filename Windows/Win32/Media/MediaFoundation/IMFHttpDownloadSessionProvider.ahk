@@ -32,10 +32,10 @@ class IMFHttpDownloadSessionProvider extends IUnknown{
     static VTableNames => ["CreateHttpDownloadSession"]
 
     /**
-     * 
-     * @param {PWSTR} wszScheme 
-     * @returns {IMFHttpDownloadSession} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadsessionprovider-createhttpdownloadsession
+     * Called by the Microsoft Media Foundation to open HTTP or HTTPS URLs instead of using the default implementation.
+     * @param {PWSTR} wszScheme The name of the protocol to for which an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadsession">IMFHttpDownloadSession</a> is being requested.  Microsoft Media Foundation specifies the protocol scheme of the URL that the application provided the Media Foundation Source Resolver. Valid values include “http” for HTTP, and “https” for HTTPS. URL scheme names are generally not case-sensitive.
+     * @returns {IMFHttpDownloadSession} On successful execution, the parameter is set to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadsession">IMFHttpDownloadSession</a> interface. The returned interface is used by Microsoft Media Foundation to open a single HTTP or HTTPS URL.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsessionprovider-createhttpdownloadsession
      */
     CreateHttpDownloadSession(wszScheme) {
         wszScheme := wszScheme is String ? StrPtr(wszScheme) : wszScheme

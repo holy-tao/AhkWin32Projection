@@ -37,9 +37,9 @@ class IMFMediaSourceEx extends IMFMediaSource{
     static VTableNames => ["GetSourceAttributes", "GetStreamAttributes", "SetD3DManager"]
 
     /**
-     * 
-     * @returns {IMFAttributes} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourceex-getsourceattributes
+     * Gets an attribute store for the media source.
+     * @returns {IMFAttributes} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourceex-getsourceattributes
      */
     GetSourceAttributes() {
         result := ComCall(13, this, "ptr*", &ppAttributes := 0, "HRESULT")
@@ -47,10 +47,10 @@ class IMFMediaSourceEx extends IMFMediaSource{
     }
 
     /**
-     * 
-     * @param {Integer} dwStreamIdentifier 
-     * @returns {IMFAttributes} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourceex-getstreamattributes
+     * Gets an attribute store for a stream on the media source.
+     * @param {Integer} dwStreamIdentifier The identifier of the stream. To get the identifier, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier">IMFStreamDescriptor::GetStreamIdentifier</a> on the stream descriptor.
+     * @returns {IMFAttributes} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourceex-getstreamattributes
      */
     GetStreamAttributes(dwStreamIdentifier) {
         result := ComCall(14, this, "uint", dwStreamIdentifier, "ptr*", &ppAttributes := 0, "HRESULT")
@@ -58,10 +58,39 @@ class IMFMediaSourceEx extends IMFMediaSource{
     }
 
     /**
+     * Sets a pointer to the Microsoft DirectX Graphics Infrastructure (DXGI) Device Manager on the media source.
+     * @param {IUnknown} pManager A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the DXGI Manager. The media source should query this pointer for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> interface.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IUnknown} pManager 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourceex-setd3dmanager
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The media source does not support source-level attributes.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourceex-setd3dmanager
      */
     SetD3DManager(pManager) {
         result := ComCall(15, this, "ptr", pManager, "HRESULT")

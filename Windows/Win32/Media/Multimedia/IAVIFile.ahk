@@ -32,11 +32,11 @@ class IAVIFile extends IUnknown{
     static VTableNames => ["Info", "GetStream", "CreateStream", "WriteData", "ReadData", "EndRecord", "DeleteStream"]
 
     /**
-     * 
-     * @param {Pointer} pfi 
-     * @param {Integer} lSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-info
+     * The Info method returns with information about an AVI file. Called when an application uses the AVIFileInfo function.
+     * @param {Pointer} pfi A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure. The method fills the structure with information about the file.
+     * @param {Integer} lSize The size, in bytes, of the buffer specified by <i>pfi</i>.
+     * @returns {HRESULT} Returns the HRESULT defined by OLE.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavifile-info
      */
     Info(pfi, lSize) {
         result := ComCall(3, this, "ptr", pfi, "int", lSize, "HRESULT")
@@ -44,11 +44,11 @@ class IAVIFile extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} fccType 
-     * @param {Integer} lParam 
-     * @returns {IAVIStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-getstream
+     * The GetStream method opens a stream by accessing it in a file. Called when an application uses the AVIFileGetStream function.
+     * @param {Integer} fccType Four-character code indicating the type of stream to locate.
+     * @param {Integer} lParam Stream number.
+     * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to a stream.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavifile-getstream
      */
     GetStream(fccType, lParam) {
         result := ComCall(4, this, "ptr*", &ppStream := 0, "uint", fccType, "int", lParam, "HRESULT")
@@ -56,10 +56,10 @@ class IAVIFile extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<AVISTREAMINFOW>} psi 
-     * @returns {IAVIStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-createstream
+     * The CreateStream method creates a stream for writing. Called when an application uses the AVIFileCreateStream function.
+     * @param {Pointer<AVISTREAMINFOW>} psi Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure defining the stream to create.
+     * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to the new stream.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavifile-createstream
      */
     CreateStream(psi) {
         result := ComCall(5, this, "ptr*", &ppStream := 0, "ptr", psi, "HRESULT")
@@ -67,12 +67,12 @@ class IAVIFile extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ckid 
-     * @param {Pointer} lpData 
-     * @param {Integer} cbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-writedata
+     * The WriteData method writes file headers. Called when an application uses the AVIFileWriteData function.
+     * @param {Integer} ckid A chunk ID.
+     * @param {Pointer} lpData A pointer specifying the memory from which the data is written.
+     * @param {Integer} cbData A LONG specifying the number of bytes to write.
+     * @returns {HRESULT} Returns the HRESULT defined by OLE.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavifile-writedata
      */
     WriteData(ckid, lpData, cbData) {
         result := ComCall(6, this, "uint", ckid, "ptr", lpData, "int", cbData, "HRESULT")
@@ -80,12 +80,12 @@ class IAVIFile extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ckid 
-     * @param {Pointer} lpData 
-     * @param {Pointer<Integer>} lpcbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-readdata
+     * The ReadData method reads file headers. Called when an application uses the AVIFileReadData function.
+     * @param {Integer} ckid A chunk identfier.
+     * @param {Pointer} lpData A pointer specifying the memory into which the data is read.
+     * @param {Pointer<Integer>} lpcbData A pointer to a LONG specifying the number of bytes read.
+     * @returns {HRESULT} Returns the HRESULT defined by OLE.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavifile-readdata
      */
     ReadData(ckid, lpData, lpcbData) {
         lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
@@ -95,9 +95,9 @@ class IAVIFile extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-endrecord
+     * The EndRecord method writes the &quot;REC&quot; chunk in a tightly interleaved AVI file (having a one-to-one interleave factor of audio to video). Called when an application uses the AVIFileEndRecord function.
+     * @returns {HRESULT} Returns the HRESULT defined by OLE.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavifile-endrecord
      */
     EndRecord() {
         result := ComCall(8, this, "HRESULT")

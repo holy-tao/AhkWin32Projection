@@ -36,10 +36,10 @@ class IMSVidEVREvent extends IMSVidOutputDeviceEvent{
     static VTableNames => ["OnUserEvent"]
 
     /**
-     * 
-     * @param {Integer} lEventCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevrevent-onuserevent
+     * This topic applies to Windows Vista or later.
+     * @param {Integer} lEventCode Event code.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidevrevent-onuserevent
      */
     OnUserEvent(lEventCode) {
         result := ComCall(8, this, "int", lEventCode, "HRESULT")

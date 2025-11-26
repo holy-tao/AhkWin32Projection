@@ -36,12 +36,18 @@ class IUIAutomationPatternInstance extends IUnknown{
     static VTableNames => ["GetProperty", "CallMethod"]
 
     /**
+     * The client wrapper object implements the IUIAutomation::get_CurrentX and IUIAutomationElement::get_CachedX methods by calling this function, specifying the property by index.
+     * @param {Integer} index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} index 
-     * @param {BOOL} cached 
+     * The index of the property.
+     * @param {BOOL} cached Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * <b>TRUE</b> if the property should be retrieved from the cache, otherwise <b>FALSE</b>.
      * @param {Integer} type 
-     * @returns {Void} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-getproperty
+     * @returns {Void} Type: <b>void*</b>
+     * 
+     * Receives the value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-getproperty
      */
     GetProperty(index, cached, type) {
         result := ComCall(3, this, "uint", index, "int", cached, "int", type, "ptr", &pPtr := 0, "HRESULT")
@@ -49,12 +55,20 @@ class IUIAutomationPatternInstance extends IUnknown{
     }
 
     /**
+     * Client wrapper implements methods by calling this CallMethod function, specifying the parameters as an array of pointers.
+     * @param {Integer} index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} index 
-     * @param {Pointer<UIAutomationParameter>} pParams 
-     * @param {Integer} cParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-callmethod
+     * The index of the method.
+     * @param {Pointer<UIAutomationParameter>} pParams Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationparameter">UIAutomationParameter</a>*</b>
+     * 
+     *  A pointer to an array of structures describing the parameters.
+     * @param {Integer} cParams Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The count of parameters in <i>pParams</i>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-callmethod
      */
     CallMethod(index, pParams, cParams) {
         result := ComCall(4, this, "uint", index, "ptr", pParams, "uint", cParams, "HRESULT")

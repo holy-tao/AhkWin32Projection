@@ -52,9 +52,9 @@ class IUpdateInstallationResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the HRESULT exception value that is raised during the operation on an update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstallationresult-get_hresult
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstallationresult-get_hresult
      */
     get_HResult() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -62,9 +62,9 @@ class IUpdateInstallationResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether a system restart is required on a computer to complete the installation of an update.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstallationresult-get_rebootrequired
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstallationresult-get_rebootrequired
      */
     get_RebootRequired() {
         result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
@@ -72,9 +72,9 @@ class IUpdateInstallationResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an OperationResultCode value that specifies the result of an operation on an update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstallationresult-get_resultcode
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstallationresult-get_resultcode
      */
     get_ResultCode() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")

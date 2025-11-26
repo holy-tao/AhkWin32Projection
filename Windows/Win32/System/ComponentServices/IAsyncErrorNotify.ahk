@@ -31,10 +31,10 @@ class IAsyncErrorNotify extends IUnknown{
     static VTableNames => ["OnError"]
 
     /**
-     * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iasyncerrornotify-onerror
+     * Called by COM+ when an error occurs in your asynchronous batch work.
+     * @param {HRESULT} hr The <b>HRESULT</b> value of the error that occurred while your batch work was running asynchronously.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iasyncerrornotify-onerror
      */
     OnError(hr) {
         result := ComCall(3, this, "int", hr, "HRESULT")

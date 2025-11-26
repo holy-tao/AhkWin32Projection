@@ -31,10 +31,10 @@ class IServiceActivity extends IUnknown{
     static VTableNames => ["SynchronousCall", "AsynchronousCall", "BindToCurrentThread", "UnbindFromThread"]
 
     /**
-     * 
-     * @param {IServiceCall} pIServiceCall 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceactivity-synchronouscall
+     * Performs the user-defined work synchronously.
+     * @param {IServiceCall} pIServiceCall A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iservicecall">IServiceCall</a> interface that is used to implement the batch work.
+     * @returns {HRESULT} This method always returns the <b>HRESULT</b> value returned by the <a href="/windows/desktop/api/comsvcs/nf-comsvcs-iservicecall-oncall">OnCall</a> method of the <a href="/windows/desktop/api/comsvcs/nn-comsvcs-iservicecall">IServiceCall</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceactivity-synchronouscall
      */
     SynchronousCall(pIServiceCall) {
         result := ComCall(3, this, "ptr", pIServiceCall, "HRESULT")
@@ -42,10 +42,40 @@ class IServiceActivity extends IUnknown{
     }
 
     /**
+     * Performs the user-defined work asynchronously.
+     * @param {IServiceCall} pIServiceCall A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iservicecall">IServiceCall</a> interface that is used to implement the batch work.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
-     * @param {IServiceCall} pIServiceCall 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceactivity-asynchronouscall
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The batch work was accepted by the activity to run asynchronously. This return value does not necessarily mean that the batch work successfully completed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CO_E_ASYNC_WORK_REJECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The batch work cannot be added to the asynchronous work queue of the activity.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceactivity-asynchronouscall
      */
     AsynchronousCall(pIServiceCall) {
         result := ComCall(4, this, "ptr", pIServiceCall, "HRESULT")
@@ -53,9 +83,9 @@ class IServiceActivity extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceactivity-bindtocurrentthread
+     * Binds the user-defined batch work to the current thread.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceactivity-bindtocurrentthread
      */
     BindToCurrentThread() {
         result := ComCall(5, this, "HRESULT")
@@ -63,9 +93,9 @@ class IServiceActivity extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceactivity-unbindfromthread
+     * Unbinds the user-defined batch work from the thread on which it is running.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceactivity-unbindfromthread
      */
     UnbindFromThread() {
         result := ComCall(6, this, "HRESULT")

@@ -32,12 +32,19 @@ class IWMDMEnumStorage extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * The Next method retrieves a pointer to the next sibling storage.
+     * @param {Integer} celt Number of storages requested.
+     * @param {Pointer<IWMDMStorage>} ppStorage Pointer to caller-allocated array of <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorage">IWMDMStorage</a> interface pointers. The size of this array must be <b>IWMDMStorage</b> *[celt]. The caller must release these interfaces when done with them. To avoid allocating a whole array, simply pass in the address of a pointer to an <b>IWMDMStorage</b> interface, as shown in Remarks.
+     * @param {Pointer<Integer>} pceltFetched Number of storages enumerated.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<IWMDMStorage>} ppStorage 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-next
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-next
      */
     Next(celt, ppStorage, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +54,10 @@ class IWMDMEnumStorage extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-skip
+     * The Skip method skips over the specified number of storages in the enumeration sequence.
+     * @param {Integer} celt The number of storages to skip.
+     * @returns {Integer} The number of storages skipped.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "HRESULT")
@@ -58,9 +65,16 @@ class IWMDMEnumStorage extends IUnknown{
     }
 
     /**
+     * The Reset method sets the enumeration sequence back to the beginning.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-reset
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +82,9 @@ class IWMDMEnumStorage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IWMDMEnumStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-clone
+     * The Clone method creates another enumerator with the same enumeration state as the current enumerator.
+     * @returns {IWMDMEnumStorage} An <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmenumstorage">IWMDMEnumStorage</a> interface of the cloned enumerator. The caller must release this interface when done with it.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnumStorage := 0, "HRESULT")

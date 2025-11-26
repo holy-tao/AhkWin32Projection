@@ -38,13 +38,16 @@ class IPrintDocumentPackageTargetFactory extends IUnknown{
     static VTableNames => ["CreateDocumentPackageTargetForPrintJob"]
 
     /**
+     * Acts as the entry point for creating an IPrintDocumentPackageTarget object.
+     * @param {PWSTR} printerName The name of the target printer.
+     * @param {PWSTR} jobName The name to apply to the job.
      * 
-     * @param {PWSTR} printerName 
-     * @param {PWSTR} jobName 
-     * @param {IStream} jobOutputStream 
-     * @param {IStream} jobPrintTicketStream 
-     * @returns {IPrintDocumentPackageTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetargetfactory-createdocumentpackagetargetforprintjob
+     * <div class="alert"><b>Note</b>  Job name strings longer than 63 characters will be truncated to 63 characters and a terminating <b>NULL</b>.</div>
+     * <div> </div>
+     * @param {IStream} jobOutputStream The job content. The application must set the seek pointer to the beginning before specifying the job output stream.
+     * @param {IStream} jobPrintTicketStream A pointer to the <b>IStream</b> interface that is used by the caller to write the job-level print ticket that will be associated with this job.
+     * @returns {IPrintDocumentPackageTarget} The target output.
+     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetargetfactory-createdocumentpackagetargetforprintjob
      */
     CreateDocumentPackageTargetForPrintJob(printerName, jobName, jobOutputStream, jobPrintTicketStream) {
         printerName := printerName is String ? StrPtr(printerName) : printerName

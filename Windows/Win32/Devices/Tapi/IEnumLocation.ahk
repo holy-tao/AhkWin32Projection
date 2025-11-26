@@ -33,11 +33,12 @@ class IEnumLocation extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {ITLocationInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumlocation-next
+     * The Next method gets the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * @param {Integer} celt Number of elements requested.
+     * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
+     * @returns {ITLocationInfo} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itlocationinfo">ITLocationInfo</a> pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumlocation-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,9 +48,38 @@ class IEnumLocation extends IUnknown{
     }
 
     /**
+     * The Reset method resets to the beginning of the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumlocation-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumlocation-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -57,10 +87,50 @@ class IEnumLocation extends IUnknown{
     }
 
     /**
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * @param {Integer} celt Number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumlocation-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was not <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumlocation-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -68,9 +138,10 @@ class IEnumLocation extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumLocation} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumlocation-clone
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. This method is hidden from Visual Basic and scripting languages.
+     * @returns {IEnumLocation} Pointer to new 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumlocation">IEnumLocation</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumlocation-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

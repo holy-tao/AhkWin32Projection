@@ -39,9 +39,9 @@ class IExecuteCommandHost extends IUnknown{
     static VTableNames => ["GetUIMode"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandhost-getuimode
+     * Enables an IExplorerCommand-based Shell verb handler to query the UI mode of the host component from which the application was invoked..
+     * @returns {Integer} Type: <b>EC_HOST_UI_MODE*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexecutecommandhost-getuimode
      */
     GetUIMode() {
         result := ComCall(3, this, "int*", &pUIMode := 0, "HRESULT")

@@ -36,10 +36,28 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2{
     static VTableNames => ["SetStartRecConfig", "GetStartRecConfig", "SetNamespace", "GetNamespace"]
 
     /**
+     * The SetStartRecConfig method specifies whether the IStreamBufferRecordControl::Start method automatically stops the current recording.
+     * @param {BOOL} fStartStopsCur If <b>TRUE</b>, the <b>Start</b> method automatically stops the current recording. Otherwise, the <b>Start</b> method fails if another recording is in progress. The default value is <b>FALSE</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} fStartStopsCur 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-setstartrecconfig
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure3-setstartrecconfig
      */
     SetStartRecConfig(fStartStopsCur) {
         result := ComCall(13, this, "int", fStartStopsCur, "HRESULT")
@@ -47,9 +65,9 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-getstartrecconfig
+     * The GetStartRecConfig method queries whether the IStreamBufferRecordControl::Start method automatically stops the current recording.
+     * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, the <b>Start</b> method automatically stops the current recording. Otherwise, the <b>Start</b> method fails if another recording is in progress.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure3-getstartrecconfig
      */
     GetStartRecConfig() {
         result := ComCall(14, this, "int*", &pfStartStopsCur := 0, "HRESULT")
@@ -57,10 +75,44 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2{
     }
 
     /**
+     * The SetNamespace method specifies a prefix that is added to the names of the synchronization objects that the Stream Buffer Engine uses to synchronize the reader and writer.
+     * @param {PWSTR} pszNamespace Pointer to a null-terminated wide character string. If <b>NULL</b>, no prefix is used. Currently, the following values are supported.
      * 
-     * @param {PWSTR} pszNamespace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-setnamespace
+     * <ul>
+     * <li>L"Global"</li>
+     * <li><b>NULL</b></li>
+     * </ul>
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CO_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified prefix is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure3-setnamespace
      */
     SetNamespace(pszNamespace) {
         pszNamespace := pszNamespace is String ? StrPtr(pszNamespace) : pszNamespace
@@ -70,9 +122,9 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-getnamespace
+     * The GetNamespace method retrieves the prefix that is added to the names of the synchronization objects that the Stream Buffer Engine uses to synchronize the reader and writer.
+     * @returns {PWSTR} Receives a pointer to a null-terminated, wide-character string. The caller must free the string by calling <b>CoTaskMemFree</b>. If no prefix is defined, this variable receives a <b>NULL</b> pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure3-getnamespace
      */
     GetNamespace() {
         result := ComCall(16, this, "ptr*", &ppszNamespace := 0, "HRESULT")

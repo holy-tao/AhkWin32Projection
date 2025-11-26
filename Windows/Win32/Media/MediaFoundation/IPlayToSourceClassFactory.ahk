@@ -37,11 +37,11 @@ class IPlayToSourceClassFactory extends IUnknown{
     static VTableNames => ["CreateInstance"]
 
     /**
-     * 
-     * @param {Integer} dwFlags 
-     * @param {IPlayToControl} pControl 
-     * @returns {IInspectable} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytosourceclassfactory-createinstance
+     * Creates an instance of the PlayToController object.
+     * @param {Integer} dwFlags A bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/ne-mfsharingengine-playto_source_createflags">PLAYTO_SOURCE_CREATEFLAGS</a> enumeration.
+     * @param {IPlayToControl} pControl A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/nn-mfsharingengine-iplaytocontrol">IPlayToControl</a> interface.
+     * @returns {IInspectable} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-iplaytosourceclassfactory-createinstance
      */
     CreateInstance(dwFlags, pControl) {
         result := ComCall(3, this, "uint", dwFlags, "ptr", pControl, "ptr*", &ppSource := 0, "HRESULT")

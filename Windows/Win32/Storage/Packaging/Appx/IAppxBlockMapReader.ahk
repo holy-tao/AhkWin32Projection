@@ -46,10 +46,14 @@ class IAppxBlockMapReader extends IUnknown{
     static VTableNames => ["GetFile", "GetFiles", "GetHashMethod", "GetStream"]
 
     /**
+     * Retrieves data corresponding to a file in the block map with the specified file name.
+     * @param {PWSTR} filename Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} filename 
-     * @returns {IAppxBlockMapFile} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfile
+     * The name of the file.
+     * @returns {IAppxBlockMapFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfile">IAppxBlockMapFile</a>**</b>
+     * 
+     * The data about the file's attributes and blocks.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapreader-getfile
      */
     GetFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
@@ -59,9 +63,11 @@ class IAppxBlockMapReader extends IUnknown{
     }
 
     /**
+     * Retrieves an enumerator for traversing the files listed in the block map.
+     * @returns {IAppxBlockMapFilesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfilesenumerator">IAppxBlockMapFilesEnumerator</a>**</b>
      * 
-     * @returns {IAppxBlockMapFilesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfiles
+     * The enumerator of all the files listed in the block map.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapreader-getfiles
      */
     GetFiles() {
         result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")
@@ -69,9 +75,11 @@ class IAppxBlockMapReader extends IUnknown{
     }
 
     /**
+     * Retrieves the URI for the hash algorithm used to create block hashes in the block map.
+     * @returns {IUri} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a>**</b>
      * 
-     * @returns {IUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-gethashmethod
+     * The hash algorithm used in this block map.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapreader-gethashmethod
      */
     GetHashMethod() {
         result := ComCall(5, this, "ptr*", &hashMethod := 0, "HRESULT")
@@ -79,9 +87,11 @@ class IAppxBlockMapReader extends IUnknown{
     }
 
     /**
+     * Retrieves a read-only stream that represents the XML content of the block map.
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getstream
+     * A read-only stream that represents the XML content of the block map.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapreader-getstream
      */
     GetStream() {
         result := ComCall(6, this, "ptr*", &blockMapStream := 0, "HRESULT")

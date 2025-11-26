@@ -60,13 +60,15 @@ class IX509AttributeClientId extends IX509Attribute{
     }
 
     /**
+     * Initializes the attribute from information about the user, client computer, and application that submitted the certificate request.
+     * @param {Integer} ClientId A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-requestclientinfoclientid">RequestClientInfoClientId</a> enumeration value that identifies the type of application that created the request. Examples include autoenrollment services, command-line request tools, and custom request applications.
+     * @param {BSTR} strMachineDnsName A <b>BSTR</b> variable that contains the Domain Name System (DNS) name of the computer on which the request was created, for example <i>ComputerName.contoso.com</i>. If you do not supply a name, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexa">GetComputerNameEx</a> function. If a name cannot be found, the method fails.
+     * @param {BSTR} strUserSamName A <b>BSTR</b> variable that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Security Accounts Manager</a> (SAM) name for the user in the form <i>DomainName\UserName</i>. If you do not supply a name, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function. If a name cannot be found, the method fails.
+     * @param {BSTR} strProcessName A <b>BSTR</b> variable that contains the name of the application that created the certificate request. If you do not supply a name, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/processenv/nf-processenv-getcommandlinea">GetCommandLine()</a> function and parses the command line. If a name cannot be found, the method fails.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} ClientId 
-     * @param {BSTR} strMachineDnsName 
-     * @param {BSTR} strUserSamName 
-     * @param {BSTR} strProcessName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-initializeencode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributeclientid-initializeencode
      */
     InitializeEncode(ClientId, strMachineDnsName, strUserSamName, strProcessName) {
         strMachineDnsName := strMachineDnsName is String ? BSTR.Alloc(strMachineDnsName).Value : strMachineDnsName
@@ -78,11 +80,13 @@ class IX509AttributeClientId extends IX509Attribute{
     }
 
     /**
+     * Initializes the object from a Distinguished Encoding Rules (DER) encoded byte array that contains the attribute value.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
+     * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded attribute.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Encoding 
-     * @param {BSTR} strEncodedData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-initializedecode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributeclientid-initializedecode
      */
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
@@ -92,9 +96,26 @@ class IX509AttributeClientId extends IX509Attribute{
     }
 
     /**
+     * Retrieves the type of client application that generated the request.
+     * @remarks
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializedecode">InitializeDecode</a> method to initialize the <b>ClientId</b> value. You can call the following properties to retrieve the raw data:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname">MachineDnsName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname">ProcessName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname">UserSamName</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributeclientid-get_clientid
      */
     get_ClientId() {
         result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
@@ -102,9 +123,26 @@ class IX509AttributeClientId extends IX509Attribute{
     }
 
     /**
+     * Retrieves the Domain Name System (DNS) name of the computer that generated the request.
+     * @remarks
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializedecode">InitializeDecode</a> method to initialize the <b>MachineDnsName</b> value. You can call the following properties to retrieve the raw data:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid">ClientId</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname">ProcessName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname">UserSamName</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname
      */
     get_MachineDnsName() {
         pValue := BSTR()
@@ -113,9 +151,26 @@ class IX509AttributeClientId extends IX509Attribute{
     }
 
     /**
+     * Retrieves the Security Accounts Manager (SAM) name of the user.
+     * @remarks
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializedecode">InitializeDecode</a> method to initialize the <b>UserSamName</b> value. You can call the following properties to retrieve the raw data:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid">ClientId</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname">MachineDnsName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname">ProcessName</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributeclientid-get_usersamname
      */
     get_UserSamName() {
         pValue := BSTR()
@@ -124,9 +179,26 @@ class IX509AttributeClientId extends IX509Attribute{
     }
 
     /**
+     * Retrieves the name of the application that generated the request.
+     * @remarks
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-initializedecode">InitializeDecode</a> method to initialize the <b>ProcessName</b> value. You can call the following properties to retrieve the raw data:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid">ClientId</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname">MachineDnsName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname">UserSamName</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributeclientid-get_processname
      */
     get_ProcessName() {
         pValue := BSTR()

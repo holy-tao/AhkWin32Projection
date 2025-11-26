@@ -32,9 +32,11 @@ class ID2D1Device1 extends ID2D1Device{
     static VTableNames => ["GetRenderingPriority", "SetRenderingPriority", "CreateDeviceContext"]
 
     /**
+     * Retrieves the current rendering priority of the device.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority">D2D1_RENDERING_PRIORITY</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1device1-getrenderingpriority
+     * The current rendering priority of the device.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_2/nf-d2d1_2-id2d1device1-getrenderingpriority
      */
     GetRenderingPriority() {
         result := ComCall(9, this, "int")
@@ -42,10 +44,12 @@ class ID2D1Device1 extends ID2D1Device{
     }
 
     /**
+     * Sets the priority of Direct2D rendering operations performed on any device context associated with the device.
+     * @param {Integer} renderingPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority">D2D1_RENDERING_PRIORITY</a></b>
      * 
-     * @param {Integer} renderingPriority 
+     * The desired rendering priority for the device and associated contexts.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1device1-setrenderingpriority
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_2/nf-d2d1_2-id2d1device1-setrenderingpriority
      */
     SetRenderingPriority(renderingPriority) {
         ComCall(10, this, "int", renderingPriority)

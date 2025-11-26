@@ -63,9 +63,9 @@ class IMFShutdown extends IUnknown{
     static VTableNames => ["Shutdown", "GetShutdownStatus"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfshutdown-shutdown
+     * Shuts down a Media Foundation object and releases all resources associated with the object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfshutdown-shutdown
      */
     Shutdown() {
         result := ComCall(3, this, "HRESULT")
@@ -73,9 +73,9 @@ class IMFShutdown extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfshutdown-getshutdownstatus
+     * Queries the status of an earlier call to the IMFShutdown::Shutdown method.
+     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfshutdown_status">MFSHUTDOWN_STATUS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfshutdown-getshutdownstatus
      */
     GetShutdownStatus() {
         result := ComCall(4, this, "int*", &pStatus := 0, "HRESULT")

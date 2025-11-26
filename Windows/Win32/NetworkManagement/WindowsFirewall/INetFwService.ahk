@@ -102,9 +102,9 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the friendly name of the service.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_name
      */
     get_Name() {
         name := BSTR()
@@ -113,9 +113,9 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the type of the service.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_type
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_type
      */
     get_Type() {
         result := ComCall(8, this, "int*", &type := 0, "HRESULT")
@@ -123,9 +123,16 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Indicates whether at least one of the ports associated with the service has been customized.
+     * @remarks
+     * 
+     * If a service has been customized, the values
+     *    returned by the service properties do not reflect the configuration of
+     *    all the ports associated with the service.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_customized
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_customized
      */
     get_Customized() {
         result := ComCall(9, this, "short*", &customized := 0, "HRESULT")
@@ -133,9 +140,15 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Specifies the firewall IP version for which the service is authorized.
+     * @remarks
+     * 
+     * Only
+     *    <b>NET_FW_IP_VERSION_ANY</b> is supported.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_ipversion
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_ipversion
      */
     get_IpVersion() {
         result := ComCall(10, this, "int*", &ipVersion := 0, "HRESULT")
@@ -143,10 +156,16 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Specifies the firewall IP version for which the service is authorized.
+     * @remarks
+     * 
+     * Only
+     *    <b>NET_FW_IP_VERSION_ANY</b> is supported.
+     * 
      * 
      * @param {Integer} ipVersion 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_ipversion
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-put_ipversion
      */
     put_IpVersion(ipVersion) {
         result := ComCall(11, this, "int", ipVersion, "HRESULT")
@@ -154,9 +173,21 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Controls the network scope from which the port can listen.
+     * @remarks
+     * 
+     * When setting the
+     *    Scope property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
+     *    
+     * 
+     * The default value is
+     *    <b>NET_FW_SCOPE_ALL</b> for new ports.
+     * 
+     * To create a custom scope, use the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses">RemoteAddresses</a> property.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_scope
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_scope
      */
     get_Scope() {
         result := ComCall(12, this, "int*", &scope := 0, "HRESULT")
@@ -164,10 +195,22 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Controls the network scope from which the port can listen.
+     * @remarks
+     * 
+     * When setting the
+     *    Scope property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
+     *    
+     * 
+     * The default value is
+     *    <b>NET_FW_SCOPE_ALL</b> for new ports.
+     * 
+     * To create a custom scope, use the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses">RemoteAddresses</a> property.
+     * 
      * 
      * @param {Integer} scope 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_scope
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-put_scope
      */
     put_Scope(scope) {
         result := ComCall(13, this, "int", scope, "HRESULT")
@@ -175,9 +218,34 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Specifies a set of the remote addresses from which the service ports can listen for traffic.
+     * @remarks
+     * 
+     * If
+     *    the service has been customized, get returns the union of the remote
+     *    addresses for all the service ports.
+     * 
+     * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
+     * 
+     * Valid tokens:
+     * 
+     * 
+     * <ul>
+     * <li>"*": any remote address; if present, it must be the only token.</li>
+     * <li>"LocalSubnet": not case-sensitive; specifying more than once has no effect.</li>
+     * <li>subnet: may be specified using either subnet mask or network prefix notation. If neither a subnet mask nor a network prefix is specified, the subnet mask defaults to 255.255.255.255. Examples of valid subnets: 
+     * 10.0.0.2/255.0.0.0 
+     * 10.0.0.2/8 
+     * 10.0.0.2</li>
+     * <li>Windows Vista: A valid IPv6 address.</li>
+     * <li>Windows Vista: An IPv4 address range in the format "start address - end address."</li>
+     * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
+     * </ul>
+     * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwservice-get_scope">Scope</a> property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_remoteaddresses
      */
     get_RemoteAddresses() {
         remoteAddrs := BSTR()
@@ -186,10 +254,35 @@ class INetFwService extends IDispatch{
     }
 
     /**
+     * Specifies a set of the remote addresses from which the service ports can listen for traffic.
+     * @remarks
+     * 
+     * If
+     *    the service has been customized, get returns the union of the remote
+     *    addresses for all the service ports.
+     * 
+     * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
+     * 
+     * Valid tokens:
+     * 
+     * 
+     * <ul>
+     * <li>"*": any remote address; if present, it must be the only token.</li>
+     * <li>"LocalSubnet": not case-sensitive; specifying more than once has no effect.</li>
+     * <li>subnet: may be specified using either subnet mask or network prefix notation. If neither a subnet mask nor a network prefix is specified, the subnet mask defaults to 255.255.255.255. Examples of valid subnets: 
+     * 10.0.0.2/255.0.0.0 
+     * 10.0.0.2/8 
+     * 10.0.0.2</li>
+     * <li>Windows Vista: A valid IPv6 address.</li>
+     * <li>Windows Vista: An IPv4 address range in the format "start address - end address."</li>
+     * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
+     * </ul>
+     * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwservice-get_scope">Scope</a> property.
+     * 
      * 
      * @param {BSTR} remoteAddrs 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_remoteaddresses
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-put_remoteaddresses
      */
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
@@ -199,9 +292,9 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether all the ports associated with the service are enabled.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_enabled
      */
     get_Enabled() {
         result := ComCall(16, this, "short*", &enabled := 0, "HRESULT")
@@ -209,10 +302,10 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether all the ports associated with the service are enabled.
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-put_enabled
      */
     put_Enabled(enabled) {
         result := ComCall(17, this, "short", enabled, "HRESULT")
@@ -220,9 +313,9 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the collection of globally open ports associated with the service.
      * @returns {INetFwOpenPorts} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_globallyopenports
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwservice-get_globallyopenports
      */
     get_GloballyOpenPorts() {
         result := ComCall(18, this, "ptr*", &openPorts := 0, "HRESULT")

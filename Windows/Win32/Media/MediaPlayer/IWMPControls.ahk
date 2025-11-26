@@ -61,11 +61,29 @@ class IWMPControls extends IDispatch{
     }
 
     /**
-     * 
+     * The get_isAvailable method indicates whether a specified type of information is available or a specified action can be performed.
      * @param {BSTR} bstrItem 
-     * @param {Pointer<VARIANT_BOOL>} pIsAvailable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_isavailable
+     * @param {Pointer<VARIANT_BOOL>} pIsAvailable Pointer to a <b>VARIANT_BOOL</b> indicating whether a specified type of information is available or a specified action can be performed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-get_isavailable
      */
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
@@ -77,9 +95,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The play method causes the current media item to start playing, or resumes play of a paused item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-play
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-play
      */
     play() {
         result := ComCall(8, this, "HRESULT")
@@ -87,9 +123,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The stop method stops playback of the media item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-stop
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-stop
      */
     stop() {
         result := ComCall(9, this, "HRESULT")
@@ -97,9 +151,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The pause method pauses playback of the media item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-pause
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-pause
      */
     pause() {
         result := ComCall(10, this, "HRESULT")
@@ -107,9 +179,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The fastForward method starts fast play of the media item in the forward direction.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-fastforward
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-fastforward
      */
     fastForward() {
         result := ComCall(11, this, "HRESULT")
@@ -117,9 +207,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The fastReverse method starts fast play of the media item in the reverse direction.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-fastreverse
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-fastreverse
      */
     fastReverse() {
         result := ComCall(12, this, "HRESULT")
@@ -127,10 +235,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The get_currentPosition method retrieves the current position in the media item in seconds from the beginning.
+     * @param {Pointer<Float>} pdCurrentPosition Pointer to a <b>double</b> containing the current position.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Float>} pdCurrentPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-get_currentposition
      */
     get_currentPosition(pdCurrentPosition) {
         pdCurrentPositionMarshal := pdCurrentPosition is VarRef ? "double*" : "ptr"
@@ -140,10 +266,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The put_currentPosition method specifies the current position in the media item in seconds from the beginning.
+     * @param {Float} dCurrentPosition <b>double</b> containing the current position.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Float} dCurrentPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-put_currentposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-put_currentposition
      */
     put_currentPosition(dCurrentPosition) {
         result := ComCall(14, this, "double", dCurrentPosition, "HRESULT")
@@ -151,10 +295,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The get_currentPositionString method retrieves the current position in the media item as a BSTR formatted as HH:MM:SS (hours, minutes, and seconds).
+     * @param {Pointer<BSTR>} pbstrCurrentPosition Pointer to a <b>BSTR</b> containing the current position.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrCurrentPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentpositionstring
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-get_currentpositionstring
      */
     get_currentPositionString(pbstrCurrentPosition) {
         result := ComCall(15, this, "ptr", pbstrCurrentPosition, "HRESULT")
@@ -162,9 +324,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The next method sets the next item in the playlist as the current item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-next
      */
     next() {
         result := ComCall(16, this, "HRESULT")
@@ -172,9 +352,27 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The previous method sets the previous item in the playlist as the current item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-previous
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-previous
      */
     previous() {
         result := ComCall(17, this, "HRESULT")
@@ -182,9 +380,9 @@ class IWMPControls extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IWMPMedia} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentitem
+     * The get_currentItem method retrieves the current media item in a playlist.
+     * @returns {IWMPMedia} Pointer to a pointer to an <b>IWMPMedia</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-get_currentitem
      */
     get_currentItem() {
         result := ComCall(18, this, "ptr*", &ppIWMPMedia := 0, "HRESULT")
@@ -192,10 +390,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The put_currentItem method specifies the current media item.
+     * @param {IWMPMedia} pIWMPMedia Pointer to an <b>IWMPMedia</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pIWMPMedia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-put_currentitem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-put_currentitem
      */
     put_currentItem(pIWMPMedia) {
         result := ComCall(19, this, "ptr", pIWMPMedia, "HRESULT")
@@ -203,10 +419,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The get_currentMarker method retrieves the current marker number.
+     * @param {Pointer<Integer>} plMarker Pointer to a <b>long</b> containing the marker.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plMarker 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentmarker
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-get_currentmarker
      */
     get_currentMarker(plMarker) {
         plMarkerMarshal := plMarker is VarRef ? "int*" : "ptr"
@@ -216,10 +450,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The put_currentMarker method specifies the current marker number.
+     * @param {Integer} lMarker <b>long</b> containing the marker.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lMarker 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-put_currentmarker
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-put_currentmarker
      */
     put_currentMarker(lMarker) {
         result := ComCall(21, this, "int", lMarker, "HRESULT")
@@ -227,10 +479,28 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * The playItem method plays the specified media item.
+     * @param {IWMPMedia} pIWMPMedia Pointer to an <b>IWMPMedia</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pIWMPMedia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-playitem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols-playitem
      */
     playItem(pIWMPMedia) {
         result := ComCall(22, this, "ptr", pIWMPMedia, "HRESULT")

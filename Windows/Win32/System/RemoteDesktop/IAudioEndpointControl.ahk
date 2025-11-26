@@ -36,9 +36,9 @@ class IAudioEndpointControl extends IUnknown{
     static VTableNames => ["Start", "Reset", "Stop"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-start
+     * Starts the endpoint stream.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-start
      */
     Start() {
         result := ComCall(3, this, "HRESULT")
@@ -46,9 +46,9 @@ class IAudioEndpointControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-reset
+     * Resets the endpoint stream.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -56,9 +56,9 @@ class IAudioEndpointControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-stop
+     * Stops the endpoint stream.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-stop
      */
     Stop() {
         result := ComCall(5, this, "HRESULT")

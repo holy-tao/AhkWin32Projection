@@ -35,10 +35,10 @@ class INetDiagHelperUtilFactory extends IUnknown{
     static VTableNames => ["CreateUtilityInstance"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperutilfactory-createutilityinstance
+     * Used by the Network Diagnostics Framework (NDF). This method is reserved for system use.
+     * @param {Pointer<Guid>} riid Reserved for system use.
+     * @returns {Pointer<Void>} Reserved for system use.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelperutilfactory-createutilityinstance
      */
     CreateUtilityInstance(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")

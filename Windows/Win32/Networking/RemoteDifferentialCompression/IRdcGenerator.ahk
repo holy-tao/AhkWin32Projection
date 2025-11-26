@@ -38,10 +38,13 @@ class IRdcGenerator extends IUnknown{
     static VTableNames => ["GetGeneratorParameters", "Process"]
 
     /**
-     * 
-     * @param {Integer} level 
-     * @returns {IRdcGeneratorParameters} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
+     * Returns a copy of the parameters used to create the generator.
+     * @param {Integer} level The generator level for the parameters to be returned. The range is 
+     *       <b>MSRDC_MINIMUM_DEPTH</b> to <b>MSRDC_MAXIMUM_DEPTH</b>.
+     * @returns {IRdcGeneratorParameters} Address of a pointer that on successful return will contain the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer for the 
+     *       parameters for the generator level specified in the <i>level</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
      */
     GetGeneratorParameters(level) {
         result := ComCall(3, this, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
@@ -49,88 +52,26 @@ class IRdcGenerator extends IUnknown{
     }
 
     /**
-     * Performs ink recognition synchronously.
-     * @param {BOOL} endOfInput 
-     * @param {Pointer<BOOL>} endOfOutput 
-     * @param {Pointer<RdcBufferPointer>} inputBuffer 
-     * @param {Integer} depth 
-     * @param {Pointer<Pointer<RdcBufferPointer>>} outputBuffers 
-     * @param {Pointer<Integer>} rdc_ErrorCode 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not process the ink because the ink has been fully processed, or the <a href="/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function has not been called and the recognizer does not support incremental processing of ink.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_S_INTERRUPTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process was interrupted by a call to the <a href="/windows/desktop/api/recapis/nf-recapis-adviseinkchange">AdviseInkChange</a> function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
+     * Processes the input data and produces 0 or more output bytes.
+     * @param {BOOL} endOfInput Set to <b>TRUE</b> when the input buffer pointed to by the 
+     *       <i>inputBuffer</i> parameter contains the remaining input available.
+     * @param {Pointer<BOOL>} endOfOutput Address of a <b>BOOL</b> that is set to <b>TRUE</b> when the 
+     *       processing is complete for all data.
+     * @param {Pointer<RdcBufferPointer>} inputBuffer Address of an <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcbufferpointer">RdcBufferPointer</a> structure that 
+     *       contains the input buffer. On successful return, the <b>m_Used</b> member of this structure 
+     *       will be filled with the number of bytes by this call.
+     * @param {Integer} depth The number of levels of signatures to generate. This must match the number of levels specified when the 
+     *       generator was created.
+     * @param {Pointer<Pointer<RdcBufferPointer>>} outputBuffers The address of an array of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcbufferpointer">RdcBufferPointer</a> structures that 
+     *       will receive the output buffers. The <b>m_Used</b> member of these structures will be filled with the number of bytes returned in the buffer.
+     * @param {Pointer<Integer>} rdc_ErrorCode The address of an <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
+     *       filled with an RDC specific error code if the return value from the 
+     *       <b>Process</b> method is 
+     *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
+     *       return value of the <b>Process</b> method contains the 
+     *       specific error code.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgenerator-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, rdc_ErrorCode) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"

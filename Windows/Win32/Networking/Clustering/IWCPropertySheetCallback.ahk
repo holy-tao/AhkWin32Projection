@@ -40,10 +40,43 @@ class IWCPropertySheetCallback extends IUnknown{
     static VTableNames => ["AddPropertySheetPage"]
 
     /**
+     * Adds a property page to a Failover Cluster Administrator property sheet.
+     * @param {Pointer<Integer>} hpage Handle to the property page to be added.
+     * @returns {HRESULT} If 
+     *        <b>AddPropertySheetPage</b> 
+     *        was not successful, it can return other <b>HRESULT</b> values.
      * 
-     * @param {Pointer<Integer>} hpage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcpropertysheetcallback-addpropertysheetpage
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hpage</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwcpropertysheetcallback-addpropertysheetpage
      */
     AddPropertySheetPage(hpage) {
         hpageMarshal := hpage is VarRef ? "int*" : "ptr"

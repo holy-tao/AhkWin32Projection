@@ -38,9 +38,9 @@ class IWSDSSLClientCertificate extends IUnknown{
     static VTableNames => ["GetClientCertificate", "GetMappedAccessToken"]
 
     /**
-     * 
-     * @returns {Pointer<CERT_CONTEXT>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getclientcertificate
+     * Gets the client certificate.
+     * @returns {Pointer<CERT_CONTEXT>} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the client SSL certificate.  Upon completion, the caller should free this memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsslclientcertificate-getclientcertificate
      */
     GetClientCertificate() {
         result := ComCall(3, this, "ptr*", &ppCertContext := 0, "HRESULT")
@@ -48,9 +48,9 @@ class IWSDSSLClientCertificate extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getmappedaccesstoken
+     * Gets the mapped access token.
+     * @returns {HANDLE} A handle for the mapped access token. Upon completion, the caller must free the handle by  calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsslclientcertificate-getmappedaccesstoken
      */
     GetMappedAccessToken() {
         phToken := HANDLE()

@@ -31,11 +31,14 @@ class ISequentialStream extends IUnknown{
     static VTableNames => ["Read", "Write"]
 
     /**
+     * Reads a specified number of bytes from the stream object into memory, starting at the current seek pointer.
+     * @param {Pointer} pv A pointer to the buffer which the stream data is read into.
+     * @param {Integer} cb The number of bytes of data to read from the stream object.
+     * @returns {Integer} A pointer to a <b>ULONG</b> variable that receives the actual number of bytes read from the stream object. 
      * 
-     * @param {Pointer} pv 
-     * @param {Integer} cb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-read
+     * <div class="alert"><b>Note</b>  The number of bytes read may be zero.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isequentialstream-read
      */
     Read(pv, cb) {
         result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "int")
@@ -43,11 +46,11 @@ class ISequentialStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pv 
-     * @param {Integer} cb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-write
+     * Writes a specified number of bytes into the stream object starting at the current seek pointer.
+     * @param {Pointer} pv A pointer to the buffer that contains the data that is to be written to the stream. A valid pointer must be provided for this parameter even when <i>cb</i> is zero.
+     * @param {Integer} cb The number of bytes of data to attempt to write into the stream. This value can be zero.
+     * @returns {Integer} A pointer to a <b>ULONG</b> variable where this method writes the actual number of bytes written to the stream object. The caller can set this pointer to <b>NULL</b>, in which case this method does not provide the actual number of bytes written.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isequentialstream-write
      */
     Write(pv, cb) {
         result := ComCall(4, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "int")

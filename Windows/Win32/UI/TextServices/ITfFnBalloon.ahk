@@ -31,12 +31,41 @@ class ITfFnBalloon extends IUnknown{
     static VTableNames => ["UpdateBalloon"]
 
     /**
+     * ITfFnBalloon::UpdateBalloon method
+     * @param {Integer} style Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> values that specifies the new balloon style.
+     * @param {PWSTR} pch Pointer to a <b>WCHAR</b> buffer that contains the new text for the balloon.
+     * @param {Integer} cch Contains the number of characters of the new text in <i>pch</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} style 
-     * @param {PWSTR} pch 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnballoon-updateballoon
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnballoon-updateballoon
      */
     UpdateBalloon(style, pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch

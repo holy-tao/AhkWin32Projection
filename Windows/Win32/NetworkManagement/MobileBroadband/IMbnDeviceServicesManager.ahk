@@ -53,10 +53,10 @@ class IMbnDeviceServicesManager extends IUnknown{
     static VTableNames => ["GetDeviceServicesContext"]
 
     /**
-     * 
-     * @param {BSTR} networkInterfaceID 
-     * @returns {IMbnDeviceServicesContext} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesmanager-getdeviceservicescontext
+     * Gets the IMbnDeviceServicesContext interface for a specific Mobile Broadband device.
+     * @param {BSTR} networkInterfaceID A string that contains the ID of the Mobile Broadband device. The ID can be obtained using the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterface-get_interfaceid">InterfaceID</a> property
+     * @returns {IMbnDeviceServicesContext} Pointer to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservicescontext">IMbnDeviceServicesContext</a> for the device specified by <i>networkInterfaceID</i> or <b>NULL</b> if there is no matching interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesmanager-getdeviceservicescontext
      */
     GetDeviceServicesContext(networkInterfaceID) {
         networkInterfaceID := networkInterfaceID is String ? BSTR.Alloc(networkInterfaceID).Value : networkInterfaceID

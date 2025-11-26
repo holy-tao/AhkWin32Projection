@@ -39,10 +39,10 @@ class IConfigInterleaving extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-put_mode
+     * The put_Mode method sets how audio samples and video frames are to be written to disk, by specifying quality of interleaving.
+     * @param {Integer} mode Interleaving quality setting specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-interleavingmode">InterleavingMode</a> enumeration.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfiginterleaving-put_mode
      */
     put_Mode(mode) {
         result := ComCall(3, this, "int", mode, "HRESULT")
@@ -50,9 +50,9 @@ class IConfigInterleaving extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_mode
+     * The get_Mode method retrieves the interleaving quality setting.
+     * @returns {Integer} Receives the interleaving quality, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-interleavingmode">InterleavingMode</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfiginterleaving-get_mode
      */
     get_Mode() {
         result := ComCall(4, this, "int*", &pMode := 0, "HRESULT")
@@ -60,11 +60,12 @@ class IConfigInterleaving extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} prtInterleave 
-     * @param {Pointer<Integer>} prtPreroll 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-put_interleaving
+     * The put_Interleaving method sets the audio preroll time and the frequency of interleaving for an AVI file.
+     * @param {Pointer<Integer>} prtInterleave The approximate duration of each interleaved group of audio or video chunks, in 100-nanosecond units.
+     *           The exact amount of interleaving is also affected by the interleave mode, which is specified by calling <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iconfiginterleaving-put_mode">IConfigInterleaving::put_Mode</a>.
+     * @param {Pointer<Integer>} prtPreroll The amount of audio data, in 100-nanosecond units, that is written to the file before the first video frame.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfiginterleaving-put_interleaving
      */
     put_Interleaving(prtInterleave, prtPreroll) {
         prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : "ptr"
@@ -75,11 +76,11 @@ class IConfigInterleaving extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} prtInterleave 
-     * @param {Pointer<Integer>} prtPreroll 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_interleaving
+     * The get_Interleaving method gets the audio preroll time and the frequency of interleaving for an AVI file.
+     * @param {Pointer<Integer>} prtInterleave Receives the approximate duration of each interleaved group of audio or video chunks.
+     * @param {Pointer<Integer>} prtPreroll Receives the amount of audio data, in 100-nanosecond units, that is written to the file before the first video frame.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfiginterleaving-get_interleaving
      */
     get_Interleaving(prtInterleave, prtPreroll) {
         prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : "ptr"

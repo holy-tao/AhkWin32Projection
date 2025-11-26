@@ -32,9 +32,9 @@ class IGetCapabilitiesKey extends IUnknown{
     static VTableNames => ["GetCapabilitiesKey"]
 
     /**
-     * 
-     * @returns {HKEY} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igetcapabilitieskey-getcapabilitieskey
+     * The GetCapabilitiesKey method gets a registry key that contains capability information for the codec.
+     * @returns {HKEY} Receives a handle to the registry key. The caller must close the handle by calling <b>RegCloseKey</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igetcapabilitieskey-getcapabilitieskey
      */
     GetCapabilitiesKey() {
         pHKey := HKEY()

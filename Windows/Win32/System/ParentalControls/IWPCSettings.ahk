@@ -32,9 +32,9 @@ class IWPCSettings extends IUnknown{
     static VTableNames => ["IsLoggingRequired", "GetLastSettingsChangeTime", "GetRestrictions"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-isloggingrequired
+     * Determines whether activity logging should be performed when obtaining the IWPCSettings interface.
+     * @returns {BOOL} Indicates whether logging is required.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcsettings-isloggingrequired
      */
     IsLoggingRequired() {
         result := ComCall(3, this, "int*", &pfRequired := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IWPCSettings extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {SYSTEMTIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-getlastsettingschangetime
+     * Retrieves the time at which the configuration settings were last updated.
+     * @returns {SYSTEMTIME} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the time at which the settings were last updated.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcsettings-getlastsettingschangetime
      */
     GetLastSettingsChangeTime() {
         pTime := SYSTEMTIME()
@@ -53,9 +53,9 @@ class IWPCSettings extends IUnknown{
     }
 
     /**
-     * 
+     * Determines whether web restrictions, time limits, or game restrictions are on.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
      */
     GetRestrictions() {
         result := ComCall(5, this, "int*", &pdwRestrictions := 0, "HRESULT")

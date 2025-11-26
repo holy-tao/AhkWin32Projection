@@ -38,10 +38,39 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
     static VTableNames => ["GetDwordValue", "GetStringValue", "GetGuidValue"]
 
     /**
+     * The GetDwordValue method gets a 4-byte value that provides information about either a request or requester.
+     * @param {BSTR} bstrValueName String that specifies the category of information to be retrieved.
+     * @returns {Integer} Pointer to a 4-byte value, the meaning of which depends on the value of <i>bstrValueName</i>.
      * 
-     * @param {BSTR} bstrValueName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getdwordvalue
+     * If <i>bstrValueName</i> is "AddressFamily", the 4-byte value indicates the format of the requester's IP address as follows. The values are defined in Winsock2.h.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="AF_INET"></a><a id="af_inet"></a><dl>
+     * <dt><b>AF_INET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IP (IP version 4)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="AF_INET6"></a><a id="af_inet6"></a><dl>
+     * <dt><b>AF_INET6</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IP6 (IP version 6)
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpremoteendpointinfo-getdwordvalue
      */
     GetDwordValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
@@ -51,10 +80,12 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
     }
 
     /**
+     * The GetStringValue method gets a string that provides information about either a request or requester.
+     * @param {BSTR} bstrValueName String that specifies the category of information to be retrieved.
+     * @returns {BSTR} Pointer to a string, the meaning of which depends on the value of <i>bstrValueName</i>.
      * 
-     * @param {BSTR} bstrValueName 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getstringvalue
+     * If <i>bstrValueName</i> is "RemoteAddress", the string is the requester's IP address.<b>Windows 7:  </b>To retrieve the HTTP UserAgent header, set <i>bstrValueName</i> to "HttpUserAgent".
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpremoteendpointinfo-getstringvalue
      */
     GetStringValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
@@ -65,10 +96,10 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrValueName 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getguidvalue
+     * The GetGuidValue method currently is not supported.
+     * @param {BSTR} bstrValueName Not supported.
+     * @returns {Guid} Not supported.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpremoteendpointinfo-getguidvalue
      */
     GetGuidValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName

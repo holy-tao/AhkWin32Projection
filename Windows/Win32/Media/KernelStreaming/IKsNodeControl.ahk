@@ -45,10 +45,10 @@ class IKsNodeControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwNodeId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_nodeid
+     * Sets the node identifier for the extension unit.
+     * @param {Integer} dwNodeId Node identifier.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iksnodecontrol-put_nodeid
      */
     put_NodeId(dwNodeId) {
         result := ComCall(3, this, "uint", dwNodeId, "HRESULT")
@@ -56,10 +56,10 @@ class IKsNodeControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pKsControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_kscontrol
+     * Provides an instance of the IKsControl interface to the extension unit.
+     * @param {Pointer<Void>} pKsControl Pointer to the <b>IKsControl</b> interface, typed as a void pointer.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iksnodecontrol-put_kscontrol
      */
     put_KsControl(pKsControl) {
         pKsControlMarshal := pKsControl is VarRef ? "ptr" : "ptr"

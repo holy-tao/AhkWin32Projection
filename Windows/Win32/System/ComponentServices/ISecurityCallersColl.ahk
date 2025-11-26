@@ -47,9 +47,9 @@ class ISecurityCallersColl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallerscoll-get_count
+     * Retrieves the number of callers in the security callers collection.
+     * @returns {Integer} The number of callers in the security callers collection.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallerscoll-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
@@ -57,10 +57,10 @@ class ISecurityCallersColl extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} lIndex 
-     * @returns {ISecurityIdentityColl} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallerscoll-get_item
+     * Retrieves a specified caller in the security callers collection.
+     * @param {Integer} lIndex The name of the caller to retrieve. See Remarks for information about the available callers.
+     * @returns {ISecurityIdentityColl} A reference to the retrieved caller.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallerscoll-get_item
      */
     get_Item(lIndex) {
         result := ComCall(8, this, "int", lIndex, "ptr*", &pObj := 0, "HRESULT")
@@ -68,9 +68,9 @@ class ISecurityCallersColl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallerscoll-get__newenum
+     * Retrieves an enumerator for the security callers collection.
+     * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallerscoll-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")

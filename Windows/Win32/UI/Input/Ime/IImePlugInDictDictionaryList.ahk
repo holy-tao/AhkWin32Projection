@@ -36,11 +36,11 @@ class IImePlugInDictDictionaryList extends IUnknown{
     static VTableNames => ["GetDictionariesInUse", "DeleteDictionary"]
 
     /**
-     * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} prgDateCreated 
-     * @param {Pointer<Pointer<SAFEARRAY>>} prgfEncrypted 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
+     * Obtains the list of Dictionay IDs (GUID) of the IME plug-in dictionaries which are in use by IME, with their creation dates and encryption flags.
+     * @param {Pointer<Pointer<SAFEARRAY>>} prgDateCreated Array of the dates of creation for each of the IME plug-in dictionaries returned by <i>prgDictionaryGUID</i>.
+     * @param {Pointer<Pointer<SAFEARRAY>>} prgfEncrypted Array of flags indicating whether each dictionary is encrypted or not for each of the IME plug-in dictionaries returned by <i>prgDictionaryGUID</i>.
+     * @returns {Pointer<SAFEARRAY>} Array of the dictionary IDs (<b>GUID</b>) of the IME plug-in dictionaries which are in use by IME.
+     * @see https://docs.microsoft.com/windows/win32/api//msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
      */
     GetDictionariesInUse(prgDateCreated, prgfEncrypted) {
         prgDateCreatedMarshal := prgDateCreated is VarRef ? "ptr*" : "ptr"
@@ -51,10 +51,50 @@ class IImePlugInDictDictionaryList extends IUnknown{
     }
 
     /**
+     * Deletes a dictionary from the IME's plug-in dictionary list.
+     * @param {BSTR} bstrDictionaryGUID The dictionary ID (<b>GUID</b>) of the dictionary to be removed from the list.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrDictionaryGUID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-deletedictionary
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified dictionary existed in the list and was successfully removed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified dictionary does not exist in the list.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Other errors.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msimeapi/nf-msimeapi-iimeplugindictdictionarylist-deletedictionary
      */
     DeleteDictionary(bstrDictionaryGUID) {
         bstrDictionaryGUID := bstrDictionaryGUID is String ? BSTR.Alloc(bstrDictionaryGUID).Value : bstrDictionaryGUID

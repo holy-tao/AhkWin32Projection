@@ -32,9 +32,9 @@ class IMTSLocator extends IDispatch{
     static VTableNames => ["GetEventDispatcher"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtslocator-geteventdispatcher
+     * Retrieves a pointer to the event dispatcher for the current process.
+     * @returns {IUnknown} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the event dispatcher for the current process.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtslocator-geteventdispatcher
      */
     GetEventDispatcher() {
         result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")

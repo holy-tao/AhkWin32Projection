@@ -32,9 +32,9 @@ class ITfCandidateString extends IUnknown{
     static VTableNames => ["GetString", "GetIndex"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatestring-getstring
+     * ITfCandidateString::GetString method
+     * @returns {BSTR} Pointer to a <b>BSTR</b> value that receives the text of the candidate string object. The caller must release this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatestring-getstring
      */
     GetString() {
         pbstr := BSTR()
@@ -43,9 +43,9 @@ class ITfCandidateString extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatestring-getindex
+     * ITfCandidateString::GetIndex method
+     * @returns {Integer} Pointer to a <b>ULONG</b> value that receives the zero-based index of the candidate string object within the candidate list.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatestring-getindex
      */
     GetIndex() {
         result := ComCall(4, this, "uint*", &pnIndex := 0, "HRESULT")

@@ -32,9 +32,9 @@ class IWMPContentContainerList extends IUnknown{
     static VTableNames => ["GetTransactionType", "GetContainerCount", "GetContainer"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-gettransactiontype
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetTransactionType method retrieves the type of the current transaction.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmptransactiontype">WMPTransactionType</a> that receives the transaction type value.
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainerlist-gettransactiontype
      */
     GetTransactionType() {
         result := ComCall(3, this, "int*", &pwmptt := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IWMPContentContainerList extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainercount
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetContainerCount method retrieves the count of content containers in the container list.
+     * @returns {Integer} Address of a <b>ULONG</b> that receives the count.
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainercount
      */
     GetContainerCount() {
         result := ComCall(4, this, "uint*", &pcContainer := 0, "HRESULT")
@@ -52,10 +52,10 @@ class IWMPContentContainerList extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} idxContainer 
-     * @returns {IWMPContentContainer} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainer
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetContainer method retrieves the content container at the specified index.
+     * @param {Integer} idxContainer Specifies the index of the content container to retrieve.
+     * @returns {IWMPContentContainer} Address of a variable that receives a pointer to the <b>IWMPContentContainer</b> interface at the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainer
      */
     GetContainer(idxContainer) {
         result := ComCall(5, this, "uint", idxContainer, "ptr*", &ppContent := 0, "HRESULT")

@@ -36,12 +36,13 @@ class IMFSinkWriterEncoderConfig extends IUnknown{
     static VTableNames => ["SetTargetMediaType", "PlaceEncodingParameters"]
 
     /**
-     * 
-     * @param {Integer} dwStreamIndex 
-     * @param {IMFMediaType} pTargetMediaType 
-     * @param {IMFAttributes} pEncodingParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-settargetmediatype
+     * Dynamically changes the target media type that Sink Writer is encoding to.
+     * @param {Integer} dwStreamIndex Specifies the stream index.
+     * @param {IMFMediaType} pTargetMediaType The new media format to encode to.
+     * @param {IMFAttributes} pEncodingParameters The new set of encoding parameters to configure the encoder with.
+     *     If not specified, previously provided parameters will be used.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-settargetmediatype
      */
     SetTargetMediaType(dwStreamIndex, pTargetMediaType, pEncodingParameters) {
         result := ComCall(3, this, "uint", dwStreamIndex, "ptr", pTargetMediaType, "ptr", pEncodingParameters, "HRESULT")
@@ -49,11 +50,11 @@ class IMFSinkWriterEncoderConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwStreamIndex 
-     * @param {IMFAttributes} pEncodingParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-placeencodingparameters
+     * Dynamically updates the encoder configuration with a collection of new encoder settings.
+     * @param {Integer} dwStreamIndex Specifies the stream index.
+     * @param {IMFAttributes} pEncodingParameters A set of encoding parameters to configure the encoder with.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-placeencodingparameters
      */
     PlaceEncodingParameters(dwStreamIndex, pEncodingParameters) {
         result := ComCall(4, this, "uint", dwStreamIndex, "ptr", pEncodingParameters, "HRESULT")

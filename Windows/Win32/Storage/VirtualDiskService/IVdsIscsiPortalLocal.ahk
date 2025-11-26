@@ -31,11 +31,29 @@ class IVdsIscsiPortalLocal extends IUnknown{
     static VTableNames => ["SetIpsecSecurityLocal"]
 
     /**
+     * Not supported.This method is reserved for future use.
+     * @param {Integer} ullSecurityFlags Reserved for future use.
+     * @param {Pointer<VDS_ISCSI_IPSEC_KEY>} pIpsecKey Reserved for future use.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ullSecurityFlags 
-     * @param {Pointer<VDS_ISCSI_IPSEC_KEY>} pIpsecKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiportallocal-setipsecsecuritylocal
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>VDS_E_NOT_SUPPORTED</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method is not supported in this release.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportallocal-setipsecsecuritylocal
      */
     SetIpsecSecurityLocal(ullSecurityFlags, pIpsecKey) {
         result := ComCall(3, this, "uint", ullSecurityFlags, "ptr", pIpsecKey, "HRESULT")

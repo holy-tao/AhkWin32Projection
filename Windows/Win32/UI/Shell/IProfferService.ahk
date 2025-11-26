@@ -36,11 +36,11 @@ class IProfferService extends IUnknown{
     static VTableNames => ["ProfferService", "RevokeService"]
 
     /**
-     * 
+     * Makes a service available to other objects on the same host.
      * @param {Pointer<Guid>} serviceId 
      * @param {IServiceProvider} serviceProvider 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iprofferservice-profferservice
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iprofferservice-profferservice
      */
     ProfferService(serviceId, serviceProvider) {
         result := ComCall(3, this, "ptr", serviceId, "ptr", serviceProvider, "uint*", &cookie := 0, "HRESULT")
@@ -48,10 +48,12 @@ class IProfferService extends IUnknown{
     }
 
     /**
-     * 
+     * Makes a service unavailable that had previously been available to other objects through IProfferService::ProfferService.
      * @param {Integer} cookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iprofferservice-revokeservice
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iprofferservice-revokeservice
      */
     RevokeService(cookie) {
         result := ComCall(4, this, "uint", cookie, "HRESULT")

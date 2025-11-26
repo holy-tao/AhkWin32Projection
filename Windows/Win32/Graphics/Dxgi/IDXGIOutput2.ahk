@@ -36,9 +36,9 @@ class IDXGIOutput2 extends IDXGIOutput1{
     static VTableNames => ["SupportsOverlays"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgioutput2-supportsoverlays
+     * Queries an adapter output for multiplane overlay support.
+     * @returns {BOOL} TRUE if the output adapter is the primary adapter and it supports multiplane overlays, otherwise returns FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgioutput2-supportsoverlays
      */
     SupportsOverlays() {
         result := ComCall(23, this, "int")

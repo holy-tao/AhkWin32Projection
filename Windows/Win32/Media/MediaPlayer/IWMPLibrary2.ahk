@@ -32,11 +32,29 @@ class IWMPLibrary2 extends IWMPLibrary{
     static VTableNames => ["getItemInfo"]
 
     /**
+     * The getItemInfo method retrieves the value of the LibraryID attribute.
+     * @param {BSTR} bstrItemName <b>BSTR</b> containing the attribute name. Set the value of this parameter to "LibraryID".
+     * @param {Pointer<BSTR>} pbstrVal Pointer to a <b>BSTR</b> that receives the value of the <b>LibraryID</b> attribute.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrItemName 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary2-getiteminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary2-getiteminfo
      */
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName

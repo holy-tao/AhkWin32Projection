@@ -32,9 +32,12 @@ class IDWriteFontFileEnumerator extends IUnknown{
     static VTableNames => ["MoveNext", "GetCurrentFontFile"]
 
     /**
+     * Advances to the next font file in the collection. When it is first created, the enumerator is positioned before the first element of the collection and the first call to MoveNext advances to the first file.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileenumerator-movenext
+     * When the method returns, contains  the value <b>TRUE</b> if the enumerator advances to a file; otherwise, <b>FALSE</b> if
+     *      the enumerator advances past the last file in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfileenumerator-movenext
      */
     MoveNext() {
         result := ComCall(3, this, "int*", &hasCurrentFile := 0, "HRESULT")
@@ -42,9 +45,11 @@ class IDWriteFontFileEnumerator extends IUnknown{
     }
 
     /**
+     * Gets a reference to the current font file.
+     * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
      * 
-     * @returns {IDWriteFontFile} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileenumerator-getcurrentfontfile
+     * When this method returns, the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>  object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfileenumerator-getcurrentfontfile
      */
     GetCurrentFontFile() {
         result := ComCall(4, this, "ptr*", &fontFile := 0, "HRESULT")

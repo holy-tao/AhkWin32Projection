@@ -44,10 +44,12 @@ class ID3D10Counter extends ID3D10Asynchronous{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get a counter description.
+     * @param {Pointer<D3D10_COUNTER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D10_COUNTER_DESC>} pDesc 
+     * Pointer to a counter description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10counter-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10counter-getdesc
      */
     GetDesc(pDesc) {
         ComCall(11, this, "ptr", pDesc)

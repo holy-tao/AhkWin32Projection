@@ -31,10 +31,14 @@ class IAccessibleObject extends IUnknown{
     static VTableNames => ["SetAccessibleName"]
 
     /**
+     * Sets text that is retrieved by IAccessible::get_accName which accessibility tools use to obtain the Name Property of an object.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibleobject-setaccessiblename
+     * A pointer to a null-terminated, Unicode string containing the name.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibleobject-setaccessiblename
      */
     SetAccessibleName(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

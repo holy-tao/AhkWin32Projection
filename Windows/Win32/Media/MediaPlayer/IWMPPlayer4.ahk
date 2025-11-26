@@ -220,10 +220,28 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * The get_isRemote method retrieves a value indicating whether the Windows Media Player control is running in remote mode.
+     * @param {Pointer<VARIANT_BOOL>} pvarfIsRemote Pointer to a <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control is running in remote mode. If the value is <b>TRUE</b>, then the control is running in remote mode. A value of <b>FALSE</b> means the control is running in local mode.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvarfIsRemote 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_isremote
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer4-get_isremote
      */
     get_isRemote(pvarfIsRemote) {
         pvarfIsRemoteMarshal := pvarfIsRemote is VarRef ? "short*" : "ptr"
@@ -233,9 +251,9 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
-     * 
-     * @returns {IWMPPlayerApplication} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_playerapplication
+     * The get_playerApplication method retrieves a pointer to an IWMPPlayerApplication interface when a remoted Windows Media Player control is running.
+     * @returns {IWMPPlayerApplication} Pointer to a pointer to an <b>IWMPPlayerApplication</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer4-get_playerapplication
      */
     get_playerApplication() {
         result := ComCall(44, this, "ptr*", &ppIWMPPlayerApplication := 0, "HRESULT")
@@ -243,10 +261,28 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * The openPlayer method opens Windows Media Player using the specified URL.
+     * @param {BSTR} bstrURL <b>BSTR</b> containing the URL of the media item to play.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-openplayer
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer4-openplayer
      */
     openPlayer(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL

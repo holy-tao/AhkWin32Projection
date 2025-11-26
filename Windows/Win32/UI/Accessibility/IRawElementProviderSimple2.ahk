@@ -41,9 +41,11 @@ class IRawElementProviderSimple2 extends IRawElementProviderSimple{
     static VTableNames => ["ShowContextMenu"]
 
     /**
+     * Programmatically invokes a context menu on the target element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple2-showcontextmenu
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple2-showcontextmenu
      */
     ShowContextMenu() {
         result := ComCall(7, this, "HRESULT")

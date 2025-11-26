@@ -31,9 +31,27 @@ class IDrawVideoImage extends IUnknown{
     static VTableNames => ["DrawVideoImageBegin", "DrawVideoImageEnd", "DrawVideoImageDraw"]
 
     /**
+     * Note  This interface has been deprecated. New applications should not use it. The DrawVideoImageBegin method turns off DirectDraw in preparation for a call to the DrawVideoImageDraw method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimagebegin
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idrawvideoimage-drawvideoimagebegin
      */
     DrawVideoImageBegin() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +59,27 @@ class IDrawVideoImage extends IUnknown{
     }
 
     /**
+     * Note  This interface has been deprecated. New applications should not use it. The DrawVideoImageEnd method turns DirectDraw back on after drawing has been performed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimageend
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idrawvideoimage-drawvideoimageend
      */
     DrawVideoImageEnd() {
         result := ComCall(4, this, "HRESULT")
@@ -51,12 +87,30 @@ class IDrawVideoImage extends IUnknown{
     }
 
     /**
+     * Note  This interface has been deprecated. New applications should not use it. The DrawVideoImageDraw method draws the specified source rectangle to the specified destination rectangle in the specified GDI device context.
+     * @param {HDC} hdc Specifies the device context.
+     * @param {Pointer<RECT>} lprcSrc Pointer to a <b>RECT</b> structure that specifies the source rectangle, as a subrectangle of the current video frame.
+     * @param {Pointer<RECT>} lprcDst Pointer to a <b>RECT</b> structure that specifies the destination rectangle in the device context.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HDC} hdc 
-     * @param {Pointer<RECT>} lprcSrc 
-     * @param {Pointer<RECT>} lprcDst 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimagedraw
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idrawvideoimage-drawvideoimagedraw
      */
     DrawVideoImageDraw(hdc, lprcSrc, lprcDst) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

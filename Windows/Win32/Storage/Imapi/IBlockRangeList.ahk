@@ -51,9 +51,9 @@ class IBlockRangeList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrangelist-get_blockranges
+     * Returns the list of sector ranges in the form of a safe array of variants of type VT_Dispatch.
+     * @returns {Pointer<SAFEARRAY>} List of sector ranges. Each element of the list is a VARIANT of type VT_Dispatch. Query the pdispVal member of the variant for the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iblockrange">IBlockRange</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iblockrangelist-get_blockranges
      */
     get_BlockRanges() {
         result := ComCall(7, this, "ptr*", &value := 0, "HRESULT")

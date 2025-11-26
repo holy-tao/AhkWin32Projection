@@ -32,13 +32,13 @@ class IStorageItemHandleAccess extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
-     * @param {Integer} accessOptions 
-     * @param {Integer} sharingOptions 
-     * @param {Integer} options 
-     * @param {IOplockBreakingHandler} oplockBreakingHandler 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create
+     * Creates a handle to a file.
+     * @param {Integer} accessOptions The level of access that a handle has on the file.
+     * @param {Integer} sharingOptions The requested sharing mode of the handle.
+     * @param {Integer} options The flags of the file handle.
+     * @param {IOplockBreakingHandler} oplockBreakingHandler Not currently implemented.
+     * @returns {HANDLE} The handle to the file.
+     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create
      */
     Create(accessOptions, sharingOptions, options, oplockBreakingHandler) {
         interopHandle := HANDLE()

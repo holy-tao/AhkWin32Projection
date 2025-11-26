@@ -35,10 +35,14 @@ class IInputObject2 extends IInputObject{
     static VTableNames => ["TranslateAcceleratorGlobal"]
 
     /**
+     * Handles global accelerators so that input objects can respond to the keyboard even when they are not active in the UI.
+     * @param {Pointer<MSG>} pMsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
-     * @param {Pointer<MSG>} pMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject2-translateacceleratorglobal
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains a keyboard message.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject2-translateacceleratorglobal
      */
     TranslateAcceleratorGlobal(pMsg) {
         result := ComCall(6, this, "ptr", pMsg, "HRESULT")

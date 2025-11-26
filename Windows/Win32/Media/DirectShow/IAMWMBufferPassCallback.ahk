@@ -31,13 +31,13 @@ class IAMWMBufferPassCallback extends IUnknown{
     static VTableNames => ["Notify"]
 
     /**
-     * 
-     * @param {INSSBuffer3} pNSSBuffer3 
-     * @param {IPin} pPin 
-     * @param {Pointer<Integer>} prtStart 
-     * @param {Pointer<Integer>} prtEnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iamwmbufferpasscallback-notify
+     * The Notify method is called by the pin for each buffer that is delivered during streaming.
+     * @param {INSSBuffer3} pNSSBuffer3 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer3">INSSBuffer3</a> interface exposed on the media sample.
+     * @param {IPin} pPin Pointer to the pin associated with the media stream that the sample belongs to.
+     * @param {Pointer<Integer>} prtStart Start time of the sample.
+     * @param {Pointer<Integer>} prtEnd End time of the sample.
+     * @returns {HRESULT} No particular return value is specified. The calling pin ignores the <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dshowasf/nf-dshowasf-iamwmbufferpasscallback-notify
      */
     Notify(pNSSBuffer3, pPin, prtStart, prtEnd) {
         prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"

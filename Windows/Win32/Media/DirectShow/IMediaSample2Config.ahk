@@ -36,9 +36,9 @@ class IMediaSample2Config extends IUnknown{
     static VTableNames => ["GetSurface"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample2config-getsurface
+     * The GetSurface method returns a pointer to the Direct3D surface managed by this media sample.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface of the Direct3D surface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imediasample2config-getsurface
      */
     GetSurface() {
         result := ComCall(3, this, "ptr*", &ppDirect3DSurface9 := 0, "HRESULT")

@@ -32,13 +32,42 @@ class ITfFnConfigureRegisterWord extends ITfFunction{
     static VTableNames => ["Show"]
 
     /**
+     * ITfFnConfigureRegisterWord::Show method
+     * @param {HWND} hwndParent Handle of the parent window. The text service typically uses this as the parent or owner window when creating the dialog box.
+     * @param {Integer} langid Contains a <b>LANGID</b> that specifies the identifier of the language currently used by the Input Method Editor (IME).
+     * @param {Pointer<Guid>} rguidProfile Contains a GUID that specifies the language profile identifier that the text service is under. This is the value specified in <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfinputprocessorprofiles-addlanguageprofile">ITfInputProcessorProfiles::AddLanguageProfile</a> when the profile was added.
+     * @param {BSTR} bstrRegistered Contains a <b>BSTR</b> that contains the word to be registered with the text service. This is optional and can be NULL. If NULL, the text service should display a default register word dialog box.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {HWND} hwndParent 
-     * @param {Integer} langid 
-     * @param {Pointer<Guid>} rguidProfile 
-     * @param {BSTR} bstrRegistered 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnconfigureregisterword-show
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The text service does not implement this method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnconfigureregisterword-show
      */
     Show(hwndParent, langid, rguidProfile, bstrRegistered) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

@@ -49,10 +49,10 @@ class IDShowPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-idshowplugin-get_url
+     * The get_URL method retrieves the URL of the current web page.
+     * @param {Pointer<BSTR>} pURL Receives the URL.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-idshowplugin-get_url
      */
     get_URL(pURL) {
         result := ComCall(3, this, "ptr", pURL, "HRESULT")
@@ -60,10 +60,10 @@ class IDShowPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pUserAgent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-idshowplugin-get_useragent
+     * The get_UserAgent method retrieves the User-Agent field from the HTTP header.
+     * @param {Pointer<BSTR>} pUserAgent Pointer to a variable that receives the User-Agent string.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-idshowplugin-get_useragent
      */
     get_UserAgent(pUserAgent) {
         result := ComCall(4, this, "ptr", pUserAgent, "HRESULT")

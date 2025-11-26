@@ -37,9 +37,9 @@ class ILocationPermissions extends IUnknown{
     static VTableNames => ["GetGlobalLocationPermission", "CheckLocationCapability"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-getgloballocationpermission
+     * Gets the status of the system setting that allows users to change location settings.
+     * @returns {BOOL} <b>TRUE</b> if system settings allow users to enable or disable the location platform; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-ilocationpermissions-getgloballocationpermission
      */
     GetGlobalLocationPermission() {
         result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
@@ -47,10 +47,50 @@ class ILocationPermissions extends IUnknown{
     }
 
     /**
+     * Gets the location capability of the Windows Store app of the given thread.
+     * @param {Integer} dwClientThreadId Thread Id of the app to check the location capability of
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwClientThreadId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-checklocationcapability
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded and the app is location enabled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The app has not declared location capability or the user has declined or revoked location access.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ILLEGAL_METHOD_CALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid client thread was provided.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-ilocationpermissions-checklocationcapability
      */
     CheckLocationCapability(dwClientThreadId) {
         result := ComCall(4, this, "uint", dwClientThreadId, "HRESULT")

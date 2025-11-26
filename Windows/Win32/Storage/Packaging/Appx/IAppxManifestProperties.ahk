@@ -39,10 +39,18 @@ class IAppxManifestProperties extends IUnknown{
     static VTableNames => ["GetBoolValue", "GetStringValue"]
 
     /**
+     * Gets the value of the specified Boolean element in the properties section.
+     * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} name 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestproperties-getboolvalue
+     * The name of the Boolean element. Valid values include:
+     * 
+     * <p class="indent">"Framework"
+     * 
+     * <p class="indent">"ResourcePackage" for Windows 8.1 and later
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * 
+     * The value of the specified Boolean element.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestproperties-getboolvalue
      */
     GetBoolValue(name) {
         name := name is String ? StrPtr(name) : name
@@ -52,10 +60,22 @@ class IAppxManifestProperties extends IUnknown{
     }
 
     /**
+     * Gets the value of the specified string element in the properties section.
+     * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} name 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestproperties-getstringvalue
+     * The name of the string element. Valid values include:
+     * 
+     * <p class="indent">"Description"
+     * 
+     * <p class="indent">"DisplayName"
+     * 
+     * <p class="indent">"Logo"
+     * 
+     * <p class="indent">"PublisherDisplayName"
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
+     * 
+     * The value of the specified element.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestproperties-getstringvalue
      */
     GetStringValue(name) {
         name := name is String ? StrPtr(name) : name

@@ -44,10 +44,10 @@ class IMbnSignalEvents extends IUnknown{
     static VTableNames => ["OnSignalStateChange"]
 
     /**
-     * 
-     * @param {IMbnSignal} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsignalevents-onsignalstatechange
+     * This notification method is called by the Mobile Broadband service to indicate that a signal quality update is available.
+     * @param {IMbnSignal} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsignal">IMbnSignal</a> interface  for which the signal quality update was received.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnsignalevents-onsignalstatechange
      */
     OnSignalStateChange(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")

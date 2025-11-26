@@ -42,12 +42,10 @@ class IPresentationSurface extends IPresentationContent{
     }
 
     /**
-     * The SetColorSpace function defines the input color space for a given device context.
-     * @param {Integer} colorSpace 
-     * @returns {HRESULT} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
-     * If this function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setcolorspace
+     * @param {Integer} colorSpace 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-setcolorspace
      */
     SetColorSpace(colorSpace) {
         result := ComCall(5, this, "int", colorSpace, "HRESULT")

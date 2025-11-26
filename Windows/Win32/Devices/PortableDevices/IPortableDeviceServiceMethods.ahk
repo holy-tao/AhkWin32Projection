@@ -31,12 +31,12 @@ class IPortableDeviceServiceMethods extends IUnknown{
     static VTableNames => ["Invoke", "InvokeAsync", "Cancel"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} Method 
-     * @param {IPortableDeviceValues} pParameters 
-     * @param {Pointer<IPortableDeviceValues>} ppResults 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-invoke
+     * Synchronously invokes a method.
+     * @param {Pointer<Guid>} Method The method to invoke.
+     * @param {IPortableDeviceValues} pParameters A pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that contains the parameters of the invoked method, or <b>NULL</b> to indicate that the method has no parameters.
+     * @param {Pointer<IPortableDeviceValues>} ppResults The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that receives the method results, or <b>NULL</b> to ignore the method results.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Any other <b>HRESULT</b> value indicates that the call failed.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-invoke
      */
     Invoke(Method, pParameters, ppResults) {
         result := ComCall(3, this, "ptr", Method, "ptr", pParameters, "ptr*", ppResults, "HRESULT")
@@ -44,12 +44,12 @@ class IPortableDeviceServiceMethods extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Method 
-     * @param {IPortableDeviceValues} pParameters 
-     * @param {IPortableDeviceServiceMethodCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-invokeasync
+     * Asynchronously invokes a method.
+     * @param {Pointer<Guid>} Method The method to invoke.
+     * @param {IPortableDeviceValues} pParameters A pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that contains the parameters of the invoked method, or <b>NULL</b> to indicate that the method has no parameters.
+     * @param {IPortableDeviceServiceMethodCallback} pCallback A pointer to an application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemethodcallback">IPortableDeviceServiceMethodCallback</a> callback object that  receives the method results, or <b>NULL</b> to ignore the method results.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Any other <b>HRESULT</b> value indicates that the call failed.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-invokeasync
      */
     InvokeAsync(Method, pParameters, pCallback) {
         result := ComCall(4, this, "ptr", Method, "ptr", pParameters, "ptr", pCallback, "HRESULT")
@@ -57,10 +57,10 @@ class IPortableDeviceServiceMethods extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IPortableDeviceServiceMethodCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-cancel
+     * Cancels a pending method invocation.
+     * @param {IPortableDeviceServiceMethodCallback} pCallback A pointer to the callback object whose method invocation is to be canceled, or <b>NULL</b> to cancel all pending method invocations.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Any other <b>HRESULT</b> value indicates that the call failed.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-cancel
      */
     Cancel(pCallback) {
         result := ComCall(5, this, "ptr", pCallback, "HRESULT")

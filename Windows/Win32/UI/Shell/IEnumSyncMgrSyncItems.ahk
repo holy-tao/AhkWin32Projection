@@ -36,12 +36,20 @@ class IEnumSyncMgrSyncItems extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Gets the next batch of sync items from the handler.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<ISyncMgrSyncItem>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-next
+     * This value must be 1.
+     * @param {Pointer<ISyncMgrSyncItem>} rgelt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a>**</b>
+     * 
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a> interface pointer.
+     * @param {Pointer<Integer>} pceltFetched Type: <b>ULONG*</b>
+     * 
+     * A pointer to the number of items fetched.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -51,10 +59,14 @@ class IEnumSyncMgrSyncItems extends IUnknown{
     }
 
     /**
+     * Skips forward in the enumeration the specified number of items.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-skip
+     * The number of items to skip.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -62,9 +74,11 @@ class IEnumSyncMgrSyncItems extends IUnknown{
     }
 
     /**
+     * Resets the current position in the enumeration to 0.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-reset
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -72,9 +86,11 @@ class IEnumSyncMgrSyncItems extends IUnknown{
     }
 
     /**
+     * Not used. Clones an IEnumSyncMgrSyncItems object.
+     * @returns {IEnumSyncMgrSyncItems} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrsyncitems">IEnumSyncMgrSyncItems</a>**</b>
      * 
-     * @returns {IEnumSyncMgrSyncItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-clone
+     * The address of the cloned <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrsyncitems">IEnumSyncMgrSyncItems</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-ienumsyncmgrsyncitems-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

@@ -50,9 +50,9 @@ class IMSVidDevice2 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice2-get_devicepath
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the device path. The caller must free the returned string, using the <b>SysFreeString</b> function.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice2-get_devicepath
      */
     get_DevicePath() {
         DevPath := BSTR()

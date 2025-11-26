@@ -42,11 +42,11 @@ class IMFRateSupport extends IUnknown{
     static VTableNames => ["GetSlowestRate", "GetFastestRate", "IsRateSupported"]
 
     /**
-     * 
-     * @param {Integer} eDirection 
-     * @param {BOOL} fThin 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getslowestrate
+     * Retrieves the slowest playback rate supported by the object.
+     * @param {Integer} eDirection Specifies whether to query to the slowest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
+     * @param {BOOL} fThin If <b>TRUE</b>, the method retrieves the slowest thinned playback rate. Otherwise, the method retrieves the slowest non-thinned playback rate. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
+     * @returns {Float} Receives the slowest playback rate that the object supports.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfratesupport-getslowestrate
      */
     GetSlowestRate(eDirection, fThin) {
         result := ComCall(3, this, "int", eDirection, "int", fThin, "float*", &pflRate := 0, "HRESULT")
@@ -54,11 +54,11 @@ class IMFRateSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} eDirection 
-     * @param {BOOL} fThin 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getfastestrate
+     * Gets the fastest playback rate supported by the object.
+     * @param {Integer} eDirection Specifies whether to query to the fastest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
+     * @param {BOOL} fThin If <b>TRUE</b>, the method retrieves the fastest thinned playback rate. Otherwise, the method retrieves the fastest non-thinned playback rate. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
+     * @returns {Float} Receives the fastest playback rate that the object supports.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfratesupport-getfastestrate
      */
     GetFastestRate(eDirection, fThin) {
         result := ComCall(4, this, "int", eDirection, "int", fThin, "float*", &pflRate := 0, "HRESULT")
@@ -66,12 +66,63 @@ class IMFRateSupport extends IUnknown{
     }
 
     /**
+     * Queries whether the object supports a specified playback rate.
+     * @param {BOOL} fThin If <b>TRUE</b>, the method queries whether the object supports the playback rate with thinning. Otherwise, the method queries whether the object supports the playback rate without thinning. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
+     * @param {Float} flRate The playback rate to query.
+     * @param {Pointer<Float>} pflNearestSupportedRate If the object does not support the playback rate given in <i>flRate</i>, this parameter receives the closest supported playback rate. If the method returns S_OK, this parameter receives the value given in <i>flRate</i>. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} fThin 
-     * @param {Float} flRate 
-     * @param {Pointer<Float>} pflNearestSupportedRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-isratesupported
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object supports the specified rate.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_REVERSE_UNSUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object does not support reverse playback.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_THINNING_UNSUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object does not support thinning.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_UNSUPPORTED_RATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object does not support the specified rate.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfratesupport-isratesupported
      */
     IsRateSupported(fThin, flRate, pflNearestSupportedRate) {
         pflNearestSupportedRateMarshal := pflNearestSupportedRate is VarRef ? "float*" : "ptr"

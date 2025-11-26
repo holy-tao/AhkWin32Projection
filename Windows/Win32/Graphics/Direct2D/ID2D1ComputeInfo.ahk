@@ -35,11 +35,17 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
     static VTableNames => ["SetComputeShaderConstantBuffer", "SetComputeShader", "SetResourceTexture"]
 
     /**
+     * Establishes or changes the constant buffer data for this transform.
+     * @param {Pointer<Integer>} buffer Type: <b>const BYTE*</b>
      * 
-     * @param {Pointer<Integer>} buffer 
-     * @param {Integer} bufferCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
+     * The data applied to the constant buffer.
+     * @param {Integer} bufferCount Type: <b>UINT32</b>
+     * 
+     * The number of bytes of data in the constant buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
      */
     SetComputeShaderConstantBuffer(buffer, bufferCount) {
         bufferMarshal := buffer is VarRef ? "char*" : "ptr"
@@ -49,10 +55,33 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
     }
 
     /**
+     * Sets the compute shader to the given shader resource. The resource must be loaded before this call is made.
+     * @param {Pointer<Guid>} shaderId Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} shaderId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshader
+     * The GUID of the shader.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Direct2D could not allocate sufficient memory to complete the call.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>An invalid parameter was passed to the returning function.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshader
      */
     SetComputeShader(shaderId) {
         result := ComCall(8, this, "ptr", shaderId, "HRESULT")
@@ -60,11 +89,36 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
     }
 
     /**
+     * Sets the resource texture corresponding to the given shader texture index to the given texture resource.
+     * @param {Integer} textureIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} textureIndex 
-     * @param {ID2D1ResourceTexture} resourceTexture 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setresourcetexture
+     * The index to set the resource texture on.
+     * @param {ID2D1ResourceTexture} resourceTexture Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1resourcetexture">ID2D1ResourceTexture</a>*</b>
+     * 
+     * The resource texture object to set on the shader texture index.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Direct2D could not allocate sufficient memory to complete the call.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>An invalid parameter was passed to the returning function.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setresourcetexture
      */
     SetResourceTexture(textureIndex, resourceTexture) {
         result := ComCall(9, this, "uint", textureIndex, "ptr", resourceTexture, "HRESULT")

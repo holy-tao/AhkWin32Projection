@@ -44,10 +44,10 @@ class IMbnRadioEvents extends IUnknown{
     static VTableNames => ["OnRadioStateChange", "OnSetSoftwareRadioStateComplete"]
 
     /**
-     * 
-     * @param {IMbnRadio} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradioevents-onradiostatechange
+     * A notification signaling that the radio state of the device has changed.
+     * @param {IMbnRadio} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradio">IMbnRadio</a> interface representing the device for which the radio state has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradioevents-onradiostatechange
      */
     OnRadioStateChange(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")
@@ -55,12 +55,12 @@ class IMbnRadioEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnRadio} newInterface 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
+     * Notification that a set software radio state operation has completed.
+     * @param {IMbnRadio} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradio">IMbnRadio</a> interface representing the device for which a set radio state operation has completed.
+     * @param {Integer} requestID The request ID set by the Mobile Broadband service to identify the request.
+     * @param {HRESULT} status A status code that indicates the outcome of the set radio state operation.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
      */
     OnSetSoftwareRadioStateComplete(newInterface, requestID, status) {
         result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")

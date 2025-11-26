@@ -43,10 +43,28 @@ class IWMPMetadataText extends IDispatch{
     }
 
     /**
+     * The get_description method retrieves a description of the metadata text.
+     * @param {Pointer<BSTR>} pbstrDescription Pointer to a BSTR containing the description.
+     * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatatext-get_description
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatatext-get_description
      */
     get_description(pbstrDescription) {
         result := ComCall(7, this, "ptr", pbstrDescription, "HRESULT")
@@ -54,10 +72,28 @@ class IWMPMetadataText extends IDispatch{
     }
 
     /**
+     * The get_text method retrieves the metadata text.
+     * @param {Pointer<BSTR>} pbstrText Pointer to a <b>BSTR</b> containing the text.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatatext-get_text
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatatext-get_text
      */
     get_text(pbstrText) {
         result := ComCall(8, this, "ptr", pbstrText, "HRESULT")

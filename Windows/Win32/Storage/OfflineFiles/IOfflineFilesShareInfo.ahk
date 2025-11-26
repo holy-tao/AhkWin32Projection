@@ -32,9 +32,9 @@ class IOfflineFilesShareInfo extends IUnknown{
     static VTableNames => ["GetShareItem", "GetShareCachingMode", "IsShareDfsJunction"]
 
     /**
-     * 
-     * @returns {IOfflineFilesShareItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-getshareitem
+     * Finds the cache item representing the closest ancestor share to the item.
+     * @returns {IOfflineFilesShareItem} Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesshareitem">IOfflineFilesShareItem</a> interface on the share item.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesshareinfo-getshareitem
      */
     GetShareItem() {
         result := ComCall(3, this, "ptr*", &ppShareItem := 0, "HRESULT")
@@ -42,9 +42,11 @@ class IOfflineFilesShareInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the caching mode configuration of the closest ancestor share to the item.
+     * @returns {Integer} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_caching_mode">OFFLINEFILES_CACHING_MODE</a> enumeration that indicates the caching mode.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode
+     * The following values can be returned:
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode
      */
     GetShareCachingMode() {
         result := ComCall(4, this, "int*", &pCachingMode := 0, "HRESULT")
@@ -52,9 +54,9 @@ class IOfflineFilesShareInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-issharedfsjunction
+     * Determines whether the share item is a DFS junction or a shared folder on a server.
+     * @returns {BOOL} Receives <b>TRUE</b> if the item is a DFS junction, or <b>FALSE</b> if the share is a shared folder (\\server\share) on a server.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesshareinfo-issharedfsjunction
      */
     IsShareDfsJunction() {
         result := ComCall(5, this, "int*", &pbIsDfsJunction := 0, "HRESULT")

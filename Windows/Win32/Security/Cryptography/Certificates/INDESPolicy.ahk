@@ -31,19 +31,9 @@ class INDESPolicy extends IUnknown{
     static VTableNames => ["Initialize", "Uninitialize", "GenerateChallenge", "VerifyRequest", "Notify"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the NDES policy module.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-indespolicy-initialize
      */
     Initialize() {
         result := ComCall(3, this, "HRESULT")
@@ -51,9 +41,9 @@ class INDESPolicy extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-indespolicy-uninitialize
+     * Uninitializes the NDES policy module.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-indespolicy-uninitialize
      */
     Uninitialize() {
         result := ComCall(4, this, "HRESULT")
@@ -61,11 +51,11 @@ class INDESPolicy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszTemplate 
-     * @param {PWSTR} pwszParams 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-indespolicy-generatechallenge
+     * Performs the policy decision whether to issue a challenge password to the SCEP client.
+     * @param {PWSTR} pwszTemplate The template being requested for, as determined by NDES.
+     * @param {PWSTR} pwszParams Parameters specific to the policy module implementation.
+     * @returns {PWSTR} After the user has been authenticated and authorized, the <i>ppwsxResponse</i> parameter contains the SCEP challenge password for the user. NDES will free this resource.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-indespolicy-generatechallenge
      */
     GenerateChallenge(pwszTemplate, pwszParams) {
         pwszTemplate := pwszTemplate is String ? StrPtr(pwszTemplate) : pwszTemplate
@@ -76,13 +66,13 @@ class INDESPolicy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<CERTTRANSBLOB>} pctbRequest 
-     * @param {Pointer<CERTTRANSBLOB>} pctbSigningCertEncoded 
-     * @param {PWSTR} pwszTemplate 
-     * @param {PWSTR} pwszTransactionId 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-indespolicy-verifyrequest
+     * Verifies the NDES certificate request for submission to the CA.
+     * @param {Pointer<CERTTRANSBLOB>} pctbRequest The encoded PKCS#10 request.
+     * @param {Pointer<CERTTRANSBLOB>} pctbSigningCertEncoded The valid signing certificate for a renewal request.
+     * @param {PWSTR} pwszTemplate The template being requested for, as determined by NDES.
+     * @param {PWSTR} pwszTransactionId The SCEP request transaction ID.
+     * @returns {BOOL} True if the challenge is verified; otherwise false.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-indespolicy-verifyrequest
      */
     VerifyRequest(pctbRequest, pctbSigningCertEncoded, pwszTemplate, pwszTransactionId) {
         pwszTemplate := pwszTemplate is String ? StrPtr(pwszTemplate) : pwszTemplate
@@ -93,14 +83,14 @@ class INDESPolicy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszChallenge 
-     * @param {PWSTR} pwszTransactionId 
-     * @param {Integer} disposition 
-     * @param {Integer} lastHResult 
-     * @param {Pointer<CERTTRANSBLOB>} pctbIssuedCertEncoded 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-indespolicy-notify
+     * Notifies the plug-in of the transaction status of the SCEP certificate request.
+     * @param {PWSTR} pwszChallenge The authentication and authorization SCEP challenge password for the user.
+     * @param {PWSTR} pwszTransactionId The SCEP request transaction ID.
+     * @param {Integer} disposition The disposition of the transaction.
+     * @param {Integer} lastHResult The <b>HRESULT</b> of the last operation.
+     * @param {Pointer<CERTTRANSBLOB>} pctbIssuedCertEncoded The requested certificate, if issued.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-indespolicy-notify
      */
     Notify(pwszChallenge, pwszTransactionId, disposition, lastHResult, pctbIssuedCertEncoded) {
         pwszChallenge := pwszChallenge is String ? StrPtr(pwszChallenge) : pwszChallenge

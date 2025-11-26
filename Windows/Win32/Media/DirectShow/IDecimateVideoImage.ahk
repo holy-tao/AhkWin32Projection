@@ -31,11 +31,40 @@ class IDecimateVideoImage extends IUnknown{
     static VTableNames => ["SetDecimationImageSize", "ResetDecimationImageSize"]
 
     /**
+     * The SetDecimationImageSize method specifies the dimensions to which the decoder should decimate its output image.
+     * @param {Integer} lWidth Specifies the width of the video image, in pixels.
+     * @param {Integer} lHeight Specifies the height of the video image, in pixels.
+     * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
-     * @param {Integer} lWidth 
-     * @param {Integer} lHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idecimatevideoimage-setdecimationimagesize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The decoder cannot perform any decimation, or needs to halt decimation it is currently performing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The decoder can decimate the video to the requested size.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idecimatevideoimage-setdecimationimagesize
      */
     SetDecimationImageSize(lWidth, lHeight) {
         result := ComCall(3, this, "int", lWidth, "int", lHeight, "HRESULT")
@@ -43,9 +72,9 @@ class IDecimateVideoImage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idecimatevideoimage-resetdecimationimagesize
+     * The ResetDecimationImageSize method specifies that the decoder should no longer decimate its output image.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value indicating the success or failure of the call.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idecimatevideoimage-resetdecimationimagesize
      */
     ResetDecimationImageSize() {
         result := ComCall(4, this, "HRESULT")

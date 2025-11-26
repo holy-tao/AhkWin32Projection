@@ -37,12 +37,12 @@ class IEnumComponents extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @param {Pointer<IComponent>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ienumcomponents-next
+     * The Next method retrieves the next n elements in the collection.
+     * @param {Integer} celt The number of elements to retrieve.
+     * @param {Pointer<IComponent>} rgelt Address of an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponent">IComponent</a> interface pointers that will receive the retrieved <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/component-object">Component</a> objects.
+     * @param {Pointer<Integer>} pceltFetched Receives the number of elements actually retrieved.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ienumcomponents-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -52,10 +52,10 @@ class IEnumComponents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ienumcomponents-skip
+     * The Skip method skips the specified element in the collection without retrieving it.
+     * @param {Integer} celt Specifies the element to skip.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ienumcomponents-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -63,9 +63,9 @@ class IEnumComponents extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ienumcomponents-reset
+     * The Reset method resets the enumerator to the beginning of the collection.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ienumcomponents-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -73,9 +73,9 @@ class IEnumComponents extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumComponents} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ienumcomponents-clone
+     * The Clone method creates a new copy of the entire collection.
+     * @returns {IEnumComponents} Address of an <b>IEnumComponents</b> interface pointer that will be set to the new collection.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ienumcomponents-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

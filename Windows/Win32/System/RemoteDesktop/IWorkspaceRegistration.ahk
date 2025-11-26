@@ -31,10 +31,10 @@ class IWorkspaceRegistration extends IUnknown{
     static VTableNames => ["AddResource", "RemoveResource"]
 
     /**
-     * 
-     * @param {IWorkspaceClientExt} pUnk 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspaceregistration-addresource
+     * Adds a resource to the connection in RemoteApp and Desktop Connection.
+     * @param {IWorkspaceClientExt} pUnk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/workspaceruntimeclientext/nn-workspaceruntimeclientext-iworkspaceclientext">IWorkspaceClientExt</a> object  that called this method.
+     * @returns {Integer} A pointer to a <b>DWORD</b> variable to receive the connection cookie for a new resource.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspaceregistration-addresource
      */
     AddResource(pUnk) {
         result := ComCall(3, this, "ptr", pUnk, "uint*", &pdwCookie := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IWorkspaceRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwCookieConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspaceregistration-removeresource
+     * Notifies the RemoteApp and Desktop Connection runtime that the client is disconnecting the connection.
+     * @param {Integer} dwCookieConnection A <b>DWORD</b> value that contains a connection cookie returned by the <a href="https://docs.microsoft.com/windows/desktop/api/workspaceruntime/nf-workspaceruntime-iworkspaceregistration-addresource">AddResource</a> method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspaceregistration-removeresource
      */
     RemoveResource(dwCookieConnection) {
         result := ComCall(4, this, "uint", dwCookieConnection, "HRESULT")

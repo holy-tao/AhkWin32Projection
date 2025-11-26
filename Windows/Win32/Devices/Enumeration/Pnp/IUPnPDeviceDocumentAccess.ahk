@@ -32,9 +32,9 @@ class IUPnPDeviceDocumentAccess extends IUnknown{
     static VTableNames => ["GetDocumentURL"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicedocumentaccess-getdocumenturl
+     * The GetDocumentURL method returns the URL from which the device description document can be loaded.
+     * @returns {BSTR} Receives the URL from which the device description document can be downloaded.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicedocumentaccess-getdocumenturl
      */
     GetDocumentURL() {
         pbstrDocument := BSTR()

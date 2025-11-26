@@ -60,11 +60,62 @@ class IGetClusterDataInfo extends IUnknown{
     static VTableNames => ["GetClusterName", "GetClusterHandle", "GetObjectCount"]
 
     /**
+     * Returns the name of the cluster.
+     * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the cluster; or 
+     *        <b>NULL</b> to indicate that the caller is requesting only the length of the name. Although 
+     *        declared as a <b>BSTR</b>, this parameter is implemented as an 
+     *        <b>LPWSTR</b>.
+     * @param {Pointer<Integer>} pcchName On input, pointer to the size of the buffer, in characters, pointed to by the 
+     *        <i>lpszName</i> parameter. On output, pointer to the total number of characters in the 
+     *        buffer including the <b>NULL</b>-terminating character.
+     * @returns {HRESULT} If <b>GetClusterName</b> is not 
+     *        successful, it can return other <b>HRESULT</b> values.
      * 
-     * @param {BSTR} lpszName 
-     * @param {Pointer<Integer>} pcchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * <dt>0x800700ea</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpszName</i> is too small to hold the requested name. 
+     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername">GetClusterName</a> returns the 
+     *          required number of characters in the content of <i>pcchName</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterdatainfo-getclustername
      */
     GetClusterName(lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
@@ -76,9 +127,9 @@ class IGetClusterDataInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HCLUSTER} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getclusterhandle
+     * Returns a handle to the cluster.
+     * @returns {HCLUSTER} A cluster handle.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterdatainfo-getclusterhandle
      */
     GetClusterHandle() {
         result := ComCall(4, this, "ptr")
@@ -86,9 +137,9 @@ class IGetClusterDataInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount
+     * Returns a count of the number of selected cluster objects.
+     * @returns {Integer} A count of the number of selected objects.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount
      */
     GetObjectCount() {
         result := ComCall(5, this, "int")

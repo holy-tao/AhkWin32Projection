@@ -41,15 +41,15 @@ class IMFMediaKeys extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} mimeType 
-     * @param {Pointer} initData 
-     * @param {Integer} cb 
-     * @param {Pointer} customData 
-     * @param {Integer} cbCustomData 
-     * @param {IMFMediaKeySessionNotify} notify 
-     * @returns {IMFMediaKeySession} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-createsession
+     * Creates a media key session object using the specified initialization data and custom data. .
+     * @param {BSTR} mimeType The MIME type of the media container used for the content.
+     * @param {Pointer} initData The initialization data for the key system.
+     * @param {Integer} cb The count in bytes of <i>initData</i>.
+     * @param {Pointer} customData Custom data sent to the key system.
+     * @param {Integer} cbCustomData The count in bytes of <i>cbCustomData</i>.
+     * @param {IMFMediaKeySessionNotify} notify notify
+     * @returns {IMFMediaKeySession} The media key session.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-createsession
      */
     CreateSession(mimeType, initData, cb, customData, cbCustomData, notify) {
         mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
@@ -59,9 +59,9 @@ class IMFMediaKeys extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
+     * Gets the key system string the IMFMediaKeys object was created with.
+     * @returns {BSTR} The string name of the key system.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
      */
     get_KeySystem() {
         keySystem := BSTR()
@@ -71,8 +71,8 @@ class IMFMediaKeys extends IUnknown{
 
     /**
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-shutdown
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-shutdown
      */
     Shutdown() {
         result := ComCall(5, this, "HRESULT")
@@ -80,9 +80,9 @@ class IMFMediaKeys extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMFCdmSuspendNotify} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-getsuspendnotify
+     * Gets the suspend notify interface of the Content Decryption Module (CDM).
+     * @returns {IMFCdmSuspendNotify} The suspend notify interface of the Content Decryption Module (CDM).
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-getsuspendnotify
      */
     GetSuspendNotify() {
         result := ComCall(6, this, "ptr*", &notify := 0, "HRESULT")

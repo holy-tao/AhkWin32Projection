@@ -31,10 +31,50 @@ class IOleCacheControl extends IUnknown{
     static VTableNames => ["OnRun", "OnStop"]
 
     /**
+     * Notifies the cache that the data source object has entered the running state so that the cache object can establish advise sinks as needed.
+     * @param {IDataObject} pDataObject A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object that is entering the running state.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @param {IDataObject} pDataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecachecontrol-onrun
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the  arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory is available for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolecachecontrol-onrun
      */
     OnRun(pDataObject) {
         result := ComCall(3, this, "ptr", pDataObject, "HRESULT")
@@ -42,9 +82,38 @@ class IOleCacheControl extends IUnknown{
     }
 
     /**
+     * Notifies the cache that it should terminate any existing advise sinks. No indication is given as to whether a connection actually existed.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecachecontrol-onstop
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory is available for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolecachecontrol-onstop
      */
     OnStop() {
         result := ComCall(4, this, "HRESULT")

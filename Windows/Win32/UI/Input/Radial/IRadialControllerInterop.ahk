@@ -31,11 +31,13 @@ class IRadialControllerInterop extends IInspectable{
     static VTableNames => ["CreateForWindow"]
 
     /**
+     * Instantiates a RadialController object and binds it to the active application.
+     * @param {HWND} hwnd Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerinterop-createforwindow
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example, __uuidof(IRadialController) will get the GUID of the interface to a buffer resource.
+     * @returns {Pointer<Void>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontroller">RadialController</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerinterop-createforwindow
      */
     CreateForWindow(hwnd, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

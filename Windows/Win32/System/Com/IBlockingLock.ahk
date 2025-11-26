@@ -31,10 +31,10 @@ class IBlockingLock extends IUnknown{
     static VTableNames => ["Lock", "Unlock"]
 
     /**
-     * 
-     * @param {Integer} dwTimeout 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iblockinglock-lock
+     * Requests a lock on a shared resource.
+     * @param {Integer} dwTimeout The time interval after which the attempted lock operation fails.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iblockinglock-lock
      */
     Lock(dwTimeout) {
         result := ComCall(3, this, "uint", dwTimeout, "HRESULT")
@@ -42,9 +42,9 @@ class IBlockingLock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iblockinglock-unlock
+     * Releases a lock on a shared resource.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iblockinglock-unlock
      */
     Unlock() {
         result := ComCall(4, this, "HRESULT")

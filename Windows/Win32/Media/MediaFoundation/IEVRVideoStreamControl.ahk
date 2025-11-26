@@ -31,10 +31,10 @@ class IEVRVideoStreamControl extends IUnknown{
     static VTableNames => ["SetStreamActiveState", "GetStreamActiveState"]
 
     /**
-     * 
+     * IEVRVideoStreamControl::SetStreamActiveState method
      * @param {BOOL} fActive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-ievrvideostreamcontrol-setstreamactivestate
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-ievrvideostreamcontrol-setstreamactivestate
      */
     SetStreamActiveState(fActive) {
         result := ComCall(3, this, "int", fActive, "HRESULT")
@@ -42,9 +42,9 @@ class IEVRVideoStreamControl extends IUnknown{
     }
 
     /**
-     * 
+     * IEVRVideoStreamControl::GetStreamActiveState method
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-ievrvideostreamcontrol-getstreamactivestate
+     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-ievrvideostreamcontrol-getstreamactivestate
      */
     GetStreamActiveState() {
         result := ComCall(4, this, "int*", &lpfActive := 0, "HRESULT")

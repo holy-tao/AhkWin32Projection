@@ -54,9 +54,9 @@ class IRDPSRAPIInvitationManager extends IDispatch{
     }
 
     /**
-     * 
+     * An enumerator interface for the invitation collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -64,10 +64,10 @@ class IRDPSRAPIInvitationManager extends IDispatch{
     }
 
     /**
-     * 
+     * An item in the invitation collection.
      * @param {VARIANT} item 
      * @returns {IRDPSRAPIInvitation} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_item
      */
     get_Item(item) {
         result := ComCall(8, this, "ptr", item, "ptr*", &ppInvitation := 0, "HRESULT")
@@ -75,9 +75,9 @@ class IRDPSRAPIInvitationManager extends IDispatch{
     }
 
     /**
-     * 
+     * The number of invitations in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &pRetVal := 0, "HRESULT")
@@ -85,13 +85,23 @@ class IRDPSRAPIInvitationManager extends IDispatch{
     }
 
     /**
+     * Creates an invitation.
+     * @param {BSTR} bstrAuthString Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrAuthString 
-     * @param {BSTR} bstrGroupName 
-     * @param {BSTR} bstrPassword 
-     * @param {Integer} AttendeeLimit 
-     * @returns {IRDPSRAPIInvitation} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation
+     * String to use for the authorization. The string is limited to 255 characters and must be unique for the session. If <b>NULL</b>, the method generates the string for you.
+     * @param {BSTR} bstrGroupName Type: <b>BSTR</b>
+     * 
+     * The name of the group. The string must be unique for the session. Applications typically use the group name to separate attendees into groups that can be granted different authorization levels.
+     * @param {BSTR} bstrPassword Type: <b>BSTR</b>
+     * 
+     * Password to use for authentication. The password is limited to 255 characters. You must provide the password to the viewer out-of-band from the ticket.
+     * @param {Integer} AttendeeLimit Type: <b>long</b>
+     * 
+     * The maximum number of attendees.
+     * @returns {IRDPSRAPIInvitation} Type: <b>IRDPSRAPIInvitation**</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapiinvitation">IRDPSRAPIInvitation</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation
      */
     CreateInvitation(bstrAuthString, bstrGroupName, bstrPassword, AttendeeLimit) {
         bstrAuthString := bstrAuthString is String ? BSTR.Alloc(bstrAuthString).Value : bstrAuthString

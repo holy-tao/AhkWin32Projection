@@ -31,9 +31,27 @@ class IWMVideoForceKeyFrame extends IUnknown{
     static VTableNames => ["SetKeyFrame"]
 
     /**
+     * Specifies that the current frame will be encoded as a key frame.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideoforcekeyframe-setkeyframe
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideoforcekeyframe-setkeyframe
      */
     SetKeyFrame() {
         result := ComCall(3, this, "HRESULT")

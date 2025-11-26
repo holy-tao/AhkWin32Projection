@@ -36,11 +36,29 @@ class IWMReaderAdvanced5 extends IWMReaderAdvanced4{
     static VTableNames => ["SetPlayerHook"]
 
     /**
+     * The SetPlayerHook method assigns a player-hook callback to the reader. The reader calls the callback method before sending each sample to the graphics processor for decompression.
+     * @param {Integer} dwOutputNum The output number to which the player-hook callback applies.
+     * @param {IWMPlayerHook} pHook Pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmplayerhook">IWMPlayerHook</a> interface that will be used in association with the specified output.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwOutputNum 
-     * @param {IWMPlayerHook} pHook 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced5-setplayerhook
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced5-setplayerhook
      */
     SetPlayerHook(dwOutputNum, pHook) {
         result := ComCall(49, this, "uint", dwOutputNum, "ptr", pHook, "HRESULT")

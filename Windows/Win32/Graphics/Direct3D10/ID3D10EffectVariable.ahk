@@ -31,9 +31,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     static VTableNames => ["IsValid", "GetType", "GetDesc", "GetAnnotationByIndex", "GetAnnotationByName", "GetMemberByIndex", "GetMemberByName", "GetMemberBySemantic", "GetElement", "GetParentConstantBuffer", "AsScalar", "AsVector", "AsMatrix", "AsString", "AsShaderResource", "AsRenderTargetView", "AsDepthStencilView", "AsConstantBuffer", "AsShader", "AsBlend", "AsDepthStencil", "AsRasterizer", "AsSampler", "SetRawValue", "GetRawValue"]
 
     /**
+     * Compare the data type with the data stored.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-isvalid
+     * <b>TRUE</b> if the syntax is valid; otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-isvalid
      */
     IsValid() {
         result := ComCall(0, this, "int")
@@ -41,9 +43,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get type information.
+     * @returns {ID3D10EffectType} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effecttype">ID3D10EffectType</a>*</b>
      * 
-     * @returns {ID3D10EffectType} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-gettype
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effecttype">ID3D10EffectType Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-gettype
      */
     GetType() {
         result := ComCall(1, this, "ptr")
@@ -51,9 +55,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a description.
+     * @returns {D3D10_EFFECT_VARIABLE_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_effect_variable_desc">D3D10_EFFECT_VARIABLE_DESC</a>*</b>
      * 
-     * @returns {D3D10_EFFECT_VARIABLE_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getdesc
+     * A pointer to an effect-variable description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_effect_variable_desc">D3D10_EFFECT_VARIABLE_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getdesc
      */
     GetDesc() {
         pDesc := D3D10_EFFECT_VARIABLE_DESC()
@@ -62,10 +68,14 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get an annotation by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getannotationbyindex
+     * A zero-based index.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getannotationbyindex
      */
     GetAnnotationByIndex(Index) {
         result := ComCall(3, this, "uint", Index, "ptr")
@@ -73,10 +83,14 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get an annotation by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getannotationbyname
+     * The annotation name.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.  Note that if the annotation is not found the <b>ID3D10EffectVariable Interface</b> returned will be empty. The <a href="/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-isvalid">ID3D10EffectVariable::IsValid</a> method should be called to determine whether the annotation was found.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getannotationbyname
      */
     GetAnnotationByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -86,10 +100,14 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a structure member by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbyindex
+     * A zero-based index.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbyindex
      */
     GetMemberByIndex(Index) {
         result := ComCall(5, this, "uint", Index, "ptr")
@@ -97,10 +115,14 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a structure member by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbyname
+     * Member name.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbyname
      */
     GetMemberByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -110,10 +132,14 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a structure member by semantic.
+     * @param {PSTR} Semantic Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Semantic 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbysemantic
+     * The semantic.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbysemantic
      */
     GetMemberBySemantic(Semantic) {
         Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
@@ -123,10 +149,14 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get an array element.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getelement
+     * A zero-based index; otherwise 0.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getelement
      */
     GetElement(Index) {
         result := ComCall(8, this, "uint", Index, "ptr")
@@ -134,9 +164,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a constant buffer.
+     * @returns {ID3D10EffectConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer</a>*</b>
      * 
-     * @returns {ID3D10EffectConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getparentconstantbuffer
+     * A pointer to a <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getparentconstantbuffer
      */
     GetParentConstantBuffer() {
         result := ComCall(9, this, "ptr")
@@ -144,9 +176,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a scalar variable.
+     * @returns {ID3D10EffectScalarVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectscalarvariable">ID3D10EffectScalarVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectScalarVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asscalar
+     * A pointer to a scalar variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectscalarvariable">ID3D10EffectScalarVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asscalar
      */
     AsScalar() {
         result := ComCall(10, this, "ptr")
@@ -154,9 +188,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a vector variable.
+     * @returns {ID3D10EffectVectorVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvectorvariable">ID3D10EffectVectorVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectVectorVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asvector
+     * A pointer to a vector variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvectorvariable">ID3D10EffectVectorVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asvector
      */
     AsVector() {
         result := ComCall(11, this, "ptr")
@@ -164,9 +200,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a matrix variable.
+     * @returns {ID3D10EffectMatrixVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectmatrixvariable">ID3D10EffectMatrixVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectMatrixVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asmatrix
+     * A pointer to a matrix variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectmatrixvariable">ID3D10EffectMatrixVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asmatrix
      */
     AsMatrix() {
         result := ComCall(12, this, "ptr")
@@ -174,9 +212,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a string variable.
+     * @returns {ID3D10EffectStringVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectstringvariable">ID3D10EffectStringVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectStringVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asstring
+     * A pointer to a string variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectstringvariable">ID3D10EffectStringVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asstring
      */
     AsString() {
         result := ComCall(13, this, "ptr")
@@ -184,9 +224,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a shader-resource variable.
+     * @returns {ID3D10EffectShaderResourceVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectshaderresourcevariable">ID3D10EffectShaderResourceVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectShaderResourceVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asshaderresource
+     * A pointer to a shader-resource variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectshaderresourcevariable">ID3D10EffectShaderResourceVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asshaderresource
      */
     AsShaderResource() {
         result := ComCall(14, this, "ptr")
@@ -194,9 +236,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a render-target-view variable.
+     * @returns {ID3D10EffectRenderTargetViewVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectrendertargetviewvariable">ID3D10EffectRenderTargetViewVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectRenderTargetViewVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asrendertargetview
+     * A pointer to a render-target-view variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectrendertargetviewvariable">ID3D10EffectRenderTargetViewVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asrendertargetview
      */
     AsRenderTargetView() {
         result := ComCall(15, this, "ptr")
@@ -204,9 +248,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a depth-stencil-view variable.
+     * @returns {ID3D10EffectDepthStencilViewVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilviewvariable">ID3D10EffectDepthStencilViewVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectDepthStencilViewVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asdepthstencilview
+     * A pointer to a depth-stencil-view variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilviewvariable">ID3D10EffectDepthStencilViewVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asdepthstencilview
      */
     AsDepthStencilView() {
         result := ComCall(16, this, "ptr")
@@ -214,9 +260,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a constant buffer.
+     * @returns {ID3D10EffectConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer</a>*</b>
      * 
-     * @returns {ID3D10EffectConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asconstantbuffer
+     * A pointer to a constant buffer. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asconstantbuffer
      */
     AsConstantBuffer() {
         result := ComCall(17, this, "ptr")
@@ -224,9 +272,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a shader variable.
+     * @returns {ID3D10EffectShaderVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectshadervariable">ID3D10EffectShaderVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectShaderVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asshader
+     * A pointer to a shader variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectshadervariable">ID3D10EffectShaderVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asshader
      */
     AsShader() {
         result := ComCall(18, this, "ptr")
@@ -234,9 +284,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a effect-blend variable.
+     * @returns {ID3D10EffectBlendVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectblendvariable">ID3D10EffectBlendVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectBlendVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asblend
+     * A pointer to an effect blend variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectblendvariable">ID3D10EffectBlendVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asblend
      */
     AsBlend() {
         result := ComCall(19, this, "ptr")
@@ -244,9 +296,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a depth-stencil variable.
+     * @returns {ID3D10EffectDepthStencilVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilvariable">ID3D10EffectDepthStencilVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectDepthStencilVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asdepthstencil
+     * A pointer to a depth-stencil variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilvariable">ID3D10EffectDepthStencilVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asdepthstencil
      */
     AsDepthStencil() {
         result := ComCall(20, this, "ptr")
@@ -254,9 +308,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a rasterizer variable.
+     * @returns {ID3D10EffectRasterizerVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectrasterizervariable">ID3D10EffectRasterizerVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectRasterizerVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-asrasterizer
+     * A pointer to a rasterizer variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectrasterizervariable">ID3D10EffectRasterizerVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-asrasterizer
      */
     AsRasterizer() {
         result := ComCall(21, this, "ptr")
@@ -264,9 +320,11 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a sampler variable.
+     * @returns {ID3D10EffectSamplerVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectsamplervariable">ID3D10EffectSamplerVariable</a>*</b>
      * 
-     * @returns {ID3D10EffectSamplerVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-assampler
+     * A pointer to a sampler variable. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectsamplervariable">ID3D10EffectSamplerVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-assampler
      */
     AsSampler() {
         result := ComCall(22, this, "ptr")
@@ -274,12 +332,20 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Set data.
+     * @param {Pointer} pData Type: <b>void*</b>
      * 
-     * @param {Pointer} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} ByteCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-setrawvalue
+     * A pointer to the variable.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The offset (in bytes) from the beginning of the pointer to the data.
+     * @param {Integer} ByteCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of bytes to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-setrawvalue
      */
     SetRawValue(pData, Offset, ByteCount) {
         result := ComCall(23, this, "ptr", pData, "uint", Offset, "uint", ByteCount, "HRESULT")
@@ -287,12 +353,20 @@ class ID3D10EffectVariable extends Win32ComInterface{
     }
 
     /**
+     * Get data.
+     * @param {Pointer} pData Type: <b>void*</b>
      * 
-     * @param {Pointer} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} ByteCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getrawvalue
+     * A pointer to the variable.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The offset (in bytes) from the beginning of the pointer to the data.
+     * @param {Integer} ByteCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of bytes to get.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvariable-getrawvalue
      */
     GetRawValue(pData, Offset, ByteCount) {
         result := ComCall(24, this, "ptr", pData, "uint", Offset, "uint", ByteCount, "HRESULT")

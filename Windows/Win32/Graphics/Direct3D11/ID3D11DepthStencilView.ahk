@@ -38,10 +38,12 @@ class ID3D11DepthStencilView extends ID3D11View{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get the depth-stencil view.
+     * @param {Pointer<D3D11_DEPTH_STENCIL_VIEW_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencil_view_desc">D3D11_DEPTH_STENCIL_VIEW_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_DEPTH_STENCIL_VIEW_DESC>} pDesc 
+     * Pointer to a depth-stencil-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencil_view_desc">D3D11_DEPTH_STENCIL_VIEW_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11depthstencilview-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11depthstencilview-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

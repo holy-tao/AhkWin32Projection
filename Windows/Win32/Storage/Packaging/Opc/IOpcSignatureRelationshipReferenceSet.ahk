@@ -46,14 +46,28 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
     static VTableNames => ["Create", "CreateRelationshipSelectorSet", "Delete", "GetEnumerator"]
 
     /**
+     * Creates an IOpcSignatureRelationshipReference interface pointer that represents a reference to a Relationships part, and adds the new interface pointer to the set.
+     * @param {IOpcUri} sourceUri An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a>  interface pointer that represents the source URI of the relationships to be selected for signing.
+     * @param {PWSTR} digestMethod The digest method to be used for the relationships to be selected. To use the default digest method, pass <b>NULL</b> in this parameter.
      * 
-     * @param {IOpcUri} sourceUri 
-     * @param {PWSTR} digestMethod 
-     * @param {Integer} relationshipSigningOption 
-     * @param {IOpcRelationshipSelectorSet} selectorSet 
-     * @param {Integer} transformMethod 
-     * @returns {IOpcSignatureRelationshipReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create
+     * 
+     * <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
+     * <div> </div>
+     * @param {Integer} relationshipSigningOption A value that indicates whether the relationships selected for signing include    all or a subset of the relationships in the Relationships part to be referenced.
+     * 
+     * For information about the effect of <i>relationshipSigningOption</i> values on other parameters, see Remarks.
+     * @param {IOpcRelationshipSelectorSet} selectorSet An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer that can be used to identify a subset of relationships in the Relationships part to be selected for signing.
+     * 
+     * If <i>relationshipSigningOption</i> is  set to <b>OPC_RELATIONSHIP_SIGN_PART</b>, <i>selectorSet</i> is  <b>NULL</b>.
+     * 
+     * For information about <i>selectorSet</i> values, see Remarks.
+     * @param {Integer} transformMethod A value that describes the canonicalization method to be applied to the relationship markup of the selected relationships.
+     * 
+     * If <i>relationshipSigningOption</i> is set <b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b>, the value of <i>transformMethod</i> is ignored.
+     * 
+     * For more information about the transform methods to be applied when  <i>relationshipSigningOption</i>  is set to <b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b>, see Remarks.
+     * @returns {IOpcSignatureRelationshipReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer that represents the referenced Relationships part.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create
      */
     Create(sourceUri, digestMethod, relationshipSigningOption, selectorSet, transformMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
@@ -63,9 +77,9 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcRelationshipSelectorSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset
+     * Creates an IOpcRelationshipSelectorSet interface pointer that is used as the selectorSet parameter value of the Create method.
+     * @returns {IOpcRelationshipSelectorSet} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset
      */
     CreateRelationshipSelectorSet() {
         result := ComCall(4, this, "ptr*", &selectorSet := 0, "HRESULT")
@@ -73,10 +87,39 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
     }
 
     /**
+     * Deletes a specified IOpcSignatureRelationshipReference interface pointer from the set.
+     * @param {IOpcSignatureRelationshipReference} relationshipReference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a>  interface pointer to be deleted.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IOpcSignatureRelationshipReference} relationshipReference 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>relationshipReference</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-delete
      */
     Delete(relationshipReference) {
         result := ComCall(5, this, "ptr", relationshipReference, "HRESULT")
@@ -84,9 +127,9 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureRelationshipReferenceEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-getenumerator
+     * Gets an enumerator of IOpcSignatureRelationshipReference interface pointers in the set.
+     * @returns {IOpcSignatureRelationshipReferenceEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointers in the set.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreferenceset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &relationshipReferenceEnumerator := 0, "HRESULT")

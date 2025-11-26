@@ -32,18 +32,18 @@ class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink{
     static VTableNames => ["OnSetTaskTime", "OnDeleteTaskTime", "OnUpdateTaskStatus", "OnReportTasks"]
 
     /**
-     * 
-     * @param {BSTR} szTargetName 
-     * @param {FILETIME} TaskStartTime 
-     * @param {FILETIME} TaskEndTime 
-     * @param {FILETIME} TaskDeadline 
-     * @param {BSTR} szTaskLabel 
-     * @param {BSTR} szTaskIdentifier 
-     * @param {BSTR} szTaskPlugin 
-     * @param {Integer} dwTaskStatus 
-     * @param {Pointer<SAFEARRAY>} saContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onsettasktime
+     * Notifies Remote Desktop Connection Broker (RD Connection Broker) that a task has been scheduled.
+     * @param {BSTR} szTargetName The name of the target.
+     * @param {FILETIME} TaskStartTime A <b>FILETIME</b> structure specifying the start time (UTC).
+     * @param {FILETIME} TaskEndTime A <b>FILETIME</b> structure specifying the end time (UTC).
+     * @param {FILETIME} TaskDeadline A <b>FILETIME</b> structure specifying the deadline (UTC).
+     * @param {BSTR} szTaskLabel A label describing the purpose of the task.
+     * @param {BSTR} szTaskIdentifier Identifies the target.
+     * @param {BSTR} szTaskPlugin The display name of the task agent.
+     * @param {Integer} dwTaskStatus An <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status">RDV_TASK_STATUS</a> enumeration value  that represents the state of the task.
+     * @param {Pointer<SAFEARRAY>} saContext The context bytes associated with the task.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onsettasktime
      */
     OnSetTaskTime(szTargetName, TaskStartTime, TaskEndTime, TaskDeadline, szTaskLabel, szTaskIdentifier, szTaskPlugin, dwTaskStatus, saContext) {
         szTargetName := szTargetName is String ? BSTR.Alloc(szTargetName).Value : szTargetName
@@ -56,11 +56,11 @@ class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink{
     }
 
     /**
-     * 
-     * @param {BSTR} szTargetName 
-     * @param {BSTR} szTaskIdentifier 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-ondeletetasktime
+     * Notifies Remote Desktop Connection Broker (RD Connection Broker) that a task has been removed from the queue.
+     * @param {BSTR} szTargetName The name of the target.
+     * @param {BSTR} szTaskIdentifier The GUID that identifies the task.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-ondeletetasktime
      */
     OnDeleteTaskTime(szTargetName, szTaskIdentifier) {
         szTargetName := szTargetName is String ? BSTR.Alloc(szTargetName).Value : szTargetName
@@ -71,12 +71,12 @@ class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink{
     }
 
     /**
-     * 
-     * @param {BSTR} szTargetName 
-     * @param {BSTR} TaskIdentifier 
-     * @param {Integer} TaskStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onupdatetaskstatus
+     * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the status of a task has changed.
+     * @param {BSTR} szTargetName The name of the target.
+     * @param {BSTR} TaskIdentifier The GUID that identifies the task.
+     * @param {Integer} TaskStatus An <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status">RDV_TASK_STATUS</a> enumeration value representing the new state of the task.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onupdatetaskstatus
      */
     OnUpdateTaskStatus(szTargetName, TaskIdentifier, TaskStatus) {
         szTargetName := szTargetName is String ? BSTR.Alloc(szTargetName).Value : szTargetName
@@ -87,10 +87,10 @@ class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink{
     }
 
     /**
-     * 
-     * @param {BSTR} szHostName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onreporttasks
+     * Notifies Remote Desktop Connection Broker (RD Connection Broker) of a new task report.
+     * @param {BSTR} szHostName The name of the host where the report is located.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onreporttasks
      */
     OnReportTasks(szHostName) {
         szHostName := szHostName is String ? BSTR.Alloc(szHostName).Value : szHostName

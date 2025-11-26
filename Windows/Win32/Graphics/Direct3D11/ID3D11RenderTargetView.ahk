@@ -38,10 +38,12 @@ class ID3D11RenderTargetView extends ID3D11View{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get the properties of a render target view.
+     * @param {Pointer<D3D11_RENDER_TARGET_VIEW_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_render_target_view_desc">D3D11_RENDER_TARGET_VIEW_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_RENDER_TARGET_VIEW_DESC>} pDesc 
+     * Pointer to the description of a render target view (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_render_target_view_desc">D3D11_RENDER_TARGET_VIEW_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11rendertargetview-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11rendertargetview-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

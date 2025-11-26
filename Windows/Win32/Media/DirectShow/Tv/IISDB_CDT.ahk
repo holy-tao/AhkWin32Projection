@@ -32,22 +32,13 @@ class IISDB_CDT extends IUnknown{
     static VTableNames => ["Initialize", "GetVersionNumber", "GetDownloadDataId", "GetSectionNumber", "GetOriginalNetworkId", "GetDataType", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag", "GetSizeOfDataModule", "GetDataModule", "GetVersionHash"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {ISectionList} pSectionList 
-     * @param {IMpeg2Data} pMPEGData 
-     * @param {Integer} bSectionNumber 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the object by using captured table section data from an Integrated Services Digital Broadcasting System (ISDB) common data table (CDT).
+     * @param {ISectionList} pSectionList Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-isectionlist">ISectionList</a> interface
+     *   of the object that contains the section data.
+     * @param {IMpeg2Data} pMPEGData Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-impeg2data">IMpeg2Data</a> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg-2-sections-and-tables-filter">MPEG-2 Sections and Tables</a> filter.
+     * @param {Integer} bSectionNumber Specifies a value for the section_number field.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-initialize
      */
     Initialize(pSectionList, pMPEGData, bSectionNumber) {
         result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "char", bSectionNumber, "HRESULT")
@@ -55,9 +46,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getversionnumber
+     * Gets the version number for an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the version_number field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -65,9 +56,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdownloaddataid
+     * Receives the download_data_id field value for a logo transmission descriptor from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT). The download_data_id field identifies the data to be downloaded.
+     * @returns {Integer} Receives the download_data_id field value. This value is the same as the value of the table_id_extension field for the CDT containing the logo data.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdownloaddataid
      */
     GetDownloadDataId() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -75,9 +66,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getsectionnumber
+     * Gets the section_number field value from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the section_number field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getsectionnumber
      */
     GetSectionNumber() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -85,9 +76,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getoriginalnetworkid
+     * Gets an identifier that identifies the broadcaster that originated the MPEG-2 transport stream from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the original network ID.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getoriginalnetworkid
      */
     GetOriginalNetworkId() {
         result := ComCall(7, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -95,9 +86,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdatatype
+     * Receives the data type value from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the data type value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdatatype
      */
     GetDataType() {
         result := ComCall(8, this, "char*", &pbVal := 0, "HRESULT")
@@ -105,9 +96,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getcountoftabledescriptors
+     * Returns the number of descriptors for logos in an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the count of logo descriptors.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors() {
         result := ComCall(9, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -115,10 +106,10 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwIndex 
-     * @returns {IGenericDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-gettabledescriptorbyindex
+     * Returns a specified logo transmission descriptor from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getcountoftabledescriptors">IISDB_CDT::GetCountOfTableDescriptors</a> method to get the number of table descriptors.
+     * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface implemented by the descriptor. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
         result := ComCall(10, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
@@ -126,11 +117,18 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bTag 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {IGenericDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-gettabledescriptorbytag
+     * Searches a subtable in an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @param {Integer} bTag Specifies the descriptor tag for which to search.
+     * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position
+     *   in the descriptor list. This parameter is optional.
+     *   If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the
+     *   first descriptor in the list. Otherwise, the search starts from
+     *   the position given in <i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i>parameter contains the position of the next matching descriptor,
+     *   if any. You can use this parameter to iterate through the descriptor list,
+     *   looking for every instance of a particular descriptor tag.
+     * @returns {IGenericDescriptor} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a>interface pointer. Use this interface to retrieve the information
+     *   in the descriptor. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
@@ -140,9 +138,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getsizeofdatamodule
+     * Gets the size of a data module from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the size of the data module.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getsizeofdatamodule
      */
     GetSizeOfDataModule() {
         result := ComCall(12, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -150,9 +148,10 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdatamodule
+     * Receives the data module from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Pointer<Integer>} Pointer to a memory block allocated to receive the data module.
+     * The caller is responsible for freeing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdatamodule
      */
     GetDataModule() {
         result := ComCall(13, this, "ptr*", &pbData := 0, "HRESULT")
@@ -160,9 +159,9 @@ class IISDB_CDT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getversionhash
+     * Returns a hash value for this instance of an Integrated Services Digital Broadcasting (ISDB) common data table (CDT).
+     * @returns {Integer} Receives the hash value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_cdt-getversionhash
      */
     GetVersionHash() {
         result := ComCall(14, this, "uint*", &pdwVersionHash := 0, "HRESULT")

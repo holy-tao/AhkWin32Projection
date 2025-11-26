@@ -31,12 +31,12 @@ class IOfflineFilesCache2 extends IOfflineFilesCache{
     static VTableNames => ["RenameItemEx"]
 
     /**
-     * 
-     * @param {PWSTR} pszPathOriginal 
-     * @param {PWSTR} pszPathNew 
-     * @param {BOOL} bReplaceIfExists 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache2-renameitemex
+     * Renames an item in the cache. This method is identical to the IOfflineFilesCache::RenameItem method, except that it will attempt to do the rename operation right away.
+     * @param {PWSTR} pszPathOriginal Fully qualified UNC path of the item (server, share, file or directory) to be renamed.
+     * @param {PWSTR} pszPathNew The new path to replace <i>pszPathOriginal</i> if the item that  <i>pszPathOriginal</i> points to exists in the cache.
+     * @param {BOOL} bReplaceIfExists This parameter is reserved for future use.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilescache2-renameitemex
      */
     RenameItemEx(pszPathOriginal, pszPathNew, bReplaceIfExists) {
         pszPathOriginal := pszPathOriginal is String ? StrPtr(pszPathOriginal) : pszPathOriginal

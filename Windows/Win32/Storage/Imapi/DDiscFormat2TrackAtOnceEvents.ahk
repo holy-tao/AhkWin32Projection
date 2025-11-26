@@ -37,11 +37,15 @@ class DDiscFormat2TrackAtOnceEvents extends IDispatch{
     static VTableNames => ["Update"]
 
     /**
+     * Implement this method to receive progress notification of the current track-writing operation.
+     * @param {IDispatch} object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2trackatonce">IDiscFormat2TrackAtOnce</a> interface that initiated the write operation. 
      * 
-     * @param {IDispatch} object 
-     * @param {IDispatch} progress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscformat2trackatonceevents-update
+     * This parameter is a <b>MsftDiscFormat2TrackAtOnce</b> object in script.
+     * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2trackatonceeventargs">IDiscFormat2TrackAtOnceEventArgs</a> interface that you use to determine the progress of the write operation. 
+     * 
+     * This parameter is a <b>MsftDiscFormat2TrackAtOnce</b> object in script.
+     * @returns {HRESULT} Return values are ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscformat2trackatonceevents-update
      */
     Update(object, progress) {
         result := ComCall(7, this, "ptr", object, "ptr", progress, "HRESULT")

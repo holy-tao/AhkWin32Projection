@@ -40,9 +40,9 @@ class IDvdState extends IUnknown{
     static VTableNames => ["GetDiscID", "GetParentalLevel"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdstate-getdiscid
+     * The GetDiscID method retrieves the unique ID of the disc from which the bookmark was made.
+     * @returns {Integer} Receives the ID.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdstate-getdiscid
      */
     GetDiscID() {
         result := ComCall(3, this, "uint*", &pullUniqueID := 0, "HRESULT")
@@ -50,9 +50,9 @@ class IDvdState extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdstate-getparentallevel
+     * The GetParentalLevel method retrieves the user's parental level as saved in the DvdState object.
+     * @returns {Integer} Receives the parental level.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdstate-getparentallevel
      */
     GetParentalLevel() {
         result := ComCall(4, this, "uint*", &pulParentalLevel := 0, "HRESULT")

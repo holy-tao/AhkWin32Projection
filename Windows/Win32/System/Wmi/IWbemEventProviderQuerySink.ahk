@@ -42,12 +42,15 @@ class IWbemEventProviderQuerySink extends IUnknown{
     static VTableNames => ["NewQuery", "CancelQuery"]
 
     /**
-     * 
-     * @param {Integer} dwId 
-     * @param {Pointer<Integer>} wszQueryLanguage 
-     * @param {Pointer<Integer>} wszQuery 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-newquery
+     * Call the IWbemEventProviderQuerySink::NewQuery method when a logical event consumer registers a relevant event query filter with Windows Management.
+     * @param {Integer} dwId Windows Management-generated identifier for the query. The provider can track this so that during a later call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-cancelquery">CancelQuery</a> so that the provider will know which query was canceled.
+     * @param {Pointer<Integer>} wszQueryLanguage Language of the following query filter. For this version of WMI, it will always be "WQL".
+     * @param {Pointer<Integer>} wszQuery Text of the event query filter, which was registered by a logical consumer. The event provider can examine the text of the query filter through the <i>wszQuery</i> parameter and the language of the query filter in the <i>wszQueryLanguage</i> parameter to discover which event notifications the consumer is requesting.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists return codes returned by 
+     * <b>NewQuery</b>. Additionally, a third-party event provider could return any valid WMI or COM return code which could be passed through 
+     * <b>NewQuery</b> as a return value.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventproviderquerysink-newquery
      */
     NewQuery(dwId, wszQueryLanguage, wszQuery) {
         wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
@@ -58,10 +61,11 @@ class IWbemEventProviderQuerySink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-cancelquery
+     * Call the IWbemEventProviderQuerySink::CancelQuery method whenever a logical event consumer cancels a relevant event query filter with Windows Management.
+     * @param {Integer} dwId Identifier of the query which was canceled. This identifier was originally delivered to the provider by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-newquery">NewQuery</a> method of this interface.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventproviderquerysink-cancelquery
      */
     CancelQuery(dwId) {
         result := ComCall(4, this, "uint", dwId, "HRESULT")

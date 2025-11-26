@@ -42,10 +42,14 @@ class ID3D11Module extends IUnknown{
     static VTableNames => ["CreateInstance"]
 
     /**
+     * Initializes an instance of a shader module that is used for resource rebinding.
+     * @param {PSTR} pNamespace Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} pNamespace 
-     * @returns {ID3D11ModuleInstance} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11module-createinstance
+     * The name of a shader module to initialize. This can be <b>NULL</b> if you don't want to specify a name for the module.
+     * @returns {ID3D11ModuleInstance} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a> interface to initialize.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11module-createinstance
      */
     CreateInstance(pNamespace) {
         pNamespace := pNamespace is String ? StrPtr(pNamespace) : pNamespace

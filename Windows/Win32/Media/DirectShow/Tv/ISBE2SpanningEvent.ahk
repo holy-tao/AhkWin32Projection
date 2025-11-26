@@ -39,12 +39,12 @@ class ISBE2SpanningEvent extends IUnknown{
     static VTableNames => ["GetEvent"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} idEvt 
-     * @param {Integer} streamId 
-     * @param {Pointer<Integer>} pcb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2spanningevent-getevent
+     * Gets an in-band spanning event and event data from the Stream Buffer Engine, version 2 (SBE2). An in-band spanning event is an event that exists until it is replaced or erased, and is part of the state for events that appear later in the same stream.
+     * @param {Pointer<Guid>} idEvt GUID identifying the spanning event type.
+     * @param {Integer} streamId Identifies the stream containing the spanning event.
+     * @param {Pointer<Integer>} pcb Pointer to a value that gets the size of the event data buffer. If the <i>pb</i> parameter is <b>NULL</b>, this parameter returns the required buffer size.
+     * @returns {Integer} Pointer to a buffer that gets the event data. If this parameter is <b>NULL</b>, the <i>pcb</i> parameter returns the required buffer size. The structure of the event data depends on the event type.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2spanningevent-getevent
      */
     GetEvent(idEvt, streamId, pcb) {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"

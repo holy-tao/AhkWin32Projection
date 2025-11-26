@@ -32,13 +32,18 @@ class IWTSListenerCallback extends IUnknown{
     static VTableNames => ["OnNewChannelConnection"]
 
     /**
-     * 
-     * @param {IWTSVirtualChannel} pChannel 
-     * @param {BSTR} data 
-     * @param {Pointer<BOOL>} pbAccept 
-     * @param {Pointer<IWTSVirtualChannelCallback>} ppCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtslistenercallback-onnewchannelconnection
+     * Allows the Remote Desktop Connection (RDC) client plug-in to accept or deny a connection request for an incoming connection.
+     * @param {IWTSVirtualChannel} pChannel An <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback">IWTSVirtualChannel</a> object that 
+     *       represents the incoming connection. This object will only be connected if the connection is accepted by this 
+     *       method.
+     * @param {BSTR} data This parameter is not implemented and is reserved for future use.
+     * @param {Pointer<BOOL>} pbAccept Indicates whether the connection should be accepted. Receives <b>TRUE</b> if the 
+     *       connection should be accepted or <b>FALSE</b> otherwise.
+     * @param {Pointer<IWTSVirtualChannelCallback>} ppCallback Receives an 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback">IWTSVirtualChannelCallback</a> object that 
+     *       receives notifications for the connection. This object is created by the plug-in.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtslistenercallback-onnewchannelconnection
      */
     OnNewChannelConnection(pChannel, data, pbAccept, ppCallback) {
         data := data is String ? BSTR.Alloc(data).Value : data

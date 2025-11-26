@@ -38,9 +38,9 @@ class IBufferByteAccess extends IUnknown{
     static VTableNames => ["Buffer"]
 
     /**
-     * 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/robuffer/nf-robuffer-ibufferbyteaccess-buffer
+     * Gets the array of bytes in the buffer.
+     * @returns {Pointer<Integer>} The byte array.
+     * @see https://docs.microsoft.com/windows/win32/api//robuffer/nf-robuffer-ibufferbyteaccess-buffer
      */
     Buffer() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")

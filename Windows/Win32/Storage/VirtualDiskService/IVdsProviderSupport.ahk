@@ -31,9 +31,11 @@ class IVdsProviderSupport extends IUnknown{
     static VTableNames => ["GetVersionSupport"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsprovidersupport-getversionsupport
+     * Returns a bitmask of values enumerated by VDS_VERSION_SUPPORT_FLAG indicating the versions of the VDS interfaces supported by this provider.
+     * @returns {Integer} Address of a <b>ULONG</b> that receives a bitmask of one or more of the values enumerated by 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_version_support_flag">VDS_VERSION_SUPPORT_FLAG</a> indicating the 
+     *       versions of the VDS interfaces supported by the provider.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsprovidersupport-getversionsupport
      */
     GetVersionSupport() {
         result := ComCall(3, this, "uint*", &ulVersionSupport := 0, "HRESULT")

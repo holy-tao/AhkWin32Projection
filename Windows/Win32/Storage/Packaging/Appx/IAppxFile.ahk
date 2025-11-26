@@ -32,9 +32,11 @@ class IAppxFile extends IUnknown{
     static VTableNames => ["GetCompressionOption", "GetContentType", "GetName", "GetSize", "GetStream"]
 
     /**
+     * Retrieves the compression option that is used to store the file in the package.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_compression_option">APPX_COMPRESSION_OPTION</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getcompressionoption
+     * A compression option that describes how the file is stored in the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfile-getcompressionoption
      */
     GetCompressionOption() {
         result := ComCall(3, this, "int*", &compressionOption := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IAppxFile extends IUnknown{
     }
 
     /**
+     * Retrieves the content type of the file.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getcontenttype
+     * The content type of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfile-getcontenttype
      */
     GetContentType() {
         result := ComCall(4, this, "ptr*", &contentType := 0, "HRESULT")
@@ -52,9 +56,11 @@ class IAppxFile extends IUnknown{
     }
 
     /**
+     * Retrieves the name of the file, including its path relative to the package root directory.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getname
+     * A string that contains the name and relative path of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfile-getname
      */
     GetName() {
         result := ComCall(5, this, "ptr*", &fileName := 0, "HRESULT")
@@ -62,9 +68,11 @@ class IAppxFile extends IUnknown{
     }
 
     /**
+     * Retrieves the uncompressed size of the file.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getsize
+     * The uncompressed size, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfile-getsize
      */
     GetSize() {
         result := ComCall(6, this, "uint*", &size := 0, "HRESULT")
@@ -72,9 +80,11 @@ class IAppxFile extends IUnknown{
     }
 
     /**
+     * Gets a read-only stream that contains the uncompressed content of the file.
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getstream
+     * A read-only stream that contains the uncompressed content of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfile-getstream
      */
     GetStream() {
         result := ComCall(7, this, "ptr*", &stream := 0, "HRESULT")

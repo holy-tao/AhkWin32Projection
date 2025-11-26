@@ -38,10 +38,10 @@ class IStdMarshalInfo extends IUnknown{
     static VTableNames => ["GetClassForHandler"]
 
     /**
-     * 
-     * @param {Integer} dwDestContext 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-istdmarshalinfo-getclassforhandler
+     * Retrieves the CLSID of the object handler to be used in the destination process during standard marshaling.
+     * @param {Integer} dwDestContext The destination context, that is, the process in which the unmarshaling will be done. Possible values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>.
+     * @returns {Guid} A pointer to the handler's CLSID.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-istdmarshalinfo-getclassforhandler
      */
     GetClassForHandler(dwDestContext) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL

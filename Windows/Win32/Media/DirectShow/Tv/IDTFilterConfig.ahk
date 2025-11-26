@@ -36,9 +36,9 @@ class IDTFilterConfig extends IUnknown{
     static VTableNames => ["GetSecureChannelObject"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilterconfig-getsecurechannelobject
+     * The GetSecureChannelObject method retrieves the secure channel object used to decrypt the stream.
+     * @returns {IUnknown} Receives a pointer to the secure channel object's <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilterconfig-getsecurechannelobject
      */
     GetSecureChannelObject() {
         result := ComCall(3, this, "ptr*", &ppUnkDRMSecureChannel := 0, "HRESULT")

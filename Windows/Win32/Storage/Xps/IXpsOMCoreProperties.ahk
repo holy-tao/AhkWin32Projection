@@ -39,9 +39,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     static VTableNames => ["GetOwner", "GetCategory", "SetCategory", "GetContentStatus", "SetContentStatus", "GetContentType", "SetContentType", "GetCreated", "SetCreated", "GetCreator", "SetCreator", "GetDescription", "SetDescription", "GetIdentifier", "SetIdentifier", "GetKeywords", "SetKeywords", "GetLanguage", "SetLanguage", "GetLastModifiedBy", "SetLastModifiedBy", "GetLastPrinted", "SetLastPrinted", "GetModified", "SetModified", "GetRevision", "SetRevision", "GetSubject", "SetSubject", "GetTitle", "SetTitle", "GetVersion", "SetVersion", "Clone"]
 
     /**
-     * 
-     * @returns {IXpsOMPackage} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getowner
+     * Gets a pointer to the IXpsOMPackage interface that contains the core properties.
+     * @returns {IXpsOMPackage} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackage">IXpsOMPackage</a> interface that contains the core properties.  If the interface does not belong to a package, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getowner
      */
     GetOwner() {
         result := ComCall(5, this, "ptr*", &package := 0, "HRESULT")
@@ -49,9 +49,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcategory
+     * Gets the category property.
+     * @returns {PWSTR} The string that is read from the <b>category</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcategory
      */
     GetCategory() {
         result := ComCall(6, this, "ptr*", &category := 0, "HRESULT")
@@ -59,10 +59,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} category 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcategory
+     * Sets the category property.
+     * @param {PWSTR} category The string to be written to the <b>category</b> property. A <b>NULL</b> pointer clears the <b>category</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcategory
      */
     SetCategory(category) {
         category := category is String ? StrPtr(category) : category
@@ -72,9 +72,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontentstatus
+     * Gets the contentStatus property.
+     * @returns {PWSTR} The string that is read from the <b>contentStatus</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontentstatus
      */
     GetContentStatus() {
         result := ComCall(8, this, "ptr*", &contentStatus := 0, "HRESULT")
@@ -82,10 +82,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} contentStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcontentstatus
+     * Sets the contentStatus property.
+     * @param {PWSTR} contentStatus The string to be written to the <b>contentStatus</b> property. A <b>NULL</b> pointer clears the <b>contentStatus</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcontentstatus
      */
     SetContentStatus(contentStatus) {
         contentStatus := contentStatus is String ? StrPtr(contentStatus) : contentStatus
@@ -95,9 +95,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontenttype
+     * Gets the contentType property.
+     * @returns {PWSTR} The string that is read from the <b>contentType</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontenttype
      */
     GetContentType() {
         result := ComCall(10, this, "ptr*", &contentType := 0, "HRESULT")
@@ -105,10 +105,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} contentType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcontenttype
+     * Sets the contentType property.
+     * @param {PWSTR} contentType The string to be written to the <b>contentType</b> property. A <b>NULL</b> pointer clears the <b>contentType</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcontenttype
      */
     SetContentType(contentType) {
         contentType := contentType is String ? StrPtr(contentType) : contentType
@@ -118,9 +118,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {SYSTEMTIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreated
+     * Gets the created property.
+     * @returns {SYSTEMTIME} The date and time that are read from the <b>created</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreated
      */
     GetCreated() {
         created := SYSTEMTIME()
@@ -129,10 +129,39 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
+     * Sets the created property.
+     * @param {Pointer<SYSTEMTIME>} created The date and time the package was created. A <b>NULL</b> pointer clears the <b>created</b> property
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<SYSTEMTIME>} created 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcreated
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>created</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcreated
      */
     SetCreated(created) {
         result := ComCall(13, this, "ptr", created, "HRESULT")
@@ -140,9 +169,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreator
+     * Gets the creator property.
+     * @returns {PWSTR} The string that is read from the <b>creator</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreator
      */
     GetCreator() {
         result := ComCall(14, this, "ptr*", &creator := 0, "HRESULT")
@@ -150,10 +179,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} creator 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcreator
+     * Sets the creator property.
+     * @param {PWSTR} creator The string to be written to the <b>creator</b> property. A <b>NULL</b> pointer clears the <b>creator</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcreator
      */
     SetCreator(creator) {
         creator := creator is String ? StrPtr(creator) : creator
@@ -163,9 +192,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getdescription
+     * Gets the description property.
+     * @returns {PWSTR} The string that is read from the <b>description</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getdescription
      */
     GetDescription() {
         result := ComCall(16, this, "ptr*", &description := 0, "HRESULT")
@@ -173,10 +202,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} description 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setdescription
+     * Sets the description property.
+     * @param {PWSTR} description The string to be written to the <b>description</b> property. A <b>NULL</b> pointer clears this property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setdescription
      */
     SetDescription(description) {
         description := description is String ? StrPtr(description) : description
@@ -186,9 +215,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getidentifier
+     * Gets the identifier property.
+     * @returns {PWSTR} The string that is read from the <b>identifier</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getidentifier
      */
     GetIdentifier() {
         result := ComCall(18, this, "ptr*", &identifier := 0, "HRESULT")
@@ -196,10 +225,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} identifier 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setidentifier
+     * Sets the identifier property.
+     * @param {PWSTR} identifier The string to be written to the <b>identifier</b> property. A <b>NULL</b> pointer clears the <b>identifier</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setidentifier
      */
     SetIdentifier(identifier) {
         identifier := identifier is String ? StrPtr(identifier) : identifier
@@ -209,9 +238,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getkeywords
+     * Gets the keywords property.
+     * @returns {PWSTR} The string that is read from the <b>keywords</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getkeywords
      */
     GetKeywords() {
         result := ComCall(20, this, "ptr*", &keywords := 0, "HRESULT")
@@ -219,10 +248,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} keywords 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setkeywords
+     * Sets the keywords property.
+     * @param {PWSTR} keywords The string that contains the keywords to be written to the <b>keywords</b> property. A <b>NULL</b> pointer clears the <b>keywords</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setkeywords
      */
     SetKeywords(keywords) {
         keywords := keywords is String ? StrPtr(keywords) : keywords
@@ -232,9 +261,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlanguage
+     * Gets the language property.
+     * @returns {PWSTR} The value that is read from the <b>language</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlanguage
      */
     GetLanguage() {
         result := ComCall(22, this, "ptr*", &language := 0, "HRESULT")
@@ -242,10 +271,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} language 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlanguage
+     * Sets the language property.
+     * @param {PWSTR} language The string that contains the language value to be written to the <b>language</b> property. A <b>NULL</b> pointer clears the <b>language</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlanguage
      */
     SetLanguage(language) {
         language := language is String ? StrPtr(language) : language
@@ -255,9 +284,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastmodifiedby
+     * Gets the lastModifiedBy property.
+     * @returns {PWSTR} The value that is read from the <b>lastModifiedBy</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastmodifiedby
      */
     GetLastModifiedBy() {
         result := ComCall(24, this, "ptr*", &lastModifiedBy := 0, "HRESULT")
@@ -265,10 +294,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} lastModifiedBy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlastmodifiedby
+     * Sets the lastModifiedBy property.
+     * @param {PWSTR} lastModifiedBy The string that contains the value to be written to the <b>lastModifiedBy</b> property. A <b>NULL</b> pointer clears the <b>lastModifiedBy</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlastmodifiedby
      */
     SetLastModifiedBy(lastModifiedBy) {
         lastModifiedBy := lastModifiedBy is String ? StrPtr(lastModifiedBy) : lastModifiedBy
@@ -278,9 +307,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {SYSTEMTIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastprinted
+     * Gets the lastPrinted property.
+     * @returns {SYSTEMTIME} The date and time that  are read from the <b>lastPrinted</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastprinted
      */
     GetLastPrinted() {
         lastPrinted := SYSTEMTIME()
@@ -289,10 +318,39 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
+     * Sets the lastPrinted property.
+     * @param {Pointer<SYSTEMTIME>} lastPrinted The date and time the package was last printed. A <b>NULL</b> pointer clears the <b>lastPrinted</b> property.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<SYSTEMTIME>} lastPrinted 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlastprinted
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>SetLastPrinted</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlastprinted
      */
     SetLastPrinted(lastPrinted) {
         result := ComCall(27, this, "ptr", lastPrinted, "HRESULT")
@@ -300,9 +358,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {SYSTEMTIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getmodified
+     * Gets the modified property.
+     * @returns {SYSTEMTIME} The date and time that are read from the <b>modified</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getmodified
      */
     GetModified() {
         modified := SYSTEMTIME()
@@ -311,10 +369,39 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
+     * Sets the modified property.
+     * @param {Pointer<SYSTEMTIME>} modified The date and time the package was last changed. A <b>NULL</b> pointer clears the <b>modified</b> property.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<SYSTEMTIME>} modified 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setmodified
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>modified</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setmodified
      */
     SetModified(modified) {
         result := ComCall(29, this, "ptr", modified, "HRESULT")
@@ -322,9 +409,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getrevision
+     * Gets the revision property.
+     * @returns {PWSTR} The string that is read from the <b>revision</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getrevision
      */
     GetRevision() {
         result := ComCall(30, this, "ptr*", &revision := 0, "HRESULT")
@@ -332,10 +419,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} revision 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setrevision
+     * Sets the revision property.
+     * @param {PWSTR} revision The string to be written to the <b>revision</b> property. A <b>NULL</b> pointer clears the <b>revision</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setrevision
      */
     SetRevision(revision) {
         revision := revision is String ? StrPtr(revision) : revision
@@ -345,9 +432,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getsubject
+     * Gets the subject property.
+     * @returns {PWSTR} The string that is read from the <b>subject</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getsubject
      */
     GetSubject() {
         result := ComCall(32, this, "ptr*", &subject := 0, "HRESULT")
@@ -355,10 +442,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} subject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setsubject
+     * Sets the subject property.
+     * @param {PWSTR} subject The string to be written to the <b>subject</b> property. A <b>NULL</b> pointer clears the <b>subject</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setsubject
      */
     SetSubject(subject) {
         subject := subject is String ? StrPtr(subject) : subject
@@ -368,9 +455,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-gettitle
+     * Gets the title property.
+     * @returns {PWSTR} The string that is read from the <b>title</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-gettitle
      */
     GetTitle() {
         result := ComCall(34, this, "ptr*", &title := 0, "HRESULT")
@@ -378,10 +465,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} title 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-settitle
+     * Sets the title property.
+     * @param {PWSTR} title The string to be written to the <b>title</b> property. A <b>NULL</b> pointer clears the <b>title</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-settitle
      */
     SetTitle(title) {
         title := title is String ? StrPtr(title) : title
@@ -391,9 +478,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * Gets the version property.
+     * @returns {PWSTR} The string that is read from the <b>version</b> property.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getversion
      */
     GetVersion() {
         result := ComCall(36, this, "ptr*", &version := 0, "HRESULT")
@@ -401,10 +488,10 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @param {PWSTR} version 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setversion
+     * Sets the version property.
+     * @param {PWSTR} version The string to be written to the <b>version</b> property. A <b>NULL</b> pointer clears the <b>version</b> property.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setversion
      */
     SetVersion(version) {
         version := version is String ? StrPtr(version) : version
@@ -414,9 +501,9 @@ class IXpsOMCoreProperties extends IXpsOMPart{
     }
 
     /**
-     * 
-     * @returns {IXpsOMCoreProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-clone
+     * Makes a deep copy of the interface.
+     * @returns {IXpsOMCoreProperties} A pointer to the copy of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-clone
      */
     Clone() {
         result := ComCall(38, this, "ptr*", &coreProperties := 0, "HRESULT")

@@ -36,13 +36,23 @@ class IRichChunk extends IUnknown{
     static VTableNames => ["GetData"]
 
     /**
+     * Retrieves the PROPVARIANT and input string that represents a chunk of data.
+     * @param {Pointer<Integer>} pFirstPos Type: <b>ULONG*</b>
      * 
-     * @param {Pointer<Integer>} pFirstPos 
-     * @param {Pointer<Integer>} pLength 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-irichchunk-getdata
+     * Receives the zero-based starting position of the range. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pLength Type: <b>ULONG*</b>
+     * 
+     * Receives the length of the range. This parameter can be <b>NULL</b>.
+     * @param {Pointer<PWSTR>} ppsz Type: <b>LPWSTR*</b>
+     * 
+     * Receives the associated Unicode string value, or <b>NULL</b> if not available.
+     * @param {Pointer<PROPVARIANT>} pValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Receives the associated <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> value, or <b>VT_EMPTY</b> if not available. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nf-structuredquerycondition-irichchunk-getdata
      */
     GetData(pFirstPos, pLength, ppsz, pValue) {
         pFirstPosMarshal := pFirstPos is VarRef ? "uint*" : "ptr"

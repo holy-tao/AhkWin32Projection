@@ -31,10 +31,12 @@ class IViewExtensionCallback extends IUnknown{
     static VTableNames => ["AddView"]
 
     /**
-     * 
-     * @param {Pointer<MMC_EXT_VIEW_DATA>} pExtViewData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iviewextensioncallback-addview
+     * Adds a view to the result pane.
+     * @param {Pointer<MMC_EXT_VIEW_DATA>} pExtViewData A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_ext_view_data">MMC_EXT_VIEW_DATA</a> structure, which contains information about the view being added to the result pane. The bReplacesDefaultView member of the 
+     * <b>MMC_EXT_VIEW_DATA</b> structure determines if the standard view is removed when adding the new view.
+     * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iviewextensioncallback-addview
      */
     AddView(pExtViewData) {
         result := ComCall(3, this, "ptr", pExtViewData, "HRESULT")

@@ -44,13 +44,13 @@ class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback{
     static VTableNames => ["OnServerCertificateReceived", "OnClientCertificateRequested"]
 
     /**
-     * 
-     * @param {IXMLHTTPRequest3} pXHR 
-     * @param {Integer} dwCertificateErrors 
-     * @param {Integer} cServerCertificateChain 
-     * @param {Pointer<XHR_CERT>} rgServerCertificateChain 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3callback-onservercertificatereceived
+     * Occurs when a client receives certificate errors or a server certificate chain during SSL negotiation with the server.
+     * @param {IXMLHTTPRequest3} pXHR The initial HTTP request.
+     * @param {Integer} dwCertificateErrors The certificate errors encountered in the HTTPS connection (see XHR_CERT_ERROR_FLAG).
+     * @param {Integer} cServerCertificateChain The number of elements in the <i>rgServerCertChain</i> parameter.
+     * @param {Pointer<XHR_CERT>} rgServerCertificateChain An array of <a href="https://docs.microsoft.com/windows/desktop/api/msxml6/ns-msxml6-xhr_cert">XHR_CERT</a> structures that represent the server certificate chain.
+     * @returns {HRESULT} Returns <b>S_OK</b> on success.
+     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest3callback-onservercertificatereceived
      */
     OnServerCertificateReceived(pXHR, dwCertificateErrors, cServerCertificateChain, rgServerCertificateChain) {
         result := ComCall(8, this, "ptr", pXHR, "uint", dwCertificateErrors, "uint", cServerCertificateChain, "ptr", rgServerCertificateChain, "HRESULT")
@@ -58,12 +58,12 @@ class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback{
     }
 
     /**
-     * 
-     * @param {IXMLHTTPRequest3} pXHR 
-     * @param {Integer} cIssuerList 
-     * @param {Pointer<Pointer<Integer>>} rgpwszIssuerList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3callback-onclientcertificaterequested
+     * Occurs when a client receives a request for a client certificate during SSL negotiation with the server.
+     * @param {IXMLHTTPRequest3} pXHR The initial HTTP request.
+     * @param {Integer} cIssuerList The number of strings in the <i>rgpwszIssuerList</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} rgpwszIssuerList An array of strings that represent the issuer list.
+     * @returns {HRESULT} Returns <b>S_OK</b> on success.
+     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest3callback-onclientcertificaterequested
      */
     OnClientCertificateRequested(pXHR, cIssuerList, rgpwszIssuerList) {
         rgpwszIssuerListMarshal := rgpwszIssuerList is VarRef ? "ptr*" : "ptr"

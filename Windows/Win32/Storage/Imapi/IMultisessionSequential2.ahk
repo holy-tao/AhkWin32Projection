@@ -38,9 +38,9 @@ class IMultisessionSequential2 extends IMultisessionSequential{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential2-get_writeunitsize
+     * Retrieves the size of a writeable unit on the media.
+     * @returns {Integer} The size of a writeable unit on the media in sectors.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential2-get_writeunitsize
      */
     get_WriteUnitSize() {
         result := ComCall(16, this, "int*", &value := 0, "HRESULT")

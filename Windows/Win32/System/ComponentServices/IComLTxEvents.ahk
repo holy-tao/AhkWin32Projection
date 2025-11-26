@@ -31,14 +31,14 @@ class IComLTxEvents extends IUnknown{
     static VTableNames => ["OnLtxTransactionStart", "OnLtxTransactionPrepare", "OnLtxTransactionAbort", "OnLtxTransactionCommit", "OnLtxTransactionPromote"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidLtx 
-     * @param {Guid} tsid 
-     * @param {BOOL} fRoot 
-     * @param {Integer} nIsolationLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionstart
+     * Generated when a transaction is started.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidLtx A GUID that identifies the transaction.
+     * @param {Guid} tsid A GUID that identifies the COM+ transaction context.
+     * @param {BOOL} fRoot Indicates whether the COM+ transaction context is a root transaction context.
+     * @param {Integer} nIsolationLevel The transaction isolation level of the root COM+ transactional context.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomltxevents-onltxtransactionstart
      */
     OnLtxTransactionStart(pInfo, guidLtx, tsid, fRoot, nIsolationLevel) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidLtx, "ptr", tsid, "int", fRoot, "int", nIsolationLevel, "HRESULT")
@@ -46,12 +46,12 @@ class IComLTxEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidLtx 
-     * @param {BOOL} fVote 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionprepare
+     * Generated when COM+ receives a prepare notification for a transaction.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidLtx A GUID that identifies the transaction.
+     * @param {BOOL} fVote The COM+ vote for the prepare request.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomltxevents-onltxtransactionprepare
      */
     OnLtxTransactionPrepare(pInfo, guidLtx, fVote) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidLtx, "int", fVote, "HRESULT")
@@ -59,11 +59,11 @@ class IComLTxEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidLtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionabort
+     * Generated when a transaction is aborted.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidLtx A GUID that identifies the transaction.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomltxevents-onltxtransactionabort
      */
     OnLtxTransactionAbort(pInfo, guidLtx) {
         result := ComCall(5, this, "ptr", pInfo, "ptr", guidLtx, "HRESULT")
@@ -71,11 +71,11 @@ class IComLTxEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidLtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactioncommit
+     * Generated when a transaction is committed.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidLtx A GUID that identifies the transaction.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomltxevents-onltxtransactioncommit
      */
     OnLtxTransactionCommit(pInfo, guidLtx) {
         result := ComCall(6, this, "ptr", pInfo, "ptr", guidLtx, "HRESULT")
@@ -83,12 +83,12 @@ class IComLTxEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Guid} guidLtx 
-     * @param {Guid} txnId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionpromote
+     * Generated when a transaction is promoted.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Guid} guidLtx A GUID that identifies the original transaction.
+     * @param {Guid} txnId A GUID that identifies the promoted transaction.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomltxevents-onltxtransactionpromote
      */
     OnLtxTransactionPromote(pInfo, guidLtx, txnId) {
         result := ComCall(7, this, "ptr", pInfo, "ptr", guidLtx, "ptr", txnId, "HRESULT")

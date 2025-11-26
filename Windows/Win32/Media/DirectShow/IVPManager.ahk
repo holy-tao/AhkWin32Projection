@@ -31,10 +31,10 @@ class IVPManager extends IUnknown{
     static VTableNames => ["SetVideoPortIndex", "GetVideoPortIndex"]
 
     /**
-     * 
-     * @param {Integer} dwVideoPortIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivpmanager-setvideoportindex
+     * The SetVideoPortIndex method instructs the Video Port Manager (VPM) to connect to the specified video port.
+     * @param {Integer} dwVideoPortIndex Double word containing the video port index.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivpmanager-setvideoportindex
      */
     SetVideoPortIndex(dwVideoPortIndex) {
         result := ComCall(3, this, "uint", dwVideoPortIndex, "HRESULT")
@@ -42,9 +42,9 @@ class IVPManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivpmanager-getvideoportindex
+     * The GetVideoPortIndex method returns the current video port index being used by the Video Port Manager (VPM).
+     * @returns {Integer} Pointer to a double word containing the index of the video port that the VPM is currently connected to.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivpmanager-getvideoportindex
      */
     GetVideoPortIndex() {
         result := ComCall(4, this, "uint*", &pdwVideoPortIndex := 0, "HRESULT")

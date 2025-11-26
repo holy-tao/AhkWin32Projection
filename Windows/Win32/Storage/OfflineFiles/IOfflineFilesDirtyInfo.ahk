@@ -31,9 +31,9 @@ class IOfflineFilesDirtyInfo extends IUnknown{
     static VTableNames => ["LocalDirtyByteCount", "RemoteDirtyByteCount"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesdirtyinfo-localdirtybytecount
+     * Retrieves the amount of unsynchronized (&quot;dirty&quot;) data for the associated file in the local Offline Files cache.
+     * @returns {Integer} The number of bytes of unsynchronized data.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesdirtyinfo-localdirtybytecount
      */
     LocalDirtyByteCount() {
         result := ComCall(3, this, "int64*", &pDirtyByteCount := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IOfflineFilesDirtyInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesdirtyinfo-remotedirtybytecount
+     * This method is reserved for future use.
+     * @returns {Integer} The number of bytes of unsynchronized data.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesdirtyinfo-remotedirtybytecount
      */
     RemoteDirtyByteCount() {
         result := ComCall(4, this, "int64*", &pDirtyByteCount := 0, "HRESULT")

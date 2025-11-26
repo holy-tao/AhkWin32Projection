@@ -61,10 +61,10 @@ class IMFTranscodeSinkInfoProvider extends IUnknown{
     static VTableNames => ["SetOutputFile", "SetOutputByteStream", "SetProfile", "GetSinkInfo"]
 
     /**
-     * 
-     * @param {PWSTR} pwszFileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodesinkinfoprovider-setoutputfile
+     * Sets the name of the encoded output file.
+     * @param {PWSTR} pwszFileName Pointer to a null-terminated string that contains the name of the output file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftranscodesinkinfoprovider-setoutputfile
      */
     SetOutputFile(pwszFileName) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
@@ -74,10 +74,10 @@ class IMFTranscodeSinkInfoProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFActivate} pByteStreamActivate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodesinkinfoprovider-setoutputbytestream
+     * Sets an output byte stream for the transcode media sink.
+     * @param {IMFActivate} pByteStreamActivate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface of a byte-stream activation object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftranscodesinkinfoprovider-setoutputbytestream
      */
     SetOutputByteStream(pByteStreamActivate) {
         result := ComCall(4, this, "ptr", pByteStreamActivate, "HRESULT")
@@ -85,10 +85,10 @@ class IMFTranscodeSinkInfoProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFTranscodeProfile} pProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodesinkinfoprovider-setprofile
+     * Sets the transcoding profile on the transcode sink activation object.
+     * @param {IMFTranscodeProfile} pProfile A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftranscodeprofile">IMFTranscodeProfile</a> interface. To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatetranscodeprofile">MFCreateTranscodeProfile</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftranscodesinkinfoprovider-setprofile
      */
     SetProfile(pProfile) {
         result := ComCall(5, this, "ptr", pProfile, "HRESULT")
@@ -96,9 +96,11 @@ class IMFTranscodeSinkInfoProvider extends IUnknown{
     }
 
     /**
+     * Gets the media types for the audio and video streams specified in the transcode profile.
+     * @returns {MF_TRANSCODE_SINK_INFO} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mf_transcode_sink_info">MF_TRANSCODE_SINK_INFO</a> structure.
      * 
-     * @returns {MF_TRANSCODE_SINK_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodesinkinfoprovider-getsinkinfo
+     * If the method succeeds, the method assigns <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> pointers to the <b>pAudioMediaType</b> and <b>pVideoMediaType</b> members of this structure. The method might set either member to <b>NULL</b>. If either member is non-NULL after the method returns, the caller must release the <b>IMFMediaType</b> pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftranscodesinkinfoprovider-getsinkinfo
      */
     GetSinkInfo() {
         pSinkInfo := MF_TRANSCODE_SINK_INFO()

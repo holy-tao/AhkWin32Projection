@@ -31,10 +31,52 @@ class ICreateTypeLib2 extends ICreateTypeLib{
     static VTableNames => ["DeleteTypeInfo", "SetCustData", "SetHelpStringContext", "SetHelpStringDll"]
 
     /**
+     * Deletes a specified type information from the type library.
+     * @param {PWSTR} szName The name of the type information to remove.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-deletetypeinfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-deletetypeinfo
      */
     DeleteTypeInfo(szName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -44,11 +86,53 @@ class ICreateTypeLib2 extends ICreateTypeLib{
     }
 
     /**
+     * Sets a value to custom data.
+     * @param {Pointer<Guid>} guid The unique identifier for the data.
+     * @param {Pointer<VARIANT>} pVarVal The data to store (any variant except an object).
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-setcustdata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-setcustdata
      */
     SetCustData(guid, pVarVal) {
         result := ComCall(14, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -56,10 +140,52 @@ class ICreateTypeLib2 extends ICreateTypeLib{
     }
 
     /**
+     * Sets the Help string context number.
+     * @param {Integer} dwHelpStringContext The Help string context number.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwHelpStringContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-sethelpstringcontext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-sethelpstringcontext
      */
     SetHelpStringContext(dwHelpStringContext) {
         result := ComCall(15, this, "uint", dwHelpStringContext, "HRESULT")
@@ -67,10 +193,52 @@ class ICreateTypeLib2 extends ICreateTypeLib{
     }
 
     /**
+     * Sets the DLL name to be used for Help string lookup (for localization purposes).
+     * @param {PWSTR} szFileName The DLL file name.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szFileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-sethelpstringdll
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-sethelpstringdll
      */
     SetHelpStringDll(szFileName) {
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName

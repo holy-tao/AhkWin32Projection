@@ -35,9 +35,9 @@ class IWRdsProtocolLogonErrorRedirector extends IUnknown{
     static VTableNames => ["OnBeginPainting", "RedirectStatus", "RedirectMessage", "RedirectLogonError"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-onbeginpainting
+     * Notifies the protocol that the logon user interface is ready to begin painting.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-onbeginpainting
      */
     OnBeginPainting() {
         result := ComCall(3, this, "HRESULT")
@@ -45,10 +45,10 @@ class IWRdsProtocolLogonErrorRedirector extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszMessage 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-redirectstatus
+     * Queries the protocol regarding how to redirect the client logon status update.
+     * @param {PWSTR} pszMessage A pointer to a string that contains the logon status message.
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WRDS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that contains the response.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-redirectstatus
      */
     RedirectStatus(pszMessage) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
@@ -58,12 +58,12 @@ class IWRdsProtocolLogonErrorRedirector extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszCaption 
-     * @param {PWSTR} pszMessage 
-     * @param {Integer} uType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-redirectmessage
+     * Queries the protocol regarding how to redirect the logon message.
+     * @param {PWSTR} pszCaption A pointer to a string that contains the message box caption.
+     * @param {PWSTR} pszMessage A pointer to a string that contains the logon message.
+     * @param {Integer} uType An integer that contains the message box type. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> function.
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WRDS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response for redirecting the logon message.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-redirectmessage
      */
     RedirectMessage(pszCaption, pszMessage, uType) {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
@@ -74,14 +74,14 @@ class IWRdsProtocolLogonErrorRedirector extends IUnknown{
     }
 
     /**
-     * 
+     * Queries the protocol for the action to take in response to a logon error.
      * @param {Integer} ntsStatus 
      * @param {Integer} ntsSubstatus 
-     * @param {PWSTR} pszCaption 
-     * @param {PWSTR} pszMessage 
-     * @param {Integer} uType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-redirectlogonerror
+     * @param {PWSTR} pszCaption A pointer to a string that contains the message box caption.
+     * @param {PWSTR} pszMessage A pointer to a string that contains the message.
+     * @param {Integer} uType An integer that contains the message box type. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> function.
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WRDS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response to the logon error.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollogonerrorredirector-redirectlogonerror
      */
     RedirectLogonError(ntsStatus, ntsSubstatus, pszCaption, pszMessage, uType) {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption

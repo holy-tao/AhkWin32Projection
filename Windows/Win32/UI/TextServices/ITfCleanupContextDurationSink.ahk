@@ -44,9 +44,9 @@ class ITfCleanupContextDurationSink extends IUnknown{
     static VTableNames => ["OnStartCleanupContext", "OnEndCleanupContext"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext
+     * ITfCleanupContextDurationSink::OnStartCleanupContext method
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext
      */
     OnStartCleanupContext() {
         result := ComCall(3, this, "HRESULT")
@@ -54,9 +54,9 @@ class ITfCleanupContextDurationSink extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcleanupcontextdurationsink-onendcleanupcontext
+     * ITfCleanupContextDurationSink::OnEndCleanupContext method
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcleanupcontextdurationsink-onendcleanupcontext
      */
     OnEndCleanupContext() {
         result := ComCall(4, this, "HRESULT")

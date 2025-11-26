@@ -31,9 +31,9 @@ class IPlayToControlWithCapabilities extends IPlayToControl{
     static VTableNames => ["GetCapabilities"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytocontrolwithcapabilities-getcapabilities
+     * Gets the capabilities information for the content.
+     * @returns {Integer} The capabilities information for the content.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-iplaytocontrolwithcapabilities-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(5, this, "int*", &pCapabilities := 0, "HRESULT")

@@ -35,10 +35,10 @@ class IBDA_DRMService extends IUnknown{
     static VTableNames => ["SetDRM", "GetDRMStatus"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} puuidNewDrm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drmservice-setdrm
+     * Activates a digital rights management (DRM) system on the media transform device (MTD).
+     * @param {Pointer<Guid>} puuidNewDrm Pointer to a GUID that specifies the DRM system.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_drmservice-setdrm
      */
     SetDRM(puuidNewDrm) {
         result := ComCall(3, this, "ptr", puuidNewDrm, "HRESULT")
@@ -46,11 +46,11 @@ class IBDA_DRMService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrDrmUuidList 
-     * @param {Pointer<Guid>} DrmUuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drmservice-getdrmstatus
+     * Gets the current digital rights management (DRM) status.
+     * @param {Pointer<BSTR>} pbstrDrmUuidList Receives a comma-separated list of GUIDs that identify the DRM systems supported by the media transform device (MTD). Each GUID is represented in following format: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx". The caller must release the string by calling <b>SysFreeString</b>.
+     * @param {Pointer<Guid>} DrmUuid Receives a GUID that identifies which DRM system is currently active.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_drmservice-getdrmstatus
      */
     GetDRMStatus(pbstrDrmUuidList, DrmUuid) {
         result := ComCall(4, this, "ptr", pbstrDrmUuidList, "ptr", DrmUuid, "HRESULT")

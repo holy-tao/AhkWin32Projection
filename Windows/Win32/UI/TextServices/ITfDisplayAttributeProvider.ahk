@@ -33,9 +33,9 @@ class ITfDisplayAttributeProvider extends IUnknown{
     static VTableNames => ["EnumDisplayAttributeInfo", "GetDisplayAttributeInfo"]
 
     /**
-     * 
-     * @returns {IEnumTfDisplayAttributeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeprovider-enumdisplayattributeinfo
+     * ITfDisplayAttributeProvider::EnumDisplayAttributeInfo method
+     * @returns {IEnumTfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdisplayattributeinfo">IEnumTfDisplayAttributeInfo</a> interface pointer that receives the enumerator object. The caller must release this interface when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeprovider-enumdisplayattributeinfo
      */
     EnumDisplayAttributeInfo() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -43,10 +43,10 @@ class ITfDisplayAttributeProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guid 
-     * @returns {ITfDisplayAttributeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo
+     * ITfDisplayAttributeProvider::GetDisplayAttributeInfo method
+     * @param {Pointer<Guid>} guid Contains a GUID value that identifies the display attribute to obtain the display attribute information object for. The text service must publish these values and what they indicate. This identifier can also be obtained by enumerating the display attributes for a range of text.
+     * @returns {ITfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdisplayattributeinfo">ITfDisplayAttributeInfo</a> interface pointer that receives the display attribute information object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo
      */
     GetDisplayAttributeInfo(guid) {
         result := ComCall(4, this, "ptr", guid, "ptr*", &ppInfo := 0, "HRESULT")

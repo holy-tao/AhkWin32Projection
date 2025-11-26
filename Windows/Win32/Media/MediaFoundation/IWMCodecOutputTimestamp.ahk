@@ -31,10 +31,28 @@ class IWMCodecOutputTimestamp extends IUnknown{
     static VTableNames => ["GetNextOutputTime"]
 
     /**
+     * Queries the decoder for the time stamp of the upcoming output sample. Use this method if you need to know the time of the sample before calling IMediaObject::ProcessOutput or IMFTransform::ProcessOutput to get the sample.
+     * @param {Pointer<Integer>} prtTime Address of a variable that receives the presentation time of the next sample.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} prtTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecoutputtimestamp-getnextoutputtime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecoutputtimestamp-getnextoutputtime
      */
     GetNextOutputTime(prtTime) {
         prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"

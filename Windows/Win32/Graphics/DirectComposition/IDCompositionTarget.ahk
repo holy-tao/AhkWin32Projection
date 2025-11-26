@@ -31,10 +31,14 @@ class IDCompositionTarget extends IUnknown{
     static VTableNames => ["SetRoot"]
 
     /**
+     * Sets a visual object as the new root object of a visual tree.
+     * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
-     * @param {IDCompositionVisual} visual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontarget-setroot
+     * The visual object that is the new root of this visual tree. This parameter can be NULL.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontarget-setroot
      */
     SetRoot(visual) {
         result := ComCall(3, this, "ptr", visual, "HRESULT")

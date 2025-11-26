@@ -36,11 +36,59 @@ class IClockVector extends IUnknown{
     static VTableNames => ["GetClockVectorElements", "GetClockVectorElementCount"]
 
     /**
+     * Returns an enumerator that iterates through the clock vector elements.
+     * @param {Pointer<Guid>} riid The IID of the enumeration interface that is requested. Must be either <b>IID_IEnumClockVector</b> or <b>IID_IEnumFeedClockVector</b>.
+     * @param {Pointer<Pointer<Void>>} ppiEnumClockVector Returns an object that implements <i>riid</i> and that can enumerate the clock vector elements.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppiEnumClockVector 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvector-getclockvectorelements
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>riid</i> is not  <b>IID_IEnumClockVector</b> or <b>IID_IEnumFeedClockVector</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iclockvector-getclockvectorelements
      */
     GetClockVectorElements(riid, ppiEnumClockVector) {
         ppiEnumClockVectorMarshal := ppiEnumClockVector is VarRef ? "ptr*" : "ptr"
@@ -50,10 +98,39 @@ class IClockVector extends IUnknown{
     }
 
     /**
+     * Gets the number of elements that are contained in the clock vector.
+     * @param {Pointer<Integer>} pdwCount Returns the number of elements that are contained in the clock vector.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvector-getclockvectorelementcount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iclockvector-getclockvectorelementcount
      */
     GetClockVectorElementCount(pdwCount) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"

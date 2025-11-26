@@ -32,10 +32,14 @@ class ISpreadsheetProvider extends IUnknown{
     static VTableNames => ["GetItemByName"]
 
     /**
+     * Exposes a UI Automation element that represents the spreadsheet cell that has the specified name.
+     * @param {PWSTR} name Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} name 
-     * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetprovider-getitembyname
+     * The name of the target cell.
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * 
+     * Receives the element that represents the target cell.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ispreadsheetprovider-getitembyname
      */
     GetItemByName(name) {
         name := name is String ? StrPtr(name) : name

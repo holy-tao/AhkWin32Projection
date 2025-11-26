@@ -58,9 +58,11 @@ class IFaxRecipients extends IDispatch{
     }
 
     /**
+     * The IFaxRecipients::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the FaxRecipients collection.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get__newenum
+     * Receives an indirect pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxrecipients-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -68,10 +70,14 @@ class IFaxRecipients extends IDispatch{
     }
 
     /**
+     * The Item method returns a FaxRecipient object from the FaxRecipients collection.
+     * @param {Integer} lIndex Type: <b>LONG</b>
      * 
-     * @param {Integer} lIndex 
-     * @returns {IFaxRecipient} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get_item
+     * A <b>LONG</b> value that specifies the item to retrieve from the fax recipient collection. Valid values for this parameter are in the range from 1 to <i>n</i>, where <i>n</i> is the number of recipients returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxrecipients-count-vb">IFaxRecipients::get_Count</a> method.
+     * @returns {IFaxRecipient} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxrecipient">IFaxRecipient</a>**</b>
+     * 
+     * Address of a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxrecipient">IFaxRecipient</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxrecipients-get_item
      */
     get_Item(lIndex) {
         result := ComCall(8, this, "int", lIndex, "ptr*", &ppFaxRecipient := 0, "HRESULT")
@@ -79,9 +85,9 @@ class IFaxRecipients extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxRecipients::get_Count property represents the number of objects in the FaxRecipients collection. This is the total number of recipients associated with the fax server or fax document.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxrecipients-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
@@ -89,11 +95,17 @@ class IFaxRecipients extends IDispatch{
     }
 
     /**
+     * The IFaxRecipients::Add method adds a new FaxRecipient object to the FaxRecipients collection.
+     * @param {BSTR} bstrFaxNumber Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrFaxNumber 
-     * @param {BSTR} bstrRecipientName 
-     * @returns {IFaxRecipient} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-add
+     * Specifies the fax number of the fax recipient.
+     * @param {BSTR} bstrRecipientName Type: <b>BSTR</b>
+     * 
+     * Specifies the name of the fax recipient.
+     * @returns {IFaxRecipient} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxrecipient">IFaxRecipient</a>**</b>
+     * 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxrecipient">FaxRecipient</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxrecipients-add
      */
     Add(bstrFaxNumber, bstrRecipientName) {
         bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
@@ -104,10 +116,14 @@ class IFaxRecipients extends IDispatch{
     }
 
     /**
+     * The IFaxRecipients::Remove method removes an item from the FaxRecipients collection.
+     * @param {Integer} lIndex Type: <b>LONG</b>
      * 
-     * @param {Integer} lIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-remove
+     * A <b>LONG</b> that specifies the index of the item to remove from the collection. Valid values for this parameter are in the range from 1 to <i>n</i>, where <i>n</i> is the number of recipients returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxrecipients-count-vb">IFaxRecipients::get_Count</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxrecipients-remove
      */
     Remove(lIndex) {
         result := ComCall(11, this, "int", lIndex, "HRESULT")

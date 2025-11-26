@@ -31,11 +31,17 @@ class ISpatialInteractionManagerInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
+     * Retrieves a SpatialInteractionManager object bound to the active application.
+     * @param {HWND} window Type: [HWND](/windows/desktop/winprog/windows-data-types)
      * 
-     * @param {HWND} window 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialinteractionmanagerinterop/nf-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop-getforwindow
+     * Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * The GUID of the [SpatialInteractionManager](/uwp/api/windows.ui.input.spatial.spatialinteractionmanager) object.
+     * @returns {Pointer<Void>} Type: **void\*\***
+     * 
+     * Address of a pointer to a [SpatialInteractionManager](/uwp/api/windows.ui.input.spatial.spatialinteractionmanager) object.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialinteractionmanagerinterop/nf-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop-getforwindow
      */
     GetForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window

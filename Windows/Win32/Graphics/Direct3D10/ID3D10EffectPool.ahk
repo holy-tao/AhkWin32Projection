@@ -36,9 +36,11 @@ class ID3D10EffectPool extends IUnknown{
     static VTableNames => ["AsEffect"]
 
     /**
+     * Get the effect that created the effect pool.
+     * @returns {ID3D10Effect} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>*</b>
      * 
-     * @returns {ID3D10Effect} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectpool-aseffect
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectpool-aseffect
      */
     AsEffect() {
         result := ComCall(3, this, "ptr")

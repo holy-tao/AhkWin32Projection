@@ -31,13 +31,14 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
     static VTableNames => ["Save", "IsDirty", "FreeBuffer"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} lpTemplateName 
-     * @param {Pointer<Pointer<Void>>} scesvcHandle 
-     * @param {Pointer<Pointer<Void>>} ppvData 
-     * @param {Pointer<BOOL>} pbOverwriteAll 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-save
+     * The Save method causes the snap-in extension to return information about the data that needs to be saved. The caller is responsible for saving the data.
+     * @param {Pointer<Integer>} lpTemplateName Pointer to a null-terminated string that contains the security template name to save data to.
+     * @param {Pointer<Pointer<Void>>} scesvcHandle Pointer that receives the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> the attachment snap-in extension is using to communicate with the Security Configuration snap-ins.
+     * @param {Pointer<Pointer<Void>>} ppvData Pointer that receives a buffer that contains the data to be saved.
+     * @param {Pointer<BOOL>} pbOverwriteAll Pointer to a <b>BOOL</b> that receives a value indicating whether preexisting data should be overwritten.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentpersistinfo-save
      */
     Save(lpTemplateName, scesvcHandle, ppvData, pbOverwriteAll) {
         lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
@@ -50,10 +51,10 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} lpTemplateName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-isdirty
+     * The IsDirty method returns a value indicating whether data in the attachment snap-in has been modified since it was last saved.
+     * @param {Pointer<Integer>} lpTemplateName Pointer to a null-terminated string that contains a security template name. Multiple security templates can be modified so that each service extension can be expanded under multiple templates.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentpersistinfo-isdirty
      */
     IsDirty(lpTemplateName) {
         lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
@@ -63,10 +64,10 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pvData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-freebuffer
+     * The FreeBuffer method frees memory allocated by the attachment snap-in extension.
+     * @param {Pointer<Void>} pvData Pointer to the buffer to free.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentpersistinfo-freebuffer
      */
     FreeBuffer(pvData) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"

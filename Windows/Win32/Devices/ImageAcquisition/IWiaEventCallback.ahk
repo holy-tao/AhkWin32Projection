@@ -61,17 +61,35 @@ class IWiaEventCallback extends IUnknown{
     static VTableNames => ["ImageEventCallback"]
 
     /**
+     * The IWiaEventCallback::ImageEventCallback method is invoked by the Windows Image Acquisition (WIA) run-time system when a hardware device event occurs.
+     * @param {Pointer<Guid>} pEventGUID Type: <b>const GUID*</b>
      * 
-     * @param {Pointer<Guid>} pEventGUID 
-     * @param {BSTR} bstrEventDescription 
-     * @param {BSTR} bstrDeviceID 
-     * @param {BSTR} bstrDeviceDescription 
-     * @param {Integer} dwDeviceType 
-     * @param {BSTR} bstrFullItemName 
-     * @param {Pointer<Integer>} pulEventType 
-     * @param {Integer} ulReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaeventcallback-imageeventcallback
+     * Specifies the unique identifier of the event. For a complete list of device events, see <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-event-identifiers">WIA Event Identifiers</a>.
+     * @param {BSTR} bstrEventDescription Type: <b>BSTR</b>
+     * 
+     * Specifies the string description of the event.
+     * @param {BSTR} bstrDeviceID Type: <b>BSTR</b>
+     * 
+     * Specifies the unique identifier of the WIA device.
+     * @param {BSTR} bstrDeviceDescription Type: <b>BSTR</b>
+     * 
+     * Specifies the string description of the device.
+     * @param {Integer} dwDeviceType Type: <b>DWORD</b>
+     * 
+     * Specifies the type of the device. See <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-device-type-specifiers">WIA Device Type Specifiers</a> for a list of possible values.
+     * @param {BSTR} bstrFullItemName Type: <b>BSTR</b>
+     * 
+     * Specifies the full name of the WIA item that represents the device.
+     * @param {Pointer<Integer>} pulEventType Type: <b>ULONG*</b>
+     * 
+     * Pointer to a <b>ULONG</b> that specifies whether an event is a notification event, an action event, or both. A value of 1 indicates a notification event, a value of 2 indicates an action event, and a value of 3 indicates that the event is of both notification and action type.
+     * @param {Integer} ulReserved Type: <b>ULONG</b>
+     * 
+     * Reserved for user information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaeventcallback-imageeventcallback
      */
     ImageEventCallback(pEventGUID, bstrEventDescription, bstrDeviceID, bstrDeviceDescription, dwDeviceType, bstrFullItemName, pulEventType, ulReserved) {
         bstrEventDescription := bstrEventDescription is String ? BSTR.Alloc(bstrEventDescription).Value : bstrEventDescription

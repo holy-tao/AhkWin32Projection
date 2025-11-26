@@ -36,12 +36,30 @@ class IMFTopologyNodeAttributeEditor extends IUnknown{
     static VTableNames => ["UpdateNodeAttributes"]
 
     /**
+     * Updates the attributes of one or more nodes in the current topology.
+     * @param {Integer} TopoId Reserved.
+     * @param {Integer} cUpdates The number of elements in the <i>pUpdates</i> array.
+     * @param {Pointer<MFTOPONODE_ATTRIBUTE_UPDATE>} pUpdates Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mftoponode_attribute_update">MFTOPONODE_ATTRIBUTE_UPDATE</a> structures. Each element of the array updates one attribute on a node.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} TopoId 
-     * @param {Integer} cUpdates 
-     * @param {Pointer<MFTOPONODE_ATTRIBUTE_UPDATE>} pUpdates 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes
      */
     UpdateNodeAttributes(TopoId, cUpdates, pUpdates) {
         result := ComCall(3, this, "uint", TopoId, "uint", cUpdates, "ptr", pUpdates, "HRESULT")

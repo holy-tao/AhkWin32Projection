@@ -47,11 +47,79 @@ class IShellIconOverlay extends IUnknown{
     static VTableNames => ["GetOverlayIndex", "GetOverlayIconIndex"]
 
     /**
+     * Gets the overlay index in the system image list.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Integer>} pIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayindex
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that identifies the object whose icon is being displayed.
+     * @param {Pointer<Integer>} pIndex Type: <b>int*</b>
+     * 
+     * Pointer to a value that states the overlay index (one-based) in the system image list. This index is equivalent to the <i>iOverlay</i> value that is specified when you add an overlay image to a private image list with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_setoverlayimage">ImageList::SetOverlayImage</a> function.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The index of an overlay was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No overlay exists for this file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The PIDL is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument is invalid, for example, if <i>pIndex</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling application passed OI_ASYNC to signify that the operation of calculating the overlay index will take some time.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayindex
      */
     GetOverlayIndex(pidl, pIndex) {
         pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
@@ -61,11 +129,57 @@ class IShellIconOverlay extends IUnknown{
     }
 
     /**
+     * Gets the index of the icon overlay in the system image list.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Integer>} pIconIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayiconindex
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that identifies the object whose icon is being displayed.
+     * @param {Pointer<Integer>} pIconIndex Type: <b>int*</b>
+     * 
+     * Pointer to the index of the icon overlay's image in the system image list. This index is equivalent to the <i>iImage</i> value that is specified when you add an overlay image to a private image list with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_setoverlayimage">ImageList::SetOverlayImage</a> function.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The index of an overlay was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No overlay exists for this file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The PIDL is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayiconindex
      */
     GetOverlayIconIndex(pidl, pIconIndex) {
         pIconIndexMarshal := pIconIndex is VarRef ? "int*" : "ptr"

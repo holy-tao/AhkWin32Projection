@@ -32,9 +32,9 @@ class IMFMuxStreamSampleManager extends IUnknown{
     static VTableNames => ["GetStreamCount", "GetSample", "GetStreamConfiguration"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getstreamcount
+     * Gets the count of substreams managed by the multiplexed media source.
+     * @returns {Integer} The count of substreams managed by the multiplexed media source.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getstreamcount
      */
     GetStreamCount() {
         result := ComCall(3, this, "uint*", &pdwMuxStreamCount := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IMFMuxStreamSampleManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwMuxStreamIndex 
-     * @returns {IMFSample} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getsample
+     * Gets the IMFSample associated with the substream with the specified index.
+     * @param {Integer} dwMuxStreamIndex The index of the substream for which a sample is retrieved.
+     * @returns {IMFSample} The retrieved sample.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getsample
      */
     GetSample(dwMuxStreamIndex) {
         result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppSample := 0, "HRESULT")
@@ -53,9 +53,9 @@ class IMFMuxStreamSampleManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getstreamconfiguration
+     * Gets the active stream configuration for the media source, which defines the set of substreams that are included the multiplexed output.
+     * @returns {Integer} Gets a  bitmask value where the bits that are on represent the indices of the substreams that are included in the stream configuration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getstreamconfiguration
      */
     GetStreamConfiguration() {
         result := ComCall(5, this, "uint")

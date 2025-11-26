@@ -43,23 +43,52 @@ class ISyncMgrSynchronize extends IUnknown{
     static VTableNames => ["Initialize", "GetHandlerInfo", "EnumSyncMgrItems", "GetItemObject", "ShowProperties", "SetProgressCallback", "PrepareForSync", "Synchronize", "SetItemStatus", "ShowError"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} dwReserved 
-     * @param {Integer} dwSyncMgrFlags 
-     * @param {Integer} cbCookie 
-     * @param {Pointer<Integer>} lpCookie 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Called by the synchronization manager in a registered application handler to determine whether the handler processes the synchronization event.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
+     * 
+     * Reserved; must be 0 (zero).
+     * @param {Integer} dwSyncMgrFlags Type: <b>DWORD</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgrflag">SYNCMGRFLAG</a> enumeration values that describe how a synchronization event is initiated.
+     * @param {Integer} cbCookie Type: <b>DWORD</b>
+     * 
+     * The size of the <i>lpCookie</i> data, in bytes.
+     * @param {Pointer<Integer>} lpCookie Type: <b>BYTE const*</b>
+     * 
+     * A pointer to the token that identifies an application. This token is passed when an application invokes the synchronization manager programmatically.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, and the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Initialization is successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Application handler does not process a synchronization event.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-initialize
      */
     Initialize(dwReserved, dwSyncMgrFlags, cbCookie, lpCookie) {
         lpCookieMarshal := lpCookie is VarRef ? "char*" : "ptr"
@@ -69,9 +98,11 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Obtains handler information.
+     * @returns {Pointer<SYNCMGRHANDLERINFO>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgrhandlerinfo">SYNCMGRHANDLERINFO</a>**</b>
      * 
-     * @returns {Pointer<SYNCMGRHANDLERINFO>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-gethandlerinfo
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgrhandlerinfo">SYNCMGRHANDLERINFO</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-gethandlerinfo
      */
     GetHandlerInfo() {
         result := ComCall(4, this, "ptr*", &ppSyncMgrHandlerInfo := 0, "HRESULT")
@@ -79,9 +110,12 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Obtains the ISyncMgrEnumItems interface for the items that are handled by a registered application.
+     * @returns {ISyncMgrEnumItems} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrenumitems">ISyncMgrEnumItems</a>**</b>
      * 
-     * @returns {ISyncMgrEnumItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-enumsyncmgritems
+     * The address of the variable that receives a pointer to a valid 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrenumitems">ISyncMgrEnumItems</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-enumsyncmgritems
      */
     EnumSyncMgrItems() {
         result := ComCall(5, this, "ptr*", &ppSyncMgrEnumItems := 0, "HRESULT")
@@ -89,11 +123,17 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Obtains an interface on a specified item that a registered application handles.
+     * @param {Pointer<Guid>} ItemID Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} ItemID 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-getitemobject
+     * An identifier for a requested item.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * An identifier for a requested interface.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * An address of a variable that receives a pointer to a requested interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-getitemobject
      */
     GetItemObject(ItemID, riid) {
         result := ComCall(6, this, "ptr", ItemID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -101,11 +141,35 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Called by the synchronization manager when a user selects an item in the choice dialog box, and then clicks the Properties button.
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
-     * @param {HWND} hWndParent 
-     * @param {Pointer<Guid>} ItemID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-showproperties
+     * The parent <b>HWND</b> for any user interface that a registered application displays to set properties. This value can be <b>NULL</b>.
+     * @param {Pointer<Guid>} ItemID Type: <b>REFGUID</b>
+     * 
+     * The item ID for properties that are requested.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, and the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The properties dialog for an item is handled successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-showproperties
      */
     ShowProperties(hWndParent, ItemID) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
@@ -115,10 +179,32 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Sets the ISyncMgrSynchronizeCallback interface. Registered applications use this callback interface to give status information from within the ISyncMgrSynchronize::PrepareForSync and ISyncMgrSynchronize::Synchronize methods.
+     * @param {ISyncMgrSynchronizeCallback} lpCallBack Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronizecallback">ISyncMgrSynchronizeCallback</a>*</b>
      * 
-     * @param {ISyncMgrSynchronizeCallback} lpCallBack 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-setprogresscallback
+     * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronizecallback">ISyncMgrSynchronizeCallback</a> interface the registered application uses to provide feedback to SyncMgr about the synchronization status and to notify SyncMgr when the synchronization is complete.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values, E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, as well as the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Synchronization callback interface was successfully set.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-setprogresscallback
      */
     SetProgressCallback(lpCallBack) {
         result := ComCall(8, this, "ptr", lpCallBack, "HRESULT")
@@ -126,13 +212,41 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Allows a registered application to display any user interface, and perform any necessary initialization before the ISyncMgrSynchronize::Synchronize method is called.
+     * @param {Integer} cbNumItems Type: <b>ULONG</b>
      * 
-     * @param {Integer} cbNumItems 
-     * @param {Pointer<Guid>} pItemIDs 
-     * @param {HWND} hWndParent 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync
+     * The number of items in the array pointed to by <i>pItemIDs</i>.
+     * @param {Pointer<Guid>} pItemIDs Type: <b>GUID*</b>
+     * 
+     * An array of item IDs that a user chooses to synchronize.
+     * @param {HWND} hWndParent Type: <b>HWND</b>
+     * 
+     * A handle to the parent <b>HWND</b> that a registered application should use for any user interface element displayed. This value may be <b>NULL</b>.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
+     * 
+     * Reserved. Registered applications should ignore this value.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, and the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Preparation is successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync
      */
     PrepareForSync(cbNumItems, pItemIDs, hWndParent, dwReserved) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
@@ -142,10 +256,43 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Called by the synchronization manager once for each selected group after the user has chosen the registered applications to be synchronized.
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
-     * @param {HWND} hWndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-synchronize
+     * A handle to the parent <b>HWND</b> the registered application should use for any user interface elements that it displays. This value may be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values, E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, as well as the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Synchronization was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Synchronization failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-synchronize
      */
     Synchronize(hWndParent) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
@@ -155,11 +302,36 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Called by the synchronization manager in a registered application's handler to change the status of an item in the following two cases:\_between the time the handler has returned from the ISyncMgrSynchronize::PrepareForSync method and called the PrepareForSyncCompleted callback method, or after the handler has returned from the ISyncMgrSynchronize::Synchronize method but has not yet called the SynchronizeCompleted callback method.
+     * @param {Pointer<Guid>} pItemID Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} pItemID 
-     * @param {Integer} dwSyncMgrStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-setitemstatus
+     * Identifies the item with changed status.
+     * @param {Integer} dwSyncMgrStatus Type: <b>DWORD</b>
+     * 
+     * The new status for the specified item taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgrstatus">SYNCMGRSTATUS</a> enumeration.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values, E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, as well as the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Status was set.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-setitemstatus
      */
     SetItemStatus(pItemID, dwSyncMgrStatus) {
         result := ComCall(11, this, "ptr", pItemID, "uint", dwSyncMgrStatus, "HRESULT")
@@ -167,11 +339,35 @@ class ISyncMgrSynchronize extends IUnknown{
     }
 
     /**
+     * Called by the synchronization manager in a registered application handler when a user double-clicks an associated message in the error tab.
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
-     * @param {HWND} hWndParent 
-     * @param {Pointer<Guid>} ErrorID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-showerror
+     * A handle to the parent <b>HWND</b> that a registered application should use to display a user interface. This value can be <b>NULL</b>.
+     * @param {Pointer<Guid>} ErrorID Type: <b>REFGUID</b>
+     * 
+     * An error identifier that is associated with this error message. This value is passed in the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-logerror">LogError</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, and the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronize-showerror
      */
     ShowError(hWndParent, ErrorID) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent

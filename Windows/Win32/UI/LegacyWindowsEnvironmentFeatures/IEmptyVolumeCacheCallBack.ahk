@@ -35,12 +35,49 @@ class IEmptyVolumeCacheCallBack extends IUnknown{
     static VTableNames => ["ScanProgress", "PurgeProgress"]
 
     /**
+     * Called by a disk cleanup handler to update the disk cleanup manager on the progress of a scan for deletable files.
+     * @param {Integer} dwlSpaceUsed Type: <b>DWORDLONG</b>
      * 
-     * @param {Integer} dwlSpaceUsed 
-     * @param {Integer} dwFlags 
-     * @param {PWSTR} pcwszStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-scanprogress
+     * The amount of disk space that the handler can free at this point in the scan.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * A flag that can be sent to the disk cleanup manager. This flag can have the following value.
+     * @param {PWSTR} pcwszStatus Type: <b>LPCWSTR</b>
+     * 
+     * Reserved.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handler should continue scanning for deletable files.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This value is returned when the user clicks the <b>Cancel</b> button on the disk cleanup manager's dialog box while a scan is in progress. The handler should stop scanning and shut down.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecachecallback-scanprogress
      */
     ScanProgress(dwlSpaceUsed, dwFlags, pcwszStatus) {
         pcwszStatus := pcwszStatus is String ? StrPtr(pcwszStatus) : pcwszStatus
@@ -50,13 +87,52 @@ class IEmptyVolumeCacheCallBack extends IUnknown{
     }
 
     /**
+     * Called periodically by a disk cleanup handler to update the disk cleanup manager on the progress of a purge of deletable files.
+     * @param {Integer} dwlSpaceFreed Type: <b>DWORDLONG</b>
      * 
-     * @param {Integer} dwlSpaceFreed 
-     * @param {Integer} dwlSpaceToFree 
-     * @param {Integer} dwFlags 
-     * @param {PWSTR} pcwszStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-purgeprogress
+     * The amount of disk space, in bytes, that has been freed at this point in the purge. The disk cleanup manager uses this value to update its progress bar.
+     * @param {Integer} dwlSpaceToFree Type: <b>DWORDLONG</b>
+     * 
+     * The amount of disk space, in bytes, that remains to be freed at this point in the purge.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * A flag that can be sent to the disk cleanup manager. It can can have the following value:
+     * @param {PWSTR} pcwszStatus Type: <b>LPCWSTR</b>
+     * 
+     * Reserved.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handler should continue purging deletable files.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This value is returned when the user clicks the <b>Cancel</b> button on the disk cleanup manager's dialog box while a scan is in progress. The handler should stop purging files and shut down.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecachecallback-purgeprogress
      */
     PurgeProgress(dwlSpaceFreed, dwlSpaceToFree, dwFlags, pcwszStatus) {
         pcwszStatus := pcwszStatus is String ? StrPtr(pcwszStatus) : pcwszStatus

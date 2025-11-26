@@ -31,9 +31,9 @@ class IVPBaseNotify extends IUnknown{
     static VTableNames => ["RenegotiateVPParameters"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpbasenotify-renegotiatevpparameters
+     * The RenegotiateVPParameters method initializes the connection to the decoder.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpbasenotify-renegotiatevpparameters
      */
     RenegotiateVPParameters() {
         result := ComCall(3, this, "HRESULT")

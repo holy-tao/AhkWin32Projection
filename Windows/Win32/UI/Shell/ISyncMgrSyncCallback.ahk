@@ -39,15 +39,29 @@ class ISyncMgrSyncCallback extends IUnknown{
     static VTableNames => ["ReportProgress", "SetHandlerProgressText", "ReportEvent", "CanContinue", "QueryForAdditionalItems", "AddItemToSession", "AddIUnknownToSession", "ProposeItem", "CommitItem", "ReportManualSync"]
 
     /**
+     * Reports the progress of the synchronization of a single sync item to Sync Center.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszItemID 
-     * @param {PWSTR} pszProgressText 
-     * @param {Integer} nStatus 
-     * @param {Integer} uCurrentStep 
-     * @param {Integer} uMaxStep 
-     * @param {Pointer<Integer>} pnCancelRequest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-reportprogress
+     * A pointer to a buffer containing the unique ID of the item currently being synchronized. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @param {PWSTR} pszProgressText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing a Unicode string for any custom progress messaging for this item.
+     * @param {Integer} nStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a> enumeration stating the current progress status of the synchronization.
+     * @param {Integer} uCurrentStep Type: <b>ULONG</b>
+     * 
+     * The current step in the synchronization. If the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PS_UPDATING_INDETERMINATE</a> flag is set in <i>nStatus</i>, this parameter is ignored.
+     * @param {Integer} uMaxStep Type: <b>ULONG</b>
+     * 
+     * The total number of steps required to complete the synchronization of the item. If the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PS_UPDATING_INDETERMINATE</a> flag is set in <i>nStatus</i>, this parameter is ignored.
+     * @param {Pointer<Integer>} pnCancelRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a>*</b>
+     * 
+     * When this method returns, points to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a> enumeration specifying the nature of a cancel request, if any.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-reportprogress
      */
     ReportProgress(pszItemID, pszProgressText, nStatus, uCurrentStep, uMaxStep, pnCancelRequest) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
@@ -60,11 +74,17 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Sets the content of an information field for the handler while that handler is performing a synchronization.
+     * @param {PWSTR} pszProgressText Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszProgressText 
-     * @param {Pointer<Integer>} pnCancelRequest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-sethandlerprogresstext
+     * Pointer to a buffer containing the comment text.
+     * @param {Pointer<Integer>} pnCancelRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a>*</b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a> enumeration specifying the nature of a cancel request, if any.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-sethandlerprogresstext
      */
     SetHandlerProgressText(pszProgressText, pnCancelRequest) {
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
@@ -76,17 +96,35 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Provides an event to add to the Sync Results folder for an item being synchronized.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszItemID 
-     * @param {Integer} nLevel 
-     * @param {Integer} nFlags 
-     * @param {PWSTR} pszName 
-     * @param {PWSTR} pszDescription 
-     * @param {PWSTR} pszLinkText 
-     * @param {PWSTR} pszLinkReference 
-     * @param {PWSTR} pszContext 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-reportevent
+     * A pointer to a buffer that contains the unique ID of the item currently being synchronized. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @param {Integer} nLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_level">SYNCMGR_EVENT_LEVEL</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_level">SYNCMGR_EVENT_LEVEL</a> enumeration declaring the type of event involved.
+     * @param {Integer} nFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_flags">SYNCMGR_EVENT_FLAGS</a></b>
+     * 
+     * Not used.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the name of the event.
+     * @param {PWSTR} pszDescription Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains a description of the event.
+     * @param {PWSTR} pszLinkText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the text to be used in a hyperlink to the item. This parameter can be <b>NULL</b>
+     * @param {PWSTR} pszLinkReference Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the URL of the item. This parameter can be <b>NULL</b>
+     * @param {PWSTR} pszContext Type: <b>LPCWSTR</b>
+     * 
+     * Handler-specific data to associate with the event.
+     * @returns {Guid} Type: <b>GUID*</b>
+     * 
+     * When this method returns, contains a pointer to a unique ID for the event.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-reportevent
      */
     ReportEvent(pszItemID, nLevel, nFlags, pszName, pszDescription, pszLinkText, pszLinkReference, pszContext) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
@@ -102,10 +140,34 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Determines whether the synchronization has been canceled.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszItemID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-cancontinue
+     * A pointer to a buffer containing the ID of the item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Return Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>A cancellation has not been requested. The synchronization can continue.</td>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td>A cancellation has been requested. The handler should call <a href="/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-reportprogress">ISyncMgrSyncCallback::ReportProgress</a>, specifying SYNCMGR_PS_CANCELED in the <i>nStatus</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>The value pointed to by <i>pszItemID</i> is either unknown to Sync Center or is not an item managed by this handler.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If <i>pszItemID</i> is <b>NULL</b> or an empty string, the return value depends on whether a cancellation has been requested for the entire handler.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-cancontinue
      */
     CanContinue(pszItemID) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
@@ -115,11 +177,17 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Retrieves an enumerator of the set of items that have a pending request to be synchronized. This is the set of items that will be synchronized after the current synchronization is finished.
+     * @param {Pointer<IEnumString>} ppenumItemIDs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a>**</b>
      * 
-     * @param {Pointer<IEnumString>} ppenumItemIDs 
-     * @param {Pointer<IEnumUnknown>} ppenumPunks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-queryforadditionalitems
+     * When this method returns, contains the address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> that enumerates sync item IDs. This value is <b>NULL</b> if no items are pending.
+     * @param {Pointer<IEnumUnknown>} ppenumPunks Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a> enumerating <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interfaces that are passed to <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-starthandlersync">StartHandlerSync</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-startitemsync">StartItemSync</a>. This value is <b>NULL</b> if no interfaces are pending.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if successful, or an error value otherwise. Returns <b>S_FALSE</b> if no items are pending.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-queryforadditionalitems
      */
     QueryForAdditionalItems(ppenumItemIDs, ppenumPunks) {
         result := ComCall(7, this, "ptr*", ppenumItemIDs, "ptr*", ppenumPunks, "HRESULT")
@@ -127,10 +195,14 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Adds a specified item to the set of items currently being synchronized.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszItemID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-additemtosession
+     * A pointer to a buffer containing the unique ID of the item to add. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. Returns E_INVALIDARG if <i>pszItemID</i> is already part of the session.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-additemtosession
      */
     AddItemToSession(pszItemID) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
@@ -150,10 +222,14 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Proposes the addition of a new item to the set of items previously enumerated.
+     * @param {ISyncMgrSyncItem} pNewItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a>*</b>
      * 
-     * @param {ISyncMgrSyncItem} pNewItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-proposeitem
+     * A pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a> representing the new item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. Returns E_INVALIDARG if <i>pszItemID</i> already exists.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-proposeitem
      */
     ProposeItem(pNewItem) {
         result := ComCall(10, this, "ptr", pNewItem, "HRESULT")
@@ -161,10 +237,14 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Confirms a specified item as a member of the handler's sync set and confirms that it should be shown in the UI.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR*</b>
      * 
-     * @param {PWSTR} pszItemID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-commititem
+     * A pointer to a buffer containing the unique ID of the item to confirm. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. Returns E_INVALIDARG if the item has not been first submitted through <a href="/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-proposeitem">ISyncMgrSyncCallback::ProposeItem</a> or if the item is already part of the current session.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-commititem
      */
     CommitItem(pszItemID) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
@@ -174,9 +254,11 @@ class ISyncMgrSyncCallback extends IUnknown{
     }
 
     /**
+     * Reports that a synchronization operation is being performed that was requested manually from outside the Sync Center UI.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-reportmanualsync
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynccallback-reportmanualsync
      */
     ReportManualSync() {
         result := ComCall(12, this, "HRESULT")

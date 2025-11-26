@@ -103,10 +103,17 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the description of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the description of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-description-registrationinfotype-element">Description</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {Pointer<BSTR>} pDescription 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_description
      */
     get_Description(pDescription) {
         result := ComCall(7, this, "ptr", pDescription, "HRESULT")
@@ -114,10 +121,17 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the description of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the description of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-description-registrationinfotype-element">Description</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {BSTR} description 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_description
      */
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
@@ -127,10 +141,17 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the author of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the task author is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-author-registrationinfotype-element">Author</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {Pointer<BSTR>} pAuthor 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_author
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_author
      */
     get_Author(pAuthor) {
         result := ComCall(9, this, "ptr", pAuthor, "HRESULT")
@@ -138,10 +159,17 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the author of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the task author is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-author-registrationinfotype-element">Author</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {BSTR} author 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_author
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_author
      */
     put_Author(author) {
         author := author is String ? BSTR.Alloc(author).Value : author
@@ -151,10 +179,15 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the version number of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the version number of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-version-registrationinfotype-element">Version</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<BSTR>} pVersion 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_version
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_version
      */
     get_Version(pVersion) {
         result := ComCall(11, this, "ptr", pVersion, "HRESULT")
@@ -162,10 +195,15 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the version number of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the version number of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-version-registrationinfotype-element">Version</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {BSTR} version 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_version
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_version
      */
     put_Version(version) {
         version := version is String ? BSTR.Alloc(version).Value : version
@@ -175,10 +213,15 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the date and time when the task is registered.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the registration date is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-date-registrationinfotype-element">Date</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<BSTR>} pDate 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_date
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_date
      */
     get_Date(pDate) {
         result := ComCall(13, this, "ptr", pDate, "HRESULT")
@@ -186,10 +229,15 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the date and time when the task is registered.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the registration date is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-date-registrationinfotype-element">Date</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {BSTR} date 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_date
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_date
      */
     put_Date(date) {
         date := date is String ? BSTR.Alloc(date).Value : date
@@ -199,10 +247,17 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets any additional documentation for the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the additional documentation for the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-documentation-registrationinfotype-element">Documentation</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {Pointer<BSTR>} pDocumentation 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_documentation
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_documentation
      */
     get_Documentation(pDocumentation) {
         result := ComCall(15, this, "ptr", pDocumentation, "HRESULT")
@@ -210,10 +265,17 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets any additional documentation for the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the additional documentation for the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-documentation-registrationinfotype-element">Documentation</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {BSTR} documentation 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_documentation
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_documentation
      */
     put_Documentation(documentation) {
         documentation := documentation is String ? BSTR.Alloc(documentation).Value : documentation
@@ -223,10 +285,10 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets an XML-formatted version of the registration information for the task.
      * @param {Pointer<BSTR>} pText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_xmltext
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_xmltext
      */
     get_XmlText(pText) {
         result := ComCall(17, this, "ptr", pText, "HRESULT")
@@ -234,10 +296,10 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets an XML-formatted version of the registration information for the task.
      * @param {BSTR} text 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_xmltext
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_xmltext
      */
     put_XmlText(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
@@ -247,10 +309,15 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the URI of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the task URI is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-uri-registrationinfotype-element">URI</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<BSTR>} pUri 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_uri
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_uri
      */
     get_URI(pUri) {
         result := ComCall(19, this, "ptr", pUri, "HRESULT")
@@ -258,10 +325,15 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the URI of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the task URI is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-uri-registrationinfotype-element">URI</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {BSTR} uri 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_uri
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_uri
      */
     put_URI(uri) {
         uri := uri is String ? BSTR.Alloc(uri).Value : uri
@@ -271,10 +343,19 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the security descriptor of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the security descriptor of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-securitydescriptor-registrationinfotype-element">SecurityDescriptor</a> element of the Task Scheduler schema.
+     * 
+     * If a different security descriptor is supplied when a task is  registered, then it will supersede the <i>sddl</i> parameter that is set through this property.
+     * 
+     * If you try to pass an invalid security descriptor into the <i>sddl</i> parameter, then this method will return <b>E_INVALIDARG</b>.
+     * 
      * 
      * @param {Pointer<VARIANT>} pSddl 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_securitydescriptor
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_securitydescriptor
      */
     get_SecurityDescriptor(pSddl) {
         result := ComCall(21, this, "ptr", pSddl, "HRESULT")
@@ -282,10 +363,19 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets the security descriptor of the task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, the security descriptor of the task is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-securitydescriptor-registrationinfotype-element">SecurityDescriptor</a> element of the Task Scheduler schema.
+     * 
+     * If a different security descriptor is supplied when a task is  registered, then it will supersede the <i>sddl</i> parameter that is set through this property.
+     * 
+     * If you try to pass an invalid security descriptor into the <i>sddl</i> parameter, then this method will return <b>E_INVALIDARG</b>.
+     * 
      * 
      * @param {VARIANT} sddl 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_securitydescriptor
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_securitydescriptor
      */
     put_SecurityDescriptor(sddl) {
         result := ComCall(22, this, "ptr", sddl, "HRESULT")
@@ -293,10 +383,19 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets where the task originated from. For example, a task may originate from a component, service, application, or user.
+     * @remarks
+     * 
+     * The Task Scheduler UI uses the source to sort tasks. For example, tasks could be sorted by component, service, application, or user.
+     * 
+     * When reading or writing XML for a task, the task source information is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-source-registrationinfotype-element">Source</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {Pointer<BSTR>} pSource 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-get_source
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-get_source
      */
     get_Source(pSource) {
         result := ComCall(23, this, "ptr", pSource, "HRESULT")
@@ -304,10 +403,19 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * Gets or sets where the task originated from. For example, a task may originate from a component, service, application, or user.
+     * @remarks
+     * 
+     * The Task Scheduler UI uses the source to sort tasks. For example, tasks could be sorted by component, service, application, or user.
+     * 
+     * When reading or writing XML for a task, the task source information is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-source-registrationinfotype-element">Source</a> element of the Task Scheduler schema.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {BSTR} source 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregistrationinfo-put_source
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iregistrationinfo-put_source
      */
     put_Source(source) {
         source := source is String ? BSTR.Alloc(source).Value : source

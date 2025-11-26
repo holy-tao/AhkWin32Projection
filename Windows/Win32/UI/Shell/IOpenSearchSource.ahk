@@ -46,14 +46,26 @@ class IOpenSearchSource extends IUnknown{
     static VTableNames => ["GetResults"]
 
     /**
+     * Returns search results, from an OpenSearch data source, formatted in RSS or Atom format.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {PWSTR} pszQuery 
-     * @param {Integer} dwStartIndex 
-     * @param {Integer} dwCount 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
+     * The window handle of the caller.
+     * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
+     * 
+     * The query as entered by the user. This parameter is equivalent to the OpenSearch {searchTerms} parameter and may be empty.
+     * @param {Integer} dwStartIndex Type: <b>DWORD</b>
+     * 
+     * The index of the first result being requested. Equivalent to the OpenSearch {startIndex} parameter. See Remarks below.
+     * @param {Integer} dwCount Type: <b>DWORD</b>
+     * 
+     * The number of results being requested.  Equivalent to the OpenSearch {count} parameter.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The IID of the interface being requested. Typically IID_IStream.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * An interface pointer, of type specified by RIID, to the object containing the results in Atom or RSS format.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
      */
     GetResults(hwnd, pszQuery, dwStartIndex, dwCount, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

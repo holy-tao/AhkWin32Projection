@@ -50,12 +50,14 @@ class IEnumConnections extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Retrieves the specified number of items in the enumeration sequence.
+     * @param {Integer} cConnections The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
+     * @param {Pointer<CONNECTDATA>} rgcd An array of enumerated items.
      * 
-     * @param {Integer} cConnections 
-     * @param {Pointer<CONNECTDATA>} rgcd 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnections-next
+     * The enumerator is responsible for allocating any memory, and the caller is responsible for freeing it. If <i>celt</i> is greater than 1, the caller must also pass a non-NULL pointer passed to <i>pceltFetched</i> to know how many pointers to release.
+     * @param {Pointer<Integer>} pcFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested.
+     * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-next
      */
     Next(cConnections, rgcd, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -65,10 +67,10 @@ class IEnumConnections extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cConnections 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnections-skip
+     * Skips over the specified number of items in the enumeration sequence.
+     * @param {Integer} cConnections The number of items to be skipped.
+     * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-skip
      */
     Skip(cConnections) {
         result := ComCall(4, this, "uint", cConnections, "HRESULT")
@@ -76,9 +78,9 @@ class IEnumConnections extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnections-reset
+     * Resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} The return value is S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -86,9 +88,9 @@ class IEnumConnections extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumConnections} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnections-clone
+     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * @returns {IEnumConnections} A pointer to the cloned enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

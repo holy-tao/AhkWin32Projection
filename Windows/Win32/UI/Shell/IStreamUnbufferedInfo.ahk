@@ -31,9 +31,11 @@ class IStreamUnbufferedInfo extends IUnknown{
     static VTableNames => ["GetSectorSize"]
 
     /**
+     * Retrieves the number of bytes per sector on the disk currently being used. When using unbuffered input/output (I/O), it is important to know the size of the sectors on the disk being read in order to ensure proper byte alignment.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamunbufferedinfo-getsectorsize
+     * When this method returns successfully, contains a pointer to a <b>ULONG</b> value that represents the number of bytes per sector for the disk.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istreamunbufferedinfo-getsectorsize
      */
     GetSectorSize() {
         result := ComCall(3, this, "uint*", &pcbSectorSize := 0, "HRESULT")

@@ -104,10 +104,14 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets a variable by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a>*</b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getvariablebyname
+     * A pointer to a string containing the variable name.
+     * @returns {ID3D10ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable">ID3D10ShaderReflectionVariable</a>*</b>
+     * 
+     * Returns a <a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable">ID3D10ShaderReflectionVariable Interface</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -117,10 +121,14 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets a resource binding description by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a>*</b>
      * 
-     * @param {PSTR} Name 
-     * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getresourcebindingdescbyname
+     * A pointer to a string containing the variable name.
+     * @returns {D3D10_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc">D3D10_SHADER_INPUT_BIND_DESC</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc">D3D10_SHADER_INPUT_BIND_DESC</a> structure that will be populated with resource binding information.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getresourcebindingdescbyname
      */
     GetResourceBindingDescByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -131,9 +139,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets the number of Mov instructions.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovinstructioncount
+     * A pointer to the number of Mov instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovinstructioncount
      */
     GetMovInstructionCount() {
         result := ComCall(11, this, "uint*", &pCount := 0, "HRESULT")
@@ -141,9 +151,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets the number of Movc instructions.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovcinstructioncount
+     * A pointer to the number of Movc instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovcinstructioncount
      */
     GetMovcInstructionCount() {
         result := ComCall(12, this, "uint*", &pCount := 0, "HRESULT")
@@ -151,9 +163,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets the number of conversion instructions used in a shader.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getconversioninstructioncount
+     * A pointer to a UINT that will contain the conversion instruction count when the method returns.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getconversioninstructioncount
      */
     GetConversionInstructionCount() {
         result := ComCall(13, this, "uint*", &pCount := 0, "HRESULT")
@@ -161,9 +175,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets the number of bitwise instructions.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getbitwiseinstructioncount
+     * A pointer to the number of bitwise instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getbitwiseinstructioncount
      */
     GetBitwiseInstructionCount() {
         result := ComCall(14, this, "uint*", &pCount := 0, "HRESULT")
@@ -171,9 +187,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Gets the geometry-shader input-primitive description.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive">D3D10_PRIMITIVE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getgsinputprimitive
+     * A pointer to the input-primitive type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive">D3D10_PRIMITIVE</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getgsinputprimitive
      */
     GetGSInputPrimitive() {
         result := ComCall(15, this, "int*", &pPrim := 0, "HRESULT")
@@ -181,9 +199,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Indicates whether a shader was compiled in Direct3D 10 on Direct3D 9 mode.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-islevel9shader
+     * Pointer to a BOOL variable that will be set true if the shader was compiled in Direct3D 10 on Direct3D 9 mode; otherwise false.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-islevel9shader
      */
     IsLevel9Shader() {
         result := ComCall(16, this, "int*", &pbLevel9Shader := 0, "HRESULT")
@@ -191,9 +211,11 @@ class ID3D10ShaderReflection1 extends IUnknown{
     }
 
     /**
+     * Indicates whether a pixel shader is intended to run a pixel frequency or sample frequency.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-issamplefrequencyshader
+     * A pointer to a BOOL variable that will be set to true if the shader is intended to run at sample frequency; false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-issamplefrequencyshader
      */
     IsSampleFrequencyShader() {
         result := ComCall(17, this, "int*", &pbSampleFrequency := 0, "HRESULT")

@@ -37,11 +37,17 @@ class IWICMetadataQueryWriter extends IWICMetadataQueryReader{
     static VTableNames => ["SetMetadataByName", "RemoveMetadataByName"]
 
     /**
+     * Sets a metadata item to a specific location.
+     * @param {PWSTR} wzName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} wzName 
-     * @param {Pointer<PROPVARIANT>} pvarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataquerywriter-setmetadatabyname
+     * The name of the metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarValue Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * The metadata to set.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataquerywriter-setmetadatabyname
      */
     SetMetadataByName(wzName, pvarValue) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
@@ -51,10 +57,14 @@ class IWICMetadataQueryWriter extends IWICMetadataQueryReader{
     }
 
     /**
+     * Removes a metadata item from a specific location using a metadata query expression.
+     * @param {PWSTR} wzName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} wzName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataquerywriter-removemetadatabyname
+     * The name of the metadata item to remove.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataquerywriter-removemetadatabyname
      */
     RemoveMetadataByName(wzName) {
         wzName := wzName is String ? StrPtr(wzName) : wzName

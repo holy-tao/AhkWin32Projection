@@ -31,9 +31,49 @@ class ITfFnLangProfileUtil extends ITfFunction{
     static VTableNames => ["RegisterActiveProfiles", "IsProfileAvailableForLang"]
 
     /**
+     * ITfFnLangProfileUtil::RegisterActiveProfiles method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlangprofileutil-registeractiveprofiles
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The speech text service removed its active profiles based on user actions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlangprofileutil-registeractiveprofiles
      */
     RegisterActiveProfiles() {
         result := ComCall(4, this, "HRESULT")
@@ -41,10 +81,10 @@ class ITfFnLangProfileUtil extends ITfFunction{
     }
 
     /**
-     * 
-     * @param {Integer} langid 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlangprofileutil-isprofileavailableforlang
+     * ITfFnLangProfileUtil::IsProfileAvailableForLang method
+     * @param {Integer} langid Contains a <b>LANGID</b> that specifies the language that the query applies to.
+     * @returns {BOOL} Pointer to a <b>BOOL</b> that receives nonzero if a profile is available for the language identified by langid or zero otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlangprofileutil-isprofileavailableforlang
      */
     IsProfileAvailableForLang(langid) {
         result := ComCall(5, this, "ushort", langid, "int*", &pfAvailable := 0, "HRESULT")

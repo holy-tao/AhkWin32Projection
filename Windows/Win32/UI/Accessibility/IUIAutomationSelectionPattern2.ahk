@@ -88,9 +88,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets an IUIAutomationElement object representing the first item in a group of selected items.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentfirstselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentfirstselecteditem
      */
     get_CurrentFirstSelectedItem() {
         result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
@@ -98,9 +98,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets an IUIAutomationElement object representing the last item in a group of selected items.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentlastselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentlastselecteditem
      */
     get_CurrentLastSelectedItem() {
         result := ComCall(10, this, "ptr*", &retVal := 0, "HRESULT")
@@ -108,9 +108,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets an IUIAutomationElement object representing the currently selected item.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentcurrentselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentcurrentselecteditem
      */
     get_CurrentCurrentSelectedItem() {
         result := ComCall(11, this, "ptr*", &retVal := 0, "HRESULT")
@@ -118,9 +118,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets an integer value indicating the number of selected items.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentitemcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentitemcount
      */
     get_CurrentItemCount() {
         result := ComCall(12, this, "int*", &retVal := 0, "HRESULT")
@@ -128,9 +128,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets a cached IUIAutomationElement object representing the first item in a group of selected items.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cachedfirstselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cachedfirstselecteditem
      */
     get_CachedFirstSelectedItem() {
         result := ComCall(13, this, "ptr*", &retVal := 0, "HRESULT")
@@ -138,9 +138,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets a cached IUIAutomationElement object representing the last item in a group of selected items.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cachedlastselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cachedlastselecteditem
      */
     get_CachedLastSelectedItem() {
         result := ComCall(14, this, "ptr*", &retVal := 0, "HRESULT")
@@ -148,9 +148,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets a cached IUIAutomationElement object representing the currently selected item.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cachedcurrentselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cachedcurrentselecteditem
      */
     get_CachedCurrentSelectedItem() {
         result := ComCall(15, this, "ptr*", &retVal := 0, "HRESULT")
@@ -158,9 +158,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     }
 
     /**
-     * 
+     * Gets a cached integer value indicating the number of selected items.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cacheditemcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cacheditemcount
      */
     get_CachedItemCount() {
         result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")

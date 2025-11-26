@@ -31,9 +31,9 @@ class IRtwqPlatformEvents extends IUnknown{
     static VTableNames => ["InitializationComplete", "ShutdownStart", "ShutdownComplete"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqplatformevents-initializationcomplete
+     * Called after the platform has been initialized.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqplatformevents-initializationcomplete
      */
     InitializationComplete() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IRtwqPlatformEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqplatformevents-shutdownstart
+     * Called before the platform is about to shutdown.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqplatformevents-shutdownstart
      */
     ShutdownStart() {
         result := ComCall(4, this, "HRESULT")
@@ -51,9 +51,9 @@ class IRtwqPlatformEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqplatformevents-shutdowncomplete
+     * Called after the platform has shutdown.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqplatformevents-shutdowncomplete
      */
     ShutdownComplete() {
         result := ComCall(5, this, "HRESULT")

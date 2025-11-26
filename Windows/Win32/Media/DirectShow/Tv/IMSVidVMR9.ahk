@@ -65,9 +65,9 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_allocator_id
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {Integer} Receives the identifier. If the application did not set an allocator-presenter, the value is –1.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvmr9-get_allocator_id
      */
     get_Allocator_ID() {
         result := ComCall(46, this, "int*", &ID := 0, "HRESULT")
@@ -75,11 +75,29 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {IUnknown} AllocPresent Pointer to the <b>IUnknown</b> interface of the allocator-presenter. This object must expose the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/nn-vmr9-ivmrsurfaceallocator9">IVMRSurfaceAllocator9</a> interface. To use the VMR-9 filter's default allocator-presenter, set this parameter to <b>NULL</b>.
+     * @param {Integer} ID Application-defined identifier for the allocator-presenter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IUnknown} AllocPresent 
-     * @param {Integer} ID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-setallocator
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvmr9-setallocator
      */
     SetAllocator(AllocPresent, ID) {
         result := ComCall(47, this, "ptr", AllocPresent, "int", ID, "HRESULT")
@@ -87,10 +105,28 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {VARIANT_BOOL} bSuppress Specifies a Boolean value. See Remarks for more information.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {VARIANT_BOOL} bSuppress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-put_suppresseffects
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvmr9-put_suppresseffects
      */
     put_SuppressEffects(bSuppress) {
         result := ComCall(48, this, "short", bSuppress, "HRESULT")
@@ -98,9 +134,9 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_suppresseffects
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {VARIANT_BOOL} Receives a <b>VARIANT_BOOL</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidvmr9-put_suppresseffects">IMSVidVMR9::put_SuppressEffects</a>. The default value is VARIANT_TRUE.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvmr9-get_suppresseffects
      */
     get_SuppressEffects() {
         result := ComCall(49, this, "short*", &bSuppress := 0, "HRESULT")
@@ -108,9 +144,9 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_allocator
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface of the allocator-presenter. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvmr9-get_allocator
      */
     get_Allocator() {
         result := ComCall(50, this, "ptr*", &AllocPresent := 0, "HRESULT")

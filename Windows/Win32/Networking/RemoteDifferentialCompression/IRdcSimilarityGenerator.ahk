@@ -38,9 +38,9 @@ class IRdcSimilarityGenerator extends IUnknown{
     static VTableNames => ["EnableSimilarity", "Results"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsimilaritygenerator-enablesimilarity
+     * Enables the signature generator to generate similarity data.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcsimilaritygenerator-enablesimilarity
      */
     EnableSimilarity() {
         result := ComCall(3, this, "HRESULT")
@@ -48,9 +48,9 @@ class IRdcSimilarityGenerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {SimilarityData} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsimilaritygenerator-results
+     * Retrieves the similarity data that was generated for a file by the signature generator.
+     * @returns {SimilarityData} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure that will receive the similarity data.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcsimilaritygenerator-results
      */
     Results() {
         similarityData := SimilarityData()

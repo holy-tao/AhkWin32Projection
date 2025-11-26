@@ -32,19 +32,23 @@ class ID2D1SvgAttribute extends ID2D1Resource{
     static VTableNames => ["GetElement", "Clone"]
 
     /**
+     * Returns the element on which this attribute is set. Returns null if the attribute is not set on any element.
+     * @param {Pointer<ID2D1SvgElement>} element Type: <b>ID2D1SvgElement**</b>
      * 
-     * @param {Pointer<ID2D1SvgElement>} element 
+     * When this method completes, this will contain a pointer to the element on which this attribute is set.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgattribute-getelement
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgattribute-getelement
      */
     GetElement(element) {
         ComCall(4, this, "ptr*", element)
     }
 
     /**
+     * Creates a clone of this attribute value. On creation, the cloned attribute is not set on any element.
+     * @returns {ID2D1SvgAttribute} Type: <b>ID2D1SvgAttribute**</b>
      * 
-     * @returns {ID2D1SvgAttribute} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgattribute-clone
+     * Specifies the attribute value to clone.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgattribute-clone
      */
     Clone() {
         result := ComCall(5, this, "ptr*", &attribute := 0, "HRESULT")

@@ -31,10 +31,10 @@ class IRDPSRAPIPerfCounterLogger extends IUnknown{
     static VTableNames => ["LogValue"]
 
     /**
-     * 
-     * @param {Integer} lValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterlogger-logvalue
+     * Logs a value.
+     * @param {Integer} lValue The value to log.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterlogger-logvalue
      */
     LogValue(lValue) {
         result := ComCall(3, this, "int64", lValue, "HRESULT")

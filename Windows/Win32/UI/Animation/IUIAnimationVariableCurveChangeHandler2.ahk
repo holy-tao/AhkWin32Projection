@@ -31,10 +31,10 @@ class IUIAnimationVariableCurveChangeHandler2 extends IUnknown{
     static VTableNames => ["OnCurveChanged"]
 
     /**
-     * 
-     * @param {IUIAnimationVariable2} variable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariablecurvechangehandler2-oncurvechanged
+     * Handles events that occur when the animation curve of an animation variable changes.
+     * @param {IUIAnimationVariable2} variable The animation variable for which the animation curve has been updated.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariablecurvechangehandler2-oncurvechanged
      */
     OnCurveChanged(variable) {
         result := ComCall(3, this, "ptr", variable, "HRESULT")

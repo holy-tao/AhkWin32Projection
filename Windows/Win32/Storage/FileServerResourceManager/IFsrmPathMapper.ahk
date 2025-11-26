@@ -43,10 +43,13 @@ class IFsrmPathMapper extends IDispatch{
     static VTableNames => ["GetSharePathsForLocalPath"]
 
     /**
-     * 
-     * @param {BSTR} localPath 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
+     * Retrieves a list of network shares that point to the specified local path.
+     * @param {BSTR} localPath The local path. The string is limited to 260 characters.
+     * @returns {Pointer<SAFEARRAY>} A <b>SAFEARRAY</b> of <b>VARIANT</b>s. Each 
+     *       <b>VARIANT</b> contains a network share path that points to the local path. The variant 
+     *       type is <b>VT_BSTR</b>. Use the <b>bstrVal</b> member to access the share 
+     *       path.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
      */
     GetSharePathsForLocalPath(localPath) {
         localPath := localPath is String ? BSTR.Alloc(localPath).Value : localPath

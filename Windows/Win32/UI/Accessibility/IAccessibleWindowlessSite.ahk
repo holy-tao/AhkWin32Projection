@@ -37,11 +37,11 @@ class IAccessibleWindowlessSite extends IUnknown{
     static VTableNames => ["AcquireObjectIdRange", "ReleaseObjectIdRange", "QueryObjectIdRanges", "GetParentAccessible"]
 
     /**
-     * 
-     * @param {Integer} rangeSize 
-     * @param {IAccessibleHandler} pRangeOwner 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-acquireobjectidrange
+     * Acquires a range of object IDs from the control host and marks them as reserved by a specific windowless control.
+     * @param {Integer} rangeSize The size of the object ID range that is being requested.
+     * @param {IAccessibleHandler} pRangeOwner The windowless control that is requesting the range.
+     * @returns {Integer} The first object ID in the acquired range.
+     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-iaccessiblewindowlesssite-acquireobjectidrange
      */
     AcquireObjectIdRange(rangeSize, pRangeOwner) {
         result := ComCall(3, this, "int", rangeSize, "ptr", pRangeOwner, "int*", &pRangeBase := 0, "HRESULT")
@@ -49,11 +49,17 @@ class IAccessibleWindowlessSite extends IUnknown{
     }
 
     /**
+     * Releases an object ID range that was acquired by a previous call to the IAccessibleWindowlessSite::AcquireObjectIdRange method.
+     * @param {Integer} rangeBase Type: <b>long</b>
      * 
-     * @param {Integer} rangeBase 
-     * @param {IAccessibleHandler} pRangeOwner 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-releaseobjectidrange
+     * The first object ID in the range of IDs to be released.
+     * @param {IAccessibleHandler} pRangeOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessiblehandler">IAccessibleHandler</a>*</b>
+     * 
+     * The windowless ActiveX control with which the range was associated when it was acquired.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-iaccessiblewindowlesssite-releaseobjectidrange
      */
     ReleaseObjectIdRange(rangeBase, pRangeOwner) {
         result := ComCall(4, this, "int", rangeBase, "ptr", pRangeOwner, "HRESULT")
@@ -61,10 +67,14 @@ class IAccessibleWindowlessSite extends IUnknown{
     }
 
     /**
+     * Retrieves the object ID ranges that a particular windowless Microsoft ActiveX control has reserved.
+     * @param {IAccessibleHandler} pRangesOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessiblehandler">IAccessibleHandler</a>*</b>
      * 
-     * @param {IAccessibleHandler} pRangesOwner 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-queryobjectidranges
+     * The control whose ranges are being queried.
+     * @returns {Pointer<SAFEARRAY>} Type: <b>SAFEARRAY**</b>
+     * 
+     * Receives the array of object ID ranges. The array contains a set of paired integers. For each pair, the first integer is the first object ID in the range, and the second integer is a count of object IDs in the range.
+     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-iaccessiblewindowlesssite-queryobjectidranges
      */
     QueryObjectIdRanges(pRangesOwner) {
         result := ComCall(5, this, "ptr", pRangesOwner, "ptr*", &psaRanges := 0, "HRESULT")
@@ -72,9 +82,11 @@ class IAccessibleWindowlessSite extends IUnknown{
     }
 
     /**
+     * Retrieves an IAccessible pointer for the parent of a windowless Microsoft ActiveX control in the accessibility tree.
+     * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
-     * @returns {IAccessible} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-getparentaccessible
+     * Receives the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> pointer for the parent of the windowless ActiveX control.
+     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-iaccessiblewindowlesssite-getparentaccessible
      */
     GetParentAccessible() {
         result := ComCall(6, this, "ptr*", &ppParent := 0, "HRESULT")

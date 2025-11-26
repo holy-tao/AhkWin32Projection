@@ -44,13 +44,21 @@ class IShellLinkA extends IUnknown{
     static VTableNames => ["GetPath", "GetIDList", "SetIDList", "GetDescription", "SetDescription", "GetWorkingDirectory", "SetWorkingDirectory", "GetArguments", "SetArguments", "GetHotkey", "SetHotkey", "GetShowCmd", "SetShowCmd", "GetIconLocation", "SetIconLocation", "SetRelativePath", "Resolve", "SetPath"]
 
     /**
-     * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {PSTR} pszFile 
-     * @param {Integer} cch 
-     * @param {Pointer<WIN32_FIND_DATAA>} pfd 
-     * @param {Integer} fFlags 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
+     * Gets the path and file name of the target of a Shell link object.
+     * @param {PSTR} pszFile Type: <b>LPTSTR</b>
+     * 
+     * The address of a buffer that receives the path and file name of the target of the Shell link object.
+     * @param {Integer} cch Type: <b>int</b>
+     * 
+     * The size, in characters, of the buffer pointed to by the <i>pszFile</i> parameter, including the terminating null character. The maximum path size that can be returned is MAX_PATH. This parameter is commonly set by calling ARRAYSIZE(pszFile). The ARRAYSIZE macro is defined in Winnt.h.
+     * @param {Pointer<WIN32_FIND_DATAA>} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives information about the target of the Shell link object. If this parameter is <b>NULL</b>, then no additional information is returned.
+     * @param {Integer} fFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if the operation is successful and a valid path is retrieved. If the operation is successful but no path is retrieved, it returns <b>S_FALSE</b> and <i>pszFile</i> will be empty. Otherwise, it returns one of the standard HRESULT error values.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-getpath
      */
     GetPath(pszFile, cch, pfd, fFlags) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
@@ -60,9 +68,11 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Gets the list of item identifiers for the target of a Shell link object.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getidlist
+     * When this method returns, contains the address of a PIDL.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-getidlist
      */
     GetIDList() {
         result := ComCall(4, this, "ptr*", &ppidl := 0, "HRESULT")
@@ -70,10 +80,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the pointer to an item identifier list (PIDL) for a Shell link object.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setidlist
+     * The object's fully qualified PIDL.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setidlist
      */
     SetIDList(pidl) {
         result := ComCall(5, this, "ptr", pidl, "HRESULT")
@@ -81,11 +95,17 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Gets the description string for a Shell link object.
+     * @param {PSTR} pszName Type: <b>LPTSTR</b>
      * 
-     * @param {PSTR} pszName 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getdescription
+     * A pointer to the buffer that receives the description string.
+     * @param {Integer} cch Type: <b>int</b>
+     * 
+     * The maximum number of characters to copy to the buffer pointed to by the <i>pszName</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-getdescription
      */
     GetDescription(pszName, cch) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -95,10 +115,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the description for a Shell link object. The description can be any application-defined string.
+     * @param {PSTR} pszName Type: <b>LPCTSTR</b>
      * 
-     * @param {PSTR} pszName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setdescription
+     * A pointer to a buffer containing the new description string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setdescription
      */
     SetDescription(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -108,11 +132,17 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Gets the name of the working directory for a Shell link object.
+     * @param {PSTR} pszDir Type: <b>LPTSTR</b>
      * 
-     * @param {PSTR} pszDir 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getworkingdirectory
+     * The address of a buffer that receives the name of the working directory.
+     * @param {Integer} cch Type: <b>int</b>
+     * 
+     * The maximum number of characters to copy to the buffer pointed to by the <i>pszDir</i> parameter. The name of the working directory is truncated if it is longer than the maximum specified by this parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-getworkingdirectory
      */
     GetWorkingDirectory(pszDir, cch) {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
@@ -122,10 +152,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the name of the working directory for a Shell link object.
+     * @param {PSTR} pszDir Type: <b>LPCTSTR</b>
      * 
-     * @param {PSTR} pszDir 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setworkingdirectory
+     * The address of a buffer that contains the name of the new working directory.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setworkingdirectory
      */
     SetWorkingDirectory(pszDir) {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
@@ -135,11 +169,17 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Gets the command-line arguments associated with a Shell link object.
+     * @param {PSTR} pszArgs Type: <b>LPTSTR</b>
      * 
-     * @param {PSTR} pszArgs 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getarguments
+     * A pointer to the buffer that, when this method returns successfully, receives the command-line arguments.
+     * @param {Integer} cch Type: <b>int</b>
+     * 
+     * The maximum number of characters that can be copied to the buffer supplied by the <i>pszArgs</i> parameter. In the case of a Unicode string, there is no limitation on maximum string length. In the case of an ANSI string, the maximum length of the returned string varies depending on the version of Windows—MAX_PATH prior to Windows 2000 and INFOTIPSIZE (defined in Commctrl.h) in Windows 2000 and later.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-getarguments
      */
     GetArguments(pszArgs, cch) {
         pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs
@@ -149,10 +189,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the command-line arguments for a Shell link object.
+     * @param {PSTR} pszArgs Type: <b>LPCTSTR</b>
      * 
-     * @param {PSTR} pszArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setarguments
+     * A pointer to a buffer that contains the new command-line arguments. In the case of a Unicode string, there is no limitation on maximum string length. In the case of an ANSI string, the maximum length of the returned string varies depending on the version of Windows—MAX_PATH prior to Windows 2000 and INFOTIPSIZE (defined in Commctrl.h) in Windows 2000 and later.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setarguments
      */
     SetArguments(pszArgs) {
         pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs
@@ -162,9 +206,9 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-gethotkey
+     * Gets the keyboard shortcut (hot key) for a Shell link object.
+     * @returns {Integer} Type: <b>WORD*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-gethotkey
      */
     GetHotkey() {
         result := ComCall(12, this, "ushort*", &pwHotkey := 0, "HRESULT")
@@ -172,10 +216,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets a keyboard shortcut (hot key) for a Shell link object.
+     * @param {Integer} wHotkey Type: <b>WORD</b>
      * 
-     * @param {Integer} wHotkey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-sethotkey
+     * The new keyboard shortcut. The virtual key code is in the low-order byte, and the modifier flags are in the high-order byte. The modifier flags can be a combination of the values specified in the description of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllinka-gethotkey">IShellLink::GetHotkey</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-sethotkey
      */
     SetHotkey(wHotkey) {
         result := ComCall(13, this, "ushort", wHotkey, "HRESULT")
@@ -183,9 +231,11 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Gets the show command for a Shell link object.
+     * @returns {Integer} Type: <b>int*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getshowcmd
+     * A pointer to the command. The following commands are supported.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-getshowcmd
      */
     GetShowCmd() {
         result := ComCall(14, this, "int*", &piShowCmd := 0, "HRESULT")
@@ -193,10 +243,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the show command for a Shell link object. The show command sets the initial show state of the window.
+     * @param {Integer} iShowCmd Type: <b>int</b>
      * 
-     * @param {Integer} iShowCmd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setshowcmd
+     * Command. <b>SetShowCmd</b> accepts one of the following <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> commands.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setshowcmd
      */
     SetShowCmd(iShowCmd) {
         result := ComCall(15, this, "int", iShowCmd, "HRESULT")
@@ -204,11 +258,17 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Gets the location (path and index) of the icon for a Shell link object.
+     * @param {PSTR} pszIconPath Type: <b>LPTSTR</b>
      * 
-     * @param {PSTR} pszIconPath 
-     * @param {Integer} cch 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-geticonlocation
+     * The address of a buffer that receives the path of the file containing the icon.
+     * @param {Integer} cch Type: <b>int</b>
+     * 
+     * The maximum number of characters to copy to the buffer pointed to by the <i>pszIconPath</i> parameter.
+     * @returns {Integer} Type: <b>int*</b>
+     * 
+     * The address of a value that receives the index of the icon.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-geticonlocation
      */
     GetIconLocation(pszIconPath, cch) {
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
@@ -218,11 +278,17 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the location (path and index) of the icon for a Shell link object.
+     * @param {PSTR} pszIconPath Type: <b>LPCTSTR</b>
      * 
-     * @param {PSTR} pszIconPath 
-     * @param {Integer} iIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-seticonlocation
+     * The address of a buffer to contain the path of the file containing the icon.
+     * @param {Integer} iIcon Type: <b>int</b>
+     * 
+     * The index of the icon.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-seticonlocation
      */
     SetIconLocation(pszIconPath, iIcon) {
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
@@ -232,11 +298,17 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the relative path to the Shell link object.
+     * @param {PSTR} pszPathRel Type: <b>LPCTSTR</b>
      * 
-     * @param {PSTR} pszPathRel 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setrelativepath
+     * The address of a buffer that contains the fully-qualified path of the shortcut file, relative to which the shortcut resolution should be performed. It should be a file name, not a folder name.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
+     * 
+     * Reserved. Set this parameter to zero.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setrelativepath
      */
     SetRelativePath(pszPathRel, dwReserved) {
         pszPathRel := pszPathRel is String ? StrPtr(pszPathRel) : pszPathRel
@@ -246,11 +318,15 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Attempts to find the target of a Shell link, even if it has been moved or renamed.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {Integer} fFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-resolve
+     * A handle to the window that the Shell will use as the parent for a dialog box. The Shell displays the dialog box if it needs to prompt the user for more information while resolving a Shell link.
+     * @param {Integer} fFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-resolve
      */
     Resolve(hwnd, fFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -260,10 +336,14 @@ class IShellLinkA extends IUnknown{
     }
 
     /**
+     * Sets the path and file name for the target of a Shell link object.
+     * @param {PSTR} pszFile Type: <b>LPCTSTR</b>
      * 
-     * @param {PSTR} pszFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setpath
+     * The address of a buffer that contains the new path.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinka-setpath
      */
     SetPath(pszFile) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile

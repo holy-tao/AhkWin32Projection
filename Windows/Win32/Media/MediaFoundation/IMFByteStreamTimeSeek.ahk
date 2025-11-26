@@ -38,9 +38,9 @@ class IMFByteStreamTimeSeek extends IUnknown{
     static VTableNames => ["IsTimeSeekSupported", "TimeSeek", "GetTimeSeekResult"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-istimeseeksupported
+     * Queries whether the byte stream supports time-based seeking.
+     * @returns {BOOL} Receives the value <b>TRUE</b> if the byte stream supports time-based seeking, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamtimeseek-istimeseeksupported
      */
     IsTimeSeekSupported() {
         result := ComCall(3, this, "int*", &pfTimeSeekIsSupported := 0, "HRESULT")
@@ -48,10 +48,10 @@ class IMFByteStreamTimeSeek extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} qwTimePosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-timeseek
+     * Seeks to a new position in the byte stream.
+     * @param {Integer} qwTimePosition The new position, in 100-nanosecond units.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamtimeseek-timeseek
      */
     TimeSeek(qwTimePosition) {
         result := ComCall(4, this, "uint", qwTimePosition, "HRESULT")
@@ -59,12 +59,41 @@ class IMFByteStreamTimeSeek extends IUnknown{
     }
 
     /**
+     * Gets the result of a time-based seek.
+     * @param {Pointer<Integer>} pqwStartTime Receives the new position after the seek, in 100-nanosecond units.
+     * @param {Pointer<Integer>} pqwStopTime Receives the stop time, in 100-nanosecond units. If the stop time is unknown, the value is zero.
+     * @param {Pointer<Integer>} pqwDuration Receives the total duration of the file, in 100-nanosecond units. If the duration is unknown, the value is –1.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} pqwStartTime 
-     * @param {Pointer<Integer>} pqwStopTime 
-     * @param {Pointer<Integer>} pqwDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-gettimeseekresult
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALIDREQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream does not support time-based seeking, or no data is available.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamtimeseek-gettimeseekresult
      */
     GetTimeSeekResult(pqwStartTime, pqwStopTime, pqwDuration) {
         pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : "ptr"

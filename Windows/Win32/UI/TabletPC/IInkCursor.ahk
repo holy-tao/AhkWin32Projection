@@ -90,9 +90,14 @@ class IInkCursor extends IDispatch{
     }
 
     /**
+     * Gets the name of the object.
+     * @remarks
+     * 
+     * Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_name
      */
     get_Name() {
         Name := BSTR()
@@ -111,9 +116,19 @@ class IInkCursor extends IDispatch{
     }
 
     /**
+     * Gets a value that indicates whether the cursor is the inverted end of the pen.
+     * @remarks
+     * 
+     * Inverted cursors are generally associated with erasing. A pen might have one end that is intended for drawing and another intended for erasing. For more information about erasing ink, see <a href="https://docs.microsoft.com/windows/desktop/tablet/erasing-ink-with-the-pen">Erasing Ink with the Pen</a>.
+     * 
+     * Whether or not you use the <b>Inverted</b> property is entirely up to the needs of your application. Applications are not required to inspect inverted cursors, and the <i>ink collector</i> applies default drawing attributes to inverted cursors just as it does to cursors that are not inverted.
+     * 
+     * <div class="alert"><b>Note</b>  Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to <b>SC_HOTKEY</b> or <b>SC_TASKLIST</b>; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications. </div>
+     * <div> </div>
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_inverted
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_inverted
      */
     get_Inverted() {
         result := ComCall(9, this, "short*", &Status := 0, "HRESULT")
@@ -121,9 +136,21 @@ class IInkCursor extends IDispatch{
     }
 
     /**
+     * Gets or sets the drawing attributes to apply to ink as it is drawn.
+     * @remarks
+     * 
+     * The drawing attributes specify the appearance of the stroke. For example, you can specify the style and color of a pen.
+     * 
+     * A cursor can have different drawing attributes for each <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> with which it comes in contact. If you do not specify drawing attributes for a cursor, it uses the default drawing attributes of the <b>InkCollector</b> object. These default attributes are set with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property of the <b>InkCollector</b> object.
+     * 
+     * Successive calls to the <b>DrawingAttributes</b> property change only the drawing attributes of new strokes. They do not apply to strokes that are already collected or being collected.
+     * 
+     * <div class="alert"><b>Note</b>  This property behaves differently than the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property. Although the <b>DefaultDrawingAttributes</b> property specifies the drawing attributes that are applied to a new cursor, the <b>DrawingAttributes</b> property specifies the drawing attributes for ink that is yet to be collected.</div>
+     * <div> </div>
+     * 
      * 
      * @returns {IInkDrawingAttributes} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes
      */
     get_DrawingAttributes() {
         result := ComCall(10, this, "ptr*", &Attributes := 0, "HRESULT")
@@ -142,9 +169,16 @@ class IInkCursor extends IDispatch{
     }
 
     /**
+     * Gets either the IInkTablet object to which a cursor belongs or the IInkTablet object that an object or control is currently using to collect input.
+     * @remarks
+     * 
+     * For an object or control that collects ink, this property is valid only when the object or control is collecting ink from just one tablet. Accessing this property for an object or control that is collecting ink from all tablets generates an exception.
+     * 
+     * Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.
+     * 
      * 
      * @returns {IInkTablet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_tablet
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_tablet
      */
     get_Tablet() {
         result := ComCall(12, this, "ptr*", &Tablet := 0, "HRESULT")
@@ -152,9 +186,14 @@ class IInkCursor extends IDispatch{
     }
 
     /**
+     * Gets the IInkCursorButtons collection that is available on an IInkCursor.
+     * @remarks
+     * 
+     * For a pen, the buttons may include the writing tip, the eraser end, and the barrel button.
+     * 
      * 
      * @returns {IInkCursorButtons} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_buttons
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_buttons
      */
     get_Buttons() {
         result := ComCall(13, this, "ptr*", &Buttons := 0, "HRESULT")

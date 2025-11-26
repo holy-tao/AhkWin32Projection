@@ -47,9 +47,9 @@ class IOpcPackage extends IUnknown{
     static VTableNames => ["GetPartSet", "GetRelationshipSet"]
 
     /**
-     * 
-     * @returns {IOpcPartSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpackage-getpartset
+     * Gets a part set object that contains IOpcPart interface pointers.
+     * @returns {IOpcPartSet} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpartset">IOpcPartSet</a> interface of the part set object that contains <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface pointers to part objects.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpackage-getpartset
      */
     GetPartSet() {
         result := ComCall(3, this, "ptr*", &partSet := 0, "HRESULT")
@@ -57,9 +57,9 @@ class IOpcPackage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcRelationshipSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpackage-getrelationshipset
+     * Gets a relationship set object that represents the Relationships part that stores package relationships.
+     * @returns {IOpcRelationshipSet} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipset">IOpcRelationshipSet</a> interface of the relationship set object. The set represents the Relationships part that stores package relationships.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpackage-getrelationshipset
      */
     GetRelationshipSet() {
         result := ComCall(4, this, "ptr*", &relationshipSet := 0, "HRESULT")

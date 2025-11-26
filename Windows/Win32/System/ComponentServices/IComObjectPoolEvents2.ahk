@@ -31,13 +31,13 @@ class IComObjectPoolEvents2 extends IUnknown{
     static VTableNames => ["OnObjPoolCreateObject", "OnObjPoolDestroyObject", "OnObjPoolCreateDecision", "OnObjPoolTimeout", "OnObjPoolCreatePool"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Integer} dwObjsCreated 
-     * @param {Integer} oid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreateobject
+     * Generated when an object is created for the pool.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Integer} dwObjsCreated The number of objects in the pool.
+     * @param {Integer} oid The unique pooled object identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreateobject
      */
     OnObjPoolCreateObject(pInfo, guidObject, dwObjsCreated, oid) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
@@ -45,13 +45,13 @@ class IComObjectPoolEvents2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Integer} dwObjsCreated 
-     * @param {Integer} oid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooldestroyobject
+     * Generated when an object is permanently removed from the pool.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Integer} dwObjsCreated The number of objects in the pool.
+     * @param {Integer} oid The unique pooled object identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooldestroyobject
      */
     OnObjPoolDestroyObject(pInfo, guidObject, dwObjsCreated, oid) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
@@ -59,15 +59,15 @@ class IComObjectPoolEvents2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} dwThreadsWaiting 
-     * @param {Integer} dwAvail 
-     * @param {Integer} dwCreated 
-     * @param {Integer} dwMin 
-     * @param {Integer} dwMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatedecision
+     * Generated when a pool provides a requesting client with an existing object or creates a new one.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} dwThreadsWaiting The number of threads waiting for an object.
+     * @param {Integer} dwAvail The number of free objects in the pool.
+     * @param {Integer} dwCreated The number of total objects in the pool.
+     * @param {Integer} dwMin The pool's minimum object value.
+     * @param {Integer} dwMax The pool's maximum object value.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatedecision
      */
     OnObjPoolCreateDecision(pInfo, dwThreadsWaiting, dwAvail, dwCreated, dwMin, dwMax) {
         result := ComCall(5, this, "ptr", pInfo, "uint", dwThreadsWaiting, "uint", dwAvail, "uint", dwCreated, "uint", dwMin, "uint", dwMax, "HRESULT")
@@ -75,13 +75,13 @@ class IComObjectPoolEvents2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Integer} dwTimeout 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooltimeout
+     * Generated when the request for a pooled object times out.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
+     * @param {Integer} dwTimeout The pool's time-out value.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooltimeout
      */
     OnObjPoolTimeout(pInfo, guidObject, guidActivity, dwTimeout) {
         result := ComCall(6, this, "ptr", pInfo, "ptr", guidObject, "ptr", guidActivity, "uint", dwTimeout, "HRESULT")
@@ -89,14 +89,14 @@ class IComObjectPoolEvents2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Integer} dwMin 
-     * @param {Integer} dwMax 
-     * @param {Integer} dwTimeout 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatepool
+     * Generated when a new pool is created.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Integer} dwMin The pool's minimum object value.
+     * @param {Integer} dwMax The pool's maximum object value.
+     * @param {Integer} dwTimeout The pool's time-out value.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatepool
      */
     OnObjPoolCreatePool(pInfo, guidObject, dwMin, dwMax, dwTimeout) {
         result := ComCall(7, this, "ptr", pInfo, "ptr", guidObject, "uint", dwMin, "uint", dwMax, "uint", dwTimeout, "HRESULT")

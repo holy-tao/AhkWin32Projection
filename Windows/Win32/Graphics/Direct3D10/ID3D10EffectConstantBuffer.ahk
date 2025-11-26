@@ -38,10 +38,14 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
     static VTableNames => ["SetConstantBuffer", "GetConstantBuffer", "SetTextureBuffer", "GetTextureBuffer"]
 
     /**
+     * Set a constant-buffer.
+     * @param {ID3D10Buffer} pConstantBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>*</b>
      * 
-     * @param {ID3D10Buffer} pConstantBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-setconstantbuffer
+     * A pointer to a constant-buffer interface. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer Interface</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-setconstantbuffer
      */
     SetConstantBuffer(pConstantBuffer) {
         result := ComCall(25, this, "ptr", pConstantBuffer, "HRESULT")
@@ -49,9 +53,11 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a constant-buffer.
+     * @returns {ID3D10Buffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>**</b>
      * 
-     * @returns {ID3D10Buffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-getconstantbuffer
+     * The address of a pointer to a constant-buffer interface. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-getconstantbuffer
      */
     GetConstantBuffer() {
         result := ComCall(26, this, "ptr*", &ppConstantBuffer := 0, "HRESULT")
@@ -59,10 +65,14 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
     }
 
     /**
+     * Set a texture-buffer.
+     * @param {ID3D10ShaderResourceView} pTextureBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>*</b>
      * 
-     * @param {ID3D10ShaderResourceView} pTextureBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-settexturebuffer
+     * A pointer to a shader-resource-view interface for accessing a texture buffer.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-settexturebuffer
      */
     SetTextureBuffer(pTextureBuffer) {
         result := ComCall(27, this, "ptr", pTextureBuffer, "HRESULT")
@@ -70,9 +80,11 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a texture-buffer.
+     * @returns {ID3D10ShaderResourceView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>**</b>
      * 
-     * @returns {ID3D10ShaderResourceView} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-gettexturebuffer
+     * The address of a pointer to a shader-resource-view interface for accessing a texture buffer. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-gettexturebuffer
      */
     GetTextureBuffer() {
         result := ComCall(28, this, "ptr*", &ppTextureBuffer := 0, "HRESULT")

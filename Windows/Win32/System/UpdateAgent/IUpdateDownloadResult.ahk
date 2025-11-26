@@ -45,9 +45,9 @@ class IUpdateDownloadResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the exception HRESULT value, if any, that is raised during the operation on the update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadresult-get_hresult
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadresult-get_hresult
      */
     get_HResult() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -55,9 +55,9 @@ class IUpdateDownloadResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an OperationResultCode enumeration value that specifies the result of an operation on the update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadresult-get_resultcode
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadresult-get_resultcode
      */
     get_ResultCode() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")

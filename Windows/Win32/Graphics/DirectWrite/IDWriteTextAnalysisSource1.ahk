@@ -31,13 +31,24 @@ class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource{
     static VTableNames => ["GetVerticalGlyphOrientation"]
 
     /**
+     * Used by the text analyzer to obtain the desired glyph orientation and resolved bidi level.
+     * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
-     * @param {Integer} textPosition 
-     * @param {Pointer<Integer>} textLength 
-     * @param {Pointer<Integer>} glyphOrientation 
-     * @param {Pointer<Integer>} bidiLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissource1-getverticalglyphorientation
+     * The text position.
+     * @param {Pointer<Integer>} textLength Type: <b>UINT32*</b>
+     * 
+     * A pointer to the text length.
+     * @param {Pointer<Integer>} glyphOrientation Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a>*</b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a>-typed value that specifies the desired kind of glyph orientation for the text.
+     * @param {Pointer<Integer>} bidiLevel Type: <b>UINT8*</b>
+     * 
+     * A pointer to the resolved bidi level.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returning an error will abort the
+     *     analysis.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalysissource1-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation(textPosition, textLength, glyphOrientation, bidiLevel) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"

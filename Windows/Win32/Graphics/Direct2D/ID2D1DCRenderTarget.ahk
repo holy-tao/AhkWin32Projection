@@ -63,11 +63,17 @@ class ID2D1DCRenderTarget extends ID2D1RenderTarget{
     static VTableNames => ["BindDC"]
 
     /**
+     * Binds the render target to the device context to which it issues drawing commands.
+     * @param {HDC} hDC Type: <b>const HDC</b>
      * 
-     * @param {HDC} hDC 
-     * @param {Pointer<RECT>} pSubRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1dcrendertarget-binddc
+     * The device context to which the render target issues drawing commands.
+     * @param {Pointer<RECT>} pSubRect Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * The dimensions of the handle to a device context (HDC) to which the render target is bound.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1dcrendertarget-binddc
      */
     BindDC(hDC, pSubRect) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC

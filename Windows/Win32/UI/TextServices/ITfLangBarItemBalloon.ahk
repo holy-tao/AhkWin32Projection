@@ -38,12 +38,41 @@ class ITfLangBarItemBalloon extends ITfLangBarItem{
     static VTableNames => ["OnClick", "GetPreferredSize", "GetBalloonInfo"]
 
     /**
+     * ITfLangBarItemBalloon::OnClick method
+     * @param {Integer} click Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbiclick">TfLBIClick</a> values that indicate which mouse button was used to click the balloon.
+     * @param {POINT} pt Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the position of the mouse cursor, in screen coordinates, at the time of the click event.
+     * @param {Pointer<RECT>} prcArea Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the bounding rectangle, in screen coordinates, of the balloon.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} click 
-     * @param {POINT} pt 
-     * @param {Pointer<RECT>} prcArea 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemballoon-onclick
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemballoon-onclick
      */
     OnClick(click, pt, prcArea) {
         result := ComCall(7, this, "int", click, "ptr", pt, "ptr", prcArea, "HRESULT")
@@ -51,10 +80,10 @@ class ITfLangBarItemBalloon extends ITfLangBarItem{
     }
 
     /**
-     * 
-     * @param {Pointer<SIZE>} pszDefault 
-     * @returns {SIZE} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemballoon-getpreferredsize
+     * ITfLangBarItemBalloon::GetPreferredSize method
+     * @param {Pointer<SIZE>} pszDefault Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that contains the default size, in pixels, of the balloon.
+     * @returns {SIZE} Pointer to a <b>SIZE</b> structure that recevies the preferred balloon size, in pixels. The <b>cy</b> member of this structure is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemballoon-getpreferredsize
      */
     GetPreferredSize(pszDefault) {
         psz := SIZE()
@@ -63,9 +92,9 @@ class ITfLangBarItemBalloon extends ITfLangBarItem{
     }
 
     /**
-     * 
-     * @returns {TF_LBBALLOONINFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemballoon-getballooninfo
+     * ITfLangBarItemBalloon::GetBalloonInfo method
+     * @returns {TF_LBBALLOONINFO} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/ns-ctfutb-tf_lbballooninfo">TF_LBBALLOONINFO</a> structure that receives the information about the balloon.
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemballoon-getballooninfo
      */
     GetBalloonInfo() {
         pInfo := TF_LBBALLOONINFO()

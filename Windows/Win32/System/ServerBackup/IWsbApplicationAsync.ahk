@@ -31,9 +31,9 @@ class IWsbApplicationAsync extends IUnknown{
     static VTableNames => ["QueryStatus", "Abort"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationasync-querystatus
+     * Queries the status of an asynchronous operation.
+     * @returns {HRESULT} The address of an <b>HRESULT</b> value that receives the status of the current asynchronous operation. If the asynchronous operation fails, this parameter receives the failure status code. Possible values include the following.
+     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationasync-querystatus
      */
     QueryStatus() {
         result := ComCall(3, this, "int*", &phrResult := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IWsbApplicationAsync extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationasync-abort
+     * Cancels an incomplete asynchronous operation.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationasync-abort
      */
     Abort() {
         result := ComCall(4, this, "HRESULT")

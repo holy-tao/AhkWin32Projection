@@ -31,9 +31,11 @@ class ID3D12DescriptorHeap extends ID3D12Pageable{
     static VTableNames => ["GetDesc", "GetCPUDescriptorHandleForHeapStart", "GetGPUDescriptorHandleForHeapStart"]
 
     /**
+     * Gets the descriptor heap description.
+     * @returns {D3D12_DESCRIPTOR_HEAP_DESC} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a></b>
      * 
-     * @returns {D3D12_DESCRIPTOR_HEAP_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getdesc
+     * The description of the descriptor heap, as a <a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12descriptorheap-getdesc
      */
     GetDesc() {
         result := ComCall(8, this, "ptr")
@@ -41,9 +43,11 @@ class ID3D12DescriptorHeap extends ID3D12Pageable{
     }
 
     /**
+     * Gets the CPU descriptor handle that represents the start of the heap.
+     * @returns {D3D12_CPU_DESCRIPTOR_HANDLE} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a></b>
      * 
-     * @returns {D3D12_CPU_DESCRIPTOR_HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart
+     * Returns the CPU descriptor handle that represents the start of the heap.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart
      */
     GetCPUDescriptorHandleForHeapStart() {
         result := ComCall(9, this, "ptr")
@@ -51,9 +55,11 @@ class ID3D12DescriptorHeap extends ID3D12Pageable{
     }
 
     /**
+     * Gets the GPU descriptor handle that represents the start of the heap.
+     * @returns {D3D12_GPU_DESCRIPTOR_HANDLE} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_gpu_descriptor_handle">D3D12_GPU_DESCRIPTOR_HANDLE</a></b>
      * 
-     * @returns {D3D12_GPU_DESCRIPTOR_HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart
+     * Returns the GPU descriptor handle that represents the start of the heap.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart
      */
     GetGPUDescriptorHandleForHeapStart() {
         result := ComCall(10, this, "ptr")

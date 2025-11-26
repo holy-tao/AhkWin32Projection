@@ -55,10 +55,28 @@ class IWMPMetadataPicture extends IDispatch{
     }
 
     /**
+     * The get_mimeType method retrieves a pointer to a string specifying the MIME type of the metadata image.
+     * @param {Pointer<BSTR>} pbstrMimeType Pointer to a <b>BSTR</b> containing the mime type.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrMimeType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_mimetype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_mimetype
      */
     get_mimeType(pbstrMimeType) {
         result := ComCall(7, this, "ptr", pbstrMimeType, "HRESULT")
@@ -66,10 +84,28 @@ class IWMPMetadataPicture extends IDispatch{
     }
 
     /**
+     * The get_pictureType method retrieves a pointer to a string specifying the picture type of the metadata image.
+     * @param {Pointer<BSTR>} pbstrPictureType Pointer to a <b>BSTR</b> containing the picture type.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrPictureType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_picturetype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_picturetype
      */
     get_pictureType(pbstrPictureType) {
         result := ComCall(8, this, "ptr", pbstrPictureType, "HRESULT")
@@ -77,10 +113,28 @@ class IWMPMetadataPicture extends IDispatch{
     }
 
     /**
+     * The get_description method retrieves a pointer to the description of the metadata image.
+     * @param {Pointer<BSTR>} pbstrDescription Pointer to a <b>BSTR</b> containing the description.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_description
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_description
      */
     get_description(pbstrDescription) {
         result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
@@ -88,10 +142,28 @@ class IWMPMetadataPicture extends IDispatch{
     }
 
     /**
-     * 
+     * This method is for internal use only.
      * @param {Pointer<BSTR>} pbstrURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmetadatapicture-get_url
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_url
      */
     get_URL(pbstrURL) {
         result := ComCall(10, this, "ptr", pbstrURL, "HRESULT")

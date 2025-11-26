@@ -34,11 +34,17 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop{
     static VTableNames => ["CreateFontFromLOGFONT", "GetFontSignature", "GetFontSignature1", "GetMatchingFontsByLOGFONT"]
 
     /**
+     * Creates a font object that matches the properties specified by the LOGFONT structure.
+     * @param {Pointer<LOGFONTW>} logFont Type: <b>LOGFONTW</b>
      * 
-     * @param {Pointer<LOGFONTW>} logFont 
-     * @param {IDWriteFontCollection} fontCollection 
-     * @returns {IDWriteFont} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-createfontfromlogfont
+     * Structure containing a GDI-compatible font description.
+     * @param {IDWriteFontCollection} fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>*</b>
+     * 
+     * The font collection to search. If NULL, the local system font collection is used.
+     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * 
+     * Receives a newly created font object if successful, or NULL in case of error.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritegdiinterop1-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont, fontCollection) {
         result := ComCall(8, this, "ptr", logFont, "ptr", fontCollection, "ptr*", &font := 0, "HRESULT")
@@ -70,11 +76,17 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop{
     }
 
     /**
+     * Gets a list of matching fonts based on the specified LOGFONT values. Only fonts of that family name will be returned.
+     * @param {Pointer<LOGFONTA>} logFont Type: <b>LOGFONT</b>
      * 
-     * @param {Pointer<LOGFONTA>} logFont 
-     * @param {IDWriteFontSet} fontSet 
-     * @returns {IDWriteFontSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getmatchingfontsbylogfont
+     * Structure containing a GDI-compatible font description.
+     * @param {IDWriteFontSet} fontSet Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>*</b>
+     * 
+     * The font set to search.
+     * @returns {IDWriteFontSet} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
+     * 
+     * &gt;Receives the filtered font set if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritegdiinterop1-getmatchingfontsbylogfont
      */
     GetMatchingFontsByLOGFONT(logFont, fontSet) {
         result := ComCall(11, this, "ptr", logFont, "ptr", fontSet, "ptr*", &filteredSet := 0, "HRESULT")

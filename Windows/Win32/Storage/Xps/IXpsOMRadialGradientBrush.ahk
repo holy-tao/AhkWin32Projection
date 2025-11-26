@@ -88,9 +88,9 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     static VTableNames => ["GetCenter", "SetCenter", "GetRadiiSizes", "SetRadiiSizes", "GetGradientOrigin", "SetGradientOrigin", "Clone"]
 
     /**
-     * 
-     * @returns {XPS_POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getcenter
+     * Gets the center point of the radial gradient region ellipse.
+     * @returns {XPS_POINT} The x and y coordinates of the center point of the radial gradient region ellipse.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getcenter
      */
     GetCenter() {
         center := XPS_POINT()
@@ -99,10 +99,50 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
+     * Sets the center point of the radial gradient region ellipse.
+     * @param {Pointer<XPS_POINT>} center The x and y coordinates to be set for the center point of the radial gradient ellipse.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<XPS_POINT>} center 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setcenter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The point described by <i>center</i> is not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>center</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setcenter
      */
     SetCenter(center) {
         result := ComCall(18, this, "ptr", center, "HRESULT")
@@ -110,9 +150,39 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
+     * Gets the sizes of the radii that define the ellipse of the radial gradient region.
+     * @returns {XPS_SIZE} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure that  receives the sizes of the radii.
      * 
-     * @returns {XPS_SIZE} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getradiisizes
+     * <table>
+     * <tr>
+     * <th>Field</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>width</b>
+     * 
+     * </td>
+     * <td>
+     * Size of the radius along the x-axis.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>height</b>
+     * 
+     * </td>
+     * <td>
+     * Size of the radius along the y-axis.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Size is described in XPS units. There are 96 XPS units per inch. For example, a 1" radius is 96 XPS units.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getradiisizes
      */
     GetRadiiSizes() {
         radiiSizes := XPS_SIZE()
@@ -121,10 +191,80 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
+     * Sets the sizes of the radii that define ellipse of the radial gradient region.
+     * @param {Pointer<XPS_SIZE>} radiiSizes The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure that  receives the sizes of the radii.
      * 
-     * @param {Pointer<XPS_SIZE>} radiiSizes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setradiisizes
+     * <table>
+     * <tr>
+     * <th>Field</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>width</b>
+     * 
+     * </td>
+     * <td>
+     * Size of the radius along the x-axis.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>height</b>
+     * 
+     * </td>
+     * <td>
+     * Size of the radius along the y-axis.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Size is described in XPS units. There are 96 XPS units per inch. For example, a 1" radius is 96 XPS units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the sizes described by <i>radiiSizes</i> is not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure must contain valid, finite, and non-negative floating-point values.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>radiiSizes</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setradiisizes
      */
     SetRadiiSizes(radiiSizes) {
         result := ComCall(20, this, "ptr", radiiSizes, "HRESULT")
@@ -132,9 +272,9 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
-     * 
-     * @returns {XPS_POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getgradientorigin
+     * Gets the origin point of the radial gradient.
+     * @returns {XPS_POINT} The x and y coordinates of the radial gradient's origin point.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getgradientorigin
      */
     GetGradientOrigin() {
         origin := XPS_POINT()
@@ -143,10 +283,50 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
+     * Sets the origin point of the radial gradient.
+     * @param {Pointer<XPS_POINT>} origin The x and y  coordinates to be set for the origin point of the  radial gradient.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<XPS_POINT>} origin 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setgradientorigin
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The point described by <i>origin</i> was not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>origin</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-setgradientorigin
      */
     SetGradientOrigin(origin) {
         result := ComCall(22, this, "ptr", origin, "HRESULT")
@@ -154,9 +334,9 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
-     * 
-     * @returns {IXpsOMRadialGradientBrush} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-clone
+     * Makes a deep copy of the interface.
+     * @returns {IXpsOMRadialGradientBrush} A pointer to the copy of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-clone
      */
     Clone() {
         result := ComCall(23, this, "ptr*", &radialGradientBrush := 0, "HRESULT")

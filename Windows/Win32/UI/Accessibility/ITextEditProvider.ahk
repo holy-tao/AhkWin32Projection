@@ -37,9 +37,11 @@ class ITextEditProvider extends ITextProvider{
     static VTableNames => ["GetActiveComposition", "GetConversionTarget"]
 
     /**
+     * Returns the active composition.
+     * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
-     * @returns {ITextRangeProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itexteditprovider-getactivecomposition
+     * Pointer to the range of the current conversion (none if there is no conversion).
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itexteditprovider-getactivecomposition
      */
     GetActiveComposition() {
         result := ComCall(9, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -47,9 +49,11 @@ class ITextEditProvider extends ITextProvider{
     }
 
     /**
+     * Returns the current conversion target range.
+     * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
-     * @returns {ITextRangeProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itexteditprovider-getconversiontarget
+     * Pointer to the conversion target range (none if there is no conversion).
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itexteditprovider-getconversiontarget
      */
     GetConversionTarget() {
         result := ComCall(10, this, "ptr*", &pRetVal := 0, "HRESULT")

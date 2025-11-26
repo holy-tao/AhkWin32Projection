@@ -198,13 +198,13 @@ class IMarshal extends IUnknown{
     static VTableNames => ["GetUnmarshalClass", "GetMarshalSizeMax", "MarshalInterface", "UnmarshalInterface", "ReleaseMarshalData", "DisconnectObject"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} pv 
-     * @param {Integer} dwDestContext 
-     * @param {Integer} mshlflags 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imarshal-getunmarshalclass
+     * Retrieves the CLSID of the unmarshaling code.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
+     * @param {Pointer<Void>} pv A pointer to the interface to be marshaled; can be <b>NULL</b> if the caller does not have a pointer to the desired interface.
+     * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
+     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the typical case) or written to a global table, where it can be retrieved by multiple clients. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @returns {Guid} A pointer that receives the CLSID to be used to create a proxy in the client process.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshal-getunmarshalclass
      */
     GetUnmarshalClass(riid, pv, dwDestContext, mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
@@ -217,13 +217,13 @@ class IMarshal extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} pv 
-     * @param {Integer} dwDestContext 
-     * @param {Integer} mshlflags 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imarshal-getmarshalsizemax
+     * Retrieves the maximum size of the buffer that will be needed during marshaling.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
+     * @param {Pointer<Void>} pv The interface pointer to be marshaled. This parameter can be <b>NULL</b>.
+     * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
+     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the typical case) or written to a global table, where it can be retrieved by multiple clients. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @returns {Integer} A pointer to a variable that receives the maximum size of the buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshal-getmarshalsizemax
      */
     GetMarshalSizeMax(riid, pv, dwDestContext, mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
@@ -235,14 +235,54 @@ class IMarshal extends IUnknown{
     }
 
     /**
+     * Marshals an interface pointer.
+     * @param {IStream} pStm A pointer to the stream to be used during marshaling.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * @param {Pointer<Void>} pv A pointer to the interface pointer to be marshaled. This parameter can be <b>NULL</b> if the caller does not have a pointer to the desired interface.
+     * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Possible values for <i>dwDestContext</i> come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Currently, unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
+     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process—the typical case—or written to a global table, where it can be retrieved by multiple clients. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return value E_FAIL, as well as the following values.
      * 
-     * @param {IStream} pStm 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} pv 
-     * @param {Integer} dwDestContext 
-     * @param {Integer} mshlflags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-marshalinterface
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The interface pointer was marshaled successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_MEDIUMFULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The stream is full.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshal-marshalinterface
      */
     MarshalInterface(pStm, riid, pv, dwDestContext, mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
@@ -254,11 +294,11 @@ class IMarshal extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} pStm 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-unmarshalinterface
+     * Unmarshals an interface pointer.
+     * @param {IStream} pStm A pointer to the stream from which the interface pointer is to be unmarshaled.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be unmarshaled.
+     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer. Upon successful return, *<i>ppv</i> contains the requested interface pointer of the interface to be unmarshaled.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshal-unmarshalinterface
      */
     UnmarshalInterface(pStm, riid) {
         result := ComCall(6, this, "ptr", pStm, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -266,10 +306,10 @@ class IMarshal extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} pStm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-releasemarshaldata
+     * Destroys a marshaled data packet.
+     * @param {IStream} pStm A pointer to a stream that contains the data packet to be destroyed.
+     * @returns {HRESULT} This method can return the standard return values S_OK and E_FAIL, as well as any of the stream-access errors for the <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshal-releasemarshaldata
      */
     ReleaseMarshalData(pStm) {
         result := ComCall(7, this, "ptr", pStm, "HRESULT")
@@ -277,10 +317,10 @@ class IMarshal extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-disconnectobject
+     * Releases all connections to an object. The object's server calls the object's implementation of this method prior to shutting down.
+     * @param {Integer} dwReserved This parameter is reserved and must be 0.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshal-disconnectobject
      */
     DisconnectObject(dwReserved) {
         result := ComCall(8, this, "uint", dwReserved, "HRESULT")

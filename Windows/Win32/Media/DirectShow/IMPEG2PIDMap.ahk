@@ -32,12 +32,12 @@ class IMPEG2PIDMap extends IUnknown{
     static VTableNames => ["MapPID", "UnmapPID", "EnumPIDMap"]
 
     /**
-     * 
-     * @param {Integer} culPID 
-     * @param {Pointer<Integer>} pulPID 
-     * @param {Integer} MediaSampleContent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-mappid
+     * The MapPID method maps one or more PIDs to the pin.
+     * @param {Integer} culPID The number of elements in the <i>pulPID</i> array.
+     * @param {Pointer<Integer>} pulPID Pointer to an array of size <i>culPID</i>, allocated by the caller. Each element in the array contains a PID to be mapped.
+     * @param {Integer} MediaSampleContent Variable of type <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-sample-content">MEDIA_SAMPLE_CONTENT</a> that specifies the contents of the stream.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-impeg2pidmap-mappid
      */
     MapPID(culPID, pulPID, MediaSampleContent) {
         pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
@@ -47,11 +47,11 @@ class IMPEG2PIDMap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} culPID 
-     * @param {Pointer<Integer>} pulPID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-unmappid
+     * The UnmapPID method unmaps one or more PIDs.
+     * @param {Integer} culPID The number of elements in the <i>pulPID</i> array.
+     * @param {Pointer<Integer>} pulPID Pointer to an array of size <i>culPID</i>, allocated by the caller. Each element in the array contains a PID to be unmapped
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-impeg2pidmap-unmappid
      */
     UnmapPID(culPID, pulPID) {
         pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
@@ -61,9 +61,9 @@ class IMPEG2PIDMap extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumPIDMap} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-enumpidmap
+     * The EnumPIDMap method returns a collection of all the currently mapped PIDs on this pin.
+     * @returns {IEnumPIDMap} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nn-bdaiface-ienumpidmap">IEnumPIDMap</a> pointer. Use this interface to enumerate the mapped PIDs. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-impeg2pidmap-enumpidmap
      */
     EnumPIDMap() {
         result := ComCall(5, this, "ptr*", &pIEnumPIDMap := 0, "HRESULT")

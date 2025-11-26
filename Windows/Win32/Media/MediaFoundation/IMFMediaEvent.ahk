@@ -44,9 +44,9 @@ class IMFMediaEvent extends IMFAttributes{
     static VTableNames => ["GetType", "GetExtendedType", "GetStatus", "GetValue"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-gettype
+     * Retrieves the event type. The event type indicates what happened to trigger the event. It also defines the meaning of the event value.
+     * @returns {Integer} Receives the event type. For a list of event types, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-events">Media Foundation Events</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaevent-gettype
      */
     GetType() {
         result := ComCall(33, this, "uint*", &pmet := 0, "HRESULT")
@@ -54,9 +54,9 @@ class IMFMediaEvent extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-getextendedtype
+     * Retrieves the extended type of the event.
+     * @returns {Guid} Receives a <b>GUID</b> that identifies the extended type.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaevent-getextendedtype
      */
     GetExtendedType() {
         pguidExtendedType := Guid()
@@ -65,9 +65,9 @@ class IMFMediaEvent extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-getstatus
+     * Retrieves an HRESULT that specifies the event status.
+     * @returns {HRESULT} Receives the event status. If the operation that generated the event was successful, the value is a success code. A failure code means that an error condition triggered the event.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaevent-getstatus
      */
     GetStatus() {
         result := ComCall(35, this, "int*", &phrStatus := 0, "HRESULT")
@@ -75,9 +75,9 @@ class IMFMediaEvent extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-getvalue
+     * Retrieves the value associated with the event, if any. The value is retrieved as a PROPVARIANT structure. The actual data type and the meaning of the value depend on the event.
+     * @returns {PROPVARIANT} Pointer to a <b>PROPVARIANT</b> structure. The method fills this structure with the data.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaevent-getvalue
      */
     GetValue() {
         pvValue := PROPVARIANT()

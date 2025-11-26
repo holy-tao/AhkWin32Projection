@@ -43,11 +43,51 @@ class IDefaultLocation extends IUnknown{
     static VTableNames => ["SetReport", "GetReport"]
 
     /**
+     * Sets the default location.
+     * @param {Pointer<Guid>} reportType <b>REFIID</b> that represents the interface ID of the type of report that is passed using <i>pLocationReport</i>.
+     * @param {ILocationReport} pLocationReport Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> instance that contains the location report from the default location provider.
+     * @returns {HRESULT} Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Guid>} reportType 
-     * @param {ILocationReport} pLocationReport 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-setreport
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The location report was successfully set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_INVALIDARG</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The location report contains invalid data.  This may occur when a civic address report does not contain a valid IS0 3166 two-letter country or region code, or when a latitude/longitude report does not contain a latitude between -90 and 90 or does not contain a longitude between -180 and 180. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_ACCESSDENIED</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user does not have permission to set the default location.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-idefaultlocation-setreport
      */
     SetReport(reportType, pLocationReport) {
         result := ComCall(3, this, "ptr", reportType, "ptr", pLocationReport, "HRESULT")
@@ -55,10 +95,10 @@ class IDefaultLocation extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} reportType 
-     * @returns {ILocationReport} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-getreport
+     * Retrieves the specified report type from the default location provider.
+     * @param {Pointer<Guid>} reportType <b>REFIID</b> representing the interface ID for the type of report being retrieved.
+     * @returns {ILocationReport} The address of a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> that receives the specified location report from the default location provider.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-idefaultlocation-getreport
      */
     GetReport(reportType) {
         result := ComCall(4, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")

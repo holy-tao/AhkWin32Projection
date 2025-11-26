@@ -32,10 +32,14 @@ class IDWriteTypography extends IUnknown{
     static VTableNames => ["AddFontFeature", "GetFontFeatureCount", "GetFontFeature"]
 
     /**
+     * Adds an OpenType font feature.
+     * @param {DWRITE_FONT_FEATURE} fontFeature Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_feature">DWRITE_FONT_FEATURE</a></b>
      * 
-     * @param {DWRITE_FONT_FEATURE} fontFeature 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-addfontfeature
+     * A structure that contains the OpenType name identifier and the execution parameter for the font feature being added.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetypography-addfontfeature
      */
     AddFontFeature(fontFeature) {
         result := ComCall(3, this, "ptr", fontFeature, "HRESULT")
@@ -43,9 +47,11 @@ class IDWriteTypography extends IUnknown{
     }
 
     /**
+     * Gets the number of OpenType font features for the current font.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-getfontfeaturecount
+     * The number of font features for the current text format.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetypography-getfontfeaturecount
      */
     GetFontFeatureCount() {
         result := ComCall(4, this, "uint")
@@ -53,10 +59,14 @@ class IDWriteTypography extends IUnknown{
     }
 
     /**
+     * Gets the font feature at the specified index.
+     * @param {Integer} fontFeatureIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} fontFeatureIndex 
-     * @returns {DWRITE_FONT_FEATURE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-getfontfeature
+     * The zero-based index of the font feature to retrieve.
+     * @returns {DWRITE_FONT_FEATURE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_feature">DWRITE_FONT_FEATURE</a>*</b>
+     * 
+     * When this method returns, contains the font feature which is at the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetypography-getfontfeature
      */
     GetFontFeature(fontFeatureIndex) {
         fontFeature := DWRITE_FONT_FEATURE()

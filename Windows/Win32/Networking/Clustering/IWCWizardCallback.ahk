@@ -42,10 +42,42 @@ class IWCWizardCallback extends IUnknown{
     static VTableNames => ["AddWizardPage", "EnableNext"]
 
     /**
+     * Adds a property page to a Failover Cluster Administrator Wizard.
+     * @param {Pointer<Integer>} hpage Handle to the property page to be added.
+     * @returns {HRESULT} If <b>AddWizardPage</b> is not successful, 
+     *        it can return other <b>HRESULT</b> values.
      * 
-     * @param {Pointer<Integer>} hpage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizardcallback-addwizardpage
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hpage</i> parameter represents an unknown page.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwcwizardcallback-addwizardpage
      */
     AddWizardPage(hpage) {
         hpageMarshal := hpage is VarRef ? "int*" : "ptr"
@@ -55,11 +87,45 @@ class IWCWizardCallback extends IUnknown{
     }
 
     /**
+     * Enables or disables the Next or Finish button on a Failover Cluster Administrator Wizard page, depending on whether the current page is last.
+     * @param {Pointer<Integer>} hpage Handle to the property page containing the button to be enabled or disabled.
+     * @param {BOOL} bEnable Value indicating whether to enable or disable the button. If <i>bEnable</i> is set to 
+     *        <b>TRUE</b>, the appropriate button is enabled. If <i>bEnable</i> is set 
+     *        to <b>FALSE</b>, it is disabled.
+     * @returns {HRESULT} If <b>EnableNext</b> is not successful, it 
+     *        can return other <b>HRESULT</b> values.
      * 
-     * @param {Pointer<Integer>} hpage 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizardcallback-enablenext
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hpage</i> parameter represents an unknown page.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwcwizardcallback-enablenext
      */
     EnableNext(hpage, bEnable) {
         hpageMarshal := hpage is VarRef ? "int*" : "ptr"

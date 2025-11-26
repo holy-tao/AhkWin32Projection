@@ -38,15 +38,17 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch{
     static VTableNames => ["Show"]
 
     /**
-     * 
-     * @param {Pointer} parentWnd 
-     * @param {BSTR} accessPath 
-     * @param {Integer} errorType 
-     * @param {Integer} flags 
-     * @param {BSTR} windowTitle 
-     * @param {BSTR} windowMessage 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
+     * Displays the Access Denied Remediation (ADR) client dialog.
+     * @param {Pointer} parentWnd Handle to the window that will be the parent of the dialog that will be displayed.
+     * @param {BSTR} accessPath Path of the file being accessed.
+     * @param {Integer} errorType The client error type as enumerated by the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-adrclienterrortype">AdrClientErrorType</a> enumeration.
+     * @param {Integer} flags Reserved. Set to 0.
+     * @param {BSTR} windowTitle Optional text to display as the title of the dialog window that is opened.
+     * @param {BSTR} windowMessage Optional text to display above the instructions in the dialog window that is opened.
+     * @returns {Integer} Address of a value that will receive a <b>HRESULT</b> containing the result of the 
+     *       operation.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
      */
     Show(parentWnd, accessPath, errorType, flags, windowTitle, windowMessage) {
         accessPath := accessPath is String ? BSTR.Alloc(accessPath).Value : accessPath

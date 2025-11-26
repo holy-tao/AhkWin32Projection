@@ -32,13 +32,13 @@ class IMPEG2StreamIdMap extends IUnknown{
     static VTableNames => ["MapStreamId", "UnmapStreamId", "EnumStreamIdMap"]
 
     /**
-     * 
-     * @param {Integer} ulStreamId 
-     * @param {Integer} MediaSampleContent 
-     * @param {Integer} ulSubstreamFilterValue 
-     * @param {Integer} iDataOffset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-mapstreamid
+     * The MapStreamId method maps the Stream ID of an elementary stream within an MPEG-2 program stream to a media content type and substream filtering information.
+     * @param {Integer} ulStreamId The stream ID of the PES stream.
+     * @param {Integer} MediaSampleContent Specifies the contents of the stream. Currently the only value supported is MPEG2_PROGRAM_ELEMENTARY_STREAM (defined as 0x00000001 in axextend.idl).
+     * @param {Integer} ulSubstreamFilterValue Specifies which substream within this elementary stream to pass on to the downstream decoder. Only the low-order byte can contain a valid filter value. If <i>iDataOffset</i> = 0, this parameter is ignored.
+     * @param {Integer} iDataOffset The byte offset into the payload at which the substream begins.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, an error code is returned. If a Stream ID of MEDIA_PROGRAM_STREAM_MAP, MEDIA_PROGRAM_DIRECTORY_PES_PACKET or MEDIA_PROGRAM_PACK_HEADER is attempted, this method returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2streamidmap-mapstreamid
      */
     MapStreamId(ulStreamId, MediaSampleContent, ulSubstreamFilterValue, iDataOffset) {
         result := ComCall(3, this, "uint", ulStreamId, "uint", MediaSampleContent, "uint", ulSubstreamFilterValue, "int", iDataOffset, "HRESULT")
@@ -46,11 +46,11 @@ class IMPEG2StreamIdMap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} culStreamId 
-     * @param {Pointer<Integer>} pulStreamId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-unmapstreamid
+     * The UnmapStreamId method unmaps the Stream ID mapping created in a previous call to MapStreamId.
+     * @param {Integer} culStreamId The number of elements in the <i>pulStreamID</i> array.
+     * @param {Pointer<Integer>} pulStreamId Array of Stream IDs mapped for this pin.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2streamidmap-unmapstreamid
      */
     UnmapStreamId(culStreamId, pulStreamId) {
         pulStreamIdMarshal := pulStreamId is VarRef ? "uint*" : "ptr"
@@ -60,9 +60,9 @@ class IMPEG2StreamIdMap extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumStreamIdMap} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-enumstreamidmap
+     * The EnumStreamIdMap method returns a collection of all the mapped Stream IDs on this pin.
+     * @returns {IEnumStreamIdMap} <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ienumstreamidmap">IEnumStreamIdMap</a> interface pointer that will be set to the returned collection.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2streamidmap-enumstreamidmap
      */
     EnumStreamIdMap() {
         result := ComCall(5, this, "ptr*", &ppIEnumStreamIdMap := 0, "HRESULT")

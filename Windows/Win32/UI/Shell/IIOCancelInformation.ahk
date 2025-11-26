@@ -31,11 +31,17 @@ class IIOCancelInformation extends IUnknown{
     static VTableNames => ["SetCancelInformation", "GetCancelInformation"]
 
     /**
+     * Sets information that is posted when a user selects Cancel from the progress UI.
+     * @param {Integer} dwThreadID Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwThreadID 
-     * @param {Integer} uMsgCancel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-setcancelinformation
+     * The ID of the process thread to be canceled.
+     * @param {Integer} uMsgCancel Type: <b>UINT</b>
+     * 
+     * The cancel message to be posted to the thread.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iiocancelinformation-setcancelinformation
      */
     SetCancelInformation(dwThreadID, uMsgCancel) {
         result := ComCall(3, this, "uint", dwThreadID, "uint", uMsgCancel, "HRESULT")
@@ -43,11 +49,17 @@ class IIOCancelInformation extends IUnknown{
     }
 
     /**
+     * Returns information that is posted when a user selects Cancel from the progress UI.
+     * @param {Pointer<Integer>} pdwThreadID Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} pdwThreadID 
-     * @param {Pointer<Integer>} puMsgCancel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-getcancelinformation
+     * When this method returns, contains a pointer to the ID of the process thread.
+     * @param {Pointer<Integer>} puMsgCancel Type: <b>UINT*</b>
+     * 
+     * When this method returns, contains a pointer to <i>uMsgCancel</i> that the process thread should post if the operation is canceled.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iiocancelinformation-getcancelinformation
      */
     GetCancelInformation(pdwThreadID, puMsgCancel) {
         pdwThreadIDMarshal := pdwThreadID is VarRef ? "uint*" : "ptr"

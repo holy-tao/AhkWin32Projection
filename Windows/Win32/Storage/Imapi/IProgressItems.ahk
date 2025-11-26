@@ -67,9 +67,9 @@ class IProgressItems extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get__newenum
+     * Retrieves the list of progress items from the collection.
+     * @returns {IEnumVARIANT} An <b>IEnumVariant</b> interface that you use to enumerate the progress items contained within the collection. Each  item of the enumeration is a VARIANT whose type is <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member to retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-iprogressitem">IProgressItem</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitems-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &NewEnum := 0, "HRESULT")
@@ -77,10 +77,10 @@ class IProgressItems extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {IProgressItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_item
+     * Retrieves the specified progress item from the collection.
+     * @param {Integer} Index Zero-based index number corresponding to a progress item in the collection.
+     * @returns {IProgressItem} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-iprogressitem">IProgressItem</a> interface associated with the specified index value.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitems-get_item
      */
     get_Item(Index) {
         result := ComCall(8, this, "int", Index, "ptr*", &item := 0, "HRESULT")
@@ -88,9 +88,9 @@ class IProgressItems extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_count
+     * Retrieves the number of progress items in the collection.
+     * @returns {Integer} Number of progress items in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitems-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
@@ -98,10 +98,10 @@ class IProgressItems extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} block 
-     * @returns {IProgressItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromblock
+     * Retrieves a progress item based on the specified block number.
+     * @param {Integer} block Block number of the progress item to retrieve. The method returns the progress item if the block number is in the first and last block range of the item.
+     * @returns {IProgressItem} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-iprogressitem">IProgressItem</a> interface associated with the specified block number.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromblock
      */
     ProgressItemFromBlock(block) {
         result := ComCall(10, this, "uint", block, "ptr*", &item := 0, "HRESULT")
@@ -109,10 +109,10 @@ class IProgressItems extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} description 
-     * @returns {IProgressItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromdescription
+     * Retrieves a progress item based on the specified file name.
+     * @param {BSTR} description String that contains the file name of the progress item to retrieve. The method returns the progress item if this string matches the value for item's description property.
+     * @returns {IProgressItem} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-iprogressitem">IProgressItem</a> interface of the progress item associated with the specified file name.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromdescription
      */
     ProgressItemFromDescription(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
@@ -122,9 +122,9 @@ class IProgressItems extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumProgressItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_enumprogressitems
+     * Retrieves the list of progress items from the collection.
+     * @returns {IEnumProgressItems} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ienumprogressitems">IEnumProgressItems</a> interface that contains a collection of the progress items contained in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitems-get_enumprogressitems
      */
     get_EnumProgressItems() {
         result := ComCall(12, this, "ptr*", &NewEnum := 0, "HRESULT")

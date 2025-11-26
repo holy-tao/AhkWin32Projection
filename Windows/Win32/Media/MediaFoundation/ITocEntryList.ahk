@@ -32,10 +32,28 @@ class ITocEntryList extends IUnknown{
     static VTableNames => ["GetEntryCount", "GetEntryByIndex", "AddEntry", "AddEntryByIndex", "RemoveEntryByIndex"]
 
     /**
+     * The GetEntryCount method retrieves the number of entries in the list.
+     * @param {Pointer<Integer>} pdwEntryCount Pointer to a <b>DWORD</b> that receives the number of entries.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pdwEntryCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrycount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrycount
      */
     GetEntryCount(pdwEntryCount) {
         pdwEntryCountMarshal := pdwEntryCount is VarRef ? "uint*" : "ptr"
@@ -45,10 +63,10 @@ class ITocEntryList extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwEntryIndex 
-     * @returns {ITocEntry} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrybyindex
+     * The GetEntryByIndex method retrieves an entry, specified by an index, from the list.
+     * @param {Integer} dwEntryIndex The index of the entry to retrieve.
+     * @returns {ITocEntry} Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itocentry">ITocEntry</a> interface that represents the entry.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrybyindex
      */
     GetEntryByIndex(dwEntryIndex) {
         result := ComCall(4, this, "uint", dwEntryIndex, "ptr*", &ppEntry := 0, "HRESULT")
@@ -56,11 +74,29 @@ class ITocEntryList extends IUnknown{
     }
 
     /**
+     * The AddEntry method adds an individual entry to the list and assigns an index to the entry.
+     * @param {ITocEntry} pEntry Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itocentry">ITocEntry</a> interface that represents the entry to be added.
+     * @param {Pointer<Integer>} pdwEntryIndex Pointer to a <b>DWORD</b> that receives the index of the added entry.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {ITocEntry} pEntry 
-     * @param {Pointer<Integer>} pdwEntryIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentry
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentry
      */
     AddEntry(pEntry, pdwEntryIndex) {
         pdwEntryIndexMarshal := pdwEntryIndex is VarRef ? "uint*" : "ptr"
@@ -70,11 +106,29 @@ class ITocEntryList extends IUnknown{
     }
 
     /**
+     * The AddEntryByIndex method adds an individual entry to the list and associates a caller-supplied index with the entry.
+     * @param {Integer} dwEntryIndex The index of the entry to be added.
+     * @param {ITocEntry} pEntry Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itocentry">ITocEntry</a> interface that represents the entry to be added.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwEntryIndex 
-     * @param {ITocEntry} pEntry 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentrybyindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentrybyindex
      */
     AddEntryByIndex(dwEntryIndex, pEntry) {
         result := ComCall(6, this, "uint", dwEntryIndex, "ptr", pEntry, "HRESULT")
@@ -82,10 +136,28 @@ class ITocEntryList extends IUnknown{
     }
 
     /**
+     * The RemoveEntryByIndex method removes an entry, specified by an index, from the list.
+     * @param {Integer} dwEntryIndex The index of the entry to be removed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwEntryIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-removeentrybyindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-removeentrybyindex
      */
     RemoveEntryByIndex(dwEntryIndex) {
         result := ComCall(7, this, "uint", dwEntryIndex, "HRESULT")

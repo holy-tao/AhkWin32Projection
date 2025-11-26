@@ -32,10 +32,16 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     static VTableNames => ["Next", "GetName", "GetFlags", "GetValue", "Skip", "Reset", "Clone"]
 
     /**
+     * Moves to the next extension in the extension-enumeration sequence.
+     * @param {Pointer<Integer>} pIndex A pointer to a variable that contains the index value of the next extension being referenced. If there are no more extensions to enumerate, this variable will be set to –1. This method fails if <i>pIndex</i> is <b>NULL</b>.
+     * @returns {HRESULT} <h3>C++</h3>
+     *  If the method succeeds, the method returns S_OK and the next extension is now being referenced. If there are no more extensions, S_FALSE is returned, and the  <i>pIndex</i> parameter is set to a value of –1.
      * 
-     * @param {Pointer<Integer>} pIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-next
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <h3>VB</h3>
+     *  The return value is the index value of the extension that is now referenced by the extension-enumeration sequence. If there are no more extensions to enumerate, the return value is –1.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-next
      */
     Next(pIndex) {
         pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
@@ -45,10 +51,18 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     }
 
     /**
+     * Retrieves the name of the current extension in the extension-enumeration sequence.
+     * @param {Pointer<BSTR>} pstrOut A pointer to a value of <b>BSTR</b> type that contains the name of the extension.
+     * @returns {HRESULT} <h3>C++</h3>
+     *  If the method succeeds, the method returns S_OK and tat the <i>pstrOut</i> parameter is set to the name of the extension.
      * 
-     * @param {Pointer<BSTR>} pstrOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getname
+     * To use this method, create a variable of <b>BSTR</b> type, set the variable equal to <b>NULL</b>, and pass the address of this variable as <i>pstrOut</i>. When you have finished using the <b>BSTR</b>, free it by calling the <a href="/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <h3>VB</h3>
+     *  The return value is a <b>String</b> that contains the name of the extension.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-getname
      */
     GetName(pstrOut) {
         result := ComCall(8, this, "ptr", pstrOut, "HRESULT")
@@ -56,10 +70,16 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     }
 
     /**
+     * Retrieves the policy and origin flags of the current extension in the extension-enumeration sequence.
+     * @param {Pointer<Integer>} pFlags A pointer to a <b>LONG</b> type that contains the policy and origin flags of the extension. This method fails if the <i>pFlags</i> parameter is set to <b>NULL</b>.
+     * @returns {HRESULT} <h3>C++</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getflags
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <h3>VB</h3>
+     *  The return value represents the policy and origin values of the extension.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-getflags
      */
     GetFlags(pFlags) {
         pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
@@ -69,12 +89,18 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Type 
+     * Retrieves the value of the current extension in the extension-enumeration sequence.
+     * @param {Integer} Type Data type for the returned data. This parameter can be used to specify that the extension data be decoded before being returned. If PROPTYPE_BINARY is specified, the data is not decoded but instead returned in its raw format.
      * @param {Integer} Flags 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getvalue
+     * @param {Pointer<VARIANT>} pvarValue A pointer to a value of <b>VARIANT</b> type that contains the data for the currently referenced extension. This method fails if the   <i>pvarValue</i> parameter is <b>NULL</b>. Upon successful completion of this function, <i>pvarValue</i> contains the extension data currently referenced by the extension-enumeration sequence. The caller is responsible for calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> when done with the data in <i>pvarValue</i>.
+     * @returns {HRESULT} <h3>C++</h3>
+     *  If the method succeeds, the method returns S_OK.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <h3>VB</h3>
+     *  The return value is a <b>Variant</b> that represents the data in the extension.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-getvalue
      */
     GetValue(Type, Flags, pvarValue) {
         result := ComCall(10, this, "int", Type, "int", Flags, "ptr", pvarValue, "HRESULT")
@@ -82,10 +108,15 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     }
 
     /**
+     * Skips a specified number of extensions in the extension-enumeration sequence.
+     * @param {Integer} celt The number of extensions to skip. A positive value for the <i>celt</i> parameter causes the extension-enumeration sequence to skip forward in the  sequence. A negative value for the <i>celt</i> parameter causes the extension-enumeration sequence  to skip backward in the  sequence.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-skip
+     * A return value of E_INVALIDARG indicates that a negative value for the <i>celt</i> parameter caused the extension-enumeration sequence  index to become less than zero.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-skip
      */
     Skip(celt) {
         result := ComCall(11, this, "int", celt, "HRESULT")
@@ -93,9 +124,12 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     }
 
     /**
+     * Moves to the beginning of the extension-enumeration sequence.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-reset
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-reset
      */
     Reset() {
         result := ComCall(12, this, "HRESULT")
@@ -103,9 +137,9 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumCERTVIEWEXTENSION} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-clone
+     * Creates a copy of the extension-enumeration sequence.
+     * @returns {IEnumCERTVIEWEXTENSION} A pointer to a pointer of <a href="https://docs.microsoft.com/windows/desktop/api/certview/nn-certview-ienumcertviewextension">IEnumCERTVIEWEXTENSION</a> type. This method will fail if the <i>ppenum</i> parameter is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewextension-clone
      */
     Clone() {
         result := ComCall(13, this, "ptr*", &ppenum := 0, "HRESULT")

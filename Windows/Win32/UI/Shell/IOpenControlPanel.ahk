@@ -37,12 +37,20 @@ class IOpenControlPanel extends IUnknown{
     static VTableNames => ["Open", "GetPath", "GetCurrentView"]
 
     /**
+     * Opens the specified Control Panel item, optionally to a specific page.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszName 
-     * @param {PWSTR} pszPage 
-     * @param {IUnknown} punkSite 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopencontrolpanel-open
+     * A pointer to the item's canonical name as a Unicode string. This parameter is optional and can be <b>NULL</b>. If the calling application passes <b>NULL</b>, then the Control Panel itself opens. For a complete list of Control Panel item canonical names, see <a href="https://docs.microsoft.com/windows/desktop/shell/controlpanel-canonical-names">Canonical Names of Control Panel Items</a>.
+     * @param {PWSTR} pszPage Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to the name of the page within the item to display. This string is appended to the end of the path for Shell folder Control Panel items or appended as a command-line parameter for Control Panel (.cpl) file items. This parameter can be <b>NULL</b>, in which case the first page is shown.
+     * @param {IUnknown} punkSite Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * A pointer to the site for navigating in-frame for Shell folder Control Panel items. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iopencontrolpanel-open
      */
     Open(pszName, pszPage, punkSite) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -53,12 +61,20 @@ class IOpenControlPanel extends IUnknown{
     }
 
     /**
-     * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {PWSTR} pszName 
-     * @param {PWSTR} pszPath 
-     * @param {Integer} cchPath 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
+     * Gets the path of a specified Control Panel item.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to the item's canonical name or its <b>GUID</b>. This value can be <b>NULL</b>. See Remarks for further details. For a complete list of Control Panel item canonical names, see <a href="https://docs.microsoft.com/windows/desktop/shell/controlpanel-canonical-names">Canonical Names of Control Panel Items</a>.
+     * @param {PWSTR} pszPath Type: <b>LPWSTR</b>
+     * 
+     * When this method returns, contains the path of the specified Control Panel item as a Unicode string.
+     * @param {Integer} cchPath Type: <b>UINT</b>
+     * 
+     * The size of the buffer pointed to by <i>pszPath</i>, in WCHARs.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iopencontrolpanel-getpath
      */
     GetPath(pszName, pszPath, cchPath) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -69,9 +85,11 @@ class IOpenControlPanel extends IUnknown{
     }
 
     /**
+     * Gets the most recent Control Panel view:\_Classic view or Category view.
+     * @returns {Integer} Type: <b>CPVIEW*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopencontrolpanel-getcurrentview
+     * A pointer that receives the most recent view. Valid values are as follows:
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iopencontrolpanel-getcurrentview
      */
     GetCurrentView() {
         result := ComCall(5, this, "int*", &pView := 0, "HRESULT")

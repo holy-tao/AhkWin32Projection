@@ -129,9 +129,9 @@ class IADsPropertyValue extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue-clear
+     * Clears the current values of the property value object.
+     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertyvalue-clear
      */
     Clear() {
         result := ComCall(7, this, "HRESULT")

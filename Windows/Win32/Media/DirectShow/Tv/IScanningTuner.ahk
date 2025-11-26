@@ -40,9 +40,9 @@ class IScanningTuner extends ITuner{
     static VTableNames => ["SeekUp", "SeekDown", "ScanUp", "ScanDown", "AutoProgram"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-seekup
+     * The SeekUp method changes the channel to the next higher channel with valid programming.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iscanningtuner-seekup
      */
     SeekUp() {
         result := ComCall(13, this, "HRESULT")
@@ -50,9 +50,9 @@ class IScanningTuner extends ITuner{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-seekdown
+     * The SeekDown method changes the channel to the next lower channel with valid programming.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iscanningtuner-seekdown
      */
     SeekDown() {
         result := ComCall(14, this, "HRESULT")
@@ -60,10 +60,10 @@ class IScanningTuner extends ITuner{
     }
 
     /**
-     * 
-     * @param {Integer} MillisecondsPause 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-scanup
+     * The ScanUp method changes the channel to the next higher channel with valid programming, pauses for the specified number of milliseconds, then repeats until canceled.
+     * @param {Integer} MillisecondsPause The number of milliseconds to pause.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iscanningtuner-scanup
      */
     ScanUp(MillisecondsPause) {
         result := ComCall(15, this, "int", MillisecondsPause, "HRESULT")
@@ -71,10 +71,10 @@ class IScanningTuner extends ITuner{
     }
 
     /**
-     * 
-     * @param {Integer} MillisecondsPause 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-scandown
+     * The ScanDown method changes the channel to the next lower channel with valid programming, pauses for the specified number of milliseconds, then repeats until canceled.
+     * @param {Integer} MillisecondsPause The number of milliseconds to pause.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iscanningtuner-scandown
      */
     ScanDown(MillisecondsPause) {
         result := ComCall(16, this, "int", MillisecondsPause, "HRESULT")
@@ -82,9 +82,9 @@ class IScanningTuner extends ITuner{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-autoprogram
+     * The AutoProgram method scans for all channels with valid programming.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iscanningtuner-autoprogram
      */
     AutoProgram() {
         result := ComCall(17, this, "HRESULT")

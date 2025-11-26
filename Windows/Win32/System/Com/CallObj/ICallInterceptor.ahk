@@ -32,10 +32,39 @@ class ICallInterceptor extends ICallIndirect{
     static VTableNames => ["RegisterSink", "GetRegisteredSink"]
 
     /**
+     * Registers an event sink for receiving notifications of method calls.
+     * @param {ICallFrameEvents} psink A pointer to the event sink. See <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframeevents">ICallFrameEvents</a>.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {ICallFrameEvents} psink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallinterceptor-registersink
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallinterceptor-registersink
      */
     RegisterSink(psink) {
         result := ComCall(7, this, "ptr", psink, "HRESULT")
@@ -43,9 +72,9 @@ class ICallInterceptor extends ICallIndirect{
     }
 
     /**
-     * 
-     * @returns {ICallFrameEvents} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallinterceptor-getregisteredsink
+     * Retrieves the registered event sink.
+     * @returns {ICallFrameEvents} A pointer to a pointer to the event sink. See <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframeevents">ICallFrameEvents</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallinterceptor-getregisteredsink
      */
     GetRegisteredSink() {
         result := ComCall(8, this, "ptr*", &ppsink := 0, "HRESULT")

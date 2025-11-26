@@ -37,9 +37,46 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
     static VTableNames => ["BeginUnorderedGroup", "EndUnorderedGroup", "AddLoggedConflict"]
 
     /**
+     * Opens an unordered group in the change batch. Item changes in this group can be in any order.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-beginunorderedgroup
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A group is already open or an empty group was previously added to the batch.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_CHANGE_BATCH_IS_READ_ONLY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatch-beginunorderedgroup
      */
     BeginUnorderedGroup() {
         result := ComCall(17, this, "HRESULT")
@@ -47,11 +84,48 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
     }
 
     /**
+     * Closes a previously opened unordered group in the change batch.
+     * @param {ISyncKnowledge} pMadeWithKnowledge The made-with knowledge for the changes in the group. Typically, this is the knowledge of the replica that made this group.
+     * @param {BOOL} fAllChangesForKnowledge <b>TRUE</b> when all the changes contained in <i>pMadeWithKnowledge</i> are included in this change batch; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {ISyncKnowledge} pMadeWithKnowledge 
-     * @param {BOOL} fAllChangesForKnowledge 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-endunorderedgroup
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No group is open or an ordered group is open.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_CHANGE_BATCH_IS_READ_ONLY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatch-endunorderedgroup
      */
     EndUnorderedGroup(pMadeWithKnowledge, fAllChangesForKnowledge) {
         result := ComCall(18, this, "ptr", pMadeWithKnowledge, "int", fAllChangesForKnowledge, "HRESULT")
@@ -59,16 +133,16 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbOwnerReplicaId 
-     * @param {Pointer<Integer>} pbItemId 
-     * @param {Pointer<SYNC_VERSION>} pChangeVersion 
-     * @param {Pointer<SYNC_VERSION>} pCreationVersion 
-     * @param {Integer} dwFlags 
-     * @param {Integer} dwWorkForChange 
-     * @param {ISyncKnowledge} pConflictKnowledge 
-     * @returns {ISyncChangeBuilder} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-addloggedconflict
+     * Adds metadata that represents a conflict to the change batch.
+     * @param {Pointer<Integer>} pbOwnerReplicaId The ID of the replica that made the change in conflict.
+     * @param {Pointer<Integer>} pbItemId The ID of the item.
+     * @param {Pointer<SYNC_VERSION>} pChangeVersion The version of the change.
+     * @param {Pointer<SYNC_VERSION>} pCreationVersion The creation version of the item.
+     * @param {Integer} dwFlags Flags that specify the state of the item change. For the SYNC_CHANGE_FLAG values, see the Remarks section of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncchange-getflags">ISyncChange::GetFlags</a> method.
+     * @param {Integer} dwWorkForChange The work estimate for the change. This value is used during change application to report completed work to the application.
+     * @param {ISyncKnowledge} pConflictKnowledge The conflict knowledge that was saved when the conflict was logged.
+     * @returns {ISyncChangeBuilder} Returns an object that can be used to add change unit information to the change.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatch-addloggedconflict
      */
     AddLoggedConflict(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, pConflictKnowledge) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"

@@ -31,10 +31,10 @@ class IMFCaptureEngineOnSampleCallback2 extends IMFCaptureEngineOnSampleCallback
     static VTableNames => ["OnSynchronizedEvent"]
 
     /**
-     * 
-     * @param {IMFMediaEvent} pEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback2-onsynchronizedevent
+     * Called by the capture sink when the format of the sample is changed.
+     * @param {IMFMediaEvent} pEvent The new media type.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback2-onsynchronizedevent
      */
     OnSynchronizedEvent(pEvent) {
         result := ComCall(4, this, "ptr", pEvent, "HRESULT")

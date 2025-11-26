@@ -31,9 +31,9 @@ class IInkHostWorkItem extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkhostworkitem-invoke
+     * Executes the ink operation on an IInkDesktopHost object thread.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkhostworkitem-invoke
      */
     Invoke() {
         result := ComCall(3, this, "HRESULT")

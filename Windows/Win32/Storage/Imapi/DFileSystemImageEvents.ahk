@@ -38,13 +38,15 @@ class DFileSystemImageEvents extends IDispatch{
     static VTableNames => ["Update"]
 
     /**
+     * Implement this method to receive progress notification of the current write operation. The notifications are sent when copying the content of a file or while adding directories or files to the file system image.
+     * @param {IDispatch} object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> interface of the file system image that is being written. 
      * 
-     * @param {IDispatch} object 
-     * @param {BSTR} currentFile 
-     * @param {Integer} copiedSectors 
-     * @param {Integer} totalSectors 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-dfilesystemimageevents-update
+     * This parameter is a <b>CFileSystemImage</b> object in a script.
+     * @param {BSTR} currentFile String that contains the full path of the file being written.
+     * @param {Integer} copiedSectors Number of sectors copied.
+     * @param {Integer} totalSectors Total number of sectors in the file.
+     * @returns {HRESULT} Return values are ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-dfilesystemimageevents-update
      */
     Update(object, currentFile, copiedSectors, totalSectors) {
         currentFile := currentFile is String ? BSTR.Alloc(currentFile).Value : currentFile

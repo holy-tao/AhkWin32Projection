@@ -47,9 +47,9 @@ class ITDetectTone extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_appspecific
+     * The get_AppSpecific method retrieves the application-defined tag that identifies the tone to detect.
+     * @returns {Integer} Pointer to a value to receive the application-specific identifier for the tone. When the TAPI Server detects the tone, the value of this parameter is passed back to the application in the <b>TE_TONEEVENT</b> event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-get_appspecific
      */
     get_AppSpecific() {
         result := ComCall(7, this, "int*", &plAppSpecific := 0, "HRESULT")
@@ -57,10 +57,28 @@ class ITDetectTone extends IDispatch{
     }
 
     /**
+     * The put_AppSpecific method sets the application-defined tag that identifies the tone to detect.
+     * @param {Integer} lAppSpecific Specifies an application-specific tag that identifies the tone to detect. When the TAPI Server detects the tone, the value of this parameter is passed back to the application in the <b>TE_TONEEVENT</b> event.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lAppSpecific 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_appspecific
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-put_appspecific
      */
     put_AppSpecific(lAppSpecific) {
         result := ComCall(8, this, "int", lAppSpecific, "HRESULT")
@@ -68,9 +86,9 @@ class ITDetectTone extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_duration
+     * The get_Duration method retrieves the length of time during which a tone should be present before the TAPI Server generates a tone event.
+     * @returns {Integer} Pointer to a value that receives the tone duration, in milliseconds, during which the specified tone should be present.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-get_duration
      */
     get_Duration() {
         result := ComCall(9, this, "int*", &plDuration := 0, "HRESULT")
@@ -78,10 +96,28 @@ class ITDetectTone extends IDispatch{
     }
 
     /**
+     * The put_Duration method sets the length of time during which a tone should be present before the TAPI Server generates a tone event.
+     * @param {Integer} lDuration Specifies the tone duration, in milliseconds, during which the specified tone should be present.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_duration
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-put_duration
      */
     put_Duration(lDuration) {
         result := ComCall(10, this, "int", lDuration, "HRESULT")
@@ -89,10 +125,10 @@ class ITDetectTone extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_frequency
+     * The get_Frequency method retrieves the frequency of the tone for which the TAPI Server generates a tone event.
+     * @param {Integer} Index Specifies the index of the tone.
+     * @returns {Integer} Pointer to a value to receive the frequency, in hertz, of the tone. For more information, see the following Remarks section.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-get_frequency
      */
     get_Frequency(Index) {
         result := ComCall(11, this, "int", Index, "int*", &plFrequency := 0, "HRESULT")
@@ -100,11 +136,29 @@ class ITDetectTone extends IDispatch{
     }
 
     /**
+     * The put_Frequency method sets the frequency of the tone for which the TAPI Server should generate a tone event.
+     * @param {Integer} Index Specifies the index of the tone to set.
+     * @param {Integer} lFrequency Specifies the frequency, in hertz, of the tone. For more information, see the following Remarks section.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} Index 
-     * @param {Integer} lFrequency 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_frequency
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-put_frequency
      */
     put_Frequency(Index, lFrequency) {
         result := ComCall(12, this, "int", Index, "int", lFrequency, "HRESULT")

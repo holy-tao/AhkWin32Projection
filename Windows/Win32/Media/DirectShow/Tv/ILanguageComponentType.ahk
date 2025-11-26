@@ -50,9 +50,9 @@ class ILanguageComponentType extends IComponentType{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilanguagecomponenttype-get_langid
+     * The get_LangID method retrieves the LCID that identifies the language.
+     * @returns {Integer} Pointer to a variable that receives the LCID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ilanguagecomponenttype-get_langid
      */
     get_LangID() {
         result := ComCall(24, this, "int*", &LangID := 0, "HRESULT")
@@ -60,10 +60,10 @@ class ILanguageComponentType extends IComponentType{
     }
 
     /**
-     * 
-     * @param {Integer} LangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilanguagecomponenttype-put_langid
+     * The put_LangID method specifies the LCID that identifies the language.
+     * @param {Integer} LangID Specifies the LCID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ilanguagecomponenttype-put_langid
      */
     put_LangID(LangID) {
         result := ComCall(25, this, "int", LangID, "HRESULT")

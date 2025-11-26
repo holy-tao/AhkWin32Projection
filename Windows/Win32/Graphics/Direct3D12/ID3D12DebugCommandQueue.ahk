@@ -31,12 +31,21 @@ class ID3D12DebugCommandQueue extends IUnknown{
     static VTableNames => ["AssertResourceState"]
 
     /**
+     * Checks whether a resource, or subresource, is in a specified state, or not.
+     * @param {ID3D12Resource} pResource Type: <b>ID3D12Resource*</b>
      * 
-     * @param {ID3D12Resource} pResource 
-     * @param {Integer} Subresource 
-     * @param {Integer} State 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandqueue-assertresourcestate
+     * Specifies the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> to check.
+     * @param {Integer} Subresource Type: <b>UINT</b>
+     * 
+     * The index of the subresource to check.
+     *           This can be set to an index, or D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES.
+     * @param {Integer} State Type: <b>UINT</b>
+     * 
+     * Specifies the state to check for. This can be one or more D3D12_RESOURCE_STATES flags Or'ed together.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * This method returns true if the resource or subresource is in the specified state, false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandqueue-assertresourcestate
      */
     AssertResourceState(pResource, Subresource, State) {
         result := ComCall(3, this, "ptr", pResource, "uint", Subresource, "uint", State, "int")

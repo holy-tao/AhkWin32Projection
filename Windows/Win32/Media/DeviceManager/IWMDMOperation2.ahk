@@ -31,13 +31,53 @@ class IWMDMOperation2 extends IWMDMOperation{
     static VTableNames => ["SetObjectAttributes2", "GetObjectAttributes2"]
 
     /**
+     * The SetObjectAttributes2 method sets attributes of files or storages. This method is currently not called by Windows Media Device Manager.
+     * @param {Integer} dwAttributes Pointer to a <b>DWORD</b> specifying the attributes as defined by the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-setattributes">IWMDMStorage::SetAttributes</a> method.
+     * @param {Integer} dwAttributesEx <b>DWORD</b> specifying the extended attributes. No extended attributes are currently defined.
+     * @param {Pointer<WAVEFORMATEX>} pFormat Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structure that specifies audio information about the object.
+     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-videoinfoheader">_VIDEOINFOHEADER</a> structure that specifies video information about the object.
+     * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
-     * @param {Integer} dwAttributes 
-     * @param {Integer} dwAttributesEx 
-     * @param {Pointer<WAVEFORMATEX>} pFormat 
-     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation2-setobjectattributes2
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read operation should continue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WMDM_E_USER_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read operation should be cancelled without finishing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred, and the read operation should be cancelled without finishing.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation2-setobjectattributes2
      */
     SetObjectAttributes2(dwAttributes, dwAttributesEx, pFormat, pVideoFormat) {
         result := ComCall(13, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pFormat, "ptr", pVideoFormat, "HRESULT")
@@ -45,13 +85,53 @@ class IWMDMOperation2 extends IWMDMOperation{
     }
 
     /**
+     * Windows Media Device Manager calls GetObjectAttributes when a file is written to the device in order to learn the attributes of the file.
+     * @param {Pointer<Integer>} pdwAttributes Pointer to a <b>DWORD</b> specifying the storage attributes defined in the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-getattributes">IWMDMStorage::GetAttributes</a> method.
+     * @param {Pointer<Integer>} pdwAttributesEx Pointer to a <b>DWORD</b> specifying extended attributes. There are currently no extended attributes defined.
+     * @param {Pointer<WAVEFORMATEX>} pAudioFormat Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structure that specifies audio file attributes.
+     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-videoinfoheader">_VIDEOINFOHEADER</a> structure that specifies video object attributes.
+     * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
-     * @param {Pointer<Integer>} pdwAttributes 
-     * @param {Pointer<Integer>} pdwAttributesEx 
-     * @param {Pointer<WAVEFORMATEX>} pAudioFormat 
-     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation2-getobjectattributes2
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read operation should continue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WMDM_E_USER_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read operation should be cancelled without finishing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred, and the read operation should be cancelled without finishing.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation2-getobjectattributes2
      */
     GetObjectAttributes2(pdwAttributes, pdwAttributesEx, pAudioFormat, pVideoFormat) {
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"

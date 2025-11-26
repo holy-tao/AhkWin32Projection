@@ -32,14 +32,65 @@ class ITForwardInformation2 extends ITForwardInformation{
     static VTableNames => ["SetForwardType2", "GetForwardType2", "get_ForwardTypeDestinationAddressType", "get_ForwardTypeCallerAddressType"]
 
     /**
+     * The SetForwardType2 method sets the current forwarding mode, specified by caller address.
+     * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward type</a> to be set.
+     * @param {BSTR} pDestAddress Pointer to the <b>BSTR</b> representation of the destination address.
+     * @param {Integer} DestAddressType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of destination.
+     * @param {BSTR} pCallerAddress Pointer to the <b>BSTR</b> representation of the caller address.
+     * @param {Integer} CallerAddressType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of caller.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ForwardType 
-     * @param {BSTR} pDestAddress 
-     * @param {Integer} DestAddressType 
-     * @param {BSTR} pCallerAddress 
-     * @param {Integer} CallerAddressType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-setforwardtype2
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ForwardType</i>, <i>DestAddressType</i>, or <i>CallerAddressType</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pDestAddress</i> or <i>pCallerAddress</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-setforwardtype2
      */
     SetForwardType2(ForwardType, pDestAddress, DestAddressType, pCallerAddress, CallerAddressType) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
@@ -50,14 +101,65 @@ class ITForwardInformation2 extends ITForwardInformation{
     }
 
     /**
+     * The GetForwardType2 method gets the current forwarding mode, specified by caller address.
+     * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward type</a> to be retrieved.
+     * @param {Pointer<BSTR>} ppDestinationAddress Pointer to the <b>BSTR</b> representation of the destination address.
+     * @param {Pointer<Integer>} pDestAddressType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of the destination.
+     * @param {Pointer<BSTR>} ppCallerAddress Pointer to the <b>BSTR</b> representation of the caller address.
+     * @param {Pointer<Integer>} pCallerAddressType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of the caller.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ForwardType 
-     * @param {Pointer<BSTR>} ppDestinationAddress 
-     * @param {Pointer<Integer>} pDestAddressType 
-     * @param {Pointer<BSTR>} ppCallerAddress 
-     * @param {Pointer<Integer>} pCallerAddressType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-getforwardtype2
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ForwardType</i>, <i>pDestAddressType</i>, or <i>pCallerAddressType</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ppDestinationAddress</i>, <i>pDestAddressType</i>, <i>pCallerAddressType</i>, or <i>ppCallerAddress</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-getforwardtype2
      */
     GetForwardType2(ForwardType, ppDestinationAddress, pDestAddressType, ppCallerAddress, pCallerAddressType) {
         pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : "ptr"
@@ -68,10 +170,10 @@ class ITForwardInformation2 extends ITForwardInformation{
     }
 
     /**
-     * 
-     * @param {Integer} ForwardType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypedestinationaddresstype
+     * The get_ForwardTypeDestinationAddressType method gets the destination address type for a given forwarding type.
+     * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward type</a> to be retrieved.
+     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of the destination.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypedestinationaddresstype
      */
     get_ForwardTypeDestinationAddressType(ForwardType) {
         result := ComCall(16, this, "int", ForwardType, "int*", &pDestAddressType := 0, "HRESULT")
@@ -79,10 +181,10 @@ class ITForwardInformation2 extends ITForwardInformation{
     }
 
     /**
-     * 
-     * @param {Integer} Forwardtype 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypecalleraddresstype
+     * The get_ForwardTypeCallerAddressType method gets the caller address type for a given forwarding type.
+     * @param {Integer} Forwardtype <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward type</a> to be retrieved.
+     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">Address type</a> of the caller.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypecalleraddresstype
      */
     get_ForwardTypeCallerAddressType(Forwardtype) {
         result := ComCall(17, this, "int", Forwardtype, "int*", &pCallerAddressType := 0, "HRESULT")

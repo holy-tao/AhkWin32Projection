@@ -47,11 +47,14 @@ class IUIAnimationTimer extends IUnknown{
     static VTableNames => ["SetTimerUpdateHandler", "SetTimerEventHandler", "Enable", "Disable", "IsEnabled", "GetTime", "SetFrameRateThreshold"]
 
     /**
-     * 
-     * @param {IUIAnimationTimerUpdateHandler} updateHandler 
-     * @param {Integer} idleBehavior 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-settimerupdatehandler
+     * Specifies a timer update handler.
+     * @param {IUIAnimationTimerUpdateHandler} updateHandler A timer update handler, or <b>NULL</b> (see Remarks).  The specified object must implement the
+     *                <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimerupdatehandler">IUIAnimationTimerUpdateHandler</a> interface.
+     * @param {Integer} idleBehavior A member of 
+     *                <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_idle_behavior">UI_ANIMATION_IDLE_BEHAVIOR</a> 
+     *                that specifies the behavior of the timer when it is idle.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If the update handler is already connected to a timer, this method returns <b>UI_E_TIMER_CLIENT_ALREADY_CONNECTED</b>. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-settimerupdatehandler
      */
     SetTimerUpdateHandler(updateHandler, idleBehavior) {
         result := ComCall(3, this, "ptr", updateHandler, "int", idleBehavior, "HRESULT")
@@ -59,10 +62,11 @@ class IUIAnimationTimer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUIAnimationTimerEventHandler} handler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-settimereventhandler
+     * Specifies a timer event handler.
+     * @param {IUIAnimationTimerEventHandler} handler A timer event handler.  The specified object must implement the
+     *                <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimereventhandler">IUIAnimationTimerEventHandler</a> interface or be <b>NULL</b>. See Remarks.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-settimereventhandler
      */
     SetTimerEventHandler(handler) {
         result := ComCall(4, this, "ptr", handler, "HRESULT")
@@ -70,9 +74,9 @@ class IUIAnimationTimer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-enable
+     * Enables the animation timer.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-enable
      */
     Enable() {
         result := ComCall(5, this, "HRESULT")
@@ -80,9 +84,9 @@ class IUIAnimationTimer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-disable
+     * Disables the animation timer.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-disable
      */
     Disable() {
         result := ComCall(6, this, "HRESULT")
@@ -90,9 +94,9 @@ class IUIAnimationTimer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-isenabled
+     * Determines whether the timer is currently enabled.
+     * @returns {HRESULT} Returns S_OK if the animation timer is enabled, S_FALSE if the animation timer is disabled, or an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-isenabled
      */
     IsEnabled() {
         result := ComCall(7, this, "HRESULT")
@@ -100,9 +104,9 @@ class IUIAnimationTimer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-gettime
+     * Gets the current time.
+     * @returns {Float} The current time, in <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/ui-animation-seconds">UI_ANIMATION_SECONDS</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-gettime
      */
     GetTime() {
         result := ComCall(8, this, "double*", &seconds := 0, "HRESULT")
@@ -110,10 +114,10 @@ class IUIAnimationTimer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} framesPerSecond 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-setframeratethreshold
+     * Sets the frame rate below which the timer notifies the application that rendering is too slow.
+     * @param {Integer} framesPerSecond The minimum desirable frame rate, in frames per second.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-setframeratethreshold
      */
     SetFrameRateThreshold(framesPerSecond) {
         result := ComCall(9, this, "uint", framesPerSecond, "HRESULT")

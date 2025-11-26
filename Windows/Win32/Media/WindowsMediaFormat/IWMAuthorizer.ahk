@@ -31,9 +31,9 @@ class IWMAuthorizer extends IUnknown{
     static VTableNames => ["GetCertCount", "GetCert", "GetSharedData"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcertcount
+     * Get the number of certificates.
+     * @returns {Integer} Receives a pointer to a count of certs.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmauthorizer-getcertcount
      */
     GetCertCount() {
         result := ComCall(3, this, "uint*", &pcCerts := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IWMAuthorizer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwIndex 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcert
+     * Retrieves the specified certificate.
+     * @param {Integer} dwIndex The index of the certification to retrieve.
+     * @returns {Pointer<Integer>} An address of a pointer to certification data. <i>ppbCertData</i> is allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and must be released by the user.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmauthorizer-getcert
      */
     GetCert(dwIndex) {
         result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppbCertData := 0, "HRESULT")
@@ -52,12 +52,12 @@ class IWMAuthorizer extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves shared data for the specified certificate.
      * @param {Integer} dwCertIndex 
      * @param {Pointer<Integer>} pbSharedData 
      * @param {Pointer<Integer>} pbCert 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
+     * @returns {Pointer<Integer>} An address of a pointer to certification data. <i>ppbCertData</i> is allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and must be released by the user.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
      */
     GetSharedData(dwCertIndex, pbSharedData, pbCert) {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"

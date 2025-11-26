@@ -39,9 +39,11 @@ class ID3D10ShaderReflection extends IUnknown{
     static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetInputParameterDesc", "GetOutputParameterDesc"]
 
     /**
+     * Get a shader description.
+     * @returns {D3D10_SHADER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/ns-d3d10shader-d3d10_shader_desc">D3D10_SHADER_DESC</a>*</b>
      * 
-     * @returns {D3D10_SHADER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getdesc
+     * A pointer to a shader description. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/ns-d3d10shader-d3d10_shader_desc">D3D10_SHADER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D10_SHADER_DESC()
@@ -50,10 +52,14 @@ class ID3D10ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a constant buffer by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getconstantbufferbyindex
+     * Zero-based index.
+     * @returns {ID3D10ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionconstantbuffer">ID3D10ShaderReflectionConstantBuffer</a>*</b>
+     * 
+     * A pointer to a constant buffer (see <a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionconstantbuffer">ID3D10ShaderReflectionConstantBuffer Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
         result := ComCall(4, this, "uint", Index, "ptr")
@@ -61,10 +67,14 @@ class ID3D10ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a constant buffer by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getconstantbufferbyname
+     * The constant-buffer name.
+     * @returns {ID3D10ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionconstantbuffer">ID3D10ShaderReflectionConstantBuffer</a>*</b>
+     * 
+     * A pointer to a constant buffer (see <a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionconstantbuffer">ID3D10ShaderReflectionConstantBuffer Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflection-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -74,10 +84,14 @@ class ID3D10ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a description of the resources bound to a shader.
+     * @param {Integer} ResourceIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ResourceIndex 
-     * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getresourcebindingdesc
+     * A zero-based resource index.
+     * @returns {D3D10_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc">D3D10_SHADER_INPUT_BIND_DESC</a>*</b>
+     * 
+     * A pointer to an input-binding description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc">D3D10_SHADER_INPUT_BIND_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflection-getresourcebindingdesc
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D10_SHADER_INPUT_BIND_DESC()
@@ -86,10 +100,14 @@ class ID3D10ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get an input-parameter description for a shader.
+     * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ParameterIndex 
-     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getinputparameterdesc
+     * A zero-based parameter index.
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>*</b>
+     * 
+     * A pointer to a shader-input-signature description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflection-getinputparameterdesc
      */
     GetInputParameterDesc(ParameterIndex) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
@@ -98,10 +116,14 @@ class ID3D10ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get an output-parameter description for a shader.
+     * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ParameterIndex 
-     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getoutputparameterdesc
+     * A zero-based parameter index.
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>*</b>
+     * 
+     * A pointer to a shader-output-parameter description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflection-getoutputparameterdesc
      */
     GetOutputParameterDesc(ParameterIndex) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()

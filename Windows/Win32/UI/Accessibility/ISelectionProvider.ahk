@@ -52,9 +52,12 @@ class ISelectionProvider extends IUnknown{
     }
 
     /**
+     * Retrieves a Microsoft UI Automation provider for each child element that is selected.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider-getselection
+     * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces
+     * 				of the selected elements. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider-getselection
      */
     GetSelection() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -62,9 +65,15 @@ class ISelectionProvider extends IUnknown{
     }
 
     /**
+     * Indicates whether the Microsoft UI Automation provider allows more than one child element to be selected concurrently.
+     * @remarks
+     * 
+     * This property may be dynamic. For example, in rare cases a control might allow 
+     *         multiple items to be selected on initialization but subsequently allow only single selections to be made.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider-get_canselectmultiple
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider-get_canselectmultiple
      */
     get_CanSelectMultiple() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
@@ -72,9 +81,17 @@ class ISelectionProvider extends IUnknown{
     }
 
     /**
+     * Indicates whether the Microsoft UI Automation provider requires at least one child element to be selected.
+     * @remarks
+     * 
+     *        
+     *         This property can be dynamic. For example, the initial state of a control might 
+     *         not have any items selected by default, meaning that <b>ISelectionProvider::IsSelectionRequired</b> is <b>FALSE</b>. 
+     *         However, after an item is selected the control must always have at least one item selected.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider-get_isselectionrequired
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider-get_isselectionrequired
      */
     get_IsSelectionRequired() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")

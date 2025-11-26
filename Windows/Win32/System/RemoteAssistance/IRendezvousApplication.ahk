@@ -43,10 +43,50 @@ class IRendezvousApplication extends IUnknown{
     static VTableNames => ["SetRendezvousSession"]
 
     /**
+     * Passes IRendezvousSession to the Windows Remote Assistance application. This method is used by the instant messaging application.
+     * @param {IUnknown} pRendezvousSession <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rendezvoussession/nn-rendezvoussession-irendezvoussession">IRendezvousSession</a>
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IUnknown} pRendezvousSession 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvousapplication-setrendezvoussession
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/previous-versions/windows/desktop/api/rendezvoussession/nn-rendezvoussession-irendezvoussession">IRendezvousSession</a> was passed to the Windows Remote Assistance application successfully. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The session object passed to the method is not valid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A catastrophic error occurred while trying to pass the session to the Windows Remote Assistance application.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nf-rendezvoussession-irendezvousapplication-setrendezvoussession
      */
     SetRendezvousSession(pRendezvousSession) {
         result := ComCall(3, this, "ptr", pRendezvousSession, "HRESULT")

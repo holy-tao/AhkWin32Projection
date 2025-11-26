@@ -31,13 +31,13 @@ class IComThreadEvents extends IUnknown{
     static VTableNames => ["OnThreadStart", "OnThreadTerminate", "OnThreadBindToApartment", "OnThreadUnBind", "OnThreadWorkEnque", "OnThreadWorkPrivate", "OnThreadWorkPublic", "OnThreadWorkRedirect", "OnThreadWorkReject", "OnThreadAssignApartment", "OnThreadUnassignApartment"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} ThreadID 
-     * @param {Integer} dwThread 
-     * @param {Integer} dwTheadCnt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadstart
+     * Generated when a single-threaded apartment (STA) thread is started.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} ThreadID The unique thread identifier.
+     * @param {Integer} dwThread The Windows thread identifier.
+     * @param {Integer} dwTheadCnt The number of threads in the STA thread pool.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomthreadevents-onthreadstart
      */
     OnThreadStart(pInfo, ThreadID, dwThread, dwTheadCnt) {
         result := ComCall(3, this, "ptr", pInfo, "uint", ThreadID, "uint", dwThread, "uint", dwTheadCnt, "HRESULT")
@@ -45,13 +45,13 @@ class IComThreadEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} ThreadID 
-     * @param {Integer} dwThread 
-     * @param {Integer} dwTheadCnt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadterminate
+     * Generated when a single-threaded apartment (STA) thread is terminated.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} ThreadID The unique thread identifier.
+     * @param {Integer} dwThread The Windows thread identifier.
+     * @param {Integer} dwTheadCnt The number of threads in the STA thread pool.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomthreadevents-onthreadterminate
      */
     OnThreadTerminate(pInfo, ThreadID, dwThread, dwTheadCnt) {
         result := ComCall(4, this, "ptr", pInfo, "uint", ThreadID, "uint", dwThread, "uint", dwTheadCnt, "HRESULT")
@@ -59,14 +59,14 @@ class IComThreadEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} ThreadID 
-     * @param {Integer} AptID 
-     * @param {Integer} dwActCnt 
-     * @param {Integer} dwLowCnt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadbindtoapartment
+     * Generated when an apartment thread is allocated for a single-thread apartment (STA) thread that does not have an apartment thread to run in.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} ThreadID The unique thread identifier.
+     * @param {Integer} AptID The apartment identifier.
+     * @param {Integer} dwActCnt The number of activities bound to this apartment.
+     * @param {Integer} dwLowCnt This parameter is reserved.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomthreadevents-onthreadbindtoapartment
      */
     OnThreadBindToApartment(pInfo, ThreadID, AptID, dwActCnt, dwLowCnt) {
         result := ComCall(5, this, "ptr", pInfo, "uint", ThreadID, "uint", AptID, "uint", dwActCnt, "uint", dwLowCnt, "HRESULT")
@@ -74,13 +74,13 @@ class IComThreadEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} ThreadID 
-     * @param {Integer} AptID 
-     * @param {Integer} dwActCnt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadunbind
+     * Generated when the lifetime of the configured component is over and the activity count on the apartment thread can be decremented.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} ThreadID The unique thread identifier.
+     * @param {Integer} AptID The apartment identifier.
+     * @param {Integer} dwActCnt The number of current activities on the apartment thread.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomthreadevents-onthreadunbind
      */
     OnThreadUnBind(pInfo, ThreadID, AptID, dwActCnt) {
         result := ComCall(6, this, "ptr", pInfo, "uint", ThreadID, "uint", AptID, "uint", dwActCnt, "HRESULT")
@@ -153,12 +153,12 @@ class IComThreadEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Integer} AptID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadassignapartment
+     * Generated when an activity is assigned to an apartment thread.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The activity identifier for which the object is created.
+     * @param {Integer} AptID The apartment identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomthreadevents-onthreadassignapartment
      */
     OnThreadAssignApartment(pInfo, guidActivity, AptID) {
         result := ComCall(12, this, "ptr", pInfo, "ptr", guidActivity, "uint", AptID, "HRESULT")
@@ -166,11 +166,11 @@ class IComThreadEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} AptID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadunassignapartment
+     * Generated when an activity is unassigned from an apartment thread.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} AptID The apartment identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomthreadevents-onthreadunassignapartment
      */
     OnThreadUnassignApartment(pInfo, AptID) {
         result := ComCall(13, this, "ptr", pInfo, "uint", AptID, "HRESULT")

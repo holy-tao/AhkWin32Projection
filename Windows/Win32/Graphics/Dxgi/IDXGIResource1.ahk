@@ -54,10 +54,10 @@ class IDXGIResource1 extends IDXGIResource{
     static VTableNames => ["CreateSubresourceSurface", "CreateSharedHandle"]
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IDXGISurface2} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiresource1-createsubresourcesurface
+     * Creates a subresource surface object.
+     * @param {Integer} index The index of the subresource surface object to enumerate.
+     * @returns {IDXGISurface2} The address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgisurface2">IDXGISurface2</a> interface that represents the created subresource surface object at the position specified by the <i>index</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgiresource1-createsubresourcesurface
      */
     CreateSubresourceSurface(index) {
         result := ComCall(12, this, "uint", index, "ptr*", &ppSurface := 0, "HRESULT")
@@ -65,12 +65,38 @@ class IDXGIResource1 extends IDXGIResource{
     }
 
     /**
+     * Creates a handle to a shared resource. You can then use the returned handle with multiple Direct3D devices.
+     * @param {Pointer<SECURITY_ATTRIBUTES>} pAttributes A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> 
+     *        structure that contains two separate but related data members: an optional security descriptor, and a Boolean 
+     *        value that determines whether child processes can inherit the returned handle.
      * 
-     * @param {Pointer<SECURITY_ATTRIBUTES>} pAttributes 
-     * @param {Integer} dwAccess 
-     * @param {PWSTR} lpName 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiresource1-createsharedhandle
+     * Set this parameter to <b>NULL</b> if you want child processes that the 
+     *        application might create to not  inherit  the handle returned by 
+     *        <b>CreateSharedHandle</b>, and if you want the resource that is associated with the returned handle to get a default security 
+     *        descriptor.
+     * 
+     * The <b>lpSecurityDescriptor</b> member of the structure specifies a 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> for the resource. Set 
+     *        this member to <b>NULL</b> if you want the runtime to assign a default security descriptor to the resource that is associated with the returned handle. The ACLs in the default security descriptor for the resource come from the primary or impersonation token of the creator. For more info, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
+     * @param {Integer} dwAccess The requested access rights to the resource.  In addition to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/generic-access-rights">generic access rights</a>, DXGI defines the following values:
+     * 
+     * <ul>
+     * <li><b>DXGI_SHARED_RESOURCE_READ</b> ( 0x80000000L ) - specifies read access to the resource.</li>
+     * <li><b>DXGI_SHARED_RESOURCE_WRITE</b>	( 1 ) - specifies  write access to the resource.</li>
+     * </ul>
+     * You can combine these values by using a bitwise OR operation.
+     * @param {PWSTR} lpName The name of the resource to share. The name is limited to MAX_PATH characters. Name comparison is case sensitive. 
+     * 
+     * You will need the resource name if you call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresourcebyname">ID3D11Device1::OpenSharedResourceByName</a> method to access the shared resource by name. If you instead call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1">ID3D11Device1::OpenSharedResource1</a> method to access the shared resource by handle, set this parameter to <b>NULL</b>.
+     * 
+     * If <i>lpName</i> matches the name of an existing resource, <b>CreateSharedHandle</b> fails with <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_NAME_ALREADY_EXISTS</a>. This occurs because these objects share the same namespace.
+     * 
+     * The name can have a "Global\" or "Local\" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
+     * 
+     * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
+     * @returns {HANDLE} A pointer to a variable that receives the NT HANDLE value to the resource to share.  You can  use this handle in calls to access the resource.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgiresource1-createsharedhandle
      */
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName

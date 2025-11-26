@@ -37,12 +37,12 @@ class IBDA_TIF_REGISTRATION extends IUnknown{
     static VTableNames => ["RegisterTIFEx", "UnregisterTIF"]
 
     /**
-     * 
-     * @param {IPin} pTIFInputPin 
-     * @param {Pointer<Integer>} ppvRegistrationContext 
-     * @param {Pointer<IUnknown>} ppMpeg2DataControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ibda_tif_registration-registertifex
+     * The RegisterTIFEx method registers a Transport Information Filter (TIF) with the Network Provider.
+     * @param {IPin} pTIFInputPin Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface of the input pin on the TIF.
+     * @param {Pointer<Integer>} ppvRegistrationContext Receives a token identifying the connection. Pass this token in the <b>UnregisterTIF</b> method when the TIF unregisters itself.
+     * @param {Pointer<IUnknown>} ppMpeg2DataControl Receives a pointer to an <b>IUnknown</b> interface, which the TIF queries for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdaiface/nn-bdaiface-impeg2pidmap">IMPEG2PIDMap</a> interface. It uses the <b>IMPEG2PIDMap</b> to map and unmap PID values.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ibda_tif_registration-registertifex
      */
     RegisterTIFEx(pTIFInputPin, ppvRegistrationContext, ppMpeg2DataControl) {
         ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : "ptr"
@@ -52,10 +52,10 @@ class IBDA_TIF_REGISTRATION extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} pvRegistrationContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ibda_tif_registration-unregistertif
+     * The UnregisterTIF method unregisters a Transport Information Filter (TIF) with the Network Provider.
+     * @param {Integer} pvRegistrationContext Specifies the token that the <b>RegisterTIFEx</b> method returned in the <i>ppvRegistrationContext</i> parameter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ibda_tif_registration-unregistertif
      */
     UnregisterTIF(pvRegistrationContext) {
         result := ComCall(4, this, "uint", pvRegistrationContext, "HRESULT")

@@ -32,10 +32,10 @@ class IComTrackingInfoObject extends IUnknown{
     static VTableNames => ["GetValue"]
 
     /**
-     * 
-     * @param {PWSTR} szPropertyName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoobject-getvalue
+     * Retrieves the value of the specified property.
+     * @param {PWSTR} szPropertyName The name of the property.
+     * @returns {VARIANT} The value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfoobject-getvalue
      */
     GetValue(szPropertyName) {
         szPropertyName := szPropertyName is String ? StrPtr(szPropertyName) : szPropertyName

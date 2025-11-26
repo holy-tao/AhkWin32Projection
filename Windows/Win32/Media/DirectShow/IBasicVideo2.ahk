@@ -31,11 +31,51 @@ class IBasicVideo2 extends IBasicVideo{
     static VTableNames => ["GetPreferredAspectRatio"]
 
     /**
+     * The GetPreferredAspectRatio method retrieves the preferred aspect ratio.
+     * @param {Pointer<Integer>} plAspectX Pointer to a value that indicates the x-axis aspect ratio.
+     * @param {Pointer<Integer>} plAspectY Pointer to a value that indicates the y-axis aspect ratio.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Pointer<Integer>} plAspectX 
-     * @param {Pointer<Integer>} plAspectY 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo2-getpreferredaspectratio
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or both of the parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The renderer does not implement <b>IBasicVideo2</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ibasicvideo2-getpreferredaspectratio
      */
     GetPreferredAspectRatio(plAspectX, plAspectY) {
         plAspectXMarshal := plAspectX is VarRef ? "int*" : "ptr"

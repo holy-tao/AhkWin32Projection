@@ -31,12 +31,20 @@ class IMenuPopup extends IDeskBar{
     static VTableNames => ["Popup", "OnSelect", "SetSubMenu"]
 
     /**
+     * Invokes the shortcut menu at a specified onscreen location.
+     * @param {Pointer<POINTL>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a>*</b>
      * 
-     * @param {Pointer<POINTL>} ppt 
-     * @param {Pointer<RECTL>} prcExclude 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenupopup-popup
+     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a> structure that specifies the location of the pop-up menu in screen coordinates. The pop-up menu is displayed in relation to this point as determined by the position flags set in <i>dwFlags</i>.
+     * @param {Pointer<RECTL>} prcExclude Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">RECTL</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">RECTL</a> structure that specifies the rectangle to exclude when positioning the menu. In Windows Vista, the alignment of the menu in relation to this area is determined by the alignment flags set in <i>dwFlags</i>. This parameter can be <b>NULL</b> to include the entire screen.
+     * @param {Integer} dwFlags Type: <b>MP_POPUPFLAGS</b>
+     * 
+     * One or more of the following constants that control the display of the pop-up menu.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if the object implements the pop-up menu as a modeless menu. Otherwise, returns <b>S_FALSE</b>, which indicates the end of the implementation for the menu.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-imenupopup-popup
      */
     Popup(ppt, prcExclude, dwFlags) {
         result := ComCall(8, this, "ptr", ppt, "ptr", prcExclude, "int", dwFlags, "HRESULT")
@@ -44,10 +52,12 @@ class IMenuPopup extends IDeskBar{
     }
 
     /**
+     * Handles selection notifications.
+     * @param {Integer} dwSelectType Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Integer} dwSelectType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenupopup-onselect
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-imenupopup-onselect
      */
     OnSelect(dwSelectType) {
         result := ComCall(9, this, "uint", dwSelectType, "HRESULT")
@@ -55,11 +65,17 @@ class IMenuPopup extends IDeskBar{
     }
 
     /**
+     * Sets the given menu bar interface to be the submenu of the calling application object's interface.
+     * @param {IMenuPopup} pmp Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-imenupopup">IMenuPopup</a>*</b>
      * 
-     * @param {IMenuPopup} pmp 
-     * @param {BOOL} fSet 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenupopup-setsubmenu
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-imenupopup">IMenuPopup</a> interface that specifies the menu bar of interest.
+     * @param {BOOL} fSet Type: <b>BOOL</b>
+     * 
+     * Removes the submenu if <i>fSet</i> is set to <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-imenupopup-setsubmenu
      */
     SetSubMenu(pmp, fSet) {
         result := ComCall(10, this, "ptr", pmp, "int", fSet, "HRESULT")

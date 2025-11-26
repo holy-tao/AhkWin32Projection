@@ -185,9 +185,9 @@ class IADsADSystemInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-getanydcname
+     * Retrieves the DNS name of a domain controller in the local computer's domain.
+     * @returns {BSTR} Name of a domain controller, such as "ADServer1.domain1.Fabrikam.com".
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsadsysteminfo-getanydcname
      */
     GetAnyDCName() {
         pszDCName := BSTR()
@@ -196,10 +196,10 @@ class IADsADSystemInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} szServer 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-getdcsitename
+     * Retrieves the name of the Active Directory site that contains the local computer.
+     * @param {BSTR} szServer Name of the Active Directory site.
+     * @returns {BSTR} DNS name of the service server.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsadsysteminfo-getdcsitename
      */
     GetDCSiteName(szServer) {
         szServer := szServer is String ? BSTR.Alloc(szServer).Value : szServer
@@ -210,9 +210,9 @@ class IADsADSystemInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-refreshschemacache
+     * The IADsADSystemInfo::RefreshSchemaCache method refreshes the Active Directory schema cache.
+     * @returns {HRESULT} This method supports the standard <b>HRESULT</b> return values. For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsadsysteminfo-refreshschemacache
      */
     RefreshSchemaCache() {
         result := ComCall(18, this, "HRESULT")
@@ -220,9 +220,9 @@ class IADsADSystemInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-gettrees
+     * Retrieves the DNS names of all the directory trees in the local computer's forest.
+     * @returns {VARIANT} A Variant array of strings that contains the names of the directory trees within the forest.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsadsysteminfo-gettrees
      */
     GetTrees() {
         pvTrees := VARIANT()

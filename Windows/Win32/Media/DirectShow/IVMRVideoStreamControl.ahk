@@ -32,10 +32,10 @@ class IVMRVideoStreamControl extends IUnknown{
     static VTableNames => ["SetColorKey", "GetColorKey", "SetStreamActiveState", "GetStreamActiveState"]
 
     /**
-     * 
-     * @param {Pointer<DDCOLORKEY>} lpClrKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrvideostreamcontrol-setcolorkey
+     * The SetColorKey method sets the source color key that the VMR will use when compositing the video image.
+     * @param {Pointer<DDCOLORKEY>} lpClrKey Specifies the source color key as a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-ddcolorkey">DDCOLORKEY</a> type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrvideostreamcontrol-setcolorkey
      */
     SetColorKey(lpClrKey) {
         result := ComCall(3, this, "ptr", lpClrKey, "HRESULT")
@@ -43,9 +43,9 @@ class IVMRVideoStreamControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {DDCOLORKEY} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrvideostreamcontrol-getcolorkey
+     * The GetColorKey method retrieves the source color key currently set for this stream.
+     * @returns {DDCOLORKEY} Address of a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-ddcolorkey">DDCOLORKEY</a> structure that receives the source color key.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrvideostreamcontrol-getcolorkey
      */
     GetColorKey() {
         lpClrKey := DDCOLORKEY()
@@ -54,10 +54,10 @@ class IVMRVideoStreamControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} fActive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrvideostreamcontrol-setstreamactivestate
+     * The SetStreamActiveState method activates or inactivates an input stream.
+     * @param {BOOL} fActive Specifies the state of the stream. <b>TRUE</b> means active; <b>FALSE</b> means inactive.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrvideostreamcontrol-setstreamactivestate
      */
     SetStreamActiveState(fActive) {
         result := ComCall(5, this, "int", fActive, "HRESULT")
@@ -65,9 +65,9 @@ class IVMRVideoStreamControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrvideostreamcontrol-getstreamactivestate
+     * The GetStreamActiveState method retrieves the state of the stream.
+     * @returns {BOOL} Receives the current state of the stream. <b>TRUE</b> means the stream is active; <b>FALSE</b> means that it is inactive.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrvideostreamcontrol-getstreamactivestate
      */
     GetStreamActiveState() {
         result := ComCall(6, this, "int*", &lpfActive := 0, "HRESULT")

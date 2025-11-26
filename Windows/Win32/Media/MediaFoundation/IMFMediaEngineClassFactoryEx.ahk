@@ -39,11 +39,23 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
     static VTableNames => ["CreateMediaSourceExtension", "CreateMediaKeys", "IsTypeSupported"]
 
     /**
+     * Creates an instance of IMFMediaSourceExtension.
+     * @param {Integer} dwFlags This parameter is reserved and must be set to 0.
+     * @param {IMFAttributes} pAttr This method supports the following  Media Foundation attributes:
      * 
-     * @param {Integer} dwFlags 
-     * @param {IMFAttributes} pAttr 
-     * @returns {IMFMediaSourceExtension} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediasourceextension
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mse-callback">MF_MSE_CALLBACK</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mse-bufferlist-callback">MF_MSE_BUFFERLIST_CALLBACK</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mse-activelist-callback">MF_MSE_ACTIVELIST_CALLBACK</a>
+     * </li>
+     * </ul>
+     * @returns {IMFMediaSourceExtension} The <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension">IMFMediaSourceExtension</a> which was created.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediasourceextension
      */
     CreateMediaSourceExtension(dwFlags, pAttr) {
         result := ComCall(6, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppMSE := 0, "HRESULT")
@@ -51,11 +63,11 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
     }
 
     /**
-     * 
-     * @param {BSTR} keySystem 
-     * @param {BSTR} cdmStorePath 
-     * @returns {IMFMediaKeys} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediakeys
+     * Creates a media keys object based on the specified key system.
+     * @param {BSTR} keySystem The media keys system.
+     * @param {BSTR} cdmStorePath Points to a location to store Content Decryption Module (CDM) data which might be locked by multiple process and so might be incompatible with store app suspension.
+     * @returns {IMFMediaKeys} The media keys.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediakeys
      */
     CreateMediaKeys(keySystem, cdmStorePath) {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
@@ -66,11 +78,11 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
     }
 
     /**
-     * 
-     * @param {BSTR} type 
-     * @param {BSTR} keySystem 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-istypesupported
+     * Gets a value that indicates if the specified key system supports the specified media type.
+     * @param {BSTR} type The MIME type to check support for.
+     * @param {BSTR} keySystem The key system to check support for.
+     * @returns {BOOL} <b>true</b> if type is supported by <i>keySystem</i>; otherwise, <b>false.</b>
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-istypesupported
      */
     IsTypeSupported(type, keySystem) {
         type := type is String ? BSTR.Alloc(type).Value : type

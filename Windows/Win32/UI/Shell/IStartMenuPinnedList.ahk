@@ -46,10 +46,18 @@ class IStartMenuPinnedList extends IUnknown{
     static VTableNames => ["RemoveFromList"]
 
     /**
+     * Windows Vista:\_Removes an item from the Start menu pinned list, which is the list in the upper left position of the Start menu.
+     * @param {IShellItem} pitem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} pitem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istartmenupinnedlist-removefromlist
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the item to unpin.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * <ul>
+     * <li>Returns S_OK if the item was successfully removed from the list of pinned items and/or the taskbar.</li>
+     * <li>Returns S_OK if the item was not pinned at all.</li>
+     * <li>Returns a standard error code otherwise.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istartmenupinnedlist-removefromlist
      */
     RemoveFromList(pitem) {
         result := ComCall(3, this, "ptr", pitem, "HRESULT")

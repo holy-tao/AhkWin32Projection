@@ -32,11 +32,15 @@ class IWRdsGraphicsChannelManager extends IUnknown{
     static VTableNames => ["CreateChannel"]
 
     /**
+     * Used to create a graphics virtual channel.
+     * @param {Pointer<Integer>} pszChannelName Type: <b>const char*</b>
+     * @param {Integer} channelType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wrdsgraphicschannels/ne-wrdsgraphicschannels-wrdsgraphicschanneltype">WRdsGraphicsChannelType</a></b>
      * 
-     * @param {Pointer<Integer>} pszChannelName 
-     * @param {Integer} channelType 
-     * @returns {IWRdsGraphicsChannel} 
-     * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelmanager-createchannel
+     * A value of the <a href="https://docs.microsoft.com/windows/win32/api/wrdsgraphicschannels/ne-wrdsgraphicschannels-wrdsgraphicschanneltype">WRdsGraphicsChannelType</a> enumeration that specifies what type of channel to create. If the specified type of channel cannot be created, this method should return a channel object rather than fail.
+     * @returns {IWRdsGraphicsChannel} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannel">IWRdsGraphicsChannel</a>**</b>
+     * 
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannel">IWRdsGraphicsChannel</a> interface pointer that receives the channel object.
+     * @see https://docs.microsoft.com/windows/win32/api//wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelmanager-createchannel
      */
     CreateChannel(pszChannelName, channelType) {
         pszChannelNameMarshal := pszChannelName is VarRef ? "char*" : "ptr"

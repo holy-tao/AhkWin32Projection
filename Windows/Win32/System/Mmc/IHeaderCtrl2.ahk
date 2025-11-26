@@ -31,10 +31,10 @@ class IHeaderCtrl2 extends IHeaderCtrl{
     static VTableNames => ["SetChangeTimeOut", "SetColumnFilter", "GetColumnFilter"]
 
     /**
-     * 
-     * @param {Integer} uTimeout 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-setchangetimeout
+     * The IHeaderCtrl2::SetChangeTimeOut sets the time-out interval between the time a change takes place in the filter attributes and the posting of an MMCN_FILTER_CHANGE filter change notification, which is sent to the snap-in's IComponent::Notify method.
+     * @param {Integer} uTimeout Filter change interval in milliseconds. The default is an implementation detail of the header control, and as a result MMC does not know about it.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl2-setchangetimeout
      */
     SetChangeTimeOut(uTimeout) {
         result := ComCall(9, this, "uint", uTimeout, "HRESULT")
@@ -42,12 +42,14 @@ class IHeaderCtrl2 extends IHeaderCtrl{
     }
 
     /**
-     * 
-     * @param {Integer} nColumn 
-     * @param {Integer} dwType 
-     * @param {Pointer<MMC_FILTERDATA>} pFilterData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-setcolumnfilter
+     * The IHeaderCtrl2::SetColumnFilter sets the filter value and its maximum character length for a specified column in a filtered list.
+     * @param {Integer} nColumn A zero-based index that identifies the column for which the filter value and its maximum character length are to be set.
+     * @param {Integer} dwType Filter type to apply to the specified column, taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_filter_type">MMC_FILTER_TYPE</a> enumeration.
+     * @param {Pointer<MMC_FILTERDATA>} pFilterData A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_filterdata">MMC_FILTERDATA</a> structure that holds the actual filter data.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl2-setcolumnfilter
      */
     SetColumnFilter(nColumn, dwType, pFilterData) {
         result := ComCall(10, this, "uint", nColumn, "uint", dwType, "ptr", pFilterData, "HRESULT")
@@ -55,12 +57,14 @@ class IHeaderCtrl2 extends IHeaderCtrl{
     }
 
     /**
-     * 
-     * @param {Integer} nColumn 
-     * @param {Pointer<Integer>} pdwType 
-     * @param {Pointer<MMC_FILTERDATA>} pFilterData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-getcolumnfilter
+     * The IHeaderCtrl2::GetColumnFilter method retrieves the filter value set on the specified column.
+     * @param {Integer} nColumn A zero-based index that identifies the column for which the filter value and its maximum character length are to be retrieved.
+     * @param {Pointer<Integer>} pdwType A pointer to a variable of type <b>DWORD</b> that can take one of the possible filter values specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_filter_type">MMC_FILTER_TYPE</a> enumeration. The filter type for the specified column is placed in the address pointed to by <i>pdwType</i>.
+     * @param {Pointer<MMC_FILTERDATA>} pFilterData A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_filterdata">MMC_FILTERDATA</a> structure that holds the actual filter data.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl2-getcolumnfilter
      */
     GetColumnFilter(nColumn, pdwType, pFilterData) {
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"

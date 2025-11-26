@@ -60,9 +60,9 @@ class IInkCursors extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of objects or collections contained in a collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursors-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -79,10 +79,10 @@ class IInkCursors extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {IInkCursor} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-item
+     * Returns the IInkCursor object at the specified index within the IInkCursors collection.
+     * @param {Integer} Index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object to get.
+     * @returns {IInkCursor} Whenthis method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursors">IInkCursors</a> collection.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursors-item
      */
     Item(Index) {
         result := ComCall(9, this, "int", Index, "ptr*", &Cursor := 0, "HRESULT")

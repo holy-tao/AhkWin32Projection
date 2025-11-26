@@ -33,12 +33,12 @@ class IAzApplication2 extends IAzApplication{
     static VTableNames => ["InitializeClientContextFromToken2", "InitializeClientContext2"]
 
     /**
-     * 
-     * @param {Integer} ulTokenHandleLowPart 
-     * @param {Integer} ulTokenHandleHighPart 
-     * @param {VARIANT} varReserved 
-     * @returns {IAzClientContext2} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication2-initializeclientcontextfromtoken2
+     * Retrieves an IAzClientContext2 object pointer from the specified client token.
+     * @param {Integer} ulTokenHandleLowPart Low byte of a handle to a token that specifies the client. If the values of both this parameter and the <i>ulTokenHandleHighPart</i> parameter are zero, the impersonation token of the caller's thread is used. If the thread does not have an impersonation token, the process token is used. The token must have been opened for TOKEN_QUERY, TOKEN_IMPERSONATE, or TOKEN_DUPLICATE access.
+     * @param {Integer} ulTokenHandleHighPart High byte of a handle to a token that specifies the client. If the values of both this parameter and the <i>ulTokenHandleHighPart</i> parameter are zero, the impersonation token of the caller's thread is used. If the thread does not have an impersonation token, the process token is used. The token must have been opened for TOKEN_QUERY, TOKEN_IMPERSONATE, or TOKEN_DUPLICATE access.
+     * @param {VARIANT} varReserved Reserved for future use.
+     * @returns {IAzClientContext2} A pointer to a pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazclientcontext2">IAzClientContext2</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication2-initializeclientcontextfromtoken2
      */
     InitializeClientContextFromToken2(ulTokenHandleLowPart, ulTokenHandleHighPart, varReserved) {
         result := ComCall(68, this, "uint", ulTokenHandleLowPart, "uint", ulTokenHandleHighPart, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
@@ -46,11 +46,11 @@ class IAzApplication2 extends IAzApplication{
     }
 
     /**
-     * 
-     * @param {BSTR} IdentifyingString 
-     * @param {VARIANT} varReserved 
-     * @returns {IAzClientContext2} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication2-initializeclientcontext2
+     * Retrieves an IAzClientContext2 object pointer.
+     * @param {BSTR} IdentifyingString A string that identifies the client context in the audit trail for client connection and object access audit entries.
+     * @param {VARIANT} varReserved Reserved for future use.
+     * @returns {IAzClientContext2} A pointer to a pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazclientcontext2">IAzClientContext2</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication2-initializeclientcontext2
      */
     InitializeClientContext2(IdentifyingString, varReserved) {
         IdentifyingString := IdentifyingString is String ? BSTR.Alloc(IdentifyingString).Value : IdentifyingString

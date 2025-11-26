@@ -31,11 +31,11 @@ class ITfTextInputProcessor extends IUnknown{
     static VTableNames => ["Activate", "Deactivate"]
 
     /**
-     * 
-     * @param {ITfThreadMgr} ptim 
-     * @param {Integer} tid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftextinputprocessor-activate
+     * ITfTextInputProcessor::Activate method
+     * @param {ITfThreadMgr} ptim Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfthreadmgr">ITfThreadMgr</a> interface for the thread manager that owns the text service.
+     * @param {Integer} tid Specifies the client identifier for the text service.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftextinputprocessor-activate
      */
     Activate(ptim, tid) {
         result := ComCall(3, this, "ptr", ptim, "uint", tid, "HRESULT")
@@ -43,9 +43,9 @@ class ITfTextInputProcessor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftextinputprocessor-deactivate
+     * ITfTextInputProcessor::Deactivate method
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftextinputprocessor-deactivate
      */
     Deactivate() {
         result := ComCall(4, this, "HRESULT")

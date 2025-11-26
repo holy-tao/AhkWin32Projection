@@ -31,12 +31,12 @@ class IAppxPackageWriter3 extends IUnknown{
     static VTableNames => ["AddPayloadFiles"]
 
     /**
-     * 
-     * @param {Integer} fileCount 
-     * @param {Pointer<APPX_PACKAGE_WRITER_PAYLOAD_STREAM>} payloadFiles 
-     * @param {Integer} memoryLimit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagewriter3-addpayloadfiles
+     * Adds one or more payload files to an app package.
+     * @param {Integer} fileCount The number of payload files to be added to the app package.
+     * @param {Pointer<APPX_PACKAGE_WRITER_PAYLOAD_STREAM>} payloadFiles The payload files to be added.
+     * @param {Integer} memoryLimit The memory limit in bytes.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter3-addpayloadfiles
      */
     AddPayloadFiles(fileCount, payloadFiles, memoryLimit) {
         result := ComCall(3, this, "uint", fileCount, "ptr", payloadFiles, "uint", memoryLimit, "HRESULT")

@@ -32,9 +32,9 @@ class IFilterMapper3 extends IFilterMapper2{
     static VTableNames => ["GetICreateDevEnum"]
 
     /**
-     * 
-     * @returns {ICreateDevEnum} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper3-geticreatedevenum
+     * The GetICreateDevEnum method returns a pointer to the ICreateDevEnum interface. You can use the ICreateDevEnum interface to create an enumerator for a category of filters, such as video capture devices or audio capture devices.
+     * @returns {ICreateDevEnum} Receives a pointer to the <b>ICreateDevEnum</b> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper3-geticreatedevenum
      */
     GetICreateDevEnum() {
         result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")

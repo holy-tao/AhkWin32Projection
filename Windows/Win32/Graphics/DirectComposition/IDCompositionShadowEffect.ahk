@@ -53,10 +53,14 @@ class IDCompositionShadowEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets color of the shadow.
+     * @param {Pointer<D2D_VECTOR_4F>} color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a></b>
      * 
-     * @param {Pointer<D2D_VECTOR_4F>} color 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setcolor
+     * The color of the shadow.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionshadoweffect-setcolor
      */
     SetColor(color) {
         result := ComCall(6, this, "ptr", color, "HRESULT")

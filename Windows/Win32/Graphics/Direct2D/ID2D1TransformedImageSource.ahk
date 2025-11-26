@@ -31,20 +31,24 @@ class ID2D1TransformedImageSource extends ID2D1Image{
     static VTableNames => ["GetSource", "GetProperties"]
 
     /**
+     * Retrieves the source image used to create the transformed image source.
+     * @param {Pointer<ID2D1ImageSource>} imageSource Type: <b>_Outptr_result_maybenull_**</b>
      * 
-     * @param {Pointer<ID2D1ImageSource>} imageSource 
+     * Retrieves the source image used to create the transformed image source.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getsource
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getsource
      */
     GetSource(imageSource) {
         ComCall(4, this, "ptr*", imageSource)
     }
 
     /**
+     * Retrieves the properties specified when the transformed image source was created.
+     * @param {Pointer<D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES>} properties Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_transformed_image_source_properties">D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES</a>*</b>
      * 
-     * @param {Pointer<D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES>} properties 
+     * the properties specified when the transformed image source was created.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getproperties
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1transformedimagesource-getproperties
      */
     GetProperties(properties) {
         ComCall(5, this, "ptr", properties)

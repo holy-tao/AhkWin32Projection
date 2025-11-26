@@ -31,10 +31,10 @@ class IAMFilterGraphCallback extends IUnknown{
     static VTableNames => ["UnableToRender"]
 
     /**
-     * 
-     * @param {IPin} pPin 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamfiltergraphcallback-unabletorender
+     * The UnableToRender method is called by the Filter Graph Manager if it cannot find any combination of filters to render the specified pin.
+     * @param {IPin} pPin Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface of the pin that could not be rendered.
+     * @returns {HRESULT} If the return value is S_OK, this Filter Graph Manager attempts to render the pin again. For any other return value, including S_FALSE and other success codes, the Filter Graph Manager continues to build the graph as normal. Typically it will reject the current filter and attempt to use a different filter.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamfiltergraphcallback-unabletorender
      */
     UnableToRender(pPin) {
         result := ComCall(3, this, "ptr", pPin, "HRESULT")

@@ -34,13 +34,33 @@ class ISpatialAudioMetadataClient extends IUnknown{
     static VTableNames => ["ActivateSpatialAudioMetadataItems", "GetSpatialAudioMetadataItemsBufferLength", "ActivateSpatialAudioMetadataWriter", "ActivateSpatialAudioMetadataCopier", "ActivateSpatialAudioMetadataReader"]
 
     /**
+     * Creates an ISpatialAudioMetadataItems object for storing spatial audio metadata items.
+     * @param {Integer} maxItemCount The maximum number of metadata items that can be stored in the returned <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a>.
+     * @param {Integer} frameCount The valid range of frame offset positions for metadata items stored in the returned <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a>.
+     * @param {Pointer<ISpatialAudioMetadataItemsBuffer>} metadataItemsBuffer If a pointer is supplied, returns an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitemsbuffer">ISpatialAudioMetadataItemsBuffer</a> interface which provides methods for attaching caller-provided memory for storage of metadata items.  If this parameter is NULL, the object will allocate internal storage for the items.   This interface cannot be obtained via <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>.
+     * @param {Pointer<ISpatialAudioMetadataItems>} metadataItems Receives an instance <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> object which can be populated with metadata items using an  by <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatawriter">ISpatialAudioMetadataWriter</a> or <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatacopier">ISpatialAudioMetadataCopier</a> and can be read with an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatareader">ISpatialAudioMetadataReader</a>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} maxItemCount 
-     * @param {Integer} frameCount 
-     * @param {Pointer<ISpatialAudioMetadataItemsBuffer>} metadataItemsBuffer 
-     * @param {Pointer<ISpatialAudioMetadataItems>} metadataItems 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer provided in the <i>metadataItems</i> parameter  is not valid.
+     * 
+     * The value of <i>maxItemCount</i> or <i>frameCount</i> is 0.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems
      */
     ActivateSpatialAudioMetadataItems(maxItemCount, frameCount, metadataItemsBuffer, metadataItems) {
         result := ComCall(3, this, "ushort", maxItemCount, "ushort", frameCount, "ptr*", metadataItemsBuffer, "ptr*", metadataItems, "HRESULT")
@@ -48,10 +68,10 @@ class ISpatialAudioMetadataClient extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} maxItemCount 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength
+     * Gets the length of the buffer required to store the specified number of spatial audio metadata items.
+     * @param {Integer} maxItemCount The maximum number of metadata items to be stored in an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> object.
+     * @returns {Integer} The length of the buffer required to store the number of spatial audio metadata items specified in the <i>maxItemCount</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength
      */
     GetSpatialAudioMetadataItemsBufferLength(maxItemCount) {
         result := ComCall(4, this, "ushort", maxItemCount, "uint*", &bufferLength := 0, "HRESULT")
@@ -59,10 +79,10 @@ class ISpatialAudioMetadataClient extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} overflowMode 
-     * @returns {ISpatialAudioMetadataWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatawriter
+     * Creates an ISpatialAudioMetadataWriter object for writing spatial audio metadata items to an ISpatialAudioMetadataItems object.
+     * @param {Integer} overflowMode A value that specifies the behavior when attempting to write more metadata items to the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> than the maximum number of items specified when calling <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems">ActivateSpatialAudioMetadataItems</a>.
+     * @returns {ISpatialAudioMetadataWriter} Receives a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatawriter">ISpatialAudioMetadataWriter</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatawriter
      */
     ActivateSpatialAudioMetadataWriter(overflowMode) {
         result := ComCall(5, this, "int", overflowMode, "ptr*", &metadataWriter := 0, "HRESULT")
@@ -70,9 +90,9 @@ class ISpatialAudioMetadataClient extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ISpatialAudioMetadataCopier} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatacopier
+     * Creates an ISpatialAudioMetadataWriter object for copying spatial audio metadata items from one ISpatialAudioMetadataItems object to another.
+     * @returns {ISpatialAudioMetadataCopier} Receives a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatawriter">ISpatialAudioMetadataWriter</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatacopier
      */
     ActivateSpatialAudioMetadataCopier() {
         result := ComCall(6, this, "ptr*", &metadataCopier := 0, "HRESULT")
@@ -80,9 +100,9 @@ class ISpatialAudioMetadataClient extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ISpatialAudioMetadataReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatareader
+     * Creates an ISpatialAudioMetadataWriter object for reading spatial audio metadata items from an ISpatialAudioMetadataItems object.
+     * @returns {ISpatialAudioMetadataReader} Receives a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatareader">ISpatialAudioMetadataReader</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatareader
      */
     ActivateSpatialAudioMetadataReader() {
         result := ComCall(7, this, "ptr*", &metadataReader := 0, "HRESULT")

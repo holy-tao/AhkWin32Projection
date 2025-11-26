@@ -44,10 +44,10 @@ class IMbnConnectionProfileManagerEvents extends IUnknown{
     static VTableNames => ["OnConnectionProfileArrival", "OnConnectionProfileRemoval"]
 
     /**
-     * 
-     * @param {IMbnConnectionProfile} newConnectionProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanagerevents-onconnectionprofilearrival
+     * Notification method that indicates a new connection profile has been added to the system.
+     * @param {IMbnConnectionProfile} newConnectionProfile An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interface that represents a connection profile that has been added.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofilemanagerevents-onconnectionprofilearrival
      */
     OnConnectionProfileArrival(newConnectionProfile) {
         result := ComCall(3, this, "ptr", newConnectionProfile, "HRESULT")
@@ -55,10 +55,10 @@ class IMbnConnectionProfileManagerEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnConnectionProfile} oldConnectionProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanagerevents-onconnectionprofileremoval
+     * Notification method that indicates a connection profile has been removed from the system.
+     * @param {IMbnConnectionProfile} oldConnectionProfile An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interface that represents a connection profile that has been removed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofilemanagerevents-onconnectionprofileremoval
      */
     OnConnectionProfileRemoval(oldConnectionProfile) {
         result := ComCall(4, this, "ptr", oldConnectionProfile, "HRESULT")

@@ -46,84 +46,10 @@ class IMFExtendedCameraControl extends IUnknown{
     }
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
+     * 
      * @param {Integer} ulFlags 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfextendedcameracontrol-setflags
      */
     SetFlags(ulFlags) {
         result := ComCall(4, this, "uint", ulFlags, "HRESULT")

@@ -32,11 +32,11 @@ class ICreateTypeLib extends IUnknown{
     static VTableNames => ["CreateTypeInfo", "SetName", "SetVersion", "SetGuid", "SetDocString", "SetHelpFileName", "SetHelpContext", "SetLcid", "SetLibFlags", "SaveAllChanges"]
 
     /**
-     * 
-     * @param {PWSTR} szName 
-     * @param {Integer} tkind 
-     * @returns {ICreateTypeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-createtypeinfo
+     * Creates a new type description instance within the type library.
+     * @param {PWSTR} szName The name of the new type.
+     * @param {Integer} tkind TYPEKIND of the type description to be created.
+     * @returns {ICreateTypeInfo} The type description.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-createtypeinfo
      */
     CreateTypeInfo(szName, tkind) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -46,10 +46,72 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the name of the type library.
+     * @param {PWSTR} szName The name to be assigned to the library.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setname
      */
     SetName(szName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -59,11 +121,40 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the major and minor version numbers of the type library.
+     * @param {Integer} wMajorVerNum The major version number for the library.
+     * @param {Integer} wMinorVerNum The minor version number for the library.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} wMajorVerNum 
-     * @param {Integer} wMinorVerNum 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setversion
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setversion
      */
     SetVersion(wMajorVerNum, wMinorVerNum) {
         result := ComCall(5, this, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "HRESULT")
@@ -71,10 +162,72 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the universal unique identifier (UUID) associated with the type library.
+     * @param {Pointer<Guid>} guid The globally unique identifier to be assigned to the library.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} guid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setguid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setguid
      */
     SetGuid(guid) {
         result := ComCall(6, this, "ptr", guid, "HRESULT")
@@ -82,10 +235,61 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the documentation string associated with the library.
+     * @param {PWSTR} szDoc A brief description of the type library.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szDoc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setdocstring
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setdocstring
      */
     SetDocString(szDoc) {
         szDoc := szDoc is String ? StrPtr(szDoc) : szDoc
@@ -95,10 +299,72 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the name of the Help file.
+     * @param {PWSTR} szHelpFileName The name of the Help file for the library.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szHelpFileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-sethelpfilename
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-sethelpfilename
      */
     SetHelpFileName(szHelpFileName) {
         szHelpFileName := szHelpFileName is String ? StrPtr(szHelpFileName) : szHelpFileName
@@ -108,10 +374,72 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the Help context ID for retrieving general Help information for the type library.
+     * @param {Integer} dwHelpContext The Help context ID.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwHelpContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-sethelpcontext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-sethelpcontext
      */
     SetHelpContext(dwHelpContext) {
         result := ComCall(9, this, "uint", dwHelpContext, "HRESULT")
@@ -119,10 +447,72 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets the binary Microsoft national language ID associated with the library.
+     * @param {Integer} lcid The locale ID for the type library.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lcid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setlcid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setlcid
      */
     SetLcid(lcid) {
         result := ComCall(10, this, "uint", lcid, "HRESULT")
@@ -130,10 +520,72 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Sets library flags.
+     * @param {Integer} uLibFlags The flags to set.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} uLibFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setlibflags
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-setlibflags
      */
     SetLibFlags(uLibFlags) {
         result := ComCall(11, this, "uint", uLibFlags, "HRESULT")
@@ -141,9 +593,82 @@ class ICreateTypeLib extends IUnknown{
     }
 
     /**
+     * Saves the ICreateTypeLib instance following the layout of type information.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-saveallchanges
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_IOERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function cannot write to the file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TYPE_E_INVALIDSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The state of the type library is not valid for this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib-saveallchanges
      */
     SaveAllChanges() {
         result := ComCall(12, this, "HRESULT")

@@ -41,11 +41,40 @@ class IPNPXDeviceAssociation extends IUnknown{
     static VTableNames => ["Associate", "Unassociate", "Delete"]
 
     /**
+     * Marks an association database entry as associated and sends an appropriate notification.
+     * @param {PWSTR} pszSubCategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
+     * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> object that is registered for notifications with Function Discovery.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pszSubCategory 
-     * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxdeviceassociation-associate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxdeviceassociation-associate
      */
     Associate(pszSubCategory, pIFunctionDiscoveryNotification) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
@@ -55,11 +84,40 @@ class IPNPXDeviceAssociation extends IUnknown{
     }
 
     /**
+     * Marks an association database entry as unassociated and sends an appropriate notification.
+     * @param {PWSTR} pszSubCategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
+     * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> object that is registered for notifications with Function Discovery.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {PWSTR} pszSubCategory 
-     * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxdeviceassociation-unassociate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxdeviceassociation-unassociate
      */
     Unassociate(pszSubCategory, pIFunctionDiscoveryNotification) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
@@ -69,11 +127,40 @@ class IPNPXDeviceAssociation extends IUnknown{
     }
 
     /**
+     * Removes an entry from the association database and sends an appropriate notification.
+     * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
+     * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> object that is registered for notifications with Function Discovery.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {PWSTR} pszSubcategory 
-     * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxdeviceassociation-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxdeviceassociation-delete
      */
     Delete(pszSubcategory, pIFunctionDiscoveryNotification) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory

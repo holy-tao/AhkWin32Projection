@@ -40,10 +40,17 @@ class ID3D10BlendState1 extends ID3D10BlendState{
     static VTableNames => ["GetDesc1"]
 
     /**
+     * Get the blend state.
+     * @remarks
      * 
-     * @param {Pointer<D3D10_BLEND_DESC1>} pDesc 
+     * This method requires Windows Vista Service Pack 1.
+     * 
+     * 
+     * @param {Pointer<D3D10_BLEND_DESC1>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_blend_desc1">D3D10_BLEND_DESC1</a>*</b>
+     * 
+     * A pointer to the blend state (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_blend_desc1">D3D10_BLEND_DESC1</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-id3d10blendstate1-getdesc1
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/nf-d3d10_1-id3d10blendstate1-getdesc1
      */
     GetDesc1(pDesc) {
         ComCall(8, this, "ptr", pDesc)

@@ -43,10 +43,14 @@ class IFolderFilterSite extends IUnknown{
     static VTableNames => ["SetFilter"]
 
     /**
+     * Exposed by a host to allow clients to pass the host their IUnknown interface pointers.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfiltersite-setfilter
+     * A pointer to the client's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. To notify the host to terminate filtering and stop calling your <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifolderfilter">IFolderFilter</a> interface, set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderfiltersite-setfilter
      */
     SetFilter(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")

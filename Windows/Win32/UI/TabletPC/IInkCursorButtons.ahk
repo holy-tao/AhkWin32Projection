@@ -56,9 +56,9 @@ class IInkCursorButtons extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of objects or collections contained in a collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbuttons-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursorbuttons-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -75,10 +75,12 @@ class IInkCursorButtons extends IDispatch{
     }
 
     /**
+     * Retrieves the IInkCursorButton object at the specified index or string identifier within the IInkCursorButtons collection.
+     * @param {VARIANT} Identifier The zero-based index or BSTR identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbutton">IInkCursorButton</a> object to get.
      * 
-     * @param {VARIANT} Identifier 
-     * @returns {IInkCursorButton} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbuttons-item
+     * For more information about the VARIANT and BSTR data types, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @returns {IInkCursorButton} Upon return, contains the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbutton">IInkCursorButton</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbuttons">IInkCursorButtons</a> collection.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursorbuttons-item
      */
     Item(Identifier) {
         result := ComCall(9, this, "ptr", Identifier, "ptr*", &Button := 0, "HRESULT")

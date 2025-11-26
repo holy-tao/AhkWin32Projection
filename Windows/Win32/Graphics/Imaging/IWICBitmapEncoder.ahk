@@ -80,21 +80,17 @@ class IWICBitmapEncoder extends IUnknown{
     static VTableNames => ["Initialize", "GetContainerFormat", "GetEncoderInfo", "SetColorContexts", "SetPalette", "SetThumbnail", "SetPreview", "CreateNewFrame", "Commit", "GetMetadataQueryWriter"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IStream} pIStream 
-     * @param {Integer} cacheOption 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the encoder with an IStream which tells the encoder where to encode the bits.
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * 
+     * The output stream.
+     * @param {Integer} cacheOption Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapencodercacheoption">WICBitmapEncoderCacheOption</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapencodercacheoption">WICBitmapEncoderCacheOption</a> used on initialization.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-initialize
      */
     Initialize(pIStream, cacheOption) {
         result := ComCall(3, this, "ptr", pIStream, "int", cacheOption, "HRESULT")
@@ -102,9 +98,11 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Retrieves the encoder's container format.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-getcontainerformat
+     * A pointer that receives the encoder's container format GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-getcontainerformat
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
@@ -113,9 +111,11 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Retrieves an IWICBitmapEncoderInfo for the encoder.
+     * @returns {IWICBitmapEncoderInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoderinfo">IWICBitmapEncoderInfo</a>**</b>
      * 
-     * @returns {IWICBitmapEncoderInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-getencoderinfo
+     * A pointer that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoderinfo">IWICBitmapEncoderInfo</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-getencoderinfo
      */
     GetEncoderInfo() {
         result := ComCall(5, this, "ptr*", &ppIEncoderInfo := 0, "HRESULT")
@@ -123,11 +123,17 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Sets the IWICColorContext objects for the encoder.
+     * @param {Integer} cCount Type: <b>UINT</b>
      * 
-     * @param {Integer} cCount 
-     * @param {Pointer<IWICColorContext>} ppIColorContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setcolorcontexts
+     * The number of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a> to set.
+     * @param {Pointer<IWICColorContext>} ppIColorContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>**</b>
+     * 
+     * A pointer an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a> pointer containing the color contexts to set for the encoder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-setcolorcontexts
      */
     SetColorContexts(cCount, ppIColorContext) {
         result := ComCall(6, this, "uint", cCount, "ptr*", ppIColorContext, "HRESULT")
@@ -135,10 +141,17 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Sets the global palette for the image.
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
      * 
-     * @param {IWICPalette} pIPalette 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setpalette
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a> to use as the global palette.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise.
+     *             
+     * 
+     * Returns WINCODEC_ERR_UNSUPPORTEDOPERATION if the feature is not supported by the encoder.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-setpalette
      */
     SetPalette(pIPalette) {
         result := ComCall(7, this, "ptr", pIPalette, "HRESULT")
@@ -146,10 +159,17 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Sets the global thumbnail for the image.
+     * @param {IWICBitmapSource} pIThumbnail Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
-     * @param {IWICBitmapSource} pIThumbnail 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setthumbnail
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> to set as the global thumbnail.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise.
+     *             
+     * 
+     * Returns WINCODEC_ERR_UNSUPPORTEDOPERATION if the feature is not supported by the encoder.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-setthumbnail
      */
     SetThumbnail(pIThumbnail) {
         result := ComCall(8, this, "ptr", pIThumbnail, "HRESULT")
@@ -157,10 +177,17 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Sets the global preview for the image.
+     * @param {IWICBitmapSource} pIPreview Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
-     * @param {IWICBitmapSource} pIPreview 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setpreview
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> to use as the global preview.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise.
+     *             
+     * 
+     * Returns WINCODEC_ERR_UNSUPPORTEDOPERATION if the feature is not supported by the encoder.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-setpreview
      */
     SetPreview(pIPreview) {
         result := ComCall(9, this, "ptr", pIPreview, "HRESULT")
@@ -168,10 +195,14 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Creates a new IWICBitmapFrameEncode instance.
+     * @param {Pointer<IPropertyBag2>} ppIEncoderOptions Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768192(v=vs.85)">IPropertyBag2</a>**</b>
      * 
-     * @param {Pointer<IPropertyBag2>} ppIEncoderOptions 
-     * @returns {IWICBitmapFrameEncode} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-createnewframe
+     * Optional. Receives the named properties to use for subsequent frame initialization. See Remarks.
+     * @returns {IWICBitmapFrameEncode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframeencode">IWICBitmapFrameEncode</a>**</b>
+     * 
+     * A pointer that receives a pointer to the new instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframeencode">IWICBitmapFrameEncode</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-createnewframe
      */
     CreateNewFrame(ppIEncoderOptions) {
         result := ComCall(10, this, "ptr*", &ppIFrameEncode := 0, "ptr*", ppIEncoderOptions, "HRESULT")
@@ -179,9 +210,11 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Commits all changes for the image and closes the stream.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-commit
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-commit
      */
     Commit() {
         result := ComCall(11, this, "HRESULT")
@@ -189,9 +222,11 @@ class IWICBitmapEncoder extends IUnknown{
     }
 
     /**
+     * Retrieves a metadata query writer for the encoder.
+     * @returns {IWICMetadataQueryWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>**</b>
      * 
-     * @returns {IWICMetadataQueryWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-getmetadataquerywriter
+     * When this method returns, contains a pointer to the encoder's metadata query writer.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoder-getmetadataquerywriter
      */
     GetMetadataQueryWriter() {
         result := ComCall(12, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")

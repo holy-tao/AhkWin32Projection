@@ -39,9 +39,9 @@ class IWMPMedia2 extends IWMPMedia{
     }
 
     /**
-     * 
-     * @returns {IWMPErrorItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia2-get_error
+     * The get_error method retrieves a pointer to an IWMPErrorItem interface if the media item has an error condition.
+     * @returns {IWMPErrorItem} Pointer to a pointer to an <b>IWMPErrorItem</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia2-get_error
      */
     get_error() {
         result := ComCall(25, this, "ptr*", &ppIWMPErrorItem := 0, "HRESULT")

@@ -31,19 +31,23 @@ class ID2D1BitmapBrush1 extends ID2D1BitmapBrush{
     static VTableNames => ["SetInterpolationMode1", "GetInterpolationMode1"]
 
     /**
+     * Sets the interpolation mode for the brush.
+     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
      * 
-     * @param {Integer} interpolationMode 
+     * The mode to use.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-setinterpolationmode1
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-setinterpolationmode1
      */
     SetInterpolationMode1(interpolationMode) {
         ComCall(16, this, "int", interpolationMode)
     }
 
     /**
+     * Returns the current interpolation mode of the brush.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-getinterpolationmode1
+     * The current interpolation mode.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-getinterpolationmode1
      */
     GetInterpolationMode1() {
         result := ComCall(17, this, "int")

@@ -35,10 +35,14 @@ class IDWriteGdiInterop extends IUnknown{
     static VTableNames => ["CreateFontFromLOGFONT", "ConvertFontToLOGFONT", "ConvertFontFaceToLOGFONT", "CreateFontFaceFromHdc", "CreateBitmapRenderTarget"]
 
     /**
+     * Creates a font object that matches the properties specified by the LOGFONT structure.
+     * @param {Pointer<LOGFONTW>} logFont Type: <b>const LOGFONTW*</b>
      * 
-     * @param {Pointer<LOGFONTW>} logFont 
-     * @returns {IDWriteFont} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfromlogfont
+     * A structure containing a GDI-compatible font description.
+     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * 
+     * When this method returns, contains an address of a  pointer to a newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>  object if successful; otherwise, <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritegdiinterop-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont) {
         result := ComCall(3, this, "ptr", logFont, "ptr*", &font := 0, "HRESULT")
@@ -46,12 +50,20 @@ class IDWriteGdiInterop extends IUnknown{
     }
 
     /**
+     * Initializes a LOGFONT structure based on the GDI-compatible properties of the specified font.
+     * @param {IDWriteFont} font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
      * 
-     * @param {IDWriteFont} font 
-     * @param {Pointer<LOGFONTW>} logFont 
-     * @param {Pointer<BOOL>} isSystemFont 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfonttologfont
+     * An <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object to be converted into a GDI-compatible <b>LOGFONT</b> structure.
+     * @param {Pointer<LOGFONTW>} logFont Type: <b>LOGFONTW*</b>
+     * 
+     * When this method returns, contains a structure that receives a GDI-compatible font description.
+     * @param {Pointer<BOOL>} isSystemFont Type: <b>BOOL*</b>
+     * 
+     * When this method returns, contains <b>TRUE</b> if the specified font object is part of the system font collection; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritegdiinterop-convertfonttologfont
      */
     ConvertFontToLOGFONT(font, logFont, isSystemFont) {
         isSystemFontMarshal := isSystemFont is VarRef ? "int*" : "ptr"
@@ -61,10 +73,14 @@ class IDWriteGdiInterop extends IUnknown{
     }
 
     /**
+     * Initializes a LOGFONT structure based on the GDI-compatible properties of the specified font.
+     * @param {IDWriteFontFace} font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
-     * @param {IDWriteFontFace} font 
-     * @returns {LOGFONTW} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfontfacetologfont
+     * An <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a> object to be converted into a GDI-compatible LOGFONT structure.
+     * @returns {LOGFONTW} Type: <b>LOGFONTW*</b>
+     * 
+     * When this method returns, contains a pointer to a structure that receives a GDI-compatible font description.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritegdiinterop-convertfontfacetologfont
      */
     ConvertFontFaceToLOGFONT(font) {
         logFont := LOGFONTW()
@@ -73,10 +89,16 @@ class IDWriteGdiInterop extends IUnknown{
     }
 
     /**
+     * Creates an IDWriteFontFace object that corresponds to the currently selected HFONT of the specified HDC.
+     * @param {HDC} hdc Type: <b>HDC</b>
      * 
-     * @param {HDC} hdc 
-     * @returns {IDWriteFontFace} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfacefromhdc
+     * A handle to a device context into which a font has been selected. It is assumed that the client
+     *      has already performed font mapping and that the font selected into the device context is the actual font to be used 
+     *      for rendering glyphs.
+     * @returns {IDWriteFontFace} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>**</b>
+     * 
+     * Contains an address of a pointer to  the newly created font face object, or <b>NULL</b> in case of failure. The font face returned is guaranteed to reference the same physical typeface that would be used for drawing glyphs (but not necessarily characters) using ExtTextOut.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritegdiinterop-createfontfacefromhdc
      */
     CreateFontFaceFromHdc(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
@@ -86,12 +108,20 @@ class IDWriteGdiInterop extends IUnknown{
     }
 
     /**
+     * Creates an object that encapsulates a bitmap and memory DC (device context) which can be used for rendering glyphs.
+     * @param {HDC} hdc Type: <b>HDC</b>
      * 
-     * @param {HDC} hdc 
-     * @param {Integer} width 
-     * @param {Integer} height 
-     * @returns {IDWriteBitmapRenderTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
+     * A handle to the optional device context used to create a compatible memory DC (device context).
+     * @param {Integer} width Type: <b>UINT32</b>
+     * 
+     * The width of the bitmap render target.
+     * @param {Integer} height Type: <b>UINT32</b>
+     * 
+     * The height of the bitmap render target.
+     * @returns {IDWriteBitmapRenderTarget} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritebitmaprendertarget">IDWriteBitmapRenderTarget</a>**</b>
+     * 
+     * When this method returns, contains an address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritebitmaprendertarget">IDWriteBitmapRenderTarget</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
      */
     CreateBitmapRenderTarget(hdc, width, height) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

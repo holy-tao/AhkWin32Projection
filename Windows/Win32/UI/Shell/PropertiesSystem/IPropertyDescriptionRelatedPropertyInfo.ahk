@@ -39,11 +39,17 @@ class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription{
     static VTableNames => ["GetRelatedProperty"]
 
     /**
+     * Retrieves an IPropertyDescription object that represents the related property.
+     * @param {PWSTR} pszRelationshipName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszRelationshipName 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionrelatedpropertyinfo-getrelatedproperty
+     * A pointer to a string that contains the relationship of the property to get.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface to retrieve through the <i>ppv</i> parameter, typically IID_IPropertyDescription.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Receives the interface pointer requested in the parameter. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescriptionrelatedpropertyinfo-getrelatedproperty
      */
     GetRelatedProperty(pszRelationshipName, riid) {
         pszRelationshipName := pszRelationshipName is String ? StrPtr(pszRelationshipName) : pszRelationshipName

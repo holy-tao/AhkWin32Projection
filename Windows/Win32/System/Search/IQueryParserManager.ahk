@@ -42,12 +42,20 @@ class IQueryParserManager extends IUnknown{
     static VTableNames => ["CreateLoadedParser", "InitializeOptions", "SetOption"]
 
     /**
+     * Creates a new instance of a IQueryParser interface implementation. This instance of the query parser is loaded with the schema for the specified catalog and is localized to a specified language. All other settings are initialized to default settings.
+     * @param {PWSTR} pszCatalog Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszCatalog 
-     * @param {Integer} langidForKeywords 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparsermanager-createloadedparser
+     * The name of the catalog to use. Permitted values are <c>SystemIndex</c> and an empty string (for a trivial schema with no properties).
+     * @param {Integer} langidForKeywords Type: <b>LANGID</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">LANGID</a> used to select the localized language for keywords.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The IID of the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iqueryparser">IQueryParser</a> interface implementation.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Receives a pointer to the newly created parser. The calling application must release it by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparsermanager-createloadedparser
      */
     CreateLoadedParser(pszCatalog, langidForKeywords, riid) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
@@ -57,12 +65,20 @@ class IQueryParserManager extends IUnknown{
     }
 
     /**
+     * Sets the flags for Natural Query Syntax (NQS) and automatic wildcard characters for the specified query parser.
+     * @param {BOOL} fUnderstandNQS Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fUnderstandNQS 
-     * @param {BOOL} fAutoWildCard 
-     * @param {IQueryParser} pQueryParser 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparsermanager-initializeoptions
+     * <b>BOOL</b> flag that controls whether NQS is supported by this instance of the query parser.
+     * @param {BOOL} fAutoWildCard Type: <b>BOOL</b>
+     * 
+     * <b>BOOL</b> flag that controls whether a wildcard character (*) is to be assumed after each word in the query (unless followed by punctuation other than a parenthesis).
+     * @param {IQueryParser} pQueryParser Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iqueryparser">IQueryParser</a>*</b>
+     * 
+     * Pointer to the query parser object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparsermanager-initializeoptions
      */
     InitializeOptions(fUnderstandNQS, fAutoWildCard, pQueryParser) {
         result := ComCall(4, this, "int", fUnderstandNQS, "int", fAutoWildCard, "ptr", pQueryParser, "HRESULT")
@@ -70,11 +86,17 @@ class IQueryParserManager extends IUnknown{
     }
 
     /**
+     * Changes a single option in this IQueryParserManager object. For example, this method could change the name of the schema binary to load or the location of localized schema binaries.
+     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option">QUERY_PARSER_MANAGER_OPTION</a></b>
      * 
-     * @param {Integer} option 
-     * @param {Pointer<PROPVARIANT>} pOptionValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparsermanager-setoption
+     * The <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option">QUERY_PARSER_MANAGER_OPTION</a> to be changed.
+     * @param {Pointer<PROPVARIANT>} pOptionValue Type: <b>PROPVARIANT const*</b>
+     * 
+     * A pointer to the value to use for the option selected.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparsermanager-setoption
      */
     SetOption(option, pOptionValue) {
         result := ComCall(5, this, "int", option, "ptr", pOptionValue, "HRESULT")

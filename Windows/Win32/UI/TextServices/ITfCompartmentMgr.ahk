@@ -47,10 +47,10 @@ class ITfCompartmentMgr extends IUnknown{
     static VTableNames => ["GetCompartment", "ClearCompartment", "EnumCompartments"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rguid 
-     * @returns {ITfCompartment} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-getcompartment
+     * ITfCompartmentMgr::GetCompartment method
+     * @param {Pointer<Guid>} rguid Contains a GUID that identifies the compartment.
+     * @returns {ITfCompartment} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompartment">ITfCompartment</a> interface pointer that receives the compartment object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmentmgr-getcompartment
      */
     GetCompartment(rguid) {
         result := ComCall(3, this, "ptr", rguid, "ptr*", &ppcomp := 0, "HRESULT")
@@ -58,11 +58,62 @@ class ITfCompartmentMgr extends IUnknown{
     }
 
     /**
+     * ITfCompartmentMgr::ClearCompartment method
+     * @param {Integer} tid Contains a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that identifies the client.
+     * @param {Pointer<Guid>} rguid Contains a GUID that identifies the compartment.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} tid 
-     * @param {Pointer<Guid>} rguid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-clearcompartment
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONNECT_E_NOCONNECTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The compartment cannot be found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The owner must clear this compartment.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmentmgr-clearcompartment
      */
     ClearCompartment(tid, rguid) {
         result := ComCall(4, this, "uint", tid, "ptr", rguid, "HRESULT")
@@ -70,9 +121,9 @@ class ITfCompartmentMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumGUID} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-enumcompartments
+     * The ITfCompartmentMgr::EnumCompartments method obtains an enumerator that contains the GUID of the compartments within the compartment manager.
+     * @returns {IEnumGUID} Pointer to an <b>IEnumGUID</b> interface pointer that receives the enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmentmgr-enumcompartments
      */
     EnumCompartments() {
         result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")

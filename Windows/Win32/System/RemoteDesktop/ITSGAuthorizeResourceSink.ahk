@@ -31,16 +31,16 @@ class ITSGAuthorizeResourceSink extends IUnknown{
     static VTableNames => ["OnChannelAuthorized"]
 
     /**
-     * 
-     * @param {HRESULT} hrIn 
-     * @param {Guid} mainSessionId 
-     * @param {Integer} subSessionId 
-     * @param {Pointer<BSTR>} allowedResourceNames 
-     * @param {Integer} numAllowedResourceNames 
-     * @param {Pointer<BSTR>} failedResourceNames 
-     * @param {Integer} numFailedResourceNames 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeresourcesink-onchannelauthorized
+     * Notifies Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a resource.
+     * @param {HRESULT} hrIn The result of the authorization attempt. Specify <b>S_OK</b> to indicate that the attempt succeeded. Specify any other value to indicate that the attempt failed.
+     * @param {Guid} mainSessionId A unique identifier assigned to the connection request by RD Gateway.
+     * @param {Integer} subSessionId A unique identifier assigned to the subsession by RD Gateway. A subsession is a session launched from another session.
+     * @param {Pointer<BSTR>} allowedResourceNames A pointer to a <b>BSTR</b> that contains a list of resources that were successfully authorized.
+     * @param {Integer} numAllowedResourceNames The number of resources referenced by the <i>allowedResourceNames</i> parameter. If the function succeeds, this parameter must be one or more.
+     * @param {Pointer<BSTR>} failedResourceNames A pointer to a <b>BSTR</b> that contains a list of resources that failed authorization.
+     * @param {Integer} numFailedResourceNames The number of resources referenced by the <i>failedResourceNames</i> parameter.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeresourcesink-onchannelauthorized
      */
     OnChannelAuthorized(hrIn, mainSessionId, subSessionId, allowedResourceNames, numAllowedResourceNames, failedResourceNames, numFailedResourceNames) {
         result := ComCall(3, this, "int", hrIn, "ptr", mainSessionId, "int", subSessionId, "ptr", allowedResourceNames, "uint", numAllowedResourceNames, "ptr", failedResourceNames, "uint", numFailedResourceNames, "HRESULT")

@@ -31,9 +31,11 @@ class IRegTreeItem extends IUnknown{
     static VTableNames => ["GetCheckState", "SetCheckState"]
 
     /**
+     * Gets the state of a check box item in a tree-view control.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iregtreeitem-getcheckstate
+     * A pointer to a <b>BOOL</b> that contains the state of the check box.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iregtreeitem-getcheckstate
      */
     GetCheckState() {
         result := ComCall(3, this, "int*", &pbCheck := 0, "HRESULT")
@@ -41,10 +43,14 @@ class IRegTreeItem extends IUnknown{
     }
 
     /**
+     * Sets the state of a check box item in a tree-view control.
+     * @param {BOOL} bCheck Type: <b>BOOL</b>
      * 
-     * @param {BOOL} bCheck 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iregtreeitem-setcheckstate
+     * A <b>BOOL</b> that sets the state of the check box.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iregtreeitem-setcheckstate
      */
     SetCheckState(bCheck) {
         result := ComCall(4, this, "int", bCheck, "HRESULT")

@@ -37,10 +37,10 @@ class IMFMediaStreamSourceSampleRequest extends IUnknown{
     static VTableNames => ["SetSample"]
 
     /**
-     * 
-     * @param {IMFSample} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/medfound/imfmediastreamsourcesamplerequest-setsample
+     * Sets the sample for the media stream source.
+     * @param {IMFSample} value The sample for the media stream source.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediastreamsourcesamplerequest-setsample
      */
     SetSample(value) {
         result := ComCall(3, this, "ptr", value, "HRESULT")

@@ -38,10 +38,10 @@ class IWindowsParentalControls extends IWindowsParentalControlsCore{
     static VTableNames => ["GetGamesSettings"]
 
     /**
-     * 
-     * @param {PWSTR} pcszSID 
-     * @returns {IWPCGamesSettings} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrols-getgamessettings
+     * Retrieves a pointer to an interface for games restrictions settings for the specified user.
+     * @param {PWSTR} pcszSID The SID string of the user. If this parameter is <b>NULL</b>, retrieve settings for the current user.
+     * @returns {IWPCGamesSettings} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wpcapi/nn-wpcapi-iwpcgamessettings">IWPCGamesSettings</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwindowsparentalcontrols-getgamessettings
      */
     GetGamesSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID

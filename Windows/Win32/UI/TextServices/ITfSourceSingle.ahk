@@ -49,12 +49,85 @@ class ITfSourceSingle extends IUnknown{
     static VTableNames => ["AdviseSingleSink", "UnadviseSingleSink"]
 
     /**
+     * ITfSourceSingle::AdviseSingleSink method
+     * @param {Integer} tid Contains a <b>TfClientId</b> value that identifies the client.
+     * @param {Pointer<Guid>} riid Identifies the type of advise sink to install.
+     * @param {IUnknown} punk Pointer to the advise sink <b>IUnknown</b> pointer.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} tid 
-     * @param {Pointer<Guid>} riid 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONNECT_E_CANNOTCONNECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The advise sink cannot be installed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONNECT_E_ADVISELIMIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The maximum number of advise sinks has been reached.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A memory allocation failure occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsourcesingle-advisesinglesink
      */
     AdviseSingleSink(tid, riid, punk) {
         result := ComCall(3, this, "uint", tid, "ptr", riid, "ptr", punk, "HRESULT")
@@ -62,11 +135,51 @@ class ITfSourceSingle extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tid 
+     * ITfSourceSingle::UnadviseSingleSink method
+     * @param {Integer} tid Contains a <b>TfClientId</b> value that identifies the client.
      * @param {Pointer<Guid>} riid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-unadvisesinglesink
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The advise sink was successfully uninstalled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>tid</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONNECT_E_NOCONNECTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The advise sink is not installed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsourcesingle-unadvisesinglesink
      */
     UnadviseSingleSink(tid, riid) {
         result := ComCall(4, this, "uint", tid, "ptr", riid, "HRESULT")

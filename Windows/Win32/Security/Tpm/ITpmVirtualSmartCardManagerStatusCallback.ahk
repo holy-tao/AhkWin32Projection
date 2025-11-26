@@ -31,10 +31,12 @@ class ITpmVirtualSmartCardManagerStatusCallback extends IUnknown{
     static VTableNames => ["ReportProgress", "ReportError"]
 
     /**
+     * Reports the progress of the current operation.
+     * @param {Integer} Status Status code of the current operation from the possible status states listed in the <a href="https://docs.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status">TPMVSCMGR_STATUS</a> enumeration.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {Integer} Status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reportprogress
+     * If the method fails, it returns a Win32 error code. The requested operation on the TPM virtual smart card manager server may be interrupted.
+     * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reportprogress
      */
     ReportProgress(Status) {
         result := ComCall(3, this, "int", Status, "HRESULT")
@@ -42,10 +44,12 @@ class ITpmVirtualSmartCardManagerStatusCallback extends IUnknown{
     }
 
     /**
+     * Reports any errors from the requested operation.
+     * @param {Integer} Error Error code of the current error from the possible errors listed in the <a href="https://docs.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_error">TPMVSCMGR_ERROR</a> enumeration.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {Integer} Error 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reporterror
+     * If the method fails, it returns a Win32 error code. The requested operation on the TPM virtual smart card manager server may be interrupted.
+     * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reporterror
      */
     ReportError(Error) {
         result := ComCall(4, this, "int", Error, "HRESULT")

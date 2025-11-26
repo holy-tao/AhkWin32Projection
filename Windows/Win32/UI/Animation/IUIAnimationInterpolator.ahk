@@ -41,11 +41,13 @@ class IUIAnimationInterpolator extends IUnknown{
     static VTableNames => ["SetInitialValueAndVelocity", "SetDuration", "GetDuration", "GetFinalValue", "InterpolateValue", "InterpolateVelocity", "GetDependencies"]
 
     /**
-     * 
-     * @param {Float} initialValue 
-     * @param {Float} initialVelocity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-setinitialvalueandvelocity
+     * Sets the initial value and velocity at the start of the transition.
+     * @param {Float} initialValue The initial value.
+     * @param {Float} initialVelocity The initial velocity.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. 
+     *             
+     * See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-setinitialvalueandvelocity
      */
     SetInitialValueAndVelocity(initialValue, initialVelocity) {
         result := ComCall(3, this, "double", initialValue, "double", initialVelocity, "HRESULT")
@@ -53,10 +55,10 @@ class IUIAnimationInterpolator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} duration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-setduration
+     * Sets the duration of the transition.
+     * @param {Float} duration The duration of the transition.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-setduration
      */
     SetDuration(duration) {
         result := ComCall(4, this, "double", duration, "HRESULT")
@@ -64,9 +66,9 @@ class IUIAnimationInterpolator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getduration
+     * Gets the duration of a transition.
+     * @returns {Float} The duration of the transition.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-getduration
      */
     GetDuration() {
         result := ComCall(5, this, "double*", &duration := 0, "HRESULT")
@@ -74,9 +76,9 @@ class IUIAnimationInterpolator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getfinalvalue
+     * Gets the final value at the end of the transition.
+     * @returns {Float} The final value.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-getfinalvalue
      */
     GetFinalValue() {
         result := ComCall(6, this, "double*", &value := 0, "HRESULT")
@@ -84,10 +86,12 @@ class IUIAnimationInterpolator extends IUnknown{
     }
 
     /**
+     * Interpolates the value of an animation variable at the specified offset.
+     * @param {Float} offset The offset from the start of the transition.
      * 
-     * @param {Float} offset 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevalue
+     * This parameter is always greater than or equal to zero and less than the duration of the transition. This method is not called if the duration of the transition is zero.
+     * @returns {Float} The interpolated value.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-interpolatevalue
      */
     InterpolateValue(offset) {
         result := ComCall(7, this, "double", offset, "double*", &value := 0, "HRESULT")
@@ -95,10 +99,12 @@ class IUIAnimationInterpolator extends IUnknown{
     }
 
     /**
+     * Interpolates the velocity, or rate of change, at the specified offset.
+     * @param {Float} offset The offset from the start of the transition.
      * 
-     * @param {Float} offset 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevelocity
+     * The offset is always greater than or equal to zero and less than or equal to the duration of the transition. This method is not called if the duration of the transition is zero.
+     * @returns {Float} The interpolated velocity.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-interpolatevelocity
      */
     InterpolateVelocity(offset) {
         result := ComCall(8, this, "double", offset, "double*", &velocity := 0, "HRESULT")
@@ -106,12 +112,12 @@ class IUIAnimationInterpolator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} initialValueDependencies 
-     * @param {Pointer<Integer>} initialVelocityDependencies 
-     * @param {Pointer<Integer>} durationDependencies 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getdependencies
+     * Gets the aspects of the interpolator that depend on the initial value or velocity passed to SetInitialValueAndVelocity, or that depend on the duration passed to SetDuration.
+     * @param {Pointer<Integer>} initialValueDependencies Aspects of the interpolator that depend on the  initial value passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
+     * @param {Pointer<Integer>} initialVelocityDependencies Aspects of the interpolator that depend on the initial velocity passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
+     * @param {Pointer<Integer>} durationDependencies Aspects of the interpolator that depend on the duration passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator-setduration">SetDuration</a>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator-getdependencies
      */
     GetDependencies(initialValueDependencies, initialVelocityDependencies, durationDependencies) {
         initialValueDependenciesMarshal := initialValueDependencies is VarRef ? "int*" : "ptr"

@@ -37,9 +37,9 @@ class IMFTrustedOutput extends IUnknown{
     static VTableNames => ["GetOutputTrustAuthorityCount", "GetOutputTrustAuthorityByIndex", "IsFinal"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount
+     * Gets the number of output trust authorities (OTAs) provided by this trusted output. Each OTA reports a single action.
+     * @returns {Integer} Receives the number of OTAs.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount
      */
     GetOutputTrustAuthorityCount() {
         result := ComCall(3, this, "uint*", &pcOutputTrustAuthorities := 0, "HRESULT")
@@ -47,10 +47,10 @@ class IMFTrustedOutput extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwIndex 
-     * @returns {IMFOutputTrustAuthority} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritybyindex
+     * Gets an output trust authority (OTA), specified by index.
+     * @param {Integer} dwIndex Zero-based index of the OTA to retrieve. To get the number of OTAs provided by this object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount">IMFTrustedOutput::GetOutputTrustAuthorityCount</a>.
+     * @returns {IMFOutputTrustAuthority} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfoutputtrustauthority">IMFOutputTrustAuthority</a> interface of the OTA. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritybyindex
      */
     GetOutputTrustAuthorityByIndex(dwIndex) {
         result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppauthority := 0, "HRESULT")
@@ -58,9 +58,9 @@ class IMFTrustedOutput extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-isfinal
+     * Queries whether this output is a policy sink, meaning it handles the rights and restrictions required by the input trust authority (ITA).
+     * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, this object is a policy sink. If <b>FALSE</b>, the policy must be enforced further downstream.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedoutput-isfinal
      */
     IsFinal() {
         result := ComCall(5, this, "int*", &pfIsFinal := 0, "HRESULT")

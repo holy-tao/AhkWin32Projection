@@ -36,9 +36,9 @@ class IMFSourceReaderCallback2 extends IMFSourceReaderCallback{
     static VTableNames => ["OnTransformChange", "OnStreamError"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback2-ontransformchange
+     * Called when the transform chain in the IMFSourceReader is built or modified.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the source reader ignores the return value.
+     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereadercallback2-ontransformchange
      */
     OnTransformChange() {
         result := ComCall(6, this, "HRESULT")
@@ -46,11 +46,11 @@ class IMFSourceReaderCallback2 extends IMFSourceReaderCallback{
     }
 
     /**
-     * 
-     * @param {Integer} dwStreamIndex 
-     * @param {HRESULT} hrStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback2-onstreamerror
+     * Called when an asynchronous error occurs with the IMFSourceReader.
+     * @param {Integer} dwStreamIndex The index of the stream of the transform that raised the asynchronous error.
+     * @param {HRESULT} hrStatus The error that occurred.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the source reader ignores the return value.
+     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereadercallback2-onstreamerror
      */
     OnStreamError(dwStreamIndex, hrStatus) {
         result := ComCall(7, this, "uint", dwStreamIndex, "int", hrStatus, "HRESULT")

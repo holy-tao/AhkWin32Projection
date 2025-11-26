@@ -37,13 +37,23 @@ class IHWEventHandler2 extends IHWEventHandler{
     static VTableNames => ["HandleEventWithHWND"]
 
     /**
+     * Handles AutoPlay device events that contain content types that the application is not registered to handle. This method provides a handle to the owner window so that UI can be displayed if the process requires elevated privileges.
+     * @param {PWSTR} pszDeviceID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszDeviceID 
-     * @param {PWSTR} pszAltDeviceID 
-     * @param {PWSTR} pszEventType 
-     * @param {HWND} hwndOwner 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd
+     * A pointer to a string buffer that contains the device ID.
+     * @param {PWSTR} pszAltDeviceID Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string buffer that contains the alternate device ID. The alternate device ID is more human-readable than the primary device ID.
+     * @param {PWSTR} pszEventType Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string buffer that contains the event type. The event types include DeviceArrival, DeviceRemoval, MediaArrival, and MediaRemoval.
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
+     * 
+     * A handle to the AutoPlay dialog that was displayed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd
      */
     HandleEventWithHWND(pszDeviceID, pszAltDeviceID, pszEventType, hwndOwner) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID

@@ -44,9 +44,9 @@ class IDVBTuningSpace2 extends IDVBTuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-get_networkid
+     * The get_NetworkID method retrieves the Network ID of the DVB system.
+     * @returns {Integer} Receive the network ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtuningspace2-get_networkid
      */
     get_NetworkID() {
         result := ComCall(28, this, "int*", &NetworkID := 0, "HRESULT")
@@ -54,10 +54,10 @@ class IDVBTuningSpace2 extends IDVBTuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NetworkID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-put_networkid
+     * The put_NetworkID method sets the Network ID of the DVB system.
+     * @param {Integer} NetworkID Specifies the <i>NetworkID</i> as a <b>long</b> integer.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtuningspace2-put_networkid
      */
     put_NetworkID(NetworkID) {
         result := ComCall(29, this, "int", NetworkID, "HRESULT")

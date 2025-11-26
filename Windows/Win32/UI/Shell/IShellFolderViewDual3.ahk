@@ -69,9 +69,11 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Gets the column used for grouping the folder view.
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_groupby
+     * When this method returns, contains a pointer to the column name.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-get_groupby
      */
     get_GroupBy() {
         pbstrGroupBy := BSTR()
@@ -80,10 +82,14 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Sets the column used in grouping the folder view.
+     * @param {BSTR} bstrGroupBy Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a></b>
      * 
-     * @param {BSTR} bstrGroupBy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-put_groupby
+     * A <b>BSTR</b> that contains the column name.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-put_groupby
      */
     put_GroupBy(bstrGroupBy) {
         bstrGroupBy := bstrGroupBy is String ? BSTR.Alloc(bstrGroupBy).Value : bstrGroupBy
@@ -93,9 +99,11 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Gets the settings for the current folder.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_folderflags
+     * When this method returns, contains a pointer to the current setting flags.  For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-get_folderflags
      */
     get_FolderFlags() {
         result := ComCall(21, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -103,10 +111,14 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Sets the current folders settings.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-put_folderflags
+     * Flags that determine the folder settings. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-put_folderflags
      */
     put_FolderFlags(dwFlags) {
         result := ComCall(22, this, "uint", dwFlags, "HRESULT")
@@ -114,9 +126,11 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Gets the names of the columns used to sort the current folder.
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_sortcolumns
+     * A <b>BSTR</b> that contains the column names.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-get_sortcolumns
      */
     get_SortColumns() {
         pbstrSortColumns := BSTR()
@@ -125,10 +139,14 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Sets the names of the columns to be sorted.
+     * @param {BSTR} bstrSortColumns Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a></b>
      * 
-     * @param {BSTR} bstrSortColumns 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-put_sortcolumns
+     * The <b>BSTR</b> that contains the names of the columns to be sorted for the current folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-put_sortcolumns
      */
     put_SortColumns(bstrSortColumns) {
         bstrSortColumns := bstrSortColumns is String ? BSTR.Alloc(bstrSortColumns).Value : bstrSortColumns
@@ -138,10 +156,14 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Sets the icon size setting for the current folder.
+     * @param {Integer} iIconSize Type: <b>int</b>
      * 
-     * @param {Integer} iIconSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-put_iconsize
+     * The icon size value.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-put_iconsize
      */
     put_IconSize(iIconSize) {
         result := ComCall(25, this, "int", iIconSize, "HRESULT")
@@ -149,9 +171,11 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Gets the icon size setting for the current folder.
+     * @returns {Integer} Type: <b>int*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_iconsize
+     * When this method returns, contains a pointer to the icon size value.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-get_iconsize
      */
     get_IconSize() {
         result := ComCall(26, this, "int*", &piIconSize := 0, "HRESULT")
@@ -159,10 +183,14 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     }
 
     /**
+     * Sets the filter on the contents of the current view.
+     * @param {BSTR} bstrFilterText Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a></b>
      * 
-     * @param {BSTR} bstrFilterText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-filterview
+     * The BSTR that names the filter view for the current folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual3-filterview
      */
     FilterView(bstrFilterText) {
         bstrFilterText := bstrFilterText is String ? BSTR.Alloc(bstrFilterText).Value : bstrFilterText

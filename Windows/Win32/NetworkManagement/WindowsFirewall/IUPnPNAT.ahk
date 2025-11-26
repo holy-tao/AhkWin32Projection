@@ -61,9 +61,10 @@ class IUPnPNAT extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IStaticPortMappingCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_staticportmappingcollection
+     * The get_StaticPortMappingCollection method retrieves an interface for the collection of static port mappings on the NAT used by the local computer.
+     * @returns {IStaticPortMappingCollection} Pointer to an interface pointer that points to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/natupnp/nn-natupnp-istaticportmappingcollection">IStaticPortMappingCollection</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-iupnpnat-get_staticportmappingcollection
      */
     get_StaticPortMappingCollection() {
         result := ComCall(7, this, "ptr*", &ppSPMs := 0, "HRESULT")
@@ -81,9 +82,10 @@ class IUPnPNAT extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {INATEventManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_nateventmanager
+     * The get_NATEventManager method retrieves an INATEventManager interface for the NAT used by the local computer.
+     * @returns {INATEventManager} Pointer to an interface pointer that points to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/natupnp/nn-natupnp-inateventmanager">INATEventManager</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-iupnpnat-get_nateventmanager
      */
     get_NATEventManager() {
         result := ComCall(9, this, "ptr*", &ppNEM := 0, "HRESULT")

@@ -75,9 +75,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * 
+     * The get_EnableResetOnStop method indicates how playback will resume if the graph is rebuilt.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_enableresetonstop
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-get_enableresetonstop
      */
     get_EnableResetOnStop() {
         result := ComCall(18, this, "short*", &pVal := 0, "HRESULT")
@@ -85,10 +85,28 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * 
+     * The put_EnableResetOnStop method indicates how playback will resume if the graph is rebuilt.
      * @param {VARIANT_BOOL} newVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_enableresetonstop
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-put_enableresetonstop
      */
     put_EnableResetOnStop(newVal) {
         result := ComCall(19, this, "short", newVal, "HRESULT")
@@ -96,9 +114,38 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The Run method runs the playback device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-run
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-run
      */
     Run() {
         result := ComCall(20, this, "HRESULT")
@@ -106,9 +153,38 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The Pause method pauses the playback device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-pause
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-pause
      */
     Pause() {
         result := ComCall(21, this, "HRESULT")
@@ -116,9 +192,38 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The Stop method stops the playback device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-stop
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-stop
      */
     Stop() {
         result := ComCall(22, this, "HRESULT")
@@ -126,10 +231,10 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * 
+     * The get_CanStep method queries whether the input source can step frame by frame.
      * @param {VARIANT_BOOL} fBackwards 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_canstep
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-get_canstep
      */
     get_CanStep(fBackwards) {
         result := ComCall(23, this, "short", fBackwards, "short*", &pfCan := 0, "HRESULT")
@@ -137,10 +242,54 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The Step method steps through the video stream by a specified number of frames.
+     * @param {Integer} lStep Specifies how many frames to step. If <i>lStep</i> is 1, the Video Control steps forward one frame. If <i>lStep</i> is a number <i>N</i> greater than 1, the Video Control skips <i>N</i> - 1 frames and shows the <i>N</i>th frame.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @param {Integer} lStep 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-step
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The graph is not built. Call the <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-build">Build</a> or <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">View</a> method on the Video Control.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  The value ERROR_INVALID_STATE is converted to an <b>HRESULT</b> with the <b>HRESULT_FROM_WIN32</b> macro.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-step
      */
     Step(lStep) {
         result := ComCall(24, this, "int", lStep, "HRESULT")
@@ -148,10 +297,54 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The put_Rate method sets the playback rate.
+     * @param {Float} plRate Specifies the playback rate, as a ratio to the authored rate. For example, 0.5 means half the normal speed, 1.0 means normal speed, and 2.0 means twice the normal speed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @param {Float} plRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_rate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The source filter does not support the specified rate.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The graph is not built. Call the <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-build">Build</a> or <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">View</a> method on the Video Control.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  The value ERROR_INVALID_STATE is converted to an <b>HRESULT</b> with the <b>HRESULT_FROM_WIN32</b> macro.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-put_rate
      */
     put_Rate(plRate) {
         result := ComCall(25, this, "double", plRate, "HRESULT")
@@ -159,9 +352,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_rate
+     * The get_Rate method retrieves the playback rate.
+     * @returns {Float} Pointer to a variable that receives the playback rate, as a ratio to the authored rate. For example, 0.5 means half the normal speed, 1.0 means normal speed, and 2.0 means twice the normal speed.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-get_rate
      */
     get_Rate() {
         result := ComCall(26, this, "double*", &plRate := 0, "HRESULT")
@@ -169,10 +362,74 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The put_CurrentPosition method seeks to a specified position in the source.
+     * @param {Integer} lPosition Specifies the new position. The units for this parameter are determined by the current position mode.
      * 
-     * @param {Integer} lPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_currentposition
+     * <table>
+     * <tr>
+     * <th>Position Mode
+     *                 </th>
+     * <th>Returned Value
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>FrameMode</td>
+     * <td>Frame number</td>
+     * </tr>
+     * <tr>
+     * <td>TenthsSecondsMode</td>
+     * <td>Hundredths of seconds</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * To set the position mode, call <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidplayback-put_positionmode">IMSVidPlayback::put_PositionMode</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The graph is not built. Call the <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-build">Build</a> or <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">View</a> method on the Video Control.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  The value ERROR_INVALID_STATE is converted to an <b>HRESULT</b> with the <b>HRESULT_FROM_WIN32</b> macro.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-put_currentposition
      */
     put_CurrentPosition(lPosition) {
         result := ComCall(27, this, "int", lPosition, "HRESULT")
@@ -180,9 +437,29 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The get_CurrentPosition method returns the current playback position of the source.
+     * @returns {Integer} Pointer to a variable that receives the playback position. The units for the returned value are determined by the current position mode:
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_currentposition
+     * <table>
+     * <tr>
+     * <th>Position Mode
+     *                 </th>
+     * <th>Returned Value
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>FrameMode</td>
+     * <td>Frame number</td>
+     * </tr>
+     * <tr>
+     * <td>TenthsSecondsMode</td>
+     * <td>Hundredths of seconds</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * To set the position mode, call <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidplayback-put_positionmode">IMSVidPlayback::put_PositionMode</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-get_currentposition
      */
     get_CurrentPosition() {
         result := ComCall(28, this, "int*", &lPosition := 0, "HRESULT")
@@ -190,10 +467,65 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * 
+     * The put_PositionMode method specifies how position values will be interpreted by this interface.
      * @param {Integer} lPositionMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_positionmode
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The graph is not built. Call the <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-build">Build</a> or <a href="/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">View</a> method on the Video Control.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failed. Possibly the source does not support this mode.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  The value ERROR_INVALID_STATE is converted to an <b>HRESULT</b> with the <b>HRESULT_FROM_WIN32</b> macro.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-put_positionmode
      */
     put_PositionMode(lPositionMode) {
         result := ComCall(29, this, "int", lPositionMode, "HRESULT")
@@ -201,9 +533,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * 
+     * The get_PositionMode method indicates how position values are interpreted by this interface.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_positionmode
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-get_positionmode
      */
     get_PositionMode() {
         result := ComCall(30, this, "int*", &lPositionMode := 0, "HRESULT")
@@ -211,9 +543,29 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
+     * The get_Length method retrieves the length of the playback source.
+     * @returns {Integer} Pointer to a variable that receives the length. The units for the returned value are determined by the current position mode.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_length
+     * <table>
+     * <tr>
+     * <th>Position Mode
+     *                 </th>
+     * <th>Returned Value
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>FrameMode</td>
+     * <td>Frame number</td>
+     * </tr>
+     * <tr>
+     * <td>TenthsSecondsMode</td>
+     * <td>Hundredths of seconds</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * To set the position mode, call <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidplayback-put_positionmode">IMSVidPlayback::put_PositionMode</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplayback-get_length
      */
     get_Length() {
         result := ComCall(31, this, "int*", &lLength := 0, "HRESULT")

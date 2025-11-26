@@ -60,10 +60,14 @@ class IDockingWindow extends IOleWindow{
     static VTableNames => ["ShowDW", "CloseDW", "ResizeBorderDW"]
 
     /**
+     * Instructs the docking window object to show or hide itself.
+     * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fShow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-showdw
+     * <b>TRUE</b> if the docking window object should show its window. <b>FALSE</b> if the docking window object should hide its window and return its border space by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-idockingwindowsite-setborderspacedw">SetBorderSpaceDW</a> with zero values.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idockingwindow-showdw
      */
     ShowDW(fShow) {
         result := ComCall(5, this, "int", fShow, "HRESULT")
@@ -71,10 +75,14 @@ class IDockingWindow extends IOleWindow{
     }
 
     /**
+     * Notifies the docking window object that it is about to be removed from the frame. The docking window object should save any persistent information at this time.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-closedw
+     * Reserved. This parameter should always be zero.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idockingwindow-closedw
      */
     CloseDW(dwReserved) {
         result := ComCall(6, this, "uint", dwReserved, "HRESULT")
@@ -82,12 +90,20 @@ class IDockingWindow extends IOleWindow{
     }
 
     /**
+     * Notifies the docking window object that the frame's border space has changed. In response to this method, the IDockingWindow implementation must call SetBorderSpaceDW, even if no border space is required or a change is not necessary.
+     * @param {Pointer<RECT>} prcBorder Type: <b>LPCRECT</b>
      * 
-     * @param {Pointer<RECT>} prcBorder 
-     * @param {IUnknown} punkToolbarSite 
-     * @param {BOOL} fReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idockingwindow-resizeborderdw
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the frame's available border space.
+     * @param {IUnknown} punkToolbarSite Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * Pointer to the site's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. The docking window object should call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method for this interface, requesting IID_IDockingWindowSite. The docking window object then uses that interface to negotiate its border space. It is the docking window object's responsibility to release this interface when it is no longer needed.
+     * @param {BOOL} fReserved Type: <b>BOOL</b>
+     * 
+     * Reserved. This parameter should always be zero.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idockingwindow-resizeborderdw
      */
     ResizeBorderDW(prcBorder, punkToolbarSite, fReserved) {
         result := ComCall(7, this, "ptr", prcBorder, "ptr", punkToolbarSite, "int", fReserved, "HRESULT")

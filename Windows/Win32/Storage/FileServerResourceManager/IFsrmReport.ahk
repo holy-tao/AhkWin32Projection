@@ -63,9 +63,9 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the type of report to generate.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_type
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-get_type
      */
     get_Type() {
         result := ComCall(7, this, "int*", &reportType := 0, "HRESULT")
@@ -73,9 +73,17 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the report.
+     * @remarks
+     * 
+     * If not set, FSRM generates a unique name for you.
+     * 
+     * The name is used in the report.  If email notification is sent, the subject contains the report name.
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-get_name
      */
     get_Name() {
         name := BSTR()
@@ -84,10 +92,18 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the report.
+     * @remarks
+     * 
+     * If not set, FSRM generates a unique name for you.
+     * 
+     * The name is used in the report.  If email notification is sent, the subject contains the report name.
+     * 
+     * 
      * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -97,9 +113,15 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the description of the report.
+     * @remarks
+     * 
+     * The description is used in the report.
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-get_description
      */
     get_Description() {
         description := BSTR()
@@ -108,10 +130,16 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the description of the report.
+     * @remarks
+     * 
+     * The description is used in the report.
+     * 
+     * 
      * 
      * @param {BSTR} description 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-put_description
      */
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
@@ -121,9 +149,16 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
+     * Retrieves the report's generated file name for the last time the report was run.
+     * @remarks
+     * 
+     * The file names are generated to identify the collection of files that were generated for a report job the last time the report job ran.
+     * 
+     * To determine where the reports are stored, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastgeneratedindirectory">IFsrmReportJob::LastGeneratedInDirectory</a> property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_lastgeneratedfilenameprefix
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-get_lastgeneratedfilenameprefix
      */
     get_LastGeneratedFileNamePrefix() {
         prefix := BSTR()
@@ -132,10 +167,10 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} filter 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-getfilter
+     * Retrieves the value of the specified report filter.
+     * @param {Integer} filter The filter used to limit the files listed in a report. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
+     * @returns {VARIANT} The filter value for the specified report filter.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-getfilter
      */
     GetFilter(filter) {
         filterValue := VARIANT()
@@ -144,11 +179,14 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} filter 
-     * @param {VARIANT} filterValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-setfilter
+     * Sets the current value of the specified report filter.
+     * @param {Integer} filter The filter used to  limit the files listed in a report. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
+     * @param {VARIANT} filterValue The filter value to use for the specified report filter. The filter value cannot contain the following: 
+     *       slash mark (/), backslash (\\), greater than sign (&gt;), less than sign (&lt;), vertical bar (|), double 
+     *       quote ("), or colon (:).
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-setfilter
      */
     SetFilter(filter, filterValue) {
         result := ComCall(14, this, "int", filter, "ptr", filterValue, "HRESULT")
@@ -156,9 +194,9 @@ class IFsrmReport extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-delete
+     * Removes this report object from the report job object.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreport-delete
      */
     Delete() {
         result := ComCall(15, this, "HRESULT")

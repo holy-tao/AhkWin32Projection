@@ -51,11 +51,17 @@ class ITaskbarList4 extends ITaskbarList3{
     static VTableNames => ["SetTabProperties"]
 
     /**
+     * Allows a tab to specify whether the main application frame window or the tab window should be used as a thumbnail or in the peek feature under certain circumstances.
+     * @param {HWND} hwndTab Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndTab 
-     * @param {Integer} stpFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist4-settabproperties
+     * The handle of the tab window that is to have properties set. This handle must already be registered through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-registertab">RegisterTab</a>.
+     * @param {Integer} stpFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-stpflag">STPFLAG</a></b>
+     * 
+     * One or more members of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-stpflag">STPFLAG</a> enumeration that specify the displayed thumbnail and peek image source of the tab thumbnail.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itaskbarlist4-settabproperties
      */
     SetTabProperties(hwndTab, stpFlags) {
         hwndTab := hwndTab is Win32Handle ? NumGet(hwndTab, "ptr") : hwndTab

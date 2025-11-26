@@ -31,12 +31,12 @@ class IAVIStreaming extends IUnknown{
     static VTableNames => ["Begin", "End"]
 
     /**
-     * 
-     * @param {Integer} lStart 
-     * @param {Integer} lEnd 
-     * @param {Integer} lRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistreaming-begin
+     * The Begin method prepares for the streaming operation. Called when an application uses the AVIStreamBeginStreaming function.
+     * @param {Integer} lStart Starting frame for streaming.
+     * @param {Integer} lEnd Ending frame for streaming.
+     * @param {Integer} lRate Speed at which the file is read relative to its normal playback rate. Normal speed is 1000. Larger values indicate faster speeds; smaller values indicate slower speeds.
+     * @returns {HRESULT} Returns the HRESULT defined by OLE.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavistreaming-begin
      */
     Begin(lStart, lEnd, lRate) {
         result := ComCall(3, this, "int", lStart, "int", lEnd, "int", lRate, "HRESULT")
@@ -44,9 +44,9 @@ class IAVIStreaming extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistreaming-end
+     * The End method ends the streaming operation. Called when an application uses the AVIStreamEndStreaming function.
+     * @returns {HRESULT} Returns the HRESULT defined by OLE.
+     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavistreaming-end
      */
     End() {
         result := ComCall(4, this, "HRESULT")

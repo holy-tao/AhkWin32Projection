@@ -33,9 +33,9 @@ class IVdsSwProvider extends IUnknown{
     static VTableNames => ["QueryPacks", "CreatePack"]
 
     /**
-     * 
-     * @returns {IEnumVdsObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsswprovider-querypacks
+     * Returns an enumeration object that contains all packs managed by the software provider.
+     * @returns {IEnumVdsObject} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the packs  as <a href="https://docs.microsoft.com/windows/desktop/VDS/pack-object">pack objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the   pack objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsswprovider-querypacks
      */
     QueryPacks() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -43,9 +43,9 @@ class IVdsSwProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IVdsPack} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsswprovider-createpack
+     * Creates a pack object.
+     * @returns {IVdsPack} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vds/nn-vds-ivdspack">IVdsPack</a> interface. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsswprovider-createpack
      */
     CreatePack() {
         result := ComCall(4, this, "ptr*", &ppPack := 0, "HRESULT")

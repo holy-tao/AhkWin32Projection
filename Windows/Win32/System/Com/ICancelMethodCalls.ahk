@@ -31,10 +31,62 @@ class ICancelMethodCalls extends IUnknown{
     static VTableNames => ["Cancel", "TestCancel"]
 
     /**
+     * Requests that a method call be canceled.
+     * @param {Integer} ulSeconds The number of seconds to wait for the server to complete the outbound call after the client requests cancellation.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ulSeconds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icancelmethodcalls-cancel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cancellation request was made.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>RPC_S_CALL_CANCELED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call was already canceled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CO_E_CANCEL_DISABLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Call cancellation is not enabled on the thread that is processing the call.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>RPC_E_CALL_COMPLETE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call was completed during the timeout interval.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icancelmethodcalls-cancel
      */
     Cancel(ulSeconds) {
         result := ComCall(3, this, "uint", ulSeconds, "HRESULT")
@@ -42,9 +94,9 @@ class ICancelMethodCalls extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icancelmethodcalls-testcancel
+     * Determines whether a call has been canceled.
+     * @returns {HRESULT} If the call was canceled, the return value is RPC_E_CALL_CANCELED. Otherwise, it is RPC_S_CALLPENDING.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icancelmethodcalls-testcancel
      */
     TestCancel() {
         result := ComCall(4, this, "HRESULT")

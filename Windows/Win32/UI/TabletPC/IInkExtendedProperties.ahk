@@ -61,9 +61,9 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of objects or collections contained in a collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -80,10 +80,12 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
+     * Retrieves the IInkExtendedProperty object at the specified index within the IInkExtendedProperties collection.
+     * @param {VARIANT} Identifier The zero-based index or GUID of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object to get.
      * 
-     * @param {VARIANT} Identifier 
-     * @returns {IInkExtendedProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-item
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @returns {IInkExtendedProperty} When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperties">IInkExtendedProperties</a> collection.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-item
      */
     Item(Identifier) {
         result := ComCall(9, this, "ptr", Identifier, "ptr*", &Item := 0, "HRESULT")
@@ -91,11 +93,17 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
+     * Creates and adds an IInkExtendedProperty object to the IInkExtendedProperties collection.
+     * @param {BSTR} Guid The name of the new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object. The name is expressed as a BSTR that represents the globally unique identifier (GUID) in the following format:
      * 
-     * @param {BSTR} Guid 
-     * @param {VARIANT} Data 
-     * @returns {IInkExtendedProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-add
+     * {dfc71f44-354b-4ca1-93d7-7459410b6343} (Including curly braces)
+     * 
+     * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @param {VARIANT} Data The data for the new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object.
+     * 
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @returns {IInkExtendedProperty} When this method returns, contains a poitner to the new extended property.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-add
      */
     Add(Guid, Data) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
@@ -105,10 +113,107 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
+     * Removes the IInkExtendedProperty object from the IInkExtendedProperties collection.
+     * @param {VARIANT} Identifier The identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object to remove from the collection. The identifier can be a globally unique identifier (GUID), an index, or an extended property object.
      * 
-     * @param {VARIANT} Identifier 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-remove
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter contained an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CO_E_CLASSSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid GUID format.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INVALID_PROPERTY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Property could not be found (invalid GUID or index).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INK_EXCEPTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An exception occurred inside the method.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid display handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unexpected parameter or property type.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-remove
      */
     Remove(Identifier) {
         result := ComCall(11, this, "ptr", Identifier, "HRESULT")
@@ -116,9 +221,49 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
+     * Clears all of the IInkExtendedProperty objects from the IInkExtendedProperties collection.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-clear
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INK_EXCEPTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An exception occurred inside the method.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -126,10 +271,12 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
+     * Retrieves a value that indicates whether an IInkExtendedProperty object exists within an IInkExtendedProperties collection.
+     * @param {BSTR} Guid Specifies the globally unique identifier (GUID) of the property to be checked.
      * 
-     * @param {BSTR} Guid 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-doespropertyexist
+     * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @returns {VARIANT_BOOL} When this method returns, contains <b>VARIANT_TRUE</b> if the property exists within the collection; otherwise, <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-doespropertyexist
      */
     DoesPropertyExist(Guid) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid

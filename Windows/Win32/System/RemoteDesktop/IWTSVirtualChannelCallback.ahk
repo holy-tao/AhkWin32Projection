@@ -31,11 +31,11 @@ class IWTSVirtualChannelCallback extends IUnknown{
     static VTableNames => ["OnDataReceived", "OnClose"]
 
     /**
-     * 
-     * @param {Integer} cbSize 
-     * @param {Pointer<Integer>} pBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-ondatareceived
+     * Notifies the user about data that is being received.
+     * @param {Integer} cbSize The size, in bytes, of the buffer to receive the data.
+     * @param {Pointer<Integer>} pBuffer A pointer to a buffer to receive the data. This buffer is valid only until this call is complete.
+     * @returns {HRESULT} Returns <b>S_OK</b> on success. Results in no action if the call fails.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-ondatareceived
      */
     OnDataReceived(cbSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -45,9 +45,9 @@ class IWTSVirtualChannelCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-onclose
+     * Notifies the user that the channel has been closed.
+     * @returns {HRESULT} Returns <b>S_OK</b> on success. Results in no action if the call fails.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-onclose
      */
     OnClose() {
         result := ComCall(4, this, "HRESULT")

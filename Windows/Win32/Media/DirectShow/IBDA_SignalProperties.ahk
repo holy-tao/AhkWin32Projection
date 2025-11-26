@@ -36,10 +36,10 @@ class IBDA_SignalProperties extends IUnknown{
     static VTableNames => ["PutNetworkType", "GetNetworkType", "PutSignalSource", "GetSignalSource", "PutTuningSpace", "GetTuningSpace"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidNetworkType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-putnetworktype
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Pointer<Guid>} guidNetworkType Specifies the network type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_signalproperties-putnetworktype
      */
     PutNetworkType(guidNetworkType) {
         result := ComCall(3, this, "ptr", guidNetworkType, "HRESULT")
@@ -47,10 +47,10 @@ class IBDA_SignalProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pguidNetworkType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-getnetworktype
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Pointer<Guid>} pguidNetworkType Receives a GUID identifying the network type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_signalproperties-getnetworktype
      */
     GetNetworkType(pguidNetworkType) {
         result := ComCall(4, this, "ptr", pguidNetworkType, "HRESULT")
@@ -58,10 +58,10 @@ class IBDA_SignalProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulSignalSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-putsignalsource
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Integer} ulSignalSource Specifies the signal source.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_signalproperties-putsignalsource
      */
     PutSignalSource(ulSignalSource) {
         result := ComCall(5, this, "uint", ulSignalSource, "HRESULT")
@@ -69,10 +69,10 @@ class IBDA_SignalProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulSignalSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-getsignalsource
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Pointer<Integer>} pulSignalSource Receives a value identifying the signal source. The value is an arbitrary identifier set by the network provider. If two tuners share the same signal source, they should have the same identifier.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_signalproperties-getsignalsource
      */
     GetSignalSource(pulSignalSource) {
         pulSignalSourceMarshal := pulSignalSource is VarRef ? "uint*" : "ptr"
@@ -82,10 +82,10 @@ class IBDA_SignalProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidTuningSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-puttuningspace
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Pointer<Guid>} guidTuningSpace Specifies the tuning space.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_signalproperties-puttuningspace
      */
     PutTuningSpace(guidTuningSpace) {
         result := ComCall(7, this, "ptr", guidTuningSpace, "HRESULT")
@@ -93,10 +93,10 @@ class IBDA_SignalProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pguidTuingSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-gettuningspace
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Pointer<Guid>} pguidTuingSpace Pointer to a variable that receives a GUID identifying the tuning space.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_signalproperties-gettuningspace
      */
     GetTuningSpace(pguidTuingSpace) {
         result := ComCall(8, this, "ptr", pguidTuingSpace, "HRESULT")

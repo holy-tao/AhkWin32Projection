@@ -116,9 +116,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the transport session to which the WDS client is joined.
      * @returns {IWdsTransportSession} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_session
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_session
      */
     get_Session() {
         result := ComCall(7, this, "ptr*", &ppWdsTransportSession := 0, "HRESULT")
@@ -126,9 +126,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a unique client ID that identifies this WDS client on the WDS server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_id
      */
     get_Id() {
         result := ComCall(8, this, "uint*", &pulId := 0, "HRESULT")
@@ -136,9 +136,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the name of the WDS client on the WDS server.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_name
      */
     get_Name() {
         pbszName := BSTR()
@@ -147,9 +147,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the MAC address of the WDS client.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_macaddress
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_macaddress
      */
     get_MacAddress() {
         pbszMacAddress := BSTR()
@@ -158,9 +158,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a string value that contains the IP address of the WDS client.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_ipaddress
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_ipaddress
      */
     get_IpAddress() {
         pbszIpAddress := BSTR()
@@ -169,9 +169,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the percentage of the current object that has been downloaded.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_percentcompletion
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_percentcompletion
      */
     get_PercentCompletion() {
         result := ComCall(12, this, "uint*", &pulPercentCompletion := 0, "HRESULT")
@@ -179,9 +179,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the time elapsed, in seconds, since the WDS client joined to the transport session.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_joinduration
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_joinduration
      */
     get_JoinDuration() {
         result := ComCall(13, this, "uint*", &pulJoinDuration := 0, "HRESULT")
@@ -189,9 +189,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the percentage of the WDS client’s CPU utilization.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_cpuutilization
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_cpuutilization
      */
     get_CpuUtilization() {
         result := ComCall(14, this, "uint*", &pulCpuUtilization := 0, "HRESULT")
@@ -199,9 +199,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the percentage of the WDS client’s memory in use.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_memoryutilization
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_memoryutilization
      */
     get_MemoryUtilization() {
         result := ComCall(15, this, "uint*", &pulMemoryUtilization := 0, "HRESULT")
@@ -209,9 +209,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives the percentage of the WDS client’s network bandwidth used.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_networkutilization
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_networkutilization
      */
     get_NetworkUtilization() {
         result := ComCall(16, this, "uint*", &pulNetworkUtilization := 0, "HRESULT")
@@ -219,9 +219,9 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a string representing the user identity associated with this client.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_useridentity
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_useridentity
      */
     get_UserIdentity() {
         pbszUserIdentity := BSTR()
@@ -230,10 +230,10 @@ class IWdsTransportClient extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} DisconnectionType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-disconnect
+     * Disconnects the WDS client from the session and specifies what action the client should take upon disconnection.
+     * @param {Integer} DisconnectionType A value of the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_disconnect_type">WDSTRANSPORT_DISCONNECT_TYPE</a> enumeration that specifies what action the WDS client should take when disconnected.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-disconnect
      */
     Disconnect(DisconnectionType) {
         result := ComCall(18, this, "int", DisconnectionType, "HRESULT")

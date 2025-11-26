@@ -485,13 +485,11 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
-     * @returns {HRESULT} Type: **HWND**
+     * Sets the keyboard focus to this UI Automation element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * 
-     * Extended error ERROR_INVALID_PARAMETER (0x57) means that window is in disabled state.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setfocus
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-setfocus
      */
     SetFocus() {
         result := ComCall(3, this, "HRESULT")
@@ -499,9 +497,11 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the unique identifier assigned to the UI element.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getruntimeid
+     * Receives a pointer to the runtime ID as an array of integers.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getruntimeid
      */
     GetRuntimeId() {
         result := ComCall(4, this, "ptr*", &runtimeId := 0, "HRESULT")
@@ -509,11 +509,15 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the first child or descendant element that matches the specified condition.
      * @param {Integer} scope 
-     * @param {IUIAutomationCondition} condition 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst
+     * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
+     * 
+     * A pointer to a condition that represents the criteria to match.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst
      */
     FindFirst(scope, condition) {
         result := ComCall(5, this, "int", scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
@@ -521,11 +525,15 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Returns all UI Automation elements that satisfy the specified condition.
      * @param {Integer} scope 
-     * @param {IUIAutomationCondition} condition 
-     * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findall
+     * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
+     * 
+     * A pointer to a condition that represents the criteria to match.
+     * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
+     * 
+     * Receives a pointer to an array of matching elements. Returns an empty array if no matching element is found.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-findall
      */
     FindAll(scope, condition) {
         result := ComCall(6, this, "int", scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
@@ -533,12 +541,18 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the first child or descendant element that matches the specified condition, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
      * @param {Integer} scope 
-     * @param {IUIAutomationCondition} condition 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirstbuildcache
+     * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
+     * 
+     * A pointer to a condition that represents the criteria to match.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the control patterns and properties to include in the cache.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the matching element, or <b>NULL</b> if no matching element is found.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirstbuildcache
      */
     FindFirstBuildCache(scope, condition, cacheRequest) {
         result := ComCall(7, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
@@ -546,12 +560,18 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Returns all UI Automation elements that satisfy the specified condition, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
      * @param {Integer} scope 
-     * @param {IUIAutomationCondition} condition 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findallbuildcache
+     * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
+     * 
+     * A pointer to a condition that represents the criteria to match.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the control patterns and properties to include in the cache.
+     * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
+     * 
+     * Receives a pointer to an array of matching elements. If there are no matches, <b>NULL</b> is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-findallbuildcache
      */
     FindAllBuildCache(scope, condition, cacheRequest) {
         result := ComCall(8, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
@@ -559,10 +579,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a new UI Automation element with an updated cache.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-buildupdatedcache
+     * A pointer to a cache request that specifies the control patterns and properties to include in the cache.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the new UI Automation element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-buildupdatedcache
      */
     BuildUpdatedCache(cacheRequest) {
         result := ComCall(9, this, "ptr", cacheRequest, "ptr*", &updatedElement := 0, "HRESULT")
@@ -570,10 +594,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the current value of a property for this UI Automation element.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
-     * @param {Integer} propertyId 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue
+     * The identifier of the property. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
+     * 
+     * Receives the value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue
      */
     GetCurrentPropertyValue(propertyId) {
         retVal := VARIANT()
@@ -582,11 +610,17 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a property value for this UI Automation element, optionally ignoring any default value.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
-     * @param {Integer} propertyId 
-     * @param {BOOL} ignoreDefaultValue 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalueex
+     * The identifier of the property. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @param {BOOL} ignoreDefaultValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * A value that specifies whether a default value should be ignored if the specified property is not supported: <b>TRUE</b> if the default value is not to be returned, or <b>FALSE</b> if it is to be returned.
+     * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
+     * 
+     * Receives the property value.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalueex
      */
     GetCurrentPropertyValueEx(propertyId, ignoreDefaultValue) {
         retVal := VARIANT()
@@ -595,10 +629,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a property value from the cache for this UI Automation element.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
-     * @param {Integer} propertyId 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpropertyvalue
+     * The identifier of the property.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
+     * 
+     * Receives the value of the cached property.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpropertyvalue
      */
     GetCachedPropertyValue(propertyId) {
         retVal := VARIANT()
@@ -607,11 +645,17 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a property value from the cache for this UI Automation element, optionally ignoring any default value.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
-     * @param {Integer} propertyId 
-     * @param {BOOL} ignoreDefaultValue 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpropertyvalueex
+     * The identifier of the property. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @param {BOOL} ignoreDefaultValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * A value that specifies whether a default value should be ignored if the specified property is not supported: <b>TRUE</b> if the default value is not to be returned, or <b>FALSE</b> if it is to be returned.
+     * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
+     * 
+     * Receives the value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpropertyvalueex
      */
     GetCachedPropertyValueEx(propertyId, ignoreDefaultValue) {
         retVal := VARIANT()
@@ -620,11 +664,17 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the control pattern interface of the specified pattern on this UI Automation element.
+     * @param {Integer} patternId Type: <b>PATTERNID</b>
      * 
-     * @param {Integer} patternId 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpatternas
+     * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface to retrieve through <i>ppv</i>.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Receives the interface pointer requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpatternas
      */
     GetCurrentPatternAs(patternId, riid) {
         result := ComCall(14, this, "int", patternId, "ptr", riid, "ptr*", &patternObject := 0, "HRESULT")
@@ -632,11 +682,17 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the control pattern interface of the specified pattern from the cache of this UI Automation element.
+     * @param {Integer} patternId Type: <b>PATTERNID</b>
      * 
-     * @param {Integer} patternId 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpatternas
+     * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface to retrieve through <i>ppv</i>.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Receives the interface pointer requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpatternas
      */
     GetCachedPatternAs(patternId, riid) {
         result := ComCall(15, this, "int", patternId, "ptr", riid, "ptr*", &patternObject := 0, "HRESULT")
@@ -644,10 +700,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the IUnknown interface of the specified control pattern on this UI Automation element.
+     * @param {Integer} patternId Type: <b>PATTERNID</b>
      * 
-     * @param {Integer} patternId 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpattern
+     * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * 
+     * Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpattern
      */
     GetCurrentPattern(patternId) {
         result := ComCall(16, this, "int", patternId, "ptr*", &patternObject := 0, "HRESULT")
@@ -655,10 +715,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves from the cache the IUnknown interface of the specified control pattern of this UI Automation element.
+     * @param {Integer} patternId Type: <b>PATTERNID</b>
      * 
-     * @param {Integer} patternId 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpattern
+     * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * 
+     * Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpattern
      */
     GetCachedPattern(patternId) {
         result := ComCall(17, this, "int", patternId, "ptr*", &patternObject := 0, "HRESULT")
@@ -666,9 +730,11 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves from the cache the parent of this UI Automation element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedparent
+     * Receives a pointer to the cached parent element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedparent
      */
     GetCachedParent() {
         result := ComCall(18, this, "ptr*", &parent := 0, "HRESULT")
@@ -676,9 +742,11 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached child elements of this UI Automation element.
+     * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
-     * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedchildren
+     * Receives a pointer to a collection of the cached child elements.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedchildren
      */
     GetCachedChildren() {
         result := ComCall(19, this, "ptr*", &children := 0, "HRESULT")
@@ -686,9 +754,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the identifier of the process that hosts the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentprocessid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentprocessid
      */
     get_CurrentProcessId() {
         result := ComCall(20, this, "int*", &retVal := 0, "HRESULT")
@@ -696,9 +764,15 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the control type of the element.
+     * @remarks
+     * 
+     * Control types describe a known interaction model for UI Automation elements without relying on a localized control type or combination of complex logic rules.
+     * This property cannot change at run time unless the control supports the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern">IUIAutomationMultipleViewPattern</a> interface. An example is the Win32 ListView control, which can change from a data grid to a list, depending on the current view.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontroltype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontroltype
      */
     get_CurrentControlType() {
         result := ComCall(21, this, "int*", &retVal := 0, "HRESULT")
@@ -706,9 +780,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a localized description of the control type of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlocalizedcontroltype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlocalizedcontroltype
      */
     get_CurrentLocalizedControlType() {
         retVal := BSTR()
@@ -717,9 +791,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the name of the element.
+     * @remarks
+     * 
+     * The name of an element can be used to find the element in the element tree when the automation ID property is not supported on the element.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentname
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentname
      */
     get_CurrentName() {
         retVal := BSTR()
@@ -728,9 +807,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the accelerator key for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentacceleratorkey
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentacceleratorkey
      */
     get_CurrentAcceleratorKey() {
         retVal := BSTR()
@@ -739,9 +818,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the access key character for the element.
+     * @remarks
+     * 
+     * An access key is a character in the text of a menu, menu item, or label of a control such as a button that activates the attached menu function. For example, the letter "O" is often used to invoke the Open file common dialog box from a File menu. Microsoft UI Automation elements that have the access key property set always implement the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinginvoke">Invoke</a> control pattern.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentaccesskey
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentaccesskey
      */
     get_CurrentAccessKey() {
         retVal := BSTR()
@@ -750,9 +834,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element has keyboard focus.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthaskeyboardfocus
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthaskeyboardfocus
      */
     get_CurrentHasKeyboardFocus() {
         result := ComCall(26, this, "int*", &retVal := 0, "HRESULT")
@@ -760,9 +844,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element can accept keyboard focus.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiskeyboardfocusable
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiskeyboardfocusable
      */
     get_CurrentIsKeyboardFocusable() {
         result := ComCall(27, this, "int*", &retVal := 0, "HRESULT")
@@ -770,9 +854,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element is enabled.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisenabled
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisenabled
      */
     get_CurrentIsEnabled() {
         result := ComCall(28, this, "int*", &retVal := 0, "HRESULT")
@@ -780,9 +864,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the Microsoft UI Automation identifier of the element.
+     * @remarks
+     * 
+     * The identifier is unique among sibling elements in a container, and is the same in all instances of the application.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentautomationid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentautomationid
      */
     get_CurrentAutomationId() {
         retVal := BSTR()
@@ -791,9 +880,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the class name of the element.
+     * @remarks
+     * 
+     * The value of this property is implementation-defined. The property is useful in testing environments.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname
      */
     get_CurrentClassName() {
         retVal := BSTR()
@@ -802,9 +896,17 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the help text for the element.
+     * @remarks
+     * 
+     * This information is typically obtained from tooltips.
+     * 
+     * <div class="alert"><b>Caution</b>  Do not retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhelptext">CachedHelpText</a> property from a control that is based on the SysListview32 class. Doing so could cause the system to become unstable and data to be lost. A client application can discover whether a control is based on SysListview32 by retrieving the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname">CachedClassName</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname">CurrentClassName</a> property from the control.</div>
+     * <div> </div>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthelptext
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthelptext
      */
     get_CurrentHelpText() {
         retVal := BSTR()
@@ -813,9 +915,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the culture identifier for the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentculture
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentculture
      */
     get_CurrentCulture() {
         result := ComCall(32, this, "int*", &retVal := 0, "HRESULT")
@@ -823,9 +925,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element is a control element.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontrolelement
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontrolelement
      */
     get_CurrentIsControlElement() {
         result := ComCall(33, this, "int*", &retVal := 0, "HRESULT")
@@ -833,9 +935,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Indicates whether the element is a content element.
+     * @remarks
+     * 
+     * A content element contains data that is presented to the user. Examples of content elements are the items in a list box or a button in a dialog box. Non-content elements, also called peripheral elements, are typically used to manipulate the content in a composite control; for example, the button on a drop-down control.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontentelement
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontentelement
      */
     get_CurrentIsContentElement() {
         result := ComCall(34, this, "int*", &retVal := 0, "HRESULT")
@@ -843,9 +950,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Indicates whether the element contains a disguised password.
+     * @remarks
+     * 
+     * This property enables applications such as screen-readers to determine whether the text content of a control should be read aloud.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentispassword
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentispassword
      */
     get_CurrentIsPassword() {
         result := ComCall(35, this, "int*", &retVal := 0, "HRESULT")
@@ -853,9 +965,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the window handle of the element.
      * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentnativewindowhandle
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentnativewindowhandle
      */
     get_CurrentNativeWindowHandle() {
         retVal := HWND()
@@ -864,9 +976,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a description of the type of UI item represented by the element.
+     * @remarks
+     * 
+     * This property is used to obtain information about items in a list, tree view, or data grid. For example, an item in a file directory view might be a "Document File" or a "Folder".
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemtype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemtype
      */
     get_CurrentItemType() {
         retVal := BSTR()
@@ -875,9 +992,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element is off-screen.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisoffscreen
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisoffscreen
      */
     get_CurrentIsOffscreen() {
         result := ComCall(38, this, "int*", &retVal := 0, "HRESULT")
@@ -885,9 +1002,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a value that indicates the orientation of the element.
+     * @remarks
+     * 
+     * This property is supported by controls such as scroll bars and sliders that can have either a vertical or a horizontal orientation.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentorientation
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentorientation
      */
     get_CurrentOrientation() {
         result := ComCall(39, this, "int*", &retVal := 0, "HRESULT")
@@ -895,9 +1017,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the name of the underlying UI framework.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentframeworkid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentframeworkid
      */
     get_CurrentFrameworkId() {
         retVal := BSTR()
@@ -906,9 +1028,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element is required to be filled out on a form.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisrequiredforform
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisrequiredforform
      */
     get_CurrentIsRequiredForForm() {
         result := ComCall(41, this, "int*", &retVal := 0, "HRESULT")
@@ -916,9 +1038,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the description of the status of an item in an element.
+     * @remarks
+     * 
+     * This property enables a client to ascertain whether an element is conveying status about an item. For example, an item associated with a contact in a messaging application might be "Busy" or "Connected".
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemstatus
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemstatus
      */
     get_CurrentItemStatus() {
         retVal := BSTR()
@@ -927,9 +1054,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the coordinates of the rectangle that completely encloses the element.
      * @returns {RECT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentboundingrectangle
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentboundingrectangle
      */
     get_CurrentBoundingRectangle() {
         retVal := RECT()
@@ -938,9 +1065,16 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the element that contains the text label for this element.
+     * @remarks
+     * 
+     * This property could be used to retrieve, for example, the static text label for a combo box.
+     * 
+     * This property maps to the Accessible Rich Internet Applications (ARIA) <b>labeledby</b> property.
+     * 
      * 
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlabeledby
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlabeledby
      */
     get_CurrentLabeledBy() {
         result := ComCall(44, this, "ptr*", &retVal := 0, "HRESULT")
@@ -948,9 +1082,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Accessible Rich Internet Applications (ARIA) role of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariarole
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariarole
      */
     get_CurrentAriaRole() {
         retVal := BSTR()
@@ -959,9 +1093,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Accessible Rich Internet Applications (ARIA) properties of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariaproperties
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariaproperties
      */
     get_CurrentAriaProperties() {
         retVal := BSTR()
@@ -970,9 +1104,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the element contains valid data for a form.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisdatavalidforform
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisdatavalidforform
      */
     get_CurrentIsDataValidForForm() {
         result := ComCall(47, this, "int*", &retVal := 0, "HRESULT")
@@ -980,9 +1114,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves an array of elements for which this element serves as the controller.
      * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontrollerfor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontrollerfor
      */
     get_CurrentControllerFor() {
         result := ComCall(48, this, "ptr*", &retVal := 0, "HRESULT")
@@ -990,9 +1124,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves an array of elements that describe this element.
+     * @remarks
+     * 
+     * This property maps to the Accessible Rich Internet Applications (ARIA) <b>describedby</b> property.
+     * 
      * 
      * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentdescribedby
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentdescribedby
      */
     get_CurrentDescribedBy() {
         result := ComCall(49, this, "ptr*", &retVal := 0, "HRESULT")
@@ -1000,9 +1139,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves an array of elements that indicates the reading order after the current element.
+     * @remarks
+     * 
+     * This property maps to the Accessible Rich Internet Applications (ARIA) <b>flowto</b> property.
+     * 
      * 
      * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentflowsto
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentflowsto
      */
     get_CurrentFlowsTo() {
         result := ComCall(50, this, "ptr*", &retVal := 0, "HRESULT")
@@ -1010,9 +1154,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a description of the provider for this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentproviderdescription
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentproviderdescription
      */
     get_CurrentProviderDescription() {
         retVal := BSTR()
@@ -1021,9 +1165,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached ID of the process that hosts the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedprocessid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedprocessid
      */
     get_CachedProcessId() {
         result := ComCall(52, this, "int*", &retVal := 0, "HRESULT")
@@ -1031,9 +1175,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached value that indicates the control type of the element.
+     * @remarks
+     * 
+     * Control types describe a known interaction model for UI Automation elements without relying on a localized control type or combination of complex logic rules. This property cannot change at run time unless the control supports the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern">IUIAutomationMultipleViewPattern</a> interface. An example is the Win32 ListView control, which can change from a data grid to a list, depending on the current view.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontroltype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontroltype
      */
     get_CachedControlType() {
         result := ComCall(53, this, "int*", &retVal := 0, "HRESULT")
@@ -1041,9 +1190,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached localized description of the control type of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlocalizedcontroltype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlocalizedcontroltype
      */
     get_CachedLocalizedControlType() {
         retVal := BSTR()
@@ -1052,9 +1201,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached name of the element.
+     * @remarks
+     * 
+     * The name of an element can be used to find the element in the element tree when the automation ID property is not supported on the element.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedname
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedname
      */
     get_CachedName() {
         retVal := BSTR()
@@ -1063,9 +1217,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached accelerator key for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedacceleratorkey
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedacceleratorkey
      */
     get_CachedAcceleratorKey() {
         retVal := BSTR()
@@ -1074,9 +1228,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached access key character for the element.
+     * @remarks
+     * 
+     * An access key is a character in the text of a menu, menu item, or label of a control such as a button that activates the attached menu function. For example, the letter "O" is often used to invoke the Open file common dialog box from a File menu. Microsoft UI Automation elements that have the access key property set always implement the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinginvoke">Invoke</a> control pattern.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedaccesskey
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedaccesskey
      */
     get_CachedAccessKey() {
         retVal := BSTR()
@@ -1085,9 +1244,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * A cached value that indicates whether the element has keyboard focus.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhaskeyboardfocus
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhaskeyboardfocus
      */
     get_CachedHasKeyboardFocus() {
         result := ComCall(58, this, "int*", &retVal := 0, "HRESULT")
@@ -1095,9 +1254,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the element can accept keyboard focus.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediskeyboardfocusable
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediskeyboardfocusable
      */
     get_CachedIsKeyboardFocusable() {
         result := ComCall(59, this, "int*", &retVal := 0, "HRESULT")
@@ -1105,9 +1264,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the element is enabled.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisenabled
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisenabled
      */
     get_CachedIsEnabled() {
         result := ComCall(60, this, "int*", &retVal := 0, "HRESULT")
@@ -1115,9 +1274,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached Microsoft UI Automation identifier of the element.
+     * @remarks
+     * 
+     * The  UI Automation identifier is unique among sibling elements in a container, and is the same in all instances of the application.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedautomationid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedautomationid
      */
     get_CachedAutomationId() {
         retVal := BSTR()
@@ -1126,9 +1290,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached class name of the element.
+     * @remarks
+     * 
+     * The value of this property is implementation-defined. The property is useful in testing environments.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname
      */
     get_CachedClassName() {
         retVal := BSTR()
@@ -1137,9 +1306,17 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached help text for the element.
+     * @remarks
+     * 
+     * This information is typically obtained from ToolTips.
+     * 
+     * <div class="alert"><b>Caution</b>  Do not retrieve the <b>CachedHelpText</b> property from a control that is based on the SysListview32 class. Doing so could cause the system to become unstable and data to be lost. A client application can discover whether a control is based on SysListview32 by retrieving the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname">CachedClassName</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname">CurrentClassName</a> property from the control.</div>
+     * <div> </div>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhelptext
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhelptext
      */
     get_CachedHelpText() {
         retVal := BSTR()
@@ -1148,9 +1325,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates the culture associated with the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedculture
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedculture
      */
     get_CachedCulture() {
         result := ComCall(64, this, "int*", &retVal := 0, "HRESULT")
@@ -1158,9 +1335,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached value that indicates whether the element is a control element.
+     * @remarks
+     * 
+     * Controls are elements in the UI that display information, or that can be manipulated by the user to perform an action.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontrolelement
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontrolelement
      */
     get_CachedIsControlElement() {
         result := ComCall(65, this, "int*", &retVal := 0, "HRESULT")
@@ -1168,9 +1350,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * A cached value that indicates whether the element is a content element.
+     * @remarks
+     * 
+     * A content element contains data that is presented to the user. Examples of content elements are the items in a list box or a button in a dialog box. Non-content elements, also called peripheral elements, are typically used to manipulate the content in a composite control; for example, the button on a drop-down control.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontentelement
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontentelement
      */
     get_CachedIsContentElement() {
         result := ComCall(66, this, "int*", &retVal := 0, "HRESULT")
@@ -1178,9 +1365,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached value that indicates whether the element contains a disguised password.
+     * @remarks
+     * 
+     * This property enables applications such as screen-readers to determine whether the text content of a control should be read aloud.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedispassword
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedispassword
      */
     get_CachedIsPassword() {
         result := ComCall(67, this, "int*", &retVal := 0, "HRESULT")
@@ -1188,9 +1380,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached window handle of the element.
      * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachednativewindowhandle
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachednativewindowhandle
      */
     get_CachedNativeWindowHandle() {
         retVal := HWND()
@@ -1199,9 +1391,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached string that describes the type of item represented by the element.
+     * @remarks
+     * 
+     * This property is used to obtain information about items in a list, tree view, or data grid. For example, an item in a file directory view might be a "Document File" or a "Folder".
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemtype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemtype
      */
     get_CachedItemType() {
         retVal := BSTR()
@@ -1210,9 +1407,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the element is off-screen.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisoffscreen
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisoffscreen
      */
     get_CachedIsOffscreen() {
         result := ComCall(70, this, "int*", &retVal := 0, "HRESULT")
@@ -1220,9 +1417,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached value that indicates the orientation of the element.
+     * @remarks
+     * 
+     * This property is supported by controls such as scroll bars and sliders that can have either a vertical or a horizontal orientation.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedorientation
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedorientation
      */
     get_CachedOrientation() {
         result := ComCall(71, this, "int*", &retVal := 0, "HRESULT")
@@ -1230,9 +1432,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached name of the underlying UI framework associated with the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedframeworkid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedframeworkid
      */
     get_CachedFrameworkId() {
         retVal := BSTR()
@@ -1241,9 +1443,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the element is required to be filled out on a form.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisrequiredforform
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisrequiredforform
      */
     get_CachedIsRequiredForForm() {
         result := ComCall(73, this, "int*", &retVal := 0, "HRESULT")
@@ -1251,9 +1453,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached description of the status of an item within an element.
+     * @remarks
+     * 
+     * This property enables a client to ascertain whether an element is conveying status about an item. For example, an item associated with a contact in a messaging application might be "Busy" or "Connected".
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemstatus
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemstatus
      */
     get_CachedItemStatus() {
         retVal := BSTR()
@@ -1262,9 +1469,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached coordinates of the rectangle that completely encloses the element.
      * @returns {RECT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedboundingrectangle
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedboundingrectangle
      */
     get_CachedBoundingRectangle() {
         retVal := RECT()
@@ -1273,9 +1480,16 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves the cached element that contains the text label for this element.
+     * @remarks
+     * 
+     * This property could be used to retrieve, for example, the static text label for a combo box.
+     * 
+     * This property maps to the Accessible Rich Internet Applications (ARIA) <b>labeledby</b> property.
+     * 
      * 
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlabeledby
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlabeledby
      */
     get_CachedLabeledBy() {
         result := ComCall(76, this, "ptr*", &retVal := 0, "HRESULT")
@@ -1283,9 +1497,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Accessible Rich Internet Applications (ARIA) role of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariarole
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariarole
      */
     get_CachedAriaRole() {
         retVal := BSTR()
@@ -1294,9 +1508,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Accessible Rich Internet Applications (ARIA) properties of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariaproperties
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariaproperties
      */
     get_CachedAriaProperties() {
         retVal := BSTR()
@@ -1305,9 +1519,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the element contains valid data for the form.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisdatavalidforform
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisdatavalidforform
      */
     get_CachedIsDataValidForForm() {
         result := ComCall(79, this, "int*", &retVal := 0, "HRESULT")
@@ -1315,9 +1529,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached array of UI Automation elements for which this element serves as the controller.
      * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontrollerfor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontrollerfor
      */
     get_CachedControllerFor() {
         result := ComCall(80, this, "ptr*", &retVal := 0, "HRESULT")
@@ -1325,9 +1539,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached array of elements that describe this element.
+     * @remarks
+     * 
+     * This property maps to the Accessible Rich Internet Applications (ARIA) <b>describedby</b> property.
+     * 
      * 
      * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheddescribedby
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheddescribedby
      */
     get_CachedDescribedBy() {
         result := ComCall(81, this, "ptr*", &retVal := 0, "HRESULT")
@@ -1335,9 +1554,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a cached array of elements that indicate the reading order after the current element.
+     * @remarks
+     * 
+     * This property maps to the Accessible Rich Internet Applications (ARIA) <b>flowto</b> property.
+     * 
      * 
      * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedflowsto
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedflowsto
      */
     get_CachedFlowsTo() {
         result := ComCall(82, this, "ptr*", &retVal := 0, "HRESULT")
@@ -1345,9 +1569,9 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached description of the provider for this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedproviderdescription
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedproviderdescription
      */
     get_CachedProviderDescription() {
         retVal := BSTR()
@@ -1356,10 +1580,14 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
+     * Retrieves a point on the element that can be clicked.
+     * @param {Pointer<POINT>} clickable Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
-     * @param {Pointer<POINT>} clickable 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getclickablepoint
+     * Receives the physical screen coordinates of a point that can be used by a client to click this element.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * 
+     * Receives <b>TRUE</b> if a clickable point was retrieved, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement-getclickablepoint
      */
     GetClickablePoint(clickable) {
         result := ComCall(84, this, "ptr", clickable, "int*", &gotClickable := 0, "HRESULT")

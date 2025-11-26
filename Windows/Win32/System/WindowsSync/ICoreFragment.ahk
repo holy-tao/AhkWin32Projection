@@ -37,11 +37,73 @@ class ICoreFragment extends IUnknown{
     static VTableNames => ["NextColumn", "NextRange", "Reset", "GetColumnCount", "GetRangeCount"]
 
     /**
+     * Returns the next change unit ID in the set of change unit IDs that this knowledge fragment applies to.
+     * @param {Pointer<Integer>} pChangeUnitId Returns the next change unit ID in the set.
+     * @param {Pointer<Integer>} pChangeUnitIdSize Specifies the number of bytes in <i>pChangeUnitId</i>. Returns the number of bytes written, or the number of bytes that are required to retrieve the ID when <i>pChangeUnitId</i> is too small.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pChangeUnitId 
-     * @param {Pointer<Integer>} pChangeUnitIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextcolumn
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There are no more change unit IDs to enumerate.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The change unit ID is a variable-length ID and <i>pChangeUnitIdSize</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pChangeUnitId</i> is too small. In this situation, the required number of bytes is returned in <i>pChangeUnitIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The knowledge object contained within this object has changed since this object was created.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-nextcolumn
      */
     NextColumn(pChangeUnitId, pChangeUnitIdSize) {
         pChangeUnitIdMarshal := pChangeUnitId is VarRef ? "char*" : "ptr"
@@ -52,11 +114,11 @@ class ICoreFragment extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pItemId 
-     * @param {Pointer<Integer>} pItemIdSize 
-     * @returns {IClockVector} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextrange
+     * Returns the next range that is contained in this knowledge fragment, and the clock vector that defines what is known about the items in the range.
+     * @param {Pointer<Integer>} pItemId Returns the closed lower bound of item IDs in this range. This value is also the open upper bound of item IDs in the previous range when it is not the first in the range set.
+     * @param {Pointer<Integer>} pItemIdSize Specifies the number of bytes in <i>pItemId</i>. Returns the number of bytes written, or the number of bytes that are required to retrieve the ID when <i>pItemId</i> is too small.
+     * @returns {IClockVector} Returns the clock vector that defines what is known about the items in the range.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-nextrange
      */
     NextRange(pItemId, pItemIdSize) {
         pItemIdMarshal := pItemId is VarRef ? "char*" : "ptr"
@@ -67,9 +129,38 @@ class ICoreFragment extends IUnknown{
     }
 
     /**
+     * Resets both the column and range enumerators to the beginning of their respective sets.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The knowledge object contained in this object has changed since this object was created.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -77,10 +168,39 @@ class ICoreFragment extends IUnknown{
     }
 
     /**
+     * Gets the number of columns that are contained in this knowledge fragment.
+     * @param {Pointer<Integer>} pColumnCount Returns the number of columns that are contained in this knowledge fragment.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pColumnCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-getcolumncount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-getcolumncount
      */
     GetColumnCount(pColumnCount) {
         pColumnCountMarshal := pColumnCount is VarRef ? "uint*" : "ptr"
@@ -90,10 +210,39 @@ class ICoreFragment extends IUnknown{
     }
 
     /**
+     * Gets the number of ranges that are contained in this knowledge fragment.
+     * @param {Pointer<Integer>} pRangeCount Returns the number of ranges that are contained in this knowledge fragment.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pRangeCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-getrangecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-getrangecount
      */
     GetRangeCount(pRangeCount) {
         pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"

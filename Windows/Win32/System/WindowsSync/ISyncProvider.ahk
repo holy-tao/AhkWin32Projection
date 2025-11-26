@@ -31,10 +31,36 @@ class ISyncProvider extends IUnknown{
     static VTableNames => ["GetIdParameters"]
 
     /**
+     * Gets the ID format schema of the provider.
+     * @param {Pointer<ID_PARAMETERS>} pIdParameters Returns the ID format schema of the provider.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<ID_PARAMETERS>} pIdParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncprovider-getidparameters
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncprovider-getidparameters
      */
     GetIdParameters(pIdParameters) {
         result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")

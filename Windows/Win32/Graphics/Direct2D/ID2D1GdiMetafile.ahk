@@ -32,10 +32,33 @@ class ID2D1GdiMetafile extends ID2D1Resource{
     static VTableNames => ["Stream", "GetBounds"]
 
     /**
+     * This method streams the contents of the command to the given metafile sink.
+     * @param {ID2D1GdiMetafileSink} sink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1gdimetafilesink">ID2D1GdiMetafileSink</a></b>
      * 
-     * @param {ID2D1GdiMetafileSink} sink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafile-stream
+     * The sink into which Direct2D  will call back.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>Direct2D could not allocate sufficient memory to complete the call.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>An invalid value was passed to the method.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1gdimetafile-stream
      */
     Stream(sink) {
         result := ComCall(4, this, "ptr", sink, "HRESULT")
@@ -43,9 +66,11 @@ class ID2D1GdiMetafile extends ID2D1Resource{
     }
 
     /**
+     * Gets the bounds of the metafile, in device-independent pixels (DIPs), as reported in the metafile’s header.
+     * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
-     * @returns {D2D_RECT_F} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafile-getbounds
+     * The bounds, in DIPs, of the metafile.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1gdimetafile-getbounds
      */
     GetBounds() {
         bounds := D2D_RECT_F()

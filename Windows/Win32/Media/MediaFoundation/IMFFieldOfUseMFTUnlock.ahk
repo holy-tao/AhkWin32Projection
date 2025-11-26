@@ -36,10 +36,10 @@ class IMFFieldOfUseMFTUnlock extends IUnknown{
     static VTableNames => ["Unlock"]
 
     /**
-     * 
-     * @param {IUnknown} pUnkMFT 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imffieldofusemftunlock-unlock
+     * Unlocks a Media Foundation transform (MFT) so that the application can use it.
+     * @param {IUnknown} pUnkMFT A pointer to the <b>IUnknown</b> interface of the MFT.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imffieldofusemftunlock-unlock
      */
     Unlock(pUnkMFT) {
         result := ComCall(3, this, "ptr", pUnkMFT, "HRESULT")

@@ -36,10 +36,10 @@ class IBDA_IPV4Filter extends IUnknown{
     static VTableNames => ["GetMulticastListSize", "PutMulticastList", "GetMulticastList", "PutMulticastMode", "GetMulticastMode"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbAddresses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastlistsize
+     * The GetMulticastListSize method retrieves the number of addresses in the list.
+     * @param {Pointer<Integer>} pulcbAddresses Pointer that receives the number of addresses multiplied by the size of an IPv4 address.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastlistsize
      */
     GetMulticastListSize(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
@@ -49,11 +49,11 @@ class IBDA_IPV4Filter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulcbAddresses 
-     * @param {Pointer<Integer>} pAddressList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-putmulticastlist
+     * The PutMulticastList method sets the list of multicast addresses on the Network Provider.
+     * @param {Integer} ulcbAddresses Specifies the number of addresses in the list, times the number of bytes per address.
+     * @param {Pointer<Integer>} pAddressList Pointer that receives an array of addresses whose size in bytes is equal to <i>ulcbAddresses</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipv4filter-putmulticastlist
      */
     PutMulticastList(ulcbAddresses, pAddressList) {
         pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
@@ -63,10 +63,10 @@ class IBDA_IPV4Filter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbAddresses 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastlist
+     * The GetMulticastList method retrieves the list of multicast addresses on the Network Provider.
+     * @param {Pointer<Integer>} pulcbAddresses On input, specifies the maximum number of addresses to retrieve, multiplied by the number of bytes per address. On output, receives the actual number of bytes retrieved.
+     * @returns {Integer} Pointer that receives an array of addresses whose size in bytes is equal to <i>ulcbAddresses</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastlist
      */
     GetMulticastList(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
@@ -76,10 +76,10 @@ class IBDA_IPV4Filter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulModeMask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-putmulticastmode
+     * The PutMulticastMode method sets the multicast mode.
+     * @param {Integer} ulModeMask Specifies the multicast mode.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipv4filter-putmulticastmode
      */
     PutMulticastMode(ulModeMask) {
         result := ComCall(6, this, "uint", ulModeMask, "HRESULT")
@@ -87,9 +87,9 @@ class IBDA_IPV4Filter extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastmode
+     * The GetMulticastMode method retrieves the multicast mode.
+     * @returns {Integer} Pointer that receives the mask. See the Windows DDK for possible values.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastmode
      */
     GetMulticastMode() {
         result := ComCall(7, this, "uint*", &pulModeMask := 0, "HRESULT")

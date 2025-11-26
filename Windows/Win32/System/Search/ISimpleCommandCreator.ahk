@@ -31,10 +31,10 @@ class ISimpleCommandCreator extends IUnknown{
     static VTableNames => ["CreateICommand", "VerifyCatalog", "GetDefaultCatalog"]
 
     /**
-     * 
-     * @param {IUnknown} pOuterUnk 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-isimplecommandcreator-createicommand
+     * Creates an ICommand.
+     * @param {IUnknown} pOuterUnk Optional outer unknown pointer.
+     * @returns {IUnknown} Returns the IUnknown for the command.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-isimplecommandcreator-createicommand
      */
     CreateICommand(pOuterUnk) {
         result := ComCall(3, this, "ptr*", &ppIUnknown := 0, "ptr", pOuterUnk, "HRESULT")
@@ -42,11 +42,11 @@ class ISimpleCommandCreator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszMachine 
-     * @param {PWSTR} pwszCatalogName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-isimplecommandcreator-verifycatalog
+     * Validates the catalog location.
+     * @param {PWSTR} pwszMachine Machine on which the catalog exists.
+     * @param {PWSTR} pwszCatalogName The catalog name.
+     * @returns {HRESULT} If the catalog is accessible, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-isimplecommandcreator-verifycatalog
      */
     VerifyCatalog(pwszMachine, pwszCatalogName) {
         pwszMachine := pwszMachine is String ? StrPtr(pwszMachine) : pwszMachine
@@ -57,12 +57,12 @@ class ISimpleCommandCreator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszCatalogName 
-     * @param {Integer} cwcIn 
-     * @param {Pointer<Integer>} pcwcOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-isimplecommandcreator-getdefaultcatalog
+     * Determines the default catalog for the system.
+     * @param {PWSTR} pwszCatalogName The catalog name.
+     * @param {Integer} cwcIn The size in characters of <i>pwszCatalogName</i>.
+     * @param {Pointer<Integer>} pcwcOut Size of the catalog name.
+     * @returns {HRESULT} If this method succeeds, it returns the contents of the IsapiDefaultCatalogDirectory registry value. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-isimplecommandcreator-getdefaultcatalog
      */
     GetDefaultCatalog(pwszCatalogName, cwcIn, pcwcOut) {
         pwszCatalogName := pwszCatalogName is String ? StrPtr(pwszCatalogName) : pwszCatalogName

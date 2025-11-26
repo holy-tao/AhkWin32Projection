@@ -31,9 +31,11 @@ class IDWriteRenderingParams1 extends IDWriteRenderingParams{
     static VTableNames => ["GetGrayscaleEnhancedContrast"]
 
     /**
+     * Gets the amount of contrast enhancement to use for grayscale antialiasing.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwriterenderingparams1-getgrayscaleenhancedcontrast
+     * The contrast enhancement value. Valid values are greater than or equal to zero.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwriterenderingparams1-getgrayscaleenhancedcontrast
      */
     GetGrayscaleEnhancedContrast() {
         result := ComCall(8, this, "float")

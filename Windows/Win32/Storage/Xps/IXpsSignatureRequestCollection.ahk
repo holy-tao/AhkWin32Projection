@@ -37,9 +37,9 @@ class IXpsSignatureRequestCollection extends IUnknown{
     static VTableNames => ["GetCount", "GetAt", "RemoveAt"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequestcollection-getcount
+     * Gets the number of IXpsSignatureRequest interface pointers in the collection.
+     * @returns {Integer} The number of <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest">IXpsSignatureRequest</a> interface pointers in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequestcollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -47,10 +47,10 @@ class IXpsSignatureRequestCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IXpsSignatureRequest} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequestcollection-getat
+     * Gets an IXpsSignatureRequest interface pointer from a specified location in the collection.
+     * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest">IXpsSignatureRequest</a> interface pointer to be obtained.
+     * @returns {IXpsSignatureRequest} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest">IXpsSignatureRequest</a> interface pointer at the location specified by <i>index</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequestcollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &signatureRequest := 0, "HRESULT")
@@ -58,10 +58,10 @@ class IXpsSignatureRequestCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequestcollection-removeat
+     * Removes and releases an IXpsSignatureRequest interface pointer from a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest">IXpsSignatureRequest</a> interface pointer is to be removed and released.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequestcollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(5, this, "uint", index, "HRESULT")

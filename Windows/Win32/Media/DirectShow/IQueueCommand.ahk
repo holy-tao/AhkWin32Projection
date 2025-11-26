@@ -31,18 +31,18 @@ class IQueueCommand extends IUnknown{
     static VTableNames => ["InvokeAtStreamTime", "InvokeAtPresentationTime"]
 
     /**
-     * 
-     * @param {Pointer<IDeferredCommand>} pCmd 
-     * @param {Float} time 
-     * @param {Pointer<Guid>} iid 
-     * @param {Integer} dispidMethod 
-     * @param {Integer} wFlags 
-     * @param {Integer} cArgs 
-     * @param {Pointer<VARIANT>} pDispParams 
-     * @param {Pointer<VARIANT>} pvarResult 
-     * @param {Pointer<Integer>} puArgErr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iqueuecommand-invokeatstreamtime
+     * The InvokeAtStreamTime method queues a method or property change for execution at a specified stream time (that is, presentation time relative to the current stream time offset).
+     * @param {Pointer<IDeferredCommand>} pCmd Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/control/nn-control-ideferredcommand">IDeferredCommand</a> interface pointer.
+     * @param {Float} time Time at which to invoke the command.
+     * @param {Pointer<Guid>} iid Pointer to the interface identifier (IID) of interface.
+     * @param {Integer} dispidMethod Dispatch identifier (DISPID) of a method or property on the interface. Equivalent to the <i>dispIdMember</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @param {Integer} wFlags Flags describing the context of the call. Equivalent to the <i>wFlags</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @param {Integer} cArgs Number of arguments in <i>pDispParams</i>. Equivalent to the <b>cArgs</b> member of the <b>DISPPARAMS</b> structure.
+     * @param {Pointer<VARIANT>} pDispParams Pointer to an array that contains the arguments. Equivalent to the <b>rgvarg</b> member of the <b>DISPPARAMS</b> structure.
+     * @param {Pointer<VARIANT>} pvarResult Pointer to a VARIANT that receives the result. Equivalent to the <i>pVarResult</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @param {Pointer<Integer>} puArgErr Pointer to a variable that receives the index of the first argument that has an error. Equivalent to the <i>puArgErr</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iqueuecommand-invokeatstreamtime
      */
     InvokeAtStreamTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
@@ -52,18 +52,18 @@ class IQueueCommand extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<IDeferredCommand>} pCmd 
-     * @param {Float} time 
-     * @param {Pointer<Guid>} iid 
-     * @param {Integer} dispidMethod 
-     * @param {Integer} wFlags 
-     * @param {Integer} cArgs 
-     * @param {Pointer<VARIANT>} pDispParams 
-     * @param {Pointer<VARIANT>} pvarResult 
-     * @param {Pointer<Integer>} puArgErr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iqueuecommand-invokeatpresentationtime
+     * The InvokeAtPresentationTime method queues a method to be invoked at the specified presentation time.
+     * @param {Pointer<IDeferredCommand>} pCmd Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/control/nn-control-ideferredcommand">IDeferredCommand</a> interface pointer.
+     * @param {Float} time Time at which to invoke the command.
+     * @param {Pointer<Guid>} iid Pointer to the interface identifier (IID) of interface.
+     * @param {Integer} dispidMethod Dispatch identifier (DISPID) of a method or property on the interface. Equivalent to the <i>dispIdMember</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @param {Integer} wFlags Flags describing the context of the call. Equivalent to the <i>wFlags</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @param {Integer} cArgs Number of arguments in <i>pDispParams</i>. Equivalent to the <b>cArgs</b> member of the <b>DISPPARAMS</b> structure.
+     * @param {Pointer<VARIANT>} pDispParams Pointer to an array that contains the arguments. Equivalent to the <b>rgvarg</b> member of the <b>DISPPARAMS</b> structure.
+     * @param {Pointer<VARIANT>} pvarResult Pointer a VARIANT that receives the result. Equivalent to the <i>pVarResult</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @param {Pointer<Integer>} puArgErr Pointer to a variable that receives the index of the first argument that has an error. Equivalent to the <i>puArgErr</i> parameter of the <b>IDispatch::Invoke</b> method.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iqueuecommand-invokeatpresentationtime
      */
     InvokeAtPresentationTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"

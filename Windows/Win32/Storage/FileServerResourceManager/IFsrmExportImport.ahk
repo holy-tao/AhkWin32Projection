@@ -51,12 +51,19 @@ class IFsrmExportImport extends IDispatch{
     static VTableNames => ["ExportFileGroups", "ImportFileGroups", "ExportFileScreenTemplates", "ImportFileScreenTemplates", "ExportQuotaTemplates", "ImportQuotaTemplates"]
 
     /**
+     * Exports one or more file groups to the specified file.
+     * @param {BSTR} filePath The full path to the export file that will contain the file groups in XML format. The string is limited to 
+     *       260 characters.
+     * @param {Pointer<VARIANT>} fileGroupNamesSafeArray A variant that contains the names of the file groups to export. Set the variant to empty or 
+     *       <b>NULL</b> to export all file groups.
      * 
-     * @param {BSTR} filePath 
-     * @param {Pointer<VARIANT>} fileGroupNamesSafeArray 
-     * @param {BSTR} remoteHost 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-exportfilegroups
+     * Set the variant type to both 
+     *       <b>VT_ARRAY</b> and <b>VT_VARIANT</b> and the 
+     *       <b>parray</b> member to the <b>SAFEARRAY</b> of 
+     *       <b>BSTR</b>s.
+     * @param {BSTR} remoteHost The name of the remote server. To specify the local server, set to an empty string.
+     * @returns {HRESULT} This method can return the following error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmexportimport-exportfilegroups
      */
     ExportFileGroups(filePath, fileGroupNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
@@ -67,12 +74,14 @@ class IFsrmExportImport extends IDispatch{
     }
 
     /**
+     * Imports one or more file groups from the specified file.
+     * @param {BSTR} filePath The full path to the file from which to import the file groups. The string is limited to 260 characters.
+     * @param {Pointer<VARIANT>} fileGroupNamesSafeArray A variant that contains the names of the file groups to import. Set the variant to empty or <b>NULL</b> to import all file groups.
      * 
-     * @param {BSTR} filePath 
-     * @param {Pointer<VARIANT>} fileGroupNamesSafeArray 
-     * @param {BSTR} remoteHost 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-importfilegroups
+     * Set the variant type to both <b>VT_ARRAY</b> and <b>VT_VARIANT</b> and the <b>parray</b> member to the <b>SAFEARRAY</b> of <b>BSTR</b>s.
+     * @param {BSTR} remoteHost The name of the remote server. To specify the local server, set to an empty string.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface that contains a collection of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroupimported">IFsrmFileGroupImported</a> interfaces. To complete the import, you must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileGroupImported::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmexportimport-importfilegroups
      */
     ImportFileGroups(filePath, fileGroupNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
@@ -83,12 +92,14 @@ class IFsrmExportImport extends IDispatch{
     }
 
     /**
+     * Exports one or more file screen templates to the specified file.
+     * @param {BSTR} filePath The full path to the export file that will contain the file screen templates in XML format. The string is limited to 260 characters.
+     * @param {Pointer<VARIANT>} templateNamesSafeArray A variant that contains the names of the file screen templates to export. Set the variant to empty or <b>NULL</b> to export all templates.
      * 
-     * @param {BSTR} filePath 
-     * @param {Pointer<VARIANT>} templateNamesSafeArray 
-     * @param {BSTR} remoteHost 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-exportfilescreentemplates
+     * Set the variant type to both <b>VT_ARRAY</b> and <b>VT_VARIANT</b> and the <b>parray</b> member to the <b>SAFEARRAY</b> of <b>BSTR</b>s.
+     * @param {BSTR} remoteHost The name of the remote server. To specify the local server, set to an empty string.
+     * @returns {HRESULT} This method can return the following error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmexportimport-exportfilescreentemplates
      */
     ExportFileScreenTemplates(filePath, templateNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
@@ -99,12 +110,14 @@ class IFsrmExportImport extends IDispatch{
     }
 
     /**
+     * Imports one or more file screen templates from the specified file.
+     * @param {BSTR} filePath The full path to the file from which to import the file screen templates. The string is limited to 260 characters.
+     * @param {Pointer<VARIANT>} templateNamesSafeArray A variant that contains the names of the file screen templates to import. Set the variant to empty or <b>NULL</b> to import all templates.
      * 
-     * @param {BSTR} filePath 
-     * @param {Pointer<VARIANT>} templateNamesSafeArray 
-     * @param {BSTR} remoteHost 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-importfilescreentemplates
+     * Set the variant type to both <b>VT_ARRAY</b> and <b>VT_VARIANT</b> and the <b>parray</b> member to the <b>SAFEARRAY</b> of <b>BSTR</b>s.
+     * @param {BSTR} remoteHost The name of the remote server. To specify the local server, set to an empty string.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface that contains a collection of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplateimported">IFsrmFileScreenTemplateImported</a> interfaces. To complete the import, you must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileScreenTemplateImported::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmexportimport-importfilescreentemplates
      */
     ImportFileScreenTemplates(filePath, templateNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
@@ -115,12 +128,18 @@ class IFsrmExportImport extends IDispatch{
     }
 
     /**
+     * Exports one or more quota templates to the specified file.
+     * @param {BSTR} filePath The full path to the export file that will contain the quota templates in XML format. The string is limited 
+     *       to 260 characters.
+     * @param {Pointer<VARIANT>} templateNamesSafeArray A variant that contains the names of the quota templates to export. Set the variant to empty or 
+     *        <b>NULL</b> to export all templates.
      * 
-     * @param {BSTR} filePath 
-     * @param {Pointer<VARIANT>} templateNamesSafeArray 
-     * @param {BSTR} remoteHost 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-exportquotatemplates
+     * Set the variant type to both <b>VT_ARRAY</b> and <b>VT_VARIANT</b> and 
+     *        the <b>parray</b> member to the <b>SAFEARRAY</b> of 
+     *        <b>BSTR</b>s.
+     * @param {BSTR} remoteHost The name of the remote server. To specify the local server, set to an empty string.
+     * @returns {HRESULT} This method can return the following error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmexportimport-exportquotatemplates
      */
     ExportQuotaTemplates(filePath, templateNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
@@ -131,12 +150,14 @@ class IFsrmExportImport extends IDispatch{
     }
 
     /**
+     * Imports one or more quota templates from the specified file.
+     * @param {BSTR} filePath The full path to the file from which to import the quota templates. The string is limited to 260 characters.
+     * @param {Pointer<VARIANT>} templateNamesSafeArray A variant that contains the names of the quota templates to import. Set the variant to empty or <b>NULL</b> to import all templates.
      * 
-     * @param {BSTR} filePath 
-     * @param {Pointer<VARIANT>} templateNamesSafeArray 
-     * @param {BSTR} remoteHost 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-importquotatemplates
+     * Set the variant type to both <b>VT_ARRAY</b> and <b>VT_VARIANT</b> and the <b>parray</b> member to the <b>SAFEARRAY</b> of <b>BSTR</b>s.
+     * @param {BSTR} remoteHost The name of the remote server. To specify the local server, set to an empty string.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface that contains a collection of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplateimported">IFsrmQuotaTemplateImported</a> interfaces. To complete the import, you must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmQuotaTemplateImported::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmexportimport-importquotatemplates
      */
     ImportQuotaTemplates(filePath, templateNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath

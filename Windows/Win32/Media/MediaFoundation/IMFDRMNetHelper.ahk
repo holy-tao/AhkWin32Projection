@@ -54,14 +54,46 @@ class IMFDRMNetHelper extends IUnknown{
     static VTableNames => ["ProcessLicenseRequest", "GetChainedLicenseResponse"]
 
     /**
+     * Gets the license response for the specified request.
+     * @param {Pointer<Integer>} pLicenseRequest Pointer to a byte array that contains the license request.
+     * @param {Integer} cbLicenseRequest Size, in bytes, of the license request.
+     * @param {Pointer<Pointer<Integer>>} ppLicenseResponse Receives a pointer to a byte array that contains the license response. The caller must free the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcbLicenseResponse Receives the size, in bytes, of the license response.
+     * @param {Pointer<BSTR>} pbstrKID Receives the key identifier. The caller must release the string by calling <b>SysFreeString</b>.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pLicenseRequest 
-     * @param {Integer} cbLicenseRequest 
-     * @param {Pointer<Pointer<Integer>>} ppLicenseResponse 
-     * @param {Pointer<Integer>} pcbLicenseResponse 
-     * @param {Pointer<BSTR>} pbstrKID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfdrmnethelper-processlicenserequest
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The media sink was shut down.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfdrmnethelper-processlicenserequest
      */
     ProcessLicenseRequest(pLicenseRequest, cbLicenseRequest, ppLicenseResponse, pcbLicenseResponse, pbstrKID) {
         pLicenseRequestMarshal := pLicenseRequest is VarRef ? "char*" : "ptr"
@@ -73,11 +105,11 @@ class IMFDRMNetHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Integer>>} ppLicenseResponse 
-     * @param {Pointer<Integer>} pcbLicenseResponse 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse
+     * Not implemented in this release.
+     * @param {Pointer<Pointer<Integer>>} ppLicenseResponse Receives a pointer to a byte array that contains the license response. The caller must free the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcbLicenseResponse Receives the size, in bytes, of the license response.
+     * @returns {HRESULT} The method returns <b>E_NOTIMPL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse
      */
     GetChainedLicenseResponse(ppLicenseResponse, pcbLicenseResponse) {
         ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"

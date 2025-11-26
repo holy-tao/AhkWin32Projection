@@ -32,10 +32,10 @@ class IWMWriterAdvanced3 extends IWMWriterAdvanced2{
     static VTableNames => ["GetStatisticsEx", "SetNonBlocking"]
 
     /**
-     * 
-     * @param {Integer} wStreamNum 
-     * @returns {WM_WRITER_STATISTICS_EX} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced3-getstatisticsex
+     * The GetStatisticsEx method retrieves extended statistics for the writer.
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which you want to get statistics. You can pass 0 to obtain extended statistics for the entire file. Stream numbers are in the range of 1 through 63.
+     * @returns {WM_WRITER_STATISTICS_EX} Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_writer_statistics_ex">WM_WRITER_STATISTICS_EX</a> structure that receives the statistics.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriteradvanced3-getstatisticsex
      */
     GetStatisticsEx(wStreamNum) {
         pStats := WM_WRITER_STATISTICS_EX()
@@ -44,9 +44,9 @@ class IWMWriterAdvanced3 extends IWMWriterAdvanced2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced3-setnonblocking
+     * The SetNonBlocking method configures the writer so that the calling thread is not blocked while writing samples.
+     * @returns {HRESULT} The method always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriteradvanced3-setnonblocking
      */
     SetNonBlocking() {
         result := ComCall(17, this, "HRESULT")

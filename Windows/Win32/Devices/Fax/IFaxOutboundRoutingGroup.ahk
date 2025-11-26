@@ -64,9 +64,9 @@ class IFaxOutboundRoutingGroup extends IDispatch{
     }
 
     /**
-     * 
+     * The Name property is a null-terminated string that specifies the name of the outbound routing group.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -75,9 +75,14 @@ class IFaxOutboundRoutingGroup extends IDispatch{
     }
 
     /**
+     * The Status property indicates the collective status of the fax devices in the outbound routing group.
+     * @remarks
+     * 
+     * When devices are added to or removed from a group, the group's status does not change.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_status
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_status
      */
     get_Status() {
         result := ComCall(8, this, "int*", &pStatus := 0, "HRESULT")
@@ -85,9 +90,9 @@ class IFaxOutboundRoutingGroup extends IDispatch{
     }
 
     /**
-     * 
+     * The DeviceIds property retrieves an interface that represents the ordered collection of device IDs that participate in the outbound routing group.
      * @returns {IFaxDeviceIds} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_deviceids
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_deviceids
      */
     get_DeviceIds() {
         result := ComCall(9, this, "ptr*", &pFaxDeviceIds := 0, "HRESULT")

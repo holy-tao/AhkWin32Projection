@@ -37,11 +37,11 @@ class ICoreFragmentInspector extends IUnknown{
     static VTableNames => ["NextCoreFragments", "Reset"]
 
     /**
-     * 
-     * @param {Integer} requestedCount 
-     * @param {Pointer<Integer>} pFetchedCount 
-     * @returns {ICoreFragment} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragmentinspector-nextcorefragments
+     * Returns the next ICoreFragment objects in the knowledge, if they are available.
+     * @param {Integer} requestedCount The number of <b>ICoreFragment</b> objects to retrieve.
+     * @param {Pointer<Integer>} pFetchedCount Receives the number of <b>ICoreFragment</b> objects that were retrieved in the <i>ppiCoreFragments</i> parameter. This value can be <b>NULL</b> only if <i> requestedCount</i> is 1.
+     * @returns {ICoreFragment} Receives a pointer to the next <i>pFetchedCount</i> <b>ICoreFragment</b> objects. The size of the array is the value specified in the <i>requestedCount</i> parameter. The length is <c>*(pFetchedCount)</c>. The caller must release the interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragmentinspector-nextcorefragments
      */
     NextCoreFragments(requestedCount, pFetchedCount) {
         pFetchedCountMarshal := pFetchedCount is VarRef ? "uint*" : "ptr"
@@ -51,9 +51,38 @@ class ICoreFragmentInspector extends IUnknown{
     }
 
     /**
+     * Resets the enumerator to the beginning of the knowledge.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragmentinspector-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The knowledge object that is associated with this object has changed since this object was created.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragmentinspector-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")

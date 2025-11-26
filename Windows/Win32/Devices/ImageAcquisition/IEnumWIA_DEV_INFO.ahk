@@ -67,11 +67,17 @@ class IEnumWIA_DEV_INFO extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
 
     /**
+     * The IEnumWIA_DEV_INFO::Next method fills an array of pointers to IWiaPropertyStorage interfaces.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {IWiaPropertyStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-next
+     * Specifies the number of array elements in the array indicated by the <i>rgelt</i> parameter.
+     * @param {Pointer<Integer>} pceltFetched Type: <b>ULONG*</b>
+     * 
+     * On output, this parameter contains the number of interface pointers actually stored in the array indicated by the <i>rgelt</i> parameter.
+     * @returns {IWiaPropertyStorage} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiapropertystorage">IWiaPropertyStorage</a>**</b>
+     * 
+     * Receives the address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiapropertystorage">IWiaPropertyStorage</a> interface pointers. <b>IEnumWIA_DEV_INFO::Next</b> fills this array with interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_info-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -81,10 +87,14 @@ class IEnumWIA_DEV_INFO extends IUnknown{
     }
 
     /**
+     * The IEnumWIA_DEV_INFO::Skip method skips the specified number of hardware devices during an enumeration of available devices.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-skip
+     * Specifies the number of devices to skip.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the method returns S_OK. If it is unable to skip the specified number of devices, it returns S_FALSE. If the method fails, it returns a standard COM error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_info-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -92,9 +102,11 @@ class IEnumWIA_DEV_INFO extends IUnknown{
     }
 
     /**
+     * The IEnumWIA_DEV_INFO::Reset method is used by applications to restart the enumeration of device information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-reset
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_info-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -102,9 +114,11 @@ class IEnumWIA_DEV_INFO extends IUnknown{
     }
 
     /**
+     * The IEnumWIA_DEV_INFO::Clone method creates an additional instance of the IEnumWIA_DEV_INFO interface and sends back a pointer to it.
+     * @returns {IEnumWIA_DEV_INFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_info">IEnumWIA_DEV_INFO</a>**</b>
      * 
-     * @returns {IEnumWIA_DEV_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-clone
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_info">IEnumWIA_DEV_INFO</a> interface. This parameter contains a pointer to the <b>IEnumWIA_DEV_INFO</b> interface instance that <b>IEnumWIA_DEV_INFO::Clone</b> creates.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_info-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
@@ -112,9 +126,11 @@ class IEnumWIA_DEV_INFO extends IUnknown{
     }
 
     /**
+     * The IEnumWIA_DEV_INFO::GetCount method returns the number of elements stored by this enumerator.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-getcount
+     * This parameter points to a <b>ULONG</b> that receives the number of elements in the enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwia_dev_info-getcount
      */
     GetCount() {
         result := ComCall(7, this, "uint*", &celt := 0, "HRESULT")

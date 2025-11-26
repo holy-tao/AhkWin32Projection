@@ -36,19 +36,23 @@ class ID2D1OffsetTransform extends ID2D1TransformNode{
     static VTableNames => ["SetOffset", "GetOffset"]
 
     /**
+     * Sets the offset in the current offset transform.
+     * @param {POINT} offset Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh847948(v=vs.85)">D2D1_POINT_2L</a></b>
      * 
-     * @param {POINT} offset 
+     * The new offset to apply to the offset transform.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1offsettransform-setoffset
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1offsettransform-setoffset
      */
     SetOffset(offset) {
         ComCall(4, this, "ptr", offset)
     }
 
     /**
+     * Gets the offset currently in the offset transform.
+     * @returns {POINT} Type: <b><a href="/previous-versions/windows/desktop/legacy/hh847948(v=vs.85)">D2D1_POINT_2L</a></b>
      * 
-     * @returns {POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1offsettransform-getoffset
+     * The current transform offset.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1offsettransform-getoffset
      */
     GetOffset() {
         result := ComCall(5, this, "ptr")

@@ -52,10 +52,28 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The get_count method retrieves the number of items in the playlist.
+     * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_count
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-get_count
      */
     get_count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -65,10 +83,28 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The get_name method retrieves the name of the playlist.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> containing the name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_name
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-get_name
      */
     get_name(pbstrName) {
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
@@ -76,10 +112,28 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The put_name method specifies the name of the playlist.
+     * @param {BSTR} bstrName String containing the name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-put_name
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-put_name
      */
     put_name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -89,10 +143,28 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The get_attributeCount method retrieves the number of attributes associated with the playlist.
+     * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_attributecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-get_attributecount
      */
     get_attributeCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -102,11 +174,29 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The get_attributeName method retrieves the name of an attribute specified by an index.
+     * @param {Integer} lIndex <b>long</b> containing the index.
+     * @param {Pointer<BSTR>} pbstrAttributeName Pointer to a <b>BSTR</b> containing the attribute name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<BSTR>} pbstrAttributeName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_attributename
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-get_attributename
      */
     get_attributeName(lIndex, pbstrAttributeName) {
         result := ComCall(11, this, "int", lIndex, "ptr", pbstrAttributeName, "HRESULT")
@@ -114,10 +204,10 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} lIndex 
-     * @returns {IWMPMedia} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_item
+     * The get_item method retrieves the media item at the specified index.
+     * @param {Integer} lIndex <b>long</b> containing the index.
+     * @returns {IWMPMedia} Pointer to a pointer to an <b>IWMPMedia</b> interface for the returned item.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-get_item
      */
     get_item(lIndex) {
         result := ComCall(12, this, "int", lIndex, "ptr*", &ppIWMPMedia := 0, "HRESULT")
@@ -125,11 +215,29 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The getItemInfo method retrieves the value of a playlist attribute specified by name.
+     * @param {BSTR} bstrName <b>BSTR</b> containing the name.
+     * @param {Pointer<BSTR>} pbstrVal Pointer to a <b>BSTR</b> containing the returned value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrName 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-getiteminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-getiteminfo
      */
     getItemInfo(bstrName, pbstrVal) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -139,11 +247,29 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The setItemInfo method specifies the value of an attribute of the current playlist. .
+     * @param {BSTR} bstrName String containing the attribute name.
+     * @param {BSTR} bstrValue String containing the attribute value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrName 
-     * @param {BSTR} bstrValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-setiteminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-setiteminfo
      */
     setItemInfo(bstrName, bstrValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -154,11 +280,29 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The get_isIdentical method retrieves a value indicating whether the specified playlist is identical to the current playlist.
+     * @param {IWMPPlaylist} pIWMPPlaylist Pointer to an <b>IWMPPlaylist</b> interface for the playlist that this method compares to the current playlist.
+     * @param {Pointer<VARIANT_BOOL>} pvbool <b>VARIANT_BOOL</b> that specifies whether the compared playlists were identical.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPPlaylist} pIWMPPlaylist 
-     * @param {Pointer<VARIANT_BOOL>} pvbool 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_isidentical
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-get_isidentical
      */
     get_isIdentical(pIWMPPlaylist, pvbool) {
         pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
@@ -168,9 +312,27 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The clear method is reserved for future use.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-clear
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-clear
      */
     clear() {
         result := ComCall(16, this, "HRESULT")
@@ -178,11 +340,29 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The insertItem method adds a media item at the specified location in the playlist.
+     * @param {Integer} lIndex <b>long</b> containing the index at which this method will add the item.
+     * @param {IWMPMedia} pIWMPMedia Pointer to an <b>IWMPMedia</b> interface for the inserted item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @param {IWMPMedia} pIWMPMedia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-insertitem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-insertitem
      */
     insertItem(lIndex, pIWMPMedia) {
         result := ComCall(17, this, "int", lIndex, "ptr", pIWMPMedia, "HRESULT")
@@ -190,10 +370,28 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The appendItem method adds a media item to the end of the playlist.
+     * @param {IWMPMedia} pIWMPMedia Pointer to an <b>IWMPMedia</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pIWMPMedia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-appenditem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-appenditem
      */
     appendItem(pIWMPMedia) {
         result := ComCall(18, this, "ptr", pIWMPMedia, "HRESULT")
@@ -201,10 +399,28 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The removeItem method removes the specified media item from the playlist.
+     * @param {IWMPMedia} pIWMPMedia Pointer to an <b>IWMPMedia</b> interface for the item to remove.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pIWMPMedia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-removeitem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-removeitem
      */
     removeItem(pIWMPMedia) {
         result := ComCall(19, this, "ptr", pIWMPMedia, "HRESULT")
@@ -212,11 +428,29 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * The moveItem method changes the location of a media item in the playlist.
+     * @param {Integer} lIndexOld <b>long</b> containing the original index.
+     * @param {Integer} lIndexNew <b>long</b> containing the new index.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndexOld 
-     * @param {Integer} lIndexNew 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-moveitem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylist-moveitem
      */
     moveItem(lIndexOld, lIndexNew) {
         result := ComCall(20, this, "int", lIndexOld, "int", lIndexNew, "HRESULT")

@@ -33,10 +33,10 @@ class IRemoteDesktopClientSettings extends IDispatch{
     static VTableNames => ["ApplySettings", "RetrieveSettings", "GetRdpProperty", "SetRdpProperty"]
 
     /**
-     * 
-     * @param {BSTR} rdpFileContents 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-applysettings
+     * Stores the specified contents in the RDP file.
+     * @param {BSTR} rdpFileContents Specifies the entire contents of the RDP file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-applysettings
      */
     ApplySettings(rdpFileContents) {
         rdpFileContents := rdpFileContents is String ? BSTR.Alloc(rdpFileContents).Value : rdpFileContents
@@ -46,9 +46,9 @@ class IRemoteDesktopClientSettings extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
+     * Retrieves the entire RDP file as a string.
+     * @returns {BSTR} The entire contents of the RDP file.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
      */
     RetrieveSettings() {
         rdpFileContents := BSTR()
@@ -57,10 +57,10 @@ class IRemoteDesktopClientSettings extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves a single named RDP property value.
      * @param {BSTR} propertyName 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-getrdpproperty
+     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-getrdpproperty
      */
     GetRdpProperty(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
@@ -71,11 +71,16 @@ class IRemoteDesktopClientSettings extends IDispatch{
     }
 
     /**
+     * Sets the value of a single named RDP property.
+     * @param {BSTR} propertyName A string that specifies the name of the property.
      * 
-     * @param {BSTR} propertyName 
-     * @param {VARIANT} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-setrdpproperty
+     * <div class="alert"><b>Note</b>  These string values are not case-sensitive.</div>
+     * <div> </div>
+     * 
+     * The possible values are.
+     * @param {VARIANT} value The new property value.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-setrdpproperty
      */
     SetRdpProperty(propertyName, value) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName

@@ -31,10 +31,28 @@ class IWMCodecLeakyBucket extends IUnknown{
     static VTableNames => ["SetBufferSizeBits", "GetBufferSizeBits", "SetBufferFullnessBits", "GetBufferFullnessBits"]
 
     /**
+     * Sets the buffer size in bits.
+     * @param {Integer} ulBufferSize The buffer size, in bits.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} ulBufferSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-setbuffersizebits
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-setbuffersizebits
      */
     SetBufferSizeBits(ulBufferSize) {
         result := ComCall(3, this, "uint", ulBufferSize, "HRESULT")
@@ -42,10 +60,28 @@ class IWMCodecLeakyBucket extends IUnknown{
     }
 
     /**
+     * Retrieves the current size of the buffer in bits.
+     * @param {Pointer<Integer>} pulBufferSize Pointer to a variable containing the buffer size, in bits.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pulBufferSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbuffersizebits
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbuffersizebits
      */
     GetBufferSizeBits(pulBufferSize) {
         pulBufferSizeMarshal := pulBufferSize is VarRef ? "uint*" : "ptr"
@@ -55,10 +91,10 @@ class IWMCodecLeakyBucket extends IUnknown{
     }
 
     /**
-     * 
+     * Not implemented in this release.
      * @param {Integer} ulBufferFullness 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-setbufferfullnessbits
+     * @returns {HRESULT} This method always returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-setbufferfullnessbits
      */
     SetBufferFullnessBits(ulBufferFullness) {
         result := ComCall(5, this, "uint", ulBufferFullness, "HRESULT")
@@ -66,10 +102,10 @@ class IWMCodecLeakyBucket extends IUnknown{
     }
 
     /**
-     * 
+     * Not implemented in this release.
      * @param {Pointer<Integer>} pulBufferFullness 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbufferfullnessbits
+     * @returns {HRESULT} This method always returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbufferfullnessbits
      */
     GetBufferFullnessBits(pulBufferFullness) {
         pulBufferFullnessMarshal := pulBufferFullness is VarRef ? "uint*" : "ptr"

@@ -35,9 +35,9 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
     static VTableNames => ["createQuery", "getPlaylistByQuery", "getStringCollectionByQuery", "getByAttributeAndMediaType"]
 
     /**
-     * 
-     * @returns {IWMPQuery} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-createquery
+     * The createQuery method retrieves a pointer to an IWMPQuery interface that represents a new query.
+     * @returns {IWMPQuery} Address of a variable that receives an <b>IWMPQuery</b> pointer to the new, empty query.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection2-createquery
      */
     createQuery() {
         result := ComCall(19, this, "ptr*", &ppQuery := 0, "HRESULT")
@@ -45,13 +45,13 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
     }
 
     /**
-     * 
-     * @param {IWMPQuery} pQuery 
+     * The getPlaylistByQuery method retrieves a pointer to an IWMPPlaylist interface. This interface represents a playlist that contains media items that match the query conditions.
+     * @param {IWMPQuery} pQuery Pointer to the <b>IWMPQuery</b> interface that represents the query.
      * @param {BSTR} bstrMediaType 
-     * @param {BSTR} bstrSortAttribute 
-     * @param {VARIANT_BOOL} fSortAscending 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-getplaylistbyquery
+     * @param {BSTR} bstrSortAttribute String that contains the attribute name used for sorting. An empty string means that no sorting is applied.
+     * @param {VARIANT_BOOL} fSortAscending <b>VARIANT_BOOL</b> that indicates whether the playlist must be sorted in ascending order.
+     * @returns {IWMPPlaylist} Address of a variable that receives a pointer to an <b>IWMPPlaylist</b> interface for the retrieved playlist.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection2-getplaylistbyquery
      */
     getPlaylistByQuery(pQuery, bstrMediaType, bstrSortAttribute, fSortAscending) {
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
@@ -62,14 +62,14 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAttribute 
-     * @param {IWMPQuery} pQuery 
+     * The getStringCollectionByQuery method retrieves a pointer to an IWMPStringCollection interface. This interface represents a set of all string values for a specified attribute that match the query conditions.
+     * @param {BSTR} bstrAttribute String containing the attribute name.
+     * @param {IWMPQuery} pQuery Pointer to the <b>IWMPQuery</b> interface that represents the query that defines the conditions used to retrieve the string collection.
      * @param {BSTR} bstrMediaType 
-     * @param {BSTR} bstrSortAttribute 
-     * @param {VARIANT_BOOL} fSortAscending 
-     * @returns {IWMPStringCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-getstringcollectionbyquery
+     * @param {BSTR} bstrSortAttribute String containing the attribute name used for sorting. An empty string means no sorting is applied.
+     * @param {VARIANT_BOOL} fSortAscending <b>VARIANT_BOOL</b> that indicates whether the playlist must be sorted in ascending order.
+     * @returns {IWMPStringCollection} Address of a variable that receives a pointer to an <b>IWMPStringCollection</b> interface for the retrieved set of string values.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection2-getstringcollectionbyquery
      */
     getStringCollectionByQuery(bstrAttribute, pQuery, bstrMediaType, bstrSortAttribute, fSortAscending) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
@@ -81,12 +81,12 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAttribute 
-     * @param {BSTR} bstrValue 
-     * @param {BSTR} bstrMediaType 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-getbyattributeandmediatype
+     * The getByAttributeAndMediaType method retrieves a pointer to an IWMPPlaylist interface. This interface represents a playlist that contains media items that have a specified attribute and media type.
+     * @param {BSTR} bstrAttribute String that contains the specified attribute.
+     * @param {BSTR} bstrValue String that contains the specified value for the attribute that is specified in <i>bstrAttribute</i>.
+     * @param {BSTR} bstrMediaType String that contains the specified media type.
+     * @returns {IWMPPlaylist} Address of a variable that receives a pointer to an <b>IWMPPlaylist</b> interface for the retrieved playlist.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection2-getbyattributeandmediatype
      */
     getByAttributeAndMediaType(bstrAttribute, bstrValue, bstrMediaType) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute

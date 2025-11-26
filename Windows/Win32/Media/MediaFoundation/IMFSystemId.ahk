@@ -31,11 +31,29 @@ class IMFSystemId extends IUnknown{
     static VTableNames => ["GetData", "Setup"]
 
     /**
+     * Retrieves system id data.
+     * @param {Pointer<Integer>} size The size in bytes of the returned data.
+     * @param {Pointer<Pointer<Integer>>} data Receives the returned data.  The caller must free this buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} size 
-     * @param {Pointer<Pointer<Integer>>} data 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-getdata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsystemid-getdata
      */
     GetData(size, data) {
         sizeMarshal := size is VarRef ? "uint*" : "ptr"
@@ -46,14 +64,14 @@ class IMFSystemId extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} stage 
-     * @param {Integer} cbIn 
-     * @param {Pointer} pbIn 
-     * @param {Pointer<Integer>} pcbOut 
-     * @param {Pointer<Pointer<Integer>>} ppbOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-setup
+     * Sets up the IMFSystemId.
+     * @param {Integer} stage Stage in the setup process. 0 or 1.
+     * @param {Integer} cbIn Size of the input buffer.
+     * @param {Pointer} pbIn The input buffer.
+     * @param {Pointer<Integer>} pcbOut Size of output buffer.
+     * @param {Pointer<Pointer<Integer>>} ppbOut The output buffer.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsystemid-setup
      */
     Setup(stage, cbIn, pbIn, pcbOut, ppbOut) {
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"

@@ -37,11 +37,17 @@ class ICDBurn extends IUnknown{
     static VTableNames => ["GetRecorderDriveLetter", "Burn", "HasRecordableDrive"]
 
     /**
+     * Gets the drive letter of a CD drive that has been marked as write-enabled.
+     * @param {PWSTR} pszDrive Type: <b>LPWSTR</b>
      * 
-     * @param {PWSTR} pszDrive 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburn-getrecorderdriveletter
+     * A pointer to a string containing the drive letter, for example "F:\".
+     * @param {Integer} cch Type: <b>UINT</b>
+     * 
+     * The size of the string, in characters, pointed to by pszDrive. This value will normally be 4. Values larger than 4 are allowed, but the extra characters will be ignored by this method. Values less than 4 will generate an E_INVALIDARG error.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburn-getrecorderdriveletter
      */
     GetRecorderDriveLetter(pszDrive, cch) {
         pszDrive := pszDrive is String ? StrPtr(pszDrive) : pszDrive
@@ -51,10 +57,14 @@ class ICDBurn extends IUnknown{
     }
 
     /**
+     * Instructs data to be copied from the staging area to a writable CD.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburn-burn
+     * The handle of the parent window of the UI.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburn-burn
      */
     Burn(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -64,9 +74,11 @@ class ICDBurn extends IUnknown{
     }
 
     /**
+     * Scans the system for a CD drive with write-capability, returning TRUE if one is found.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburn-hasrecordabledrive
+     * A pointer to a Boolean value containing <b>TRUE</b> if a suitable device is located, <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburn-hasrecordabledrive
      */
     HasRecordableDrive() {
         result := ComCall(5, this, "int*", &pfHasRecorder := 0, "HRESULT")

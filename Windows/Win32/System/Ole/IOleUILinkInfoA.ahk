@@ -33,10 +33,10 @@ class IOleUILinkInfoA extends IOleUILinkContainerA{
     static VTableNames => ["GetLastUpdate"]
 
     /**
-     * 
-     * @param {Integer} dwLink 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkinfoa-getlastupdate
+     * Determines the last time the object was updated.
+     * @param {Integer} dwLink Container-defined unique identifier for a single link. Containers can use the pointer to the link's container site for this value.
+     * @returns {FILETIME} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that indicates the time that the object was last updated.
+     * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-ioleuilinkinfoa-getlastupdate
      */
     GetLastUpdate(dwLink) {
         lpLastUpdate := FILETIME()

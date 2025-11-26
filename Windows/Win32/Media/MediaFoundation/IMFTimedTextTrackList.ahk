@@ -32,9 +32,11 @@ class IMFTimedTextTrackList extends IUnknown{
     static VTableNames => ["GetLength", "GetTrack", "GetTrackById"]
 
     /**
+     * Gets the length, in tracks, of the timed-text-track list.
+     * @returns {Integer} Type: <b>DWORD</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-getlength
+     * Returns the length, in tracks, of the timed-text-track list.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-getlength
      */
     GetLength() {
         result := ComCall(3, this, "uint")
@@ -42,10 +44,14 @@ class IMFTimedTextTrackList extends IUnknown{
     }
 
     /**
+     * Gets a text track in the list from the index of the track.
+     * @param {Integer} index Type: <b>DWORD</b>
      * 
-     * @param {Integer} index 
-     * @returns {IMFTimedTextTrack} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrack
+     * The index of the track in the list to retrieve.
+     * @returns {IMFTimedTextTrack} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttrack">IMFTimedTextTrack</a>**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttrack">IMFTimedTextTrack</a> interface for the timed-text track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrack
      */
     GetTrack(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &track := 0, "HRESULT")
@@ -53,10 +59,14 @@ class IMFTimedTextTrackList extends IUnknown{
     }
 
     /**
+     * Gets a text track in the list from the identifier of the track.
+     * @param {Integer} trackId Type: <b>DWORD</b>
      * 
-     * @param {Integer} trackId 
-     * @returns {IMFTimedTextTrack} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrackbyid
+     * The identifier of the track in the list to retrieve.
+     * @returns {IMFTimedTextTrack} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttrack">IMFTimedTextTrack</a>**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttrack">IMFTimedTextTrack</a> interface for the timed-text track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrackbyid
      */
     GetTrackById(trackId) {
         result := ComCall(5, this, "uint", trackId, "ptr*", &track := 0, "HRESULT")

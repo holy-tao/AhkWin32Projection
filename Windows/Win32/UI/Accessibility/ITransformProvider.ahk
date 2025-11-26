@@ -62,11 +62,17 @@ class ITransformProvider extends IUnknown{
     }
 
     /**
+     * Moves the control.
+     * @param {Float} x Type: <b>double</b>
      * 
-     * @param {Float} x 
-     * @param {Float} y 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-move
+     * The absolute screen coordinates of the left side of the control.
+     * @param {Float} y Type: <b>double</b>
+     * 
+     * The absolute screen coordinates of the top of the control.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider-move
      */
     Move(x, y) {
         result := ComCall(3, this, "double", x, "double", y, "HRESULT")
@@ -74,11 +80,17 @@ class ITransformProvider extends IUnknown{
     }
 
     /**
+     * Resizes the control.
+     * @param {Float} width Type: <b>double</b>
      * 
-     * @param {Float} width 
-     * @param {Float} height 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-resize
+     * The new width of the window in pixels.
+     * @param {Float} height Type: <b>double</b>
+     * 
+     * The new height of the window in pixels.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider-resize
      */
     Resize(width, height) {
         result := ComCall(4, this, "double", width, "double", height, "HRESULT")
@@ -86,10 +98,15 @@ class ITransformProvider extends IUnknown{
     }
 
     /**
+     * Rotates the control.
+     * @param {Float} degrees Type: <b>double</b>
      * 
-     * @param {Float} degrees 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-rotate
+     * The number of degrees to rotate the control. 
+     * 				A positive number rotates clockwise; a negative number rotates counterclockwise.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider-rotate
      */
     Rotate(degrees) {
         result := ComCall(5, this, "double", degrees, "HRESULT")
@@ -97,9 +114,9 @@ class ITransformProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the control can be moved.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-get_canmove
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider-get_canmove
      */
     get_CanMove() {
         result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
@@ -107,9 +124,9 @@ class ITransformProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the control can be resized.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-get_canresize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider-get_canresize
      */
     get_CanResize() {
         result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
@@ -117,9 +134,9 @@ class ITransformProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the control can be rotated.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-get_canrotate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider-get_canrotate
      */
     get_CanRotate() {
         result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")

@@ -41,12 +41,12 @@ class IXpsOMPackageTarget extends IUnknown{
     static VTableNames => ["CreateXpsOMPackageWriter"]
 
     /**
-     * 
-     * @param {IOpcPartUri} documentSequencePartName 
-     * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket 
-     * @param {IOpcPartUri} discardControlPartName 
-     * @returns {IXpsOMPackageWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackagetarget-createxpsompackagewriter
+     * Create an IXpsOMPackageWriter interface for use with a print job that the StartXpsPrintJob1 function created.
+     * @param {IOpcPartUri} documentSequencePartName The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document sequence in the new file.
+     * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource">IXpsOMPrintTicketResource</a> interface that contains the package-level print ticket to be assigned to the new file. Set this parameter to <b>NULL</b> if you do not have a package-level print ticket.
+     * @param {IOpcPartUri} discardControlPartName The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part. Set this parameter to <b>NULL</b> if you do not have a discard control part.
+     * @returns {IXpsOMPackageWriter} A pointer to the new  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> interface that this method created.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackagetarget-createxpsompackagewriter
      */
     CreateXpsOMPackageWriter(documentSequencePartName, documentSequencePrintTicket, discardControlPartName) {
         result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")

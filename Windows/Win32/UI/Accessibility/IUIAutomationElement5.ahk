@@ -60,9 +60,9 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     }
 
     /**
-     * 
+     * Gets the current landmark type ID for the automation element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
      */
     get_CurrentLandmarkType() {
         result := ComCall(104, this, "int*", &retVal := 0, "HRESULT")
@@ -70,9 +70,9 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     }
 
     /**
-     * 
+     * Gets a string containing the current localized landmark type for the automation element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlocalizedlandmarktype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlocalizedlandmarktype
      */
     get_CurrentLocalizedLandmarkType() {
         retVal := BSTR()
@@ -81,9 +81,9 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     }
 
     /**
-     * 
+     * Gets the cached landmark type ID for the automation element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
      */
     get_CachedLandmarkType() {
         result := ComCall(106, this, "int*", &retVal := 0, "HRESULT")
@@ -91,9 +91,9 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     }
 
     /**
-     * 
+     * Gets a string containing the cached localized landmark type for the automation element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlocalizedlandmarktype
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlocalizedlandmarktype
      */
     get_CachedLocalizedLandmarkType() {
         retVal := BSTR()

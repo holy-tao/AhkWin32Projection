@@ -31,9 +31,9 @@ class ITsSbServiceNotification extends IUnknown{
     static VTableNames => ["NotifyServiceFailure", "NotifyServiceSuccess"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbservicenotification-notifyservicefailure
+     * Notifies registered plug-ins that the Remote Desktop Connection Broker (RD Connection Broker) service has stopped.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbservicenotification-notifyservicefailure
      */
     NotifyServiceFailure() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class ITsSbServiceNotification extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbservicenotification-notifyservicesuccess
+     * Notifies registered plug-ins that the Remote Desktop Connection Broker (RD Connection Broker) service has started.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbservicenotification-notifyservicesuccess
      */
     NotifyServiceSuccess() {
         result := ComCall(4, this, "HRESULT")

@@ -31,20 +31,10 @@ class IWTSPlugin extends IUnknown{
     static VTableNames => ["Initialize", "Connected", "Disconnected", "Terminated"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IWTSVirtualChannelManager} pChannelMgr 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Used for the first call that is made from the client to the plug-in.
+     * @param {IWTSVirtualChannelManager} pChannelMgr Passed instance to the channel manager (<a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelmanager">IWTSVirtualChannelManager</a>) for the client.
+     * @returns {HRESULT} Returns <b>S_OK</b> if the call completes successfully. If the call fails, the plug-in will be released by the Remote Desktop Connection (RDC) client.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-initialize
      */
     Initialize(pChannelMgr) {
         result := ComCall(3, this, "ptr", pChannelMgr, "HRESULT")
@@ -52,9 +42,9 @@ class IWTSPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-connected
+     * Notifies the plug-in that the Remote Desktop Connection (RDC) client has successfully connected to the Remote Desktop Session Host (RD Session Host) server.
+     * @returns {HRESULT} Returns <b>S_OK</b> if the call completes successfully. Returns <b>E_FAIL</b> if the call fails, but the plug-in will continue to work.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-connected
      */
     Connected() {
         result := ComCall(4, this, "HRESULT")
@@ -62,10 +52,10 @@ class IWTSPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwDisconnectCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-disconnected
+     * Notifies the plug-in that the Remote Desktop Connection (RDC) client has disconnected from the Remote Desktop Session Host (RD Session Host) server.
+     * @param {Integer} dwDisconnectCode Code that identifies the disconnect reason. For the possible codes, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/imstscaxevents-ondisconnected">IMsTscAxEvents::OnDisconnected</a>.
+     * @returns {HRESULT} Returns <b>S_OK</b> if the call completes successfully. Results in no action if the call fails.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-disconnected
      */
     Disconnected(dwDisconnectCode) {
         result := ComCall(5, this, "uint", dwDisconnectCode, "HRESULT")
@@ -73,9 +63,9 @@ class IWTSPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-terminated
+     * Notifies the plug-in that the Remote Desktop Connection (RDC) client has terminated.
+     * @returns {HRESULT} Returns <b>S_OK</b> if the call completes successfully. Results in no action if the call fails.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsplugin-terminated
      */
     Terminated() {
         result := ComCall(6, this, "HRESULT")

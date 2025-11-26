@@ -37,23 +37,25 @@ class IWICColorTransform extends IWICBitmapSource{
     static VTableNames => ["Initialize"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IWICBitmapSource} pIBitmapSource 
-     * @param {IWICColorContext} pIContextSource 
-     * @param {IWICColorContext} pIContextDest 
-     * @param {Pointer<Guid>} pixelFmtDest 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes an IWICColorTransform with a IWICBitmapSource and transforms it from one IWICColorContext to another.
+     * @param {IWICBitmapSource} pIBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
+     * 
+     * The bitmap source used to initialize the color transform.
+     * @param {IWICColorContext} pIContextSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>*</b>
+     * 
+     * The color context source.
+     * @param {IWICColorContext} pIContextDest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>*</b>
+     * 
+     * The color context destination.
+     * @param {Pointer<Guid>} pixelFmtDest Type: <b>REFWICPixelFormatGUID</b>
+     * 
+     * The GUID of the desired pixel format.
+     * 
+     * This parameter is limited to a subset of the native WIC pixel formats, see Remarks for a list.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolortransform-initialize
      */
     Initialize(pIBitmapSource, pIContextSource, pIContextDest, pixelFmtDest) {
         result := ComCall(8, this, "ptr", pIBitmapSource, "ptr", pIContextSource, "ptr", pIContextDest, "ptr", pixelFmtDest, "HRESULT")

@@ -40,11 +40,13 @@ class IWbemObjectSink extends IUnknown{
     static VTableNames => ["Indicate", "SetStatus"]
 
     /**
-     * 
-     * @param {Integer} lObjectCount 
-     * @param {Pointer<IWbemClassObject>} apObjArray 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate
+     * Called by a source to provide a notification.
+     * @param {Integer} lObjectCount Number of objects in the following array of pointers.
+     * @param {Pointer<IWbemClassObject>} apObjArray Array of pointers to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> interfaces. The array memory itself is read-only, and is owned by the caller of the method. Because this is an in parameter, the implementation has the option of calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IWbemClassObject::AddRef</a> on any object pointer in the array and holding it before returning if the objects will be used after the method has returned, in accordance with COM rules. If the objects are only used for the duration of the 
+     * <b>Indicate</b> call, then you do not need to call <b>AddRef</b> on each object pointer.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsink-indicate
      */
     Indicate(lObjectCount, apObjArray) {
         result := ComCall(3, this, "int", lObjectCount, "ptr*", apObjArray, "HRESULT")
@@ -52,13 +54,16 @@ class IWbemObjectSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lFlags 
-     * @param {HRESULT} hResult 
-     * @param {BSTR} strParam 
-     * @param {IWbemClassObject} pObjParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus
+     * Called by sources to indicate the end of a notification sequence, or to send other status codes to the sink.
+     * @param {Integer} lFlags Bitmask of status information. The status of the operation can be obtained by examining the <i>hResult</i> parameter.
+     * @param {HRESULT} hResult This parameter is set to the <b>HRESULT</b> of the asynchronous operation or notification. This is either an error code, if an error occurred, or the amount of progress that has been made on an asynchronous call.
+     * @param {BSTR} strParam Receives a pointer to a read-only <b>BSTR</b>, if the original asynchronous operation returns a string. For example, when using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putinstanceasync">PutInstanceAsync</a>, 
+     * <b>SetStatus</b> is called with this parameter set to the object path of the newly created instance.
+     * @param {IWbemClassObject} pObjParam In cases where a complex error or status object is returned, this contains a pointer to the error object. If the object is required after 
+     * <b>SetStatus</b> returns, the called object must use the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the pointer before the called object returns.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjectsink-setstatus
      */
     SetStatus(lFlags, hResult, strParam, pObjParam) {
         strParam := strParam is String ? BSTR.Alloc(strParam).Value : strParam

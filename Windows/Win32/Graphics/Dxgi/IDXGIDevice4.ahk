@@ -44,13 +44,23 @@ class IDXGIDevice4 extends IDXGIDevice3{
     static VTableNames => ["OfferResources1", "ReclaimResources1"]
 
     /**
+     * Allows the operating system to free the video memory of resources, including both discarding the content and de-committing the memory.
+     * @param {Integer} NumResources Type: <b>UINT</b>
      * 
-     * @param {Integer} NumResources 
-     * @param {Pointer<IDXGIResource>} ppResources 
-     * @param {Integer} Priority 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-offerresources1
+     * The number of resources in the <i>ppResources</i> argument array.
+     * @param {Pointer<IDXGIResource>} ppResources Type: <b>IDXGIResource*</b>
+     * 
+     * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to offer.
+     * @param {Integer} Priority Type: <b>DXGI_OFFER_RESOURCE_PRIORITY</b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority">DXGI_OFFER_RESOURCE_PRIORITY</a>-typed value that indicates how valuable data is.
+     * @param {Integer} Flags Type: <b>UINT</b>
+     * 
+     * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_offer_resource_flags">DXGI_OFFER_RESOURCE_FLAGS</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code, which can include E_INVALIDARG if a resource in the array, or the priority, is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/nf-dxgi1_5-idxgidevice4-offerresources1
      */
     OfferResources1(NumResources, ppResources, Priority, Flags) {
         result := ComCall(18, this, "uint", NumResources, "ptr*", ppResources, "int", Priority, "uint", Flags, "HRESULT")
@@ -58,11 +68,17 @@ class IDXGIDevice4 extends IDXGIDevice3{
     }
 
     /**
+     * Restores access to resources that were previously offered by calling IDXGIDevice4::OfferResources1.
+     * @param {Integer} NumResources Type: <b>UINT</b>
      * 
-     * @param {Integer} NumResources 
-     * @param {Pointer<IDXGIResource>} ppResources 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-reclaimresources1
+     * The number of resources in the <i>ppResources</i> argument and <i>pResults</i> argument arrays.
+     * @param {Pointer<IDXGIResource>} ppResources Type: <b>IDXGIResource*</b>
+     * 
+     * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to reclaim.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results">DXGI_RECLAIM_RESOURCE_RESULTS</a>*</b>
+     * 
+     * A pointer to an array that receives <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results">DXGI_RECLAIM_RESOURCE_RESULTS</a> values. Each value in the array corresponds to a resource at the same index that the <i>ppResources</i> parameter specifies.  The caller can pass in <b>NULL</b>, if the caller intends to fill the resources with new content regardless of whether the old content was discarded.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/nf-dxgi1_5-idxgidevice4-reclaimresources1
      */
     ReclaimResources1(NumResources, ppResources) {
         result := ComCall(19, this, "uint", NumResources, "ptr*", ppResources, "int*", &pResults := 0, "HRESULT")

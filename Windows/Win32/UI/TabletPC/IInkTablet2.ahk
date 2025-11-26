@@ -38,9 +38,9 @@ class IInkTablet2 extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the type of Tablet device being used.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet2-get_devicekind
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinktablet2-get_devicekind
      */
     get_DeviceKind() {
         result := ComCall(7, this, "int*", &Kind := 0, "HRESULT")

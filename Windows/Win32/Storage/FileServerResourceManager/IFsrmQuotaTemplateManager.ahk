@@ -48,9 +48,11 @@ class IFsrmQuotaTemplateManager extends IDispatch{
     static VTableNames => ["CreateTemplate", "GetTemplate", "EnumTemplates", "ExportTemplates", "ImportTemplates"]
 
     /**
-     * 
-     * @returns {IFsrmQuotaTemplate} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-createtemplate
+     * Creates a quota template object.
+     * @returns {IFsrmQuotaTemplate} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate">IFsrmQuotaTemplate</a> interface to the newly 
+     *       create template. To add the template to FSRM, call 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmQuotaTemplate::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-createtemplate
      */
     CreateTemplate() {
         result := ComCall(7, this, "ptr*", &quotaTemplate := 0, "HRESULT")
@@ -58,10 +60,11 @@ class IFsrmQuotaTemplateManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {IFsrmQuotaTemplate} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-gettemplate
+     * Retrieves the specified quota template.
+     * @param {BSTR} name The name of the quota template to retrieve. The string is limited to 4,000 characters.
+     * @returns {IFsrmQuotaTemplate} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate">IFsrmQuotaTemplate</a> interface to the retrieved 
+     *       template object.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-gettemplate
      */
     GetTemplate(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -71,10 +74,16 @@ class IFsrmQuotaTemplateManager extends IDispatch{
     }
 
     /**
+     * Enumerates the quota templates on the server.
+     * @param {Integer} options Options to use when enumerating the quota templates. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *       that contains a collection of quota templates.
      * 
-     * @param {Integer} options 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-enumtemplates
+     * Each item of the collection is a <b>VARIANT</b> of type 
+     *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate">IFsrmQuotaTemplate</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-enumtemplates
      */
     EnumTemplates(options) {
         result := ComCall(9, this, "int", options, "ptr*", &quotaTemplates := 0, "HRESULT")
@@ -82,10 +91,11 @@ class IFsrmQuotaTemplateManager extends IDispatch{
     }
 
     /**
-     * Export templates.
-     * @param {Pointer<VARIANT>} quotaTemplateNamesArray 
-     * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
+     * Exports the quota templates as an XML string.
+     * @param {Pointer<VARIANT>} quotaTemplateNamesArray A variant that contains the names of the quota templates to export. If 
+     *       <b>NULL</b>, the method exports all quotas.
+     * @returns {BSTR} The specified templates in XML format.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-exporttemplates
      */
     ExportTemplates(quotaTemplateNamesArray) {
         serializedQuotaTemplates := BSTR()
@@ -94,11 +104,24 @@ class IFsrmQuotaTemplateManager extends IDispatch{
     }
 
     /**
+     * Imports the specified quota templates from an XML string.
+     * @param {BSTR} serializedQuotaTemplates An XML string that represents one or more quota templates.
+     * @param {Pointer<VARIANT>} quotaTemplateNamesArray A variant that contains the names of the templates to import. If <b>NULL</b>, the method 
+     *       imports all templates.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *        that contains a collection of quota templates.
      * 
-     * @param {BSTR} serializedQuotaTemplates 
-     * @param {Pointer<VARIANT>} quotaTemplateNamesArray 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-importtemplates
+     * Each item of the collection is a <b>VARIANT</b> of type 
+     *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplateimported">IFsrmQuotaTemplateImported</a> interface.
+     * 
+     * To add the templates to FSRM, call the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit">IFsrmCommittableCollection::Commit</a> 
+     *        method. To add the templates to FSRM and propagate the changes to objects that were derived from the template, 
+     *        call the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-commitandupdatederived">IFsrmFileScreenTemplateImported::CommitAndUpdateDerived</a> 
+     *        method on each item in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-importtemplates
      */
     ImportTemplates(serializedQuotaTemplates, quotaTemplateNamesArray) {
         serializedQuotaTemplates := serializedQuotaTemplates is String ? BSTR.Alloc(serializedQuotaTemplates).Value : serializedQuotaTemplates

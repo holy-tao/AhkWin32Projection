@@ -42,10 +42,14 @@ class IACList2 extends IACList{
     static VTableNames => ["SetOptions", "GetOptions"]
 
     /**
+     * Sets the current autocomplete options.
+     * @param {Integer} dwFlag Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwFlag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iaclist2-setoptions
+     * New option flags. Use these flags to ask the client to include the names of the files and subfolders of the specified folders the next time the client's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> interface is called. This parameter can contain one or more of the following flags.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iaclist2-setoptions
      */
     SetOptions(dwFlag) {
         result := ComCall(4, this, "uint", dwFlag, "HRESULT")
@@ -53,9 +57,9 @@ class IACList2 extends IACList{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iaclist2-getoptions
+     * Gets the current autocomplete options.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iaclist2-getoptions
      */
     GetOptions() {
         result := ComCall(5, this, "uint*", &pdwFlag := 0, "HRESULT")

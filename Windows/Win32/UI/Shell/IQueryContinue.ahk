@@ -31,9 +31,11 @@ class IQueryContinue extends IUnknown{
     static VTableNames => ["QueryContinue"]
 
     /**
+     * Returns S_OK if the operation associated with the current instance of this interface should continue.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iquerycontinue-querycontinue
+     * Returns <b>S_OK</b> if the calling application should continue, <b>S_FALSE</b> if not.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iquerycontinue-querycontinue
      */
     QueryContinue() {
         result := ComCall(3, this, "HRESULT")

@@ -46,9 +46,10 @@ class ITAgentSessionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITAgentSession} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_session
+     * The get_Session method gets a pointer to the ITAgentSession on which the event occurred.
+     * @returns {ITAgentSession} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagentsession">ITAgentSession</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagentsessionevent-get_session
      */
     get_Session() {
         result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
@@ -56,9 +57,10 @@ class ITAgentSessionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_event
+     * The get_Event method gets an AGENT_SESSION_EVENT descriptor of the event that occurred.
+     * @returns {Integer} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_session_event">AGENT_SESSION_EVENT</a> descriptor of the event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagentsessionevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

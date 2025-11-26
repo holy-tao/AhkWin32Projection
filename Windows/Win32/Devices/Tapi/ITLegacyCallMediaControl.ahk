@@ -32,10 +32,51 @@ class ITLegacyCallMediaControl extends IDispatch{
     static VTableNames => ["DetectDigits", "GenerateDigits", "GetID", "SetMediaType", "MonitorMedia"]
 
     /**
+     * The DetectDigits method sets an identifier of the type of digits that will be detected on the current call, such as rotary pulse or DTMF.
+     * @param {Integer} DigitMode Indicates 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-digitmode--constants">digit mode</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} DigitMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-detectdigits
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPI_E_INVALCALLSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No call currently exists.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-detectdigits
      */
     DetectDigits(DigitMode) {
         result := ComCall(7, this, "int", DigitMode, "HRESULT")
@@ -43,11 +84,52 @@ class ITLegacyCallMediaControl extends IDispatch{
     }
 
     /**
+     * The GenerateDigits method causes digits to be output on the current call.
+     * @param {BSTR} pDigits Pointer to <b>BSTR</b> representation of digits to be sent.
+     * @param {Integer} DigitMode Indicates 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-digitmode--constants">digit mode</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} pDigits 
-     * @param {Integer} DigitMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-generatedigits
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPI_E_INVALCALLSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No call currently exists.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-generatedigits
      */
     GenerateDigits(pDigits, DigitMode) {
         pDigits := pDigits is String ? BSTR.Alloc(pDigits).Value : pDigits
@@ -57,12 +139,53 @@ class ITLegacyCallMediaControl extends IDispatch{
     }
 
     /**
+     * The GetID method gets the identifier for the device associated with the current call.
+     * @param {BSTR} pDeviceClass Pointer to <b>BSTR</b> representing the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">TAPI device class</a>.
+     * @param {Pointer<Integer>} pdwSize Size in bytes of device identifier.
+     * @param {Pointer<Pointer<Integer>>} ppDeviceID Device identifier.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} pDeviceClass 
-     * @param {Pointer<Integer>} pdwSize 
-     * @param {Pointer<Pointer<Integer>>} ppDeviceID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-getid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pdwSize</i> or <i>ppDeviceID</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-getid
      */
     GetID(pDeviceClass, pdwSize, ppDeviceID) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
@@ -75,10 +198,62 @@ class ITLegacyCallMediaControl extends IDispatch{
     }
 
     /**
+     * The SetMediaType method sets the media type(s) for the current call in its LINECALLINFO structure. For more information, see lineSetMediaMode.
+     * @param {Integer} lMediaType Indicator of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lMediaType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-setmediatype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The associated call object is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lMediaType</i> parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-setmediatype
      */
     SetMediaType(lMediaType) {
         result := ComCall(10, this, "int", lMediaType, "HRESULT")
@@ -86,10 +261,62 @@ class ITLegacyCallMediaControl extends IDispatch{
     }
 
     /**
+     * The MonitorMedia method sets monitoring for a given media type on the current call.
+     * @param {Integer} lMediaType Indicator of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lMediaType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-monitormedia
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lMediaType</i> parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The associated call object is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-monitormedia
      */
     MonitorMedia(lMediaType) {
         result := ComCall(11, this, "int", lMediaType, "HRESULT")

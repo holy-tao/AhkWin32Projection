@@ -38,11 +38,11 @@ class IEventObjectChange extends IUnknown{
     static VTableNames => ["ChangedSubscription", "ChangedEventClass", "ChangedPublisher"]
 
     /**
-     * 
-     * @param {Integer} changeType 
-     * @param {BSTR} bstrSubscriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange-changedsubscription
+     * Indicates that a subscription object has been added, modified, or deleted.
+     * @param {Integer} changeType The type of change to the subscription object. Values are taken from the EOC_ChangeType enumeration.
+     * @param {BSTR} bstrSubscriptionID The SubscriptionID property of the subscription object that changed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange-changedsubscription
      */
     ChangedSubscription(changeType, bstrSubscriptionID) {
         bstrSubscriptionID := bstrSubscriptionID is String ? BSTR.Alloc(bstrSubscriptionID).Value : bstrSubscriptionID
@@ -52,11 +52,11 @@ class IEventObjectChange extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} changeType 
-     * @param {BSTR} bstrEventClassID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange-changedeventclass
+     * Indicates that an event class object has been added, modified, or deleted.
+     * @param {Integer} changeType The type of change to the event class object. Values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/ne-eventsys-eoc_changetype">EOC_ChangeType</a> enumeration.
+     * @param {BSTR} bstrEventClassID The EventClassID property of the event class object that changed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange-changedeventclass
      */
     ChangedEventClass(changeType, bstrEventClassID) {
         bstrEventClassID := bstrEventClassID is String ? BSTR.Alloc(bstrEventClassID).Value : bstrEventClassID
@@ -66,11 +66,11 @@ class IEventObjectChange extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} changeType 
-     * @param {BSTR} bstrPublisherID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange-changedpublisher
+     * Indicates a publisher object has been added, modified, or deleted.
+     * @param {Integer} changeType The type of change to the publisher object. Values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/ne-eventsys-eoc_changetype">EOC_ChangeType</a> enumeration.
+     * @param {BSTR} bstrPublisherID The PublisherID property of the publisher object that changed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange-changedpublisher
      */
     ChangedPublisher(changeType, bstrPublisherID) {
         bstrPublisherID := bstrPublisherID is String ? BSTR.Alloc(bstrPublisherID).Value : bstrPublisherID

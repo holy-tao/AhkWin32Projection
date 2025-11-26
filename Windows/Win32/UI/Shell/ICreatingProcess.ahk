@@ -38,10 +38,10 @@ class ICreatingProcess extends IUnknown{
     static VTableNames => ["OnCreating"]
 
     /**
-     * 
-     * @param {ICreateProcessInputs} pcpi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating
+     * Allows you to modify the parameters of the process being created.
+     * @param {ICreateProcessInputs} pcpi A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icreateprocessinputs">ICreateProcessInputs</a> interface which allows you to set some parameters for the process that is being created.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code, and the process is not created.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating
      */
     OnCreating(pcpi) {
         result := ComCall(3, this, "ptr", pcpi, "HRESULT")

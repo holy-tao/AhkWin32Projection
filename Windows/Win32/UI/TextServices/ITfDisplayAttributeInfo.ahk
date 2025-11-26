@@ -40,9 +40,9 @@ class ITfDisplayAttributeInfo extends IUnknown{
     static VTableNames => ["GetGUID", "GetDescription", "GetAttributeInfo", "SetAttributeInfo", "Reset"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getguid
+     * ITfDisplayAttributeInfo::GetGUID method
+     * @returns {Guid} Pointer to a GUID value that receives the GUID for the display attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-getguid
      */
     GetGUID() {
         pguid := Guid()
@@ -51,9 +51,9 @@ class ITfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getdescription
+     * ITfDisplayAttributeInfo::GetDescription method
+     * @returns {BSTR} Pointer to a BSTR value that receives the description string. This value must be allocated using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must free this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-getdescription
      */
     GetDescription() {
         pbstrDesc := BSTR()
@@ -62,9 +62,9 @@ class ITfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {TF_DISPLAYATTRIBUTE} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getattributeinfo
+     * ITfDisplayAttributeInfo::GetAttributeInfo method
+     * @returns {TF_DISPLAYATTRIBUTE} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_displayattribute">TF_DISPLAYATTRIBUTE</a> structure that receives display attribute data.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-getattributeinfo
      */
     GetAttributeInfo() {
         pda := TF_DISPLAYATTRIBUTE()
@@ -73,10 +73,50 @@ class ITfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
+     * ITfDisplayAttributeInfo::SetAttributeInfo method
+     * @param {Pointer<TF_DISPLAYATTRIBUTE>} pda Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_displayattribute">TF_DISPLAYATTRIBUTE</a> structure that contains the new display attribute data.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<TF_DISPLAYATTRIBUTE>} pda 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-setattributeinfo
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The display attribute provider does not support attribute modification.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pda</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-setattributeinfo
      */
     SetAttributeInfo(pda) {
         result := ComCall(6, this, "ptr", pda, "HRESULT")
@@ -84,9 +124,38 @@ class ITfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
+     * ITfDisplayAttributeInfo::Reset method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-reset
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The display attribute provider does not support attribute modification.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-reset
      */
     Reset() {
         result := ComCall(7, this, "HRESULT")

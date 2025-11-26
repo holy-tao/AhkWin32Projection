@@ -31,10 +31,14 @@ class ISearchItemsChangedSink extends IUnknown{
     static VTableNames => ["StartedMonitoringScope", "StoppedMonitoringScope", "OnItemsChanged"]
 
     /**
+     * Permits an index-managed notification source to add itself to a list of &quot;monitored scopes&quot;.
+     * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchitemschangedsink-startedmonitoringscope
+     * A pointer to a null-terminated, Unicode string that is the start address for the scope of monitoring.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchitemschangedsink-startedmonitoringscope
      */
     StartedMonitoringScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
@@ -44,10 +48,14 @@ class ISearchItemsChangedSink extends IUnknown{
     }
 
     /**
+     * Not implemented.
+     * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchitemschangedsink-stoppedmonitoringscope
+     * The pointer to a null-terminated, Unicode string containing the start address for the scope of monitoring.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchitemschangedsink-stoppedmonitoringscope
      */
     StoppedMonitoringScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
@@ -57,13 +65,23 @@ class ISearchItemsChangedSink extends IUnknown{
     }
 
     /**
+     * Call this method to notify an indexer to re-index some changed items.
+     * @param {Integer} dwNumberOfChanges Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwNumberOfChanges 
-     * @param {Pointer<SEARCH_ITEM_CHANGE>} rgDataChangeEntries 
-     * @param {Pointer<Integer>} rgdwDocIds 
-     * @param {Pointer<HRESULT>} rghrCompletionCodes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchitemschangedsink-onitemschanged
+     * The number of items that have changed.
+     * @param {Pointer<SEARCH_ITEM_CHANGE>} rgDataChangeEntries Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_change">SEARCH_ITEM_CHANGE</a>[]</b>
+     * 
+     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_change">SEARCH_ITEM_CHANGE</a> structures, describing the type of changes to and the paths or URLs of each item.
+     * @param {Pointer<Integer>} rgdwDocIds Type: <b>DWORD[]</b>
+     * 
+     * Receives a pointer to an array of document identifiers for the items that changed.
+     * @param {Pointer<HRESULT>} rghrCompletionCodes Type: <b>HRESULT[]</b>
+     * 
+     * Receives a pointer to an array of completion codes for <i>rgdwDocIds</i> indicating whether each item was accepted for indexing.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchitemschangedsink-onitemschanged
      */
     OnItemsChanged(dwNumberOfChanges, rgDataChangeEntries, rgdwDocIds, rghrCompletionCodes) {
         rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : "ptr"

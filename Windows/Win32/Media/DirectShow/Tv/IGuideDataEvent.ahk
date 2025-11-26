@@ -36,9 +36,9 @@ class IGuideDataEvent extends IUnknown{
     static VTableNames => ["GuideDataAcquired", "ProgramChanged", "ServiceChanged", "ScheduleEntryChanged", "ProgramDeleted", "ServiceDeleted", "ScheduleDeleted"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-guidedataacquired
+     * The GuideDataAcquired method is called when a complete set of guide data has been acquired from the current transport stream.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-guidedataacquired
      */
     GuideDataAcquired() {
         result := ComCall(3, this, "HRESULT")
@@ -46,10 +46,10 @@ class IGuideDataEvent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varProgramDescriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-programchanged
+     * The ProgramChanged method is called when information about one or more programs has changed.
+     * @param {VARIANT} varProgramDescriptionID Specifies the unique identifier of the program that has changed. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nf-bdatif-iguidedata-getprogramproperties">IGuideData::GetProgramProperties</a> to get information about the program. The value of this parameter may be an empty <b>VARIANT</b> type (VT_EMPTY); if so, examine all of the programs to determine which ones have changed.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-programchanged
      */
     ProgramChanged(varProgramDescriptionID) {
         result := ComCall(4, this, "ptr", varProgramDescriptionID, "HRESULT")
@@ -57,10 +57,10 @@ class IGuideDataEvent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varServiceDescriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-servicechanged
+     * The ServiceChanged method is called when a service has been changed.
+     * @param {VARIANT} varServiceDescriptionID Specifies the unique identifier of the service that has changed.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-servicechanged
      */
     ServiceChanged(varServiceDescriptionID) {
         result := ComCall(5, this, "ptr", varServiceDescriptionID, "HRESULT")
@@ -68,10 +68,10 @@ class IGuideDataEvent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varScheduleEntryDescriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-scheduleentrychanged
+     * The ScheduleEntryChanged method is called by the TIF when information about one or more schedule entries has changed.
+     * @param {VARIANT} varScheduleEntryDescriptionID Specifies the unique identifier of the program that has changed. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nf-bdatif-iguidedata-getscheduleentryproperties">IGuideData::GetScheduleEntryProperties</a> to get information about the program. The value of this parameter may be an empty <b>VARIANT</b> type (VT_EMPTY); if so, examine all of the programs to determine which ones have changed.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-scheduleentrychanged
      */
     ScheduleEntryChanged(varScheduleEntryDescriptionID) {
         result := ComCall(6, this, "ptr", varScheduleEntryDescriptionID, "HRESULT")
@@ -79,10 +79,10 @@ class IGuideDataEvent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varProgramDescriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-programdeleted
+     * The ProgramDeleted method is called when a program has been deleted.
+     * @param {VARIANT} varProgramDescriptionID Specifies the unique identifier of the program that was deleted.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-programdeleted
      */
     ProgramDeleted(varProgramDescriptionID) {
         result := ComCall(7, this, "ptr", varProgramDescriptionID, "HRESULT")
@@ -90,10 +90,10 @@ class IGuideDataEvent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varServiceDescriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-servicedeleted
+     * The ServiceDeleted method is called when a service has been deleted.
+     * @param {VARIANT} varServiceDescriptionID Specifies the unique identifier of the service that was deleted.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-servicedeleted
      */
     ServiceDeleted(varServiceDescriptionID) {
         result := ComCall(8, this, "ptr", varServiceDescriptionID, "HRESULT")
@@ -101,10 +101,10 @@ class IGuideDataEvent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varScheduleEntryDescriptionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataevent-scheduledeleted
+     * The ScheduleDeleted method is called when a schedule entry has been deleted.
+     * @param {VARIANT} varScheduleEntryDescriptionID Specifies the unique identifier of the schedule entry that was deleted.
+     * @returns {HRESULT} Return S_OK if successful, or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataevent-scheduledeleted
      */
     ScheduleDeleted(varScheduleEntryDescriptionID) {
         result := ComCall(9, this, "ptr", varScheduleEntryDescriptionID, "HRESULT")

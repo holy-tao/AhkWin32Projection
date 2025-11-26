@@ -57,9 +57,14 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
     }
 
     /**
+     * Specifies if the fax has a cover page.
+     * @remarks
+     * 
+     * The value is VARIANT_TRUE if there is a cover page; otherwise VARIANT_FALSE.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_hascoverpage
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_hascoverpage
      */
     get_HasCoverPage() {
         result := ComCall(38, this, "short*", &pbHasCoverPage := 0, "HRESULT")
@@ -67,9 +72,29 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
     }
 
     /**
+     * A null-terminated string containing the address to which a delivery report will be sent, indicating success or failure.
+     * @remarks
+     * 
+     * The type of address will vary according to the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob-receipttype-vb">ReceiptType</a> property as indicated in this table.
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob-receipttype-vb">ReceiptType</a> property</th>
+     * <th>Type of address</th>
+     * </tr>
+     * <tr>
+     * <td>frtMAIL</td>
+     * <td>An SMTP email address</td>
+     * </tr>
+     * <tr>
+     * <td>frtMSGBOX</td>
+     * <td>The computer name on which the delivery report message box will appear</td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_receiptaddress
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_receiptaddress
      */
     get_ReceiptAddress() {
         pbstrReceiptAddress := BSTR()
@@ -78,9 +103,14 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
     }
 
     /**
+     * Specifies the schedule type that was used for the transmission.
+     * @remarks
+     * 
+     * This property can indicate the following: the fax should be transmitted right away, that it should be sent at a specified time, or that it should be sent during a period of discounted rates.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
      */
     get_ScheduleType() {
         result := ComCall(40, this, "int*", &pScheduleType := 0, "HRESULT")

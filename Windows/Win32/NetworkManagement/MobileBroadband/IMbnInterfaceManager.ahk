@@ -124,10 +124,10 @@ class IMbnInterfaceManager extends IUnknown{
     static VTableNames => ["GetInterface", "GetInterfaces"]
 
     /**
-     * 
-     * @param {PWSTR} interfaceID 
-     * @returns {IMbnInterface} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterface
+     * Gets a specific interface.
+     * @param {PWSTR} interfaceID A string that contains the ID of the interface to retrieve.
+     * @returns {IMbnInterface} Pointer to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> specified by <i>interfaceID</i> or <b>NULL</b> if there is no matching interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfacemanager-getinterface
      */
     GetInterface(interfaceID) {
         interfaceID := interfaceID is String ? StrPtr(interfaceID) : interfaceID
@@ -137,9 +137,9 @@ class IMbnInterfaceManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterfaces
+     * Gets a list of all available IMbnInterface objects.
+     * @returns {Pointer<SAFEARRAY>} An array of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> interfaces that are associated with the device.  If this method returns anything other than <b>S_OK</b>, then this is <b>NULL</b>.  Otherwise the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfacemanager-getinterfaces
      */
     GetInterfaces() {
         result := ComCall(4, this, "ptr*", &mbnInterfaces := 0, "HRESULT")

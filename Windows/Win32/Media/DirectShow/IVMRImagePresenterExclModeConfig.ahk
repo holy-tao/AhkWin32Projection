@@ -31,11 +31,29 @@ class IVMRImagePresenterExclModeConfig extends IVMRImagePresenterConfig{
     static VTableNames => ["SetXlcModeDDObjAndPrimarySurface", "GetXlcModeDDObjAndPrimarySurface"]
 
     /**
+     * The SetXlcModeDDObjAndPrimarySurface method informs the VMR of the DirectDraw object and primary surface that were created by the application.
+     * @param {IDirectDraw7} lpDDObj Specifies the Exclusive Mode DirectDraw object created by the application.
+     * @param {IDirectDrawSurface7} lpPrimarySurf Specifies the primary surface associated with the DirectDraw object.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {IDirectDraw7} lpDDObj 
-     * @param {IDirectDrawSurface7} lpPrimarySurf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenterexclmodeconfig-setxlcmodeddobjandprimarysurface
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagepresenterexclmodeconfig-setxlcmodeddobjandprimarysurface
      */
     SetXlcModeDDObjAndPrimarySurface(lpDDObj, lpPrimarySurf) {
         result := ComCall(5, this, "ptr", lpDDObj, "ptr", lpPrimarySurf, "HRESULT")
@@ -43,11 +61,29 @@ class IVMRImagePresenterExclModeConfig extends IVMRImagePresenterConfig{
     }
 
     /**
+     * The GetXlcModeDDObjAndPrimarySurface method retrieves the DirectDraw object and primary surface currently being used by a VMR that has been configured for DirectDraw Exclusive Mode using the SetXlcModeDDObjAndPrimarySurface method.
+     * @param {Pointer<IDirectDraw7>} lpDDObj Retrieves the Exclusive Mode DirectDraw object created by the application.
+     * @param {Pointer<IDirectDrawSurface7>} lpPrimarySurf Retrieves the primary surface associated with the DirectDraw object.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer<IDirectDraw7>} lpDDObj 
-     * @param {Pointer<IDirectDrawSurface7>} lpPrimarySurf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenterexclmodeconfig-getxlcmodeddobjandprimarysurface
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagepresenterexclmodeconfig-getxlcmodeddobjandprimarysurface
      */
     GetXlcModeDDObjAndPrimarySurface(lpDDObj, lpPrimarySurf) {
         result := ComCall(6, this, "ptr*", lpDDObj, "ptr*", lpPrimarySurf, "HRESULT")

@@ -31,10 +31,10 @@ class IAccessibilityDockingServiceCallback extends IUnknown{
     static VTableNames => ["Undocked"]
 
     /**
-     * 
-     * @param {Integer} undockReason 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibilitydockingservicecallback-undocked
+     * Undocks the accessibility window so that it will not be automatically moved to its previous location.
+     * @param {Integer} undockReason Specifies the reason why the accessibility application's window was undocked.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibilitydockingservicecallback-undocked
      */
     Undocked(undockReason) {
         result := ComCall(3, this, "int", undockReason, "HRESULT")

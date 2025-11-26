@@ -46,9 +46,9 @@ class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3{
     }
 
     /**
-     * 
+     * Gets the driver update entries that are applicable for the update.
      * @returns {IWindowsDriverUpdateEntryCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate4-get_windowsdriverupdateentries
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate4-get_windowsdriverupdateentries
      */
     get_WindowsDriverUpdateEntries() {
         result := ComCall(65, this, "ptr*", &retval := 0, "HRESULT")
@@ -56,9 +56,9 @@ class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether an update is a per-user update.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate4-get_peruser
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate4-get_peruser
      */
     get_PerUser() {
         result := ComCall(66, this, "short*", &retval := 0, "HRESULT")

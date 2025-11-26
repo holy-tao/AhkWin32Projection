@@ -35,10 +35,14 @@ class ID3D11ShaderReflectionConstantBuffer extends Win32ComInterface{
     static VTableNames => ["GetDesc", "GetVariableByIndex", "GetVariableByName"]
 
     /**
+     * Get a constant-buffer description.
+     * @param {Pointer<D3D11_SHADER_BUFFER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_buffer_desc">D3D11_SHADER_BUFFER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_SHADER_BUFFER_DESC>} pDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getdesc
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_buffer_desc">D3D11_SHADER_BUFFER_DESC</a>, which represents a shader-buffer description.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getdesc
      */
     GetDesc(pDesc) {
         result := ComCall(0, this, "ptr", pDesc, "HRESULT")
@@ -46,10 +50,14 @@ class ID3D11ShaderReflectionConstantBuffer extends Win32ComInterface{
     }
 
     /**
+     * Get a shader-reflection variable by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D11ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getvariablebyindex
+     * Zero-based index.
+     * @returns {ID3D11ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable</a>*</b>
+     * 
+     * A pointer to a shader-reflection variable interface (see <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getvariablebyindex
      */
     GetVariableByIndex(Index) {
         result := ComCall(1, this, "uint", Index, "ptr")
@@ -57,10 +65,14 @@ class ID3D11ShaderReflectionConstantBuffer extends Win32ComInterface{
     }
 
     /**
+     * Get a shader-reflection variable by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D11ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getvariablebyname
+     * Variable name.
+     * @returns {ID3D11ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable</a>*</b>
+     * 
+     * Returns a sentinel object (end of list marker). To determine if GetVariableByName successfully completed, call <a href="/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionvariable-getdesc">ID3D11ShaderReflectionVariable::GetDesc</a> and check the returned <b>HRESULT</b>; any return value other than success means that GetVariableByName failed.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name

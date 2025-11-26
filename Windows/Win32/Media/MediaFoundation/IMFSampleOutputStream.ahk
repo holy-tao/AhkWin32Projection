@@ -50,12 +50,12 @@ class IMFSampleOutputStream extends IUnknown{
     static VTableNames => ["BeginWriteSample", "EndWriteSample", "Close"]
 
     /**
-     * 
-     * @param {IMFSample} pSample 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsampleoutputstream-beginwritesample
+     * Begins an asynchronous request to write a media sample to the stream.
+     * @param {IMFSample} pSample A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the sample.
+     * @param {IMFAsyncCallback} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} punkState A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsampleoutputstream-beginwritesample
      */
     BeginWriteSample(pSample, pCallback, punkState) {
         result := ComCall(3, this, "ptr", pSample, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -63,10 +63,10 @@ class IMFSampleOutputStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsampleoutputstream-endwritesample
+     * Completes an asynchronous request to write a media sample to the stream.
+     * @param {IMFAsyncResult} pResult A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsampleoutputstream-endwritesample
      */
     EndWriteSample(pResult) {
         result := ComCall(4, this, "ptr", pResult, "HRESULT")

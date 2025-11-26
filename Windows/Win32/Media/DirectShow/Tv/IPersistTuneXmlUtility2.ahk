@@ -37,10 +37,10 @@ class IPersistTuneXmlUtility2 extends IPersistTuneXmlUtility{
     static VTableNames => ["Serialize"]
 
     /**
-     * 
-     * @param {ITuneRequest} piTuneRequest 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ipersisttunexmlutility2-serialize
+     * Serializes a tuning request to an XML tuning request string.
+     * @param {ITuneRequest} piTuneRequest Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nn-bdatif-itunerequestinfo">ITuneRequest</a> interface for the tuning request object that is serialized.
+     * @returns {BSTR} Pointer to a buffer that receives the XML tuning request string. The caller is responsible for releasing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ipersisttunexmlutility2-serialize
      */
     Serialize(piTuneRequest) {
         pString := BSTR()

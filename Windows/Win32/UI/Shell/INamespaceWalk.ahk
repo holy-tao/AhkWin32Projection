@@ -38,13 +38,51 @@ class INamespaceWalk extends IUnknown{
     static VTableNames => ["Walk", "GetIDArrayResult"]
 
     /**
+     * Initiates a recursive walk of the namespace from the specified root to the given depth.
+     * @param {IUnknown} punkToWalk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkToWalk 
-     * @param {Integer} dwFlags 
-     * @param {Integer} cDepth 
-     * @param {INamespaceWalkCB} pnswcb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalk-walk
+     * The root node from which to begin the walk. This can be represented by one of the following objects.
+     * 
+     * 
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iparentanditem">IParentAndItem</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumfullidlist">IEnumFullIDList</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>
+     * </li>
+     * </ul>
+     * Specifying the desktop's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> as the root allows the possibility of walking the entire Windows namespace if <i>cDepth</i> is sufficiently large.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * One or more of the following flags that control the walk operation.
+     * @param {Integer} cDepth Type: <b>int</b>
+     * 
+     * The maximum depth to descend through the namespace hierarchy. This depth is zero-based. Set to 0 to walk only the folder identified by <i>punkToWalk</i> but none of its subfolders.
+     * @param {INamespaceWalkCB} pnswcb Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb">INamespaceWalkCB</a>*</b>
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb">INamespaceWalkCB</a> callback function used by <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalk">INamespaceWalk</a>. This parameter can be <b>NULL</b>. The object can optionally implement the INamespaceWalkCB2 and IActionProgress interfaces. See remarks below.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalk-walk
      */
     Walk(punkToWalk, dwFlags, cDepth, pnswcb) {
         result := ComCall(3, this, "ptr", punkToWalk, "uint", dwFlags, "int", cDepth, "ptr", pnswcb, "HRESULT")
@@ -52,11 +90,17 @@ class INamespaceWalk extends IUnknown{
     }
 
     /**
+     * Gets a list of objects found during a namespace walk initiated by INamespaceWalk::Walk.
+     * @param {Pointer<Integer>} pcItems Type: <b>UINT*</b>
      * 
-     * @param {Pointer<Integer>} pcItems 
-     * @param {Pointer<Pointer<Pointer<ITEMIDLIST>>>} prgpidl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalk-getidarrayresult
+     * The number of items stored in <i>pppidl</i>
+     * @param {Pointer<Pointer<Pointer<ITEMIDLIST>>>} prgpidl Type: <b>LPITEMIDLIST**</b>
+     * 
+     * The address of a pointer to an array of PIDLs representing the items found during the namespace walk.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalk-getidarrayresult
      */
     GetIDArrayResult(pcItems, prgpidl) {
         pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"

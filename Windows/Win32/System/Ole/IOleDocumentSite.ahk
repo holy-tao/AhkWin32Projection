@@ -31,10 +31,10 @@ class IOleDocumentSite extends IUnknown{
     static VTableNames => ["ActivateMe"]
 
     /**
-     * 
-     * @param {IOleDocumentView} pViewToActivate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocumentsite-activateme
+     * Asks a document site to activate the document making the call as a document object rather than an in-place-active object and, optionally, specifies which view of the object document to activate.
+     * @param {IOleDocumentView} pViewToActivate A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-ioledocumentview">IOleDocumentView</a> interface pointer that represents the document view to be used in activating the document object. This parameter can be <b>NULL</b>, in which case the container should call <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-ioledocument-createview">IOleDocument::CreateView</a> to obtain a document view pointer.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-ioledocumentsite-activateme
      */
     ActivateMe(pViewToActivate) {
         result := ComCall(3, this, "ptr", pViewToActivate, "HRESULT")

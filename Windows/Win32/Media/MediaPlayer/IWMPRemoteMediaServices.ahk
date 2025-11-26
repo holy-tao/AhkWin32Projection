@@ -38,10 +38,23 @@ class IWMPRemoteMediaServices extends IUnknown{
     static VTableNames => ["GetServiceType", "GetApplicationName", "GetScriptableObject", "GetCustomUIMode"]
 
     /**
-     * 
+     * The GetServiceType method is called by Windows Media Player to determine whether a host program wants to run its embedded control remotely.
      * @param {Pointer<BSTR>} pbstrType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getservicetype
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpremotemediaservices-getservicetype
      */
     GetServiceType(pbstrType) {
         result := ComCall(3, this, "ptr", pbstrType, "HRESULT")
@@ -49,10 +62,23 @@ class IWMPRemoteMediaServices extends IUnknown{
     }
 
     /**
+     * The GetApplicationName method is called by Windows Media Player to retrieve the name of the program that is hosting the remoted control.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> containing the name of the host program.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getapplicationname
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpremotemediaservices-getapplicationname
      */
     GetApplicationName(pbstrName) {
         result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
@@ -60,10 +86,10 @@ class IWMPRemoteMediaServices extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getscriptableobject
+     * The GetScriptableObject method is called by Windows Media Player to retrieve a name and interface pointer for an object that can be called from the script code within a skin.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> containing the name of the scriptable object.
+     * @returns {IDispatch} Pointer to a pointer to the <b>IDispatch</b> interface of the scriptable object.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpremotemediaservices-getscriptableobject
      */
     GetScriptableObject(pbstrName) {
         result := ComCall(5, this, "ptr", pbstrName, "ptr*", &ppDispatch := 0, "HRESULT")
@@ -71,10 +97,23 @@ class IWMPRemoteMediaServices extends IUnknown{
     }
 
     /**
+     * The GetCustomUIMode method is called by Windows Media Player to retrieve the location of a skin file to apply to the Windows Media Player control.
+     * @param {Pointer<BSTR>} pbstrFile Pointer to a <b>BSTR</b> containing the location of the skin file.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getcustomuimode
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpremotemediaservices-getcustomuimode
      */
     GetCustomUIMode(pbstrFile) {
         result := ComCall(6, this, "ptr", pbstrFile, "HRESULT")

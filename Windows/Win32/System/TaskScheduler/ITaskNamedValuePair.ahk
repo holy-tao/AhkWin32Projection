@@ -51,10 +51,10 @@ class ITaskNamedValuePair extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the name that is associated with a value in a name-value pair.
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluepair-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-get_name
      */
     get_Name(pName) {
         result := ComCall(7, this, "ptr", pName, "HRESULT")
@@ -62,10 +62,10 @@ class ITaskNamedValuePair extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the name that is associated with a value in a name-value pair.
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluepair-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -75,10 +75,10 @@ class ITaskNamedValuePair extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the value that is associated with a name in a name-value pair.
      * @param {Pointer<BSTR>} pValue 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluepair-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-get_value
      */
     get_Value(pValue) {
         result := ComCall(9, this, "ptr", pValue, "HRESULT")
@@ -86,10 +86,10 @@ class ITaskNamedValuePair extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the value that is associated with a name in a name-value pair.
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluepair-put_value
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-put_value
      */
     put_Value(value) {
         value := value is String ? BSTR.Alloc(value).Value : value

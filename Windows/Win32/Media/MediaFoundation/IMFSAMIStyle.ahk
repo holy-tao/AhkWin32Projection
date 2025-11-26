@@ -37,9 +37,9 @@ class IMFSAMIStyle extends IUnknown{
     static VTableNames => ["GetStyleCount", "GetStyles", "SetSelectedStyle", "GetSelectedStyle"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getstylecount
+     * Gets the number of styles defined in the SAMI file.
+     * @returns {Integer} Receives the number of SAMI styles in the file.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamistyle-getstylecount
      */
     GetStyleCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -47,9 +47,9 @@ class IMFSAMIStyle extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getstyles
+     * Gets a list of the style names defined in the SAMI file.
+     * @returns {PROPVARIANT} Pointer to a <b>PROPVARIANT</b> that receives an array of null-terminated wide-character strings. The <b>PROPVARIANT</b> type is VT_VECTOR | VT_LPWSTR. The caller must clear the <b>PROPVARIANT</b> by calling <b>PropVariantClear</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamistyle-getstyles
      */
     GetStyles() {
         pPropVarStyleArray := PROPVARIANT()
@@ -58,10 +58,10 @@ class IMFSAMIStyle extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszStyle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-setselectedstyle
+     * Sets the current style on the SAMI media source.
+     * @param {PWSTR} pwszStyle Pointer to a null-terminated string containing the name of the style. To clear the current style, pass an empty string ("").  To get the list of style names, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsamistyle-getstyles">IMFSAMIStyle::GetStyles</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamistyle-setselectedstyle
      */
     SetSelectedStyle(pwszStyle) {
         pwszStyle := pwszStyle is String ? StrPtr(pwszStyle) : pwszStyle
@@ -71,9 +71,9 @@ class IMFSAMIStyle extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getselectedstyle
+     * Gets the current style from the SAMI media source.
+     * @returns {PWSTR} Receives a pointer to a null-terminated string that contains the name of the style. If no style is currently set, the method returns an empty string. The caller must free the memory for the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamistyle-getselectedstyle
      */
     GetSelectedStyle() {
         result := ComCall(6, this, "ptr*", &ppwszStyle := 0, "HRESULT")

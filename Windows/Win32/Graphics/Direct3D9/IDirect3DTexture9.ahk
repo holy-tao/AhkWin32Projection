@@ -53,11 +53,17 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9{
     static VTableNames => ["GetLevelDesc", "GetSurfaceLevel", "LockRect", "UnlockRect", "AddDirtyRect"]
 
     /**
+     * Retrieves a level description of a texture resource.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @param {Pointer<D3DSURFACE_DESC>} pDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-getleveldesc
+     * Identifies a level of the texture resource. This method returns a surface description for the level specified by this parameter.
+     * @param {Pointer<D3DSURFACE_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dsurface-desc">D3DSURFACE_DESC</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dsurface-desc">D3DSURFACE_DESC</a> structure, describing the returned level.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if one of the arguments is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dtexture9-getleveldesc
      */
     GetLevelDesc(Level, pDesc) {
         result := ComCall(17, this, "uint", Level, "ptr", pDesc, "HRESULT")
@@ -65,10 +71,14 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Retrieves the specified texture surface level.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @returns {IDirect3DSurface9} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-getsurfacelevel
+     * Identifies a level of the texture resource. This method returns a surface for the level specified by this parameter. The top-level surface is denoted by 0.
+     * @returns {IDirect3DSurface9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a>**</b>
+     * 
+     * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface, representing the returned surface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dtexture9-getsurfacelevel
      */
     GetSurfaceLevel(Level) {
         result := ComCall(18, this, "uint", Level, "ptr*", &ppSurfaceLevel := 0, "HRESULT")
@@ -76,13 +86,33 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Locks a rectangle on a texture resource.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @param {Pointer<D3DLOCKED_RECT>} pLockedRect 
-     * @param {Pointer<RECT>} pRect 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-lockrect
+     * Specifies the level of the texture resource to lock.
+     * @param {Pointer<D3DLOCKED_RECT>} pLockedRect Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-rect">D3DLOCKED_RECT</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-rect">D3DLOCKED_RECT</a> structure, describing the locked region.
+     * @param {Pointer<RECT>} pRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * Pointer to a rectangle to lock. Specified by a pointer to a RECT structure. Specifying <b>NULL</b> for this parameter expands the dirty region to cover the entire texture.
+     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * Combination of zero or more locking flags that describe the type of lock to perform. For this method, the valid flags are: 
+     *     
+     * 
+     * 
+     * <ul>
+     * <li>D3DLOCK_DISCARD</li>
+     * <li>D3DLOCK_NO_DIRTY_UPDATE</li>
+     * <li>D3DLOCK_NOSYSLOCK</li>
+     * <li>D3DLOCK_READONLY</li>
+     * </ul>
+     * You may not specify a subrect when using D3DLOCK_DISCARD. For a description of the flags, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dtexture9-lockrect
      */
     LockRect(Level, pLockedRect, pRect, Flags) {
         result := ComCall(19, this, "uint", Level, "ptr", pLockedRect, "ptr", pRect, "uint", Flags, "HRESULT")
@@ -90,10 +120,14 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Unlocks a rectangle on a texture resource.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-unlockrect
+     * Specifies the level of the texture resource to unlock.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dtexture9-unlockrect
      */
     UnlockRect(Level) {
         result := ComCall(20, this, "uint", Level, "HRESULT")
@@ -101,10 +135,14 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Adds a dirty region to a texture resource.
+     * @param {Pointer<RECT>} pDirtyRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
-     * @param {Pointer<RECT>} pDirtyRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-adddirtyrect
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure, specifying the dirty region to add. Specifying <b>NULL</b> expands the dirty region to cover the entire texture.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dtexture9-adddirtyrect
      */
     AddDirtyRect(pDirtyRect) {
         result := ComCall(21, this, "ptr", pDirtyRect, "HRESULT")

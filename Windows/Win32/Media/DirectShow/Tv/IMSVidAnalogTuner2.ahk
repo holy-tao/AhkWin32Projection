@@ -57,9 +57,98 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Pointer to a variable that receives the formats flag. Possible values are the sum of one or more of the values in the following table.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tvformats
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>0x00000000</td>
+     * <td>Digital sensor</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000001</td>
+     * <td>NTSC (M) standard, 7.5 IRE black</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000002</td>
+     * <td>NTSC (M) standard, 0 IRE black (Japan)</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000004</td>
+     * <td>NTSC-433</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000010</td>
+     * <td>PAL-B standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000020</td>
+     * <td>PAL (D) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000080</td>
+     * <td>PAL (H) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000100</td>
+     * <td>PAL (I) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000200</td>
+     * <td>PAL (M) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000400</td>
+     * <td>PAL (N) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00000800</td>
+     * <td>PAL-60 standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00001000</td>
+     * <td>SECAM (B) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00002000</td>
+     * <td>SECAM (D) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00004000</td>
+     * <td>SECAM (G) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00008000</td>
+     * <td>SECAM (H) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00010000</td>
+     * <td>SECAM (K) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00020000</td>
+     * <td>SECAM (K1) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00040000</td>
+     * <td>SECAM (L) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00080000</td>
+     * <td>SECAM (L1) standard</td>
+     * </tr>
+     * <tr>
+     * <td>0x00100000</td>
+     * <td>Combination (N) PAL standard (Argentina)</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner2-get_tvformats
      */
     get_TVFormats() {
         result := ComCall(31, this, "int*", &Formats := 0, "HRESULT")
@@ -67,9 +156,34 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Pointer to a variable that receives the modes flag. Possible values are the sum of one or more of the values in the following table.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tunermodes
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>0x0000</td>
+     * <td>Default tuner mode.</td>
+     * </tr>
+     * <tr>
+     * <td>0x0001</td>
+     * <td>TV tuner mode.</td>
+     * </tr>
+     * <tr>
+     * <td>0x0002</td>
+     * <td>FM radio tuner mode.</td>
+     * </tr>
+     * <tr>
+     * <td>0x0004</td>
+     * <td>AM radio tuner mode.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner2-get_tunermodes
      */
     get_TunerModes() {
         result := ComCall(32, this, "int*", &Modes := 0, "HRESULT")
@@ -77,9 +191,9 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_numauxinputs
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Pointer to a variable that receives the number of auxiliary inputs.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner2-get_numauxinputs
      */
     get_NumAuxInputs() {
         result := ComCall(33, this, "int*", &Inputs := 0, "HRESULT")

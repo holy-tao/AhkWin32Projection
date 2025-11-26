@@ -37,11 +37,17 @@ class ICurrentWorkingDirectory extends IUnknown{
     static VTableNames => ["GetDirectory", "SetDirectory"]
 
     /**
+     * Gets the current working directory.
+     * @param {PWSTR} pwzPath Type: <b>PWSTR</b>
      * 
-     * @param {PWSTR} pwzPath 
-     * @param {Integer} cchSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icurrentworkingdirectory-getdirectory
+     * Pointer to a buffer that, when this method returns successfully, receives the current working directory's fully qualified path as a null-terminated Unicode string.
+     * @param {Integer} cchSize Type: <b>DWORD</b>
+     * 
+     * The size of the buffer in Unicode characters, including the terminating <b>NULL</b> character.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icurrentworkingdirectory-getdirectory
      */
     GetDirectory(pwzPath, cchSize) {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
@@ -51,10 +57,14 @@ class ICurrentWorkingDirectory extends IUnknown{
     }
 
     /**
+     * Sets the current working directory.
+     * @param {PWSTR} pwzPath Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pwzPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icurrentworkingdirectory-setdirectory
+     * A pointer to the fully qualified path of the new working directory, as a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icurrentworkingdirectory-setdirectory
      */
     SetDirectory(pwzPath) {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath

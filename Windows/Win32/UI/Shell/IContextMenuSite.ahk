@@ -48,12 +48,18 @@ class IContextMenuSite extends IUnknown{
     static VTableNames => ["DoContextMenuPopup"]
 
     /**
+     * DoContextMenuPopup is no longer available for use as of Windows Server 2003.
+     * @param {IUnknown} punkContextMenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkContextMenu 
-     * @param {Integer} fFlags 
-     * @param {POINT} pt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenusite-docontextmenupopup
+     * A pointer to the shortcut menu's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> implementation.
+     * @param {Integer} fFlags Type: <b>UINT</b>
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * 
+     * Location where you want the shortcut menu to appear. This point specifies the location of the menu's upper left corner in screen coordinates.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenusite-docontextmenupopup
      */
     DoContextMenuPopup(punkContextMenu, fFlags, pt) {
         result := ComCall(3, this, "ptr", punkContextMenu, "uint", fFlags, "ptr", pt, "HRESULT")

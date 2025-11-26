@@ -31,11 +31,11 @@ class IAppxBundleWriter3 extends IUnknown{
     static VTableNames => ["AddPackageReference", "Close"]
 
     /**
-     * 
-     * @param {PWSTR} fileName 
-     * @param {IStream} inputStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlewriter3-addpackagereference
+     * Adds a reference to an optional app package or a payload file within an app bundle.
+     * @param {PWSTR} fileName The name of the payload file. The file name path must be relative to the root of the package.
+     * @param {IStream} inputStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of <i>fileName</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlewriter3-addpackagereference
      */
     AddPackageReference(fileName, inputStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -45,10 +45,10 @@ class IAppxBundleWriter3 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} hashMethodString 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlewriter3-close
+     * Finalizes the bundle package by writing footprint files at the end of the package, and closes the writer’s output stream.
+     * @param {PWSTR} hashMethodString The string value of the <b>HashMethod</b> attribute of the <a href="https://docs.microsoft.com/uwp/schemas/blockmapschema/element-blockmap">BlockMap</a> root element.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlewriter3-close
      */
     Close(hashMethodString) {
         hashMethodString := hashMethodString is String ? StrPtr(hashMethodString) : hashMethodString

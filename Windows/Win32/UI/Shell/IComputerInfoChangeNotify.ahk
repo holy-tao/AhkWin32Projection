@@ -31,9 +31,11 @@ class IComputerInfoChangeNotify extends IUnknown{
     static VTableNames => ["ComputerInfoChanged"]
 
     /**
+     * Not supported. This interface may be absent in later versions of Windows.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icomputerinfochangenotify-computerinfochanged
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icomputerinfochangenotify-computerinfochanged
      */
     ComputerInfoChanged() {
         result := ComCall(3, this, "HRESULT")

@@ -97,10 +97,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Sets the TransformParent property of this visual. The TransformParent property establishes the coordinate system relative to which this visual is composed.
+     * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
-     * @param {IDCompositionVisual} visual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-settransformparent
+     * The new visual that establishes the base coordinate system for this visual. This parameter can be NULL.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-settransformparent
      */
     SetTransformParent(visual) {
         result := ComCall(9, this, "ptr", visual, "HRESULT")
@@ -108,10 +112,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Sets the Effect property of this visual.
+     * @param {IDCompositionEffect} effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffect">IDCompositionEffect</a>*</b>
      * 
-     * @param {IDCompositionEffect} effect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-seteffect
+     * A pointer to an effect object. This parameter can be NULL.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-seteffect
      */
     SetEffect(effect) {
         result := ComCall(10, this, "ptr", effect, "HRESULT")
@@ -119,10 +127,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Sets the BitmapInterpolationMode property, which specifies the mode for Microsoft DirectComposition to use when interpolating pixels from bitmaps that are not axis-aligned or drawn exactly at scale.
+     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode">DCOMPOSITION_BITMAP_INTERPOLATION_MODE</a></b>
      * 
-     * @param {Integer} interpolationMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setbitmapinterpolationmode
+     * The interpolation mode to use.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-setbitmapinterpolationmode
      */
     SetBitmapInterpolationMode(interpolationMode) {
         result := ComCall(11, this, "int", interpolationMode, "HRESULT")
@@ -130,10 +142,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Sets the BorderMode property, which specifies how to compose the edges of bitmaps and clips associated with this visual, or with visuals in the subtree rooted at this visual.
+     * @param {Integer} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_border_mode">DCOMPOSITION_BORDER_MODE</a></b>
      * 
-     * @param {Integer} borderMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setbordermode
+     * The border mode to use.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-setbordermode
      */
     SetBorderMode(borderMode) {
         result := ComCall(12, this, "int", borderMode, "HRESULT")
@@ -163,10 +179,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Sets the Content property of this visual to the specified bitmap or window wrapper.
+     * @param {IUnknown} content Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} content 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setcontent
+     * The object that is the new content of this visual. This parameter can be NULL.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-setcontent
      */
     SetContent(content) {
         result := ComCall(15, this, "ptr", content, "HRESULT")
@@ -174,12 +194,20 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Adds a new child visual to the children list of this visual.
+     * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
-     * @param {IDCompositionVisual} visual 
-     * @param {BOOL} insertAbove 
-     * @param {IDCompositionVisual} referenceVisual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-addvisual
+     * The child visual to add. This parameter must not be NULL.
+     * @param {BOOL} insertAbove Type: <b>BOOL</b>
+     * 
+     * TRUE to place the new child visual in front of the visual specified by the <i>referenceVisual</i> parameter, or FALSE to place it behind <i>referenceVisual</i>.
+     * @param {IDCompositionVisual} referenceVisual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
+     * 
+     * The existing child visual next to which the new visual should be added.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-addvisual
      */
     AddVisual(visual, insertAbove, referenceVisual) {
         result := ComCall(16, this, "ptr", visual, "int", insertAbove, "ptr", referenceVisual, "HRESULT")
@@ -187,10 +215,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Removes a child visual from the children list of this visual.
+     * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
-     * @param {IDCompositionVisual} visual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-removevisual
+     * The child visual to remove from the children list. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-removevisual
      */
     RemoveVisual(visual) {
         result := ComCall(17, this, "ptr", visual, "HRESULT")
@@ -198,9 +230,11 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Removes all visuals from the children list of this visual.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-removeallvisuals
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-removeallvisuals
      */
     RemoveAllVisuals() {
         result := ComCall(18, this, "HRESULT")
@@ -208,10 +242,14 @@ class IDCompositionVisual extends IUnknown{
     }
 
     /**
+     * Sets the blending mode for this visual.
+     * @param {Integer} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_composite_mode">DCOMPOSITION_COMPOSITE_MODE</a></b>
      * 
-     * @param {Integer} compositeMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setcompositemode
+     * The blending mode to use when composing the visual to the screen.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual-setcompositemode
      */
     SetCompositeMode(compositeMode) {
         result := ComCall(19, this, "int", compositeMode, "HRESULT")

@@ -32,15 +32,32 @@ class IWMReaderAllocatorEx extends IUnknown{
     static VTableNames => ["AllocateForStreamEx", "AllocateForOutputEx"]
 
     /**
+     * The AllocateForStreamEx method allocates a user-created buffer for samples delivered to the IWMReaderCallbackAdvanced::OnStreamSample method.
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
+     * @param {Integer} cbBuffer Size of <i>ppBuffer</i>, in bytes.
+     * @param {Integer} dwFlags <b>DWORD</b> containing the relevant flags.
      * 
-     * @param {Integer} wStreamNum 
-     * @param {Integer} cbBuffer 
-     * @param {Integer} dwFlags 
-     * @param {Integer} cnsSampleTime 
-     * @param {Integer} cnsSampleDuration 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {INSSBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
+     * <table>
+     * <tr>
+     * <th>Flag
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WM_SFEX_NOTASYNCPOINT</td>
+     * <td>This flag is the opposite of the WM_SF_CLEANPOINT flag used in other methods of this SDK. It indicates that the point is not a <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">key frame</a>, or is not a good point to go to during a seek. This inverse definition is used for compatibility with Direct Show.</td>
+     * </tr>
+     * <tr>
+     * <td>WM_SFEX_DATALOSS</td>
+     * <td>Some data has been lost between the previous sample and the sample with the flag set.</td>
+     * </tr>
+     * </table>
+     * @param {Integer} cnsSampleTime Specifies the sample time, in 100-nanosecond units.
+     * @param {Integer} cnsSampleDuration Specifies the sample duration, in 100-nanosecond units.
+     * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
+     * @returns {INSSBuffer} Pointer to a pointer to an <b>INSSBuffer</b> object.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
      */
     AllocateForStreamEx(wStreamNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -50,15 +67,32 @@ class IWMReaderAllocatorEx extends IUnknown{
     }
 
     /**
+     * The AllocateForOutputEx method allocates a user-created buffer for samples delivered to the IWMReaderCallback::OnSample method.
+     * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
+     * @param {Integer} cbBuffer Size of <i>ppBuffer</i>, in bytes.
+     * @param {Integer} dwFlags <b>DWORD</b> containing the relevant flags.
      * 
-     * @param {Integer} dwOutputNum 
-     * @param {Integer} cbBuffer 
-     * @param {Integer} dwFlags 
-     * @param {Integer} cnsSampleTime 
-     * @param {Integer} cnsSampleDuration 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {INSSBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
+     * <table>
+     * <tr>
+     * <th>Flag
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WM_SFEX_NOTASYNCPOINT</td>
+     * <td>This flag is the opposite of the WM_SF_CLEANPOINT flag used in other methods of this SDK. It indicates that the point is not a <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">key frame</a>, or is not a good point to go to during a seek. This inverse definition is used for compatibility with DirectShow.</td>
+     * </tr>
+     * <tr>
+     * <td>WM_SFEX_DATALOSS</td>
+     * <td>Some data has been lost between the previous sample and the sample with the flag set.</td>
+     * </tr>
+     * </table>
+     * @param {Integer} cnsSampleTime Specifies the sample time, in 100-nanosecond units.
+     * @param {Integer} cnsSampleDuration Specifies the sample duration, in 100-nanosecond units.
+     * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
+     * @returns {INSSBuffer} Pointer to a pointer to an <b>INSSBuffer</b> object.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
      */
     AllocateForOutputEx(dwOutputNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"

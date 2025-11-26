@@ -32,10 +32,13 @@ class ICertConfig2 extends ICertConfig{
     static VTableNames => ["SetSharedFolder"]
 
     /**
+     * Specifies the path to be used as the certification authority's (CA) shared folder.
+     * @param {BSTR} strSharedFolder String value that specifies the path of the new shared folder directory.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {BSTR} strSharedFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig2-setsharedfolder
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertconfig2-setsharedfolder
      */
     SetSharedFolder(strSharedFolder) {
         strSharedFolder := strSharedFolder is String ? BSTR.Alloc(strSharedFolder).Value : strSharedFolder

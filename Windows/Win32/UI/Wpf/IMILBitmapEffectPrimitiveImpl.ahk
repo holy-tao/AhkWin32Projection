@@ -31,10 +31,14 @@ class IMILBitmapEffectPrimitiveImpl extends IUnknown{
     static VTableNames => ["IsDirty", "IsVolatile"]
 
     /**
+     * Determines whether the effect needs to be updated.
+     * @param {Integer} uiOutputIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiOutputIndex 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isdirty
+     * A zero based index value indicating the output pin to query.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
+     * 
+     * When this method returns, contains a value indicating whether the effect needs to be updated.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isdirty
      */
     IsDirty(uiOutputIndex) {
         result := ComCall(3, this, "uint", uiOutputIndex, "short*", &pfDirty := 0, "int")
@@ -42,10 +46,14 @@ class IMILBitmapEffectPrimitiveImpl extends IUnknown{
     }
 
     /**
+     * Determines whether the current effect is considered volatile. If an effect is volatile, the effects framework will not attempt to cache the effect's output.
+     * @param {Integer} uiOutputIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiOutputIndex 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isvolatile
+     * A zero based index value indicating the output pin to query.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
+     * 
+     * When this method returns, contains a value indicating whether the effect is considered volatile.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isvolatile
      */
     IsVolatile(uiOutputIndex) {
         result := ComCall(4, this, "uint", uiOutputIndex, "short*", &pfVolatile := 0, "HRESULT")

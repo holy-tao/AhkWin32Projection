@@ -40,9 +40,11 @@ class ID3D12PipelineState extends ID3D12Pageable{
     static VTableNames => ["GetCachedBlob"]
 
     /**
+     * Gets the cached blob representing the pipeline state.
+     * @returns {ID3DBlob} Type: <b>ID3DBlob**</b>
      * 
-     * @returns {ID3DBlob} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinestate-getcachedblob
+     * After this method returns, points to the cached blob representing the pipeline state.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinestate-getcachedblob
      */
     GetCachedBlob() {
         result := ComCall(8, this, "ptr*", &ppBlob := 0, "HRESULT")

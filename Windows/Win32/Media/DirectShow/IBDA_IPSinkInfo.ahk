@@ -51,10 +51,10 @@ class IBDA_IPSinkInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbAddresses 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
+     * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @param {Pointer<Integer>} pulcbAddresses Receives the number of bytes in the returned array.
+     * @returns {Pointer<Integer>} Pointer to variable that receives an array of bytes, of size *<i>pulcbAddresses</i>. Each IP address is 6 consecutive bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
      */
     get_MulticastList(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
@@ -64,9 +64,9 @@ class IBDA_IPSinkInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapteripaddress
+     * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the IP address. The returned string has the form <c>N.N.N.N</code>; for example, <code>3.0.0.0</c>.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapteripaddress
      */
     get_AdapterIPAddress() {
         pbstrBuffer := BSTR()
@@ -75,9 +75,9 @@ class IBDA_IPSinkInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapterdescription
+     * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the description.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapterdescription
      */
     get_AdapterDescription() {
         pbstrBuffer := BSTR()

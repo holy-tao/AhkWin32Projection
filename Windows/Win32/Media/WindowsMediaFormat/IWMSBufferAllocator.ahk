@@ -32,10 +32,10 @@ class IWMSBufferAllocator extends IUnknown{
     static VTableNames => ["AllocateBuffer", "AllocatePageSizeBuffer"]
 
     /**
-     * 
-     * @param {Integer} dwMaxBufferSize 
-     * @returns {INSSBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatebuffer
+     * The AllocateBuffer method initializes a buffer.
+     * @param {Integer} dwMaxBufferSize <b>DWORD</b> containing the maximum size of the buffer in bytes.
+     * @returns {INSSBuffer} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatebuffer
      */
     AllocateBuffer(dwMaxBufferSize) {
         result := ComCall(3, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
@@ -43,10 +43,10 @@ class IWMSBufferAllocator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwMaxBufferSize 
-     * @returns {INSSBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatepagesizebuffer
+     * The AllocatePageSizeBuffer method initializes a buffer that can be used to perform page-aligned reads.
+     * @param {Integer} dwMaxBufferSize <b>DWORD</b> containing the size of the buffer in bytes.
+     * @returns {INSSBuffer} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatepagesizebuffer
      */
     AllocatePageSizeBuffer(dwMaxBufferSize) {
         result := ComCall(4, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")

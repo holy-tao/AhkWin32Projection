@@ -36,9 +36,11 @@ class IVirtualizedItemProvider extends IUnknown{
     static VTableNames => ["Realize"]
 
     /**
+     * Makes the virtual item fully accessible as a UI Automation element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivirtualizeditemprovider-realize
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivirtualizeditemprovider-realize
      */
     Realize() {
         result := ComCall(3, this, "HRESULT")

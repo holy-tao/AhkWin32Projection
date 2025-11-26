@@ -78,10 +78,10 @@ class IMbnConnectionProfileManager extends IUnknown{
     static VTableNames => ["GetConnectionProfiles", "GetConnectionProfile", "CreateConnectionProfile"]
 
     /**
-     * 
-     * @param {IMbnInterface} mbnInterface 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofiles
+     * Gets a list of connection profiles associated with the device.
+     * @param {IMbnInterface} mbnInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the device for which the profile request applies.  If this is <b>NULL</b>, the function will return all of the profiles that are present in the system.
+     * @returns {Pointer<SAFEARRAY>} An array of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interfaces that represent all the available connection profiles for the device.  If this method returns anything other than <b>S_OK</b>, the array pointer is <b>NULL</b>, otherwise the calling application must eventually free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofiles
      */
     GetConnectionProfiles(mbnInterface) {
         result := ComCall(3, this, "ptr", mbnInterface, "ptr*", &connectionProfiles := 0, "HRESULT")
@@ -89,11 +89,11 @@ class IMbnConnectionProfileManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} mbnInterface 
-     * @param {PWSTR} profileName 
-     * @returns {IMbnConnectionProfile} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofile
+     * Gets a specific connection profile associated with the given Mobile Broadband device.
+     * @param {IMbnInterface} mbnInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the device for which the profile request applies.  If <i>mbnInterface</i> is <b>NULL</b>, then this function will return the profile of the given name associated with any device in the system.
+     * @param {PWSTR} profileName A null-terminated string that contains the name of the connection profile.
+     * @returns {IMbnConnectionProfile} An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interface that represents the desired connection profile.  If this method returns anything other than <b>S_OK</b>, this is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofile
      */
     GetConnectionProfile(mbnInterface, profileName) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
@@ -103,10 +103,72 @@ class IMbnConnectionProfileManager extends IUnknown{
     }
 
     /**
+     * Creates a new connection profile for the device.
+     * @param {PWSTR} xmlProfile A null-terminated string that contains the profile data in XML format compliant with the <a href="https://docs.microsoft.com/windows/desktop/mbn/schema-schema">Mobile Broadband Profile Schema Reference</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} xmlProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-createconnectionprofile
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A profile with the given name already exists.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_MBN_INVALID_PROFILE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The profile does not conform to the Mobile Broadband profile schema.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The icon file location passed in the profile is not valid or not accessible.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_MBN_DEFAULT_PROFILE_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling application specified the default profile flag in the XML data, however the default profile already exists for the Mobile Broadband device.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofilemanager-createconnectionprofile
      */
     CreateConnectionProfile(xmlProfile) {
         xmlProfile := xmlProfile is String ? StrPtr(xmlProfile) : xmlProfile

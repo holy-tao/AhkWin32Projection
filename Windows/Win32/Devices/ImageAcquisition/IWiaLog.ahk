@@ -38,10 +38,12 @@ class IWiaLog extends IUnknown{
     static VTableNames => ["InitializeLog", "hResult", "Log"]
 
     /**
+     * This method is not supported.
+     * @param {Integer} hInstance Type: <b>LONG</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Integer} hInstance 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-initializelog
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialog-initializelog
      */
     InitializeLog(hInstance) {
         result := ComCall(3, this, "int", hInstance, "HRESULT")
@@ -49,10 +51,12 @@ class IWiaLog extends IUnknown{
     }
 
     /**
+     * This method is not supported.
+     * @param {HRESULT} hResult Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-hresult
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialog-hresult
      */
     hResult(hResult) {
         result := ComCall(4, this, "int", hResult, "HRESULT")
@@ -60,13 +64,15 @@ class IWiaLog extends IUnknown{
     }
 
     /**
+     * This method is not supported.
+     * @param {Integer} lFlags Type: <b>LONG</b>
+     * @param {Integer} lResID Type: <b>LONG</b>
+     * @param {Integer} lDetail Type: <b>LONG</b>
+     * @param {BSTR} bstrText Type: <b>BSTR</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Integer} lFlags 
-     * @param {Integer} lResID 
-     * @param {Integer} lDetail 
-     * @param {BSTR} bstrText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-log
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialog-log
      */
     Log(lFlags, lResID, lDetail, bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText

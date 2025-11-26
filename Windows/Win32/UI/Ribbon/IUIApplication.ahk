@@ -32,14 +32,27 @@ class IUIApplication extends IUnknown{
     static VTableNames => ["OnViewChanged", "OnCreateUICommand", "OnDestroyUICommand"]
 
     /**
+     * Called when the state of a View changes.
+     * @param {Integer} viewId Type: <b>UINT32</b>
      * 
-     * @param {Integer} viewId 
-     * @param {Integer} typeID 
-     * @param {IUnknown} view 
-     * @param {Integer} verb 
-     * @param {Integer} uReasonCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-onviewchanged
+     * The ID for the View. 
+     * 				Only a value of 0 is valid.
+     * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a> hosted by the application.
+     * @param {IUnknown} view Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * A pointer to the View interface.
+     * @param {Integer} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a> (or action) performed by the View.
+     * @param {Integer} uReasonCode Type: <b>INT32</b>
+     * 
+     * Not defined.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiapplication-onviewchanged
      */
     OnViewChanged(viewId, typeID, view, verb, uReasonCode) {
         result := ComCall(3, this, "uint", viewId, "int", typeID, "ptr", view, "int", verb, "int", uReasonCode, "HRESULT")
@@ -47,11 +60,19 @@ class IUIApplication extends IUnknown{
     }
 
     /**
+     * Called for each Command specified in the Windows Ribbon framework markup to bind the Command to an IUICommandHandler.
+     * @param {Integer} commandId Type: <b>UINT32</b>
      * 
-     * @param {Integer} commandId 
-     * @param {Integer} typeID 
-     * @returns {IUICommandHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand
+     * The ID for the Command, which is specified in the markup resource file.
+     * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">UI_COMMANDTYPE</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">Command type</a> that is associated with a specific control.
+     * @returns {IUICommandHandler} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicommandhandler">IUICommandHandler</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to an 
+     * 					<a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicommandhandler">IUICommandHandler</a> object. This object is a host application 
+     * 					Command handler that is bound to one or more Commands.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand
      */
     OnCreateUICommand(commandId, typeID) {
         result := ComCall(4, this, "uint", commandId, "int", typeID, "ptr*", &commandHandler := 0, "HRESULT")
@@ -59,12 +80,20 @@ class IUIApplication extends IUnknown{
     }
 
     /**
+     * Called for each Command specified in the Windows Ribbon framework markup when the application window is destroyed.
+     * @param {Integer} commandId Type: <b>UINT32</b>
      * 
-     * @param {Integer} commandId 
-     * @param {Integer} typeID 
-     * @param {IUICommandHandler} commandHandler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-ondestroyuicommand
+     * The ID for the Command,  which is specified in the markup resource file.
+     * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">UI_COMMANDTYPE</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">Command type</a> that is associated with a specific control.
+     * @param {IUICommandHandler} commandHandler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicommandhandler">IUICommandHandler</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicommandhandler">IUICommandHandler</a> object. This value can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiapplication-ondestroyuicommand
      */
     OnDestroyUICommand(commandId, typeID, commandHandler) {
         result := ComCall(5, this, "uint", commandId, "int", typeID, "ptr", commandHandler, "HRESULT")

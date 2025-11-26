@@ -31,11 +31,11 @@ class IWMDMRevoked extends IUnknown{
     static VTableNames => ["GetRevocationURL"]
 
     /**
-     * 
-     * @param {Pointer<PWSTR>} ppwszRevocationURL 
-     * @param {Pointer<Integer>} pdwBufferLen 
+     * The GetRevocationURL method retrieves the URL from which updated components can be downloaded.
+     * @param {Pointer<PWSTR>} ppwszRevocationURL Pointer to a string containing a revocation URL. This buffer is created and freed by the caller.
+     * @param {Pointer<Integer>} pdwBufferLen Size of the buffer holding the revocation URL.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
         ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"

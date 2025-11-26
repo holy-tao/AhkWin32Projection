@@ -31,10 +31,40 @@ class ICreateErrorInfo extends IUnknown{
     static VTableNames => ["SetGUID", "SetSource", "SetDescription", "SetHelpFile", "SetHelpContext"]
 
     /**
+     * Sets the globally unique identifier (GUID) of the interface that defined the error.
+     * @param {Pointer<Guid>} rguid The GUID of the interface that defined the error, or GUID_NULL if the error was defined by the operating system.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} rguid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreateerrorinfo-setguid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreateerrorinfo-setguid
      */
     SetGUID(rguid) {
         result := ComCall(3, this, "ptr", rguid, "HRESULT")
@@ -42,10 +72,40 @@ class ICreateErrorInfo extends IUnknown{
     }
 
     /**
+     * Sets the language-dependent programmatic identifier (ProgID) for the class or application that raised the error.
+     * @param {PWSTR} szSource A ProgID in the form <i>progname</i>.<i>objectname</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreateerrorinfo-setsource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreateerrorinfo-setsource
      */
     SetSource(szSource) {
         szSource := szSource is String ? StrPtr(szSource) : szSource
@@ -55,10 +115,40 @@ class ICreateErrorInfo extends IUnknown{
     }
 
     /**
+     * Sets the textual description of the error.
+     * @param {PWSTR} szDescription A brief description of the error.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreateerrorinfo-setdescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreateerrorinfo-setdescription
      */
     SetDescription(szDescription) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
@@ -68,10 +158,40 @@ class ICreateErrorInfo extends IUnknown{
     }
 
     /**
+     * Sets the path of the Help file that describes the error.
+     * @param {PWSTR} szHelpFile The fully qualified path of the Help file that describes the error.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szHelpFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreateerrorinfo-sethelpfile
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreateerrorinfo-sethelpfile
      */
     SetHelpFile(szHelpFile) {
         szHelpFile := szHelpFile is String ? StrPtr(szHelpFile) : szHelpFile
@@ -81,10 +201,40 @@ class ICreateErrorInfo extends IUnknown{
     }
 
     /**
+     * Sets the Help context identifier (ID) for the error.
+     * @param {Integer} dwHelpContext The Help context ID for the error.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwHelpContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreateerrorinfo-sethelpcontext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreateerrorinfo-sethelpcontext
      */
     SetHelpContext(dwHelpContext) {
         result := ComCall(7, this, "uint", dwHelpContext, "HRESULT")

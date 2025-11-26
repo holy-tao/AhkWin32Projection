@@ -72,9 +72,9 @@ class IAMStats extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-reset
+     * The Reset method resets all statistics to zero.
+     * @returns {HRESULT} Returns S_OK if successful, or an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-reset
      */
     Reset() {
         result := ComCall(7, this, "HRESULT")
@@ -82,9 +82,9 @@ class IAMStats extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-get_count
+     * The get_Count method retrieves the number of statistics.
+     * @returns {Integer} Receives the number of statistics.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
@@ -92,17 +92,68 @@ class IAMStats extends IDispatch{
     }
 
     /**
+     * The GetValueByIndex method retrieves a statistic, by index.
+     * @param {Integer} lIndex Zero-based index of the statistic.
+     * @param {Pointer<BSTR>} szName Pointer to a variable that receives the name of the statistic.
+     * @param {Pointer<Integer>} lCount Pointer to a variable that receives the number of values that were recorded.
+     * @param {Pointer<Float>} dLast Pointer to a variable that receives the most recent value that was recorded.
+     * @param {Pointer<Float>} dAverage Pointer to a variable that receives the average value.
+     * @param {Pointer<Float>} dStdDev Pointer to a variable that receives the standard deviation of the values. If the count is less than two, the standard deviation is zero.
+     * @param {Pointer<Float>} dMin Pointer to a variable that receives the minimum value that was recorded.
+     * @param {Pointer<Float>} dMax Pointer to a variable that receives the maximum value that was recorded.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<BSTR>} szName 
-     * @param {Pointer<Integer>} lCount 
-     * @param {Pointer<Float>} dLast 
-     * @param {Pointer<Float>} dAverage 
-     * @param {Pointer<Float>} dStdDev 
-     * @param {Pointer<Float>} dMin 
-     * @param {Pointer<Float>} dMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-getvaluebyindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Index out of range.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-getvaluebyindex
      */
     GetValueByIndex(lIndex, szName, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
         lCountMarshal := lCount is VarRef ? "int*" : "ptr"
@@ -117,17 +168,57 @@ class IAMStats extends IDispatch{
     }
 
     /**
+     * The GetValueByName method retrieves a statistic, by name.
+     * @param {BSTR} szName Specifies the name of the statistic.
+     * @param {Pointer<Integer>} lIndex Pointer to a variable that receives the index of this statistic.
+     * @param {Pointer<Integer>} lCount Pointer to a variable that receives the number of values that were recorded.
+     * @param {Pointer<Float>} dLast Pointer to a variable that receives the most recent value that was recorded.
+     * @param {Pointer<Float>} dAverage Pointer to a variable that receives the average value.
+     * @param {Pointer<Float>} dStdDev Pointer to a variable that receives the standard deviation of the values. If the count is less than two, the standard deviation is zero.
+     * @param {Pointer<Float>} dMin Pointer to a variable that receives the minimum value that was recorded.
+     * @param {Pointer<Float>} dMax Pointer to a variable that receives the maximum value that was recorded.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {BSTR} szName 
-     * @param {Pointer<Integer>} lIndex 
-     * @param {Pointer<Integer>} lCount 
-     * @param {Pointer<Float>} dLast 
-     * @param {Pointer<Float>} dAverage 
-     * @param {Pointer<Float>} dStdDev 
-     * @param {Pointer<Float>} dMin 
-     * @param {Pointer<Float>} dMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-getvaluebyname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No match for this name.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-getvaluebyname
      */
     GetValueByName(szName, lIndex, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
@@ -145,11 +236,11 @@ class IAMStats extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} szName 
-     * @param {Integer} lCreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-getindex
+     * The GetIndex method retrieves the index for a named statistic, or creates a new statistic.
+     * @param {BSTR} szName Specifies the name of the statistic.
+     * @param {Integer} lCreate Specifies whether to create the statistic, if it is not defined already. If the value is <b>TRUE</b>, the method creates a new index for the statistic when it cannot find an existing entry with that name. If the value is <b>FALSE</b>, the method fails when the statistic does not already exist.
+     * @returns {Integer} Receives the index.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-getindex
      */
     GetIndex(szName, lCreate) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
@@ -159,11 +250,40 @@ class IAMStats extends IDispatch{
     }
 
     /**
+     * The AddValue method records a new value.
+     * @param {Integer} lIndex Specifies the index of the statistic.
+     * @param {Float} dValue Specifies the value to record.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} lIndex 
-     * @param {Float} dValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-addvalue
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Index out of range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-addvalue
      */
     AddValue(lIndex, dValue) {
         result := ComCall(12, this, "int", lIndex, "double", dValue, "HRESULT")

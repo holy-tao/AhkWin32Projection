@@ -31,9 +31,38 @@ class ITfMSAAControl extends IUnknown{
     static VTableNames => ["SystemEnableMSAA", "SystemDisableMSAA"]
 
     /**
+     * ITfMSAAControl::SystemEnableMSAA method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-itfmsaacontrol-systemenablemsaa
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-itfmsaacontrol-systemenablemsaa
      */
     SystemEnableMSAA() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +70,38 @@ class ITfMSAAControl extends IUnknown{
     }
 
     /**
+     * ITfMSAAControl::SystemDisableMSAA method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-itfmsaacontrol-systemdisablemsaa
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-itfmsaacontrol-systemdisablemsaa
      */
     SystemDisableMSAA() {
         result := ComCall(4, this, "HRESULT")

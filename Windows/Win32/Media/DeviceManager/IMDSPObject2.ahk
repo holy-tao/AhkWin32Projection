@@ -31,10 +31,10 @@ class IMDSPObject2 extends IMDSPObject{
     static VTableNames => ["ReadOnClearChannel", "WriteOnClearChannel"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-readonclearchannel
+     * The ReadOnClearChannel method reads data from the object at the current position without using secure authenticated channels.
+     * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> specifying the number of bytes of data to read. Upon return, this parameter contains the actual amount of data read.
+     * @returns {Integer} Pointer to a buffer to receive the data read from the object.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject2-readonclearchannel
      */
     ReadOnClearChannel(pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
@@ -44,11 +44,18 @@ class IMDSPObject2 extends IMDSPObject{
     }
 
     /**
+     * The WriteOnClearChannel method writes data to the object to the current position within the object, without using secure authenticated channels.
+     * @param {Pointer<Integer>} pData Pointer to the buffer containing the data to write to the object.
+     * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> containing the number of bytes of data to write. Upon return, this parameter contains the actual number of bytes written.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<Integer>} pData 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-writeonclearchannel
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject2-writeonclearchannel
      */
     WriteOnClearChannel(pData, pdwSize) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"

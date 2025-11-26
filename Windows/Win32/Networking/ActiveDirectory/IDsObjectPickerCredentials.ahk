@@ -31,11 +31,11 @@ class IDsObjectPickerCredentials extends IDsObjectPicker{
     static VTableNames => ["SetCredentials"]
 
     /**
-     * 
-     * @param {PWSTR} szUserName 
-     * @param {PWSTR} szPassword 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objsel/nf-objsel-idsobjectpickercredentials-setcredentials
+     * Use this method to override the user credentials, passing new credentials for the account profile to be used.
+     * @param {PWSTR} szUserName User account.
+     * @param {PWSTR} szPassword Password.
+     * @returns {HRESULT} S_OK indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//objsel/nf-objsel-idsobjectpickercredentials-setcredentials
      */
     SetCredentials(szUserName, szPassword) {
         szUserName := szUserName is String ? StrPtr(szUserName) : szUserName

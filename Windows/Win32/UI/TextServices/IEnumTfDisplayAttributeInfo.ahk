@@ -32,9 +32,9 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
-     * @returns {IEnumTfDisplayAttributeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-clone
+     * IEnumTfDisplayAttributeInfo::Clone method
+     * @returns {IEnumTfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdisplayattributeinfo">IEnumTfDisplayAttributeInfo</a> interface pointer that receives the new enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -42,12 +42,41 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
+     * IEnumTfDisplayAttributeInfo::Next method
+     * @param {Integer} ulCount Specifies the number of elements to obtain.
+     * @param {Pointer<ITfDisplayAttributeInfo>} rgInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdisplayattributeinfo">ITfDisplayAttributeInfo</a> interface pointers that receives the requested objects. This array must be at least <i>ulCount</i> elements in size.
+     * @param {Pointer<Integer>} pcFetched Pointer to a ULONG value that receives the number of elements actually obtained. The number of elements can be less than the number of items requested. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ulCount 
-     * @param {Pointer<ITfDisplayAttributeInfo>} rgInfo 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-next
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method reached the end of the enumeration before the specified number of elements were obtained.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-next
      */
     Next(ulCount, rgInfo, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -57,9 +86,27 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
+     * IEnumTfDisplayAttributeInfo::Reset method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-reset
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -67,10 +114,39 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
     }
 
     /**
+     * IEnumTfDisplayAttributeInfo::Skip method
+     * @param {Integer} ulCount Contains the number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ulCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-skip
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method reached the end of the enumeration before the specified number of elements could be skipped.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

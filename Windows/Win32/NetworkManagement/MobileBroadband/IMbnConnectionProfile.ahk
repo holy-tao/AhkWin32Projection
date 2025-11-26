@@ -36,9 +36,9 @@ class IMbnConnectionProfile extends IUnknown{
     static VTableNames => ["GetProfileXmlData", "UpdateProfile", "Delete"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofile-getprofilexmldata
+     * Gets the XML data of the current profile.
+     * @returns {BSTR} A pointer to a string containing the profile in XML format.  If the method returns S_OK, the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofile-getprofilexmldata
      */
     GetProfileXmlData() {
         profileData := BSTR()
@@ -47,10 +47,72 @@ class IMbnConnectionProfile extends IUnknown{
     }
 
     /**
+     * Updates the contents of the profile.
+     * @param {PWSTR} strProfile A string that contains the profile data in XML format compliant with the <a href="https://docs.microsoft.com/windows/desktop/mbn/schema-schema">Mobile Broadband Profile Schema Reference</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} strProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofile-updateprofile
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The profile is invalid and likely has been removed from the system.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR _NOT_FOUND)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The profile is invalid and has likely been removed from the system.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The profile data specifies an icon file that cannot be found at the indicated location.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_SERVICE_NOT_ACTIVE)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Mobile Broadband service is not running on this system.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofile-updateprofile
      */
     UpdateProfile(strProfile) {
         strProfile := strProfile is String ? StrPtr(strProfile) : strProfile
@@ -60,9 +122,60 @@ class IMbnConnectionProfile extends IUnknown{
     }
 
     /**
+     * Deletes the profile from the system.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofile-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The profile is invalid and likely has been removed from the system.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR _NOT_FOUND)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The profile is invalid and has likely been removed from the system.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_SERVICE_NOT_ACTIVE)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Mobile Broadband service is not running on this system.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofile-delete
      */
     Delete() {
         result := ComCall(5, this, "HRESULT")

@@ -31,9 +31,9 @@ class IWebApplicationActivation extends IUnknown{
     static VTableNames => ["CancelPendingActivation"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationactivation-cancelpendingactivation
+     * Cancels a pending activation.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationactivation-cancelpendingactivation
      */
     CancelPendingActivation() {
         result := ComCall(3, this, "HRESULT")

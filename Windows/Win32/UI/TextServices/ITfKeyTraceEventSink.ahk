@@ -37,11 +37,11 @@ class ITfKeyTraceEventSink extends IUnknown{
     static VTableNames => ["OnKeyTraceDown", "OnKeyTraceUp"]
 
     /**
-     * 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeytraceeventsink-onkeytracedown
+     * ITfKeyTraceEventSink::OnKeyTraceDown method
+     * @param {WPARAM} wParam The WPARAM of the key event. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} lParam The LPARAM of the key event. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfkeytraceeventsink-onkeytracedown
      */
     OnKeyTraceDown(wParam, lParam) {
         result := ComCall(3, this, "ptr", wParam, "ptr", lParam, "HRESULT")
@@ -49,11 +49,11 @@ class ITfKeyTraceEventSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeytraceeventsink-onkeytraceup
+     * ITfKeyTraceEventSink::OnKeyTraceUp method
+     * @param {WPARAM} wParam The WPARAM of the key event. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {LPARAM} lParam The LPARAM of the key event. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfkeytraceeventsink-onkeytraceup
      */
     OnKeyTraceUp(wParam, lParam) {
         result := ComCall(4, this, "ptr", wParam, "ptr", lParam, "HRESULT")

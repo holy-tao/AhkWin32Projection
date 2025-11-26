@@ -32,15 +32,9 @@ class IADsComputerOperations extends IADs{
     static VTableNames => ["Status", "Shutdown"]
 
     /**
-     * The Status enumeration indicates the result of a Windows GDI+ method call.
-     * @remarks
-     * 
-     * If you construct a GDI+ object and then immediately call the 
-     * 				<b>GetLastStatus</b> method of that object, you can determine whether the constructor succeeded or failed. In such cases, 
-     * 				<b>GetLastStatus</b> might return <b><b>OutOfMemory</b></b> even though there was plenty of memory available to create the object. Several GDI+ constructors set the status to <b><b>OutOfMemory</b></b> when they fail regardless of the reason for failure.
-     * 
-     * @returns {IDispatch} 
-     * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/ne-gdiplustypes-status
+     * The IADsComputerOperations::Status method retrieves the status of a computer.
+     * @returns {IDispatch} Pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface that reports the status code of computer operations. The status code is provider-specific.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscomputeroperations-status
      */
     Status() {
         result := ComCall(20, this, "ptr*", &ppObject := 0, "HRESULT")
@@ -48,10 +42,12 @@ class IADsComputerOperations extends IADs{
     }
 
     /**
+     * The IADsComputerOperations::Shutdown method causes a computer under ADSI control to execute the shutdown operation with an optional reboot.
+     * @param {VARIANT_BOOL} bReboot If <b>TRUE</b>, then reboot the computer after the shutdown is complete.
+     * @returns {HRESULT} This method supports the standard return values, as well as the following:
      * 
-     * @param {VARIANT_BOOL} bReboot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscomputeroperations-shutdown
+     * For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscomputeroperations-shutdown
      */
     Shutdown(bReboot) {
         result := ComCall(21, this, "short", bReboot, "HRESULT")

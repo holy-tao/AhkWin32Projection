@@ -52,9 +52,11 @@ class ISelectionItemProvider extends IUnknown{
     }
 
     /**
+     * Deselects any selected items and then selects the current element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionitemprovider-select
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionitemprovider-select
      */
     Select() {
         result := ComCall(3, this, "HRESULT")
@@ -62,9 +64,11 @@ class ISelectionItemProvider extends IUnknown{
     }
 
     /**
+     * Adds the current element to the collection of selected items.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionitemprovider-addtoselection
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionitemprovider-addtoselection
      */
     AddToSelection() {
         result := ComCall(4, this, "HRESULT")
@@ -72,9 +76,11 @@ class ISelectionItemProvider extends IUnknown{
     }
 
     /**
+     * Removes the current element from the collection of selected items.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionitemprovider-removefromselection
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionitemprovider-removefromselection
      */
     RemoveFromSelection() {
         result := ComCall(5, this, "HRESULT")
@@ -82,9 +88,9 @@ class ISelectionItemProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether an item is selected.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionitemprovider-get_isselected
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionitemprovider-get_isselected
      */
     get_IsSelected() {
         result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
@@ -92,9 +98,9 @@ class ISelectionItemProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the provider that implements ISelectionProvider and acts as the container for the calling object.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionitemprovider-get_selectioncontainer
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionitemprovider-get_selectioncontainer
      */
     get_SelectionContainer() {
         result := ComCall(7, this, "ptr*", &pRetVal := 0, "HRESULT")

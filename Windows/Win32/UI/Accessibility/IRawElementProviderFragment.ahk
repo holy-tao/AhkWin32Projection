@@ -53,10 +53,14 @@ class IRawElementProviderFragment extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft UI Automation element in a specified direction within the UI Automation tree.
      * @param {Integer} direction 
-     * @returns {IRawElementProviderFragment} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-navigate
+     * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
+     * 
+     * Receives a pointer to the provider of the 
+     * 				UI Automation element in the specified direction, or <b>NULL</b> if there is no element in that direction.
+     * 				This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-navigate
      */
     Navigate(direction) {
         result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
@@ -64,9 +68,11 @@ class IRawElementProviderFragment extends IUnknown{
     }
 
     /**
+     * Retrieves the runtime identifier of an element.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getruntimeid
+     * Receives a pointer to the runtime identifier. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getruntimeid
      */
     GetRuntimeId() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -74,9 +80,19 @@ class IRawElementProviderFragment extends IUnknown{
     }
 
     /**
+     * Specifies the bounding rectangle of this element.
+     * @remarks
+     * 
+     * The bounding rectangle is defined by the location of the top left corner on the screen, and the dimensions.
+     * 
+     * No clipping is required if the element is partly obscured or partly off-screen. The IsOffscreen property should be set to indicate whether the rectangle is actually visible.
+     * 
+     * Not all points within the bounding rectangle are necessarily clickable.
+     * 
+     * 
      * 
      * @returns {UiaRect} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-get_boundingrectangle
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-get_boundingrectangle
      */
     get_BoundingRectangle() {
         pRetVal := UiaRect()
@@ -85,9 +101,11 @@ class IRawElementProviderFragment extends IUnknown{
     }
 
     /**
+     * Retrieves an array of root fragments that are embedded in the Microsoft UI Automation tree rooted at the current element.
+     * @returns {Pointer<SAFEARRAY>} Type: <b>SAFEARRAY**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getembeddedfragmentroots
+     * Receives an array of pointers to the root fragments, or <b>NULL</b> (see Remarks). This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getembeddedfragmentroots
      */
     GetEmbeddedFragmentRoots() {
         result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -95,13 +113,11 @@ class IRawElementProviderFragment extends IUnknown{
     }
 
     /**
-     * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
-     * @returns {HRESULT} Type: **HWND**
+     * Sets the focus to this element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * 
-     * Extended error ERROR_INVALID_PARAMETER (0x57) means that window is in disabled state.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setfocus
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-setfocus
      */
     SetFocus() {
         result := ComCall(7, this, "HRESULT")
@@ -109,9 +125,16 @@ class IRawElementProviderFragment extends IUnknown{
     }
 
     /**
+     * Specifies the root node of the fragment.
+     * @remarks
+     * 
+     * A provider for a fragment root should return a pointer to its own implementation of 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a>.
+     * 
+     * 
      * 
      * @returns {IRawElementProviderFragmentRoot} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-get_fragmentroot
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-get_fragmentroot
      */
     get_FragmentRoot() {
         result := ComCall(8, this, "ptr*", &pRetVal := 0, "HRESULT")

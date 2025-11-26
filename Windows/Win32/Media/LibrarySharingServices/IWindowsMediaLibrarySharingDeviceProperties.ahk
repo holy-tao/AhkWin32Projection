@@ -45,10 +45,10 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item
+     * The get_Item method retrieves an IWindowsMediaLibrarySharingDeviceProperty interface that represents an individual property for a media device.
+     * @param {Integer} index The zero-based index of the property in the collection of all properties associated with the media device.
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty">IWindowsMediaLibrarySharingDeviceProperty</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item
      */
     get_Item(index) {
         result := ComCall(7, this, "int", index, "ptr*", &property := 0, "HRESULT")
@@ -56,9 +56,9 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_count
+     * The get_Count method retrieves the number of properties associated with an individual media device.
+     * @returns {Integer} A pointer to a <b>LONG</b> that receives the number of properties.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &count := 0, "HRESULT")
@@ -66,10 +66,10 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-getproperty
+     * The GetProperty method retrieves an IWindowsMediaLibrarySharingDeviceProperty interface that represents an indivdual property for a media device.
+     * @param {BSTR} name A <b>BSTR</b> that specifies the name of the property.
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty">IWindowsMediaLibrarySharingDeviceProperty</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-getproperty
      */
     GetProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name

@@ -31,10 +31,28 @@ class IMFSourceOpenMonitor extends IUnknown{
     static VTableNames => ["OnSourceEvent"]
 
     /**
+     * Called by the network source when the open operation begins or ends.
+     * @param {IMFMediaEvent} pEvent Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFMediaEvent} pEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceopenmonitor-onsourceevent
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsourceopenmonitor-onsourceevent
      */
     OnSourceEvent(pEvent) {
         result := ComCall(3, this, "ptr", pEvent, "HRESULT")

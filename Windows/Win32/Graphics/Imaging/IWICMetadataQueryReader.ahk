@@ -45,9 +45,11 @@ class IWICMetadataQueryReader extends IUnknown{
     static VTableNames => ["GetContainerFormat", "GetLocation", "GetMetadataByName", "GetEnumerator"]
 
     /**
+     * Gets the metadata query readers container format.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getcontainerformat
+     * Pointer that receives the cointainer format GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getcontainerformat
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
@@ -56,11 +58,17 @@ class IWICMetadataQueryReader extends IUnknown{
     }
 
     /**
+     * Retrieves the current path relative to the root metadata block.
+     * @param {Integer} cchMaxLength Type: <b>UINT</b>
      * 
-     * @param {Integer} cchMaxLength 
-     * @param {PWSTR} wzNamespace 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getlocation
+     * The length of the <i>wzNamespace</i> buffer.
+     * @param {PWSTR} wzNamespace Type: <b>WCHAR*</b>
+     * 
+     * Pointer that receives the current namespace location.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual buffer length that was needed to retrieve the current namespace location.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getlocation
      */
     GetLocation(cchMaxLength, wzNamespace) {
         wzNamespace := wzNamespace is String ? StrPtr(wzNamespace) : wzNamespace
@@ -70,11 +78,17 @@ class IWICMetadataQueryReader extends IUnknown{
     }
 
     /**
+     * Retrieves the metadata block or item identified by a metadata query expression.
+     * @param {PWSTR} wzName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} wzName 
-     * @param {Pointer<PROPVARIANT>} pvarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getmetadatabyname
+     * The query expression to the requested metadata block or item.
+     * @param {Pointer<PROPVARIANT>} pvarValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * When this method returns, contains the metadata block or item requested.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getmetadatabyname
      */
     GetMetadataByName(wzName, pvarValue) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
@@ -84,9 +98,11 @@ class IWICMetadataQueryReader extends IUnknown{
     }
 
     /**
+     * Gets an enumerator of all metadata items at the current relative location within the metadata hierarchy.
+     * @returns {IEnumString} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a>**</b>
      * 
-     * @returns {IEnumString} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getenumerator
+     * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> interface for the enumerator that contains query strings that can be used in the current <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataqueryreader">IWICMetadataQueryReader</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getenumerator
      */
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &ppIEnumString := 0, "HRESULT")

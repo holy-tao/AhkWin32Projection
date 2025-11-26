@@ -42,12 +42,18 @@ class IDeskBand extends IDockingWindow{
     static VTableNames => ["GetBandInfo"]
 
     /**
+     * Gets state information for a band object.
+     * @param {Integer} dwBandID Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwBandID 
-     * @param {Integer} dwViewMode 
-     * @param {Pointer<DESKBANDINFO>} pdbi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskband-getbandinfo
+     * The identifier of the band, assigned by the container. The band object can retain this value if it is required.
+     * @param {Integer} dwViewMode Type: <b>DWORD</b>
+     * @param {Pointer<DESKBANDINFO>} pdbi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-deskbandinfo">DESKBANDINFO</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-deskbandinfo">DESKBANDINFO</a> structure that receives the band information for the object. The <b>dwMask</b> member of this structure indicates the specific information that is being requested.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ideskband-getbandinfo
      */
     GetBandInfo(dwBandID, dwViewMode, pdbi) {
         result := ComCall(8, this, "uint", dwBandID, "uint", dwViewMode, "ptr", pdbi, "HRESULT")

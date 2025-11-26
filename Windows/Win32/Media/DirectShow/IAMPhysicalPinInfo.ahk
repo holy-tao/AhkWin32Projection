@@ -31,11 +31,11 @@ class IAMPhysicalPinInfo extends IUnknown{
     static VTableNames => ["GetPhysicalType"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pType 
-     * @param {Pointer<PWSTR>} ppszType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamphysicalpininfo-getphysicaltype
+     * Note  The IAMPhysicalPinInfo interface is deprecated. Retrieves the type and name of the physical pin.
+     * @param {Pointer<Integer>} pType Pointer to a variable that receives a value indicating the pin's type. The [PhysicalConnectorType](/windows/desktop/api/strmif/ne-strmif-physicalconnectortype) enumeration defines the pin type values.
+     * @param {Pointer<PWSTR>} ppszType Address of a pointer to a buffer that receives a human-readable string identifying the pin type.
+     * @returns {HRESULT} Returns S_OK if a valid physical pin value is found. Otherwise, returns VFW_E_NO_ACCEPTABLE_TYPES.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamphysicalpininfo-getphysicaltype
      */
     GetPhysicalType(pType, ppszType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"

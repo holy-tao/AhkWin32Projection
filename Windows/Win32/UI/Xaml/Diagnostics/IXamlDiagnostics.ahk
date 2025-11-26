@@ -33,9 +33,9 @@ class IXamlDiagnostics extends IUnknown{
     static VTableNames => ["GetDispatcher", "GetUiLayer", "GetApplication", "GetIInspectableFromHandle", "GetHandleFromIInspectable", "HitTest", "RegisterInstance", "GetInitializationData"]
 
     /**
-     * 
-     * @returns {IInspectable} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getdispatcher
+     * Gets the core dispatcher used to access elements on the UI thread.
+     * @returns {IInspectable} The core dispatcher.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-getdispatcher
      */
     GetDispatcher() {
         result := ComCall(3, this, "ptr*", &ppDispatcher := 0, "HRESULT")
@@ -43,9 +43,9 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IInspectable} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getuilayer
+     * Gets the visual diagnostics root that can be used to draw on for highlighting elements in the tree.
+     * @returns {IInspectable} The visual diagnostics root.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-getuilayer
      */
     GetUiLayer() {
         result := ComCall(4, this, "ptr*", &ppLayer := 0, "HRESULT")
@@ -53,9 +53,9 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IInspectable} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getapplication
+     * Gets an instance of the application.
+     * @returns {IInspectable} The application.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-getapplication
      */
     GetApplication() {
         result := ComCall(5, this, "ptr*", &ppApplication := 0, "HRESULT")
@@ -63,10 +63,10 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} instanceHandle 
-     * @returns {IInspectable} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getiinspectablefromhandle
+     * Gets the IInspectable from the XAML Diagnostics cache.
+     * @param {Integer} instanceHandle A handle to the object.
+     * @returns {IInspectable} The object as an <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-getiinspectablefromhandle
      */
     GetIInspectableFromHandle(instanceHandle) {
         result := ComCall(6, this, "uint", instanceHandle, "ptr*", &ppInstance := 0, "HRESULT")
@@ -74,10 +74,10 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IInspectable} pInstance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-gethandlefromiinspectable
+     * Gets an InstanceHandle representation of an IInspectable.
+     * @param {IInspectable} pInstance An instance of the object as an <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>.
+     * @returns {Integer} A handle to the object.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-gethandlefromiinspectable
      */
     GetHandleFromIInspectable(pInstance) {
         result := ComCall(7, this, "ptr", pInstance, "uint*", &pHandle := 0, "HRESULT")
@@ -85,12 +85,12 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @param {RECT} rect 
-     * @param {Pointer<Integer>} pCount 
-     * @param {Pointer<Pointer<Integer>>} ppInstanceHandles 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-hittest
+     * Gets all elements in the visual tree that fall within the specified rectangle.
+     * @param {RECT} rect The area to hit test.
+     * @param {Pointer<Integer>} pCount The size of the array.
+     * @param {Pointer<Pointer<Integer>>} ppInstanceHandles An array containing all elements.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-hittest
      */
     HitTest(rect, pCount, ppInstanceHandles) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
@@ -101,10 +101,10 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IInspectable} pInstance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-registerinstance
+     * Adds an IInspectable to the XAML Diagnostics cache and returns the newly created InstanceHandle for the object.
+     * @param {IInspectable} pInstance An instance of the object.
+     * @returns {Integer} A handle to the object.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-registerinstance
      */
     RegisterInstance(pInstance) {
         result := ComCall(9, this, "ptr", pInstance, "uint*", &pInstanceHandle := 0, "HRESULT")
@@ -112,9 +112,9 @@ class IXamlDiagnostics extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getinitializationdata
+     * Gets the initialization data passed in to XAML Diagnostics.
+     * @returns {BSTR} The initialization data.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ixamldiagnostics-getinitializationdata
      */
     GetInitializationData() {
         pInitializationData := BSTR()

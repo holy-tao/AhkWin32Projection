@@ -37,12 +37,20 @@ class IDWriteTextAnalysisSink extends IUnknown{
     static VTableNames => ["SetScriptAnalysis", "SetLineBreakpoints", "SetBidiLevel", "SetNumberSubstitution"]
 
     /**
+     * Reports script analysis for the specified text range.
+     * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
-     * @param {Integer} textPosition 
-     * @param {Integer} textLength 
-     * @param {Pointer<DWRITE_SCRIPT_ANALYSIS>} scriptAnalysis 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setscriptanalysis
+     * The starting position from which to report.
+     * @param {Integer} textLength Type: <b>UINT32</b>
+     * 
+     * The number of UTF16 units of the reported range.
+     * @param {Pointer<DWRITE_SCRIPT_ANALYSIS>} scriptAnalysis Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_script_analysis">DWRITE_SCRIPT_ANALYSIS</a>*</b>
+     * 
+     * A pointer to a structure that contains a zero-based index representation of a writing system script and a value indicating whether additional shaping of text is required.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * A successful code or error code to stop analysis.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setscriptanalysis
      */
     SetScriptAnalysis(textPosition, textLength, scriptAnalysis) {
         result := ComCall(3, this, "uint", textPosition, "uint", textLength, "ptr", scriptAnalysis, "HRESULT")
@@ -50,12 +58,20 @@ class IDWriteTextAnalysisSink extends IUnknown{
     }
 
     /**
+     * Sets line-break opportunities for each character, starting from the specified position.
+     * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
-     * @param {Integer} textPosition 
-     * @param {Integer} textLength 
-     * @param {Pointer<DWRITE_LINE_BREAKPOINT>} lineBreakpoints 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setlinebreakpoints
+     * The starting text position from which to report.
+     * @param {Integer} textLength Type: <b>UINT32</b>
+     * 
+     * The number of UTF16 units of the reported range.
+     * @param {Pointer<DWRITE_LINE_BREAKPOINT>} lineBreakpoints Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_breakpoint">DWRITE_LINE_BREAKPOINT</a>*</b>
+     * 
+     * A pointer to a structure that contains breaking conditions set for each character from the starting position to the end of the specified range.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * A successful code or error code to stop analysis.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setlinebreakpoints
      */
     SetLineBreakpoints(textPosition, textLength, lineBreakpoints) {
         result := ComCall(4, this, "uint", textPosition, "uint", textLength, "ptr", lineBreakpoints, "HRESULT")
@@ -63,13 +79,25 @@ class IDWriteTextAnalysisSink extends IUnknown{
     }
 
     /**
+     * Sets a bidirectional level on the range, which is called once per run change (either explicit or resolved implicit).
+     * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
-     * @param {Integer} textPosition 
-     * @param {Integer} textLength 
-     * @param {Integer} explicitLevel 
-     * @param {Integer} resolvedLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setbidilevel
+     * The starting position from which to report.
+     * @param {Integer} textLength Type: <b>UINT32</b>
+     * 
+     * The number of UTF16 units of the reported range.
+     * @param {Integer} explicitLevel Type: <b>UINT8</b>
+     * 
+     * The explicit level from the paragraph reading direction and any embedded control codes RLE/RLO/LRE/LRO/PDF, which is determined before any additional rules.
+     * @param {Integer} resolvedLevel Type: <b>UINT8</b>
+     * 
+     * The final implicit level considering the
+     *          explicit level and characters' natural directionality, after all
+     *          Bidi rules have been applied.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * A successful code or error code to stop analysis.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setbidilevel
      */
     SetBidiLevel(textPosition, textLength, explicitLevel, resolvedLevel) {
         result := ComCall(5, this, "uint", textPosition, "uint", textLength, "char", explicitLevel, "char", resolvedLevel, "HRESULT")
@@ -77,12 +105,20 @@ class IDWriteTextAnalysisSink extends IUnknown{
     }
 
     /**
+     * Sets the number substitution on the text range affected by the text analysis.
+     * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
-     * @param {Integer} textPosition 
-     * @param {Integer} textLength 
-     * @param {IDWriteNumberSubstitution} numberSubstitution 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setnumbersubstitution
+     * The starting position from which to report.
+     * @param {Integer} textLength Type: <b>UINT32</b>
+     * 
+     * The number of UTF16 units of the reported range.
+     * @param {IDWriteNumberSubstitution} numberSubstitution Type: <b><a href="https://docs.microsoft.com/windows/win32/DirectWrite/idwritenumbersubstitution">IDWriteNumberSubstitution</a>*</b>
+     * 
+     * An object that holds the appropriate digits and numeric punctuation for a given locale. Use <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createnumbersubstitution">IDWriteFactory::CreateNumberSubstitution</a> to create this object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setnumbersubstitution
      */
     SetNumberSubstitution(textPosition, textLength, numberSubstitution) {
         result := ComCall(6, this, "uint", textPosition, "uint", textLength, "ptr", numberSubstitution, "HRESULT")

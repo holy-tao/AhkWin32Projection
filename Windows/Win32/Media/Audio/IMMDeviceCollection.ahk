@@ -32,9 +32,9 @@ class IMMDeviceCollection extends IUnknown{
     static VTableNames => ["GetCount", "Item"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevicecollection-getcount
+     * The GetCount method retrieves a count of the devices in the device collection.
+     * @returns {Integer} Pointer to a <b>UINT</b> variable into which the method writes the number of devices in the device collection.
+     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immdevicecollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pcDevices := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IMMDeviceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nDevice 
-     * @returns {IMMDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevicecollection-item
+     * The Item method retrieves a pointer to the specified item in the device collection.
+     * @param {Integer} nDevice The device number. If the collection contains <i>n</i> devices, the devices are numbered 0 to <i>n</i>– 1.
+     * @returns {IMMDevice} Pointer to a pointer variable into which the method writes the address of the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-immdevice">IMMDevice</a> interface of the specified item in the device collection. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method. If the <b>Item</b> call fails,  <i>*ppDevice</i> is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immdevicecollection-item
      */
     Item(nDevice) {
         result := ComCall(4, this, "uint", nDevice, "ptr*", &ppDevice := 0, "HRESULT")

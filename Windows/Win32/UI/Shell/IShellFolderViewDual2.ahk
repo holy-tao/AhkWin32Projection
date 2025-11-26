@@ -44,9 +44,11 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
     }
 
     /**
+     * Gets the current view mode of the current folder.
+     * @returns {Integer} Type: <b>uint*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-get_currentviewmode
+     * When this method returns, contains a pointer to an unsigned integer that represents the current view mode. For a list of possible values see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual2-get_currentviewmode
      */
     get_CurrentViewMode() {
         result := ComCall(16, this, "uint*", &pViewMode := 0, "HRESULT")
@@ -54,10 +56,14 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
     }
 
     /**
+     * Sets the current view mode of the current folder.
+     * @param {Integer} ViewMode Type: <b>uint</b>
      * 
-     * @param {Integer} ViewMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-put_currentviewmode
+     * Sets the current view mode. For a list of possible values see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual2-put_currentviewmode
      */
     put_CurrentViewMode(ViewMode) {
         result := ComCall(17, this, "uint", ViewMode, "HRESULT")
@@ -65,10 +71,14 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
     }
 
     /**
+     * Selects an item relative to the current item.
+     * @param {Integer} iRelative Type: <b>int</b>
      * 
-     * @param {Integer} iRelative 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-selectitemrelative
+     * The offset of the item to be selected in relation to the current item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual2-selectitemrelative
      */
     SelectItemRelative(iRelative) {
         result := ComCall(18, this, "int", iRelative, "HRESULT")

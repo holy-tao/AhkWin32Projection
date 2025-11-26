@@ -31,11 +31,11 @@ class IInstallationProgressChangedCallback extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
-     * @param {IInstallationJob} installationJob 
-     * @param {IInstallationProgressChangedCallbackArgs} callbackArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogresschangedcallback-invoke
+     * Handles the notification of the change in the progress of an asynchronous installation or uninstallation that was initiated by a call to the IUpdateInstaller.BeginInstall method or the IUpdateInstaller.BeginUninstall method.
+     * @param {IInstallationJob} installationJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iinstallationjob">IInstallationJob</a> interface that contains the installation information.
+     * @param {IInstallationProgressChangedCallbackArgs} callbackArgs An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iinstallationprogresschangedcallbackargs">IInstallationProgressChangedCallbackArgs</a> interface that contains the installation progress data.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns  a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogresschangedcallback-invoke
      */
     Invoke(installationJob, callbackArgs) {
         result := ComCall(3, this, "ptr", installationJob, "ptr", callbackArgs, "HRESULT")

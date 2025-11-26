@@ -111,10 +111,10 @@ class IAMCopyCaptureFileProgress extends IUnknown{
     static VTableNames => ["Progress"]
 
     /**
-     * 
-     * @param {Integer} iProgress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcopycapturefileprogress-progress
+     * The Progress method is called periodically by the ICaptureGraphBuilder2::CopyCaptureFile method while it copies the file.
+     * @param {Integer} iProgress Specifies the percentage of the copy operation that has completed, as a value between 0 and 100.
+     * @returns {HRESULT} Returns S_OK or an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamcopycapturefileprogress-progress
      */
     Progress(iProgress) {
         result := ComCall(3, this, "int", iProgress, "HRESULT")

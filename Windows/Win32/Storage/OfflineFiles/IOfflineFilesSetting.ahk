@@ -38,9 +38,9 @@ class IOfflineFilesSetting extends IUnknown{
     static VTableNames => ["GetName", "GetValueType", "GetPreference", "GetPreferenceScope", "SetPreference", "DeletePreference", "GetPolicy", "GetPolicyScope", "GetValue"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getname
+     * Retrieves a name associated with a particular Offline Files setting.
+     * @returns {PWSTR} Address of pointer variable that receives the address of a string containing the name of the Offline Files setting.  Upon successful return, the caller must free this memory block by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
@@ -48,9 +48,9 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvaluetype
+     * Retrieves the data type of a particular Offline Files setting.
+     * @returns {Integer} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_setting_value_type">OFFLINEFILES_SETTING_VALUE_TYPE</a> enumeration that describes the data type of the setting value.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getvaluetype
      */
     GetValueType() {
         result := ComCall(4, this, "int*", &pType := 0, "HRESULT")
@@ -58,10 +58,12 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
+     * Retrieves a per-machine or per-user preference associated with a particular Offline Files setting.
+     * @param {Integer} dwScope Indicates which preference is to be retrieved.  Must be one of the following.
+     * @returns {VARIANT} If the preference supports one or more values, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> object contains those values.  If the preference does not support values, the type of the returned <b>VARIANT</b> is <b>VT_EMPTY</b>.
      * 
-     * @param {Integer} dwScope 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpreference
+     * The method initializes the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> prior to storing the preference value in it.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getpreference
      */
     GetPreference(dwScope) {
         pvarValue := VARIANT()
@@ -70,9 +72,9 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates the scope of the preference associated with this setting.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpreferencescope
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getpreferencescope
      */
     GetPreferenceScope() {
         result := ComCall(6, this, "uint*", &pdwScope := 0, "HRESULT")
@@ -80,11 +82,19 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
+     * Sets a per-computer or per-user preference associated with an Offline Files setting.
+     * @param {Pointer<VARIANT>} pvarValue Specifies the value associated with the preference.
      * 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @param {Integer} dwScope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-setpreference
+     * If multiple values are associated with the preference, the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> type includes <b>VT_ARRAY</b> and the values are stored in a <b>SAFEARRAY</b>.
+     * @param {Integer} dwScope Indicates if the preference to be set is per-user or per-machine.  Must be one of the following.
+     * @returns {HRESULT} <b>S_OK</b> if the preference is set successfully or an error value otherwise.
+     * 
+     * Returns <code>HRESULT_FROM_WIN32(ERROR_INVALID_PARAMETER)</code> if one or more data values specified via <i>pvtValue</i> are not valid.
+     * 
+     * Returns <code>HRESULT_FROM_WIN32(ERROR_ACCESS_DENIED)</code> if the caller is trying to set a per-machine preference and is not a local administrator.
+     * 
+     * Returns <code>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</code> if a scope is specified that is not supported by the preference.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-setpreference
      */
     SetPreference(pvarValue, dwScope) {
         result := ComCall(7, this, "ptr", pvarValue, "uint", dwScope, "HRESULT")
@@ -92,10 +102,14 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
+     * Removes a preference setting.
+     * @param {Integer} dwScope Indicates which preference setting is to be deleted.  Must be one of the following.
+     * @returns {HRESULT} <b>S_OK</b> if the preference is removed successfully or an error value otherwise.
      * 
-     * @param {Integer} dwScope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-deletepreference
+     * Returns <code>HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)</code> if the requested preference setting is not currently configured.
+     * 
+     * Returns <code>HRESULT_FROM_WIN32(ERROR_ACCESS_DENIED)</code> if the caller is trying to remove a per-machine preference and is not a local administrator.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-deletepreference
      */
     DeletePreference(dwScope) {
         result := ComCall(8, this, "uint", dwScope, "HRESULT")
@@ -103,10 +117,15 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
+     * Retrieves a policy associated with a particular Offline Files setting.
+     * @param {Integer} dwScope Indicates which policy is to be retrieved.  Must be one of the following.
      * 
-     * @param {Integer} dwScope 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpolicy
+     * <div class="alert"><b>Note</b>  Note that not all settings have an associated policy and those that do might not support both per-machine and per-user policy.</div>
+     * <div> </div>
+     * @returns {VARIANT} If the policy supports one or more values, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> object contains those values.  If the policy does not support values, the type of the returned <b>VARIANT</b> is <b>VT_EMPTY</b>.
+     * 
+     * The method initializes the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> prior to storing the policy value in it.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getpolicy
      */
     GetPolicy(dwScope) {
         pvarValue := VARIANT()
@@ -115,9 +134,9 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the scope of the policy associated with this setting.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpolicyscope
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getpolicyscope
      */
     GetPolicyScope() {
         result := ComCall(10, this, "uint*", &pdwScope := 0, "HRESULT")
@@ -125,11 +144,13 @@ class IOfflineFilesSetting extends IUnknown{
     }
 
     /**
+     * Retrieves the value of a particular Offline Files setting.
+     * @param {Pointer<VARIANT>} pvarValue Receives the value associated with the setting.  This value is determined based on system policy, preferences and system defaults.
      * 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @param {Pointer<BOOL>} pbSetByPolicy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvalue
+     * The method initializes the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> prior to storing the setting value in it.
+     * @param {Pointer<BOOL>} pbSetByPolicy Receives <b>TRUE</b> if the value was set by policy, <b>FALSE</b> if the value was determined by preference or default.
+     * @returns {HRESULT} <b>S_OK</b> if the value query is successful or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessetting-getvalue
      */
     GetValue(pvarValue, pbSetByPolicy) {
         pbSetByPolicyMarshal := pbSetByPolicy is VarRef ? "int*" : "ptr"

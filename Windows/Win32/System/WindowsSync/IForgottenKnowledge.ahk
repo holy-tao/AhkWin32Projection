@@ -36,11 +36,45 @@ class IForgottenKnowledge extends ISyncKnowledge{
     static VTableNames => ["ForgetToVersion"]
 
     /**
+     * Updates the forgotten knowledge to reflect that all versions that are less than or equal to the specified version might have been forgotten, and that corresponding tombstones might have been deleted.
+     * @param {ISyncKnowledge} pKnowledge The current knowledge of the replica that owns this forgotten knowledge object.
+     * @param {Pointer<SYNC_VERSION>} pVersion The version of the tombstone that has been cleaned up.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {ISyncKnowledge} pKnowledge 
-     * @param {Pointer<SYNC_VERSION>} pVersion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iforgottenknowledge-forgettoversion
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iforgottenknowledge-forgettoversion
      */
     ForgetToVersion(pKnowledge, pVersion) {
         result := ComCall(27, this, "ptr", pKnowledge, "ptr", pVersion, "HRESULT")

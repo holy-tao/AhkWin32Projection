@@ -33,10 +33,14 @@ class IDWriteFontFamily1 extends IDWriteFontFamily{
     static VTableNames => ["GetFontLocality", "GetFont", "GetFontFaceReference"]
 
     /**
+     * Gets the current location of a font given its zero-based index.
+     * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} listIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily1-getfontlocality
+     * Zero-based index of the font in the font list.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * 
+     * Returns a <a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a>-typed value that specifies the location of the specified font.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfamily1-getfontlocality
      */
     GetFontLocality(listIndex) {
         result := ComCall(9, this, "uint", listIndex, "int")
@@ -44,10 +48,14 @@ class IDWriteFontFamily1 extends IDWriteFontFamily{
     }
 
     /**
+     * Gets a font given its zero-based index.
+     * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} listIndex 
-     * @returns {IDWriteFont3} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily1-getfont
+     * Zero-based index of the font in the font list.
+     * @returns {IDWriteFont3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3">IDWriteFont3</a>**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3">IDWriteFont3</a> interface for the newly created font object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfamily1-getfont
      */
     GetFont(listIndex) {
         result := ComCall(10, this, "uint", listIndex, "ptr*", &font := 0, "HRESULT")
@@ -55,10 +63,14 @@ class IDWriteFontFamily1 extends IDWriteFontFamily{
     }
 
     /**
+     * Gets a font face reference given its zero-based index.
+     * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} listIndex 
-     * @returns {IDWriteFontFaceReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily1-getfontfacereference
+     * Zero-based index of the font in the font list.
+     * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a> interface for the newly created font face reference object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfamily1-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
         result := ComCall(11, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")

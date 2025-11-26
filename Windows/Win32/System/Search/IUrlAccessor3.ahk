@@ -31,12 +31,20 @@ class IUrlAccessor3 extends IUrlAccessor2{
     static VTableNames => ["GetImpersonationSidBlobs"]
 
     /**
+     * Retrieves an array of user security identifiers (SIDs) for a specified URL. This method enables protocol handlers to specify which users can access the file and the search protocol host to impersonate a user in order to index the file.
+     * @param {PWSTR} pcwszURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pcwszURL 
-     * @param {Pointer<Integer>} pcSidCount 
-     * @param {Pointer<Pointer<BLOB>>} ppSidBlobs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor3-getimpersonationsidblobs
+     * The URL to access on behalf of an impersonated user.
+     * @param {Pointer<Integer>} pcSidCount Type: <b>DWORD*</b>
+     * 
+     * Receives a pointer to the number of user SIDs returned in <i>ppSidBlobs</i>.
+     * @param {Pointer<Pointer<BLOB>>} ppSidBlobs Type: <b>BLOB**</b>
+     * 
+     * Receives the address of a pointer to the array of candidate impersonation user SIDs.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor3-getimpersonationsidblobs
      */
     GetImpersonationSidBlobs(pcwszURL, pcSidCount, ppSidBlobs) {
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL

@@ -32,11 +32,11 @@ class IEnumRegFilters extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cFilters 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {Pointer<REGFILTER>} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-next
+     * Note  The IEnumRegFilters interface is deprecated. Fills the array with descriptions of the next set of filters (specified by the cFilters parameter) that meet the requirements specified upon creation of the enumerator.
+     * @param {Integer} cFilters Number of filters.
+     * @param {Pointer<Integer>} pcFetched Pointer to the actual number of filters passed.
+     * @returns {Pointer<REGFILTER>} Address of a pointer to an array of <b>REGFILTER</b> pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumregfilters-next
      */
     Next(cFilters, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -46,10 +46,10 @@ class IEnumRegFilters extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cFilters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-skip
+     * Note  The IEnumRegFilters interface is deprecated. This method is not currently implemented and returns E_NOTIMPL.
+     * @param {Integer} cFilters Number of items to skip.
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumregfilters-skip
      */
     Skip(cFilters) {
         result := ComCall(4, this, "uint", cFilters, "HRESULT")
@@ -57,9 +57,9 @@ class IEnumRegFilters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-reset
+     * Note  The IEnumRegFilters interface is deprecated. Resets the enumerator so that the next call to the IEnumRegFilters::Next method begins again at the first filter, if any.
+     * @returns {HRESULT} Returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumregfilters-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -67,9 +67,9 @@ class IEnumRegFilters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumRegFilters} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-clone
+     * Note  The IEnumRegFilters interface is deprecated. This method is not currently implemented and returns E_NOTIMPL.
+     * @returns {IEnumRegFilters} Address of a pointer to the duplicate enumerator interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumregfilters-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

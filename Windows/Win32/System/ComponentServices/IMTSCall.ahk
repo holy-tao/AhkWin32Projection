@@ -31,9 +31,9 @@ class IMTSCall extends IUnknown{
     static VTableNames => ["OnCall"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtscall-oncall
+     * Triggers the execution of the batch work implemented in this method.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtscall-oncall
      */
     OnCall() {
         result := ComCall(3, this, "HRESULT")

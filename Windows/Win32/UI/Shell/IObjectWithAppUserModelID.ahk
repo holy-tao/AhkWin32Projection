@@ -46,10 +46,14 @@ class IObjectWithAppUserModelID extends IUnknown{
     static VTableNames => ["SetAppID", "GetAppID"]
 
     /**
+     * Specifies a unique application-defined Application User Model ID (AppUserModelID) that identifies the object as a handler for a specific file type. This method is used by applications that require dynamic AppUserModelIDs.
+     * @param {PWSTR} pszAppID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszAppID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-setappid
+     * A pointer to the AppUserModelID string to assign to an application.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Custom implementations that do not require dynamic AppUserModelIDs can return E_NOTIMPL. Custom implementations that require dynamic AppUserModelIDs should return S_OK if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-setappid
      */
     SetAppID(pszAppID) {
         pszAppID := pszAppID is String ? StrPtr(pszAppID) : pszAppID
@@ -59,9 +63,11 @@ class IObjectWithAppUserModelID extends IUnknown{
     }
 
     /**
+     * Retrieves a file type handler's explicit Application User Model ID (AppUserModelID), if one has been declared.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-getappid
+     * When this method returns, contains the address of the AppUserModelID string assigned to the object.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-getappid
      */
     GetAppID() {
         result := ComCall(4, this, "ptr*", &ppszAppID := 0, "HRESULT")

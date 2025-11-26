@@ -38,11 +38,40 @@ class IWSDEndpointProxy extends IUnknown{
     static VTableNames => ["SendOneWayRequest", "SendTwoWayRequest", "SendTwoWayRequestAsync", "AbortAsyncOperation", "ProcessFault", "GetErrorInfo", "GetFaultInfo"]
 
     /**
+     * Sends a one-way request message.
+     * @param {Pointer<Void>} pBody The body of the message.
+     * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation to perform.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {Pointer<Void>} pBody 
-     * @param {Pointer<WSD_OPERATION>} pOperation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendonewayrequest
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pOperation</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-sendonewayrequest
      */
     SendOneWayRequest(pBody, pOperation) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
@@ -52,12 +81,41 @@ class IWSDEndpointProxy extends IUnknown{
     }
 
     /**
+     * Sends a two-way request message using a synchronous call pattern.
+     * @param {Pointer<Void>} pBody The body of the message.
+     * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation to perform.
+     * @param {Pointer<WSD_SYNCHRONOUS_RESPONSE_CONTEXT>} pResponseContext Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_synchronous_response_context">WSD_SYNCHRONOUS_RESPONSE_CONTEXT</a> structure or other context structure that specifies the context for handling the response to the request.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {Pointer<Void>} pBody 
-     * @param {Pointer<WSD_OPERATION>} pOperation 
-     * @param {Pointer<WSD_SYNCHRONOUS_RESPONSE_CONTEXT>} pResponseContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequest
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pOperation</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequest
      */
     SendTwoWayRequest(pBody, pOperation, pResponseContext) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
@@ -67,13 +125,13 @@ class IWSDEndpointProxy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pBody 
-     * @param {Pointer<WSD_OPERATION>} pOperation 
-     * @param {IUnknown} pAsyncState 
-     * @param {IWSDAsyncCallback} pCallback 
-     * @returns {IWSDAsyncResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
+     * Sends a two-way request message using an asynchronous call pattern.
+     * @param {Pointer<Void>} pBody The body of the message.
+     * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation to perform.
+     * @param {IUnknown} pAsyncState Anonymous data passed to <i>pCallback</i> when the operation has completed.  This data is used to associate a client object with the pending operation. This parameter may be  optional.
+     * @param {IWSDAsyncCallback} pCallback Reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> object which performs the message status callback notification. This parameter may be  optional.
+     * @returns {IWSDAsyncResult} Reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object that specifies the results of the operation.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
      */
     SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
@@ -83,10 +141,44 @@ class IWSDEndpointProxy extends IUnknown{
     }
 
     /**
+     * Aborts a pending asynchronous operation.
+     * @param {IWSDAsyncResult} pAsyncResult Calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasyncresult-abort">Abort</a> method to end the asynchronous operation.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IWSDAsyncResult} pAsyncResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-abortasyncoperation
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pAsyncResult</i> is <b>NULL</b> or <i>pAsyncResult</i> does not support the <a href="/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-abortasyncoperation
      */
     AbortAsyncOperation(pAsyncResult) {
         result := ComCall(6, this, "ptr", pAsyncResult, "HRESULT")
@@ -94,10 +186,50 @@ class IWSDEndpointProxy extends IUnknown{
     }
 
     /**
+     * Processes a SOAP fault retrieved by GetFaultInfo.
+     * @param {Pointer<WSD_SOAP_FAULT>} pFault Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure containing the fault data.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {Pointer<WSD_SOAP_FAULT>} pFault 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-processfault
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pFault</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The fault was not stored in memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-processfault
      */
     ProcessFault(pFault) {
         result := ComCall(7, this, "ptr", pFault, "HRESULT")
@@ -105,9 +237,9 @@ class IWSDEndpointProxy extends IUnknown{
     }
 
     /**
-     * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
-     * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
+     * Retrieves information on the last error.
+     * @returns {PWSTR} Pointer to a buffer containing the data for the last recorded error.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-geterrorinfo
      */
     GetErrorInfo() {
         result := ComCall(8, this, "ptr*", &ppszErrorInfo := 0, "HRESULT")
@@ -115,9 +247,9 @@ class IWSDEndpointProxy extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<WSD_SOAP_FAULT>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-getfaultinfo
+     * Retrieves information on the last received fault.
+     * @returns {Pointer<WSD_SOAP_FAULT>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure containing the SOAP fault information.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-getfaultinfo
      */
     GetFaultInfo() {
         result := ComCall(9, this, "ptr*", &ppFault := 0, "HRESULT")

@@ -32,10 +32,10 @@ class IComprehensiveSpellCheckProvider extends IUnknown{
     static VTableNames => ["ComprehensiveCheck"]
 
     /**
-     * 
-     * @param {PWSTR} text 
-     * @returns {IEnumSpellingError} 
-     * @see https://learn.microsoft.com/windows/win32/Intl/icomprehensivespellcheckprovider-comprehensivecheck
+     * Spell-check the provider text in a more thorough manner than ISpellCheckProvider::Check.
+     * @param {PWSTR} text The text to check.
+     * @returns {IEnumSpellingError} The result of checking this text, as an enumeration of spelling errors (<a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a>), if any.
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-icomprehensivespellcheckprovider-comprehensivecheck
      */
     ComprehensiveCheck(text) {
         text := text is String ? StrPtr(text) : text

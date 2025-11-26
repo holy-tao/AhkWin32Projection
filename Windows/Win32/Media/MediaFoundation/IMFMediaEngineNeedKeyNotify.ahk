@@ -31,11 +31,11 @@ class IMFMediaEngineNeedKeyNotify extends IUnknown{
     static VTableNames => ["NeedKey"]
 
     /**
-     * 
-     * @param {Pointer} initData 
-     * @param {Integer} cb 
+     * Notifies the application that a key or keys are needed along with any initialization data.
+     * @param {Pointer} initData The initialization data.
+     * @param {Integer} cb The count in bytes of <i>initData</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey
      */
     NeedKey(initData, cb) {
         ComCall(3, this, "ptr", initData, "uint", cb)

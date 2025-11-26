@@ -32,9 +32,9 @@ class IAppxBundleManifestReader2 extends IUnknown{
     static VTableNames => ["GetOptionalBundles"]
 
     /**
-     * 
-     * @returns {IAppxBundleManifestOptionalBundleInfoEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader2-getoptionalbundles
+     * Retrieves an object that represents the &lt;OptionalBundles&gt; element under the root &lt;Bundle&gt; element.
+     * @returns {IAppxBundleManifestOptionalBundleInfoEnumerator} The optional bundle.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader2-getoptionalbundles
      */
     GetOptionalBundles() {
         result := ComCall(3, this, "ptr*", &optionalBundles := 0, "HRESULT")

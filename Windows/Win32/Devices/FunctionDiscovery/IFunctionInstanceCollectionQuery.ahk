@@ -37,11 +37,40 @@ class IFunctionInstanceCollectionQuery extends IUnknown{
     static VTableNames => ["AddQueryConstraint", "AddPropertyConstraint", "Execute"]
 
     /**
+     * Adds a query constraint to the query.
+     * @param {PWSTR} pszConstraintName The query constraint.
+     * @param {PWSTR} pszConstraintValue The constraint value.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {PWSTR} pszConstraintName 
-     * @param {PWSTR} pszConstraintValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-addqueryconstraint
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is unable to allocate the memory required to perform this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-addqueryconstraint
      */
     AddQueryConstraint(pszConstraintName, pszConstraintValue) {
         pszConstraintName := pszConstraintName is String ? StrPtr(pszConstraintName) : pszConstraintName
@@ -52,12 +81,79 @@ class IFunctionInstanceCollectionQuery extends IUnknown{
     }
 
     /**
+     * Adds a property constraint to the query.
+     * @param {Pointer<PROPERTYKEY>} Key The property key (PKEY) for the constraint. For more information about PKEYs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/key-definitions">Key Definitions</a>.
+     * @param {Pointer<PROPVARIANT>} pv A <b>PROPVARIANT</b> used for the constraint. This type must match the PROPVARIANT type associated with <i>Key</i>.
      * 
-     * @param {Pointer<PROPERTYKEY>} Key 
-     * @param {Pointer<PROPVARIANT>} pv 
-     * @param {Integer} enumPropertyConstraint 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-addpropertyconstraint
+     * 
+     * The following shows possible values. Note that only a subset of the PROPVARIANT types supported by the built-in providers can be used as a property constraint. 
+     * 
+     * 
+     * 
+     * <p class="indent">VT_BOOL
+     * 
+     * <p class="indent">VT_I2
+     * 
+     * <p class="indent">VT_I4
+     * 
+     * <p class="indent">VT_I8
+     * 
+     * <p class="indent">VT_INT
+     * 
+     * <p class="indent">VT_LPWSTR
+     * 
+     * <p class="indent">VT_LPWSTR|VT_VECTOR
+     * 
+     * <p class="indent">VT_UI2
+     * 
+     * <p class="indent">VT_UI4
+     * 
+     * <p class="indent">VT_UI8
+     * 
+     * <p class="indent">VT_UINT
+     * @param {Integer} enumPropertyConstraint A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryconstraints/ne-functiondiscoveryconstraints-propertyconstraint">PropertyConstraint</a> value that specifies the type of comparison to use when comparing the constraint's PKEY to the function instance's PKEY.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is unable to allocate the memory required to perform this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The constraint specified for the query is not supported.  Either the constraint is not supported for a specific <b>VARENUM</b> type, or the <b>VARENUM</b> type is not supported at all. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-addpropertyconstraint
      */
     AddPropertyConstraint(Key, pv, enumPropertyConstraint) {
         result := ComCall(4, this, "ptr", Key, "ptr", pv, "int", enumPropertyConstraint, "HRESULT")
@@ -65,9 +161,9 @@ class IFunctionInstanceCollectionQuery extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IFunctionInstanceCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-execute
+     * Performs the query defined by IFunctionDiscovery::CreateInstanceCollectionQuery.
+     * @returns {IFunctionInstanceCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection">IFunctionInstanceCollection</a> interface pointer that receives the requested function instance collection.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-execute
      */
     Execute() {
         result := ComCall(5, this, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")

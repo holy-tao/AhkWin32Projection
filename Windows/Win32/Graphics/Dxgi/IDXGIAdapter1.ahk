@@ -48,9 +48,12 @@ class IDXGIAdapter1 extends IDXGIAdapter{
     static VTableNames => ["GetDesc1"]
 
     /**
+     * Gets a DXGI 1.1 description of an adapter (or video card).
+     * @returns {DXGI_ADAPTER_DESC1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc1">DXGI_ADAPTER_DESC1</a>*</b>
      * 
-     * @returns {DXGI_ADAPTER_DESC1} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter1-getdesc1
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc1">DXGI_ADAPTER_DESC1</a> structure that describes the adapter.  
+     *       This parameter must not be <b>NULL</b>. On <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> 9 graphics hardware, <b>GetDesc1</b> returns zeros for the PCI ID in the <b>VendorId</b>, <b>DeviceId</b>, <b>SubSysId</b>, and <b>Revision</b> members of <b>DXGI_ADAPTER_DESC1</b> and “Software Adapter” for the description string in the <b>Description</b> member.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiadapter1-getdesc1
      */
     GetDesc1() {
         pDesc := DXGI_ADAPTER_DESC1()

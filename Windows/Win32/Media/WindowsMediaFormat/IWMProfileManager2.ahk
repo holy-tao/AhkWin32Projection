@@ -31,10 +31,10 @@ class IWMProfileManager2 extends IWMProfileManager{
     static VTableNames => ["GetSystemProfileVersion", "SetSystemProfileVersion"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwVersion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-getsystemprofileversion
+     * The GetSystemProfileVersion method retrieves the version number of the system profiles that the profile manager enumerates.
+     * @param {Pointer<Integer>} pdwVersion Pointer to one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_version">WMT_VERSION</a> enumeration type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-getsystemprofileversion
      */
     GetSystemProfileVersion(pdwVersion) {
         pdwVersionMarshal := pdwVersion is VarRef ? "int*" : "ptr"
@@ -44,10 +44,10 @@ class IWMProfileManager2 extends IWMProfileManager{
     }
 
     /**
-     * 
-     * @param {Integer} dwVersion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-setsystemprofileversion
+     * The SetSystemProfileVersion method specifies the version number of the system profiles that the profile manager enumerates.
+     * @param {Integer} dwVersion One member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_version">WMT_VERSION</a> enumeration type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-setsystemprofileversion
      */
     SetSystemProfileVersion(dwVersion) {
         result := ComCall(10, this, "int", dwVersion, "HRESULT")

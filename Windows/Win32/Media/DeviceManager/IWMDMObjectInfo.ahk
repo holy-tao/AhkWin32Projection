@@ -31,9 +31,9 @@ class IWMDMObjectInfo extends IUnknown{
     static VTableNames => ["GetPlayLength", "SetPlayLength", "GetPlayOffset", "SetPlayOffset", "GetTotalLength", "GetLastPlayPosition", "GetLongestPlayPosition"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getplaylength
+     * The GetPlayLength method retrieves the play length of the object in units appropriate to the format. This is the remaining length that the file can play, not its total length.
+     * @returns {Integer} Pointer to a <b>DWORD</b> specifying the remaining play length of the file, in milliseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-getplaylength
      */
     GetPlayLength() {
         result := ComCall(3, this, "uint*", &pdwLength := 0, "HRESULT")
@@ -41,10 +41,17 @@ class IWMDMObjectInfo extends IUnknown{
     }
 
     /**
+     * The SetPlayLength method sets the play length of the object, in units appropriate to the format. This is the maximum length that the object plays regardless of its actual length.
+     * @param {Integer} dwLength <b>DWORD</b> specifying the play length, in units appropriate to the format.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} dwLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-setplaylength
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-setplaylength
      */
     SetPlayLength(dwLength) {
         result := ComCall(4, this, "uint", dwLength, "HRESULT")
@@ -52,9 +59,9 @@ class IWMDMObjectInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getplayoffset
+     * The GetPlayOffset method retrieves the play offset of the object, in units appropriate to the format. This is the starting point for the next invocation of Play.
+     * @returns {Integer} Pointer to a <b>DWORD</b> specifying the play offset of the object, in units appropriate to the format.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-getplayoffset
      */
     GetPlayOffset() {
         result := ComCall(5, this, "uint*", &pdwOffset := 0, "HRESULT")
@@ -62,10 +69,17 @@ class IWMDMObjectInfo extends IUnknown{
     }
 
     /**
+     * The SetPlayOffset method sets the play offset of the object, in the units appropriate to the format. This specifies the starting point for the next invocation of Play.
+     * @param {Integer} dwOffset <b>DWORD</b> specifying the play offset, in units appropriate to the format.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} dwOffset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-setplayoffset
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-setplayoffset
      */
     SetPlayOffset(dwOffset) {
         result := ComCall(6, this, "uint", dwOffset, "HRESULT")
@@ -73,9 +87,9 @@ class IWMDMObjectInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-gettotallength
+     * The GetTotalLength method retrieves the total play length of the object, in units appropriate to the format. The value returned is the total length regardless of the current settings of the play length and offset.
+     * @returns {Integer} Pointer to a <b>DWORD</b> specifying the total length of the file, in units appropriate to the format.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-gettotallength
      */
     GetTotalLength() {
         result := ComCall(7, this, "uint*", &pdwLength := 0, "HRESULT")
@@ -83,9 +97,9 @@ class IWMDMObjectInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getlastplayposition
+     * The GetLastPlayPosition method retrieves the last play position of the object. The object must be an audio file on the media device.
+     * @returns {Integer} Pointer to a <b>DWORD</b> specifying the last play position of the object, in milliseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-getlastplayposition
      */
     GetLastPlayPosition() {
         result := ComCall(8, this, "uint*", &pdwLastPos := 0, "HRESULT")
@@ -93,9 +107,9 @@ class IWMDMObjectInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getlongestplayposition
+     * The GetLongestPlayPosition method retrieves the longest play position of the file. The file must be an audio file on the media device.
+     * @returns {Integer} Pointer to a <b>DWORD</b> specifying the longest play position of the object, in milliseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmobjectinfo-getlongestplayposition
      */
     GetLongestPlayPosition() {
         result := ComCall(9, this, "uint*", &pdwLongestPos := 0, "HRESULT")

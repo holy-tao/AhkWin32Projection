@@ -86,9 +86,10 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalipaddress
+     * The get_ExternalIPAddress method retrieves the external IP address for this port mapping on the NAT computer.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the external IP address for this port mapping on the NAT computer.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_externalipaddress
      */
     get_ExternalIPAddress() {
         pVal := BSTR()
@@ -97,9 +98,9 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalport
+     * The get_ExternalPort method retrieves the external port on the NAT computer for this port mapping.
+     * @returns {Integer} Pointer to a <b>long</b> variable that receives the external port on the NAT computer for this port mapping.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_externalport
      */
     get_ExternalPort() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -107,9 +108,9 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_internalport
+     * The get_InternalPort method retrieves the internal port on the client computer for this port mapping.
+     * @returns {Integer} Pointer to a <b>long</b> variable that receives the internal port on the client computer for this port mapping.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_internalport
      */
     get_InternalPort() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -117,9 +118,10 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_protocol
+     * The get_Protocol method retrieves the protocol associated with this port mapping.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, receives the protocol for this port mapping. The protocol is either "UDP" or "TCP".
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_protocol
      */
     get_Protocol() {
         pVal := BSTR()
@@ -128,9 +130,10 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_internalclient
+     * The get_InternalClient method retrieves the name of the internal client for this port mapping.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the name of the internal client for this port mapping.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_internalclient
      */
     get_InternalClient() {
         pVal := BSTR()
@@ -139,9 +142,9 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_enabled
+     * The get_Enabled method retrieves whether the port mapping is enabled.
+     * @returns {VARIANT_BOOL} Pointer to a <b>VARIANT_BOOL</b> that receives a value that indicates whether the port mapping is enabled. The value is VARIANT_TRUE if the port mapping is enabled, VARIANT_FALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_enabled
      */
     get_Enabled() {
         result := ComCall(12, this, "short*", &pVal := 0, "HRESULT")
@@ -149,9 +152,10 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_description
+     * The get_Description method retrieves the description associated with this port mapping.
+     * @returns {BSTR} Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, on successful return, receives the description associated with this port mapping.
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_description
      */
     get_Description() {
         pVal := BSTR()
@@ -160,10 +164,111 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
+     * The EditInternalClient method sets the internal client property of this port mapping to the specified value.
+     * @param {BSTR} bstrInternalClient Specifies the new value for the internal client property of this port mapping.
+     * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
-     * @param {BSTR} bstrInternalClient 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editinternalclient
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-editinternalclient
      */
     EditInternalClient(bstrInternalClient) {
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
@@ -173,10 +278,107 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
+     * The Enable method enables or disables this port mapping.
+     * @param {VARIANT_BOOL} vb Specifies a value that indicates whether the port mapping should be enabled or disabled. To enable the port mapping specify VARIANT_TRUE. To disable the port mapping specify VARIANT_FALSE.
+     * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
-     * @param {VARIANT_BOOL} vb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-enable
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-enable
      */
     Enable(vb) {
         result := ComCall(15, this, "short", vb, "HRESULT")
@@ -184,10 +386,107 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
+     * The EditDescription method sets the description property of this port mapping to the specified value.
+     * @param {BSTR} bstrDescription Specifies the new value for the description property of this port mapping.
+     * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
-     * @param {BSTR} bstrDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editdescription
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-editdescription
      */
     EditDescription(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -197,10 +496,107 @@ class IStaticPortMapping extends IDispatch{
     }
 
     /**
+     * The EditInternalPort method sets the internal port for this port mapping.
+     * @param {Integer} lInternalPort Specifies the new internal port for this port mapping.
+     * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
-     * @param {Integer} lInternalPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editinternalport
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-editinternalport
      */
     EditInternalPort(lInternalPort) {
         result := ComCall(17, this, "int", lInternalPort, "HRESULT")

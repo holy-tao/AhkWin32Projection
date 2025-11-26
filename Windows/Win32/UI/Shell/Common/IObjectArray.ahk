@@ -39,9 +39,11 @@ class IObjectArray extends IUnknown{
     static VTableNames => ["GetCount", "GetAt"]
 
     /**
+     * Provides a count of the objects in the collection.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getcount
+     * The number of objects in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectarray-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pcObjects := 0, "HRESULT")
@@ -49,11 +51,17 @@ class IObjectArray extends IUnknown{
     }
 
     /**
+     * Provides a pointer to a specified object's interface. The object and interface are specified by index and interface ID.
+     * @param {Integer} uiIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getat
+     * The index of the object
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * Reference to the desired interface ID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Receives the interface pointer requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectarray-getat
      */
     GetAt(uiIndex, riid) {
         result := ComCall(4, this, "uint", uiIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

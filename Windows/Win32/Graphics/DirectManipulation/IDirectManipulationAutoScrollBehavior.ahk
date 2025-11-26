@@ -31,11 +31,11 @@ class IDirectManipulationAutoScrollBehavior extends IUnknown{
     static VTableNames => ["SetConfiguration"]
 
     /**
-     * 
-     * @param {Integer} motionTypes 
-     * @param {Integer} scrollMotion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationautoscrollbehavior-setconfiguration
+     * Performs the auto-scroll animation for the viewport this behavior is attached to.
+     * @param {Integer} motionTypes A combination of <b>DIRECTMANIPULATION_MOTION_TRANSLATEX</b> and <b>DIRECTMANIPULATION_MOTION_TRANSLATEY</b> from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_motion_types">DIRECTMANIPULATION_MOTION_TYPES</a>. <b>DIRECTMANIPULATION_MOTION_NONE</b> cannot be specified.
+     * @param {Integer} scrollMotion One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_autoscroll_configuration">DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION</a>.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationautoscrollbehavior-setconfiguration
      */
     SetConfiguration(motionTypes, scrollMotion) {
         result := ComCall(3, this, "int", motionTypes, "int", scrollMotion, "HRESULT")

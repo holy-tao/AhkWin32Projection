@@ -32,12 +32,85 @@ class IEnumDot11AdHocNetworks extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved.
+     * @param {Integer} cElt The number of elements requested.
+     * @param {Pointer<IDot11AdHocNetwork>} rgElt A pointer to the first element in an array of  <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetwork">IDot11AdHocNetwork</a> interfaces. The array is of size <i>cElt</i>. The array must exist and be of size <i>cElt</i> (at a minimum) before the <b>Next</b> method is called, although the array need not be initialized. Upon return, the previously existing array will contain pointers to <b>IDot11AdHocNetwork</b>  objects.
+     * @param {Pointer<Integer>} pcEltFetched A pointer to a variable that specifies the number of elements returned in <i>rgElt</i>.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Integer} cElt 
-     * @param {Pointer<IDot11AdHocNetwork>} rgElt 
-     * @param {Pointer<Integer>} pcEltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method could not allocate the memory required to perform this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-next
      */
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +120,39 @@ class IEnumDot11AdHocNetworks extends IUnknown{
     }
 
     /**
+     * Skips over the next specified number of elements in the enumeration sequence.
+     * @param {Integer} cElt The number of elements to skip.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Integer} cElt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-skip
      */
     Skip(cElt) {
         result := ComCall(4, this, "uint", cElt, "HRESULT")
@@ -58,9 +160,38 @@ class IEnumDot11AdHocNetworks extends IUnknown{
     }
 
     /**
+     * Resets to the beginning of the enumeration sequence.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +199,9 @@ class IEnumDot11AdHocNetworks extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumDot11AdHocNetworks} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-clone
+     * Creates a new enumeration interface.
+     * @returns {IEnumDot11AdHocNetworks} A pointer to a variable that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocnetworks">IEnumDot11AdHocNetworks</a>interface.
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

@@ -40,9 +40,9 @@ class IMFMediaSourceExtension extends IUnknown{
     static VTableNames => ["GetSourceBuffers", "GetActiveSourceBuffers", "GetReadyState", "GetDuration", "SetDuration", "AddSourceBuffer", "RemoveSourceBuffer", "SetEndOfStream", "IsTypeSupported", "GetSourceBuffer"]
 
     /**
-     * 
-     * @returns {IMFSourceBufferList} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getsourcebuffers
+     * Gets the collection of source buffers associated with this media source.
+     * @returns {IMFSourceBufferList} The collection of source buffers.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getsourcebuffers
      */
     GetSourceBuffers() {
         result := ComCall(3, this, "ptr")
@@ -50,9 +50,9 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMFSourceBufferList} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getactivesourcebuffers
+     * Gets the source buffers that are actively supplying media data to the media source.
+     * @returns {IMFSourceBufferList} The list of active source buffers.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getactivesourcebuffers
      */
     GetActiveSourceBuffers() {
         result := ComCall(4, this, "ptr")
@@ -60,9 +60,9 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getreadystate
+     * Gets the ready state of the media source.
+     * @returns {Integer} The ready state of the media source.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getreadystate
      */
     GetReadyState() {
         result := ComCall(5, this, "int")
@@ -70,9 +70,9 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getduration
+     * Gets the duration of the media source in 100-nanosecond units.
+     * @returns {Float} The duration of the media source in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getduration
      */
     GetDuration() {
         result := ComCall(6, this, "double")
@@ -80,10 +80,10 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} duration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-setduration
+     * Sets the duration of the media source in 100-nanosecond units.
+     * @param {Float} duration The duration of the media source in 100-nanosecond units.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-setduration
      */
     SetDuration(duration) {
         result := ComCall(7, this, "double", duration, "HRESULT")
@@ -91,11 +91,11 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
+     * Adds a IMFSourceBuffer to the collection of buffers associated with the IMFMediaSourceExtension.
      * @param {BSTR} type 
      * @param {IMFSourceBufferNotify} pNotify 
      * @returns {IMFSourceBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-addsourcebuffer
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-addsourcebuffer
      */
     AddSourceBuffer(type, pNotify) {
         type := type is String ? BSTR.Alloc(type).Value : type
@@ -105,10 +105,10 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFSourceBuffer} pSourceBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-removesourcebuffer
+     * Removes the specified source buffer from the collection of source buffers managed by the IMFMediaSourceExtension object.
+     * @param {IMFSourceBuffer} pSourceBuffer The buffer to remove.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-removesourcebuffer
      */
     RemoveSourceBuffer(pSourceBuffer) {
         result := ComCall(9, this, "ptr", pSourceBuffer, "HRESULT")
@@ -116,10 +116,10 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} error 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-setendofstream
+     * Indicate that the end of the media stream has been reached.
+     * @param {Integer} error Used to pass error information.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-setendofstream
      */
     SetEndOfStream(error) {
         result := ComCall(10, this, "int", error, "HRESULT")
@@ -127,10 +127,10 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} type 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-istypesupported
+     * Gets a value that indicates if the specified MIME type is supported by the media source.
+     * @param {BSTR} type The media type to check support for.
+     * @returns {BOOL} <b>true</b> if the media type is supported; otherwise, <b>false</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-istypesupported
      */
     IsTypeSupported(type) {
         type := type is String ? BSTR.Alloc(type).Value : type
@@ -140,10 +140,10 @@ class IMFMediaSourceExtension extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwStreamIndex 
-     * @returns {IMFSourceBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getsourcebuffer
+     * Gets the IMFSourceBuffer at the specified index in the collection of buffers.
+     * @param {Integer} dwStreamIndex The location of the buffer in the colloection.
+     * @returns {IMFSourceBuffer} The source buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getsourcebuffer
      */
     GetSourceBuffer(dwStreamIndex) {
         result := ComCall(12, this, "uint", dwStreamIndex, "ptr")

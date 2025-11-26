@@ -32,9 +32,11 @@ class IMFTimedTextTrack extends IUnknown{
     static VTableNames => ["GetId", "GetLabel", "SetLabel", "GetLanguage", "GetTrackKind", "IsInBand", "GetInBandMetadataTrackDispatchType", "IsActive", "GetErrorCode", "GetExtendedErrorCode", "GetDataFormat", "GetReadyState", "GetCueList"]
 
     /**
+     * Gets the identifier of the track of timed text.
+     * @returns {Integer} Type: <b>DWORD</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getid
+     * Returns the identifier of the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getid
      */
     GetId() {
         result := ComCall(3, this, "uint")
@@ -42,9 +44,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets the label of the track.
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlabel
+     * A pointer to a variable that receives the null-terminated wide-character string that contains the label of the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlabel
      */
     GetLabel() {
         result := ComCall(4, this, "ptr*", &label := 0, "HRESULT")
@@ -52,10 +56,14 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Sets the label of a timed-text track.
+     * @param {PWSTR} label Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} label 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-setlabel
+     * A pointer to a null-terminated wide-character string that contains the label of the track.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-setlabel
      */
     SetLabel(label) {
         label := label is String ? StrPtr(label) : label
@@ -65,9 +73,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets the language of the track.
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlanguage
+     * A pointer to a variable that receives the null-terminated wide-character string that contains the language of the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlanguage
      */
     GetLanguage() {
         result := ComCall(6, this, "ptr*", &language := 0, "HRESULT")
@@ -75,9 +85,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets the kind of timed-text track.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-gettrackkind
+     * Returns a <a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-gettrackkind
      */
     GetTrackKind() {
         result := ComCall(7, this, "int")
@@ -85,9 +97,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Determines whether the timed-text track is inband.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isinband
+     * Returns whether the timed-text track is inband. If <b>TRUE</b>, the timed-text track is inband; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isinband
      */
     IsInBand() {
         result := ComCall(8, this, "int")
@@ -95,9 +109,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets the in-band metadata of the track.
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getinbandmetadatatrackdispatchtype
+     * A pointer to a variable that receives the null-terminated wide-character string that contains the in-band metadata of the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getinbandmetadatatrackdispatchtype
      */
     GetInBandMetadataTrackDispatchType() {
         result := ComCall(9, this, "ptr*", &dispatchType := 0, "HRESULT")
@@ -105,9 +121,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Determines whether the timed-text track is active.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isactive
+     * Returns whether the timed-text track is active. If <b>TRUE</b>, the timed-text track is active; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isactive
      */
     IsActive() {
         result := ComCall(10, this, "int")
@@ -115,9 +133,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets a value indicating the error type of the latest error associated with the track.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-geterrorcode
+     * A value indicating the error type of the latest error associated with the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-geterrorcode
      */
     GetErrorCode() {
         result := ComCall(11, this, "int")
@@ -125,9 +145,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets the extended error code for the latest error associated with the track.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getextendederrorcode
+     * The extended error code for the latest error associated with the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getextendederrorcode
      */
     GetExtendedErrorCode() {
         result := ComCall(12, this, "HRESULT")
@@ -135,9 +157,11 @@ class IMFTimedTextTrack extends IUnknown{
     }
 
     /**
+     * Gets a GUID that identifies the track's underlying data format.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getdataformat
+     * A GUID that identifies the track's underlying data format.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getdataformat
      */
     GetDataFormat() {
         format := Guid()

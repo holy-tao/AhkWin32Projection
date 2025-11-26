@@ -31,10 +31,10 @@ class IConsoleNameSpace2 extends IConsoleNameSpace{
     static VTableNames => ["Expand", "AddExtension"]
 
     /**
-     * 
-     * @param {Pointer} hItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace2-expand
+     * The IConsoleNameSpace2::Expand method enables the snap-in to expand an item in the namespace without visibly expanding the item in the scope pane.
+     * @param {Pointer} hItem A handle to the item to expand.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace2-expand
      */
     Expand(hItem) {
         result := ComCall(10, this, "ptr", hItem, "HRESULT")
@@ -42,11 +42,11 @@ class IConsoleNameSpace2 extends IConsoleNameSpace{
     }
 
     /**
-     * 
-     * @param {Pointer} hItem 
-     * @param {Pointer<Guid>} lpClsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace2-addextension
+     * The IConsoleNameSpace2::AddExtension method enables the snap-in to add an extension snap-in that dynamically extends the namespace of a selected item.
+     * @param {Pointer} hItem A handle to the item to extend with the snap-in specified by <i>lpClsid</i>.
+     * @param {Pointer<Guid>} lpClsid A pointer to the <b>CLSID</b> of the snap-in that will extend the namespace of the item specified by <i>hItem</i>.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolenamespace2-addextension
      */
     AddExtension(hItem, lpClsid) {
         result := ComCall(11, this, "ptr", hItem, "ptr", lpClsid, "HRESULT")

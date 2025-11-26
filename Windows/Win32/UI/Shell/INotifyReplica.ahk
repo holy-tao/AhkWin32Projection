@@ -31,11 +31,17 @@ class INotifyReplica extends IUnknown{
     static VTableNames => ["YouAreAReplica"]
 
     /**
+     * Notifies an object that it may be subject to subsequent reconciliation through the Reconcile method.
+     * @param {Integer} ulcOtherReplicas Type: <b>ULONG</b>
      * 
-     * @param {Integer} ulcOtherReplicas 
-     * @param {Pointer<IMoniker>} rgpmkOtherReplicas 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-inotifyreplica-youareareplica
+     * The number of other replicas of the object. This parameter must not be zero.
+     * @param {Pointer<IMoniker>} rgpmkOtherReplicas Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>**</b>
+     * 
+     * The address of an array that contains the addresses of the monikers to use to access the other replicas.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if successful, or <b>E_UNEXPECTED</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-inotifyreplica-youareareplica
      */
     YouAreAReplica(ulcOtherReplicas, rgpmkOtherReplicas) {
         result := ComCall(3, this, "uint", ulcOtherReplicas, "ptr*", rgpmkOtherReplicas, "HRESULT")

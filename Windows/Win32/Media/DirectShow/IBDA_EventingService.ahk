@@ -35,11 +35,11 @@ class IBDA_EventingService extends IUnknown{
     static VTableNames => ["CompleteEvent"]
 
     /**
-     * 
-     * @param {Integer} ulEventID 
-     * @param {Integer} ulEventResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_eventingservice-completeevent
+     * Notifies the media transform device (MTD) when the media sink device (MSD) completes an event.
+     * @param {Integer} ulEventID The identifier of the event.
+     * @param {Integer} ulEventResult The result code of the event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_eventingservice-completeevent
      */
     CompleteEvent(ulEventID, ulEventResult) {
         result := ComCall(3, this, "uint", ulEventID, "uint", ulEventResult, "HRESULT")

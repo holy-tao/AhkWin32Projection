@@ -31,11 +31,11 @@ class IDirectDrawMediaSample extends IUnknown{
     static VTableNames => ["GetSurfaceAndReleaseLock", "LockMediaSamplePointer"]
 
     /**
-     * 
-     * @param {Pointer<IDirectDrawSurface>} ppDirectDrawSurface 
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-idirectdrawmediasample-getsurfaceandreleaselock
+     * The GetSurfaceAndReleaseLock method retrieves and unlocks the surface that the sample represents.
+     * @param {Pointer<IDirectDrawSurface>} ppDirectDrawSurface Address of a pointer to the sample's <b>IDirectDrawSurface</b> interface.
+     * @param {Pointer<RECT>} pRect Pointer to a variable that receives the address of the rectangle defining the part of the surface that the sample represents.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-idirectdrawmediasample-getsurfaceandreleaselock
      */
     GetSurfaceAndReleaseLock(ppDirectDrawSurface, pRect) {
         result := ComCall(3, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "HRESULT")
@@ -43,9 +43,9 @@ class IDirectDrawMediaSample extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-idirectdrawmediasample-lockmediasamplepointer
+     * The LockMediaSamplePointer method locks the surface that the sample represents.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-idirectdrawmediasample-lockmediasamplepointer
      */
     LockMediaSamplePointer() {
         result := ComCall(4, this, "HRESULT")

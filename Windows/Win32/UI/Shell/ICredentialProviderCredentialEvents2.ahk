@@ -49,9 +49,9 @@ class ICredentialProviderCredentialEvents2 extends ICredentialProviderCredential
     static VTableNames => ["BeginFieldUpdates", "EndFieldUpdates", "SetFieldOptions"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-beginfieldupdates
+     * Starts a batch update to fields in the logon or credential UI.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-beginfieldupdates
      */
     BeginFieldUpdates() {
         result := ComCall(13, this, "HRESULT")
@@ -59,9 +59,9 @@ class ICredentialProviderCredentialEvents2 extends ICredentialProviderCredential
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-endfieldupdates
+     * Finishes and commits the batch updates started by BeginFieldUpdates.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-endfieldupdates
      */
     EndFieldUpdates() {
         result := ComCall(14, this, "HRESULT")
@@ -69,12 +69,12 @@ class ICredentialProviderCredentialEvents2 extends ICredentialProviderCredential
     }
 
     /**
-     * 
-     * @param {ICredentialProviderCredential} credential 
-     * @param {Integer} fieldID 
-     * @param {Integer} options 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-setfieldoptions
+     * Specifies whether a specified field in the logon or credential UI should display a &quot;password reveal&quot; glyph or is expected to receive an e-mail address.
+     * @param {ICredentialProviderCredential} credential An <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential">ICredentialProviderCredential</a> interface pointer to the credential object.
+     * @param {Integer} fieldID The ID of the field in the logon or credential UI for which this option applies.
+     * @param {Integer} options One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/ne-credentialprovider-credential_provider_credential_field_options">CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS</a> values, which specify the field options.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-setfieldoptions
      */
     SetFieldOptions(credential, fieldID, options) {
         result := ComCall(15, this, "ptr", credential, "uint", fieldID, "int", options, "HRESULT")

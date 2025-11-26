@@ -65,9 +65,9 @@ class IFsrmFileGroup extends IFsrmObject{
     }
 
     /**
-     * 
+     * Retrieves or sets the name of the file group.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_name
      */
     get_Name() {
         name := BSTR()
@@ -76,10 +76,10 @@ class IFsrmFileGroup extends IFsrmObject{
     }
 
     /**
-     * 
+     * Retrieves or sets the name of the file group.
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -89,9 +89,21 @@ class IFsrmFileGroup extends IFsrmObject{
     }
 
     /**
+     * Retrieves or sets the filename patterns that determine the files that are included in the file group.
+     * @remarks
+     * 
+     * A filename pattern is a string expression that defines a set of filenames. The expression may contain the 
+     *     following wildcard characters: "*" and "?". The "*" wildcard 
+     *     matches 0 or more characters and the "?" wildcard  matches exactly 1 character. For example, the 
+     *     file name "example.cpp" matches the pattern "e*.cpp", 
+     *     but not "e?.cpp". The filename "ex.cpp" would match 
+     *     both patterns. Note that when the filename pattern is used to compare against a specific filename, the pattern 
+     *     match is case-insensitive.
+     * 
+     * 
      * 
      * @returns {IFsrmMutableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_members
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_members
      */
     get_Members() {
         result := ComCall(14, this, "ptr*", &members := 0, "HRESULT")
@@ -99,10 +111,22 @@ class IFsrmFileGroup extends IFsrmObject{
     }
 
     /**
+     * Retrieves or sets the filename patterns that determine the files that are included in the file group.
+     * @remarks
+     * 
+     * A filename pattern is a string expression that defines a set of filenames. The expression may contain the 
+     *     following wildcard characters: "*" and "?". The "*" wildcard 
+     *     matches 0 or more characters and the "?" wildcard  matches exactly 1 character. For example, the 
+     *     file name "example.cpp" matches the pattern "e*.cpp", 
+     *     but not "e?.cpp". The filename "ex.cpp" would match 
+     *     both patterns. Note that when the filename pattern is used to compare against a specific filename, the pattern 
+     *     match is case-insensitive.
+     * 
+     * 
      * 
      * @param {IFsrmMutableCollection} members 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-put_members
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-put_members
      */
     put_Members(members) {
         result := ComCall(15, this, "ptr", members, "HRESULT")
@@ -110,9 +134,27 @@ class IFsrmFileGroup extends IFsrmObject{
     }
 
     /**
+     * Retrieves or sets the filename patterns that determine the files that are excluded from the file group.
+     * @remarks
+     * 
+     * A filename pattern is a string expression that defines a set of filenames. The expression may contain the 
+     *     following wildcard characters: "*" and "?". The "*" wildcard 
+     *     matches 0 or more characters and the "?" wildcard  matches exactly 1 character. For example, the 
+     *     file name "example.cpp" matches the pattern "e*.cpp", 
+     *     but not "e?.cpp". The filename "ex.cpp" would match 
+     *     both patterns. Note that when the filename pattern is used to compare against a specific filename, the pattern 
+     *     match is case-insensitive.
+     * 
+     * You use the property to allow file patterns that would otherwise be blocked by the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_members">Members</a> property. For example, if 
+     *     <b>Members</b> property uses 
+     *     "*.mp*" to block mp3 files, you could set this property to 
+     *     "*.mpp" to allow "*.mpp" files.
+     * 
+     * 
      * 
      * @returns {IFsrmMutableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_nonmembers
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_nonmembers
      */
     get_NonMembers() {
         result := ComCall(16, this, "ptr*", &nonMembers := 0, "HRESULT")
@@ -120,10 +162,28 @@ class IFsrmFileGroup extends IFsrmObject{
     }
 
     /**
+     * Retrieves or sets the filename patterns that determine the files that are excluded from the file group.
+     * @remarks
+     * 
+     * A filename pattern is a string expression that defines a set of filenames. The expression may contain the 
+     *     following wildcard characters: "*" and "?". The "*" wildcard 
+     *     matches 0 or more characters and the "?" wildcard  matches exactly 1 character. For example, the 
+     *     file name "example.cpp" matches the pattern "e*.cpp", 
+     *     but not "e?.cpp". The filename "ex.cpp" would match 
+     *     both patterns. Note that when the filename pattern is used to compare against a specific filename, the pattern 
+     *     match is case-insensitive.
+     * 
+     * You use the property to allow file patterns that would otherwise be blocked by the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_members">Members</a> property. For example, if 
+     *     <b>Members</b> property uses 
+     *     "*.mp*" to block mp3 files, you could set this property to 
+     *     "*.mpp" to allow "*.mpp" files.
+     * 
+     * 
      * 
      * @param {IFsrmMutableCollection} nonMembers 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-put_nonmembers
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-put_nonmembers
      */
     put_NonMembers(nonMembers) {
         result := ComCall(17, this, "ptr", nonMembers, "HRESULT")

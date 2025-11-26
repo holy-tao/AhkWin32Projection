@@ -36,23 +36,106 @@ class IShellMenu extends IUnknown{
     static VTableNames => ["Initialize", "GetMenuInfo", "SetShellFolder", "GetShellFolder", "SetMenu", "GetMenu", "InvalidateItem", "GetState", "SetMenuToolbar"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IShellMenuCallback} psmc 
-     * @param {Integer} uId 
-     * @param {Integer} uIdAncestor 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes a menu band.
+     * @param {IShellMenuCallback} psmc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellmenucallback">IShellMenuCallback</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellmenucallback">IShellMenuCallback</a> interface. This interface receives notifications from the menu. This value can be <b>NULL</b>.
+     * @param {Integer} uId Type: <b>UINT</b>
+     * 
+     * The identifier of the selected menu item. Set this parameter to -1 for the menu itself.
+     * @param {Integer} uIdAncestor Type: <b>UINT</b>
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * Flags that control how the menu operates.
+     * 
+     * 
+     * A combination of the following option values:
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_DEFAULT"></a><a id="sminit_default"></a><dl>
+     * <dt><b>SMINIT_DEFAULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No options.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_RESTRICT_DRAGDROP"></a><a id="sminit_restrict_dragdrop"></a><dl>
+     * <dt><b>SMINIT_RESTRICT_DRAGDROP</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Do not allow drag-and-drop.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_TOPLEVEL"></a><a id="sminit_toplevel"></a><dl>
+     * <dt><b>SMINIT_TOPLEVEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This is the top band.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_CACHED"></a><a id="sminit_cached"></a><dl>
+     * <dt><b>SMINIT_CACHED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Do not destroy the band when the window is closed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * In addition to the values above, one of the following layout options:
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_VERTICAL"></a><a id="sminit_vertical"></a><dl>
+     * <dt><b>SMINIT_VERTICAL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies a vertical band.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_HORIZONTAL"></a><a id="sminit_horizontal"></a><dl>
+     * <dt><b>SMINIT_HORIZONTAL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies a horizontal band.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-initialize
      */
     Initialize(psmc, uId, uIdAncestor, dwFlags) {
         result := ComCall(3, this, "ptr", psmc, "uint", uId, "uint", uIdAncestor, "uint", dwFlags, "HRESULT")
@@ -60,17 +143,23 @@ class IShellMenu extends IUnknown{
     }
 
     /**
-     * Retrieves information about a specified menu.
-     * @param {Pointer<IShellMenuCallback>} ppsmc 
-     * @param {Pointer<Integer>} puId 
-     * @param {Pointer<Integer>} puIdAncestor 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} Type: <b>BOOL</b>
+     * Gets information from the IShellMenu::Initialize method.
+     * @param {Pointer<IShellMenuCallback>} ppsmc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellmenucallback">IShellMenuCallback</a>**</b>
      * 
-     * If the function succeeds, the return value is nonzero. 
+     * When this method returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellmenucallback">IShellMenuCallback</a> interface that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>. This pointer can be <b>NULL</b>.
+     * @param {Pointer<Integer>} puId Type: <b>UINT*</b>
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmenuinfo
+     * When this method returns, contains a pointer to a <b>UINT</b> value that receives the <i>uID</i> value that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>. This pointer can be <b>NULL</b>.
+     * @param {Pointer<Integer>} puIdAncestor Type: <b>UINT*</b>
+     * 
+     * When this method returns, contains a pointer to a <b>UINT</b> value that receives the <i>uIdAncestor</i> value that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>. This pointer can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * 
+     * When this method returns, contains a pointer to a <b>DWORD</b> value that receives the <i>dwFlags</i> value that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>. This pointer can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-getmenuinfo
      */
     GetMenuInfo(ppsmc, puId, puIdAncestor, pdwFlags) {
         puIdMarshal := puId is VarRef ? "uint*" : "ptr"
@@ -82,13 +171,23 @@ class IShellMenu extends IUnknown{
     }
 
     /**
+     * Specifies the folder for the menu band to browse.
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
-     * @param {IShellFolder} psf 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @param {HKEY} hKey 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder
+     * A pointer to the folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This pointer can be <b>NULL</b>.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
+     * 
+     * The folder's fully qualified <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. This value can be <b>NULL</b>.
+     * @param {HKEY} hKey Type: <b>HKEY</b>
+     * 
+     * An HKEY with an "Order" value that is used to store the order of the menu. This value can be <b>NULL</b>.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * Flags that specify how the menu band operates.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder
      */
     SetShellFolder(psf, pidlFolder, hKey, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
@@ -98,13 +197,108 @@ class IShellMenu extends IUnknown{
     }
 
     /**
+     * Gets the folder that the menu band is set to browse.
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getshellfolder
+     * When this method returns successfully, contains a pointer to a set of flag values that specify how the menu band operates.
+     * 
+     * 
+     * Can return any of the following flags.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_DEFAULT"></a><a id="sminit_default"></a><dl>
+     * <dt><b>SMINIT_DEFAULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No options.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_RESTRICT_DRAGDROP"></a><a id="sminit_restrict_dragdrop"></a><dl>
+     * <dt><b>SMINIT_RESTRICT_DRAGDROP</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Do not allow drag-and-drop.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_TOPLEVEL"></a><a id="sminit_toplevel"></a><dl>
+     * <dt><b>SMINIT_TOPLEVEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This is the top band.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_CACHED"></a><a id="sminit_cached"></a><dl>
+     * <dt><b>SMINIT_CACHED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Do not destroy the band when the window is closed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Always returns one of the following flags.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_VERTICAL"></a><a id="sminit_vertical"></a><dl>
+     * <dt><b>SMINIT_VERTICAL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies a vertical band.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SMINIT_HORIZONTAL"></a><a id="sminit_horizontal"></a><dl>
+     * <dt><b>SMINIT_HORIZONTAL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies a horizontal band.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PCIDLIST_ABSOLUTE*</b>
+     * 
+     * When this method returns, contains the address of the folder's fully qualified <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The REFIID for the target folder.
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * 
+     * When this method returns successfully, contains the address of a pointer to the Shell folder object referenced by the <i>riid</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-getshellfolder
      */
     GetShellFolder(pdwFlags, ppidl, riid, ppv) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
@@ -116,16 +310,20 @@ class IShellMenu extends IUnknown{
     }
 
     /**
-     * Assigns a new menu to the specified window.
-     * @param {HMENU} hmenu 
-     * @param {HWND} hwnd 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} Type: <b>BOOL</b>
+     * Appends a static menu to the menu band.
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
-     * If the function succeeds, the return value is nonzero.
+     * The handle of the static menu that is to be appended. This value can be <b>NULL</b>.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setmenu
+     * The <b>HWND</b> of the owner window. This value can be <b>NULL</b>.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * Flags that specify how the menu operates.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu
      */
     SetMenu(hmenu, hwnd, dwFlags) {
         hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
@@ -136,14 +334,20 @@ class IShellMenu extends IUnknown{
     }
 
     /**
-     * Retrieves a handle to the menu assigned to the specified window.
-     * @param {Pointer<HMENU>} phmenu 
-     * @param {Pointer<HWND>} phwnd 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} Type: <b>HMENU</b>
+     * Gets the menu information set by calling IShellMenu::SetMenu.
+     * @param {Pointer<HMENU>} phmenu Type: <b>HMENU*</b>
      * 
-     * The return value is a handle to the menu. If the specified window has no menu, the return value is <b>NULL</b>. If the window is a child window, the return value is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmenu
+     * When this method returns, contains a pointer to an <b>HMENU</b> value that receives the <i>hmenu</i> value that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu">IShellMenu::SetMenu</a>. This value can be <b>NULL</b>.
+     * @param {Pointer<HWND>} phwnd Type: <b>HWND*</b>
+     * 
+     * When this method returns, contains a pointer to an <b>HWND</b> value that receives the <i>hwnd</i> value that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu">IShellMenu::SetMenu</a>. This value can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * 
+     * When this method returns, contains a pointer to a <b>DWORD</b> value that receives the <i>dwFlags</i> value that you specified when you called <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu">IShellMenu::SetMenu</a>. This value can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-getmenu
      */
     GetMenu(phmenu, phwnd, pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
@@ -153,11 +357,17 @@ class IShellMenu extends IUnknown{
     }
 
     /**
+     * Redraws an item in a menu band.
+     * @param {Pointer<SMDATA>} psmd Type: <b>LPSMDATA</b>
      * 
-     * @param {Pointer<SMDATA>} psmd 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-invalidateitem
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-smdata">SMDATA</a> structure that identifies the item to be redrawn. Set this value to <b>NULL</b> to redraw the entire menu.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * Flags that control how the menu is redrawn. If <i>psmd</i> is <b>NULL</b>, set <i>dwFlags</i> to SMINV_REFRESH. If <i>psmd</i> is set to a valid <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-smdata">SMDATA</a> structure, set <i>dwFlags</i> to SMINV_ID | SMINV_REFRESH.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-invalidateitem
      */
     InvalidateItem(psmd, dwFlags) {
         result := ComCall(9, this, "ptr", psmd, "uint", dwFlags, "HRESULT")
@@ -165,9 +375,11 @@ class IShellMenu extends IUnknown{
     }
 
     /**
+     * Gets a filled SMDATA structure.
+     * @returns {SMDATA} Type: <b>LPSMDATA</b>
      * 
-     * @returns {SMDATA} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getstate
+     * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-smdata">SMDATA</a> structure that contains information about the menu band.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-getstate
      */
     GetState() {
         psmd := SMDATA()
@@ -176,11 +388,17 @@ class IShellMenu extends IUnknown{
     }
 
     /**
+     * Adds a menu to the menuband.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenutoolbar
+     * A pointer to an object that supports <b>CLSID_MenuToolbarBase</b> in its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * Flags that control how the menu operates.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenu-setmenutoolbar
      */
     SetMenuToolbar(punk, dwFlags) {
         result := ComCall(11, this, "ptr", punk, "uint", dwFlags, "HRESULT")

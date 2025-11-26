@@ -31,10 +31,10 @@ class ITsSbPluginNotifySink extends ITsSbBaseNotifySink{
     static VTableNames => ["OnInitialized", "OnTerminated"]
 
     /**
-     * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbpluginnotifysink-oninitialized
+     * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the plug-in has completed a call of Initialize.
+     * @param {HRESULT} hr Specifies the result of the call to <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nf-sbtsv-itssbplugin-initialize">Initialize</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbpluginnotifysink-oninitialized
      */
     OnInitialized(hr) {
         result := ComCall(5, this, "int", hr, "HRESULT")
@@ -42,9 +42,9 @@ class ITsSbPluginNotifySink extends ITsSbBaseNotifySink{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbpluginnotifysink-onterminated
+     * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the plug-in has completed a call of Terminate.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbpluginnotifysink-onterminated
      */
     OnTerminated() {
         result := ComCall(6, this, "HRESULT")

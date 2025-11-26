@@ -37,12 +37,12 @@ class ITfCreatePropertyStore extends IUnknown{
     static VTableNames => ["IsStoreSerializable", "CreatePropertyStore"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidProp 
-     * @param {ITfRange} pRange 
-     * @param {ITfPropertyStore} pPropStore 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcreatepropertystore-isstoreserializable
+     * ITfCreatePropertyStore::IsStoreSerializable method
+     * @param {Pointer<Guid>} guidProp Contains the type identifier of the property. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfpropertystore-gettype">ITfPropertyStore::GetType</a>.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that contains the text covered by the property store.
+     * @param {ITfPropertyStore} pPropStore Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfpropertystore">ITfPropertyStore</a> object.
+     * @returns {BOOL} Pointer to a <b>BOOL</b> that receives a flag that indicates if the property store can be serialized. Receives nonzero if the property store can be serialized or zero otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcreatepropertystore-isstoreserializable
      */
     IsStoreSerializable(guidProp, pRange, pPropStore) {
         result := ComCall(3, this, "ptr", guidProp, "ptr", pRange, "ptr", pPropStore, "int*", &pfSerializable := 0, "HRESULT")
@@ -50,13 +50,13 @@ class ITfCreatePropertyStore extends IUnknown{
     }
 
     /**
-     * Creates an empty property store object.
-     * @param {Pointer<Guid>} guidProp 
-     * @param {ITfRange} pRange 
-     * @param {Integer} cb 
-     * @param {IStream} pStream 
-     * @returns {ITfPropertyStore} Receives a pointer to the <b>IPropertyStore</b> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-createpropertystore
+     * ITfCreatePropertyStore::CreatePropertyStore method
+     * @param {Pointer<Guid>} guidProp Contains the type identifier of the property. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfpropertystore-gettype">ITfPropertyStore::GetType</a>.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that contains the text to be covered by the property store.
+     * @param {Integer} cb Contains the size, in bytes, of the property store data contained in <i>pStream</i>.
+     * @param {IStream} pStream Pointer to an <b>IStream</b> object that contains the property store data.
+     * @returns {ITfPropertyStore} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfpropertystore">ITfPropertyStore</a> interface pointer that receives the property store object created by this method.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcreatepropertystore-createpropertystore
      */
     CreatePropertyStore(guidProp, pRange, cb, pStream) {
         result := ComCall(4, this, "ptr", guidProp, "ptr", pRange, "uint", cb, "ptr", pStream, "ptr*", &ppStore := 0, "HRESULT")

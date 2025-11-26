@@ -31,11 +31,38 @@ class IWMDMNotification extends IUnknown{
     static VTableNames => ["WMDMMessage"]
 
     /**
+     * The WMDMMessage method is a callback method implemented by a client, and called by Windows Media Device Manager when a Plug and Play compliant device or storage medium is connected or removed.
+     * @param {Integer} dwMessageType A <b>DWORD</b> specifying the message type.
      * 
-     * @param {Integer} dwMessageType 
-     * @param {PWSTR} pwszCanonicalName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmnotification-wmdmmessage
+     * The possible values for the event types are the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Message type
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WMDM_MSG_DEVICE_ARRIVAL</td>
+     * <td>A device has been connected.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_MSG_DEVICE_REMOVAL</td>
+     * <td>A device has been removed.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_MSG_MEDIA_ARRIVAL</td>
+     * <td>A storage medium has been inserted in a connected device.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_MSG_MEDIA_REMOVAL</td>
+     * <td>A storage medium has been removed from a connected device.</td>
+     * </tr>
+     * </table>
+     * @param {PWSTR} pwszCanonicalName Pointer to a wide-character, null-terminated string specifying the canonical name of the device for which this event is generated. The application does not release this value.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b> in which application can return results of its processing of the message. The return value is ignored by WMDM.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmnotification-wmdmmessage
      */
     WMDMMessage(dwMessageType, pwszCanonicalName) {
         pwszCanonicalName := pwszCanonicalName is String ? StrPtr(pwszCanonicalName) : pwszCanonicalName

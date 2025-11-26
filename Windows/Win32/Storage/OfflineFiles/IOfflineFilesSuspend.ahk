@@ -31,10 +31,10 @@ class IOfflineFilesSuspend extends IUnknown{
     static VTableNames => ["SuspendRoot"]
 
     /**
-     * 
-     * @param {BOOL} bSuspend 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessuspend-suspendroot
+     * Suspend or release a share root or directory tree.
+     * @param {BOOL} bSuspend Specify <b>TRUE</b> to suspend, or <b>FALSE</b> to release.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessuspend-suspendroot
      */
     SuspendRoot(bSuspend) {
         result := ComCall(3, this, "int", bSuspend, "HRESULT")

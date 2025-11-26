@@ -31,10 +31,10 @@ class IWMPPluginUI extends IUnknown{
     static VTableNames => ["SetCore", "Create", "Destroy", "DisplayPropertyPage", "GetProperty", "SetProperty", "TranslateAccelerator"]
 
     /**
-     * 
-     * @param {IWMPCore} pCore 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-setcore
+     * The SetCore method is called by Windows Media Player to provide plug-in access to the core Windows Media Player APIs.
+     * @param {IWMPCore} pCore Pointer to an <b>IWMPCore</b> interface.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-setcore
      */
     SetCore(pCore) {
         result := ComCall(3, this, "ptr", pCore, "HRESULT")
@@ -42,11 +42,11 @@ class IWMPPluginUI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwndParent 
-     * @param {Pointer<HWND>} phwndWindow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-create
+     * The Create method is called by Windows Media Player to instantiate the plug-in user interface. This method is passed a handle to a parent window of the plug-in window. A handle to the newly created window is then passed back to the calling method.
+     * @param {HWND} hwndParent <b>HWND</b> handle to a parent window of the plug-in window.
+     * @param {Pointer<HWND>} phwndWindow Pointer to an <b>HWND</b> handle to the plug-in window after the content is filled in.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-create
      */
     Create(hwndParent, phwndWindow) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -56,9 +56,9 @@ class IWMPPluginUI extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-destroy
+     * The Destroy method is called by Windows Media Player to shut down the plug-in user interface.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-destroy
      */
     Destroy() {
         result := ComCall(5, this, "HRESULT")
@@ -66,10 +66,10 @@ class IWMPPluginUI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-displaypropertypage
+     * The DisplayPropertyPage method is called by Windows Media Player to request that the plug-in display its property page. This method is passed a handle to a parent window of the plug-in property page dialog box.
+     * @param {HWND} hwndParent <b>HWND</b> handle to a parent window of the property page dialog box.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-displaypropertypage
      */
     DisplayPropertyPage(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -79,11 +79,11 @@ class IWMPPluginUI extends IUnknown{
     }
 
     /**
-     * 
+     * The GetProperty method is called by Windows Media Player to retrieve name/value property pairs from the plug-in.
      * @param {PWSTR} pwszName 
-     * @param {Pointer<VARIANT>} pvarProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-getproperty
+     * @param {Pointer<VARIANT>} pvarProperty Pointer to a <b>VARIANT</b> to contain the value of the property.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-getproperty
      */
     GetProperty(pwszName, pvarProperty) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -93,11 +93,11 @@ class IWMPPluginUI extends IUnknown{
     }
 
     /**
-     * 
+     * The SetProperty method is called by Windows Media Player to set name/value property pairs for the plug-in.
      * @param {PWSTR} pwszName 
-     * @param {Pointer<VARIANT>} pvarProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-setproperty
+     * @param {Pointer<VARIANT>} pvarProperty Pointer to a <b>VARIANT</b> containing the new value of the property.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-setproperty
      */
     SetProperty(pwszName, pvarProperty) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -107,10 +107,10 @@ class IWMPPluginUI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<MSG>} lpmsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nf-wmpplug-iwmppluginui-translateaccelerator
+     * The TranslateAccelerator method is called as part of the Windows Media Player message loop to allow the plug-in to intercept and respond to keyboard events.
+     * @param {Pointer<MSG>} lpmsg <b>LPMSG</b> structure containing message information from Windows Media Player that the plug-in can respond to.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpplug/nf-wmpplug-iwmppluginui-translateaccelerator
      */
     TranslateAccelerator(lpmsg) {
         result := ComCall(9, this, "ptr", lpmsg, "HRESULT")

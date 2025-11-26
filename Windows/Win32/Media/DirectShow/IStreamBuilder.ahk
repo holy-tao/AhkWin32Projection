@@ -31,11 +31,11 @@ class IStreamBuilder extends IUnknown{
     static VTableNames => ["Render", "Backout"]
 
     /**
-     * 
-     * @param {IPin} ppinOut 
-     * @param {IGraphBuilder} pGraph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-istreambuilder-render
+     * The Render method completes rendering of the stream originating with this pin. This can involve adding filters to the filter graph and connecting them.
+     * @param {IPin} ppinOut Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface of this pin.
+     * @param {IGraphBuilder} pGraph Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface of the Filter Graph Manager.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. A return code of S_OK indicates that the stream was successfully rendered.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-istreambuilder-render
      */
     Render(ppinOut, pGraph) {
         result := ComCall(3, this, "ptr", ppinOut, "ptr", pGraph, "HRESULT")
@@ -43,11 +43,11 @@ class IStreamBuilder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IPin} ppinOut 
-     * @param {IGraphBuilder} pGraph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-istreambuilder-backout
+     * The Backout method undoes steps taken in the IStreamBuilder::Render method. This includes disconnecting and removing any filters that were added inside Render.
+     * @param {IPin} ppinOut Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface of this pin.
+     * @param {IGraphBuilder} pGraph Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface of the Filter Graph Manager.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. A return code of S_OK indicates to the graph builder that the disconnect was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-istreambuilder-backout
      */
     Backout(ppinOut, pGraph) {
         result := ComCall(4, this, "ptr", ppinOut, "ptr", pGraph, "HRESULT")

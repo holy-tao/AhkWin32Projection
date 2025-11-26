@@ -31,12 +31,14 @@ class IExtendContextMenu extends IUnknown{
     static VTableNames => ["AddMenuItems", "Command"]
 
     /**
-     * 
-     * @param {IDataObject} piDataObject 
-     * @param {IContextMenuCallback} piCallback 
-     * @param {Pointer<Integer>} pInsertionAllowed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontextmenu-addmenuitems
+     * The IExtendContextMenu::AddMenuItems method enables a snap-in to add items to a context menu.
+     * @param {IDataObject} piDataObject A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object of the menu to which items are added.
+     * @param {IContextMenuCallback} piCallback A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-icontextmenucallback">IContextMenuCallback</a> that can add items to the context menu.
+     * @param {Pointer<Integer>} pInsertionAllowed A value that identifies MMC-defined menu-item insertion points that can be used. This can be a combination of the following flags:
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendcontextmenu-addmenuitems
      */
     AddMenuItems(piDataObject, piCallback, pInsertionAllowed) {
         pInsertionAllowedMarshal := pInsertionAllowed is VarRef ? "int*" : "ptr"
@@ -46,11 +48,12 @@ class IExtendContextMenu extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lCommandID 
-     * @param {IDataObject} piDataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontextmenu-command
+     * The IExtendContextMenu::Command method is called if one of the items you added to the context menu with IExtendContextMenu::AddMenuItems is subsequently selected.
+     * @param {Integer} lCommandID A value that specifies the command identifier of the menu item.
+     * @param {IDataObject} piDataObject A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object whose context menu was displayed.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendcontextmenu-command
      */
     Command(lCommandID, piDataObject) {
         result := ComCall(4, this, "int", lCommandID, "ptr", piDataObject, "HRESULT")

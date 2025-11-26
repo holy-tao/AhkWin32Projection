@@ -39,11 +39,98 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     static VTableNames => ["SetVolumeProtectLevel", "GetVolumeProtectLevel", "ClearVolumeProtectFault", "DeleteUnusedDiffAreas", "QuerySnapshotDeltaBitmap"]
 
     /**
+     * Sets the shadow copy protection level for an original volume or a shadow copy storage area volume.
+     * @param {Pointer<Integer>} pwszVolumeName The name of the volume.
+     *       This parameter is required and cannot be <b>NULL</b>.
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Integer} protectionLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-setvolumeprotectlevel
+     * The name must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, D:\ 
+     *          </li>
+     * <li>A volume GUID path in the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Integer} protectionLevel A value from the  <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ne-vsmgmt-vss_protection_level">VSS_PROTECTION_LEVEL</a> enumeration that specifies the shadow copy protection level.
+     * @returns {HRESULT} The following are the valid return codes for this method.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The shadow copy protection level was set successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * <dt>0x80070005L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is not an administrator.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * <dt>0x80000001L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The provider for the volume does not support shadow copy protection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_PROVIDER_VETO</b></dt>
+     * <dt>0x80042306L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An expected provider error has occurred. The error code is logged in the event log. For more information, see <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042308L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified volume was not found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-setvolumeprotectlevel
      */
     SetVolumeProtectLevel(pwszVolumeName, protectionLevel) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -53,10 +140,19 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     }
 
     /**
+     * Gets the shadow copy protection level and status for the specified volume.
+     * @param {Pointer<Integer>} pwszVolumeName The name of the volume.
+     *       This parameter is required and cannot be <b>NULL</b>.
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @returns {VSS_VOLUME_PROTECTION_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-getvolumeprotectlevel
+     * The name must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example,   D:\ 
+     *          </li>
+     * <li>A volume GUID path in the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @returns {VSS_VOLUME_PROTECTION_INFO} The address of a caller-allocated buffer that receives a <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ns-vsmgmt-vss_volume_protection_info">VSS_VOLUME_PROTECTION_INFO</a> structure containing information about the volume's shadow copy protection level.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-getvolumeprotectlevel
      */
     GetVolumeProtectLevel(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -67,10 +163,97 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     }
 
     /**
+     * Clears the protection fault state for the specified volume.
+     * @param {Pointer<Integer>} pwszVolumeName The name of the volume.
+     *       This parameter is required and cannot be <b>NULL</b>.
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-clearvolumeprotectfault
+     * The name must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, D:\ 
+     *          </li>
+     * <li>A volume GUID path in the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @returns {HRESULT} The following are the valid return codes for this method.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The protection fault state was cleared successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * <dt>0x80070005L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is not an administrator.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * <dt>0x80000001L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The provider for the volume does not support shadow copy protection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_PROVIDER_VETO</b></dt>
+     * <dt>0x80042306L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An expected provider error has occurred. The error code is logged in the event log. For more information, see <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042308L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified volume was not found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-clearvolumeprotectfault
      */
     ClearVolumeProtectFault(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -80,10 +263,97 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     }
 
     /**
+     * Deletes all shadow copy storage areas (also called diff areas) on the specified volume that are not in use.
+     * @param {Pointer<Integer>} pwszDiffAreaVolumeName The name of the volume.
+     *       This parameter is required and cannot be <b>NULL</b>.
      * 
-     * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-deleteunuseddiffareas
+     * The name must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example,  D:\ 
+     *          </li>
+     * <li>A volume GUID path in the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @returns {HRESULT} The following are the valid return codes for this method.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The shadow copy storage areas were successfully deleted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * <dt>0x80070005L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is not an administrator.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * <dt>0x80000001L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The provider for the volume does not support shadow copy protection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_PROVIDER_VETO</b></dt>
+     * <dt>0x80042306L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An expected provider error has occurred. The error code is logged in the event log. For more information, see <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042308L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified volume was not found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-deleteunuseddiffareas
      */
     DeleteUnusedDiffAreas(pwszDiffAreaVolumeName) {
         pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
@@ -93,14 +363,14 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     }
 
     /**
-     * 
+     * This method is reserved for future use.
      * @param {Guid} idSnapshotOlder 
      * @param {Guid} idSnapshotYounger 
      * @param {Pointer<Integer>} pcBlockSizePerBit 
      * @param {Pointer<Integer>} pcBitmapLength 
      * @param {Pointer<Pointer<Integer>>} ppbBitmap 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-querysnapshotdeltabitmap
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-querysnapshotdeltabitmap
      */
     QuerySnapshotDeltaBitmap(idSnapshotOlder, idSnapshotYounger, pcBlockSizePerBit, pcBitmapLength, ppbBitmap) {
         pcBlockSizePerBitMarshal := pcBlockSizePerBit is VarRef ? "uint*" : "ptr"

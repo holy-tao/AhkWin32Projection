@@ -42,26 +42,67 @@ class IMpeg2Stream extends IUnknown{
     static VTableNames => ["Initialize", "SupplyDataBuffer"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} requestType 
-     * @param {IMpeg2Data} pMpeg2Data 
-     * @param {Pointer<MPEG_CONTEXT>} pContext 
-     * @param {Integer} pid 
-     * @param {Integer} tid 
-     * @param {Pointer<MPEG2_FILTER>} pFilter 
-     * @param {HANDLE} hDataReadyEvent 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method initializes the MPEG2Stream object. This method should be called once, immediately after creating the object. The IMpeg2Data::GetStreamOfSections method calls this method internally, so typically an application will not call it.
+     * @param {Integer} requestType Specifies the request type, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ne-mpeg2structs-mpeg_request_type">MPEG_REQUEST_TYPE</a> value.
+     * @param {IMpeg2Data} pMpeg2Data Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-impeg2data">IMpeg2Data</a> interface of the MPEG-2 Sections and Tables filter.
+     * @param {Pointer<MPEG_CONTEXT>} pContext Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_context">MPEG_CONTEXT</a> structure. This structure indicates the MPEG-2 source.
+     * @param {Integer} pid Specifies a packet identifier (PID), indicating which packets in the transport stream are requested.
+     * @param {Integer} tid Specifies a table identifier (TID), indicating which table sections to retrieve.
+     * @param {Pointer<MPEG2_FILTER>} pFilter Optional pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg2_filter">MPEG2_FILTER</a> structure. The caller can use this parameter to exclude packets based on additional MPEG-2 header fields. This parameter can be <b>NULL</b>.
+     * @param {HANDLE} hDataReadyEvent Handle to an event. The filter signals this event whenever it receives new data.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid or <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MPEG2_E_ALREADY_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method has been called on this object already.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-impeg2stream-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, hDataReadyEvent) {
         hDataReadyEvent := hDataReadyEvent is Win32Handle ? NumGet(hDataReadyEvent, "ptr") : hDataReadyEvent
@@ -71,10 +112,61 @@ class IMpeg2Stream extends IUnknown{
     }
 
     /**
+     * The SupplyDataBuffer method provides a buffer for the Mpeg2Stream object to write data.
+     * @param {Pointer<MPEG_STREAM_BUFFER>} pStreamBuffer Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_stream_buffer">MPEG_STREAM_BUFFER</a> structure allocated by the caller. This structure contains a pointer to the buffer, also allocated by the caller. The buffer must be at least 4096 bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer<MPEG_STREAM_BUFFER>} pStreamBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2stream-supplydatabuffer
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument or <b>NULL</b> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-impeg2stream-supplydatabuffer
      */
     SupplyDataBuffer(pStreamBuffer) {
         result := ComCall(4, this, "ptr", pStreamBuffer, "HRESULT")

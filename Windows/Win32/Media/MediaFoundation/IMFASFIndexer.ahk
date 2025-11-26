@@ -88,93 +88,13 @@ class IMFASFIndexer extends IUnknown{
     static VTableNames => ["SetFlags", "GetFlags", "Initialize", "GetIndexPosition", "SetIndexByteStreams", "GetIndexByteStreamCount", "GetIndexStatus", "SetIndexStatus", "GetSeekPositionForValue", "GenerateIndexEntries", "CommitIndex", "GetIndexWriteSpace", "GetCompletedIndex"]
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} dwFlags The following table lists the flags that you may set to specify how the recognizer interprets the ink and determines the result string. Use the <b>OR</b> operator (|) to combine flags as appropriate.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bit flag</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_AUTOSPACE"></a><a id="recoflag_autospace"></a><dl>
-     * <dt><b>RECOFLAG_AUTOSPACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer uses smart spacing based on language model rules.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_COERCE"></a><a id="recoflag_coerce"></a><dl>
-     * <dt><b>RECOFLAG_COERCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer coerces the result based on the factoid you specify for the context. For example, if you specify a phone number factoid and the user enters the word "hello", the recognizer may return a random phone number or an empty string. If you do not specify this flag, the recognizer returns "hello" as the result.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_PREFIXOK"></a><a id="recoflag_prefixok"></a><dl>
-     * <dt><b>RECOFLAG_PREFIXOK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer supports the recognition of any prefix part of the strings that are defined in the default or specified (factoid) language model.
-     * 
-     * For example, without this flag, the user writes "handw" and the recognizer returns suggestions (such as "hander" or "handed") that are words that exist in the recognizer lexicon. With the flag, the recognizer may return "handw" as one of the suggestions since it is a valid prefix of the word "handwriting" that exists in the recognizer lexicon.
-     * 
-     * The Tablet PC Input Panel sets this flag in most cases, except when the input scope is IS_DEFAULT (or no input scope) or when there is no user word list or regular expression.
-     * 
-     * Recognizers of East Asian characters should return E_INVALIDARG when a caller passes in this flag.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_LINEMODE"></a><a id="recoflag_linemode"></a><dl>
-     * <dt><b>RECOFLAG_LINEMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not split lines but must still do character and word separation. This is the same as lined mode, except that there is no guide, and all ink is assumed to be in a single line. When this flag is set, a guide, if set, is ignored.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_SINGLESEG"></a><a id="recoflag_singleseg"></a><dl>
-     * <dt><b>RECOFLAG_SINGLESEG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Disables multiple segmentation. By default, the recognizer returns multiple segmentations (alternates) for the ink.
-     * 
-     * For example, if you write "together" as separate strokes, the recognizer may segment the ink as "to get her", "to gather", or "together". Set this flag if you do not need multiple segmentations of the ink when you query for alternates. This improves performance and reduces memory usage.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_WORDMODE"></a><a id="recoflag_wordmode"></a><dl>
-     * <dt><b>RECOFLAG_WORDMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer treats the ink as a single word. For example, if the context contains "to get her", the recognizer returns "together".
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @returns {HRESULT} This function can return one of these values.
+     * Sets indexer options.
+     * @param {Integer} dwFlags Bitwise OR of zero or more flags from the [MFASF_INDEXER_FLAGS](./ne-wmcontainer-mfasf_indexer_flags.md) enumeration specifying the indexer options to use.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
-     * <th>HRESULT value</th>
+     * <th>Return code</th>
      * <th>Description</th>
      * </tr>
      * <tr>
@@ -184,68 +104,23 @@ class IMFASFIndexer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Success.
+     * The method succeeded.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt><b>MF_E_INVALIDREQUEST</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
+     * The indexer object was  initialized before setting flags for it.  For more information, see Remarks.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-setflags
      */
     SetFlags(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
@@ -253,9 +128,9 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getflags
+     * Retrieves the flags that indicate the selected indexer options.
+     * @returns {Integer} Receives a bitwise OR of zero or more flags from the [MFASF_INDEXER_FLAGS](./ne-wmcontainer-mfasf_indexer_flags.md) enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getflags
      */
     GetFlags() {
         result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -263,20 +138,51 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IMFASFContentInfo} pIContentInfo 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the indexer object.
+     * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object describing the content with which to use the indexer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_ASF_INVALIDDATA</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid ASF data.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unexpected error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-initialize
      */
     Initialize(pIContentInfo) {
         result := ComCall(5, this, "ptr", pIContentInfo, "HRESULT")
@@ -284,10 +190,10 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFASFContentInfo} pIContentInfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition
+     * Retrieves the offset of the index object from the start of the content.
+     * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object that describes the content.
+     * @returns {Integer} Receives the offset of the index relative to the beginning of the content described by the ContentInfo object. This is the position relative to the beginning of the ASF file.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition
      */
     GetIndexPosition(pIContentInfo) {
         result := ComCall(6, this, "ptr", pIContentInfo, "uint*", &pcbIndexOffset := 0, "HRESULT")
@@ -295,11 +201,40 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Adds byte streams to be indexed.
+     * @param {Pointer<IMFByteStream>} ppIByteStreams An array of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface pointers. To get the byte stream, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-mfcreateasfindexerbytestream">MFCreateASFIndexerByteStream</a>.
+     * @param {Integer} cByteStreams The number of pointers in the <i>ppIByteStreams</i> array.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<IMFByteStream>} ppIByteStreams 
-     * @param {Integer} cByteStreams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_ALREADY_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The indexer object has already been initialized and it  has packets which have been indexed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams
      */
     SetIndexByteStreams(ppIByteStreams, cByteStreams) {
         result := ComCall(7, this, "ptr*", ppIByteStreams, "uint", cByteStreams, "HRESULT")
@@ -307,9 +242,9 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexbytestreamcount
+     * Retrieves the number of byte streams that are in use by the indexer object.
+     * @returns {Integer} Receives the number of byte streams that are  in use by the indexer object.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexbytestreamcount
      */
     GetIndexByteStreamCount() {
         result := ComCall(8, this, "uint*", &pcByteStreams := 0, "HRESULT")
@@ -317,13 +252,42 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Retrieves the index settings for a specified stream and index type.
+     * @param {Pointer<ASF_INDEX_IDENTIFIER>} pIndexIdentifier Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_identifier">ASF_INDEX_IDENTIFIER</a> structure that contains the stream number and index type for which to get the status.
+     * @param {Pointer<BOOL>} pfIsIndexed A variable that retrieves a Boolean value specifying whether the index described by <i>pIndexIdentifier</i> has been created.
+     * @param {Pointer<Integer>} pbIndexDescriptor A buffer that receives the index descriptor. The index descriptor consists of an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_descriptor">ASF_INDEX_DESCRIPTOR</a> structure, optionally followed by index-specific data.
+     * @param {Pointer<Integer>} pcbIndexDescriptor On input, specifies the size, in bytes, of the buffer that <i>pbIndexDescriptor</i> points to. The value can be zero if <i>pbIndexDescriptor</i> is <b>NULL</b>. On output, receives the size of the index descriptor, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<ASF_INDEX_IDENTIFIER>} pIndexIdentifier 
-     * @param {Pointer<BOOL>} pfIsIndexed 
-     * @param {Pointer<Integer>} pbIndexDescriptor 
-     * @param {Pointer<Integer>} pcbIndexDescriptor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexstatus
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_BUFFERTOOSMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer size specified in <i>pcbIndexDescriptor</i> is too small.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexstatus
      */
     GetIndexStatus(pIndexIdentifier, pfIsIndexed, pbIndexDescriptor, pcbIndexDescriptor) {
         pfIsIndexedMarshal := pfIsIndexed is VarRef ? "int*" : "ptr"
@@ -335,12 +299,41 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Configures the index for a stream.
+     * @param {Pointer<Integer>} pbIndexDescriptor The index descriptor to set. The index descriptor is an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_descriptor">ASF_INDEX_DESCRIPTOR</a> structure, optionally followed by index-specific data.
+     * @param {Integer} cbIndexDescriptor The size, in bytes, of the index descriptor.
+     * @param {BOOL} fGenerateIndex A Boolean value. Set to <b>TRUE</b> to have the indexer create an index of the type specified for the stream specified in the index descriptor.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pbIndexDescriptor 
-     * @param {Integer} cbIndexDescriptor 
-     * @param {BOOL} fGenerateIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALIDREQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At attempt was made to change the index status in a seek-only scenario. For more information, see Remarks.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus
      */
     SetIndexStatus(pbIndexDescriptor, cbIndexDescriptor, fGenerateIndex) {
         pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
@@ -350,13 +343,25 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Given a desired seek time, gets the offset from which the client should start reading data.
+     * @param {Pointer<PROPVARIANT>} pvarValue The value of the index entry for which to get the position. The format of this value varies depending on the type of index, which is specified in the index identifier. For time-based indexing, the variant type is <b>VT_I8</b> and the value is the desired seek time, in 100-nanosecond units.
+     * @param {Pointer<ASF_INDEX_IDENTIFIER>} pIndexIdentifier Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_identifier">ASF_INDEX_IDENTIFIER</a> structure that identifies the stream number and index type.
+     * @param {Pointer<Integer>} phnsApproxTime Receives the approximate time stamp of the data that is located at the offset returned in the <i>pcbOffsetWithinData</i> parameter. The accuracy of this value is equal to the indexing interval of the ASF index, typically about 1 second.
+     *           
      * 
-     * @param {Pointer<PROPVARIANT>} pvarValue 
-     * @param {Pointer<ASF_INDEX_IDENTIFIER>} pIndexIdentifier 
-     * @param {Pointer<Integer>} phnsApproxTime 
-     * @param {Pointer<Integer>} pdwPayloadNumberOfStreamWithinPacket 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue
+     * <ul>
+     * <li>If the index type specified in <i>pIndexIdentifier</i> is <b>GUID_NULL</b> (time indexing), this parameter can be <b>NULL</b>.
+     *               </li>
+     * <li>For all other index types, this parameter must be <b>NULL</b>.
+     *               </li>
+     * </ul>
+     * If the approximate time stamp cannot be determined, this parameter receives the value <b>MFASFINDEXER_APPROX_SEEK_TIME_UNKNOWN</b>.
+     * @param {Pointer<Integer>} pdwPayloadNumberOfStreamWithinPacket Receives the payload number of the payload that contains the information for the specified stream. Packets can contain multiple payloads, each containing data for a different stream. This parameter can be <b>NULL</b>.
+     * @returns {Integer} Receives the offset within the data segment of the ASF Data Object. The offset is in bytes, and is relative to the start of packet 0. The offset gives the starting location from which the client should begin reading from the stream. This location might not correspond exactly to the requested seek time.
+     *           
+     * 
+     * For reverse playback, if no key frame exists after the desired seek position, this parameter receives the value <b>MFASFINDEXER_READ_FOR_REVERSEPLAYBACK_OUTOFDATASEGMENT</b>. In that case, the seek position should be 1 byte pass the end of the data segment.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue
      */
     GetSeekPositionForValue(pvarValue, pIndexIdentifier, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacket) {
         phnsApproxTimeMarshal := phnsApproxTime is VarRef ? "int64*" : "ptr"
@@ -367,10 +372,52 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Accepts an ASF packet for the file and creates index entries for them.
+     * @param {IMFSample} pIASFPacketSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of a media sample that contains the ASF packet.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *           
      * 
-     * @param {IMFSample} pIASFPacketSample 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-generateindexentries
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument passed in is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOT_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The indexer is not initialized.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-generateindexentries
      */
     GenerateIndexEntries(pIASFPacketSample) {
         result := ComCall(12, this, "ptr", pIASFPacketSample, "HRESULT")
@@ -378,10 +425,39 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Adds information about a new index to the ContentInfo object associated with ASF content. You must call this method before copying the index to the content so that the index will be readable by the indexer later.
+     * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object that describes the content.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFASFContentInfo} pIContentInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-commitindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALIDREQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller made an invalid request. For more information, see Remarks.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-commitindex
      */
     CommitIndex(pIContentInfo) {
         result := ComCall(13, this, "ptr", pIContentInfo, "HRESULT")
@@ -389,9 +465,9 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexwritespace
+     * Retrieves the size, in bytes, of the buffer required to store the completed index.
+     * @returns {Integer} Receives the size of the index, in bytes
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexwritespace
      */
     GetIndexWriteSpace() {
         result := ComCall(14, this, "uint*", &pcbIndexWriteSpace := 0, "HRESULT")
@@ -399,11 +475,40 @@ class IMFASFIndexer extends IUnknown{
     }
 
     /**
+     * Retrieves the completed index from the ASF indexer object.
+     * @param {IMFMediaBuffer} pIIndexBuffer Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface of a media buffer that receives the index data.
+     * @param {Integer} cbOffsetWithinIndex The offset of the data to be retrieved, in bytes from the start of the index data. Set to 0 for the first call. If subsequent calls are needed (the buffer is not large enough to hold the entire index), set to the byte following the last one retrieved.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFMediaBuffer} pIIndexBuffer 
-     * @param {Integer} cbOffsetWithinIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INDEX_NOT_COMMITTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The index was not committed before attempting to get the completed index. For more information, see Remarks.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex
      */
     GetCompletedIndex(pIIndexBuffer, cbOffsetWithinIndex) {
         result := ComCall(15, this, "ptr", pIIndexBuffer, "uint", cbOffsetWithinIndex, "HRESULT")

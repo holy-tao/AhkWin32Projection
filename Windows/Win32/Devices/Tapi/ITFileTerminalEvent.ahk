@@ -76,9 +76,10 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_terminal
+     * The get_Terminal method returns the file terminal that generated this event.
+     * @returns {ITTerminal} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfileterminalevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(7, this, "ptr*", &ppTerminal := 0, "HRESULT")
@@ -86,9 +87,10 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITFileTrack} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_track
+     * The get_Track method returns the track terminal that generated this event.
+     * @returns {ITFileTrack} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itfiletrack">ITFileTrack</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfileterminalevent-get_track
      */
     get_Track() {
         result := ComCall(8, this, "ptr*", &ppTrackTerminal := 0, "HRESULT")
@@ -96,9 +98,10 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_call
+     * The get_Call method gets a pointer to the call information interface for the call on which the event has occurred.
+     * @returns {ITCallInfo} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfileterminalevent-get_call
      */
     get_Call() {
         result := ComCall(9, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -106,9 +109,9 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_state
+     * The get_State method gets information on the new file terminal state.
+     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_media_state">TERMINAL_MEDIA_STATE</a> descriptor of the new terminal state.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfileterminalevent-get_state
      */
     get_State() {
         result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
@@ -116,9 +119,9 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_cause
+     * The get_Cause method gets the cause associated with this event.
+     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-ft_state_event_cause">FT_STATE_EVENT_CAUSE</a> descriptor of the cause of this event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfileterminalevent-get_cause
      */
     get_Cause() {
         result := ComCall(11, this, "int*", &pCause := 0, "HRESULT")
@@ -126,9 +129,9 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_error
+     * The get_Error method gets the error code for the event.
+     * @returns {HRESULT} HRESULT cast of error code associated with this event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfileterminalevent-get_error
      */
     get_Error() {
         result := ComCall(12, this, "int*", &phrErrorCode := 0, "HRESULT")

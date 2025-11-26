@@ -37,9 +37,11 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
     static VTableNames => ["GetLocalFileSize", "GetFileFragmentLocality", "GetLocality", "BeginDownload"]
 
     /**
+     * GetLocalFileSize returns the number of bytes of the font file that are currently local, which should always be less than or equal to the full file size returned by GetFileSize.
+     * @returns {Integer} Type: <b>UINT64*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocalfilesize
+     * Receives the local size of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocalfilesize
      */
     GetLocalFileSize() {
         result := ComCall(7, this, "uint*", &localFileSize := 0, "HRESULT")
@@ -47,12 +49,20 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
     }
 
     /**
+     * Returns information about the locality of a byte range (i.e., font fragment) within the font file stream.
+     * @param {Integer} fileOffset Type: <b>UINT64</b>
      * 
-     * @param {Integer} fileOffset 
-     * @param {Integer} fragmentSize 
-     * @param {Pointer<Integer>} partialSize 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
+     * Offset of the fragment from the beginning of the font file.
+     * @param {Integer} fragmentSize Type: <b>UINT64</b>
+     * 
+     * Size of the fragment in bytes.
+     * @param {Pointer<Integer>} partialSize Type: <b>UINT64*</b>
+     * 
+     * Receives the number of contiguous bytes from the start of the fragment that have the same locality as the first byte.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * Receives TRUE if the first byte of the fragment is local, FALSE if not.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
      */
     GetFileFragmentLocality(fileOffset, fragmentSize, partialSize) {
         partialSizeMarshal := partialSize is VarRef ? "uint*" : "ptr"
@@ -62,9 +72,11 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
     }
 
     /**
+     * Gets the current locality of the file.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocality
+     * Returns the current locality (i.e., remote, partial, or local).
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocality
      */
     GetLocality() {
         result := ComCall(9, this, "int")
@@ -72,12 +84,20 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
     }
 
     /**
+     * Begins downloading all or part of the font file.
+     * @param {Pointer<Guid>} downloadOperationID Type: <b>UUID</b>
+     * @param {Pointer<DWRITE_FILE_FRAGMENT>} fileFragments Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_file_fragment">DWRITE_FILE_FRAGMENT</a></b>
      * 
-     * @param {Pointer<Guid>} downloadOperationID 
-     * @param {Pointer<DWRITE_FILE_FRAGMENT>} fileFragments 
-     * @param {Integer} fragmentCount 
-     * @returns {IDWriteAsyncResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload
+     * Array of structures, each specifying a byte range to download.
+     * @param {Integer} fragmentCount Type: <b>UINT32</b>
+     * 
+     * Number of elements in the fileFragments array. This can be zero to just download file information, such as the size.
+     * @returns {IDWriteAsyncResult} Type: <b>_COM_Outptr_result_maybenull_</b>
+     * 
+     * Receives an object that can be used to wait for the asynchronous download to complete and to get the download result upon 
+     *           completion. The result may be NULL if the download completes synchronously. For example, this can happen if method determines that the requested data
+     *           is already local.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload
      */
     BeginDownload(downloadOperationID, fileFragments, fragmentCount) {
         result := ComCall(10, this, "ptr", downloadOperationID, "ptr", fileFragments, "uint", fragmentCount, "ptr*", &asyncResult := 0, "HRESULT")

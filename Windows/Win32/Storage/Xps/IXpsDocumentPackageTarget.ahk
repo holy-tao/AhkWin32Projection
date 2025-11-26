@@ -33,11 +33,11 @@ class IXpsDocumentPackageTarget extends IUnknown{
     static VTableNames => ["GetXpsOMPackageWriter", "GetXpsOMFactory", "GetXpsType"]
 
     /**
-     * 
-     * @param {IOpcPartUri} documentSequencePartName 
-     * @param {IOpcPartUri} discardControlPartName 
-     * @returns {IXpsOMPackageWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpsompackagewriter
+     * Gets the IXpsOMPackageWriter object for the document package.
+     * @param {IOpcPartUri} documentSequencePartName The document sequence part name.
+     * @param {IOpcPartUri} discardControlPartName The control part name.
+     * @returns {IXpsOMPackageWriter} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpsompackagewriter
      */
     GetXpsOMPackageWriter(documentSequencePartName, discardControlPartName) {
         result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
@@ -45,9 +45,9 @@ class IXpsDocumentPackageTarget extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsOMObjectFactory} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpsomfactory
+     * Gets the IXpsOMObjectFactory object for the document package.
+     * @returns {IXpsOMObjectFactory} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory">IXpsOMObjectFactory</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpsomfactory
      */
     GetXpsOMFactory() {
         result := ComCall(4, this, "ptr*", &xpsFactory := 0, "HRESULT")
@@ -55,9 +55,9 @@ class IXpsDocumentPackageTarget extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpstype
+     * Gets the XPS_DOCUMENT_TYPE enumerated value for the document package.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type">XPS_DOCUMENT_TYPE</a> enumerated value.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpstype
      */
     GetXpsType() {
         result := ComCall(5, this, "int*", &documentType := 0, "HRESULT")

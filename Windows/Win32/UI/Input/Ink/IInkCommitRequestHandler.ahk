@@ -31,9 +31,9 @@ class IInkCommitRequestHandler extends IUnknown{
     static VTableNames => ["OnCommitRequested"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkcommitrequesthandler-oncommitrequested
+     * Requests that the app commit all pending Microsoft DirectComposition commands to the app's DirectComposition visual tree.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkcommitrequesthandler-oncommitrequested
      */
     OnCommitRequested() {
         result := ComCall(3, this, "HRESULT")

@@ -39,9 +39,9 @@ class IUIAutomationTextRangeArray extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the number of text ranges in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrangearray-get_length
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextrangearray-get_length
      */
     get_Length() {
         result := ComCall(3, this, "int*", &length := 0, "HRESULT")
@@ -49,10 +49,14 @@ class IUIAutomationTextRangeArray extends IUnknown{
     }
 
     /**
+     * Retrieves a text range from the collection.
+     * @param {Integer} index Type: <b>int</b>
      * 
-     * @param {Integer} index 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrangearray-getelement
+     * The zero-based index of the item.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
+     * 
+     * Receives a pointer to the text range.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextrangearray-getelement
      */
     GetElement(index) {
         result := ComCall(4, this, "int", index, "ptr*", &element := 0, "HRESULT")

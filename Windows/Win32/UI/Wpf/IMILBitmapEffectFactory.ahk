@@ -33,10 +33,14 @@ class IMILBitmapEffectFactory extends IUnknown{
     static VTableNames => ["CreateEffect", "CreateContext", "CreateEffectOuter"]
 
     /**
+     * Creates an IMILBitmapEffect object.
+     * @param {Pointer<Guid>} pguidEffect Type: <b>const GUID*</b>
      * 
-     * @param {Pointer<Guid>} pguidEffect 
-     * @returns {IMILBitmapEffect} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectfactory-createeffect
+     * A pointer to the GUID of the effect to create.
+     * @returns {IMILBitmapEffect} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>**</b>
+     * 
+     * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectprimitive">IMILBitmapEffectPrimitive</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectfactory-createeffect
      */
     CreateEffect(pguidEffect) {
         result := ComCall(3, this, "ptr", pguidEffect, "ptr*", &ppEffect := 0, "HRESULT")
@@ -44,9 +48,11 @@ class IMILBitmapEffectFactory extends IUnknown{
     }
 
     /**
-     * Creates a recognizer context.
-     * @returns {IMILBitmapEffectRenderContext} 
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
+     * Creates an IMILBitmapEffectRenderContext object.
+     * @returns {IMILBitmapEffectRenderContext} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a>**</b>
+     * 
+     * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectfactory-createcontext
      */
     CreateContext() {
         result := ComCall(4, this, "ptr*", &ppContext := 0, "HRESULT")
@@ -54,9 +60,11 @@ class IMILBitmapEffectFactory extends IUnknown{
     }
 
     /**
+     * Creates an outer IMILBitmapEffect object.
+     * @returns {IMILBitmapEffect} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>**</b>
      * 
-     * @returns {IMILBitmapEffect} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectfactory-createeffectouter
+     * A pointer that receives a pointer to the new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectfactory-createeffectouter
      */
     CreateEffectOuter() {
         result := ComCall(5, this, "ptr*", &ppEffect := 0, "HRESULT")

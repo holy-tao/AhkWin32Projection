@@ -32,13 +32,13 @@ class ITfInsertAtSelection extends IUnknown{
     static VTableNames => ["InsertTextAtSelection", "InsertEmbeddedAtSelection"]
 
     /**
-     * 
-     * @param {Integer} ec 
+     * ITfInsertAtSelection::InsertTextAtSelection method
+     * @param {Integer} ec Identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {Integer} dwFlags 
-     * @param {PWSTR} pchText 
-     * @param {Integer} cch 
-     * @returns {ITfRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinsertatselection-inserttextatselection
+     * @param {PWSTR} pchText Specifies the text to insert.
+     * @param {Integer} cch Specifies the character count of the text in <i>pchText</i>.
+     * @returns {ITfRange} Receives the position of the inserted object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinsertatselection-inserttextatselection
      */
     InsertTextAtSelection(ec, dwFlags, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -48,12 +48,12 @@ class ITfInsertAtSelection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ec 
+     * The ITfInsertAtSelection::InsertEmbeddedAtSelection method inserts an IDataObject object at the selection or insertion point.
+     * @param {Integer} ec Identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {Integer} dwFlags 
-     * @param {IDataObject} pDataObject 
-     * @returns {ITfRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinsertatselection-insertembeddedatselection
+     * @param {IDataObject} pDataObject Pointer to object to insert.
+     * @returns {ITfRange} Position of the inserted object. Optional.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinsertatselection-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(ec, dwFlags, pDataObject) {
         result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "ptr*", &ppRange := 0, "HRESULT")

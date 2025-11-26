@@ -31,10 +31,39 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
     static VTableNames => ["OnNetworkAdd", "OnNetworkRemove", "OnInterfaceAdd", "OnInterfaceRemove"]
 
     /**
+     * Notifies the client that a new wireless ad hoc network destination is in range and available for connection.
+     * @param {IDot11AdHocNetwork} pIAdHocNetwork A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetwork">IDot11AdHocNetwork</a> interface that represents the new network.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {IDot11AdHocNetwork} pIAdHocNetwork 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkadd
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkadd
      */
     OnNetworkAdd(pIAdHocNetwork) {
         result := ComCall(3, this, "ptr", pIAdHocNetwork, "HRESULT")
@@ -42,10 +71,39 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
     }
 
     /**
+     * Notifies the client that a wireless ad hoc network destination is no longer available for connection.
+     * @param {Pointer<Guid>} Signature A pointer to a signature that uniquely identifies the newly unavailable network. For more information about signatures, see <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nf-adhoc-idot11adhocnetwork-getsignature">IDot11AdHocNetwork::GetSignature</a>.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Pointer<Guid>} Signature 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkremove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkremove
      */
     OnNetworkRemove(Signature) {
         result := ComCall(4, this, "ptr", Signature, "HRESULT")
@@ -53,10 +111,39 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
     }
 
     /**
+     * Notifies the client that a new network interface card (NIC) is active.
+     * @param {IDot11AdHocInterface} pIAdHocInterface A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocinterface">IDot11AdHocInterface</a> interface that represents the activated NIC.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {IDot11AdHocInterface} pIAdHocInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceadd
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceadd
      */
     OnInterfaceAdd(pIAdHocInterface) {
         result := ComCall(5, this, "ptr", pIAdHocInterface, "HRESULT")
@@ -64,10 +151,39 @@ class IDot11AdHocManagerNotificationSink extends IUnknown{
     }
 
     /**
+     * Notifies the client that a network interface card (NIC) has become inactive.
+     * @param {Pointer<Guid>} Signature A pointer to a signature that uniquely identifies the inactive NIC. For more information about signatures, see <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nf-adhoc-idot11adhocinterface-getdevicesignature">IDot11AdHocInterface::GetDeviceSignature</a>.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Pointer<Guid>} Signature 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceremove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceremove
      */
     OnInterfaceRemove(Signature) {
         result := ComCall(6, this, "ptr", Signature, "HRESULT")

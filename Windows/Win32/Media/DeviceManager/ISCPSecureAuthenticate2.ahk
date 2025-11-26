@@ -32,9 +32,9 @@ class ISCPSecureAuthenticate2 extends ISCPSecureAuthenticate{
     static VTableNames => ["GetSCPSession"]
 
     /**
-     * 
-     * @returns {ISCPSession} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureauthenticate2-getscpsession
+     * The GetSCPSession method is used to obtain a pointer to the ISCPSecureQuery interface that represents a session object.
+     * @returns {ISCPSession} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iscpsession">ISCPSession</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecureauthenticate2-getscpsession
      */
     GetSCPSession() {
         result := ComCall(4, this, "ptr*", &ppSCPSession := 0, "HRESULT")

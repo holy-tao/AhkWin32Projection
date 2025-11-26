@@ -50,9 +50,11 @@ class ID3D11ShaderReflection extends IUnknown{
     static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetInputParameterDesc", "GetOutputParameterDesc", "GetPatchConstantParameterDesc", "GetVariableByName", "GetResourceBindingDescByName", "GetMovInstructionCount", "GetMovcInstructionCount", "GetConversionInstructionCount", "GetBitwiseInstructionCount", "GetGSInputPrimitive", "IsSampleFrequencyShader", "GetNumInterfaceSlots", "GetMinFeatureLevel", "GetThreadGroupSize", "GetRequiresFlags"]
 
     /**
+     * Get a shader description.
+     * @returns {D3D11_SHADER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_desc">D3D11_SHADER_DESC</a>*</b>
      * 
-     * @returns {D3D11_SHADER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getdesc
+     * A pointer to a shader description. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_desc">D3D11_SHADER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D11_SHADER_DESC()
@@ -61,10 +63,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a constant buffer by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D11ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyindex
+     * Zero-based index.
+     * @returns {ID3D11ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a>*</b>
+     * 
+     * A pointer to a constant buffer (see <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
         result := ComCall(4, this, "uint", Index, "ptr")
@@ -72,10 +78,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a constant buffer by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D11ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyname
+     * The constant-buffer name.
+     * @returns {ID3D11ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a>*</b>
+     * 
+     * A pointer to a constant buffer (see <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -85,10 +95,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a description of how a resource is bound to a shader.
+     * @param {Integer} ResourceIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ResourceIndex 
-     * @returns {D3D11_SHADER_INPUT_BIND_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdesc
+     * A zero-based resource index.
+     * @returns {D3D11_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a>*</b>
+     * 
+     * A pointer to an input-binding description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdesc
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
@@ -97,10 +111,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get an input-parameter description for a shader.
+     * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ParameterIndex 
-     * @returns {D3D11_SIGNATURE_PARAMETER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getinputparameterdesc
+     * A zero-based parameter index.
+     * @returns {D3D11_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>*</b>
+     * 
+     * A pointer to a shader-input-signature description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getinputparameterdesc
      */
     GetInputParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
@@ -109,10 +127,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get an output-parameter description for a shader.
+     * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ParameterIndex 
-     * @returns {D3D11_SIGNATURE_PARAMETER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getoutputparameterdesc
+     * A zero-based parameter index.
+     * @returns {D3D11_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>*</b>
+     * 
+     * A pointer to a shader-output-parameter description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getoutputparameterdesc
      */
     GetOutputParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
@@ -121,10 +143,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a patch-constant parameter description for a shader.
+     * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ParameterIndex 
-     * @returns {D3D11_SIGNATURE_PARAMETER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getpatchconstantparameterdesc
+     * A zero-based parameter index.
+     * @returns {D3D11_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>*</b>
+     * 
+     * A pointer to a shader-input-signature description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getpatchconstantparameterdesc
      */
     GetPatchConstantParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
@@ -133,10 +159,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets a variable by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D11ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getvariablebyname
+     * A pointer to a string containing the variable name.
+     * @returns {ID3D11ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable</a>*</b>
+     * 
+     * Returns a <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable Interface</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -146,10 +176,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Get a description of how a resource is bound to a shader.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {D3D11_SHADER_INPUT_BIND_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdescbyname
+     * The constant-buffer name of the resource.
+     * @returns {D3D11_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a>*</b>
+     * 
+     * A pointer to an input-binding description. See <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdescbyname
      */
     GetResourceBindingDescByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -160,9 +194,11 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets the number of Mov instructions.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getmovinstructioncount
+     * Returns the number of Mov instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getmovinstructioncount
      */
     GetMovInstructionCount() {
         result := ComCall(12, this, "uint")
@@ -170,9 +206,11 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets the number of Movc instructions.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getmovcinstructioncount
+     * Returns the number of Movc instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getmovcinstructioncount
      */
     GetMovcInstructionCount() {
         result := ComCall(13, this, "uint")
@@ -180,9 +218,11 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets the number of conversion instructions.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconversioninstructioncount
+     * Returns the number of conversion instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconversioninstructioncount
      */
     GetConversionInstructionCount() {
         result := ComCall(14, this, "uint")
@@ -190,9 +230,11 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets the number of bitwise instructions.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getbitwiseinstructioncount
+     * The number of bitwise instructions.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getbitwiseinstructioncount
      */
     GetBitwiseInstructionCount() {
         result := ComCall(15, this, "uint")
@@ -200,9 +242,14 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets the geometry-shader input-primitive description.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive">D3D_PRIMITIVE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getgsinputprimitive
+     * The input-primitive description.  See
+     *             <a href="/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology">D3D_PRIMITIVE_TOPOLOGY</a>,
+     *             <a href="/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a>, or
+     *             <a href="/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getgsinputprimitive
      */
     GetGSInputPrimitive() {
         result := ComCall(16, this, "int")
@@ -210,9 +257,11 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Indicates whether a shader is a sample frequency shader.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-issamplefrequencyshader
+     * Returns true if the shader is a sample frequency shader; otherwise returns false.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-issamplefrequencyshader
      */
     IsSampleFrequencyShader() {
         result := ComCall(17, this, "int")
@@ -220,9 +269,11 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets the number of interface slots in a shader.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getnuminterfaceslots
+     * The number of interface slots in the shader.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getnuminterfaceslots
      */
     GetNumInterfaceSlots() {
         result := ComCall(18, this, "uint")
@@ -230,9 +281,9 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the minimum feature level.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getminfeaturelevel
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getminfeaturelevel
      */
     GetMinFeatureLevel() {
         result := ComCall(19, this, "int*", &pLevel := 0, "HRESULT")
@@ -240,12 +291,23 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Retrieves the sizes, in units of threads, of the X, Y, and Z dimensions of the shader's thread-group grid.
+     * @param {Pointer<Integer>} pSizeX Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @param {Pointer<Integer>} pSizeX 
-     * @param {Pointer<Integer>} pSizeY 
-     * @param {Pointer<Integer>} pSizeZ 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getthreadgroupsize
+     * A pointer to the size, in threads, of the x-dimension of the thread-group grid. The maximum size is 1024.
+     * @param {Pointer<Integer>} pSizeY Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * 
+     * A pointer to the size, in threads, of the y-dimension of the thread-group grid. The maximum size is 1024.
+     * @param {Pointer<Integer>} pSizeZ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * 
+     * A pointer to the size, in threads, of the z-dimension of the thread-group grid. The maximum size is 64.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Returns the total size, in threads, of the thread-group grid by calculating the product of the size of each dimension.
+     * 
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>*pSizeX * *pSizeY * *pSizeZ;</code></pre>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getthreadgroupsize
      */
     GetThreadGroupSize(pSizeX, pSizeY, pSizeZ) {
         pSizeXMarshal := pSizeX is VarRef ? "uint*" : "ptr"
@@ -257,9 +319,54 @@ class ID3D11ShaderReflection extends IUnknown{
     }
 
     /**
+     * Gets a group of flags that indicates the requirements of a shader.
+     * @returns {Integer} Type: <b>UINT64</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getrequiresflags
+     * A value that contains a combination of one or more shader requirements flags; each flag specifies a requirement of the shader. A default value of 0 means there are no requirements. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Shader requirement flag</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_DOUBLES</b></td>
+     * <td>Shader requires that the graphics driver and hardware support double data type. For more info, see <a href="/windows/desktop/api/d3d11/ns-d3d11-d3d11_feature_data_doubles">D3D11_FEATURE_DATA_DOUBLES</a>.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_EARLY_DEPTH_STENCIL</b></td>
+     * <td>Shader requires an early depth stencil.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_UAVS_AT_EVERY_STAGE</b></td>
+     * <td>Shader requires unordered access views (UAVs) at every pipeline stage.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_64_UAVS</b></td>
+     * <td>Shader requires 64 UAVs.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_MINIMUM_PRECISION</b></td>
+     * <td>Shader requires the graphics driver and hardware to support minimum precision. For more info, see <a href="/windows/desktop/direct3dhlsl/using-hlsl-minimum-precision">Using HLSL minimum precision</a>.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_11_1_DOUBLE_EXTENSIONS</b></td>
+     * <td>Shader requires that the graphics driver and hardware support extended doubles instructions. For more info, see the <b>ExtendedDoublesShaderInstructions</b> member of <a href="/windows/desktop/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options">D3D11_FEATURE_DATA_D3D11_OPTIONS</a>.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_11_1_SHADER_EXTENSIONS</b></td>
+     * <td>Shader requires that the graphics driver and hardware support the <a href="/windows/desktop/direct3dhlsl/dx-graphics-hlsl-msad4">msad4</a> intrinsic function in shaders. For more info, see the <b>SAD4ShaderInstructions</b> member of <a href="/windows/desktop/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options">D3D11_FEATURE_DATA_D3D11_OPTIONS</a>.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_LEVEL_9_COMPARISON_FILTERING</b></td>
+     * <td>Shader requires that the graphics driver and hardware support Direct3D 9 shadow support. For more info, see <a href="/windows/desktop/api/d3d11/ns-d3d11-d3d11_feature_data_d3d9_shadow_support">D3D11_FEATURE_DATA_D3D9_SHADOW_SUPPORT</a>.</td>
+     * </tr>
+     * <tr>
+     * <td><b>D3D_SHADER_REQUIRES_TILED_RESOURCES</b></td>
+     * <td>Shader requires that the graphics driver and hardware support tiled resources. For more info, see <a href="/windows/desktop/api/d3d11_2/nf-d3d11_2-id3d11device2-getresourcetiling">GetResourceTiling</a>. </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11shaderreflection-getrequiresflags
      */
     GetRequiresFlags() {
         result := ComCall(21, this, "uint")

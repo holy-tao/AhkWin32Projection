@@ -93,9 +93,9 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets a Boolean value that indicates whether future calls to the BeginSearch and Search methods result in an automatic upgrade to Windows Update Agent (WUA).
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_canautomaticallyupgradeservice
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-get_canautomaticallyupgradeservice
      */
     get_CanAutomaticallyUpgradeService() {
         result := ComCall(7, this, "short*", &retval := 0, "HRESULT")
@@ -103,10 +103,10 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets a Boolean value that indicates whether future calls to the BeginSearch and Search methods result in an automatic upgrade to Windows Update Agent (WUA).
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_canautomaticallyupgradeservice
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-put_canautomaticallyupgradeservice
      */
     put_CanAutomaticallyUpgradeService(value) {
         result := ComCall(8, this, "short", value, "HRESULT")
@@ -114,9 +114,14 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Identifies the current client application.
+     * @remarks
+     * 
+     * Returns the Unknown value if the client application has not set the property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_clientapplicationid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-get_clientapplicationid
      */
     get_ClientApplicationID() {
         retval := BSTR()
@@ -125,10 +130,15 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Identifies the current client application.
+     * @remarks
+     * 
+     * Returns the Unknown value if the client application has not set the property.
+     * 
      * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_clientapplicationid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-put_clientapplicationid
      */
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -138,9 +148,9 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets a Boolean value that indicates whether the search results include updates that are superseded by other updates in the search results.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_includepotentiallysupersededupdates
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-get_includepotentiallysupersededupdates
      */
     get_IncludePotentiallySupersededUpdates() {
         result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
@@ -148,10 +158,10 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets a Boolean value that indicates whether the search results include updates that are superseded by other updates in the search results.
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_includepotentiallysupersededupdates
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-put_includepotentiallysupersededupdates
      */
     put_IncludePotentiallySupersededUpdates(value) {
         result := ComCall(12, this, "short", value, "HRESULT")
@@ -159,9 +169,14 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Gets and sets a ServerSelection value that indicates the server to search for updates.
+     * @remarks
+     * 
+     *  The site that is not a Windows Update site that is specified by the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid">ServiceID</a> property is searched only if the value of the <b>ServerSelection</b> property is  ssOthers.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-get_serverselection
      */
     get_ServerSelection() {
         result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
@@ -169,10 +184,15 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Gets and sets a ServerSelection value that indicates the server to search for updates.
+     * @remarks
+     * 
+     *  The site that is not a Windows Update site that is specified by the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid">ServiceID</a> property is searched only if the value of the <b>ServerSelection</b> property is  ssOthers.
+     * 
      * 
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_serverselection
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-put_serverselection
      */
     put_ServerSelection(value) {
         result := ComCall(14, this, "int", value, "HRESULT")
@@ -180,12 +200,14 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Begins execution of an asynchronous search for updates. The search uses the search options that are currently configured.
+     * @param {BSTR} criteria A string that specifies the search criteria.
+     * @param {IUnknown} onCompleted An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchcompletedcallback">ISearchCompletedCallback</a> interface that is called when an asynchronous search operation is complete.
+     * @param {VARIANT} state The caller-specific  state that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-isearchjob-get_asyncstate">AsyncState</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchjob">ISearchJob</a> interface.
+     * @returns {ISearchJob} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchjob">ISearchJob</a> interface that represents the current operation that might be pending. 
      * 
-     * @param {BSTR} criteria 
-     * @param {IUnknown} onCompleted 
-     * @param {VARIANT} state 
-     * @returns {ISearchJob} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-beginsearch
+     * The caller passes the returned value to the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-endsearch">EndSearch</a> method to complete a search operation.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-beginsearch
      */
     BeginSearch(criteria, onCompleted, state) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
@@ -195,10 +217,15 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Completes an asynchronous search for updates.
+     * @param {ISearchJob} searchJob The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchjob">ISearchJob</a> interface that the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-beginsearch">BeginSearch</a> method returns.
+     * @returns {ISearchResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchresult">ISearchResult</a> interface that contains the following:
      * 
-     * @param {ISearchJob} searchJob 
-     * @returns {ISearchResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-endsearch
+     * <ul>
+     * <li>The result of an operation</li>
+     * <li>A collection of updates that match the search criteria</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-endsearch
      */
     EndSearch(searchJob) {
         result := ComCall(16, this, "ptr", searchJob, "ptr*", &retval := 0, "HRESULT")
@@ -206,10 +233,10 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} unescaped 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-escapestring
+     * Converts a string into a string that can be used as a literal value in a search criteria string.
+     * @param {BSTR} unescaped A string to be escaped.
+     * @returns {BSTR} The resulting escaped string.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-escapestring
      */
     EscapeString(unescaped) {
         unescaped := unescaped is String ? BSTR.Alloc(unescaped).Value : unescaped
@@ -220,11 +247,11 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} startIndex 
-     * @param {Integer} count 
-     * @returns {IUpdateHistoryEntryCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-queryhistory
+     * Synchronously queries the computer for the history of the update events.
+     * @param {Integer} startIndex The index of the first event to retrieve.
+     * @param {Integer} count The number of events to retrieve.
+     * @returns {IUpdateHistoryEntryCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatehistoryentrycollection">IUpdateHistoryEntryCollection</a> interface that contains matching event records on the computer in descending chronological order.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-queryhistory
      */
     QueryHistory(startIndex, count) {
         result := ComCall(18, this, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
@@ -232,10 +259,15 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Performs a synchronous search for updates. The search uses the search options that are currently configured.
+     * @param {BSTR} criteria A string that specifies the search criteria.
+     * @returns {ISearchResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchresult">ISearchResult</a> interface that contains the following:
      * 
-     * @param {BSTR} criteria 
-     * @returns {ISearchResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-search
+     * <ul>
+     * <li>The result of an operation</li>
+     * <li>A collection of updates that match the search criteria</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-search
      */
     Search(criteria) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
@@ -245,9 +277,9 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets a Boolean value that indicates whether the UpdateSearcher goes online to search for updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_online
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-get_online
      */
     get_Online() {
         result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
@@ -255,10 +287,10 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets a Boolean value that indicates whether the UpdateSearcher goes online to search for updates.
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_online
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-put_online
      */
     put_Online(value) {
         result := ComCall(21, this, "short", value, "HRESULT")
@@ -266,9 +298,9 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-gettotalhistorycount
+     * Returns the number of update events on the computer.
+     * @returns {Integer} The number of update events on the computer.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-gettotalhistorycount
      */
     GetTotalHistoryCount() {
         result := ComCall(22, this, "int*", &retval := 0, "HRESULT")
@@ -276,9 +308,14 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Gets and sets a site to search when the site to search is not a Windows Update site.
+     * @remarks
+     * 
+     * The site that is not a Windows Update site that is specified by the value of the <b>ServiceID</b> property is searched only if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property is  ssOthers.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-get_serviceid
      */
     get_ServiceID() {
         retval := BSTR()
@@ -287,10 +324,15 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
+     * Gets and sets a site to search when the site to search is not a Windows Update site.
+     * @remarks
+     * 
+     * The site that is not a Windows Update site that is specified by the value of the <b>ServiceID</b> property is searched only if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property is  ssOthers.
+     * 
      * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_serviceid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher-put_serviceid
      */
     put_ServiceID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value

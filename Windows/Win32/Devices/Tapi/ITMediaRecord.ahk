@@ -40,10 +40,10 @@ class ITMediaRecord extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrFileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediarecord-put_filename
+     * The put_FileName method sets the name of the file to record.
+     * @param {BSTR} bstrFileName The <b>BSTR</b> representation of the file name.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediarecord-put_filename
      */
     put_FileName(bstrFileName) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
@@ -53,9 +53,10 @@ class ITMediaRecord extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediarecord-get_filename
+     * The get_FileName method retrieves the name of the file that was used for recording by this terminal.
+     * @returns {BSTR} The <b>BSTR</b> representation of the file name. The <b>BSTR</b> is allocated using 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediarecord-get_filename
      */
     get_FileName() {
         pbstrFileName := BSTR()

@@ -31,10 +31,14 @@ class IWebWizardExtension extends IWizardExtension{
     static VTableNames => ["SetInitialURL", "SetErrorURL"]
 
     /**
+     * Sets the URL of the initial server-provided HTML page in a hosted wizard.
+     * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwebwizardextension-setinitialurl
+     * The URL of the initial server-provided HTML page.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwebwizardextension-setinitialurl
      */
     SetInitialURL(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
@@ -44,10 +48,14 @@ class IWebWizardExtension extends IWizardExtension{
     }
 
     /**
+     * Specifies the URL of a page that displays when a user experiences an error while navigating through the wizard extension pages.
+     * @param {PWSTR} pszErrorURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszErrorURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwebwizardextension-seterrorurl
+     * The URL of the page to display.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwebwizardextension-seterrorurl
      */
     SetErrorURL(pszErrorURL) {
         pszErrorURL := pszErrorURL is String ? StrPtr(pszErrorURL) : pszErrorURL

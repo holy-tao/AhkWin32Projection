@@ -46,9 +46,10 @@ class ITQueueEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_queue
+     * The get_Queue method gets a pointer to the queue on which the event occurred.
+     * @returns {ITQueue} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3cc/nn-tapi3cc-itqueue">ITQueue</a> interface on which event occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itqueueevent-get_queue
      */
     get_Queue() {
         result := ComCall(7, this, "ptr*", &ppQueue := 0, "HRESULT")
@@ -56,9 +57,10 @@ class ITQueueEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_event
+     * The get_Event method gets the descriptor of the event that occurred.
+     * @returns {Integer} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-acdqueue_event">ACDQUEUE_EVENT</a> descriptor of event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itqueueevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

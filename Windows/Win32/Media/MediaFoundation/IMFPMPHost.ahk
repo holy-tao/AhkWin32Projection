@@ -40,9 +40,9 @@ class IMFPMPHost extends IUnknown{
     static VTableNames => ["LockProcess", "UnlockProcess", "CreateObjectByCLSID"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphost-lockprocess
+     * Blocks the protected media path (PMP) process from ending.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphost-lockprocess
      */
     LockProcess() {
         result := ComCall(3, this, "HRESULT")
@@ -50,9 +50,9 @@ class IMFPMPHost extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphost-unlockprocess
+     * Decrements the lock count on the protected media path (PMP) process. Call this method once for each call to IMFPMPHost::LockProcess.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphost-unlockprocess
      */
     UnlockProcess() {
         result := ComCall(4, this, "HRESULT")
@@ -60,12 +60,12 @@ class IMFPMPHost extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {IStream} pStream 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
+     * Creates an object in the protect media path (PMP) process, from a CLSID.
+     * @param {Pointer<Guid>} clsid The CLSID of the object to create.
+     * @param {IStream} pStream A pointer to the <b>IStream</b> interface. This parameter can be <b>NULL</b>. If this parameter is not <b>NULL</b>, the PMP host queries the created object for the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststream">IPersistStream</a> interface and calls <b>IPersistStream::Load</b>, passing in the <i>pStream</i> pointer.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface to retrieve.
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
      */
     CreateObjectByCLSID(clsid, pStream, riid) {
         result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

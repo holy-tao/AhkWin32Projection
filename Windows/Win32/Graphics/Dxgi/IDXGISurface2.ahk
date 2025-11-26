@@ -42,12 +42,17 @@ class IDXGISurface2 extends IDXGISurface1{
     static VTableNames => ["GetResource"]
 
     /**
+     * Gets the parent resource and subresource index that support a subresource surface.
+     * @param {Pointer<Guid>} riid The globally unique identifier (GUID)  of the requested interface type.
+     * @param {Pointer<Pointer<Void>>} ppParentResource A pointer to a buffer that receives a pointer to the parent resource object for the subresource surface.
+     * @param {Pointer<Integer>} pSubresourceIndex A pointer to a variable that receives the index of the subresource surface.
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns one of the following values:
      * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppParentResource 
-     * @param {Pointer<Integer>} pSubresourceIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgisurface2-getresource
+     * <ul>
+     * <li>E_NOINTERFACE if the object does not implement the GUID that the <i>riid</i> parameter specifies.</li>
+     * <li>Possibly other error codes that are described in the <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a> topic.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgisurface2-getresource
      */
     GetResource(riid, ppParentResource, pSubresourceIndex) {
         ppParentResourceMarshal := ppParentResource is VarRef ? "ptr*" : "ptr"

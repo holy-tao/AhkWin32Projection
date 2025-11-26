@@ -32,11 +32,18 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
     static VTableNames => ["GetFilePathLengthFromKey", "GetFilePathFromKey", "GetLastWriteTimeFromKey"]
 
     /**
+     * Obtains the length of the absolute file path from the font file reference key.
+     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
      * 
-     * @param {Pointer} fontFileReferenceKey 
-     * @param {Integer} fontFileReferenceKeySize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey
+     * Font file reference key that uniquely identifies the local font file
+     *     within the scope of the font loader being used.
+     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * 
+     * Size of font file reference key in bytes.
+     * @returns {Integer} Type: <b>UINT32*</b>
+     * 
+     * Length of the file path string, not including the terminated <b>NULL</b> character.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathlengthfromkey
      */
     GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", &filePathLength := 0, "HRESULT")
@@ -44,13 +51,24 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
     }
 
     /**
+     * Obtains the absolute font file path from the font file reference key.
+     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
      * 
-     * @param {Pointer} fontFileReferenceKey 
-     * @param {Integer} fontFileReferenceKeySize 
-     * @param {PWSTR} filePath 
-     * @param {Integer} filePathSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey
+     * The font file reference key that uniquely identifies the local font file
+     *     within the scope of the font loader being used.
+     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * 
+     * The size of font file reference key in bytes.
+     * @param {PWSTR} filePath Type: <b>WCHAR*</b>
+     * 
+     * The character array that receives the local file path.
+     * @param {Integer} filePathSize Type: <b>UINT32</b>
+     * 
+     * The length of the file path character array.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathfromkey
      */
     GetFilePathFromKey(fontFileReferenceKey, fontFileReferenceKeySize, filePath, filePathSize) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
@@ -60,11 +78,18 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
     }
 
     /**
+     * Obtains the last write time of the file from the font file reference key.
+     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
      * 
-     * @param {Pointer} fontFileReferenceKey 
-     * @param {Integer} fontFileReferenceKeySize 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey
+     * The font file reference key that uniquely identifies the local font file
+     *     within the scope of the font loader being used.
+     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * 
+     * The size of font file reference key in bytes.
+     * @returns {FILETIME} Type: <b>FILETIME*</b>
+     * 
+     * The time of the last font file modification.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getlastwritetimefromkey
      */
     GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         lastWriteTime := FILETIME()

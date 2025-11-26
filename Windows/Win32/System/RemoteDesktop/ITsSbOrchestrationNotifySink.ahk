@@ -36,10 +36,10 @@ class ITsSbOrchestrationNotifySink extends ITsSbBaseNotifySink{
     static VTableNames => ["OnReadyToConnect"]
 
     /**
-     * 
-     * @param {ITsSbTarget} pTarget 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssborchestrationnotifysink-onreadytoconnect
+     * Returns an ITsSbTarget object to Remote Desktop Connection Broker (RD Connection Broker) after the target is successfully prepared for a connection.
+     * @param {ITsSbTarget} pTarget A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> target object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssborchestrationnotifysink-onreadytoconnect
      */
     OnReadyToConnect(pTarget) {
         result := ComCall(5, this, "ptr", pTarget, "HRESULT")

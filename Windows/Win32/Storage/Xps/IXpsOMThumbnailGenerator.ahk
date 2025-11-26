@@ -76,13 +76,13 @@ class IXpsOMThumbnailGenerator extends IUnknown{
     static VTableNames => ["GenerateThumbnail"]
 
     /**
-     * 
-     * @param {IXpsOMPage} page 
-     * @param {Integer} thumbnailType 
-     * @param {Integer} thumbnailSize 
-     * @param {IOpcPartUri} imageResourcePartName 
-     * @returns {IXpsOMImageResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomthumbnailgenerator-generatethumbnail
+     * Generates a thumbnail image of a page.
+     * @param {IXpsOMPage} page A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompage">IXpsOMPage</a> interface that contains the page for which the thumbnail image will be created.
+     * @param {Integer} thumbnailType The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that specifies the type of thumbnail image to create.
+     * @param {Integer} thumbnailSize The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_thumbnail_size">XPS_THUMBNAIL_SIZE</a> value that specifies the image size of the thumbnail to create.
+     * @param {IOpcPartUri} imageResourcePartName A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the new thumbnail image part.
+     * @returns {IXpsOMImageResource} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image created by this method.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomthumbnailgenerator-generatethumbnail
      */
     GenerateThumbnail(page, thumbnailType, thumbnailSize, imageResourcePartName) {
         result := ComCall(3, this, "ptr", page, "int", thumbnailType, "int", thumbnailSize, "ptr", imageResourcePartName, "ptr*", &imageResource := 0, "HRESULT")

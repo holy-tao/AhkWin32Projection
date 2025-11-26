@@ -31,9 +31,9 @@ class IEnhancedStorageACT2 extends IEnhancedStorageACT{
     static VTableNames => ["GetDeviceName", "IsDeviceRemovable"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact2-getdevicename
+     * IEnhancedStorageACT2::GetDeviceName method returns the device name associated with the Addressable Command Target (ACT).
+     * @returns {PWSTR} Pointer to a string that represents the device name associated with the ACT.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact2-getdevicename
      */
     GetDeviceName() {
         result := ComCall(9, this, "ptr*", &ppwszDeviceName := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IEnhancedStorageACT2 extends IEnhancedStorageACT{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact2-isdeviceremovable
+     * IEnhancedStorageACT2::IsDeviceRemovable method returns information that indicates if the device associated with the ACT is removable.
+     * @returns {BOOL} Pointer to a boolean value that indicates if the device associated with the ACT is removable.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact2-isdeviceremovable
      */
     IsDeviceRemovable() {
         result := ComCall(10, this, "int*", &pIsDeviceRemovable := 0, "HRESULT")

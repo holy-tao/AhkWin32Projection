@@ -36,10 +36,39 @@ class ITfSystemDeviceTypeLangBarItem extends IUnknown{
     static VTableNames => ["SetIconMode", "GetIconMode"]
 
     /**
-     * 
+     * ITfSystemDeviceTypeLangBarItem::SetIconMode method
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-seticonmode
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system language bar item does not support this method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-seticonmode
      */
     SetIconMode(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
@@ -47,9 +76,9 @@ class ITfSystemDeviceTypeLangBarItem extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-geticonmode
+     * ITfSystemDeviceTypeLangBarItem::GetIconMode method
+     * @returns {Integer} Pointer to a <b>DWORD</b> that receives the current icon display mode for a system language bar item. For more information about possible values, see the dwFlags parameter in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-seticonmode">ITfSystemDeviceTypeLangBarItem::SetIconMode</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-geticonmode
      */
     GetIconMode() {
         result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")

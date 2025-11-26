@@ -32,13 +32,27 @@ class IEnumObjects extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Gets the next specified number and type of objects.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumobjects-next
+     * The number of objects to retrieve.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * Reference to the desired interface ID.
+     * @param {Pointer<Pointer<Void>>} rgelt Type: <b>void**</b>
+     * 
+     * When this method returns, contains the interface pointer requested in <i>riid</i>.
+     * @param {Pointer<Integer>} pceltFetched Type: <b>ULONG*</b>
+     * 
+     * Pointer to a <b>ULONG</b> value that, when this method returns, states the actual number of objects retrieved. This value can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if the method successfully retrieved the requested objects. This method only returns S_OK if the full count of requested items are successfully retrieved.
+     *                     
+     *                     
+     * 
+     * S_FALSE indicates that more items were requested than remained in the enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumobjects-next
      */
     Next(celt, riid, rgelt, pceltFetched) {
         rgeltMarshal := rgelt is VarRef ? "ptr*" : "ptr"
@@ -49,10 +63,14 @@ class IEnumObjects extends IUnknown{
     }
 
     /**
+     * Skips a specified number of objects.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumobjects-skip
+     * The number of objects to skip.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumobjects-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -60,9 +78,11 @@ class IEnumObjects extends IUnknown{
     }
 
     /**
+     * Resets the enumeration index to 0.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumobjects-reset
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumobjects-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -70,9 +90,11 @@ class IEnumObjects extends IUnknown{
     }
 
     /**
+     * Not implemented.Not implemented.
+     * @returns {IEnumObjects} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumobjects">IEnumObjects</a>**</b>
      * 
-     * @returns {IEnumObjects} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumobjects-clone
+     * Not used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumobjects-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

@@ -44,10 +44,12 @@ class IPortableDeviceWebControl extends IDispatch{
     static VTableNames => ["GetDeviceFromId", "GetDeviceFromIdAsync"]
 
     /**
+     * Instantiates a WPD Automation Device object for a given WPD device identifier.
+     * @param {BSTR} deviceId A <b>BSTR</b> that is used by Plug-and-play to identify a currently connected WPD device. The Plug and Play (PnP) identifier for a particular device can be obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">IPortableDeviceManager::GetDevices</a> method in the WPD C++/COM API.
      * 
-     * @param {BSTR} deviceId 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicewebcontrol-getdevicefromid
+     * A Windows Store app can obtain the PnP identifier of a WPD device by using <a href="https://docs.microsoft.com/uwp/api/windows.devices.portable.servicedevice.getdeviceselector">Windows.Devices.Portable.ServiceDevice.GetDeviceSelector</a> or <a href="https://docs.microsoft.com/uwp/api/windows.devices.portable.servicedevice.getdeviceselectorfromserviceid">Windows.Devices.Portable.ServiceDevice.GetDeviceSelectorFromServiceId</a> to get a selector string to pass to <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation.findallasync">Windows.Devices.Enumeration.DeviceInformation.FindAllAsync</a>. <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation.findallasync">FindAllAsync</a> returns a collection of <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation">DeviceInformation</a> objects that represent the currently connected  WPD devices. A <b>DeviceInformation</b> object's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-id-vb">Id</a> property is the device's PnP identifier.
+     * @returns {IDispatch} Contains a pointer to the <b>IDispatch</b> implementation for the WPD Automation <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wiaaut/-wiaaut-device">Device</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicewebcontrol-getdevicefromid
      */
     GetDeviceFromId(deviceId) {
         deviceId := deviceId is String ? BSTR.Alloc(deviceId).Value : deviceId
@@ -57,12 +59,44 @@ class IPortableDeviceWebControl extends IDispatch{
     }
 
     /**
+     * Instantiates a WPD Automation Device object asynchronously for a given WPD device identifier.
+     * @param {BSTR} deviceId A <b>BSTR</b> that is used by Plug-and-play to identify a currently connected WPD device. The Plug and Play (PnP) identifier for a particular device can be obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">IPortableDeviceManager::GetDevices</a> method in the WPD C++/COM API. 
      * 
-     * @param {BSTR} deviceId 
-     * @param {IDispatch} pCompletionHandler 
-     * @param {IDispatch} pErrorHandler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicewebcontrol-getdevicefromidasync
+     * A Windows Store app can obtain the PnP identifier of a WPD device by using <a href="https://docs.microsoft.com/uwp/api/windows.devices.portable.servicedevice.getdeviceselector">Windows.Devices.Portable.ServiceDevice.GetDeviceSelector</a> or <a href="https://docs.microsoft.com/uwp/api/windows.devices.portable.servicedevice.getdeviceselectorfromserviceid">Windows.Devices.Portable.ServiceDevice.GetDeviceSelectorFromServiceId</a> to get a selector string to pass to <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation.findallasync">Windows.Devices.Enumeration.DeviceInformation.FindAllAsync</a>. <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation.findallasync">FindAllAsync</a> returns a collection of <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation">DeviceInformation</a> objects that represent the currently connected  WPD devices. A <b>DeviceInformation</b> object's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-id-vb">Id</a> property is the device's PnP identifier.
+     * @param {IDispatch} pCompletionHandler A completion handler.
+     * @param {IDispatch} pErrorHandler An error handler.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to this method outside of a Windows Store app running on Windows 8 will return this error code.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicewebcontrol-getdevicefromidasync
      */
     GetDeviceFromIdAsync(deviceId, pCompletionHandler, pErrorHandler) {
         deviceId := deviceId is String ? BSTR.Alloc(deviceId).Value : deviceId

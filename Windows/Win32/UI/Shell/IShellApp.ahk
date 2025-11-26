@@ -32,10 +32,14 @@ class IShellApp extends IUnknown{
     static VTableNames => ["GetAppInfo", "GetPossibleActions", "GetSlowAppInfo", "GetCachedSlowAppInfo", "IsInstalled"]
 
     /**
+     * Gets general information about an application.
+     * @param {Pointer<APPINFODATA>} pai Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a>*</b>
      * 
-     * @param {Pointer<APPINFODATA>} pai 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getappinfo
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a> structure that returns the application information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getappinfo
      */
     GetAppInfo(pai) {
         result := ComCall(3, this, "ptr", pai, "HRESULT")
@@ -43,9 +47,11 @@ class IShellApp extends IUnknown{
     }
 
     /**
+     * Gets a bitmask of management actions allowed for an application.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getpossibleactions
+     * A pointer to a variable of type <b>DWORD</b> that returns the bitmask of supported actions. The bit flags are described in <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ne-shappmgr-appactionflags">APPACTIONFLAGS</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getpossibleactions
      */
     GetPossibleActions() {
         result := ComCall(4, this, "uint*", &pdwActions := 0, "HRESULT")
@@ -53,9 +59,11 @@ class IShellApp extends IUnknown{
     }
 
     /**
+     * Returns information to the application that originates from a slow source. This method is not applicable to published applications.
+     * @returns {SLOWAPPINFO} Type: <b>PSLOWAPPINFO</b>
      * 
-     * @returns {SLOWAPPINFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getslowappinfo
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-slowappinfo">SLOWAPPINFO</a> structure in which to return application information.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getslowappinfo
      */
     GetSlowAppInfo() {
         psaid := SLOWAPPINFO()
@@ -64,9 +72,11 @@ class IShellApp extends IUnknown{
     }
 
     /**
+     * Returns information to the application that originates from a slow source. Unlike IShellApp::GetSlowAppInfo, this method can return information that has been cached. This method is not applicable to published applications.
+     * @returns {SLOWAPPINFO} Type: <b>PSLOWAPPINFO</b>
      * 
-     * @returns {SLOWAPPINFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-slowappinfo">SLOWAPPINFO</a> structure in which to return application information.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo
      */
     GetCachedSlowAppInfo() {
         psaid := SLOWAPPINFO()
@@ -75,9 +85,40 @@ class IShellApp extends IUnknown{
     }
 
     /**
+     * Gets a value indicating whether a specified application is currently installed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-isinstalled
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application is installed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application is not installed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-isinstalled
      */
     IsInstalled() {
         result := ComCall(7, this, "HRESULT")

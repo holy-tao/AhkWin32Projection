@@ -33,11 +33,12 @@ class IEnumSubStream extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {ITSubStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumsubstream-next
+     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * @param {Integer} celt Number of elements requested.
+     * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
+     * @returns {ITSubStream} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> pointers returned.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumsubstream-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,9 +48,38 @@ class IEnumSubStream extends IUnknown{
     }
 
     /**
+     * The Reset method resets to the beginning of the enumeration sequence.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumsubstream-reset
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumsubstream-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -57,10 +87,50 @@ class IEnumSubStream extends IUnknown{
     }
 
     /**
+     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * @param {Integer} celt Number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumsubstream-skip
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was not <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumsubstream-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -68,9 +138,10 @@ class IEnumSubStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumSubStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumsubstream-clone
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * @returns {IEnumSubStream} Pointer to new 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumsubstream">IEnumSubStream</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumsubstream-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

@@ -37,11 +37,11 @@ class IMMCVersionInfo extends IUnknown{
     static VTableNames => ["GetMMCVersion"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pVersionMajor 
-     * @param {Pointer<Integer>} pVersionMinor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-immcversioninfo-getmmcversion
+     * The GetMMCVersion method retrieves version information for the MMC application.
+     * @param {Pointer<Integer>} pVersionMajor The version major number. For example, if *<i>pVersionMajor</i> returns 2, then MMC version 2.x is running.
+     * @param {Pointer<Integer>} pVersionMinor The version minor number. For example, if *<i>pVersionMinor</i> returns 0, then MMC version x.0 is running.
+     * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-immcversioninfo-getmmcversion
      */
     GetMMCVersion(pVersionMajor, pVersionMinor) {
         pVersionMajorMarshal := pVersionMajor is VarRef ? "int*" : "ptr"

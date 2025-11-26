@@ -36,12 +36,20 @@ class IWICMetadataWriter extends IWICMetadataReader{
     static VTableNames => ["SetValue", "SetValueByIndex", "RemoveValue", "RemoveValueByIndex"]
 
     /**
+     * Sets the given metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarSchema Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
-     * @param {Pointer<PROPVARIANT>} pvarSchema 
-     * @param {Pointer<PROPVARIANT>} pvarId 
-     * @param {Pointer<PROPVARIANT>} pvarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvalue
+     * Pointer to the schema property of the metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to the id property of the metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarValue Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to the metadata value to set
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvalue
      */
     SetValue(pvarSchema, pvarId, pvarValue) {
         result := ComCall(9, this, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "HRESULT")
@@ -49,13 +57,23 @@ class IWICMetadataWriter extends IWICMetadataReader{
     }
 
     /**
+     * Sets the metadata item to the specified index.
+     * @param {Integer} nIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} nIndex 
-     * @param {Pointer<PROPVARIANT>} pvarSchema 
-     * @param {Pointer<PROPVARIANT>} pvarId 
-     * @param {Pointer<PROPVARIANT>} pvarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvaluebyindex
+     * The index to place the metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarSchema Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to the schema property of the metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to the id property of the metadata item.
+     * @param {Pointer<PROPVARIANT>} pvarValue Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to the metadata value to set at the given index.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvaluebyindex
      */
     SetValueByIndex(nIndex, pvarSchema, pvarId, pvarValue) {
         result := ComCall(10, this, "uint", nIndex, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "HRESULT")
@@ -63,11 +81,17 @@ class IWICMetadataWriter extends IWICMetadataReader{
     }
 
     /**
+     * Removes the metadata item that matches the given parameters.
+     * @param {Pointer<PROPVARIANT>} pvarSchema Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
-     * @param {Pointer<PROPVARIANT>} pvarSchema 
-     * @param {Pointer<PROPVARIANT>} pvarId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevalue
+     * Pointer to the metadata schema property.
+     * @param {Pointer<PROPVARIANT>} pvarId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to the metadata id property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevalue
      */
     RemoveValue(pvarSchema, pvarId) {
         result := ComCall(11, this, "ptr", pvarSchema, "ptr", pvarId, "HRESULT")
@@ -75,10 +99,14 @@ class IWICMetadataWriter extends IWICMetadataReader{
     }
 
     /**
+     * Removes the metadata item at the specified index.
+     * @param {Integer} nIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} nIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevaluebyindex
+     * The index of the metadata item to remove.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevaluebyindex
      */
     RemoveValueByIndex(nIndex) {
         result := ComCall(12, this, "uint", nIndex, "HRESULT")

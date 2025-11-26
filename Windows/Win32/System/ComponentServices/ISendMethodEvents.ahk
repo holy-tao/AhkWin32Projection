@@ -40,12 +40,12 @@ class ISendMethodEvents extends IUnknown{
     static VTableNames => ["SendMethodCall", "SendMethodReturn"]
 
     /**
-     * 
-     * @param {Pointer<Void>} pIdentity 
-     * @param {Pointer<Guid>} riid 
-     * @param {Integer} dwMeth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isendmethodevents-sendmethodcall
+     * Generated when a method is called through a component interface.
+     * @param {Pointer<Void>} pIdentity A pointer to the interface used to call the method.
+     * @param {Pointer<Guid>} riid The ID of the interface used to call the method.
+     * @param {Integer} dwMeth The method called.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isendmethodevents-sendmethodcall
      */
     SendMethodCall(pIdentity, riid, dwMeth) {
         pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
@@ -55,14 +55,14 @@ class ISendMethodEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pIdentity 
-     * @param {Pointer<Guid>} riid 
-     * @param {Integer} dwMeth 
-     * @param {HRESULT} hrCall 
-     * @param {HRESULT} hrServer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isendmethodevents-sendmethodreturn
+     * Generated when a method called through a component interface returns control to the caller.
+     * @param {Pointer<Void>} pIdentity A pointer to the interface used to call the method.
+     * @param {Pointer<Guid>} riid The ID of the interface used to call the method.
+     * @param {Integer} dwMeth The method called.
+     * @param {HRESULT} hrCall The result returned by the method call.
+     * @param {HRESULT} hrServer The result returned by the DCOM call to the server on which the component lives.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isendmethodevents-sendmethodreturn
      */
     SendMethodReturn(pIdentity, riid, dwMeth, hrCall, hrServer) {
         pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"

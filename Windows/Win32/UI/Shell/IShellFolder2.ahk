@@ -45,9 +45,11 @@ class IShellFolder2 extends IShellFolder{
     static VTableNames => ["GetDefaultSearchGUID", "EnumSearches", "GetDefaultColumn", "GetDefaultColumnState", "GetDetailsEx", "GetDetailsOf", "MapColumnToSCID"]
 
     /**
+     * Returns the globally unique identifier (GUID) of the default search object for the folder.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultsearchguid
+     * The GUID of the default search object.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultsearchguid
      */
     GetDefaultSearchGUID() {
         pguid := Guid()
@@ -56,9 +58,11 @@ class IShellFolder2 extends IShellFolder{
     }
 
     /**
+     * Requests a pointer to an interface that allows a client to enumerate the available search objects.
+     * @returns {IEnumExtraSearch} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumextrasearch">IEnumExtraSearch</a>**</b>
      * 
-     * @returns {IEnumExtraSearch} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-enumsearches
+     * The address of a pointer to an enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumextrasearch">IEnumExtraSearch</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-enumsearches
      */
     EnumSearches() {
         result := ComCall(14, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -66,12 +70,20 @@ class IShellFolder2 extends IShellFolder{
     }
 
     /**
+     * Gets the default sorting and display columns.
+     * @param {Integer} dwRes Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwRes 
-     * @param {Pointer<Integer>} pSort 
-     * @param {Pointer<Integer>} pDisplay 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumn
+     * Reserved. Set to zero.
+     * @param {Pointer<Integer>} pSort Type: <b>ULONG*</b>
+     * 
+     * A pointer to a value that receives the index of the default sorted column.
+     * @param {Pointer<Integer>} pDisplay Type: <b>ULONG*</b>
+     * 
+     * A pointer to a value that receives the index of the default display column.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumn
      */
     GetDefaultColumn(dwRes, pSort, pDisplay) {
         pSortMarshal := pSort is VarRef ? "uint*" : "ptr"
@@ -82,10 +94,14 @@ class IShellFolder2 extends IShellFolder{
     }
 
     /**
+     * Gets the default state for a specified column.
+     * @param {Integer} iColumn Type: <b>UINT</b>
      * 
-     * @param {Integer} iColumn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumnstate
+     * An integer that specifies the column number.
+     * @returns {Integer} Type: <b>SHCOLSTATEF*</b>
+     * 
+     * A pointer to a value that contains flags that indicate the default column state. This parameter can include a combination of the following flags.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumnstate
      */
     GetDefaultColumnState(iColumn) {
         result := ComCall(16, this, "uint", iColumn, "int*", &pcsFlags := 0, "HRESULT")
@@ -93,11 +109,17 @@ class IShellFolder2 extends IShellFolder{
     }
 
     /**
+     * Gets detailed information, identified by a property set identifier (FMTID) and a property identifier (PID), on an item in a Shell folder.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<PROPERTYKEY>} pscid 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdetailsex
+     * A PIDL of the item, relative to the parent folder. This method accepts only single-level PIDLs. The structure must contain exactly one <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure followed by a terminating zero. This value cannot be <b>NULL</b>.
+     * @param {Pointer<PROPERTYKEY>} pscid Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> structure that identifies the column.
+     * @returns {VARIANT} Type: <b>VARIANT*</b>
+     * 
+     * A pointer to a <b>VARIANT</b> with the requested information. The value is fully typed. The value returned for properties from the property system must conform to the type specified in that property definition's <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-typeinfo">typeInfo</a> as the <i>legacyType</i> attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-getdetailsex
      */
     GetDetailsEx(pidl, pscid) {
         pv := VARIANT()
@@ -106,11 +128,17 @@ class IShellFolder2 extends IShellFolder{
     }
 
     /**
+     * Gets detailed information, identified by a column index, on an item in a Shell folder.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Integer} iColumn 
-     * @returns {SHELLDETAILS} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdetailsof
+     * PIDL of the item for which you are requesting information. This method accepts only single-level PIDLs. The structure must contain exactly one <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure followed by a terminating zero. If this parameter is set to <b>NULL</b>, the title of the information field specified by <i>iColumn</i> is returned.
+     * @param {Integer} iColumn Type: <b>UINT</b>
+     * 
+     * The zero-based index of the desired information field. It is identical to the column number of the information as it is displayed in a Windows Explorer Details view.
+     * @returns {SHELLDETAILS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shelldetails">SHELLDETAILS</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shelldetails">SHELLDETAILS</a> structure that contains the information.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-getdetailsof
      */
     GetDetailsOf(pidl, iColumn) {
         psd := SHELLDETAILS()
@@ -119,10 +147,14 @@ class IShellFolder2 extends IShellFolder{
     }
 
     /**
+     * Converts a column to the appropriate property set ID (FMTID) and property ID (PID).
+     * @param {Integer} iColumn Type: <b>UINT</b>
      * 
-     * @param {Integer} iColumn 
-     * @returns {PROPERTYKEY} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-mapcolumntoscid
+     * The column ID.
+     * @returns {PROPERTYKEY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> structure containing the FMTID and PID.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellfolder2-mapcolumntoscid
      */
     MapColumnToSCID(iColumn) {
         pscid := PROPERTYKEY()

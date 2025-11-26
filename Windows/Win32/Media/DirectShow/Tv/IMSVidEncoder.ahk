@@ -57,9 +57,9 @@ class IMSVidEncoder extends IMSVidFeature{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidencoder-get_videoencoderinterface
+     * The get_VideoEncoderInterface method retrieves a pointer to the video encoder interface.
+     * @returns {IUnknown} Pointer to a variable that receives an <b>IUnknown</b> interface pointer. The caller can query this interface for the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iencoderapi">IEncoderAPI</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidencoder-get_videoencoderinterface
      */
     get_VideoEncoderInterface() {
         result := ComCall(16, this, "ptr*", &ppEncInt := 0, "HRESULT")
@@ -67,9 +67,9 @@ class IMSVidEncoder extends IMSVidFeature{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidencoder-get_audioencoderinterface
+     * The get_AudioEncoderInterface method retrieves a pointer to the audio encoder interface.
+     * @returns {IUnknown} Pointer to a variable that receives an <b>IUnknown</b> interface pointer. The caller can query this interface for the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iencoderapi">IEncoderAPI</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidencoder-get_audioencoderinterface
      */
     get_AudioEncoderInterface() {
         result := ComCall(17, this, "ptr*", &ppEncInt := 0, "HRESULT")

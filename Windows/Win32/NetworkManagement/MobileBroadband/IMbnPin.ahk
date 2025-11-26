@@ -71,9 +71,9 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
+     * The PIN type.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pintype
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-get_pintype
      */
     get_PinType() {
         result := ComCall(3, this, "int*", &PinType := 0, "HRESULT")
@@ -81,9 +81,9 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
+     * The PIN format.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinformat
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-get_pinformat
      */
     get_PinFormat() {
         result := ComCall(4, this, "int*", &PinFormat := 0, "HRESULT")
@@ -91,9 +91,9 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
+     * The minimum length of the PIN.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinlengthmin
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-get_pinlengthmin
      */
     get_PinLengthMin() {
         result := ComCall(5, this, "uint*", &PinLengthMin := 0, "HRESULT")
@@ -101,9 +101,9 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
+     * The maximum length of the PIN.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinlengthmax
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-get_pinlengthmax
      */
     get_PinLengthMax() {
         result := ComCall(6, this, "uint*", &PinLengthMax := 0, "HRESULT")
@@ -111,9 +111,9 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
+     * The PIN mode.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinmode
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-get_pinmode
      */
     get_PinMode() {
         result := ComCall(7, this, "int*", &PinMode := 0, "HRESULT")
@@ -121,10 +121,10 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pin 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-enable
+     * Enables a PIN.
+     * @param {PWSTR} pin The PIN value for the PIN type to be enabled.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-enable
      */
     Enable(pin) {
         pin := pin is String ? StrPtr(pin) : pin
@@ -134,10 +134,10 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pin 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-disable
+     * Disables a PIN.
+     * @param {PWSTR} pin The PIN value for the PIN type to be disabled.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-disable
      */
     Disable(pin) {
         pin := pin is String ? StrPtr(pin) : pin
@@ -147,10 +147,10 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pin 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-enter
+     * Enters a PIN.
+     * @param {PWSTR} pin The PIN value for the PIN type.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-enter
      */
     Enter(pin) {
         pin := pin is String ? StrPtr(pin) : pin
@@ -160,11 +160,11 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pin 
-     * @param {PWSTR} newPin 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-change
+     * Changes the PIN.
+     * @param {PWSTR} pin The current PIN for this PIN type.
+     * @param {PWSTR} newPin The new PIN for this PIN type.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-change
      */
     Change(pin, newPin) {
         pin := pin is String ? StrPtr(pin) : pin
@@ -175,11 +175,11 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} puk 
-     * @param {PWSTR} newPin 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-unblock
+     * Unblocks a blocked PIN.
+     * @param {PWSTR} puk The password unblock key (PUK) value for this PIN type.
+     * @param {PWSTR} newPin A new PIN to be set for this PIN type.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-unblock
      */
     Unblock(puk, newPin) {
         puk := puk is String ? StrPtr(puk) : puk
@@ -190,9 +190,9 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMbnPinManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-getpinmanager
+     * Gets the IMbnPinManager.
+     * @returns {IMbnPinManager} Pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> to manage the PIN type.  When this function returns anything other than S_OK, this value is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpin-getpinmanager
      */
     GetPinManager() {
         result := ComCall(13, this, "ptr*", &pinManager := 0, "HRESULT")

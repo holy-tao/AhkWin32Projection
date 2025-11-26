@@ -47,13 +47,31 @@ class IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator{
     static VTableNames => ["InitializeSampleAllocatorEx"]
 
     /**
+     * Initializes the video sample allocator object.
+     * @param {Integer} cInitialSamples The initial number of samples to allocate.
+     * @param {Integer} cMaximumSamples The maximum number of samples to allocate.
+     * @param {IMFAttributes} pAttributes A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. You can use this interface to configure the allocator. Currently, the following configuration attributes are defined:
      * 
-     * @param {Integer} cInitialSamples 
-     * @param {Integer} cMaximumSamples 
-     * @param {IMFAttributes} pAttributes 
-     * @param {IMFMediaType} pMediaType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-buffers-per-sample">MF_SA_BUFFERS_PER_SAMPLE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-bindflags">MF_SA_D3D11_BINDFLAGS</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-usage">MF_SA_D3D11_USAGE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-shared">MF_SA_D3D11_SHARED</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-shared-without-mutex">MF_SA_D3D11_SHARED_WITHOUT_MUTEX</a>
+     * </li>
+     * </ul>
+     * @param {IMFMediaType} pMediaType A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of a media type that describes the video format.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex
      */
     InitializeSampleAllocatorEx(cInitialSamples, cMaximumSamples, pAttributes, pMediaType) {
         result := ComCall(7, this, "uint", cInitialSamples, "uint", cMaximumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")

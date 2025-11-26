@@ -31,12 +31,12 @@ class IROTData extends IUnknown{
     static VTableNames => ["GetComparisonData"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbData 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irotdata-getcomparisondata
+     * Retrieves data from a moniker that can be used to test the moniker for equality against another moniker.
+     * @param {Pointer<Integer>} pbData A pointer to a buffer that receives the comparison data.
+     * @param {Integer} cbMax The length of the buffer specified in <i>pbData</i>.
+     * @param {Pointer<Integer>} pcbData A pointer to a variable that receives the length of the comparison data.
+     * @returns {HRESULT} This method can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irotdata-getcomparisondata
      */
     GetComparisonData(pbData, cbMax, pcbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"

@@ -45,11 +45,11 @@ class IMFLocalMFTRegistration extends IUnknown{
     static VTableNames => ["RegisterMFTs"]
 
     /**
-     * 
-     * @param {Pointer<MFT_REGISTRATION_INFO>} pMFTs 
-     * @param {Integer} cMFTs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imflocalmftregistration-registermfts
+     * Registers one or more Media Foundation transforms (MFTs) in the caller's process.
+     * @param {Pointer<MFT_REGISTRATION_INFO>} pMFTs A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mft_registration_info">MFT_REGISTRATION_INFO</a> structures.
+     * @param {Integer} cMFTs The number of elements in the <i>pMFTs</i> array.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imflocalmftregistration-registermfts
      */
     RegisterMFTs(pMFTs, cMFTs) {
         result := ComCall(3, this, "ptr", pMFTs, "uint", cMFTs, "HRESULT")

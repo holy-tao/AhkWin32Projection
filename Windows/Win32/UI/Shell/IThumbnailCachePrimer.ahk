@@ -31,12 +31,12 @@ class IThumbnailCachePrimer extends IUnknown{
     static VTableNames => ["PageInThumbnail"]
 
     /**
-     * 
+     * .
      * @param {IShellItem} psi 
      * @param {Integer} wtsFlags 
      * @param {Integer} cxyRequestedThumbSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcacheprimer-pageinthumbnail
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//thumbcache/nf-thumbcache-ithumbnailcacheprimer-pageinthumbnail
      */
     PageInThumbnail(psi, wtsFlags, cxyRequestedThumbSize) {
         result := ComCall(3, this, "ptr", psi, "int", wtsFlags, "uint", cxyRequestedThumbSize, "HRESULT")

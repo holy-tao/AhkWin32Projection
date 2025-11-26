@@ -68,10 +68,10 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} KeyFrameRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_keyframerate
+     * The put_KeyFrameRate method sets the key-frame rate.
+     * @param {Integer} KeyFrameRate Desired key-frame rate. If the value is negative, the filter will use the default key-frame rate. If the value is zero, only the first frame will be a key frame.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-put_keyframerate
      */
     put_KeyFrameRate(KeyFrameRate) {
         result := ComCall(3, this, "int", KeyFrameRate, "HRESULT")
@@ -79,9 +79,9 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_keyframerate
+     * The get_KeyFrameRate method retrieves the current key-frame rate.
+     * @returns {Integer} Pointer to a variable that receives the current key-frame rate. If the value is negative, the filter will use the default key-frame rate. If the value is zero, only the first frame is a key frame.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-get_keyframerate
      */
     get_KeyFrameRate() {
         result := ComCall(4, this, "int*", &pKeyFrameRate := 0, "HRESULT")
@@ -89,10 +89,10 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} PFramesPerKeyFrame 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_pframesperkeyframe
+     * The put_PFramesPerKeyFrame method sets the rate of predicted (P) frames per key frame.
+     * @param {Integer} PFramesPerKeyFrame Specifies the number of P frames per key frame. If the value is negative, the filter will use the default rate.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-put_pframesperkeyframe
      */
     put_PFramesPerKeyFrame(PFramesPerKeyFrame) {
         result := ComCall(5, this, "int", PFramesPerKeyFrame, "HRESULT")
@@ -100,9 +100,9 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_pframesperkeyframe
+     * The get_PFramesPerKeyFrame method retrieves the rate of predicted (P) frames per key frame.
+     * @returns {Integer} Pointer to a variable that receives the number of P frames per key frame. If the value is negative, the filter will use the default rate.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-get_pframesperkeyframe
      */
     get_PFramesPerKeyFrame() {
         result := ComCall(6, this, "int*", &pPFramesPerKeyFrame := 0, "HRESULT")
@@ -110,10 +110,10 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} Quality 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_quality
+     * The put_Quality method sets the compression quality.
+     * @param {Float} Quality Specifies the quality as a value between 0.0 and 1.0, where 1.0 indicates the best quality and 0.0 indicates the worst quality. If the value is negative, the filter will use the default quality.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-put_quality
      */
     put_Quality(Quality) {
         result := ComCall(7, this, "double", Quality, "HRESULT")
@@ -121,9 +121,9 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_quality
+     * The get_Quality method retrieves the current compression quality.
+     * @returns {Float} Pointer to a variable that receives the relative compression quality. The quality is expressed as a value between 0.0 and 1.0, where 1.0 indicates the best quality and 0.0 indicates the worst quality. If the value is negative, the filter will use the default quality.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-get_quality
      */
     get_Quality() {
         result := ComCall(8, this, "double*", &pQuality := 0, "HRESULT")
@@ -131,10 +131,10 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} WindowSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_windowsize
+     * The put_WindowSize method sets the number of frames over which the compressor must maintain an average data rate.
+     * @param {Integer} WindowSize Specifies the window size, expressed as a number of frames. .
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-put_windowsize
      */
     put_WindowSize(WindowSize) {
         result := ComCall(9, this, "uint", WindowSize, "HRESULT")
@@ -142,9 +142,9 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_windowsize
+     * The get_WindowSize method retrieves the number of frames over which the compressor will maintain the average data rate.
+     * @returns {Integer} Pointer to a variable that receives the window size, expressed as a number of frames.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-get_windowsize
      */
     get_WindowSize() {
         result := ComCall(10, this, "uint*", &pWindowSize := 0, "HRESULT")
@@ -152,17 +152,17 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pszVersion 
-     * @param {Pointer<Integer>} pcbVersion 
-     * @param {Pointer} pszDescription 
-     * @param {Pointer<Integer>} pcbDescription 
-     * @param {Pointer<Integer>} pDefaultKeyFrameRate 
-     * @param {Pointer<Integer>} pDefaultPFramesPerKey 
-     * @param {Pointer<Float>} pDefaultQuality 
-     * @param {Pointer<Integer>} pCapabilities 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-getinfo
+     * The GetInfo method retrieves information about the filter's compression properties, including capabilities and default values.
+     * @param {Pointer} pszVersion Pointer to a buffer that receives a version string, such as "Version 2.1.0."
+     * @param {Pointer<Integer>} pcbVersion Receives the size of the version string, in bytes.
+     * @param {Pointer} pszDescription Pointer to a buffer that receives a description string, such as "My Video Compressor."
+     * @param {Pointer<Integer>} pcbDescription Receives the size of the description string, in bytes.
+     * @param {Pointer<Integer>} pDefaultKeyFrameRate Receives the default key-frame rate.
+     * @param {Pointer<Integer>} pDefaultPFramesPerKey Receives the default rate of predicted (P) frames per key frame.
+     * @param {Pointer<Float>} pDefaultQuality Receives the default quality.
+     * @param {Pointer<Integer>} pCapabilities Receives the compression capabilities, as a bitwise combination of zero or more <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-compressioncaps">CompressionCaps</a> flags.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-getinfo
      */
     GetInfo(pszVersion, pcbVersion, pszDescription, pcbDescription, pDefaultKeyFrameRate, pDefaultPFramesPerKey, pDefaultQuality, pCapabilities) {
         pcbVersionMarshal := pcbVersion is VarRef ? "int*" : "ptr"
@@ -177,10 +177,39 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
+     * The OverrideKeyFrame method instructs the filter to compress a particular frame as a key frame.
+     * @param {Integer} FrameNumber Specifies the frame number. The first frame that the filter delivers is numbered zero.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} FrameNumber 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-overridekeyframe
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-overridekeyframe
      */
     OverrideKeyFrame(FrameNumber) {
         result := ComCall(12, this, "int", FrameNumber, "HRESULT")
@@ -188,11 +217,40 @@ class IAMVideoCompression extends IUnknown{
     }
 
     /**
+     * The OverrideFrameSize method overrides the frame size of a specified frame.
+     * @param {Integer} FrameNumber Specifies the frame number. The first frame that the filter delivers is numbered zero.
+     * @param {Integer} Size Specifies the maximum size of the specified frame, in bytes.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} FrameNumber 
-     * @param {Integer} Size 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-overrideframesize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideocompression-overrideframesize
      */
     OverrideFrameSize(FrameNumber, Size) {
         result := ComCall(13, this, "int", FrameNumber, "int", Size, "HRESULT")

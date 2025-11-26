@@ -32,12 +32,52 @@ class IAssemblyName extends IUnknown{
     static VTableNames => ["SetProperty", "GetProperty", "Finalize", "GetDisplayName", "Reserved", "GetName", "GetVersion", "IsEqual", "Clone"]
 
     /**
+     * The SetProperty method adds a name-value pair to the side-by-side assembly name. This method can change or delete the value of an existing name-value pair.
+     * @param {Integer} PropertyId A property ID that represents the name-value pair. Valid property IDs are <a href="https://docs.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_name">ASM_NAME</a> enumeration values.
+     * @param {Pointer<Void>} pvProperty A pointer to a buffer that contains the value of the name-value pair.
+     * @param {Integer} cbProperty The size in bytes of the buffer specified by <i>pvProperty</i>. Set the value of this parameter to zero to remove the name-value pair from the assembly name.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} PropertyId 
-     * @param {Pointer<Void>} pvProperty 
-     * @param {Integer} cbProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-setproperty
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method did not succeed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_UNEXPECTED</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method did not succeed. The <a href="/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-setproperty">SetProperty</a> method was called after the <a href="/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-finalize">Finalize</a> method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-setproperty
      */
     SetProperty(PropertyId, pvProperty, cbProperty) {
         pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
@@ -47,12 +87,41 @@ class IAssemblyName extends IUnknown{
     }
 
     /**
+     * The GetProperty method gets the value of a name-value pair in the assembly name.
+     * @param {Integer} PropertyId A property ID that represents the name-value pair. Valid property IDs are <a href="https://docs.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_name">ASM_NAME</a> enumeration values.
+     * @param {Pointer<Void>} pvProperty A pointer to a buffer that receives the value of the name-value pair.
+     * @param {Pointer<Integer>} pcbProperty The size in bytes of the buffer specified by <i>pvProperty</i>. The value is zero if this property is not set.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} PropertyId 
-     * @param {Pointer<Void>} pvProperty 
-     * @param {Pointer<Integer>} pcbProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-getproperty
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method did not succeed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-getproperty
      */
     GetProperty(PropertyId, pvProperty, pcbProperty) {
         pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
@@ -63,9 +132,38 @@ class IAssemblyName extends IUnknown{
     }
 
     /**
+     * The Finalize method prevents a side-by-side assembly name from being changed. After Finalize is called, additional calls to the SetProperty returns E_UNEXPECTED.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-finalize
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method did not succeed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-finalize
      */
     Finalize() {
         result := ComCall(5, this, "HRESULT")
@@ -73,12 +171,41 @@ class IAssemblyName extends IUnknown{
     }
 
     /**
+     * The GetDisplayName method gets a string representation of the side-by-side assembly name.
+     * @param {PWSTR} szDisplayName A pointer to a buffer that receives the string value that contains the assembly name.
+     * @param {Pointer<Integer>} pccDisplayName When calling this method, set this parameter to the size of the buffer specified by <b>szDisplayName</b>. Specify the size in characters and include the null terminator. When the method returns, the value of <i>pccDisplayName</i> is the size of the name returned.
+     * @param {Integer} dwDisplayFlags One or more of the options of the <a href="https://docs.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_display_flags">ASM_DISPLAY_FLAGS</a> enumeration to specify which portions of the assembly's name to include in the string representation of the assembly name. The default for <i>dwDisplayFlags</i> is 0, which returns all portions of the assembly's display name.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szDisplayName 
-     * @param {Pointer<Integer>} pccDisplayName 
-     * @param {Integer} dwDisplayFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-getdisplayname
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method did not succeed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-getdisplayname
      */
     GetDisplayName(szDisplayName, pccDisplayName, dwDisplayFlags) {
         szDisplayName := szDisplayName is String ? StrPtr(szDisplayName) : szDisplayName
@@ -112,11 +239,40 @@ class IAssemblyName extends IUnknown{
     }
 
     /**
+     * The GetName method returns the name portion of the assembly name.
+     * @param {Pointer<Integer>} lpcwBuffer When calling this method, set this parameter to the size of the buffer specified by <i>pwzName</i>. The specify the size in characters and include the null terminator. When the method returns, the value of <i>lpcwBuffer</i> is the size of the name returned.
+     * @param {PWSTR} pwzName Pointer to the string value that receives  the name.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} lpcwBuffer 
-     * @param {PWSTR} pwzName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-getname
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method did not succeed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-getname
      */
     GetName(lpcwBuffer, pwzName) {
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
@@ -145,11 +301,40 @@ class IAssemblyName extends IUnknown{
     }
 
     /**
+     * The IsEqual method compares the current assembly name to another assembly name.
+     * @param {IAssemblyName} pName A pointer to another  <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nn-winsxs-iassemblyname">IAssemblyName</a> instance, which is to be compared to the current assembly.
+     * @param {Integer} dwCmpFlags Indicates which portion of the assembly names are to be compared. The value can be one of the options of the <a href="https://docs.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_cmp_flags">ASM_CMP_FLAGS</a> enumeration.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IAssemblyName} pName 
-     * @param {Integer} dwCmpFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-isequal
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified portions of the names match.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified portions of the names do not match.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-isequal
      */
     IsEqual(pName, dwCmpFlags) {
         result := ComCall(10, this, "ptr", pName, "uint", dwCmpFlags, "HRESULT")
@@ -157,9 +342,9 @@ class IAssemblyName extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IAssemblyName} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-clone
+     * The Clone method copies the current side-by-side assembly name to a new instance of IAssemblyName.
+     * @returns {IAssemblyName} Pointer to the location that contains the pointer to the new instance of <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nn-winsxs-iassemblyname">IAssemblyName</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-clone
      */
     Clone() {
         result := ComCall(11, this, "ptr*", &pName := 0, "HRESULT")

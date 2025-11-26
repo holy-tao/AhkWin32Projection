@@ -31,9 +31,9 @@ class IWebApplicationUpdateEvents extends IUnknown{
     static VTableNames => ["OnPaint", "OnCssChanged"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationupdateevents-onpaint
+     * Notifies the authoring app that a portion of the app was painted.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationupdateevents-onpaint
      */
     OnPaint() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IWebApplicationUpdateEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationupdateevents-oncsschanged
+     * Notifies the authoring app that the Cascading Style Sheets (CSS) has changed.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationupdateevents-oncsschanged
      */
     OnCssChanged() {
         result := ComCall(4, this, "HRESULT")

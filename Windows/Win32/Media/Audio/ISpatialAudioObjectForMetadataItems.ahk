@@ -38,9 +38,9 @@ class ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase{
     static VTableNames => ["GetSpatialAudioMetadataItems"]
 
     /**
-     * 
-     * @returns {ISpatialAudioMetadataItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadataitems-getspatialaudiometadataitems
+     * Gets a pointer to the ISpatialAudioMetadataItems object which stores metadata items for the ISpatialAudioObjectForMetadataItems.
+     * @returns {ISpatialAudioMetadataItems} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> associated with the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadataitems">ISpatialAudioObjectForMetadataItems</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadataitems-getspatialaudiometadataitems
      */
     GetSpatialAudioMetadataItems() {
         result := ComCall(7, this, "ptr*", &metadataItems := 0, "HRESULT")

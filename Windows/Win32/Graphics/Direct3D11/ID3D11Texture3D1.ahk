@@ -38,10 +38,12 @@ class ID3D11Texture3D1 extends ID3D11Texture3D{
     static VTableNames => ["GetDesc1"]
 
     /**
+     * Gets the properties of the texture resource.
+     * @param {Pointer<D3D11_TEXTURE3D_DESC1>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ns-d3d11_3-cd3d11_texture3d_desc1">D3D11_TEXTURE3D_DESC1</a>*</b>
      * 
-     * @param {Pointer<D3D11_TEXTURE3D_DESC1>} pDesc 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ns-d3d11_3-cd3d11_texture3d_desc1">D3D11_TEXTURE3D_DESC1</a> structure that receives the description of the 3D texture.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11texture3d1-getdesc1
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11texture3d1-getdesc1
      */
     GetDesc1(pDesc) {
         ComCall(11, this, "ptr", pDesc)

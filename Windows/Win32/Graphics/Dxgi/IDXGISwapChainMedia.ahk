@@ -40,9 +40,9 @@ class IDXGISwapChainMedia extends IUnknown{
     static VTableNames => ["GetFrameStatisticsMedia", "SetPresentDuration", "CheckPresentDurationSupport"]
 
     /**
-     * 
-     * @returns {DXGI_FRAME_STATISTICS_MEDIA} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-getframestatisticsmedia
+     * Queries the system for a DXGI_FRAME_STATISTICS_MEDIA structure that indicates whether a custom refresh rate is currently approved by the system.
+     * @returns {DXGI_FRAME_STATISTICS_MEDIA} A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ns-dxgi1_3-dxgi_frame_statistics_media">DXGI_FRAME_STATISTICS_MEDIA</a> structure indicating whether the system currently approves the custom refresh rate request.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-getframestatisticsmedia
      */
     GetFrameStatisticsMedia() {
         pStats := DXGI_FRAME_STATISTICS_MEDIA()
@@ -51,10 +51,10 @@ class IDXGISwapChainMedia extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Duration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-setpresentduration
+     * Requests a custom presentation duration (custom refresh rate).
+     * @param {Integer} Duration The custom presentation duration, specified in hundreds of nanoseconds.
+     * @returns {HRESULT} This method returns S_OK on success, or a DXGI error code on failure.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-setpresentduration
      */
     SetPresentDuration(Duration) {
         result := ComCall(4, this, "uint", Duration, "HRESULT")
@@ -62,12 +62,12 @@ class IDXGISwapChainMedia extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} DesiredPresentDuration 
-     * @param {Pointer<Integer>} pClosestSmallerPresentDuration 
-     * @param {Pointer<Integer>} pClosestLargerPresentDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-checkpresentdurationsupport
+     * Queries the graphics driver for a supported frame present duration corresponding to a custom refresh rate.
+     * @param {Integer} DesiredPresentDuration Indicates the frame duration to check. This value is the duration of one frame at the desired refresh rate, specified in hundreds of nanoseconds. For example, set this field to 167777 to check for 60 Hz refresh rate support.
+     * @param {Pointer<Integer>} pClosestSmallerPresentDuration A variable that will be set to the closest supported frame present duration that's smaller than the requested value, or zero if the device does not support any lower duration.
+     * @param {Pointer<Integer>} pClosestLargerPresentDuration A variable that will be set to the closest supported frame present duration that's larger than the requested value, or zero if the device does not support any higher duration.
+     * @returns {HRESULT} This method returns S_OK on success, or a DXGI error code on failure.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-checkpresentdurationsupport
      */
     CheckPresentDurationSupport(DesiredPresentDuration, pClosestSmallerPresentDuration, pClosestLargerPresentDuration) {
         pClosestSmallerPresentDurationMarshal := pClosestSmallerPresentDuration is VarRef ? "uint*" : "ptr"

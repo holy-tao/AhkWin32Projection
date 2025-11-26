@@ -41,12 +41,111 @@ class IEnumNetSharingPortMapping extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * The Next method retrieves the specified number of port mappings that start from the current enumeration position.
+     * @param {Integer} celt Specifies the number of port mappings to retrieve.
+     * @param {Pointer<VARIANT>} rgVar Pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> variable for the port mapping. This variant contains a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingportmapping">INetSharingPortMapping</a> interface.
+     * @param {Pointer<Integer>} pceltFetched Pointer to a <b>ULONG</b> variable that, on successful return, specifies the number of port mappings actually returned.
+     * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<VARIANT>} rgVar 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingportmapping-next
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-next
      */
     Next(celt, rgVar, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -56,10 +155,107 @@ class IEnumNetSharingPortMapping extends IUnknown{
     }
 
     /**
+     * The Skip method skips the specified number of port mappings for this enumeration.
+     * @param {Integer} celt Specifies the number of port mappings to skip.
+     * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingportmapping-skip
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -67,9 +263,106 @@ class IEnumNetSharingPortMapping extends IUnknown{
     }
 
     /**
+     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration.
+     * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingportmapping-reset
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified interface is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A pointer passed as a parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed for unknown reasons.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -77,9 +370,10 @@ class IEnumNetSharingPortMapping extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumNetSharingPortMapping} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingportmapping-clone
+     * The Clone method creates a new enumeration interface from this enumeration.
+     * @returns {IEnumNetSharingPortMapping} Pointer to an interface pointer that, on successful return, points to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nn-netcon-ienumnetsharingportmapping">IEnumNetSharingPortMapping</a> interface for the new enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

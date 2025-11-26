@@ -37,9 +37,11 @@ class IUPnPDeviceDocumentAccessEx extends IUnknown{
     static VTableNames => ["GetDocument"]
 
     /**
+     * Retrieves the XML device description document for a UPnP device.
+     * @returns {BSTR} Receives the XML device description document for the device.
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument
+     * After obtaining the XML device document, the memory for this parameter must be free by passing it to SysFreeString.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument
      */
     GetDocument() {
         pbstrDocument := BSTR()

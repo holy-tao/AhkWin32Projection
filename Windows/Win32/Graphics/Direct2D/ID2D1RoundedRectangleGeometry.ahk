@@ -41,10 +41,12 @@ class ID2D1RoundedRectangleGeometry extends ID2D1Geometry{
     static VTableNames => ["GetRoundedRect"]
 
     /**
+     * Retrieves a rounded rectangle that describes this rounded rectangle geometry.
+     * @param {Pointer<D2D1_ROUNDED_RECT>} roundedRect Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_rounded_rect">D2D1_ROUNDED_RECT</a>*</b>
      * 
-     * @param {Pointer<D2D1_ROUNDED_RECT>} roundedRect 
+     * A pointer that receives a rounded rectangle that describes this rounded rectangle geometry. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1roundedrectanglegeometry-getroundedrect
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1roundedrectanglegeometry-getroundedrect
      */
     GetRoundedRect(roundedRect) {
         ComCall(17, this, "ptr", roundedRect)

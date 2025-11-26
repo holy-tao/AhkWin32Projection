@@ -31,10 +31,10 @@ class IWTSBitmapRendererCallback extends IUnknown{
     static VTableNames => ["OnTargetSizeChanged"]
 
     /**
-     * 
-     * @param {RECT} rcNewSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderercallback-ontargetsizechanged
+     * Called when the size of the render target has changed.
+     * @param {RECT} rcNewSize A <b>RECT</b> structure that contains the new size of the render target.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderercallback-ontargetsizechanged
      */
     OnTargetSizeChanged(rcNewSize) {
         result := ComCall(3, this, "ptr", rcNewSize, "HRESULT")

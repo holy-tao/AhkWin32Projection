@@ -32,9 +32,9 @@ class ITfToolTipUIElement extends ITfUIElement{
     static VTableNames => ["GetString"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftooltipuielement-getstring
+     * Returns the string of the tooltip.
+     * @returns {BSTR} [out] A pointer to receive BSTR. This is the string for the tooltip.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftooltipuielement-getstring
      */
     GetString() {
         pstr := BSTR()

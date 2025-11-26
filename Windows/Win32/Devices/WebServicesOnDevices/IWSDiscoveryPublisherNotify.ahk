@@ -31,11 +31,11 @@ class IWSDiscoveryPublisherNotify extends IUnknown{
     static VTableNames => ["ProbeHandler", "ResolveHandler"]
 
     /**
-     * 
-     * @param {Pointer<WSD_SOAP_MESSAGE>} pSoap 
-     * @param {IWSDMessageParameters} pMessageParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler
+     * Is called when a Probe is received by the discovery publisher.
+     * @param {Pointer<WSD_SOAP_MESSAGE>} pSoap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that contains the Probe message received by the discovery publisher.
+     * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> interface that contains transport information associated with the received message.
+     * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler
      */
     ProbeHandler(pSoap, pMessageParameters) {
         result := ComCall(3, this, "ptr", pSoap, "ptr", pMessageParameters, "HRESULT")
@@ -43,11 +43,11 @@ class IWSDiscoveryPublisherNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WSD_SOAP_MESSAGE>} pSoap 
-     * @param {IWSDMessageParameters} pMessageParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler
+     * Is called when a Resolve is received by the discovery publisher.
+     * @param {Pointer<WSD_SOAP_MESSAGE>} pSoap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that contains the Resolve message received by the discovery publisher.
+     * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> interface that contains transport information associated with the received message.
+     * @returns {HRESULT} The return value is not meaningful. An implementer should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler
      */
     ResolveHandler(pSoap, pMessageParameters) {
         result := ComCall(4, this, "ptr", pSoap, "ptr", pMessageParameters, "HRESULT")

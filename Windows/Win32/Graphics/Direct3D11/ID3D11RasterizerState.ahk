@@ -36,10 +36,17 @@ class ID3D11RasterizerState extends ID3D11DeviceChild{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Gets the description for rasterizer state that you used to create the rasterizer-state object.
+     * @remarks
      * 
-     * @param {Pointer<D3D11_RASTERIZER_DESC>} pDesc 
+     * You use the description for rasterizer state in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createrasterizerstate">ID3D11Device::CreateRasterizerState</a> method to create the rasterizer-state object.
+     * 
+     * 
+     * @param {Pointer<D3D11_RASTERIZER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_rasterizer_desc">D3D11_RASTERIZER_DESC</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_rasterizer_desc">D3D11_RASTERIZER_DESC</a> structure that receives a description of the rasterizer state.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11rasterizerstate-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11rasterizerstate-getdesc
      */
     GetDesc(pDesc) {
         ComCall(7, this, "ptr", pDesc)

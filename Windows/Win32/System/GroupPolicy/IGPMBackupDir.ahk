@@ -57,10 +57,11 @@ class IGPMBackupDir extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrID 
-     * @returns {IGPMBackup} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdir-getbackup
+     * Retrieves the GPMBackup object that has the specified backup ID (GUID). The backup ID is the ID of the backed-up GPO, not the ID of the GPO.
+     * @param {BSTR} bstrID ID of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> object to open.
+     * @returns {IGPMBackup} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> interface for the specified ID.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmbackupdir-getbackup
      */
     GetBackup(bstrID) {
         bstrID := bstrID is String ? BSTR.Alloc(bstrID).Value : bstrID
@@ -70,10 +71,11 @@ class IGPMBackupDir extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @returns {IGPMBackupCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdir-searchbackups
+     * Executes a search for the GPMBackup object according to the specified criteria, and returns an GPMBackupCollection object.
+     * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to the criteria to apply to the search.
+     * @returns {IGPMBackupCollection} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackupcollection">IGPMBackupCollection</a> interface that represents the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> objects found by the search.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmbackupdir-searchbackups
      */
     SearchBackups(pIGPMSearchCriteria) {
         result := ComCall(9, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMBackupCollection := 0, "HRESULT")

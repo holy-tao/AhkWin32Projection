@@ -37,9 +37,9 @@ class IWdsTransportNamespaceScheduledCast extends IWdsTransportNamespace{
     static VTableNames => ["StartTransmission"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcast-starttransmission
+     * Starts a transmission on a namespace.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcast-starttransmission
      */
     StartTransmission() {
         result := ComCall(28, this, "HRESULT")

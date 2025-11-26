@@ -31,10 +31,14 @@ class IResultsFolder extends IUnknown{
     static VTableNames => ["AddItem", "AddIDList", "RemoveItem", "RemoveIDList", "RemoveAll"]
 
     /**
+     * Adds an item to a results folder.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iresultsfolder-additem
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iresultsfolder-additem
      */
     AddItem(psi) {
         result := ComCall(3, this, "ptr", psi, "HRESULT")
@@ -42,10 +46,14 @@ class IResultsFolder extends IUnknown{
     }
 
     /**
+     * Inserts a pointer to an item identifier list (PIDL) into a results folder.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iresultsfolder-addidlist
+     * A pointer to the IDList of the given object relative to the Desktop.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
+     * 
+     * A PIDL consisting of 0 or 1 <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structures, relative to a parent folder. This parameter maybe <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iresultsfolder-addidlist
      */
     AddIDList(pidl) {
         result := ComCall(4, this, "ptr", pidl, "ptr*", &ppidlAdded := 0, "HRESULT")
@@ -53,10 +61,14 @@ class IResultsFolder extends IUnknown{
     }
 
     /**
+     * Removes an item from a results folder.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iresultsfolder-removeitem
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iresultsfolder-removeitem
      */
     RemoveItem(psi) {
         result := ComCall(5, this, "ptr", psi, "HRESULT")
@@ -64,10 +76,14 @@ class IResultsFolder extends IUnknown{
     }
 
     /**
+     * Removes a pointer to an item identifier list (PIDL) from a results folder.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iresultsfolder-removeidlist
+     * A PIDL relative to the Desktop.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iresultsfolder-removeidlist
      */
     RemoveIDList(pidl) {
         result := ComCall(6, this, "ptr", pidl, "HRESULT")
@@ -75,9 +91,11 @@ class IResultsFolder extends IUnknown{
     }
 
     /**
+     * Removes all items from a results folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iresultsfolder-removeall
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iresultsfolder-removeall
      */
     RemoveAll() {
         result := ComCall(7, this, "HRESULT")

@@ -59,9 +59,9 @@ class IWdsTransportSetupManager extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a value that indicates the operating system version of the WDS server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version
      */
     get_Version() {
         result := ComCall(7, this, "uint*", &pullVersion := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IWdsTransportSetupManager extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a value that indicates which WDS features are installed on the server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_installedfeatures
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_installedfeatures
      */
     get_InstalledFeatures() {
         result := ComCall(8, this, "uint*", &pulInstalledFeatures := 0, "HRESULT")
@@ -79,9 +79,9 @@ class IWdsTransportSetupManager extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a value that indicates which transport protocols are supported by the WDS server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_protocols
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_protocols
      */
     get_Protocols() {
         result := ComCall(9, this, "uint*", &pulProtocols := 0, "HRESULT")
@@ -89,13 +89,13 @@ class IWdsTransportSetupManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bszName 
-     * @param {BSTR} bszDescription 
-     * @param {BSTR} bszFilePath 
-     * @param {BSTR} bszInitializationRoutine 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-registercontentprovider
+     * Enables an application run on a client computer to register a content provider DLL. This makes the provider available for use by the WDS transport server.
+     * @param {BSTR} bszName The name of the content provider to be registered. This name must be unique on the server.
+     * @param {BSTR} bszDescription A description of the content provider that can be  read by an administrator.
+     * @param {BSTR} bszFilePath The  full path to the DLL that implements the content provider. The path can include environment variables.
+     * @param {BSTR} bszInitializationRoutine The name of a function exported by the content provider that the WDS transport server can use to initialize the provider.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-registercontentprovider
      */
     RegisterContentProvider(bszName, bszDescription, bszFilePath, bszInitializationRoutine) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName
@@ -108,10 +108,10 @@ class IWdsTransportSetupManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bszName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-deregistercontentprovider
+     * Enables an application run on a client computer to deregister a content provider. This makes the provider no longer available for use by the WDS transport server.
+     * @param {BSTR} bszName The name of the content provider to be deregistered.
+     * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-deregistercontentprovider
      */
     DeregisterContentProvider(bszName) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName

@@ -61,10 +61,15 @@ class IDXGIDevice1 extends IDXGIDevice{
     static VTableNames => ["SetMaximumFrameLatency", "GetMaximumFrameLatency"]
 
     /**
+     * Sets the number of frames that the system is allowed to queue for rendering.
+     * @param {Integer} MaxLatency Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} MaxLatency 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice1-setmaximumframelatency
+     * The maximum number of back buffer frames that a driver can queue. The value defaults to 3, but 
+     *       can range from 1 to 16. A value of 0 will reset latency to the default.  For multi-head devices, this value is specified per-head.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful; otherwise, DXGI_ERROR_DEVICE_REMOVED if the device was removed.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice1-setmaximumframelatency
      */
     SetMaximumFrameLatency(MaxLatency) {
         result := ComCall(12, this, "uint", MaxLatency, "HRESULT")
@@ -72,9 +77,12 @@ class IDXGIDevice1 extends IDXGIDevice{
     }
 
     /**
+     * Gets the number of frames that the system is allowed to queue for rendering.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice1-getmaximumframelatency
+     * This value is set to the number of frames that can be queued for render.  
+     *       This value defaults to 3, but can range from 1 to 16.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice1-getmaximumframelatency
      */
     GetMaximumFrameLatency() {
         result := ComCall(13, this, "uint*", &pMaxLatency := 0, "HRESULT")

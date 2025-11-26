@@ -93,12 +93,52 @@ class IMFMediaBuffer extends IUnknown{
     static VTableNames => ["Lock", "Unlock", "GetCurrentLength", "SetCurrentLength", "GetMaxLength"]
 
     /**
+     * Gives the caller access to the memory in the buffer, for reading or writing.
+     * @param {Pointer<Pointer<Integer>>} ppbBuffer Receives a pointer to the start of the buffer.
+     * @param {Pointer<Integer>} pcbMaxLength Receives the maximum amount of data that can be written to the buffer. This parameter can be <b>NULL</b>. The same value is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength">IMFMediaBuffer::GetMaxLength</a> method.
+     * @param {Pointer<Integer>} pcbCurrentLength Receives the length of the valid data in the buffer, in bytes. This parameter can be <b>NULL</b>. The same value is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength">IMFMediaBuffer::GetCurrentLength</a> method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Pointer<Integer>>} ppbBuffer 
-     * @param {Pointer<Integer>} pcbMaxLength 
-     * @param {Pointer<Integer>} pcbCurrentLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-lock
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>D3DERR_INVALIDCALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For Direct3D surface buffers, an error occurred when locking the surface.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALIDREQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer cannot be locked at this time.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediabuffer-lock
      */
     Lock(ppbBuffer, pcbMaxLength, pcbCurrentLength) {
         ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : "ptr"
@@ -110,9 +150,38 @@ class IMFMediaBuffer extends IUnknown{
     }
 
     /**
+     * Unlocks a buffer that was previously locked. Call this method once for every call to IMFMediaBuffer::Lock.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-unlock
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>D3DERR_INVALIDCALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For Direct3D surface buffers, an error occurred when unlocking the surface.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediabuffer-unlock
      */
     Unlock() {
         result := ComCall(4, this, "HRESULT")
@@ -120,9 +189,9 @@ class IMFMediaBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength
+     * Retrieves the length of the valid data in the buffer.
+     * @returns {Integer} Receives the length of the valid data, in bytes. If the buffer does not contain any valid data, the value is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength
      */
     GetCurrentLength() {
         result := ComCall(5, this, "uint*", &pcbCurrentLength := 0, "HRESULT")
@@ -130,10 +199,39 @@ class IMFMediaBuffer extends IUnknown{
     }
 
     /**
+     * Sets the length of the valid data in the buffer.
+     * @param {Integer} cbCurrentLength Length of the valid data, in bytes. This value cannot be greater than the allocated size of the buffer, which is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength">IMFMediaBuffer::GetMaxLength</a> method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} cbCurrentLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-setcurrentlength
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified length is greater than the maximum size of the buffer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediabuffer-setcurrentlength
      */
     SetCurrentLength(cbCurrentLength) {
         result := ComCall(6, this, "uint", cbCurrentLength, "HRESULT")
@@ -141,9 +239,9 @@ class IMFMediaBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength
+     * Retrieves the allocated size of the buffer.
+     * @returns {Integer} Receives the allocated size of the buffer, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength
      */
     GetMaxLength() {
         result := ComCall(7, this, "uint*", &pcbMaxLength := 0, "HRESULT")

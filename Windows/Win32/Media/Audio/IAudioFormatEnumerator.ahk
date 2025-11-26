@@ -31,9 +31,9 @@ class IAudioFormatEnumerator extends IUnknown{
     static VTableNames => ["GetCount", "GetFormat"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getcount
+     * Gets the number of supported audio formats in the list.
+     * @returns {Integer} The number of supported audio formats in the list.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IAudioFormatEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {Pointer<WAVEFORMATEX>} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getformat
+     * Gets the format with the specified index in the list. The formats are listed in order of importance. The most preferable format is first in the list.
+     * @param {Integer} index The index of the item in the list to retrieve.
+     * @returns {Pointer<WAVEFORMATEX>} Pointer to a pointer to a <b>WAVEFORMATEX</b> structure describing a supported audio format.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getformat
      */
     GetFormat(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &format := 0, "HRESULT")

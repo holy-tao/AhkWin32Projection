@@ -58,9 +58,9 @@ class IMSVidVideoRendererDevices extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererdevices-get_count
+     * The get_Count method retrieves the number of items in the collection.
+     * @returns {Integer} Pointer to a variable that receives the number of items.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererdevices-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
@@ -68,9 +68,9 @@ class IMSVidVideoRendererDevices extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererdevices-get__newenum
+     * The get__NewEnum method retrieves an enumerator for the collection.
+     * @returns {IEnumVARIANT} Pointer to a variable that receives an <b>IEnumVARIANT</b> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererdevices-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &pD := 0, "HRESULT")
@@ -78,10 +78,10 @@ class IMSVidVideoRendererDevices extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} v 
-     * @returns {IMSVidVideoRenderer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererdevices-get_item
+     * The get_Item method retrieves the specified item from the collection.
+     * @param {VARIANT} v <b>VARIANT</b> that specifies the index of the item to retrieve.
+     * @returns {IMSVidVideoRenderer} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidvideorenderer">IMSVidVideoRenderer</a> interface pointer. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererdevices-get_item
      */
     get_Item(v) {
         result := ComCall(9, this, "ptr", v, "ptr*", &pDB := 0, "HRESULT")
@@ -89,10 +89,61 @@ class IMSVidVideoRendererDevices extends IDispatch{
     }
 
     /**
+     * The Add method adds a video renderer to the collection.
+     * @param {IMSVidVideoRenderer} pDB Specifies a pointer to the video renderer's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidvideorenderer">IMSVidVideoRenderer</a> interface.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {IMSVidVideoRenderer} pDB 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererdevices-add
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only; cannot add any items.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NULL pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererdevices-add
      */
     Add(pDB) {
         result := ComCall(10, this, "ptr", pDB, "HRESULT")
@@ -100,10 +151,72 @@ class IMSVidVideoRendererDevices extends IDispatch{
     }
 
     /**
+     * The Remove method removes an item from the collection.
+     * @param {VARIANT} v <b>VARIANT</b> that specifies the index of the item to remove.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {VARIANT} v 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorendererdevices-remove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DISP_E_BADINDEX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The index is out of range.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Wrong <b>VARIANT</b> type.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only; cannot remove any items.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unexpected error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorendererdevices-remove
      */
     Remove(v) {
         result := ComCall(11, this, "ptr", v, "HRESULT")

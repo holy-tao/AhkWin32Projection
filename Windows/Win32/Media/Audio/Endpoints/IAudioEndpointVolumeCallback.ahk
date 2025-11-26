@@ -31,10 +31,10 @@ class IAudioEndpointVolumeCallback extends IUnknown{
     static VTableNames => ["OnNotify"]
 
     /**
-     * 
-     * @param {Pointer<AUDIO_VOLUME_NOTIFICATION_DATA>} pNotify 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumecallback-onnotify
+     * The OnNotify method notifies the client that the volume level or muting state of the audio endpoint device has changed.
+     * @param {Pointer<AUDIO_VOLUME_NOTIFICATION_DATA>} pNotify Pointer to the volume-notification data. This parameter points to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/ns-endpointvolume-audio_volume_notification_data">AUDIO_VOLUME_NOTIFICATION_DATA</a>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//endpointvolume/nf-endpointvolume-iaudioendpointvolumecallback-onnotify
      */
     OnNotify(pNotify) {
         result := ComCall(3, this, "ptr", pNotify, "HRESULT")

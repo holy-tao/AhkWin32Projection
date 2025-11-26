@@ -43,11 +43,17 @@ class IRowsetEvents extends IUnknown{
     static VTableNames => ["OnNewItem", "OnChangedItem", "OnDeletedItem", "OnRowsetEvent"]
 
     /**
+     * Called by the indexer to notify clients of a new item that may match some (or all) of the criteria for the client rowset.
+     * @param {Pointer<PROPVARIANT>} itemID Type: <b>REFPROPVARIANT</b>
      * 
-     * @param {Pointer<PROPVARIANT>} itemID 
-     * @param {Integer} newItemState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetevents-onnewitem
+     * The new item that may match the original search criteria of the rowset.
+     * @param {Integer} newItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * 
+     * Specifies whether the new item matches all or some of the criteria for your rowset, as a <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a> enumeration.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetevents-onnewitem
      */
     OnNewItem(itemID, newItemState) {
         result := ComCall(3, this, "ptr", itemID, "int", newItemState, "HRESULT")
@@ -55,12 +61,20 @@ class IRowsetEvents extends IUnknown{
     }
 
     /**
+     * Called by the indexer to notify clients that an item has been modified. This item may have matched some (or all) of the criteria for the client rowset.
+     * @param {Pointer<PROPVARIANT>} itemID Type: <b>REFPROPVARIANT</b>
      * 
-     * @param {Pointer<PROPVARIANT>} itemID 
-     * @param {Integer} rowsetItemState 
-     * @param {Integer} changedItemState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetevents-onchangeditem
+     * Specifies the item in the rowset that has changed.
+     * @param {Integer} rowsetItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * 
+     * Specifies whether the changed item was originally in the rowset.
+     * @param {Integer} changedItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * 
+     * Specifies whether the changed item is currently in the rowset, as a result of the change.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetevents-onchangeditem
      */
     OnChangedItem(itemID, rowsetItemState, changedItemState) {
         result := ComCall(4, this, "ptr", itemID, "int", rowsetItemState, "int", changedItemState, "HRESULT")
@@ -68,11 +82,17 @@ class IRowsetEvents extends IUnknown{
     }
 
     /**
+     * Called by the indexer to notify clients that an item has been deleted. This item may have matched some (or all) of the search criteria for the client rowset.
+     * @param {Pointer<PROPVARIANT>} itemID Type: <b>REFPROPVARIANT</b>
      * 
-     * @param {Pointer<PROPVARIANT>} itemID 
-     * @param {Integer} deletedItemState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetevents-ondeleteditem
+     * Specifies the item in the rowset that has been deleted.
+     * @param {Integer} deletedItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * 
+     * Specifies whether the deleted item is currently in the rowset, as a <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a> enumeration.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetevents-ondeleteditem
      */
     OnDeletedItem(itemID, deletedItemState) {
         result := ComCall(5, this, "ptr", itemID, "int", deletedItemState, "HRESULT")
@@ -80,11 +100,17 @@ class IRowsetEvents extends IUnknown{
     }
 
     /**
+     * Called by the indexer to notify clients of an event related to the client rowset.
+     * @param {Integer} eventType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type">ROWSETEVENT_TYPE</a></b>
      * 
-     * @param {Integer} eventType 
-     * @param {Pointer<PROPVARIANT>} eventData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetevents-onrowsetevent
+     * The event triggering the notification as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type">ROWSETEVENT_TYPE</a> enumeration.
+     * @param {Pointer<PROPVARIANT>} eventData Type: <b>REFPROPVARIANT</b>
+     * 
+     * The expected value of the event data for the event type.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetevents-onrowsetevent
      */
     OnRowsetEvent(eventType, eventData) {
         result := ComCall(6, this, "int", eventType, "ptr", eventData, "HRESULT")

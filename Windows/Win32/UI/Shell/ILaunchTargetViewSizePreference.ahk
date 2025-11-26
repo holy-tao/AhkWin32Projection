@@ -31,9 +31,11 @@ class ILaunchTargetViewSizePreference extends IUnknown{
     static VTableNames => ["GetTargetViewSizePreference"]
 
     /**
+     * Retrieves the preferred view size of the application being launched.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetviewsizepreference-gettargetviewsizepreference
+     * Contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>  for the target application.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchtargetviewsizepreference-gettargetviewsizepreference
      */
     GetTargetViewSizePreference() {
         result := ComCall(3, this, "int*", &targetSizeOnLaunch := 0, "HRESULT")

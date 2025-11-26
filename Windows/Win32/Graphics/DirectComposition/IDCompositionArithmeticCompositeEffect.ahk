@@ -31,10 +31,14 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetCoefficients", "SetClampOutput", "SetCoefficient1", "SetCoefficient11", "SetCoefficient2", "SetCoefficient21", "SetCoefficient3", "SetCoefficient31", "SetCoefficient4", "SetCoefficient41"]
 
     /**
+     * Sets the coefficients for the equation used to composite the two input images.
+     * @param {Pointer<D2D_VECTOR_4F>} coefficients Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a></b>
      * 
-     * @param {Pointer<D2D_VECTOR_4F>} coefficients 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficients
+     * The coefficients for the equation used to composite the two input images.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficients
      */
     SetCoefficients(coefficients) {
         result := ComCall(4, this, "ptr", coefficients, "HRESULT")
@@ -42,10 +46,14 @@ class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether to clamp color values before the effect passes the values to the next effect in the graph.
+     * @param {BOOL} clampoutput Type: <b>BOOL</b>
      * 
-     * @param {BOOL} clampoutput 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setclampoutput
+     * A boolean value indicating whether to clamp the color values.  A value of TRUE causes color values to be clamped between 0 and 1.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setclampoutput
      */
     SetClampOutput(clampoutput) {
         result := ComCall(5, this, "int", clampoutput, "HRESULT")

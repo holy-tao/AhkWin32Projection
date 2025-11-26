@@ -57,9 +57,9 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-get_xdstoratobjok
+     * The get_XDSToRatObjOK method queries whether the XDSToRat object was created successfully.
+     * @returns {HRESULT} Receives an <b>HRESULT</b> value. The <b>HRESULT</b> is the value that was returned when the filter called <b>CoCreateInstance</b> to create the <b>XDSToRat</b> object. If it equals S_OK, the <b>EvalRat</b> object was created successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-get_xdstoratobjok
      */
     get_XDSToRatObjOK() {
         result := ComCall(3, this, "int*", &pHrCoCreateRetVal := 0, "HRESULT")
@@ -67,10 +67,39 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
+     * The put_CCSubstreamService method specifies which line 21 data channels the XDS Codec filter sends to the XDSToRat object. By default, only the Extended Data Services (XDS) channel is supported.
+     * @param {Integer} SubstreamMask Bitwise combination of zero or more <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ks-cc-substream">KS_CC_SUBSTREAM</a> flags, specifying the line 21 services.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} SubstreamMask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-put_ccsubstreamservice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-put_ccsubstreamservice
      */
     put_CCSubstreamService(SubstreamMask) {
         result := ComCall(4, this, "int", SubstreamMask, "HRESULT")
@@ -78,9 +107,9 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-get_ccsubstreamservice
+     * The get_CCSubstreamService method queries which line 21 data channels the XDS Codec filter sends to the XDSToRat object. By default, it sends just the Extended Data Services (XDS) channel.
+     * @returns {Integer} Receives a bitwise combination of zero or more <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ks-cc-substream">KS_CC_SUBSTREAM</a> flags.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-get_ccsubstreamservice
      */
     get_CCSubstreamService() {
         result := ComCall(5, this, "int*", &pSubstreamMask := 0, "HRESULT")
@@ -88,14 +117,43 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
+     * The GetContentAdvisoryRating method retrieves the most recent ratings information parsed by the XDSToRat object.
+     * @param {Pointer<Integer>} pRat Receives the most recent rating. The rating is packed into a format that is used internally by the XDS Codec filter, Encrypter/Tagger filter, and Decrypter/Detagger filter. It is not intended for use by other objects.
+     * @param {Pointer<Integer>} pPktSeqID Receives the number of ratings packets that have been decoded. This information can be used for diagnostic purposes.
+     * @param {Pointer<Integer>} pCallSeqID Receives the number of times this method has been called for the current ratings packet. This information can be used for diagnostic purposes.
+     * @param {Pointer<Integer>} pTimeStart Receives the start time of the sample that completed the ratings packet.
+     * @param {Pointer<Integer>} pTimeEnd Receives the stop time of the sample that completed the ratings packet.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {Pointer<Integer>} pRat 
-     * @param {Pointer<Integer>} pPktSeqID 
-     * @param {Pointer<Integer>} pCallSeqID 
-     * @param {Pointer<Integer>} pTimeStart 
-     * @param {Pointer<Integer>} pTimeEnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcontentadvisoryrating
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NULL pointer argument
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getcontentadvisoryrating
      */
     GetContentAdvisoryRating(pRat, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
         pRatMarshal := pRat is VarRef ? "int*" : "ptr"
@@ -109,16 +167,45 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
+     * The GetXDSPacket method retrieves the most recent XDS packet.
+     * @param {Pointer<Integer>} pXDSClassPkt Receives the packet class.
+     * @param {Pointer<Integer>} pXDSTypePkt Receives the class-specific packet type.
+     * @param {Pointer<BSTR>} pBstrXDSPkt Receives the packet as a <b>BSTR</b> value.
+     * @param {Pointer<Integer>} pPktSeqID Receives the number of ratings packets that have been decoded. This information can be used for diagnostic purposes.
+     * @param {Pointer<Integer>} pCallSeqID Receives the number of times this method has been called for the current ratings packet. This information can be used for diagnostic purposes.
+     * @param {Pointer<Integer>} pTimeStart Receives the start time of the sample containing the packet.
+     * @param {Pointer<Integer>} pTimeEnd Receives the stop time of the sample containing the packet.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {Pointer<Integer>} pXDSClassPkt 
-     * @param {Pointer<Integer>} pXDSTypePkt 
-     * @param {Pointer<BSTR>} pBstrXDSPkt 
-     * @param {Pointer<Integer>} pPktSeqID 
-     * @param {Pointer<Integer>} pCallSeqID 
-     * @param {Pointer<Integer>} pTimeStart 
-     * @param {Pointer<Integer>} pTimeEnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getxdspacket
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getxdspacket
      */
     GetXDSPacket(pXDSClassPkt, pXDSTypePkt, pBstrXDSPkt, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
         pXDSClassPktMarshal := pXDSClassPkt is VarRef ? "int*" : "ptr"
@@ -133,10 +220,10 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} protType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
+     * Not implemented in this release.
+     * @param {Pointer<Integer>} protType Reserved.
+     * @returns {Integer} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType) {
         protTypeMarshal := protType is VarRef ? "int*" : "ptr"
@@ -146,9 +233,9 @@ class IXDSCodec extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getlasterrorcode
+     * Not implemented in this release.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getlasterrorcode
      */
     GetLastErrorCode() {
         result := ComCall(9, this, "HRESULT")

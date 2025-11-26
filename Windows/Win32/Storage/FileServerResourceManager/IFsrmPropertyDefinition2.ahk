@@ -62,9 +62,9 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
     }
 
     /**
-     * 
+     * Contains the flags for the property definition.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags
      */
     get_PropertyDefinitionFlags() {
         result := ComCall(22, this, "int*", &propertyDefinitionFlags := 0, "HRESULT")
@@ -72,9 +72,9 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
     }
 
     /**
-     * 
+     * The display name of the property definition.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_displayname
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_displayname
      */
     get_DisplayName() {
         name := BSTR()
@@ -83,10 +83,10 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
     }
 
     /**
-     * 
+     * The display name of the property definition.
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-put_displayname
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-put_displayname
      */
     put_DisplayName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -96,9 +96,9 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
     }
 
     /**
-     * 
+     * This property contains flags with values from the FsrmPropertyDefinitionAppliesTo enumeration that indicate what a FSRM property definition can be applied to.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_appliesto
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_appliesto
      */
     get_AppliesTo() {
         result := ComCall(25, this, "int*", &appliesTo := 0, "HRESULT")
@@ -106,9 +106,9 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
     }
 
     /**
-     * 
+     * This property contains the possible value definitions of the property definition.
      * @returns {IFsrmCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_valuedefinitions
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_valuedefinitions
      */
     get_ValueDefinitions() {
         result := ComCall(26, this, "ptr*", &valueDefinitions := 0, "HRESULT")

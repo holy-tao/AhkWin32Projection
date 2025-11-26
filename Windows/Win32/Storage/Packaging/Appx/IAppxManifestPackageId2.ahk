@@ -37,9 +37,11 @@ class IAppxManifestPackageId2 extends IAppxManifestPackageId{
     static VTableNames => ["GetArchitecture2"]
 
     /**
+     * Gets the processor architecture as defined in the manifest.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_package_architecture2">APPX_PACKAGE_ARCHITECTURE2</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid2-getarchitecture2
+     * The architecture specified for the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid2-getarchitecture2
      */
     GetArchitecture2() {
         result := ComCall(11, this, "int*", &architecture := 0, "HRESULT")

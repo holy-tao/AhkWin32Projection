@@ -60,9 +60,9 @@ class IDiscMaster2 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get__newenum
+     * Retrieves a list of the CD and DVD devices installed on the computer.
+     * @returns {IEnumVARIANT} An <b>IEnumVariant</b> interface that you use to enumerate the CD and DVD devices installed on the computer. The items of the enumeration are variants whose type is <b>VT_BSTR</b>. Use the <b>bstrVal</b> member to retrieve the unique identifier of the device.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppunk := 0, "HRESULT")
@@ -70,10 +70,12 @@ class IDiscMaster2 extends IDispatch{
     }
 
     /**
+     * Retrieves the unique identifier of the specified disc device.
+     * @param {Integer} index Zero-based index of the device whose unique identifier you want to retrieve.
      * 
-     * @param {Integer} index 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_item
+     * The index value can change during PNP activity when devices are added or removed from the computer,  or across boot sessions.
+     * @returns {BSTR} String that contains the unique identifier of the disc device associated with the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get_item
      */
     get_Item(index) {
         value := BSTR()
@@ -82,9 +84,9 @@ class IDiscMaster2 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_count
+     * Retrieves the number of the CD and DVD disc devices installed on the computer.
+     * @returns {Integer} Number of CD and DVD disc devices installed on the computer.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &value := 0, "HRESULT")
@@ -92,9 +94,9 @@ class IDiscMaster2 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_issupportedenvironment
+     * Retrieves a value that determines if the environment contains one or more optical devices and the execution context has permission to access the devices.
+     * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the environment contains one or more optical devices and the execution context has permission to access the devices; otherwise, VARIANT_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get_issupportedenvironment
      */
     get_IsSupportedEnvironment() {
         result := ComCall(10, this, "short*", &value := 0, "HRESULT")

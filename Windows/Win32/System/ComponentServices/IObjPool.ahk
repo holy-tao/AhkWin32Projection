@@ -63,10 +63,10 @@ class IObjPool extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pObj 
+     * Destroys the pooled object when the transaction ends.
+     * @param {IUnknown} pObj A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the pooled object.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjpool-putendtx
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjpool-putendtx
      */
     PutEndTx(pObj) {
         ComCall(7, this, "ptr", pObj)

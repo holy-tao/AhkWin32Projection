@@ -42,10 +42,10 @@ class IInternalUnknown extends IUnknown{
     static VTableNames => ["QueryInternalInterface"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iinternalunknown-queryinternalinterface
+     * Retrieves pointers to the supported internal interfaces on an object.
+     * @param {Pointer<Guid>} riid The identifier of the internal interface being requested.
+     * @returns {Pointer<Void>} The address of a pointer variable that receives the interface pointer requested in the <i>riid</i> parameter. Upon successful return, *<i>ppv</i> contains the requested interface pointer to the object. If the object does not support the interface, *<i>ppv</i> is set to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iinternalunknown-queryinternalinterface
      */
     QueryInternalInterface(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

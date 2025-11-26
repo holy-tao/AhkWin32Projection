@@ -36,9 +36,9 @@ class IExecuteCommandApplicationHostEnvironment extends IUnknown{
     static VTableNames => ["GetValue"]
 
     /**
-     * 
+     * Determines whether the current application host environment is in the desktop or immersive mode.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandapplicationhostenvironment-getvalue
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexecutecommandapplicationhostenvironment-getvalue
      */
     GetValue() {
         result := ComCall(3, this, "int*", &pahe := 0, "HRESULT")

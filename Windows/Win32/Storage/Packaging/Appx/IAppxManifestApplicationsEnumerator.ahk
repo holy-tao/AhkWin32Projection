@@ -40,9 +40,11 @@ class IAppxManifestApplicationsEnumerator extends IUnknown{
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
+     * Gets the application at the current position of the enumerator.
+     * @returns {IAppxManifestApplication} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestapplication">IAppxManifestApplication</a>**</b>
      * 
-     * @returns {IAppxManifestApplication} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-getcurrent
+     * The current application.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &application := 0, "HRESULT")
@@ -50,9 +52,11 @@ class IAppxManifestApplicationsEnumerator extends IUnknown{
     }
 
     /**
+     * Determines whether there is an application at the current position of the enumerator.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-gethascurrent
+     * <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-gethascurrent
      */
     GetHasCurrent() {
         result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
@@ -60,9 +64,13 @@ class IAppxManifestApplicationsEnumerator extends IUnknown{
     }
 
     /**
+     * Advances the position of the enumerator to the next application.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-movenext
+     * <b>TRUE</b> if the enumerator successfully advances
+     * 
+     * <b>FALSE</b> if the enumerator has passed the end of the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-movenext
      */
     MoveNext() {
         result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")

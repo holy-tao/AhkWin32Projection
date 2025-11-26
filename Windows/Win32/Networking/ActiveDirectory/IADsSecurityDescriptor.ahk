@@ -316,9 +316,9 @@ class IADsSecurityDescriptor extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
+     * The IADsSecurityDescriptor::CopySecurityDescriptor method copies an ADSI security descriptor object that holds security data about an object.
+     * @returns {IDispatch} Pointer to a pointer to a security descriptor object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
      */
     CopySecurityDescriptor() {
         result := ComCall(27, this, "ptr*", &ppSecurityDescriptor := 0, "HRESULT")

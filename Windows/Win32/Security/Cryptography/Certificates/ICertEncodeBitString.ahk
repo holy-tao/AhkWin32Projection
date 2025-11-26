@@ -32,10 +32,14 @@ class ICertEncodeBitString extends IDispatch{
     static VTableNames => ["Decode", "GetBitCount", "GetBitString", "Encode"]
 
     /**
+     * Decodes an Abstract Syntax Notation One (ASN.1)-encoded bit string and stores the resulting bit string in this object.
+     * @param {BSTR} strBinary An ASN.1-encoded bit string.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {BSTR} strBinary 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-decode
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see 
+     * <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodebitstring-decode
      */
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
@@ -45,9 +49,9 @@ class ICertEncodeBitString extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitcount
+     * Returns the number of bits in a bit string that belongs to the CertEncodeBitString object and has been initialized by an earlier call to ICertEncodeBitString::Decode.
+     * @returns {Integer} A pointer to a <b>Long</b> that will receive the number of bits in the bit string.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodebitstring-getbitcount
      */
     GetBitCount() {
         result := ComCall(8, this, "int*", &pBitCount := 0, "HRESULT")
@@ -55,9 +59,9 @@ class ICertEncodeBitString extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitstring
+     * Returns the string of bits in the object's bit string.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that will contain the bit string. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodebitstring-getbitstring
      */
     GetBitString() {
         pstrBitString := BSTR()
@@ -66,11 +70,11 @@ class ICertEncodeBitString extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} BitCount 
-     * @param {BSTR} strBitString 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-encode
+     * Performs Abstract Syntax Notation One (ASN.1) encoding on a given bit string.
+     * @param {Integer} BitCount The number of bits in <i>strBitString</i>.
+     * @param {BSTR} strBitString The bit string to encode.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that will contain the encoded bit string. When you have finished using this <b>BSTR</b>, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function to free <i>pbstrBinary</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodebitstring-encode
      */
     Encode(BitCount, strBitString) {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString

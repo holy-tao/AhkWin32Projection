@@ -36,12 +36,20 @@ class IEnumAssocHandlers extends IUnknown{
     static VTableNames => ["Next"]
 
     /**
+     * Retrieves a specified number of elements.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<IAssocHandler>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumassochandlers-next
+     * The number of elements to retrieve.
+     * @param {Pointer<IAssocHandler>} rgelt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iassochandler">IAssocHandler</a>**</b>
+     * 
+     * When this method returns, contains the address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iassochandler">IAssocHandler</a> pointers. Each <b>IAssocHandler</b> represents a single handler.
+     * @param {Pointer<Integer>} pceltFetched Type: <b>ULONG*</b>
+     * 
+     * When this method returns, contains a pointer to the number of elements retrieved.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumassochandlers-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"

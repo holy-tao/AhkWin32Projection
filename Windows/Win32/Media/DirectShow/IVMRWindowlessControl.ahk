@@ -31,13 +31,31 @@ class IVMRWindowlessControl extends IUnknown{
     static VTableNames => ["GetNativeVideoSize", "GetMinIdealVideoSize", "GetMaxIdealVideoSize", "SetVideoPosition", "GetVideoPosition", "GetAspectRatioMode", "SetAspectRatioMode", "SetVideoClippingWindow", "RepaintVideo", "DisplayModeChanged", "GetCurrentImage", "SetBorderColor", "GetBorderColor", "SetColorKey", "GetColorKey"]
 
     /**
+     * The GetNativeVideoSize method retrieves the un-stretched video size and aspect ratio of the video.
+     * @param {Pointer<Integer>} lpWidth Pointer that receives the width of the native video rectangle.
+     * @param {Pointer<Integer>} lpHeight Pointer that receives the height of the native video rectangle.
+     * @param {Pointer<Integer>} lpARWidth Pointer that receives the aspect ratio width of the native video rectangle.
+     * @param {Pointer<Integer>} lpARHeight Pointer that receives the aspect ratio height of the native video rectangle.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Returns E_POINTER if all four input parameters are <b>NULL</b>.
      * 
-     * @param {Pointer<Integer>} lpWidth 
-     * @param {Pointer<Integer>} lpHeight 
-     * @param {Pointer<Integer>} lpARWidth 
-     * @param {Pointer<Integer>} lpARHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getnativevideosize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getnativevideosize
      */
     GetNativeVideoSize(lpWidth, lpHeight, lpARWidth, lpARHeight) {
         lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
@@ -50,11 +68,29 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The GetMinIdealVideoSize method retrieves the minimum video size that the VMR can display without incurring significant performance or image quality degradation.
+     * @param {Pointer<Integer>} lpWidth Pointer to a LONG value that receives the minimum ideal width.
+     * @param {Pointer<Integer>} lpHeight Pointer to a LONG value that receives the minimum ideal height.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {Pointer<Integer>} lpWidth 
-     * @param {Pointer<Integer>} lpHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getminidealvideosize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getminidealvideosize
      */
     GetMinIdealVideoSize(lpWidth, lpHeight) {
         lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
@@ -65,11 +101,29 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The GetMaxIdealVideoSize method retrieves the maximum video size that the VMR can display without incurring significant performance or image quality degradation.
+     * @param {Pointer<Integer>} lpWidth Pointer that receives the maximum ideal width.
+     * @param {Pointer<Integer>} lpHeight Pointer that receives the maximum ideal height.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {Pointer<Integer>} lpWidth 
-     * @param {Pointer<Integer>} lpHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getmaxidealvideosize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getmaxidealvideosize
      */
     GetMaxIdealVideoSize(lpWidth, lpHeight) {
         lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
@@ -80,11 +134,29 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The SetVideoPosition method sets the source and destination rectangles for the video.
+     * @param {Pointer<RECT>} lpSRCRect Pointer to a <b>RECT</b> structure that specifies the source rectangle. If <b>NULL</b>, the source rectangle does not change. The default source rectangle is the entire video image.
+     * @param {Pointer<RECT>} lpDSTRect Pointer to a <b>RECT</b> structure that specifies the destination rectangle. If <b>NULL</b>, the destination rectangle does not change. The default destination rectangle is {0, 0, 0, 0}.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {Pointer<RECT>} lpSRCRect 
-     * @param {Pointer<RECT>} lpDSTRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-setvideoposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-setvideoposition
      */
     SetVideoPosition(lpSRCRect, lpDSTRect) {
         result := ComCall(6, this, "ptr", lpSRCRect, "ptr", lpDSTRect, "HRESULT")
@@ -92,11 +164,29 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The GetVideoPosition method retrieves the current source and destination rectangles used to display the video.
+     * @param {Pointer<RECT>} lpSRCRect Pointer that receives the current source rectangle.
+     * @param {Pointer<RECT>} lpDSTRect Pointer that receives the current destination rectangle.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {Pointer<RECT>} lpSRCRect 
-     * @param {Pointer<RECT>} lpDSTRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getvideoposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getvideoposition
      */
     GetVideoPosition(lpSRCRect, lpDSTRect) {
         result := ComCall(7, this, "ptr", lpSRCRect, "ptr", lpDSTRect, "HRESULT")
@@ -104,9 +194,9 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getaspectratiomode
+     * The GetAspectRatioMode method queries whether the VMR will preserve the aspect ratio of the source video.
+     * @returns {Integer} Pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmr_aspect_ratio_mode">VMR_ASPECT_RATIO_MODE</a> value indicating the aspect ratio mode.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getaspectratiomode
      */
     GetAspectRatioMode() {
         result := ComCall(8, this, "uint*", &lpAspectRatioMode := 0, "HRESULT")
@@ -114,10 +204,50 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The SetAspectRatioMode method specifies whether the VMR will preserve the aspect ratio of the source video.
+     * @param {Integer} AspectRatioMode Specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmr_aspect_ratio_mode">VMR_ASPECT_RATIO_MODE</a> enumeration type.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
-     * @param {Integer} AspectRatioMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-setaspectratiomode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-setaspectratiomode
      */
     SetAspectRatioMode(AspectRatioMode) {
         result := ComCall(9, this, "uint", AspectRatioMode, "HRESULT")
@@ -125,10 +255,28 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The SetVideoClippingWindow method specifies the container window that video should be clipped to.
+     * @param {HWND} hwnd Specifies the window to which the video should be clipped.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-setvideoclippingwindow
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-setvideoclippingwindow
      */
     SetVideoClippingWindow(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -138,11 +286,29 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The RepaintVideo method repaints the current video frame.
+     * @param {HWND} hwnd Specifies the handle of the window in which the repainting should occur.
+     * @param {HDC} hdc Specifies the handle to the device context for the window.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {HWND} hwnd 
-     * @param {HDC} hdc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-repaintvideo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-repaintvideo
      */
     RepaintVideo(hwnd, hdc) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -153,9 +319,27 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The DisplayModeChanged method informs the VMR that a WM_DISPLAYCHANGE message has been received by the application.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-displaymodechanged
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-displaymodechanged
      */
     DisplayModeChanged() {
         result := ComCall(12, this, "HRESULT")
@@ -163,9 +347,9 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getcurrentimage
+     * The GetCurrentImage method retrieves a copy of the current image being displayed by the VMR.
+     * @returns {Pointer<Integer>} Address of a pointer to a BYTE array.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getcurrentimage
      */
     GetCurrentImage() {
         result := ComCall(13, this, "ptr*", &lpDib := 0, "HRESULT")
@@ -173,10 +357,28 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The SetBorderColor method sets the border color to be used by the VMR.
+     * @param {COLORREF} Clr Specifies the border color.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {COLORREF} Clr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-setbordercolor
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-setbordercolor
      */
     SetBorderColor(Clr) {
         result := ComCall(14, this, "uint", Clr, "HRESULT")
@@ -184,9 +386,9 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {COLORREF} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getbordercolor
+     * The GetBorderColor method retrieves the current border color used by the VMR.
+     * @returns {COLORREF} Pointer to a <b>COLORREF</b> variable that receives the current border color.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getbordercolor
      */
     GetBorderColor() {
         result := ComCall(15, this, "uint*", &lpClr := 0, "HRESULT")
@@ -194,10 +396,28 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
+     * The SetColorKey method sets the source color key value that the VMR should use.
+     * @param {COLORREF} Clr Specifies the source color key.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {COLORREF} Clr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-setcolorkey
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The VMR is not in windowless mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-setcolorkey
      */
     SetColorKey(Clr) {
         result := ComCall(16, this, "uint", Clr, "HRESULT")
@@ -205,9 +425,9 @@ class IVMRWindowlessControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {COLORREF} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getcolorkey
+     * The GetColorKey method retrieves the current source color key value used by the VMR.
+     * @returns {COLORREF} Pointer to a <b>COLORREF</b> variable that receives the current color key value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrwindowlesscontrol-getcolorkey
      */
     GetColorKey() {
         result := ComCall(17, this, "uint*", &lpClr := 0, "HRESULT")

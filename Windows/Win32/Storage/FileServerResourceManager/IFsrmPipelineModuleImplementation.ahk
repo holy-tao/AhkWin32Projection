@@ -32,10 +32,16 @@ class IFsrmPipelineModuleImplementation extends IDispatch{
     static VTableNames => ["OnLoad", "OnUnload"]
 
     /**
+     * Initializes the pipeline module.
+     * @param {IFsrmPipelineModuleDefinition} moduleDefinition Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition">IFsrmPipelineModuleDefinition</a>*</b>
      * 
-     * @param {IFsrmPipelineModuleDefinition} moduleDefinition 
-     * @returns {IFsrmPipelineModuleConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition">IFsrmPipelineModuleDefinition</a> 
+     *        instance representing the pipeline module definition to use.
+     * @returns {IFsrmPipelineModuleConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector">IFsrmPipelineModuleConnector</a>**</b>
+     * 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector">IFsrmPipelineModuleConnector</a> instance 
+     *        representing the pipeline module connector to use.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload
      */
     OnLoad(moduleDefinition) {
         result := ComCall(7, this, "ptr", moduleDefinition, "ptr*", &moduleConnector := 0, "HRESULT")
@@ -43,9 +49,9 @@ class IFsrmPipelineModuleImplementation extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onunload
+     * Notifies the module to perform any cleanup tasks.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onunload
      */
     OnUnload() {
         result := ComCall(8, this, "HRESULT")

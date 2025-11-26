@@ -39,9 +39,11 @@ class ID3D11FunctionParameterReflection extends Win32ComInterface{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Fills the parameter descriptor structure for the function's parameter.
+     * @returns {D3D11_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a>*</b>
      * 
-     * @returns {D3D11_PARAMETER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a> structure that receives a description of the function's parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D11_PARAMETER_DESC()

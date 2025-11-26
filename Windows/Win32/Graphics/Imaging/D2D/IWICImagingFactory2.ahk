@@ -32,10 +32,10 @@ class IWICImagingFactory2 extends IWICImagingFactory{
     static VTableNames => ["CreateImageEncoder"]
 
     /**
-     * 
-     * @param {ID2D1Device} pD2DDevice 
-     * @returns {IWICImageEncoder} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory2-createimageencoder
+     * Creates a new image encoder object.
+     * @param {ID2D1Device} pD2DDevice The <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a> object on which the corresponding image encoder is created.
+     * @returns {IWICImageEncoder} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicimageencoder">IWICImageEncoder</a> interface for the encoder object that you can use to encode <a href="https://docs.microsoft.com/windows/desktop/Direct2D/direct2d-portal">Direct2D</a> images.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory2-createimageencoder
      */
     CreateImageEncoder(pD2DDevice) {
         result := ComCall(28, this, "ptr", pD2DDevice, "ptr*", &ppWICImageEncoder := 0, "HRESULT")

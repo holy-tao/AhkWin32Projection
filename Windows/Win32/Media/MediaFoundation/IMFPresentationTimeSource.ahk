@@ -42,9 +42,9 @@ class IMFPresentationTimeSource extends IMFClock{
     static VTableNames => ["GetUnderlyingClock"]
 
     /**
-     * 
-     * @returns {IMFClock} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationtimesource-getunderlyingclock
+     * Retrieves the underlying clock that the presentation time source uses to generate its clock times.
+     * @returns {IMFClock} Receives a pointer to the clock's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfclock">IMFClock</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpresentationtimesource-getunderlyingclock
      */
     GetUnderlyingClock() {
         result := ComCall(8, this, "ptr*", &ppClock := 0, "HRESULT")

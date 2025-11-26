@@ -33,13 +33,13 @@ class IDCompositionSurfaceFactory extends IUnknown{
     static VTableNames => ["CreateSurface", "CreateVirtualSurface"]
 
     /**
-     * 
-     * @param {Integer} width 
-     * @param {Integer} height 
-     * @param {Integer} pixelFormat 
-     * @param {Integer} alphaMode 
-     * @returns {IDCompositionSurface} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createsurface
+     * Creates a surface object that can be associated with one or more visuals for composition.
+     * @param {Integer} width The width of the surface, in pixels.
+     * @param {Integer} height The height of the surface, in pixels.
+     * @param {Integer} pixelFormat The pixel format of the surface.
+     * @param {Integer} alphaMode The format of the alpha channel, if an alpha channel is included in the pixel format. This can be one of DXGI_ALPHA_MODE_PREMULTIPLIED or DXGI_ALPHA_MODE_IGNORE. It can also be DXGI_ALPHA_MODE_UNSPECIFIED, which is interpreted as DXGI_ALPHA_MODE_IGNORE.
+     * @returns {IDCompositionSurface} The newly created surface object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionsurfacefactory-createsurface
      */
     CreateSurface(width, height, pixelFormat, alphaMode) {
         result := ComCall(3, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", &surface := 0, "HRESULT")
@@ -47,13 +47,14 @@ class IDCompositionSurfaceFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} initialWidth 
-     * @param {Integer} initialHeight 
-     * @param {Integer} pixelFormat 
-     * @param {Integer} alphaMode 
-     * @returns {IDCompositionVirtualSurface} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createvirtualsurface
+     * Creates a sparsely populated surface that can be associated with one or more visuals for composition.
+     * @param {Integer} initialWidth The width of the surface, in pixels. The maximum width is 16,777,216 pixels.
+     * @param {Integer} initialHeight The height of the surface, in pixels.
+     * The maximum height is 16,777,216 pixels.
+     * @param {Integer} pixelFormat The pixel format of the surface.
+     * @param {Integer} alphaMode The format of the alpha channel, if an alpha channel is included in the pixel format. This can be one of DXGI_ALPHA_MODE_PREMULTIPLIED or DXGI_ALPHA_MODE_IGNORE. It can also be DXGI_ALPHA_MODE_UNSPECIFIED, which is interpreted as DXGI_ALPHA_MODE_IGNORE.
+     * @returns {IDCompositionVirtualSurface} The newly created virtual surface object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionsurfacefactory-createvirtualsurface
      */
     CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
         result := ComCall(4, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")

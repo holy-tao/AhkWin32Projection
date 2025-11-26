@@ -36,11 +36,11 @@ class ID3D11RefDefaultTrackingOptions extends IUnknown{
     static VTableNames => ["SetTrackingOptions"]
 
     /**
-     * 
-     * @param {Integer} ResourceTypeFlags 
-     * @param {Integer} Options 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11refdefaulttrackingoptions-settrackingoptions
+     * Sets graphics processing unit (GPU) debug reference default tracking options for specific resource types.
+     * @param {Integer} ResourceTypeFlags A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_resource_type">D3D11_SHADER_TRACKING_RESOURCE_TYPE</a>-typed value that specifies the type of resource to track.
+     * @param {Integer} Options A combination of <a href="https://docs.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options">D3D11_SHADER_TRACKING_OPTIONS</a>-typed flags that are combined by using a bitwise <b>OR</b> operation. The resulting value identifies tracking options. If a flag is present, the tracking option that the flag represents is set to "on"; otherwise the tracking option is set to "off."
+     * @returns {HRESULT} This method returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11refdefaulttrackingoptions-settrackingoptions
      */
     SetTrackingOptions(ResourceTypeFlags, Options) {
         result := ComCall(3, this, "uint", ResourceTypeFlags, "uint", Options, "HRESULT")

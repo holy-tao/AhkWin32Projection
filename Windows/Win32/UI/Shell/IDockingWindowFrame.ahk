@@ -58,12 +58,18 @@ class IDockingWindowFrame extends IOleWindow{
     static VTableNames => ["AddToolbar", "RemoveToolbar", "FindToolbar"]
 
     /**
+     * Adds the specified IDockingWindow object to the frame.
+     * @param {IUnknown} punkSrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkSrc 
-     * @param {PWSTR} pwszItem 
-     * @param {Integer} dwAddFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-idockingwindowframe-addtoolbar
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a> object to be added.
+     * @param {PWSTR} pwszItem Type: <b>PCWSTR</b>
+     * 
+     * A pointer to a null-terminated, Unicode, application-defined string that is used to identify the docking window object.
+     * @param {Integer} dwAddFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idockingwindowframe-addtoolbar
      */
     AddToolbar(punkSrc, pwszItem, dwAddFlags) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
@@ -73,11 +79,15 @@ class IDockingWindowFrame extends IOleWindow{
     }
 
     /**
+     * Removes the specified IDockingWindow from the toolbar frame.
+     * @param {IUnknown} punkSrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkSrc 
-     * @param {Integer} dwRemoveFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-idockingwindowframe-removetoolbar
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a> object to be removed. The <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nn-shlobj-idockingwindowframe">IDockingWindowFrame</a> implementation calls the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idockingwindow-closedw">IDockingWindow::CloseDW</a> and <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IDockingWindow::Release</a> methods.
+     * @param {Integer} dwRemoveFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idockingwindowframe-removetoolbar
      */
     RemoveToolbar(punkSrc, dwRemoveFlags) {
         result := ComCall(6, this, "ptr", punkSrc, "uint", dwRemoveFlags, "HRESULT")
@@ -85,11 +95,17 @@ class IDockingWindowFrame extends IOleWindow{
     }
 
     /**
+     * Finds the specified IDockingWindow object in the toolbar frame and returns an interface pointer to it.
+     * @param {PWSTR} pwszItem Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pwszItem 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-idockingwindowframe-findtoolbar
+     * A pointer to a null-terminated, Unicode, application-defined string used to identify the object. This is the same string that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-idockingwindowframe-addtoolbar">AddToolbar</a> method.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the desired interface ID. This is typically IID_IDockingWindow.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a>. If an error occurs, this value receives a null pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idockingwindowframe-findtoolbar
      */
     FindToolbar(pwszItem, riid) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem

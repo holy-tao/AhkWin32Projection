@@ -32,9 +32,11 @@ class IUIImage extends IUnknown{
     static VTableNames => ["GetBitmap"]
 
     /**
+     * Retrieves a bitmap to display as an icon in the ribbon and context popup UI of the Windows Ribbon framework.
+     * @returns {HBITMAP} Type: <b>HBITMAP*</b>
      * 
-     * @returns {HBITMAP} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimage-getbitmap
+     * When this method returns, contains a pointer to the handle to the requested bitmap.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiimage-getbitmap
      */
     GetBitmap() {
         bitmap := HBITMAP()

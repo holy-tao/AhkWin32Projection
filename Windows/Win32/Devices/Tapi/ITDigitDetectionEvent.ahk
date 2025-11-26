@@ -67,9 +67,10 @@ class ITDigitDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_call
+     * The get_Call method gets a pointer to the ITCallInfo interface for the call on which the event occurred.
+     * @returns {ITCallInfo} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitdetectionevent-get_call
      */
     get_Call() {
         result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
@@ -77,9 +78,9 @@ class ITDigitDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_digit
+     * The get_Digit method retrieves an unsigned char pointer to the digit that was detected.
+     * @returns {Integer} Pointer to the digit.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitdetectionevent-get_digit
      */
     get_Digit() {
         result := ComCall(8, this, "char*", &pucDigit := 0, "HRESULT")
@@ -87,9 +88,9 @@ class ITDigitDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_digitmode
+     * The get_DigitMode method gets the indicator of the line digit mode, such as LINEDIGITMODE_DTMF.
+     * @returns {Integer} Pointer to indicator of digit mode.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitdetectionevent-get_digitmode
      */
     get_DigitMode() {
         result := ComCall(9, this, "int*", &pDigitMode := 0, "HRESULT")
@@ -97,9 +98,9 @@ class ITDigitDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_tickcount
+     * The get_TickCount method gets the &quot;tick count&quot; (number of milliseconds since Windows started) at which the digit gathering completed.
+     * @returns {Integer} Pointer to tick count.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitdetectionevent-get_tickcount
      */
     get_TickCount() {
         result := ComCall(10, this, "int*", &plTickCount := 0, "HRESULT")
@@ -107,9 +108,10 @@ class ITDigitDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_callbackinstance
+     * The get_CallbackInstance method gets a pointer to the callback instance associated with the event.
+     * @returns {Integer} Pointer to the callback instance returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitdetectionevent-get_callbackinstance
      */
     get_CallbackInstance() {
         result := ComCall(11, this, "int*", &plCallbackInstance := 0, "HRESULT")

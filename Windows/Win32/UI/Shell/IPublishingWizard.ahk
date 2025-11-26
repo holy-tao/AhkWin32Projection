@@ -95,22 +95,53 @@ class IPublishingWizard extends IWizardExtension{
     static VTableNames => ["Initialize", "GetTransferManifest"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IDataObject} pdo 
-     * @param {Integer} dwOptions 
-     * @param {PWSTR} pszServiceScope 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the Publishing Wizard object with the files to transfer, the settings to use, and the type of wizard to create.
+     * @param {IDataObject} pdo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * 
+     * A pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> that represents the files or folder to be transferred, if <i>pszServiceProvider</i> is <c>InternetPhotoPrinting</code>. If <i>pszServiceProvider</i> is <code>AddNetPlace</c>, this parameter is <b>NULL</b>.
+     * @param {Integer} dwOptions Type: <b>DWORD</b>
+     * 
+     * A combination of the following flags.
+     * @param {PWSTR} pszServiceScope Type: <b>LPCWSTR</b>
+     * 
+     * Unicode string that indicates the type of wizard to display. The following case-sensitive values are supported in Windows Vista.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful or an error value otherwise, including the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * In Windows Vista, may indicate an attempt to initialize the unsupported Online Print Wizard by passing <code>InternetPhotoPrinting</code> in <i>pszServiceProvider</i>. 
+     * 
+     *                         
+     * 
+     * In Windows XP, may indicate that when initializing the Online Print Wizard, the <i>pdo</i> parameter is <b>NULL</b> or points to an empty selection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pszServiceProvider</i> parameter is not one of the supported values or the <i>dwOptions</i> parameter contains an unsupported combination of flags.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ipublishingwizard-initialize
      */
     Initialize(pdo, dwOptions, pszServiceScope) {
         pszServiceScope := pszServiceScope is String ? StrPtr(pszServiceScope) : pszServiceScope
@@ -120,11 +151,35 @@ class IPublishingWizard extends IWizardExtension{
     }
 
     /**
+     * Gets a transfer manifest for a file transfer operation performed by a publishing wizard, such as the Online Print Wizard or the Add Network Place Wizard.
+     * @param {Pointer<HRESULT>} phrFromTransfer Type: <b>HRESULT*</b>
      * 
-     * @param {Pointer<HRESULT>} phrFromTransfer 
-     * @param {Pointer<IXMLDOMDocument>} pdocManifest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ipublishingwizard-gettransfermanifest
+     * A pointer to a variable of type <b>HRESULT</b> that, when this method returns, is set to S_OK if the transfer operation was successful, S_FALSE if the transfer has not yet begun, or a standard error value if the transfer has failed or has been canceled. This value can be <b>NULL</b> if you do not require this information.
+     * @param {Pointer<IXMLDOMDocument>} pdocManifest Type: <b>IXMLDOMDocument**</b>
+     * 
+     * Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd892951(v=vs.85)">IXMLDOMDocument interface</a> pointer that, when this method returns, points to the <b>IXMLDOMDocument interface</b> object that represents the manifest. This value can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if the manifest is successfully retrieved or a standard COM error value otherwise, including the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transfer manifest has not yet been created.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ipublishingwizard-gettransfermanifest
      */
     GetTransferManifest(phrFromTransfer, pdocManifest) {
         phrFromTransferMarshal := phrFromTransfer is VarRef ? "int*" : "ptr"

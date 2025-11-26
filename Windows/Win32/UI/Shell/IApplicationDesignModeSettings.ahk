@@ -61,10 +61,40 @@ class IApplicationDesignModeSettings extends IUnknown{
     static VTableNames => ["SetNativeDisplaySize", "SetScaleFactor", "SetApplicationViewState", "ComputeApplicationSize", "IsApplicationViewStateSupported", "TriggerEdgeGesture"]
 
     /**
+     * Sets a spoofed native display size to be used for a Windows Store app running in design mode.
+     * @param {SIZE} nativeDisplaySizePixels The native size of the display to spoof, as a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure. The specified size will be normalized to a landscape orientation. To spoof orientation, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate">SetApplicationViewState</a>.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
-     * @param {SIZE} nativeDisplaySizePixels 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setnativedisplaysize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_SET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_MONITOR_RESOLUTION_TOO_LOW </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * You cannot launch or switch to an immersive app when the resolution is this low. This is currently defined as any resolution below 800 horizontal or 600 vertical pixels when in landscape orientation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setnativedisplaysize
      */
     SetNativeDisplaySize(nativeDisplaySizePixels) {
         result := ComCall(3, this, "ptr", nativeDisplaySizePixels, "HRESULT")
@@ -72,10 +102,29 @@ class IApplicationDesignModeSettings extends IUnknown{
     }
 
     /**
+     * Sets a spoofed device scale factor to be used for a Windows Store app running in design mode.
+     * @param {Integer} scaleFactor One of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> enumeration values that indicates the device scale factor to spoof.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
-     * @param {Integer} scaleFactor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setscalefactor
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_SET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setscalefactor
      */
     SetScaleFactor(scaleFactor) {
         result := ComCall(4, this, "int", scaleFactor, "HRESULT")
@@ -83,10 +132,29 @@ class IApplicationDesignModeSettings extends IUnknown{
     }
 
     /**
+     * Sets a spoofed application view state (full-screen landscape, full-screen portrait, filled, or snapped) to be used for a Windows Store app running in design mode.
+     * @param {Integer} viewState One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_state">APPLICATION_VIEW_STATE</a> enumeration values that indicates the application view state to spoof.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
-     * @param {Integer} viewState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_SET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate
      */
     SetApplicationViewState(viewState) {
         result := ComCall(5, this, "int", viewState, "HRESULT")
@@ -94,9 +162,9 @@ class IApplicationDesignModeSettings extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {SIZE} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-computeapplicationsize
+     * Gets the size of the Windows Store app, based on the current set of spoofed settings.
+     * @returns {SIZE} When this method returns successfully, receives a pointer to the size that the Windows Store app should occupy, based on the current set of spoofed settings.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-computeapplicationsize
      */
     ComputeApplicationSize() {
         applicationSizePixels := SIZE()
@@ -105,12 +173,12 @@ class IApplicationDesignModeSettings extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} viewState 
-     * @param {SIZE} nativeDisplaySizePixels 
-     * @param {Integer} scaleFactor 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
+     * Determines whether a particular application view state is supported for specific spoofed display size and scale factor settings.
+     * @param {Integer} viewState One of the enumeration values that indicates the application view state for which support is being determined.
+     * @param {SIZE} nativeDisplaySizePixels The native size of the display to spoof.
+     * @param {Integer} scaleFactor One of the enumeration values that indicates the device scale factor to spoof.
+     * @returns {BOOL} When this method returns successfully, receives a pointer to a Boolean value which is set to <b>TRUE</b> if the application view state is supported for the given display size and scale factor, and <b>FALSE</b> if it is not.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
      */
     IsApplicationViewStateSupported(viewState, nativeDisplaySizePixels, scaleFactor) {
         result := ComCall(7, this, "int", viewState, "ptr", nativeDisplaySizePixels, "int", scaleFactor, "int*", &supported := 0, "HRESULT")
@@ -118,10 +186,29 @@ class IApplicationDesignModeSettings extends IUnknown{
     }
 
     /**
-     * 
+     * Sends a spoofed edge gesture event to the proxy core window on the caller's thread. This gesture toggles the app's app bar, if the app supports one. The caller can specify the type of input that triggered the edge gesture.
      * @param {Integer} edgeGestureKind 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-triggeredgegesture
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_SET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-triggeredgegesture
      */
     TriggerEdgeGesture(edgeGestureKind) {
         result := ComCall(8, this, "int", edgeGestureKind, "HRESULT")

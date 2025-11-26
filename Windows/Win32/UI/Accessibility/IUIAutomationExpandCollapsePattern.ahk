@@ -45,9 +45,11 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
     }
 
     /**
+     * Displays all child nodes, controls, or content of the element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-expand
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-expand
      */
     Expand() {
         result := ComCall(3, this, "HRESULT")
@@ -55,9 +57,11 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
     }
 
     /**
+     * Hides all child nodes, controls, or content of the element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-collapse
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-collapse
      */
     Collapse() {
         result := ComCall(4, this, "HRESULT")
@@ -65,9 +69,9 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that indicates the state, expanded or collapsed, of the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_currentexpandcollapsestate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_currentexpandcollapsestate
      */
     get_CurrentExpandCollapseState() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
@@ -75,9 +79,9 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates the state, expanded or collapsed, of the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_cachedexpandcollapsestate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_cachedexpandcollapsestate
      */
     get_CachedExpandCollapseState() {
         result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")

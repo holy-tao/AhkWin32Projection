@@ -32,13 +32,13 @@ class IPSFactoryBuffer extends IUnknown{
     static VTableNames => ["CreateProxy", "CreateStub"]
 
     /**
-     * 
-     * @param {IUnknown} pUnkOuter 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IRpcProxyBuffer>} ppProxy 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createproxy
+     * Creates a proxy for the specified remote interface.
+     * @param {IUnknown} pUnkOuter A controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface; used for aggregation.
+     * @param {Pointer<Guid>} riid The identifier of the interface to proxy.
+     * @param {Pointer<IRpcProxyBuffer>} ppProxy A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irpcproxybuffer">IRpcProxyBuffer</a> interface to control marshaling.
+     * @param {Pointer<Pointer<Void>>} ppv A pointer to the interface specified by <i>riid</i>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipsfactorybuffer-createproxy
      */
     CreateProxy(pUnkOuter, riid, ppProxy, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
@@ -48,11 +48,11 @@ class IPSFactoryBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @param {IUnknown} pUnkServer 
-     * @returns {IRpcStubBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createstub
+     * Creates a stub for the remote use of the specified interface.
+     * @param {Pointer<Guid>} riid The identifier of the interface for which a stub is to be created.
+     * @param {IUnknown} pUnkServer A controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface; used for aggregation.
+     * @returns {IRpcStubBuffer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irpcstubbuffer">IRpcStubBuffer</a> interface pointer to control marshaling.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipsfactorybuffer-createstub
      */
     CreateStub(riid, pUnkServer) {
         result := ComCall(4, this, "ptr", riid, "ptr", pUnkServer, "ptr*", &ppStub := 0, "HRESULT")

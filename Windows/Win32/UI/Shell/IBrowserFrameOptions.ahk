@@ -31,10 +31,14 @@ class IBrowserFrameOptions extends IUnknown{
     static VTableNames => ["GetFrameOptions"]
 
     /**
+     * Retrieves the available browser frame view options.
+     * @param {Integer} dwMask Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_browserframeoptions">BROWSERFRAMEOPTIONS</a></b>
      * 
-     * @param {Integer} dwMask 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibrowserframeoptions-getframeoptions
+     * Specifies the options requested as a bitwise combination of one or more of the constants of enumeration type <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_browserframeoptions">BROWSERFRAMEOPTIONS</a>.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_browserframeoptions">BROWSERFRAMEOPTIONS</a>*</b>
+     * 
+     * When this method returns, contains the options that the view  can enable (for example, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> ). This value is not optional and is always equal to, or a subset of, the options specified by <i>dwMask</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibrowserframeoptions-getframeoptions
      */
     GetFrameOptions(dwMask) {
         result := ComCall(3, this, "uint", dwMask, "uint*", &pdwOptions := 0, "HRESULT")

@@ -58,9 +58,9 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the computer must be restarted after you install or uninstall an update.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-get_rebootrequired
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-get_rebootrequired
      */
     get_RebootRequired() {
         result := ComCall(60, this, "short*", &retval := 0, "HRESULT")
@@ -68,9 +68,9 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether an update is installed on a computer.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-get_ispresent
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-get_ispresent
      */
     get_IsPresent() {
         result := ComCall(61, this, "short*", &retval := 0, "HRESULT")
@@ -78,9 +78,9 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
     }
 
     /**
-     * 
+     * Contains a collection of the Common Vulnerabilities and Exposures (CVE) identifiers that are associated with an update.
      * @returns {IStringCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-get_cveids
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-get_cveids
      */
     get_CveIDs() {
         result := ComCall(62, this, "ptr*", &retval := 0, "HRESULT")
@@ -88,10 +88,52 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
     }
 
     /**
+     * Copies the external update binaries to an update.
+     * @param {IStringCollection} pFiles An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-istringcollection">IStringCollection</a> interface that contains the strings to be copied to an update.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @param {IStringCollection} pFiles 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-copytocache
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This  method cannot be called from a remote computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The computer could not access the update site.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-copytocache
      */
     CopyToCache(pFiles) {
         result := ComCall(63, this, "ptr", pFiles, "HRESULT")

@@ -31,9 +31,9 @@ class IVdsHwProviderType2 extends IUnknown{
     static VTableNames => ["GetProviderType2"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwprovidertype2-getprovidertype2
+     * Retrieves the type of the hardware provider.
+     * @returns {Integer} A pointer to a caller-allocated variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hwprovider_type">VDS_HWPROVIDER_TYPE</a> enumeration value that specifies the hardware provider type. This parameter is required and cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshwprovidertype2-getprovidertype2
      */
     GetProviderType2() {
         result := ComCall(3, this, "int*", &pType := 0, "HRESULT")

@@ -31,11 +31,11 @@ class IVdsHwProviderPrivate extends IUnknown{
     static VTableNames => ["QueryIfCreatedLun"]
 
     /**
-     * 
-     * @param {PWSTR} pwszDevicePath 
-     * @param {Pointer<VDS_LUN_INFORMATION>} pVdsLunInformation 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderprivate-queryifcreatedlun
+     * Enables VDS to determine whether the hardware provider manages the specified LUN.
+     * @param {PWSTR} pwszDevicePath A pointer to the path to the LUN on the local computer; a zero-terminated, human-readable string.
+     * @param {Pointer<VDS_LUN_INFORMATION>} pVdsLunInformation A pointer to the identification data of the specified LUN. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a>structure.
+     * @returns {Guid} A pointer to the returned LUN GUID. If the provider does not manage the LUN, set this parameter to GUID_NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//vdshwprv/nf-vdshwprv-ivdshwproviderprivate-queryifcreatedlun
      */
     QueryIfCreatedLun(pwszDevicePath, pVdsLunInformation) {
         pwszDevicePath := pwszDevicePath is String ? StrPtr(pwszDevicePath) : pwszDevicePath

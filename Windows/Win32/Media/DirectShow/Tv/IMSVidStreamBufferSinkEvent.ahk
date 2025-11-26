@@ -36,9 +36,9 @@ class IMSVidStreamBufferSinkEvent extends IMSVidOutputDeviceEvent{
     static VTableNames => ["CertificateFailure", "CertificateSuccess", "WriteFailure"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersinkevent-certificatefailure
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Returns S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent-certificatefailure
      */
     CertificateFailure() {
         result := ComCall(8, this, "HRESULT")
@@ -46,9 +46,9 @@ class IMSVidStreamBufferSinkEvent extends IMSVidOutputDeviceEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersinkevent-certificatesuccess
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent-certificatesuccess
      */
     CertificateSuccess() {
         result := ComCall(9, this, "HRESULT")
@@ -56,9 +56,9 @@ class IMSVidStreamBufferSinkEvent extends IMSVidOutputDeviceEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersinkevent-writefailure
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Returns S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent-writefailure
      */
     WriteFailure() {
         result := ComCall(10, this, "HRESULT")

@@ -32,9 +32,11 @@ class IMILBitmapEffectOutputConnector extends IMILBitmapEffectConnector{
     static VTableNames => ["GetNumberConnections", "GetConnection"]
 
     /**
+     * Retrieves the number of connections the output connector has.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getnumberconnections
+     * The number of connects the output connector has.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getnumberconnections
      */
     GetNumberConnections() {
         result := ComCall(9, this, "uint*", &puiNumberConnections := 0, "HRESULT")
@@ -42,10 +44,14 @@ class IMILBitmapEffectOutputConnector extends IMILBitmapEffectConnector{
     }
 
     /**
+     * Gets the IMILBitmapEffectInputConnector associated with the output connector.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectInputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getconnection
+     * The index of the desired input connector.
+     * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
+     * 
+     * A pointer that receives a pointer to the associated input connector.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getconnection
      */
     GetConnection(uiIndex) {
         result := ComCall(10, this, "uint", uiIndex, "ptr*", &ppConnection := 0, "HRESULT")

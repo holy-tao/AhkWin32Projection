@@ -32,10 +32,10 @@ class IMFImageSharingEngine extends IUnknown{
     static VTableNames => ["SetSource", "GetDevice", "Shutdown"]
 
     /**
-     * 
-     * @param {IUnknown} pStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfimagesharingengine-setsource
+     * Sets the source stream.
+     * @param {IUnknown} pStream The source stream.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-imfimagesharingengine-setsource
      */
     SetSource(pStream) {
         result := ComCall(3, this, "ptr", pStream, "HRESULT")
@@ -43,9 +43,9 @@ class IMFImageSharingEngine extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {DEVICE_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfimagesharingengine-getdevice
+     * Gets information about the image sharing device.
+     * @returns {DEVICE_INFO} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/ns-mfsharingengine-device_info">DEVICE_INFO</a> structure. The method fills in this structure with the device information.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-imfimagesharingengine-getdevice
      */
     GetDevice() {
         pDevice := DEVICE_INFO()
@@ -54,9 +54,9 @@ class IMFImageSharingEngine extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfimagesharingengine-shutdown
+     * Shuts down the image sharing engine.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-imfimagesharingengine-shutdown
      */
     Shutdown() {
         result := ComCall(5, this, "HRESULT")

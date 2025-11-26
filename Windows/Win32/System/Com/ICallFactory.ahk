@@ -31,12 +31,13 @@ class ICallFactory extends IUnknown{
     static VTableNames => ["CreateCall"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @param {IUnknown} pCtrlUnk 
-     * @param {Pointer<Guid>} riid2 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icallfactory-createcall
+     * Creates an instance of the call object that corresponds to a specified asynchronous interface.
+     * @param {Pointer<Guid>} riid A reference to the identifier for the asynchronous interface.
+     * @param {IUnknown} pCtrlUnk A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the call object. If this parameter is not <b>NULL</b>, the call object is aggregated in the specified object, and the <i>riid2</i> parameter must be IID_IUnknown.
+     * If this parameter is <b>NULL</b>, the call object is not aggregated.
+     * @param {Pointer<Guid>} riid2 The identifier of an interface on the call object. Typical values are IID_IUnknown and IID_ISynchronize.
+     * @returns {IUnknown} The address of a pointer to the interface specified by <i>riid2</i>. This parameter cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icallfactory-createcall
      */
     CreateCall(riid, pCtrlUnk, riid2) {
         result := ComCall(3, this, "ptr", riid, "ptr", pCtrlUnk, "ptr", riid2, "ptr*", &ppv := 0, "HRESULT")

@@ -31,11 +31,11 @@ class IInitializeSpy extends IUnknown{
     static VTableNames => ["PreInitialize", "PostInitialize", "PreUninitialize", "PostUninitialize"]
 
     /**
-     * 
-     * @param {Integer} dwCoInit 
-     * @param {Integer} dwCurThreadAptRefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-preinitialize
+     * Performs initialization steps required before calling the CoInitializeEx function.
+     * @param {Integer} dwCoInit The apartment type passed to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/ne-objbase-coinit">COINIT</a> enumeration.
+     * @param {Integer} dwCurThreadAptRefs The number of times <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> has been called on this thread.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iinitializespy-preinitialize
      */
     PreInitialize(dwCoInit, dwCurThreadAptRefs) {
         result := ComCall(3, this, "uint", dwCoInit, "uint", dwCurThreadAptRefs, "HRESULT")
@@ -43,12 +43,12 @@ class IInitializeSpy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} hrCoInit 
-     * @param {Integer} dwCoInit 
-     * @param {Integer} dwNewThreadAptRefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-postinitialize
+     * Performs initialization steps required after calling the CoInitializeEx function.
+     * @param {HRESULT} hrCoInit The value returned by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>.
+     * @param {Integer} dwCoInit The apartment type passed to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/ne-objbase-coinit">COINIT</a> enumeration.
+     * @param {Integer} dwNewThreadAptRefs The number of times <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> has been called on this thread.
+     * @returns {HRESULT} This method returns the value that it intends the <a href="/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> call to return to its caller. For more information, see the Remarks section.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iinitializespy-postinitialize
      */
     PostInitialize(hrCoInit, dwCoInit, dwNewThreadAptRefs) {
         result := ComCall(4, this, "int", hrCoInit, "uint", dwCoInit, "uint", dwNewThreadAptRefs, "HRESULT")
@@ -56,10 +56,10 @@ class IInitializeSpy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwCurThreadAptRefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-preuninitialize
+     * Performs cleanup steps required before calling the CoUninitialize function.
+     * @param {Integer} dwCurThreadAptRefs The number of times <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> has been called on this thread.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iinitializespy-preuninitialize
      */
     PreUninitialize(dwCurThreadAptRefs) {
         result := ComCall(5, this, "uint", dwCurThreadAptRefs, "HRESULT")
@@ -67,10 +67,10 @@ class IInitializeSpy extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwNewThreadAptRefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-postuninitialize
+     * Performs cleanup steps required after calling the CoUninitialize function.
+     * @param {Integer} dwNewThreadAptRefs The number of calls to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> remaining on this thread.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iinitializespy-postuninitialize
      */
     PostUninitialize(dwNewThreadAptRefs) {
         result := ComCall(6, this, "uint", dwNewThreadAptRefs, "HRESULT")

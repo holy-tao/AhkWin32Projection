@@ -55,10 +55,10 @@ class IAMExtendedErrorInfo extends IDispatch{
     }
 
     /**
-     * 
+     * The get_HasError method queries whether an error occurred.
      * @param {Pointer<VARIANT_BOOL>} pHasError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_haserror
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendederrorinfo-get_haserror
      */
     get_HasError(pHasError) {
         pHasErrorMarshal := pHasError is VarRef ? "short*" : "ptr"
@@ -68,10 +68,10 @@ class IAMExtendedErrorInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrErrorDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_errordescription
+     * The get_ErrorDescription method retrieves the extended error description.
+     * @param {Pointer<BSTR>} pbstrErrorDescription Pointer to a variable that receives the error description.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendederrorinfo-get_errordescription
      */
     get_ErrorDescription(pbstrErrorDescription) {
         result := ComCall(8, this, "ptr", pbstrErrorDescription, "HRESULT")
@@ -79,10 +79,10 @@ class IAMExtendedErrorInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pErrorCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_errorcode
+     * The get_ErrorCode method retrieves the current error code.
+     * @param {Pointer<Integer>} pErrorCode Pointer to a variable that receives the error code.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendederrorinfo-get_errorcode
      */
     get_ErrorCode(pErrorCode) {
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"

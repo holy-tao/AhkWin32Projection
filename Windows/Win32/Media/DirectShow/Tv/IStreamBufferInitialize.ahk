@@ -36,10 +36,39 @@ class IStreamBufferInitialize extends IUnknown{
     static VTableNames => ["SetHKEY", "SetSIDs"]
 
     /**
+     * The SetHKEY method sets the registry key where the stream buffer object stores its configuration information.
+     * @param {HKEY} hkeyRoot Handle to the registry key.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {HKEY} hkeyRoot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-sethkey
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>SetHKEY</b> was called on a filter after it initialized internally.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferinitialize-sethkey
      */
     SetHKEY(hkeyRoot) {
         hkeyRoot := hkeyRoot is Win32Handle ? NumGet(hkeyRoot, "ptr") : hkeyRoot
@@ -49,11 +78,51 @@ class IStreamBufferInitialize extends IUnknown{
     }
 
     /**
+     * The SetSIDs method sets the security identifiers (SIDs) that are used to protect access to the backing files.
+     * @param {Integer} cSIDs Specifies the size of the array given in the <i>ppSID</i> parameter.
+     * @param {Pointer<PSID>} ppSID Pointer to an array of <b>SID</b> structures, of size <i>cSIDs</i>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} cSIDs 
-     * @param {Pointer<PSID>} ppSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-setsids
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Null pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferinitialize-setsids
      */
     SetSIDs(cSIDs, ppSID) {
         ppSIDMarshal := ppSID is VarRef ? "ptr*" : "ptr"

@@ -41,9 +41,11 @@ class IAppxBlockMapFile extends IUnknown{
     static VTableNames => ["GetBlocks", "GetLocalFileHeaderSize", "GetName", "GetUncompressedSize", "ValidateFileHash"]
 
     /**
+     * Retrieves an enumerator for traversing the blocks of a file listed in the block map.
+     * @returns {IAppxBlockMapBlocksEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapblocksenumerator">IAppxBlockMapBlocksEnumerator</a>**</b>
      * 
-     * @returns {IAppxBlockMapBlocksEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getblocks
+     * The enumerator for traversing the blocks.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapfile-getblocks
      */
     GetBlocks() {
         result := ComCall(3, this, "ptr*", &blocks := 0, "HRESULT")
@@ -51,9 +53,11 @@ class IAppxBlockMapFile extends IUnknown{
     }
 
     /**
+     * Retrieves the size of the zip local file header of the associated zip file item.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getlocalfileheadersize
+     * In a valid app package, <i>lfhSize</i> corresponds to the size of the zip local file header of the associated zip file item.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapfile-getlocalfileheadersize
      */
     GetLocalFileHeaderSize() {
         result := ComCall(4, this, "uint*", &lfhSize := 0, "HRESULT")
@@ -61,9 +65,11 @@ class IAppxBlockMapFile extends IUnknown{
     }
 
     /**
+     * Retrieves the name of the associated zip file item.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getname
+     * In a valid app package, <i>name</i> corresponds to the name of the associated zip file item.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapfile-getname
      */
     GetName() {
         result := ComCall(5, this, "ptr*", &name := 0, "HRESULT")
@@ -71,9 +77,11 @@ class IAppxBlockMapFile extends IUnknown{
     }
 
     /**
+     * Retrieves the uncompressed size of the associated zip file item.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getuncompressedsize
+     *  In a valid app package, <i>size</i> is the uncompressed size of the associated zip file item.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapfile-getuncompressedsize
      */
     GetUncompressedSize() {
         result := ComCall(6, this, "uint*", &size := 0, "HRESULT")
@@ -81,10 +89,14 @@ class IAppxBlockMapFile extends IUnknown{
     }
 
     /**
+     * Validates the content of a file against the hashes stored in the block elements for this block map file.
+     * @param {IStream} fileStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} fileStream 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-validatefilehash
+     * The stream that contains the file's contents. The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>. If these methods fail, their error codes might be passed to and returned by this method.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * 
+     * <b>TRUE</b> if the file hash validates; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapfile-validatefilehash
      */
     ValidateFileHash(fileStream) {
         result := ComCall(7, this, "ptr", fileStream, "int*", &isValid := 0, "HRESULT")

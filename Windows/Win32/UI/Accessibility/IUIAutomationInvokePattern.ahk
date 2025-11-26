@@ -36,9 +36,11 @@ class IUIAutomationInvokePattern extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
+     * Invokes the action of a control, such as a button click.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationinvokepattern-invoke
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationinvokepattern-invoke
      */
     Invoke() {
         result := ComCall(3, this, "HRESULT")

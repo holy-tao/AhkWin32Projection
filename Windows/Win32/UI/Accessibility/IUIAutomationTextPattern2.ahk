@@ -32,10 +32,14 @@ class IUIAutomationTextPattern2 extends IUIAutomationTextPattern{
     static VTableNames => ["RangeFromAnnotation", "GetCaretRange"]
 
     /**
+     * Retrieves a text range containing the text that is the target of the annotation associated with the specified annotation element.
+     * @param {IUIAutomationElement} annotation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} annotation 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-rangefromannotation
+     * The annotation element for which to retrieve the target text. This element is a sibling of the element that implements <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern2">IUIAutomationTextPattern2</a> for the document.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
+     * 
+     * Receives a text range that contains the target text of the annotation.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-rangefromannotation
      */
     RangeFromAnnotation(annotation) {
         result := ComCall(9, this, "ptr", annotation, "ptr*", &range := 0, "HRESULT")
@@ -43,10 +47,14 @@ class IUIAutomationTextPattern2 extends IUIAutomationTextPattern{
     }
 
     /**
+     * Retrieves a zero-length text range at the location of the caret that belongs to the text-based control.
+     * @param {Pointer<BOOL>} isActive Type: <b>BOOL*</b>
      * 
-     * @param {Pointer<BOOL>} isActive 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-getcaretrange
+     * <b>TRUE</b> if the text-based control that contains the caret has keyboard focus, otherwise <b>FALSE</b>.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
+     * 
+     * Receives a text range that represents the current location of the caret that belongs to the text-based control.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-getcaretrange
      */
     GetCaretRange(isActive) {
         isActiveMarshal := isActive is VarRef ? "int*" : "ptr"

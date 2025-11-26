@@ -32,9 +32,9 @@ class IMFSpatialAudioSample extends IMFSample{
     static VTableNames => ["GetObjectCount", "AddSpatialAudioObject", "GetSpatialAudioObjectByIndex"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getobjectcount
+     * Gets the count of spatial audio objects, represented by IMFSpatialAudioObjectBuffer objects, in the sample.
+     * @returns {Integer} A pointer to a 32 bit variable where the total number of audio objects in the sample will be stored.
+     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getobjectcount
      */
     GetObjectCount() {
         result := ComCall(47, this, "uint*", &pdwObjectCount := 0, "HRESULT")
@@ -42,10 +42,39 @@ class IMFSpatialAudioSample extends IMFSample{
     }
 
     /**
+     * Adds a new spatial audio object, represented by an IMFSpatialAudioObjectBuffer object, to the sample.
+     * @param {IMFSpatialAudioObjectBuffer} pAudioObjBuffer A pointer to the new IMFSpatialAudioObject.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFSpatialAudioObjectBuffer} pAudioObjBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-addspatialaudioobject
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The supplied pointer is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-addspatialaudioobject
      */
     AddSpatialAudioObject(pAudioObjBuffer) {
         result := ComCall(48, this, "ptr", pAudioObjBuffer, "HRESULT")
@@ -53,10 +82,10 @@ class IMFSpatialAudioSample extends IMFSample{
     }
 
     /**
-     * 
-     * @param {Integer} dwIndex 
-     * @returns {IMFSpatialAudioObjectBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getspatialaudioobjectbyindex
+     * Returns the spatial audio object, represented by an IMFSpatialAudioObjectBuffer object, corresponding to the specified index.
+     * @param {Integer} dwIndex A 32 bit variable with the 0-based index of the requested audio object.
+     * @returns {IMFSpatialAudioObjectBuffer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudioobjectbuffer">IMFSpatialAudioObjectBuffer</a> object in which the spatial audio object corresponding with the specified index will be stored.
+     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getspatialaudioobjectbyindex
      */
     GetSpatialAudioObjectByIndex(dwIndex) {
         result := ComCall(49, this, "uint", dwIndex, "ptr*", &ppAudioObjBuffer := 0, "HRESULT")

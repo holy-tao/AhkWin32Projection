@@ -38,9 +38,9 @@ class IWorkspace extends IUnknown{
     static VTableNames => ["GetWorkspaceNames", "StartRemoteApplication", "GetProcessId"]
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace-getworkspacenames
+     * Retrieves the names of the connections in the current process.
+     * @returns {Pointer<SAFEARRAY>} A pointer to an array of <b>BSTR</b> variables to receive the names of the connections.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace-getworkspacenames
      */
     GetWorkspaceNames() {
         result := ComCall(3, this, "ptr*", &psaWkspNames := 0, "HRESULT")
@@ -48,11 +48,18 @@ class IWorkspace extends IUnknown{
     }
 
     /**
+     * Starts a RemoteApp program.
+     * @param {BSTR} bstrWorkspaceId A string that contains the ID of the connection  in which to the start the application.
+     * @param {Pointer<SAFEARRAY>} psaParams A pointer to an array of <b>BSTR</b> values that contains  parameters to pass to the workspace runtime.
      * 
-     * @param {BSTR} bstrWorkspaceId 
-     * @param {Pointer<SAFEARRAY>} psaParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace-startremoteapplication
+     * For RDP connections, this parameter contains two strings:
+     * 
+     * <ul>
+     * <li>Serialized RDP file</li>
+     * <li>Command line parameters for Remote Desktop Connection client</li>
+     * </ul>
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace-startremoteapplication
      */
     StartRemoteApplication(bstrWorkspaceId, psaParams) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
@@ -62,9 +69,9 @@ class IWorkspace extends IUnknown{
     }
 
     /**
-     * Retrieves the process identifier of the specified process.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
+     * Retrieves the process ID of the current connection in RemoteApp and Desktop Connection.
+     * @returns {Integer} A pointer to a <b>ULONG</b> variable to receive the process ID.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace-getprocessid
      */
     GetProcessId() {
         result := ComCall(5, this, "uint*", &pulProcessId := 0, "HRESULT")

@@ -59,9 +59,9 @@ class IAzPrincipalLocator extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a pointer to the IAzNameResolver interface associated with this IAzPrincipalLocator object.
      * @returns {IAzNameResolver} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_nameresolver
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazprincipallocator-get_nameresolver
      */
     get_NameResolver() {
         result := ComCall(7, this, "ptr*", &ppNameResolver := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IAzPrincipalLocator extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a pointer to the IAzObjectPicker interface associated with this IAzPrincipalLocator object.
      * @returns {IAzObjectPicker} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_objectpicker
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazprincipallocator-get_objectpicker
      */
     get_ObjectPicker() {
         result := ComCall(8, this, "ptr*", &ppObjectPicker := 0, "HRESULT")

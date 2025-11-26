@@ -61,10 +61,28 @@ class IWMPErrorItem extends IDispatch{
     }
 
     /**
+     * The get_errorCode method retrieves the current error code.
+     * @param {Pointer<Integer>} phr Pointer to a <b>long</b> containing the error code.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} phr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_errorcode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_errorcode
      */
     get_errorCode(phr) {
         phrMarshal := phr is VarRef ? "int*" : "ptr"
@@ -74,10 +92,28 @@ class IWMPErrorItem extends IDispatch{
     }
 
     /**
+     * The get_errorDescription method retrieves a description of the error.
+     * @param {Pointer<BSTR>} pbstrDescription Pointer to a <b>BSTR</b> containing the description.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_errordescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_errordescription
      */
     get_errorDescription(pbstrDescription) {
         result := ComCall(8, this, "ptr", pbstrDescription, "HRESULT")
@@ -85,10 +121,28 @@ class IWMPErrorItem extends IDispatch{
     }
 
     /**
+     * The get_errorContext method retrieves a value indicating the context of the error.
+     * @param {Pointer<VARIANT>} pvarContext Pointer to a <b>VARIANT</b> containing the error context.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT>} pvarContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_errorcontext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_errorcontext
      */
     get_errorContext(pvarContext) {
         result := ComCall(9, this, "ptr", pvarContext, "HRESULT")
@@ -96,10 +150,28 @@ class IWMPErrorItem extends IDispatch{
     }
 
     /**
+     * Reserved for future use.
+     * @param {Pointer<Integer>} plRemedy Pointer to a <b>long</b> containing the remedy.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plRemedy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_remedy
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_remedy
      */
     get_remedy(plRemedy) {
         plRemedyMarshal := plRemedy is VarRef ? "int*" : "ptr"
@@ -109,10 +181,28 @@ class IWMPErrorItem extends IDispatch{
     }
 
     /**
+     * The get_customUrl method retrieves the URL of a website that displays specific information about codec download failure.
+     * @param {Pointer<BSTR>} pbstrCustomUrl Pointer to a <b>BSTR</b> containing the custom url.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrCustomUrl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_customurl
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_customurl
      */
     get_customUrl(pbstrCustomUrl) {
         result := ComCall(11, this, "ptr", pbstrCustomUrl, "HRESULT")

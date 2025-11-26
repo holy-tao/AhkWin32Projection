@@ -31,10 +31,36 @@ class ISynchronousDataRetriever extends IUnknown{
     static VTableNames => ["GetIdParameters", "LoadChangeData"]
 
     /**
+     * Gets the ID format schema of the provider.
+     * @param {Pointer<ID_PARAMETERS>} pIdParameters Returns the ID format schema of the provider.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<ID_PARAMETERS>} pIdParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynchronousdataretriever-getidparameters
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynchronousdataretriever-getidparameters
      */
     GetIdParameters(pIdParameters) {
         result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
@@ -42,10 +68,10 @@ class ISynchronousDataRetriever extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ILoadChangeContext} pLoadChangeContext 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynchronousdataretriever-loadchangedata
+     * Retrieves item data for a change.
+     * @param {ILoadChangeContext} pLoadChangeContext Metadata that describes the change for which data should be retrieved.
+     * @returns {IUnknown} Returns the item data for the change specified in <i>pLoadChangeContext</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynchronousdataretriever-loadchangedata
      */
     LoadChangeData(pLoadChangeContext) {
         result := ComCall(4, this, "ptr", pLoadChangeContext, "ptr*", &ppUnkData := 0, "HRESULT")

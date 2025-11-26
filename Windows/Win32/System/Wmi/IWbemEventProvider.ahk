@@ -31,11 +31,15 @@ class IWbemEventProvider extends IUnknown{
     static VTableNames => ["ProvideEvents"]
 
     /**
-     * 
-     * @param {IWbemObjectSink} pSink 
-     * @param {Integer} lFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventprovider-provideevents
+     * Windows Management calls the IWbemEventProvider::ProvideEvents method to signal an event provider to begin delivery of its events.
+     * @param {IWbemObjectSink} pSink Pointer to the object sink to which the provider will deliver its events. In an event provider implementation, you should use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate">IWbemObjectSink::Indicate</a> method to send events through <i>pSink</i>. This is in contrast to other providers that may use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus">SetStatus</a> method: The 
+     * <b>ProvideEvents</b> method should use only 
+     * <b>Indicate</b> to update a sink.
+     * @param {Integer} lFlags Reserved. This parameter must be 0.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventprovider-provideevents
      */
     ProvideEvents(pSink, lFlags) {
         result := ComCall(3, this, "ptr", pSink, "int", lFlags, "HRESULT")

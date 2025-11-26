@@ -45,11 +45,40 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
     static VTableNames => ["Create", "Delete", "GetEnumerator"]
 
     /**
+     * Creates an IOpcSignatureCustomObject interface pointer to represent an application-specific Object element in the signature, and adds the new interface to the set.
+     * @param {Pointer<Integer>} xmlMarkup A buffer that contains the XML markup for the <b>Object</b> element to be represented.
      * 
-     * @param {Pointer<Integer>} xmlMarkup 
-     * @param {Integer} count 
-     * @returns {IOpcSignatureCustomObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectset-create
+     * This XML markup must include the opening <b>Object</b> and closing <b>/Object</b> tags.
+     * 
+     * The encoding of the markup contained in <i>xmlMarkup</i> will be inferred. Inclusion of a <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a> at the beginning of the buffer passed in <i>xmlMarkup</i> is optional.
+     * 
+     * The following encodings and <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a> values are supported:<table>
+     * <tr>
+     * <th>Encoding</th>
+     * <th>Description</th>
+     * <th>Byte order mark</th>
+     * </tr>
+     * <tr>
+     * <td>UTF8</td>
+     * <td>UTF-8</td>
+     * <td>EF BB BF</td>
+     * </tr>
+     * <tr>
+     * <td>UTF16LE</td>
+     * <td>UTF-16, little endian</td>
+     * <td>FF FE</td>
+     * </tr>
+     * <tr>
+     * <td>UTF16BE</td>
+     * <td>UTF-16, big endian</td>
+     * <td>FE FF</td>
+     * </tr>
+     * </table>
+     * @param {Integer} count The size of the <i>xmlMarkup</i> buffer.
+     * @returns {IOpcSignatureCustomObject} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer that represents the application-specific <b>Object</b> element.
+     * 
+     * This parameter can be <b>NULL</b> if a pointer to the  new interface is not needed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectset-create
      */
     Create(xmlMarkup, count) {
         xmlMarkupMarshal := xmlMarkup is VarRef ? "char*" : "ptr"
@@ -59,10 +88,39 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
     }
 
     /**
+     * Deletes a specified IOpcSignatureCustomObject interface pointer from the set.
+     * @param {IOpcSignatureCustomObject} customObject An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer to be deleted.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IOpcSignatureCustomObject} customObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectset-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>customObject</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectset-delete
      */
     Delete(customObject) {
         result := ComCall(4, this, "ptr", customObject, "HRESULT")
@@ -70,9 +128,9 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureCustomObjectEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectset-getenumerator
+     * Gets an enumerator of IOpcSignatureCustomObject interface pointers in the set.
+     * @returns {IOpcSignatureCustomObjectEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointers in the set.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &customObjectEnumerator := 0, "HRESULT")

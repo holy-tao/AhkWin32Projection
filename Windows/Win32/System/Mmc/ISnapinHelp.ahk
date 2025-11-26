@@ -31,9 +31,9 @@ class ISnapinHelp extends IUnknown{
     static VTableNames => ["GetHelpTopic"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinhelp-gethelptopic
+     * Enables a snap-in to add its compiled HTML Help file to the MMC Help collection file.
+     * @returns {PWSTR} A pointer to the address of the null-terminated Unicode string that contains the path of the compiled Help file (.chm) for the snap-in. When specifying the path, place the file anywhere and specify the full path name.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinhelp-gethelptopic
      */
     GetHelpTopic() {
         result := ComCall(3, this, "ptr*", &lpCompiledHelpFile := 0, "HRESULT")

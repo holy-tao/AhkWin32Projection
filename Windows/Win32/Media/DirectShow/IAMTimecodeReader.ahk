@@ -70,10 +70,35 @@ class IAMTimecodeReader extends IUnknown{
     }
 
     /**
+     * The GetTCRMode method retrieves the timecode reader's properties.
+     * @param {Integer} Param Timecode reader property to get (either ED_TCR_SOURCE or ED_TCR_NOTIFY_ENABLE).
+     * @returns {Integer} Pointer to the value of the requested timecode reader property. If <i>Param</i> is set to ED_TCR_NOTIFY_ENABLE, then this parameter will return OATRUE—meaning that notifications are enabled—or OAFALSE. If <i>Param</i> is set to ED_TCR_SOURCE, then this value must be one of the following.
      * 
-     * @param {Integer} Param 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettcrmode
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_CT</td>
+     * <td>Control track</td>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_LTC</td>
+     * <td>Linear timecode</td>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_VITC</td>
+     * <td>Vertical interval timecode</td>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_LAST_VALUE</td>
+     * <td>Last read value</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-gettcrmode
      */
     GetTCRMode(Param) {
         result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
@@ -81,11 +106,36 @@ class IAMTimecodeReader extends IUnknown{
     }
 
     /**
+     * The SetTCRMode method sets the timecode reader properties.
+     * @param {Integer} Param Property you want to set (use ED_TCR_SOURCE or ED_TCR_NOTIFY_ENABLE).
+     * @param {Integer} Value Value of the specified property; If <i>Param</i> returns ED_TCR_NOTIFY_ENABLE, then this value will return OATRUE or OAFALSE. If <i>Param</i> returns ED_TCR_SOURCE, then this value must be one of the following.
      * 
-     * @param {Integer} Param 
-     * @param {Integer} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-settcrmode
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_CT</td>
+     * <td>Control Track.</td>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_LTC</td>
+     * <td>Linear Timecode.</td>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_VITC</td>
+     * <td>Vertical Interval Timecode.</td>
+     * </tr>
+     * <tr>
+     * <td>ED_TCR_LAST_VALUE</td>
+     * <td>Return last read value.</td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-settcrmode
      */
     SetTCRMode(Param, Value) {
         result := ComCall(4, this, "int", Param, "int", Value, "HRESULT")
@@ -93,10 +143,10 @@ class IAMTimecodeReader extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Line 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-put_vitcline
+     * The put_VITCLine method specifies the vertical interval line that the timecode reader will use to read timecode.
+     * @param {Integer} Line Vertical line containing timecode information (valid lines are 11-20; 0 means autoselect).
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-put_vitcline
      */
     put_VITCLine(Line) {
         result := ComCall(5, this, "int", Line, "HRESULT")
@@ -104,9 +154,9 @@ class IAMTimecodeReader extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-get_vitcline
+     * The get_VITCLine method retrieves the vertical interval line that the timecode reader is using to read timecode.
+     * @returns {Integer} Pointer to the vertical line containing timecode information (valid lines are from 11 through 20).
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-get_vitcline
      */
     get_VITCLine() {
         result := ComCall(6, this, "int*", &pLine := 0, "HRESULT")
@@ -114,9 +164,9 @@ class IAMTimecodeReader extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {TIMECODE_SAMPLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettimecode
+     * The GetTimecode method retrieves the most recent timecode, userbit, and flag values available in the stream.
+     * @returns {TIMECODE_SAMPLE} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample">TIMECODE_SAMPLE</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-gettimecode
      */
     GetTimecode() {
         pTimecodeSample := TIMECODE_SAMPLE()

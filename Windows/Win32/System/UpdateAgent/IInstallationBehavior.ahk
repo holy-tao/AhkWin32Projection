@@ -59,9 +59,9 @@ class IInstallationBehavior extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value thast indicates whether the installation or uninstallation of an update can prompt for user input.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_canrequestuserinput
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationbehavior-get_canrequestuserinput
      */
     get_CanRequestUserInput() {
         result := ComCall(7, this, "short*", &retval := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IInstallationBehavior extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an InstallationImpact enumeration that indicates how the installation or uninstallation of the update affects the computer.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_impact
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationbehavior-get_impact
      */
     get_Impact() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -79,9 +79,9 @@ class IInstallationBehavior extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an InstallationRebootBehavior enumeration that specifies the restart behavior that occurs when you install or uninstall the update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_rebootbehavior
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationbehavior-get_rebootbehavior
      */
     get_RebootBehavior() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
@@ -89,9 +89,9 @@ class IInstallationBehavior extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the installation or uninstallation of an update requires network connectivity.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_requiresnetworkconnectivity
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationbehavior-get_requiresnetworkconnectivity
      */
     get_RequiresNetworkConnectivity() {
         result := ComCall(10, this, "short*", &retval := 0, "HRESULT")

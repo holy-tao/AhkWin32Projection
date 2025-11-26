@@ -31,12 +31,12 @@ class IWMPSubscriptionService extends IUnknown{
     static VTableNames => ["allowPlay", "allowCDBurn", "allowPDATransfer", "startBackgroundProcessing"]
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @param {IWMPMedia} pMedia 
-     * @param {Pointer<BOOL>} pfAllowPlay 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowplay
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {IWMPMedia} pMedia Pointer to the media object Windows Media Player is attempting to play.
+     * @param {Pointer<BOOL>} pfAllowPlay Pointer to a <b>BOOL</b>. If <b>true</b>, playback is allowed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowplay
      */
     allowPlay(hwnd, pMedia, pfAllowPlay) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -48,12 +48,12 @@ class IWMPSubscriptionService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @param {IWMPPlaylist} pPlaylist 
-     * @param {Pointer<BOOL>} pfAllowBurn 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowcdburn
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {IWMPPlaylist} pPlaylist Pointer to a playlist object. The plug-in must remove from the playlist any media item that does not have a current license that includes burn rights.
+     * @param {Pointer<BOOL>} pfAllowBurn Pointer to a <b>BOOL</b>. If true, copying to CD is allowed for the media items that remain in the playlist.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowcdburn
      */
     allowCDBurn(hwnd, pPlaylist, pfAllowBurn) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -65,12 +65,12 @@ class IWMPSubscriptionService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @param {IWMPPlaylist} pPlaylist 
-     * @param {Pointer<BOOL>} pfAllowTransfer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowpdatransfer
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {IWMPPlaylist} pPlaylist Pointer to a playlist object.
+     * @param {Pointer<BOOL>} pfAllowTransfer Pointer to a <b>BOOL</b>. If true, copying to a device is allowed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowpdatransfer
      */
     allowPDATransfer(hwnd, pPlaylist, pfAllowTransfer) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -82,10 +82,10 @@ class IWMPSubscriptionService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-startbackgroundprocessing
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-startbackgroundprocessing
      */
     startBackgroundProcessing(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

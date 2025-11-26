@@ -32,9 +32,9 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
     static VTableNames => ["GetLearnedKnowledgeAfterRecoveryComplete", "GetClosedLowerBoundItemId", "GetClosedUpperBoundItemId"]
 
     /**
-     * 
-     * @returns {ISyncKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getlearnedknowledgeafterrecoverycomplete
+     * Gets the knowledge the destination replica will learn after it applies all the changes in the recovery synchronization.
+     * @returns {ISyncKnowledge} Returns the knowledge that the destination replica will learn after it applies all the changes in the recovery synchronization.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchangebatch-getlearnedknowledgeafterrecoverycomplete
      */
     GetLearnedKnowledgeAfterRecoveryComplete() {
         result := ComCall(17, this, "ptr*", &ppLearnedKnowledgeAfterRecoveryComplete := 0, "HRESULT")
@@ -42,11 +42,62 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
     }
 
     /**
+     * Gets the closed lower bound on item IDs that require destination versions.
+     * @param {Pointer<Integer>} pbClosedLowerBoundItemId Returns the closed lower bound on item IDs that require destination versions.
+     * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbClosedLowerBoundItemId</i>. Returns the number of bytes required for the size of <i>pbClosedLowerBoundItemId</i> when <i>pcbIdSize</i> is too small, or the number of bytes written to <i>pbClosedLowerBoundItemId</i>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbClosedLowerBoundItemId 
-     * @param {Pointer<Integer>} pcbIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedlowerbounditemid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbClosedLowerBoundItemId</i> is too small. In this case, the required number of bytes is stored in <i>pcbIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No group was added to the batch, or a group was opened but not ended.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedlowerbounditemid
      */
     GetClosedLowerBoundItemId(pbClosedLowerBoundItemId, pcbIdSize) {
         pbClosedLowerBoundItemIdMarshal := pbClosedLowerBoundItemId is VarRef ? "char*" : "ptr"
@@ -57,11 +108,62 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
     }
 
     /**
+     * Gets the closed upper bound on item IDs that require destination versions.
+     * @param {Pointer<Integer>} pbClosedUpperBoundItemId Returns the closed upper bound on item IDs that require destination versions.
+     * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbClosedUpperBoundItemId</i>. Returns the number of bytes required for the size of <i>pbClosedUpperBoundItemId</i> when <i>pcbIdSize</i> is too small, or the number of bytes written to <i>pbClosedUpperBoundItemId</i>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbClosedUpperBoundItemId 
-     * @param {Pointer<Integer>} pcbIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedupperbounditemid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbClosedLowerBoundItemId</i> is too small. In this case, the required number of bytes is stored in <i>pcbIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No group was added to the batch, or a group was opened but not ended.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedupperbounditemid
      */
     GetClosedUpperBoundItemId(pbClosedUpperBoundItemId, pcbIdSize) {
         pbClosedUpperBoundItemIdMarshal := pbClosedUpperBoundItemId is VarRef ? "char*" : "ptr"

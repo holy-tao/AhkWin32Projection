@@ -97,10 +97,39 @@ class IEncoderAPI extends IUnknown{
     static VTableNames => ["IsSupported", "IsAvailable", "GetParameterRange", "GetParameterValues", "GetDefaultValue", "GetValue", "SetValue"]
 
     /**
+     * The IsSupported method queries whether a given parameter is supported.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-issupported
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The encoder supports the parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The encoder does not support the parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-issupported
      */
     IsSupported(Api) {
         result := ComCall(3, this, "ptr", Api, "HRESULT")
@@ -108,10 +137,39 @@ class IEncoderAPI extends IUnknown{
     }
 
     /**
+     * IEncoderAPI is no longer available for use.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-isavailable
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter can be read and modified. (Set and get operations are supported for this parameter.)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter cannot be read or modified.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-isavailable
      */
     IsAvailable(Api) {
         result := ComCall(4, this, "ptr", Api, "HRESULT")
@@ -119,13 +177,42 @@ class IEncoderAPI extends IUnknown{
     }
 
     /**
+     * The GetParameterRange method retrieves the valid range of values that the parameter supports, in cases where the parameter supports a stepped range as opposed to a list of specific values.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @param {Pointer<VARIANT>} ValueMin Pointer to a <b>VARIANT</b> type that receives the minimum value of the parameter.
+     * @param {Pointer<VARIANT>} ValueMax Pointer to a <b>VARIANT</b> type that receives the maximum value of the parameter.
+     * @param {Pointer<VARIANT>} SteppingDelta Pointer to a <b>VARIANT</b> type that receives the stepping delta, which defines the valid increments from <i>ValueMin</i> to <i>ValueMax</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} ValueMin 
-     * @param {Pointer<VARIANT>} ValueMax 
-     * @param {Pointer<VARIANT>} SteppingDelta 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-getparameterrange
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property supports a list of possible values, not a linear range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-getparameterrange
      */
     GetParameterRange(Api, ValueMin, ValueMax, SteppingDelta) {
         result := ComCall(5, this, "ptr", Api, "ptr", ValueMin, "ptr", ValueMax, "ptr", SteppingDelta, "HRESULT")
@@ -133,12 +220,12 @@ class IEncoderAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<Pointer<VARIANT>>} Values 
-     * @param {Pointer<Integer>} ValuesCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-getparametervalues
+     * The GetParameterValues method retrieves the list of values supported by the given parameter.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @param {Pointer<Pointer<VARIANT>>} Values Address of a pointer to an array that receives the values.
+     * @param {Pointer<Integer>} ValuesCount Indicates the number of entries placed into the array.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
         ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
@@ -149,10 +236,10 @@ class IEncoderAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-getdefaultvalue
+     * The GetDefaultValue method retrieves the default value for a parameter, if one exists.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @returns {VARIANT} Receives the value for the parameter specified in <i>Api</i>. If <i>Api</i> was specified as ENCAPIPARAM_BITRATE_MODE, then <i>Value</i> will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-videoencoder_bitrate_mode">VIDEOENCODER_BITRATE_MODE</a> constants.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-getdefaultvalue
      */
     GetDefaultValue(Api) {
         Value := VARIANT()
@@ -161,10 +248,10 @@ class IEncoderAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-getvalue
+     * The GetValue method retrieves the current value of a specified parameter.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @returns {VARIANT} Receives the value for the parameter specified in <i>Api</i>. If <i>Api</i> was specified as ENCAPIPARAM_BITRATE_MODE, then <i>Value</i> will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-videoencoder_bitrate_mode">VIDEOENCODER_BITRATE_MODE</a> constants.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-getvalue
      */
     GetValue(Api) {
         Value := VARIANT()
@@ -173,11 +260,11 @@ class IEncoderAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-setvalue
+     * The SetValue method sets the current value of a parameter.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the parameter.
+     * @param {Pointer<VARIANT>} Value Pointer that specifies the value of <i>Api</i>. If <i>Api</i> was specified as <b>ENCAPIPARAM_BITRATE_MODE</b>, then <i>Value</i> must be one of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-videoencoder_bitrate_mode">VIDEOENCODER_BITRATE_MODE</a> constants.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iencoderapi-setvalue
      */
     SetValue(Api, Value) {
         result := ComCall(9, this, "ptr", Api, "ptr", Value, "HRESULT")

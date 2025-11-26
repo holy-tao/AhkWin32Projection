@@ -31,9 +31,9 @@ class IAppxManifestReader6 extends IUnknown{
     static VTableNames => ["GetIsNonQualifiedResourcePackage"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader6-getisnonqualifiedresourcepackage
+     * Queries whether an app package is a non-qualified resource package.
+     * @returns {BOOL} True if the package is a non-qualified resource package, False otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader6-getisnonqualifiedresourcepackage
      */
     GetIsNonQualifiedResourcePackage() {
         result := ComCall(3, this, "int*", &isNonQualifiedResourcePackage := 0, "HRESULT")

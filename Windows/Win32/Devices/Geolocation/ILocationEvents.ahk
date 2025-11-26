@@ -31,11 +31,11 @@ class ILocationEvents extends IUnknown{
     static VTableNames => ["OnLocationChanged", "OnStatusChanged"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} reportType 
-     * @param {ILocationReport} pLocationReport 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationevents-onlocationchanged
+     * Called when a new location report is available.
+     * @param {Pointer<Guid>} reportType <b>REFIID</b> that contains the interface ID of the report type contained in <i>pLocationReport</i>.
+     * @param {ILocationReport} pLocationReport Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> instance that contains the new location report.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocationevents-onlocationchanged
      */
     OnLocationChanged(reportType, pLocationReport) {
         result := ComCall(3, this, "ptr", reportType, "ptr", pLocationReport, "HRESULT")
@@ -43,11 +43,11 @@ class ILocationEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} reportType 
-     * @param {Integer} newStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationevents-onstatuschanged
+     * Called when a report status changes.
+     * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the interface ID of the report type for which the status has changed.
+     * @param {Integer} newStatus A constant from the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/ne-locationapi-location_report_status">LOCATION_REPORT_STATUS</a> enumeration that contains the new status.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocationevents-onstatuschanged
      */
     OnStatusChanged(reportType, newStatus) {
         result := ComCall(4, this, "ptr", reportType, "int", newStatus, "HRESULT")

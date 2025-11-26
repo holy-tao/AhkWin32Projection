@@ -31,11 +31,51 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2{
     static VTableNames => ["estimateSyncSize", "cancelEstimation"]
 
     /**
+     * The estimateSyncSize method initiates the estimation of the size required on the device to synchronize a specified playlist.
+     * @param {IWMPPlaylist} pNonRulePlaylist A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nn-wmp-iwmpplaylist">IWMPPlaylist</a> interface that represents the playlist for which the size will be estimated. This parameter can be set to <b>NULL</b>. If this argument is specified the estimation will return the size of <i>pNonRulePlaylist</i> and the current sync rules, if any.
+     * @param {IWMPPlaylist} pRulesPlaylist A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nn-wmp-iwmpplaylist">IWMPPlaylist</a> interface that represents the playlist for which the size will be estimated. This parameter can be set to <b>NULL</b>. If this argument is specified then the current sync rules will be excluded from the estimation so that the estimation will return the size of <i>pNonRulePlaylist</i> and <i>pRulesPlaylist</i>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPPlaylist} pNonRulePlaylist 
-     * @param {IWMPPlaylist} pRulesPlaylist 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice3-estimatesyncsize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Windows Media Player is shutting down, or <i>pNonRulePlaylist</i> and <i>pRulesPlaylist</i>  are both <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A synchronization session is already in progress for the device.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice3-estimatesyncsize
      */
     estimateSyncSize(pNonRulePlaylist, pRulesPlaylist) {
         result := ComCall(20, this, "ptr", pNonRulePlaylist, "ptr", pRulesPlaylist, "HRESULT")
@@ -43,9 +83,27 @@ class IWMPSyncDevice3 extends IWMPSyncDevice2{
     }
 
     /**
+     * The cancelEstimation method cancels an estimation that was previously initiated by estimateSyncSize.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice3-cancelestimation
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice3-cancelestimation
      */
     cancelEstimation() {
         result := ComCall(21, this, "HRESULT")

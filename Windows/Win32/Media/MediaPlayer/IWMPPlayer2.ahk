@@ -162,10 +162,28 @@ class IWMPPlayer2 extends IWMPCore{
     }
 
     /**
+     * The get_stretchToFit method retrieves a value indicating whether video displayed by the Windows Media Player control automatically sizes to fit the video window when the video window is larger than the dimensions of the video image.
+     * @param {Pointer<VARIANT_BOOL>} pbEnabled Pointer to a <b>VARIANT_BOOL</b> indicating whether video displayed by the Windows Media Player control automatically resizes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-get_stretchtofit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-get_stretchtofit
      */
     get_stretchToFit(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
@@ -175,10 +193,28 @@ class IWMPPlayer2 extends IWMPCore{
     }
 
     /**
+     * The put_stretchToFit method specifies a value indicating whether video displayed by the Windows Media Player control automatically sizes to fit the video window when the video window is larger than the dimensions of the video image.
+     * @param {VARIANT_BOOL} bEnabled <b>VARIANT_BOOL</b> indicating whether video displayed by the Windows Media Player control automatically resizes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {VARIANT_BOOL} bEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-put_stretchtofit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-put_stretchtofit
      */
     put_stretchToFit(bEnabled) {
         result := ComCall(37, this, "short", bEnabled, "HRESULT")
@@ -186,10 +222,28 @@ class IWMPPlayer2 extends IWMPCore{
     }
 
     /**
+     * The get_windowlessVideo method retrieves a value indicating whether the Windows Media Player control renders video in windowless mode.
+     * @param {Pointer<VARIANT_BOOL>} pbEnabled Pointer to a <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control renders video in windowless mode.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-get_windowlessvideo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-get_windowlessvideo
      */
     get_windowlessVideo(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
@@ -199,10 +253,28 @@ class IWMPPlayer2 extends IWMPCore{
     }
 
     /**
+     * The put_windowlessVideo method specifies a value indicating whether the Windows Media Player control renders video in windowless mode.
+     * @param {VARIANT_BOOL} bEnabled <b>VARIANT_BOOL</b> indicating whether the Windows Media Player control renders video in windowless mode.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {VARIANT_BOOL} bEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-put_windowlessvideo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayer2-put_windowlessvideo
      */
     put_windowlessVideo(bEnabled) {
         result := ComCall(39, this, "short", bEnabled, "HRESULT")

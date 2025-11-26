@@ -92,9 +92,9 @@ class IOpcRelationshipSelector extends IUnknown{
     static VTableNames => ["GetSelectorType", "GetSelectionCriterion"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectortype
+     * Gets a value that describes how relationships are selected to be referenced for signing.
+     * @returns {Integer} A value that describes which <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface property will be compared to the string returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion">GetSelectionCriterion</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselector-getselectortype
      */
     GetSelectorType() {
         result := ComCall(3, this, "int*", &selector := 0, "HRESULT")
@@ -102,9 +102,9 @@ class IOpcRelationshipSelector extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion
+     * Gets a string that is used to select relationships to be referenced for signing.
+     * @returns {PWSTR} A string used to select relationships  to be referenced for signing.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion
      */
     GetSelectionCriterion() {
         result := ComCall(4, this, "ptr*", &selectionCriterion := 0, "HRESULT")

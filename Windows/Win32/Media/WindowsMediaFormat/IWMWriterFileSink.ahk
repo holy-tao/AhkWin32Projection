@@ -31,10 +31,39 @@ class IWMWriterFileSink extends IWMWriterSink{
     static VTableNames => ["Open"]
 
     /**
+     * The Open method opens a file that acts as the writer sink.
+     * @param {PWSTR} pwszFilename Pointer to a wide-character <b>null</b>-terminated string containing the file name. URLs are not supported.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pwszFilename 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink-open
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pwszFilename</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink-open
      */
     Open(pwszFilename) {
         pwszFilename := pwszFilename is String ? StrPtr(pwszFilename) : pwszFilename

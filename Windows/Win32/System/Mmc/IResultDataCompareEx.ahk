@@ -31,10 +31,17 @@ class IResultDataCompareEx extends IUnknown{
     static VTableNames => ["Compare"]
 
     /**
+     * Provides a way for a primary snap-in to compare items for the purpose of sorting the scope and result items that it inserts in the result pane.
+     * @param {Pointer<RDCOMPARE>} prdc A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-rdcompare">RDCOMPARE</a> structure that holds information about the items being compared and which column in the result pane list view is being sorted.
+     * @returns {Integer} The snap-in should set pnResult to the result of the comparison:
      * 
-     * @param {Pointer<RDCOMPARE>} prdc 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdatacompareex-compare
+     * <ul>
+     * <li>Any negative integer if item 1 &lt; item 2</li>
+     * <li>Zero (0) if item 1 == item 2</li>
+     * <li>Any positive integer if item 1 &gt; item 2</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iresultdatacompareex-compare
      */
     Compare(prdc) {
         result := ComCall(3, this, "ptr", prdc, "int*", &pnResult := 0, "HRESULT")
