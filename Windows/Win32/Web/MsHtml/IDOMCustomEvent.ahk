@@ -37,6 +37,13 @@ class IDOMCustomEvent extends IDispatch{
     static VTableNames => ["get_detail", "initCustomEvent"]
 
     /**
+     * @type {VARIANT} 
+     */
+    detail {
+        get => this.get_detail()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

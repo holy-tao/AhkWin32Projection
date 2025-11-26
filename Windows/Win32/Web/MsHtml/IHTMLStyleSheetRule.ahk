@@ -37,6 +37,28 @@ class IHTMLStyleSheetRule extends IDispatch{
     static VTableNames => ["put_selectorText", "get_selectorText", "get_style", "get_readOnly"]
 
     /**
+     * @type {BSTR} 
+     */
+    selectorText {
+        get => this.get_selectorText()
+        set => this.put_selectorText(value)
+    }
+
+    /**
+     * @type {IHTMLRuleStyle} 
+     */
+    style {
+        get => this.get_style()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    readOnly {
+        get => this.get_readOnly()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

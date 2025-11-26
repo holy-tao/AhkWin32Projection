@@ -39,6 +39,105 @@ class IRTCClient extends IUnknown{
     static VTableNames => ["Initialize", "Shutdown", "PrepareForShutdown", "put_EventFilter", "get_EventFilter", "SetPreferredMediaTypes", "get_PreferredMediaTypes", "get_MediaCapabilities", "CreateSession", "put_ListenForIncomingSessions", "get_ListenForIncomingSessions", "get_NetworkAddresses", "put_Volume", "get_Volume", "put_AudioMuted", "get_AudioMuted", "get_IVideoWindow", "put_PreferredAudioDevice", "get_PreferredAudioDevice", "put_PreferredVolume", "get_PreferredVolume", "put_PreferredAEC", "get_PreferredAEC", "put_PreferredVideoDevice", "get_PreferredVideoDevice", "get_ActiveMedia", "put_MaxBitrate", "get_MaxBitrate", "put_TemporalSpatialTradeOff", "get_TemporalSpatialTradeOff", "get_NetworkQuality", "StartT120Applet", "StopT120Applets", "get_IsT120AppletRunning", "get_LocalUserURI", "put_LocalUserURI", "get_LocalUserName", "put_LocalUserName", "PlayRing", "SendDTMF", "InvokeTuningWizard", "get_IsTuned"]
 
     /**
+     * @type {Integer} 
+     */
+    EventFilter {
+        get => this.get_EventFilter()
+        set => this.put_EventFilter(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PreferredMediaTypes {
+        get => this.get_PreferredMediaTypes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaCapabilities {
+        get => this.get_MediaCapabilities()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ListenForIncomingSessions {
+        get => this.get_ListenForIncomingSessions()
+        set => this.put_ListenForIncomingSessions(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PreferredAEC {
+        get => this.get_PreferredAEC()
+        set => this.put_PreferredAEC(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PreferredVideoDevice {
+        get => this.get_PreferredVideoDevice()
+        set => this.put_PreferredVideoDevice(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ActiveMedia {
+        get => this.get_ActiveMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxBitrate {
+        get => this.get_MaxBitrate()
+        set => this.put_MaxBitrate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TemporalSpatialTradeOff {
+        get => this.get_TemporalSpatialTradeOff()
+        set => this.put_TemporalSpatialTradeOff(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NetworkQuality {
+        get => this.get_NetworkQuality()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalUserURI {
+        get => this.get_LocalUserURI()
+        set => this.put_LocalUserURI(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalUserName {
+        get => this.get_LocalUserName()
+        set => this.put_LocalUserName(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsTuned {
+        get => this.get_IsTuned()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>

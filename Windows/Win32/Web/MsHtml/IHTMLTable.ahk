@@ -40,6 +40,176 @@ class IHTMLTable extends IDispatch{
     static VTableNames => ["put_cols", "get_cols", "put_border", "get_border", "put_frame", "get_frame", "put_rules", "get_rules", "put_cellSpacing", "get_cellSpacing", "put_cellPadding", "get_cellPadding", "put_background", "get_background", "put_bgColor", "get_bgColor", "put_borderColor", "get_borderColor", "put_borderColorLight", "get_borderColorLight", "put_borderColorDark", "get_borderColorDark", "put_align", "get_align", "refresh", "get_rows", "put_width", "get_width", "put_height", "get_height", "put_dataPageSize", "get_dataPageSize", "nextPage", "previousPage", "get_tHead", "get_tFoot", "get_tBodies", "get_caption", "createTHead", "deleteTHead", "createTFoot", "deleteTFoot", "createCaption", "deleteCaption", "insertRow", "deleteRow", "get_readyState", "put_onreadystatechange", "get_onreadystatechange"]
 
     /**
+     * @type {Integer} 
+     */
+    cols {
+        get => this.get_cols()
+        set => this.put_cols(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    frame {
+        get => this.get_frame()
+        set => this.put_frame(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rules {
+        get => this.get_rules()
+        set => this.put_rules(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    cellSpacing {
+        get => this.get_cellSpacing()
+        set => this.put_cellSpacing(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    cellPadding {
+        get => this.get_cellPadding()
+        set => this.put_cellPadding(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    background {
+        get => this.get_background()
+        set => this.put_background(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+        set => this.put_borderColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColorLight {
+        get => this.get_borderColorLight()
+        set => this.put_borderColorLight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColorDark {
+        get => this.get_borderColorDark()
+        set => this.put_borderColorDark(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    rows {
+        get => this.get_rows()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    dataPageSize {
+        get => this.get_dataPageSize()
+        set => this.put_dataPageSize(value)
+    }
+
+    /**
+     * @type {IHTMLTableSection} 
+     */
+    tHead {
+        get => this.get_tHead()
+    }
+
+    /**
+     * @type {IHTMLTableSection} 
+     */
+    tFoot {
+        get => this.get_tFoot()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    tBodies {
+        get => this.get_tBodies()
+    }
+
+    /**
+     * @type {IHTMLTableCaption} 
+     */
+    caption {
+        get => this.get_caption()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

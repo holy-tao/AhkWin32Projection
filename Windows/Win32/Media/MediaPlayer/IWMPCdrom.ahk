@@ -32,6 +32,19 @@ class IWMPCdrom extends IDispatch{
     static VTableNames => ["get_driveSpecifier", "get_playlist", "eject"]
 
     /**
+     */
+    driveSpecifier {
+        get => this.get_driveSpecifier()
+    }
+
+    /**
+     * @type {IWMPPlaylist} 
+     */
+    playlist {
+        get => this.get_playlist()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrDrive 
      * @returns {HRESULT} 

@@ -45,6 +45,70 @@ class IComponentType extends IDispatch{
     static VTableNames => ["get_Category", "put_Category", "get_MediaMajorType", "put_MediaMajorType", "get__MediaMajorType", "put__MediaMajorType", "get_MediaSubType", "put_MediaSubType", "get__MediaSubType", "put__MediaSubType", "get_MediaFormatType", "put_MediaFormatType", "get__MediaFormatType", "put__MediaFormatType", "get_MediaType", "put_MediaType", "Clone"]
 
     /**
+     * @type {Integer} 
+     */
+    Category {
+        get => this.get_Category()
+        set => this.put_Category(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MediaMajorType {
+        get => this.get_MediaMajorType()
+        set => this.put_MediaMajorType(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _MediaMajorType {
+        get => this.get__MediaMajorType()
+        set => this.put__MediaMajorType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MediaSubType {
+        get => this.get_MediaSubType()
+        set => this.put_MediaSubType(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _MediaSubType {
+        get => this.get__MediaSubType()
+        set => this.put__MediaSubType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MediaFormatType {
+        get => this.get_MediaFormatType()
+        set => this.put_MediaFormatType(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _MediaFormatType {
+        get => this.get__MediaFormatType()
+        set => this.put__MediaFormatType(value)
+    }
+
+    /**
+     * @type {AM_MEDIA_TYPE} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+        set => this.put_MediaType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_category

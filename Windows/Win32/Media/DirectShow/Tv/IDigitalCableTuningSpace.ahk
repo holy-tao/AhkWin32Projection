@@ -48,6 +48,38 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
     static VTableNames => ["get_MinMajorChannel", "put_MinMajorChannel", "get_MaxMajorChannel", "put_MaxMajorChannel", "get_MinSourceID", "put_MinSourceID", "get_MaxSourceID", "put_MaxSourceID"]
 
     /**
+     * @type {Integer} 
+     */
+    MinMajorChannel {
+        get => this.get_MinMajorChannel()
+        set => this.put_MinMajorChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxMajorChannel {
+        get => this.get_MaxMajorChannel()
+        set => this.put_MaxMajorChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinSourceID {
+        get => this.get_MinSourceID()
+        set => this.put_MinSourceID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxSourceID {
+        get => this.get_MaxSourceID()
+        set => this.put_MaxSourceID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minmajorchannel

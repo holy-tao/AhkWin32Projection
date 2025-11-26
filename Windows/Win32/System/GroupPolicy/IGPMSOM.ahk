@@ -41,6 +41,35 @@ class IGPMSOM extends IDispatch{
     static VTableNames => ["get_GPOInheritanceBlocked", "put_GPOInheritanceBlocked", "get_Name", "get_Path", "CreateGPOLink", "get_Type", "GetGPOLinks", "GetInheritedGPOLinks", "GetSecurityInfo", "SetSecurityInfo"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    GPOInheritanceBlocked {
+        get => this.get_GPOInheritanceBlocked()
+        set => this.put_GPOInheritanceBlocked(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

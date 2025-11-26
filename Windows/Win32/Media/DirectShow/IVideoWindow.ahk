@@ -32,6 +32,126 @@ class IVideoWindow extends IDispatch{
     static VTableNames => ["put_Caption", "get_Caption", "put_WindowStyle", "get_WindowStyle", "put_WindowStyleEx", "get_WindowStyleEx", "put_AutoShow", "get_AutoShow", "put_WindowState", "get_WindowState", "put_BackgroundPalette", "get_BackgroundPalette", "put_Visible", "get_Visible", "put_Left", "get_Left", "put_Width", "get_Width", "put_Top", "get_Top", "put_Height", "get_Height", "put_Owner", "get_Owner", "put_MessageDrain", "get_MessageDrain", "get_BorderColor", "put_BorderColor", "get_FullScreenMode", "put_FullScreenMode", "SetWindowForeground", "NotifyOwnerMessage", "SetWindowPosition", "GetWindowPosition", "GetMinIdealImageSize", "GetMaxIdealImageSize", "GetRestorePosition", "HideCursor", "IsCursorHidden"]
 
     /**
+     * @type {BSTR} 
+     */
+    Caption {
+        get => this.get_Caption()
+        set => this.put_Caption(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowStyle {
+        get => this.get_WindowStyle()
+        set => this.put_WindowStyle(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowStyleEx {
+        get => this.get_WindowStyleEx()
+        set => this.put_WindowStyleEx(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoShow {
+        get => this.get_AutoShow()
+        set => this.put_AutoShow(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowState {
+        get => this.get_WindowState()
+        set => this.put_WindowState(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackgroundPalette {
+        get => this.get_BackgroundPalette()
+        set => this.put_BackgroundPalette(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Left {
+        get => this.get_Left()
+        set => this.put_Left(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+        set => this.put_Width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Top {
+        get => this.get_Top()
+        set => this.put_Top(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+        set => this.put_Height(value)
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Owner {
+        get => this.get_Owner()
+        set => this.put_Owner(value)
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    MessageDrain {
+        get => this.get_MessageDrain()
+        set => this.put_MessageDrain(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BorderColor {
+        get => this.get_BorderColor()
+        set => this.put_BorderColor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FullScreenMode {
+        get => this.get_FullScreenMode()
+        set => this.put_FullScreenMode(value)
+    }
+
+    /**
      * 
      * @param {BSTR} strCaption 
      * @returns {HRESULT} 

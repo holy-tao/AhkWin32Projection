@@ -31,6 +31,13 @@ class IInkTablet2 extends IDispatch{
     static VTableNames => ["get_DeviceKind"]
 
     /**
+     * @type {Integer} 
+     */
+    DeviceKind {
+        get => this.get_DeviceKind()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet2-get_devicekind

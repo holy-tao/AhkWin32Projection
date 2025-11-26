@@ -42,6 +42,29 @@ class IDTFilter extends IUnknown{
     static VTableNames => ["get_EvalRatObjOK", "GetCurrRating", "get_BlockedRatingAttributes", "put_BlockedRatingAttributes", "get_BlockUnRated", "put_BlockUnRated", "get_BlockUnRatedDelay", "put_BlockUnRatedDelay"]
 
     /**
+     * @type {HRESULT} 
+     */
+    EvalRatObjOK {
+        get => this.get_EvalRatObjOK()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    BlockUnRated {
+        get => this.get_BlockUnRated()
+        set => this.put_BlockUnRated(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BlockUnRatedDelay {
+        get => this.get_BlockUnRatedDelay()
+        set => this.put_BlockUnRatedDelay(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_evalratobjok

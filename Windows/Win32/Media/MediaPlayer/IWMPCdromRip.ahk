@@ -31,6 +31,18 @@ class IWMPCdromRip extends IUnknown{
     static VTableNames => ["get_ripState", "get_ripProgress", "startRip", "stopRip"]
 
     /**
+     */
+    ripState {
+        get => this.get_ripState()
+    }
+
+    /**
+     */
+    ripProgress {
+        get => this.get_ripProgress()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pwmprs 
      * @returns {HRESULT} 

@@ -31,6 +31,27 @@ class IXMLDOMDocumentType extends IXMLDOMNode{
     static VTableNames => ["get_name", "get_entities", "get_notations"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {IXMLDOMNamedNodeMap} 
+     */
+    entities {
+        get => this.get_entities()
+    }
+
+    /**
+     * @type {IXMLDOMNamedNodeMap} 
+     */
+    notations {
+        get => this.get_notations()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

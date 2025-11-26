@@ -30,6 +30,27 @@ class IRTCProfileEvent extends IDispatch{
     static VTableNames => ["get_Profile", "get_Cookie", "get_StatusCode"]
 
     /**
+     * @type {IRTCProfile} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Cookie {
+        get => this.get_Cookie()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
      * 
      * @returns {IRTCProfile} 
      */

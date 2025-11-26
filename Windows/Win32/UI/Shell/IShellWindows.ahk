@@ -64,6 +64,13 @@ class IShellWindows extends IDispatch{
     static VTableNames => ["get_Count", "Item", "_NewEnum", "Register", "RegisterPending", "Revoke", "OnNavigate", "OnActivated", "FindWindowSW", "OnCreated", "ProcessAttachDetach"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-get_count

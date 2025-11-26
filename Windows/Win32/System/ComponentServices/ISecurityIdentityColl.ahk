@@ -34,6 +34,20 @@ class ISecurityIdentityColl extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get_count

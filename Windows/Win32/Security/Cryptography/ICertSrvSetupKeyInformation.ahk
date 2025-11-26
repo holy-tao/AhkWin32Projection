@@ -33,6 +33,54 @@ class ICertSrvSetupKeyInformation extends IDispatch{
     static VTableNames => ["get_ProviderName", "put_ProviderName", "get_Length", "put_Length", "get_Existing", "put_Existing", "get_ContainerName", "put_ContainerName", "get_HashAlgorithm", "put_HashAlgorithm", "get_ExistingCACertificate", "put_ExistingCACertificate"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProviderName {
+        get => this.get_ProviderName()
+        set => this.put_ProviderName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+        set => this.put_Length(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Existing {
+        get => this.get_Existing()
+        set => this.put_Existing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ContainerName {
+        get => this.get_ContainerName()
+        set => this.put_ContainerName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ExistingCACertificate {
+        get => this.get_ExistingCACertificate()
+        set => this.put_ExistingCACertificate(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_providername

@@ -37,6 +37,13 @@ class ISWbemEventSource extends IDispatch{
     static VTableNames => ["NextEvent", "get_Security_"]
 
     /**
+     * @type {ISWbemSecurity} 
+     */
+    Security_ {
+        get => this.get_Security_()
+    }
+
+    /**
      * 
      * @param {Integer} iTimeoutMs 
      * @returns {ISWbemObject} 

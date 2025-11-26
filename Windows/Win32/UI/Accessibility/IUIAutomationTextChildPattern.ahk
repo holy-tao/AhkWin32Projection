@@ -33,6 +33,20 @@ class IUIAutomationTextChildPattern extends IUnknown{
     static VTableNames => ["get_TextContainer", "get_TextRange"]
 
     /**
+     * @type {IUIAutomationElement} 
+     */
+    TextContainer {
+        get => this.get_TextContainer()
+    }
+
+    /**
+     * @type {IUIAutomationTextRange} 
+     */
+    TextRange {
+        get => this.get_TextRange()
+    }
+
+    /**
      * 
      * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textcontainer

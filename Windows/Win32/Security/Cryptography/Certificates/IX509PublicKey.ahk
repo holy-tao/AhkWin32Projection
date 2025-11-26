@@ -33,6 +33,20 @@ class IX509PublicKey extends IDispatch{
     static VTableNames => ["Initialize", "InitializeFromEncodedPublicKeyInfo", "get_Algorithm", "get_Length", "get_EncodedKey", "get_EncodedParameters", "ComputeKeyIdentifier"]
 
     /**
+     * @type {IObjectId} 
+     */
+    Algorithm {
+        get => this.get_Algorithm()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IObjectId} pObjectId 
      * @param {BSTR} strEncodedKey 

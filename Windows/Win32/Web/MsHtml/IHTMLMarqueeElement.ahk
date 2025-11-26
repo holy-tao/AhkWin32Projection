@@ -37,6 +37,118 @@ class IHTMLMarqueeElement extends IDispatch{
     static VTableNames => ["put_bgColor", "get_bgColor", "put_scrollDelay", "get_scrollDelay", "put_direction", "get_direction", "put_behavior", "get_behavior", "put_scrollAmount", "get_scrollAmount", "put_loop", "get_loop", "put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_onfinish", "get_onfinish", "put_onstart", "get_onstart", "put_onbounce", "get_onbounce", "put_width", "get_width", "put_height", "get_height", "put_trueSpeed", "get_trueSpeed", "start", "stop"]
 
     /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollDelay {
+        get => this.get_scrollDelay()
+        set => this.put_scrollDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    direction {
+        get => this.get_direction()
+        set => this.put_direction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    behavior {
+        get => this.get_behavior()
+        set => this.put_behavior(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollAmount {
+        get => this.get_scrollAmount()
+        set => this.put_scrollAmount(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    loop {
+        get => this.get_loop()
+        set => this.put_loop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    vspace {
+        get => this.get_vspace()
+        set => this.put_vspace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    hspace {
+        get => this.get_hspace()
+        set => this.put_hspace(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfinish {
+        get => this.get_onfinish()
+        set => this.put_onfinish(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstart {
+        get => this.get_onstart()
+        set => this.put_onstart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbounce {
+        get => this.get_onbounce()
+        set => this.put_onbounce(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    trueSpeed {
+        get => this.get_trueSpeed()
+        set => this.put_trueSpeed(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

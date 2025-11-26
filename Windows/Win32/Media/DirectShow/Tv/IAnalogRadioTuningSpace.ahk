@@ -42,6 +42,30 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     static VTableNames => ["get_MinFrequency", "put_MinFrequency", "get_MaxFrequency", "put_MaxFrequency", "get_Step", "put_Step"]
 
     /**
+     * @type {Integer} 
+     */
+    MinFrequency {
+        get => this.get_MinFrequency()
+        set => this.put_MinFrequency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxFrequency {
+        get => this.get_MaxFrequency()
+        set => this.put_MaxFrequency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Step {
+        get => this.get_Step()
+        set => this.put_Step(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_minfrequency

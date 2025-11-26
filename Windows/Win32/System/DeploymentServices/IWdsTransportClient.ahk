@@ -39,6 +39,83 @@ class IWdsTransportClient extends IDispatch{
     static VTableNames => ["get_Session", "get_Id", "get_Name", "get_MacAddress", "get_IpAddress", "get_PercentCompletion", "get_JoinDuration", "get_CpuUtilization", "get_MemoryUtilization", "get_NetworkUtilization", "get_UserIdentity", "Disconnect"]
 
     /**
+     * @type {IWdsTransportSession} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MacAddress {
+        get => this.get_MacAddress()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    IpAddress {
+        get => this.get_IpAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PercentCompletion {
+        get => this.get_PercentCompletion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    JoinDuration {
+        get => this.get_JoinDuration()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CpuUtilization {
+        get => this.get_CpuUtilization()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MemoryUtilization {
+        get => this.get_MemoryUtilization()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NetworkUtilization {
+        get => this.get_NetworkUtilization()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserIdentity {
+        get => this.get_UserIdentity()
+    }
+
+    /**
      * 
      * @returns {IWdsTransportSession} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_session

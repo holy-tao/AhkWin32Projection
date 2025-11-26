@@ -42,6 +42,22 @@ class IFsrmActionEventLog extends IFsrmAction{
     static VTableNames => ["get_EventType", "put_EventType", "get_MessageText", "put_MessageText"]
 
     /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+        set => this.put_EventType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MessageText {
+        get => this.get_MessageText()
+        set => this.put_MessageText(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype

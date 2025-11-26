@@ -42,6 +42,14 @@ class IATSCComponentType extends IMPEG2ComponentType{
     static VTableNames => ["get_Flags", "put_Flags"]
 
     /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+        set => this.put_Flags(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsccomponenttype-get_flags

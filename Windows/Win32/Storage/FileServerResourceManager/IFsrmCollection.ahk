@@ -33,6 +33,27 @@ class IFsrmCollection extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_State", "Cancel", "WaitForCompletion", "GetById"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get__newenum

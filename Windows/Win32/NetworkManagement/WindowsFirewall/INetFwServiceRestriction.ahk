@@ -38,6 +38,13 @@ class INetFwServiceRestriction extends IDispatch{
     static VTableNames => ["RestrictService", "ServiceRestricted", "get_Rules"]
 
     /**
+     * @type {INetFwRules} 
+     */
+    Rules {
+        get => this.get_Rules()
+    }
+
+    /**
      * 
      * @param {BSTR} serviceName 
      * @param {BSTR} appName 

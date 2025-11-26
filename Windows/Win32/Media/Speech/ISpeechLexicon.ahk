@@ -32,6 +32,13 @@ class ISpeechLexicon extends IDispatch{
     static VTableNames => ["get_GenerationId", "GetWords", "AddPronunciation", "AddPronunciationByPhoneIds", "RemovePronunciation", "RemovePronunciationByPhoneIds", "GetPronunciations", "GetGenerationChange"]
 
     /**
+     * @type {Integer} 
+     */
+    GenerationId {
+        get => this.get_GenerationId()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

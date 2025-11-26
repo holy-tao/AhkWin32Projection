@@ -39,6 +39,27 @@ class IMultisessionRandomWrite extends IMultisession{
     static VTableNames => ["get_WriteUnitSize", "get_LastWrittenAddress", "get_TotalSectorsOnMedia"]
 
     /**
+     * @type {Integer} 
+     */
+    WriteUnitSize {
+        get => this.get_WriteUnitSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastWrittenAddress {
+        get => this.get_LastWrittenAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalSectorsOnMedia {
+        get => this.get_TotalSectorsOnMedia()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize

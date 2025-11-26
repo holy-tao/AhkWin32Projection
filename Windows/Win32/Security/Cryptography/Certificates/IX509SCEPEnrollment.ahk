@@ -35,6 +35,66 @@ class IX509SCEPEnrollment extends IDispatch{
     static VTableNames => ["Initialize", "InitializeForPending", "CreateRequestMessage", "CreateRetrievePendingMessage", "CreateRetrieveCertificateMessage", "ProcessResponseMessage", "put_ServerCapabilities", "get_FailInfo", "get_SignerCertificate", "put_SignerCertificate", "get_OldCertificate", "put_OldCertificate", "get_TransactionId", "put_TransactionId", "get_Request", "get_CertificateFriendlyName", "put_CertificateFriendlyName", "get_Status", "get_Certificate", "get_Silent", "put_Silent", "DeleteRequest"]
 
     /**
+     * @type {HRESULT} 
+     */
+    ServerCapabilities {
+        set => this.put_ServerCapabilities(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FailInfo {
+        get => this.get_FailInfo()
+    }
+
+    /**
+     * @type {ISignerCertificate} 
+     */
+    SignerCertificate {
+        get => this.get_SignerCertificate()
+        set => this.put_SignerCertificate(value)
+    }
+
+    /**
+     * @type {ISignerCertificate} 
+     */
+    OldCertificate {
+        get => this.get_OldCertificate()
+        set => this.put_OldCertificate(value)
+    }
+
+    /**
+     * @type {IX509CertificateRequestPkcs10} 
+     */
+    Request {
+        get => this.get_Request()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CertificateFriendlyName {
+        get => this.get_CertificateFriendlyName()
+        set => this.put_CertificateFriendlyName(value)
+    }
+
+    /**
+     * @type {IX509EnrollmentStatus} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Silent {
+        get => this.get_Silent()
+        set => this.put_Silent(value)
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IX509CertificateRequestPkcs10} pRequest 
      * @param {BSTR} strThumbprint 

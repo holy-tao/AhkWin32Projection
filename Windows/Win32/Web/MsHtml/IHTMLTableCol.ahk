@@ -37,6 +37,38 @@ class IHTMLTableCol extends IDispatch{
     static VTableNames => ["put_span", "get_span", "put_width", "get_width", "put_align", "get_align", "put_vAlign", "get_vAlign"]
 
     /**
+     * @type {Integer} 
+     */
+    span {
+        get => this.get_span()
+        set => this.put_span(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vAlign {
+        get => this.get_vAlign()
+        set => this.put_vAlign(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

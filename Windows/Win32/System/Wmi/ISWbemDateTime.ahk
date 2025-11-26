@@ -36,6 +36,150 @@ class ISWbemDateTime extends IDispatch{
     static VTableNames => ["get_Value", "put_Value", "get_Year", "put_Year", "get_YearSpecified", "put_YearSpecified", "get_Month", "put_Month", "get_MonthSpecified", "put_MonthSpecified", "get_Day", "put_Day", "get_DaySpecified", "put_DaySpecified", "get_Hours", "put_Hours", "get_HoursSpecified", "put_HoursSpecified", "get_Minutes", "put_Minutes", "get_MinutesSpecified", "put_MinutesSpecified", "get_Seconds", "put_Seconds", "get_SecondsSpecified", "put_SecondsSpecified", "get_Microseconds", "put_Microseconds", "get_MicrosecondsSpecified", "put_MicrosecondsSpecified", "get_UTC", "put_UTC", "get_UTCSpecified", "put_UTCSpecified", "get_IsInterval", "put_IsInterval", "GetVarDate", "SetVarDate", "GetFileTime", "SetFileTime"]
 
     /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Year {
+        get => this.get_Year()
+        set => this.put_Year(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    YearSpecified {
+        get => this.get_YearSpecified()
+        set => this.put_YearSpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Month {
+        get => this.get_Month()
+        set => this.put_Month(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MonthSpecified {
+        get => this.get_MonthSpecified()
+        set => this.put_MonthSpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Day {
+        get => this.get_Day()
+        set => this.put_Day(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DaySpecified {
+        get => this.get_DaySpecified()
+        set => this.put_DaySpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Hours {
+        get => this.get_Hours()
+        set => this.put_Hours(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    HoursSpecified {
+        get => this.get_HoursSpecified()
+        set => this.put_HoursSpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Minutes {
+        get => this.get_Minutes()
+        set => this.put_Minutes(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MinutesSpecified {
+        get => this.get_MinutesSpecified()
+        set => this.put_MinutesSpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Seconds {
+        get => this.get_Seconds()
+        set => this.put_Seconds(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SecondsSpecified {
+        get => this.get_SecondsSpecified()
+        set => this.put_SecondsSpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Microseconds {
+        get => this.get_Microseconds()
+        set => this.put_Microseconds(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MicrosecondsSpecified {
+        get => this.get_MicrosecondsSpecified()
+        set => this.put_MicrosecondsSpecified(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UTC {
+        get => this.get_UTC()
+        set => this.put_UTC(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UTCSpecified {
+        get => this.get_UTCSpecified()
+        set => this.put_UTCSpecified(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsInterval {
+        get => this.get_IsInterval()
+        set => this.put_IsInterval(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

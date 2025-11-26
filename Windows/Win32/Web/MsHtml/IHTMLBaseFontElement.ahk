@@ -37,6 +37,30 @@ class IHTMLBaseFontElement extends IDispatch{
     static VTableNames => ["put_color", "get_color", "put_face", "get_face", "put_size", "get_size"]
 
     /**
+     * @type {VARIANT} 
+     */
+    color {
+        get => this.get_color()
+        set => this.put_color(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    face {
+        get => this.get_face()
+        set => this.put_face(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    size {
+        get => this.get_size()
+        set => this.put_size(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

@@ -38,6 +38,27 @@ class IWdsTransportSetupManager extends IDispatch{
     static VTableNames => ["get_Version", "get_InstalledFeatures", "get_Protocols", "RegisterContentProvider", "DeregisterContentProvider"]
 
     /**
+     * @type {Integer} 
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InstalledFeatures {
+        get => this.get_InstalledFeatures()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Protocols {
+        get => this.get_Protocols()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version

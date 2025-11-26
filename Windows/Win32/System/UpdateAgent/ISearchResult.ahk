@@ -34,6 +34,34 @@ class ISearchResult extends IDispatch{
     static VTableNames => ["get_ResultCode", "get_RootCategories", "get_Updates", "get_Warnings"]
 
     /**
+     * @type {Integer} 
+     */
+    ResultCode {
+        get => this.get_ResultCode()
+    }
+
+    /**
+     * @type {ICategoryCollection} 
+     */
+    RootCategories {
+        get => this.get_RootCategories()
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    Updates {
+        get => this.get_Updates()
+    }
+
+    /**
+     * @type {IUpdateExceptionCollection} 
+     */
+    Warnings {
+        get => this.get_Warnings()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_resultcode

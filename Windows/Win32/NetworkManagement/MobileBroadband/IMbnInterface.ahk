@@ -43,6 +43,13 @@ class IMbnInterface extends IUnknown{
     static VTableNames => ["get_InterfaceID", "GetInterfaceCapability", "GetSubscriberInformation", "GetReadyState", "InEmergencyMode", "GetHomeProvider", "GetPreferredProviders", "SetPreferredProviders", "GetVisibleProviders", "ScanNetwork", "GetConnection"]
 
     /**
+     * @type {BSTR} 
+     */
+    InterfaceID {
+        get => this.get_InterfaceID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-get_interfaceid

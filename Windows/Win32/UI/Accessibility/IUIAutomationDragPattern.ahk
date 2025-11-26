@@ -38,6 +38,48 @@ class IUIAutomationDragPattern extends IUnknown{
     static VTableNames => ["get_CurrentIsGrabbed", "get_CachedIsGrabbed", "get_CurrentDropEffect", "get_CachedDropEffect", "get_CurrentDropEffects", "get_CachedDropEffects", "GetCurrentGrabbedItems", "GetCachedGrabbedItems"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentIsGrabbed {
+        get => this.get_CurrentIsGrabbed()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsGrabbed {
+        get => this.get_CachedIsGrabbed()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentDropEffect {
+        get => this.get_CurrentDropEffect()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedDropEffect {
+        get => this.get_CachedDropEffect()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CurrentDropEffects {
+        get => this.get_CurrentDropEffects()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CachedDropEffects {
+        get => this.get_CachedDropEffects()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentisgrabbed

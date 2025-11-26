@@ -38,6 +38,21 @@ class IHTMLCSSMediaRule extends IDispatch{
     static VTableNames => ["put_media", "get_media", "get_cssRules", "insertRule", "deleteRule"]
 
     /**
+     * @type {VARIANT} 
+     */
+    media {
+        get => this.get_media()
+        set => this.put_media(value)
+    }
+
+    /**
+     * @type {IHTMLStyleSheetRulesCollection} 
+     */
+    cssRules {
+        get => this.get_cssRules()
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

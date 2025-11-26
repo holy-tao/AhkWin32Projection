@@ -46,6 +46,21 @@ class ISelector extends IUnknown{
     static VTableNames => ["get_NumSources", "get_SourceNodeId", "put_SourceNodeId"]
 
     /**
+     * @type {Integer} 
+     */
+    NumSources {
+        get => this.get_NumSources()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceNodeId {
+        get => this.get_SourceNodeId()
+        set => this.put_SourceNodeId(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_numsources

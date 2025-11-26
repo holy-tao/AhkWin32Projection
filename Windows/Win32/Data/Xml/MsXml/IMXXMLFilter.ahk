@@ -32,6 +32,34 @@ class IMXXMLFilter extends IDispatch{
     static VTableNames => ["getFeature", "putFeature", "getProperty", "putProperty", "get_entityResolver", "putref_entityResolver", "get_contentHandler", "putref_contentHandler", "get_dtdHandler", "putref_dtdHandler", "get_errorHandler", "putref_errorHandler"]
 
     /**
+     * @type {IUnknown} 
+     */
+    entityResolver {
+        get => this.get_entityResolver()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    contentHandler {
+        get => this.get_contentHandler()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    dtdHandler {
+        get => this.get_dtdHandler()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    errorHandler {
+        get => this.get_errorHandler()
+    }
+
+    /**
      * 
      * @param {BSTR} strName 
      * @returns {VARIANT_BOOL} 

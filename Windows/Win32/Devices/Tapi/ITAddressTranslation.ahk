@@ -36,6 +36,20 @@ class ITAddressTranslation extends IDispatch{
     static VTableNames => ["TranslateAddress", "TranslateDialog", "EnumerateLocations", "get_Locations", "EnumerateCallingCards", "get_CallingCards"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Locations {
+        get => this.get_Locations()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CallingCards {
+        get => this.get_CallingCards()
+    }
+
+    /**
      * 
      * @param {BSTR} pAddressToTranslate 
      * @param {Integer} lCard 

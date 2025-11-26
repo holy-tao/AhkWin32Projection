@@ -33,6 +33,87 @@ class IAzApplicationGroup extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Type", "put_Type", "get_LdapQuery", "put_LdapQuery", "get_AppMembers", "get_AppNonMembers", "get_Members", "get_NonMembers", "get_Description", "put_Description", "AddAppMember", "DeleteAppMember", "AddAppNonMember", "DeleteAppNonMember", "AddMember", "DeleteMember", "AddNonMember", "DeleteNonMember", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "Submit", "AddMemberName", "DeleteMemberName", "AddNonMemberName", "DeleteNonMemberName", "get_MembersName", "get_NonMembersName"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LdapQuery {
+        get => this.get_LdapQuery()
+        set => this.put_LdapQuery(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AppMembers {
+        get => this.get_AppMembers()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AppNonMembers {
+        get => this.get_AppNonMembers()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Members {
+        get => this.get_Members()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    NonMembers {
+        get => this.get_NonMembers()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    MembersName {
+        get => this.get_MembersName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    NonMembersName {
+        get => this.get_NonMembersName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_name

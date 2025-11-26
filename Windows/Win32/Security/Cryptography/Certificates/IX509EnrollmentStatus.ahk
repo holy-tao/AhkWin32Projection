@@ -32,6 +32,53 @@ class IX509EnrollmentStatus extends IDispatch{
     static VTableNames => ["AppendText", "get_Text", "put_Text", "get_Selected", "put_Selected", "get_Display", "put_Display", "get_Status", "put_Status", "get_Error", "put_Error", "get_ErrorText"]
 
     /**
+     * @type {BSTR} 
+     */
+    Text {
+        get => this.get_Text()
+        set => this.put_Text(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Selected {
+        get => this.get_Selected()
+        set => this.put_Selected(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Display {
+        get => this.get_Display()
+        set => this.put_Display(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+        set => this.put_Status(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Error {
+        get => this.get_Error()
+        set => this.put_Error(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ErrorText {
+        get => this.get_ErrorText()
+    }
+
+    /**
      * 
      * @param {BSTR} strText 
      * @returns {HRESULT} 

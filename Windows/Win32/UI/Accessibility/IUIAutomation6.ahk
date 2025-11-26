@@ -32,6 +32,22 @@ class IUIAutomation6 extends IUIAutomation5{
     static VTableNames => ["CreateEventHandlerGroup", "AddEventHandlerGroup", "RemoveEventHandlerGroup", "get_ConnectionRecoveryBehavior", "put_ConnectionRecoveryBehavior", "get_CoalesceEvents", "put_CoalesceEvents", "AddActiveTextPositionChangedEventHandler", "RemoveActiveTextPositionChangedEventHandler"]
 
     /**
+     * @type {Integer} 
+     */
+    ConnectionRecoveryBehavior {
+        get => this.get_ConnectionRecoveryBehavior()
+        set => this.put_ConnectionRecoveryBehavior(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CoalesceEvents {
+        get => this.get_CoalesceEvents()
+        set => this.put_CoalesceEvents(value)
+    }
+
+    /**
      * 
      * @returns {IUIAutomationEventHandlerGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-createeventhandlergroup

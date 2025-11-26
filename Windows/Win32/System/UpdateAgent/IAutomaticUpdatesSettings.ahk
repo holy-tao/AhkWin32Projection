@@ -38,6 +38,44 @@ class IAutomaticUpdatesSettings extends IDispatch{
     static VTableNames => ["get_NotificationLevel", "put_NotificationLevel", "get_ReadOnly", "get_Required", "get_ScheduledInstallationDay", "put_ScheduledInstallationDay", "get_ScheduledInstallationTime", "put_ScheduledInstallationTime", "Refresh", "Save"]
 
     /**
+     * @type {Integer} 
+     */
+    NotificationLevel {
+        get => this.get_NotificationLevel()
+        set => this.put_NotificationLevel(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Required {
+        get => this.get_Required()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScheduledInstallationDay {
+        get => this.get_ScheduledInstallationDay()
+        set => this.put_ScheduledInstallationDay(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScheduledInstallationTime {
+        get => this.get_ScheduledInstallationTime()
+        set => this.put_ScheduledInstallationTime(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel

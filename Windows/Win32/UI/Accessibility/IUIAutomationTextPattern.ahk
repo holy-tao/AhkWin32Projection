@@ -33,6 +33,20 @@ class IUIAutomationTextPattern extends IUnknown{
     static VTableNames => ["RangeFromPoint", "RangeFromChild", "GetSelection", "GetVisibleRanges", "get_DocumentRange", "get_SupportedTextSelection"]
 
     /**
+     * @type {IUIAutomationTextRange} 
+     */
+    DocumentRange {
+        get => this.get_DocumentRange()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SupportedTextSelection {
+        get => this.get_SupportedTextSelection()
+    }
+
+    /**
      * 
      * @param {POINT} pt 
      * @returns {IUIAutomationTextRange} 

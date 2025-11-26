@@ -35,6 +35,62 @@ class IDVBSLocator2 extends IDVBSLocator{
     static VTableNames => ["get_DiseqLNBSource", "put_DiseqLNBSource", "get_LocalOscillatorOverrideLow", "put_LocalOscillatorOverrideLow", "get_LocalOscillatorOverrideHigh", "put_LocalOscillatorOverrideHigh", "get_LocalLNBSwitchOverride", "put_LocalLNBSwitchOverride", "get_LocalSpectralInversionOverride", "put_LocalSpectralInversionOverride", "get_SignalRollOff", "put_SignalRollOff", "get_SignalPilot", "put_SignalPilot"]
 
     /**
+     * @type {Integer} 
+     */
+    DiseqLNBSource {
+        get => this.get_DiseqLNBSource()
+        set => this.put_DiseqLNBSource(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalOscillatorOverrideLow {
+        get => this.get_LocalOscillatorOverrideLow()
+        set => this.put_LocalOscillatorOverrideLow(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalOscillatorOverrideHigh {
+        get => this.get_LocalOscillatorOverrideHigh()
+        set => this.put_LocalOscillatorOverrideHigh(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalLNBSwitchOverride {
+        get => this.get_LocalLNBSwitchOverride()
+        set => this.put_LocalLNBSwitchOverride(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalSpectralInversionOverride {
+        get => this.get_LocalSpectralInversionOverride()
+        set => this.put_LocalSpectralInversionOverride(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SignalRollOff {
+        get => this.get_SignalRollOff()
+        set => this.put_SignalRollOff(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SignalPilot {
+        get => this.get_SignalPilot()
+        set => this.put_SignalPilot(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_diseqlnbsource

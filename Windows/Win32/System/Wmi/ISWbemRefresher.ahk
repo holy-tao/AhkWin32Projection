@@ -38,6 +38,28 @@ class ISWbemRefresher extends IDispatch{
     static VTableNames => ["get__NewEnum", "Item", "get_Count", "Add", "AddEnum", "Remove", "Refresh", "get_AutoReconnect", "put_AutoReconnect", "DeleteAll"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoReconnect {
+        get => this.get_AutoReconnect()
+        set => this.put_AutoReconnect(value)
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

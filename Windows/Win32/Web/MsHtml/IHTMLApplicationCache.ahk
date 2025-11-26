@@ -30,6 +30,77 @@ class IHTMLApplicationCache extends IDispatch{
     static VTableNames => ["get_status", "put_onchecking", "get_onchecking", "put_onerror", "get_onerror", "put_onnoupdate", "get_onnoupdate", "put_ondownloading", "get_ondownloading", "put_onprogress", "get_onprogress", "put_onupdateready", "get_onupdateready", "put_oncached", "get_oncached", "put_onobsolete", "get_onobsolete", "update", "swapCache", "abort"]
 
     /**
+     * @type {Integer} 
+     */
+    status {
+        get => this.get_status()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchecking {
+        get => this.get_onchecking()
+        set => this.put_onchecking(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onnoupdate {
+        get => this.get_onnoupdate()
+        set => this.put_onnoupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondownloading {
+        get => this.get_ondownloading()
+        set => this.put_ondownloading(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onprogress {
+        get => this.get_onprogress()
+        set => this.put_onprogress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onupdateready {
+        get => this.get_onupdateready()
+        set => this.put_onupdateready(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncached {
+        get => this.get_oncached()
+        set => this.put_oncached(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onobsolete {
+        get => this.get_onobsolete()
+        set => this.put_onobsolete(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

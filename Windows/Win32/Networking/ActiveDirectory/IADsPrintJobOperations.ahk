@@ -31,6 +31,35 @@ class IADsPrintJobOperations extends IADs{
     static VTableNames => ["get_Status", "get_TimeElapsed", "get_PagesPrinted", "get_Position", "put_Position", "Pause", "Resume"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TimeElapsed {
+        get => this.get_TimeElapsed()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PagesPrinted {
+        get => this.get_PagesPrinted()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Position {
+        get => this.get_Position()
+        set => this.put_Position(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

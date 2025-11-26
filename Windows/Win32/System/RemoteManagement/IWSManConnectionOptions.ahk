@@ -37,6 +37,21 @@ class IWSManConnectionOptions extends IDispatch{
     static VTableNames => ["get_UserName", "put_UserName", "put_Password"]
 
     /**
+     * @type {BSTR} 
+     */
+    UserName {
+        get => this.get_UserName()
+        set => this.put_UserName(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Password {
+        set => this.put_Password(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptions-get_username

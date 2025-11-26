@@ -34,6 +34,20 @@ class ITAddress2 extends ITAddress{
     static VTableNames => ["get_Phones", "EnumeratePhones", "GetPhoneFromTerminal", "get_PreferredPhones", "EnumeratePreferredPhones", "get_EventFilter", "put_EventFilter", "DeviceSpecific", "DeviceSpecificVariant", "NegotiateExtVersion"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Phones {
+        get => this.get_Phones()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PreferredPhones {
+        get => this.get_PreferredPhones()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_phones

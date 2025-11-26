@@ -29,6 +29,22 @@ class IInputPanelWindowHandle extends IUnknown{
     static VTableNames => ["get_AttachedEditWindow32", "put_AttachedEditWindow32", "get_AttachedEditWindow64", "put_AttachedEditWindow64"]
 
     /**
+     * @type {Integer} 
+     */
+    AttachedEditWindow32 {
+        get => this.get_AttachedEditWindow32()
+        set => this.put_AttachedEditWindow32(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AttachedEditWindow64 {
+        get => this.get_AttachedEditWindow64()
+        set => this.put_AttachedEditWindow64(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

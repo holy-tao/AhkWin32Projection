@@ -30,6 +30,14 @@ class IHTMLBodyElement5 extends IDispatch{
     static VTableNames => ["put_onpopstate", "get_onpopstate"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onpopstate {
+        get => this.get_onpopstate()
+        set => this.put_onpopstate(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

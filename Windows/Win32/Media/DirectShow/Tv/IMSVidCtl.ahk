@@ -52,6 +52,137 @@ class IMSVidCtl extends IDispatch{
     static VTableNames => ["get_AutoSize", "put_AutoSize", "get_BackColor", "put_BackColor", "get_Enabled", "put_Enabled", "get_TabStop", "put_TabStop", "get_Window", "Refresh", "get_DisplaySize", "put_DisplaySize", "get_MaintainAspectRatio", "put_MaintainAspectRatio", "get_ColorKey", "put_ColorKey", "get_InputsAvailable", "get_OutputsAvailable", "get__InputsAvailable", "get__OutputsAvailable", "get_VideoRenderersAvailable", "get_AudioRenderersAvailable", "get_FeaturesAvailable", "get_InputActive", "put_InputActive", "get_OutputsActive", "put_OutputsActive", "get_VideoRendererActive", "put_VideoRendererActive", "get_AudioRendererActive", "put_AudioRendererActive", "get_FeaturesActive", "put_FeaturesActive", "get_State", "View", "Build", "Pause", "Run", "Stop", "Decompose", "DisableVideo", "DisableAudio", "ViewNext"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoSize {
+        get => this.get_AutoSize()
+        set => this.put_AutoSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackColor {
+        get => this.get_BackColor()
+        set => this.put_BackColor(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    TabStop {
+        get => this.get_TabStop()
+        set => this.put_TabStop(value)
+    }
+
+    /**
+     * @type {HWND} 
+     */
+    Window {
+        get => this.get_Window()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DisplaySize {
+        get => this.get_DisplaySize()
+        set => this.put_DisplaySize(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MaintainAspectRatio {
+        get => this.get_MaintainAspectRatio()
+        set => this.put_MaintainAspectRatio(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ColorKey {
+        get => this.get_ColorKey()
+        set => this.put_ColorKey(value)
+    }
+
+    /**
+     * @type {IMSVidVideoRendererDevices} 
+     */
+    VideoRenderersAvailable {
+        get => this.get_VideoRenderersAvailable()
+    }
+
+    /**
+     * @type {IMSVidAudioRendererDevices} 
+     */
+    AudioRenderersAvailable {
+        get => this.get_AudioRenderersAvailable()
+    }
+
+    /**
+     * @type {IMSVidFeatures} 
+     */
+    FeaturesAvailable {
+        get => this.get_FeaturesAvailable()
+    }
+
+    /**
+     * @type {IMSVidInputDevice} 
+     */
+    InputActive {
+        get => this.get_InputActive()
+        set => this.put_InputActive(value)
+    }
+
+    /**
+     * @type {IMSVidOutputDevices} 
+     */
+    OutputsActive {
+        get => this.get_OutputsActive()
+        set => this.put_OutputsActive(value)
+    }
+
+    /**
+     * @type {IMSVidVideoRenderer} 
+     */
+    VideoRendererActive {
+        get => this.get_VideoRendererActive()
+        set => this.put_VideoRendererActive(value)
+    }
+
+    /**
+     * @type {IMSVidAudioRenderer} 
+     */
+    AudioRendererActive {
+        get => this.get_AudioRendererActive()
+        set => this.put_AudioRendererActive(value)
+    }
+
+    /**
+     * @type {IMSVidFeatures} 
+     */
+    FeaturesActive {
+        get => this.get_FeaturesActive()
+        set => this.put_FeaturesActive(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_autosize

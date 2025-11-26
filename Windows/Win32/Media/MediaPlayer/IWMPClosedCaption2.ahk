@@ -31,6 +31,18 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
     static VTableNames => ["get_SAMILangCount", "getSAMILangName", "getSAMILangID", "get_SAMIStyleCount", "getSAMIStyleName"]
 
     /**
+     */
+    SAMILangCount {
+        get => this.get_SAMILangCount()
+    }
+
+    /**
+     */
+    SAMIStyleCount {
+        get => this.get_SAMIStyleCount()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

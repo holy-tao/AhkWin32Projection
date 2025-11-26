@@ -37,6 +37,18 @@ class IDShowPlugin extends IUnknown{
     static VTableNames => ["get_URL", "get_UserAgent"]
 
     /**
+     */
+    URL {
+        get => this.get_URL()
+    }
+
+    /**
+     */
+    UserAgent {
+        get => this.get_UserAgent()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pURL 
      * @returns {HRESULT} 

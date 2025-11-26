@@ -37,6 +37,45 @@ class IWSManResourceLocator extends IDispatch{
     static VTableNames => ["put_ResourceURI", "get_ResourceURI", "AddSelector", "ClearSelectors", "get_FragmentPath", "put_FragmentPath", "get_FragmentDialect", "put_FragmentDialect", "AddOption", "put_MustUnderstandOptions", "get_MustUnderstandOptions", "ClearOptions", "get_Error"]
 
     /**
+     * @type {BSTR} 
+     */
+    ResourceURI {
+        get => this.get_ResourceURI()
+        set => this.put_ResourceURI(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FragmentPath {
+        get => this.get_FragmentPath()
+        set => this.put_FragmentPath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FragmentDialect {
+        get => this.get_FragmentDialect()
+        set => this.put_FragmentDialect(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    MustUnderstandOptions {
+        get => this.get_MustUnderstandOptions()
+        set => this.put_MustUnderstandOptions(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
      * 
      * @param {BSTR} uri 
      * @returns {HRESULT} 

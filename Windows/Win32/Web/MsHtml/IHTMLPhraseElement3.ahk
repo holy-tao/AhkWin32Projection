@@ -30,6 +30,14 @@ class IHTMLPhraseElement3 extends IDispatch{
     static VTableNames => ["put_cite", "get_cite"]
 
     /**
+     * @type {BSTR} 
+     */
+    cite {
+        get => this.get_cite()
+        set => this.put_cite(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

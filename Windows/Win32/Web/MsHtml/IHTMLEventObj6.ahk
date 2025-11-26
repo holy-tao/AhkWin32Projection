@@ -30,6 +30,20 @@ class IHTMLEventObj6 extends IDispatch{
     static VTableNames => ["get_actionURL", "get_buttonID"]
 
     /**
+     * @type {BSTR} 
+     */
+    actionURL {
+        get => this.get_actionURL()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    buttonID {
+        get => this.get_buttonID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

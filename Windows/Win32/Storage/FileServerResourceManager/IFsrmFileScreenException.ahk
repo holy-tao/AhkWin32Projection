@@ -33,6 +33,21 @@ class IFsrmFileScreenException extends IFsrmObject{
     static VTableNames => ["get_Path", "get_AllowedFileGroups", "put_AllowedFileGroups"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {IFsrmMutableCollection} 
+     */
+    AllowedFileGroups {
+        get => this.get_AllowedFileGroups()
+        set => this.put_AllowedFileGroups(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_path

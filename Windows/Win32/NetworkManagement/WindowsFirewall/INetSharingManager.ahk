@@ -51,6 +51,20 @@ class INetSharingManager extends IDispatch{
     static VTableNames => ["get_SharingInstalled", "get_EnumPublicConnections", "get_EnumPrivateConnections", "get_INetSharingConfigurationForINetConnection", "get_EnumEveryConnection", "get_NetConnectionProps"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    SharingInstalled {
+        get => this.get_SharingInstalled()
+    }
+
+    /**
+     * @type {INetSharingEveryConnectionCollection} 
+     */
+    EnumEveryConnection {
+        get => this.get_EnumEveryConnection()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_sharinginstalled

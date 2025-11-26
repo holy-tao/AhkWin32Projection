@@ -39,6 +39,13 @@ class FolderItems3 extends FolderItems2{
     static VTableNames => ["Filter", "get_Verbs"]
 
     /**
+     * @type {FolderItemVerbs} 
+     */
+    Verbs {
+        get => this.get_Verbs()
+    }
+
+    /**
      * 
      * @param {Integer} grfFlags 
      * @param {BSTR} bstrFileSpec 

@@ -30,6 +30,20 @@ class IRTCPresenceDevice extends IUnknown{
     static VTableNames => ["get_Status", "get_Notes", "get_PresenceProperty", "GetPresenceData"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Notes {
+        get => this.get_Notes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

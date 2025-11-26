@@ -32,6 +32,48 @@ class ISchemaComplexType extends ISchemaType{
     static VTableNames => ["get_isAbstract", "get_anyAttribute", "get_attributes", "get_contentType", "get_contentModel", "get_prohibitedSubstitutions"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    isAbstract {
+        get => this.get_isAbstract()
+    }
+
+    /**
+     * @type {ISchemaAny} 
+     */
+    anyAttribute {
+        get => this.get_anyAttribute()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    contentType {
+        get => this.get_contentType()
+    }
+
+    /**
+     * @type {ISchemaModelGroup} 
+     */
+    contentModel {
+        get => this.get_contentModel()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    prohibitedSubstitutions {
+        get => this.get_prohibitedSubstitutions()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

@@ -34,6 +34,13 @@ class IX509CertificateTemplateWritable extends IDispatch{
     static VTableNames => ["Initialize", "Commit", "get_Property", "put_Property", "get_Template"]
 
     /**
+     * @type {IX509CertificateTemplate} 
+     */
+    Template {
+        get => this.get_Template()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IX509CertificateTemplate} pValue 
      * @returns {HRESULT} <ul>

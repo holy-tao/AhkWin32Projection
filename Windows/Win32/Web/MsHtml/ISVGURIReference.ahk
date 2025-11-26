@@ -30,6 +30,13 @@ class ISVGURIReference extends IDispatch{
     static VTableNames => ["get_href"]
 
     /**
+     * @type {ISVGAnimatedString} 
+     */
+    href {
+        get => this.get_href()
+    }
+
+    /**
      * 
      * @returns {ISVGAnimatedString} 
      */

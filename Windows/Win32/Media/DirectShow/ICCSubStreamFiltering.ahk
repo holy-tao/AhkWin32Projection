@@ -36,6 +36,14 @@ class ICCSubStreamFiltering extends IUnknown{
     static VTableNames => ["get_SubstreamTypes", "put_SubstreamTypes"]
 
     /**
+     * @type {Integer} 
+     */
+    SubstreamTypes {
+        get => this.get_SubstreamTypes()
+        set => this.put_SubstreamTypes(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-iccsubstreamfiltering-get_substreamtypes

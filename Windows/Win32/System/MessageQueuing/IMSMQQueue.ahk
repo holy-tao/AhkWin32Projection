@@ -37,6 +37,41 @@ class IMSMQQueue extends IDispatch{
     static VTableNames => ["get_Access", "get_ShareMode", "get_QueueInfo", "get_Handle", "get_IsOpen", "Close", "Receive", "Peek", "EnableNotification", "Reset", "ReceiveCurrent", "PeekNext", "PeekCurrent"]
 
     /**
+     * @type {Integer} 
+     */
+    Access {
+        get => this.get_Access()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ShareMode {
+        get => this.get_ShareMode()
+    }
+
+    /**
+     * @type {IMSMQQueueInfo} 
+     */
+    QueueInfo {
+        get => this.get_QueueInfo()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsOpen {
+        get => this.get_IsOpen()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

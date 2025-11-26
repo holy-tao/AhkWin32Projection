@@ -32,6 +32,18 @@ class IWMPSettings2 extends IWMPSettings{
     static VTableNames => ["get_defaultAudioLanguage", "get_mediaAccessRights", "requestMediaAccessRights"]
 
     /**
+     */
+    defaultAudioLanguage {
+        get => this.get_defaultAudioLanguage()
+    }
+
+    /**
+     */
+    mediaAccessRights {
+        get => this.get_mediaAccessRights()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plLangID 
      * @returns {HRESULT} 

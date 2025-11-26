@@ -39,6 +39,98 @@ class IHTMLSelectElement extends IDispatch{
     static VTableNames => ["put_size", "get_size", "put_multiple", "get_multiple", "put_name", "get_name", "get_options", "put_onchange", "get_onchange", "put_selectedIndex", "get_selectedIndex", "get_type", "put_value", "get_value", "put_disabled", "get_disabled", "get_form", "add", "remove", "put_length", "get_length", "get__newEnum", "item", "tags"]
 
     /**
+     * @type {Integer} 
+     */
+    size {
+        get => this.get_size()
+        set => this.put_size(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    multiple {
+        get => this.get_multiple()
+        set => this.put_multiple(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    options {
+        get => this.get_options()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    selectedIndex {
+        get => this.get_selectedIndex()
+        set => this.put_selectedIndex(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+        set => this.put_length(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

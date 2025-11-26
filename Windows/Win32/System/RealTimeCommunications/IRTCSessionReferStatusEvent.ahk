@@ -31,6 +31,34 @@ class IRTCSessionReferStatusEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_ReferStatus", "get_StatusCode", "get_StatusText"]
 
     /**
+     * @type {IRTCSession2} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReferStatus {
+        get => this.get_ReferStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
      * 
      * @returns {IRTCSession2} 
      */

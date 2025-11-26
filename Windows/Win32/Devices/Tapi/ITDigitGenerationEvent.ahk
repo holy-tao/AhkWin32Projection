@@ -32,6 +32,34 @@ class ITDigitGenerationEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_GenerationTermination", "get_TickCount", "get_CallbackInstance"]
 
     /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GenerationTermination {
+        get => this.get_GenerationTermination()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TickCount {
+        get => this.get_TickCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallbackInstance {
+        get => this.get_CallbackInstance()
+    }
+
+    /**
      * 
      * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_call

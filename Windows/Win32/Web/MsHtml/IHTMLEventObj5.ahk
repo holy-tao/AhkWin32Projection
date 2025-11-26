@@ -30,6 +30,45 @@ class IHTMLEventObj5 extends IDispatch{
     static VTableNames => ["put_url", "get_url", "put_data", "get_data", "get_source", "put_origin", "get_origin", "put_issession", "get_issession"]
 
     /**
+     * @type {BSTR} 
+     */
+    url {
+        get => this.get_url()
+        set => this.put_url(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    source {
+        get => this.get_source()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    origin {
+        get => this.get_origin()
+        set => this.put_origin(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    issession {
+        get => this.get_issession()
+        set => this.put_issession(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

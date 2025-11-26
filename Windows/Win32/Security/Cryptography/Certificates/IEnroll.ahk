@@ -32,6 +32,195 @@ class IEnroll extends IUnknown{
     static VTableNames => ["createFilePKCS10WStr", "acceptFilePKCS7WStr", "createPKCS10WStr", "acceptPKCS7Blob", "getCertContextFromPKCS7", "getMyStore", "getCAStore", "getROOTHStore", "enumProvidersWStr", "enumContainersWStr", "freeRequestInfoBlob", "get_MyStoreNameWStr", "put_MyStoreNameWStr", "get_MyStoreTypeWStr", "put_MyStoreTypeWStr", "get_MyStoreFlags", "put_MyStoreFlags", "get_CAStoreNameWStr", "put_CAStoreNameWStr", "get_CAStoreTypeWStr", "put_CAStoreTypeWStr", "get_CAStoreFlags", "put_CAStoreFlags", "get_RootStoreNameWStr", "put_RootStoreNameWStr", "get_RootStoreTypeWStr", "put_RootStoreTypeWStr", "get_RootStoreFlags", "put_RootStoreFlags", "get_RequestStoreNameWStr", "put_RequestStoreNameWStr", "get_RequestStoreTypeWStr", "put_RequestStoreTypeWStr", "get_RequestStoreFlags", "put_RequestStoreFlags", "get_ContainerNameWStr", "put_ContainerNameWStr", "get_ProviderNameWStr", "put_ProviderNameWStr", "get_ProviderType", "put_ProviderType", "get_KeySpec", "put_KeySpec", "get_ProviderFlags", "put_ProviderFlags", "get_UseExistingKeySet", "put_UseExistingKeySet", "get_GenKeyFlags", "put_GenKeyFlags", "get_DeleteRequestCert", "put_DeleteRequestCert", "get_WriteCertToUserDS", "put_WriteCertToUserDS", "get_EnableT61DNEncoding", "put_EnableT61DNEncoding", "get_WriteCertToCSP", "put_WriteCertToCSP", "get_SPCFileNameWStr", "put_SPCFileNameWStr", "get_PVKFileNameWStr", "put_PVKFileNameWStr", "get_HashAlgorithmWStr", "put_HashAlgorithmWStr", "get_RenewalCertificate", "put_RenewalCertificate", "AddCertTypeToRequestWStr", "AddNameValuePairToSignatureWStr", "AddExtensionsToRequest", "AddAuthenticatedAttributesToPKCS7Request", "CreatePKCS7RequestFromRequest"]
 
     /**
+     */
+    MyStoreNameWStr {
+        get => this.get_MyStoreNameWStr()
+        set => this.put_MyStoreNameWStr(value)
+    }
+
+    /**
+     */
+    MyStoreTypeWStr {
+        get => this.get_MyStoreTypeWStr()
+        set => this.put_MyStoreTypeWStr(value)
+    }
+
+    /**
+     */
+    MyStoreFlags {
+        get => this.get_MyStoreFlags()
+        set => this.put_MyStoreFlags(value)
+    }
+
+    /**
+     */
+    CAStoreNameWStr {
+        get => this.get_CAStoreNameWStr()
+        set => this.put_CAStoreNameWStr(value)
+    }
+
+    /**
+     */
+    CAStoreTypeWStr {
+        get => this.get_CAStoreTypeWStr()
+        set => this.put_CAStoreTypeWStr(value)
+    }
+
+    /**
+     */
+    CAStoreFlags {
+        get => this.get_CAStoreFlags()
+        set => this.put_CAStoreFlags(value)
+    }
+
+    /**
+     */
+    RootStoreNameWStr {
+        get => this.get_RootStoreNameWStr()
+        set => this.put_RootStoreNameWStr(value)
+    }
+
+    /**
+     */
+    RootStoreTypeWStr {
+        get => this.get_RootStoreTypeWStr()
+        set => this.put_RootStoreTypeWStr(value)
+    }
+
+    /**
+     */
+    RootStoreFlags {
+        get => this.get_RootStoreFlags()
+        set => this.put_RootStoreFlags(value)
+    }
+
+    /**
+     */
+    RequestStoreNameWStr {
+        get => this.get_RequestStoreNameWStr()
+        set => this.put_RequestStoreNameWStr(value)
+    }
+
+    /**
+     */
+    RequestStoreTypeWStr {
+        get => this.get_RequestStoreTypeWStr()
+        set => this.put_RequestStoreTypeWStr(value)
+    }
+
+    /**
+     */
+    RequestStoreFlags {
+        get => this.get_RequestStoreFlags()
+        set => this.put_RequestStoreFlags(value)
+    }
+
+    /**
+     */
+    ContainerNameWStr {
+        get => this.get_ContainerNameWStr()
+        set => this.put_ContainerNameWStr(value)
+    }
+
+    /**
+     */
+    ProviderNameWStr {
+        get => this.get_ProviderNameWStr()
+        set => this.put_ProviderNameWStr(value)
+    }
+
+    /**
+     */
+    ProviderType {
+        get => this.get_ProviderType()
+        set => this.put_ProviderType(value)
+    }
+
+    /**
+     */
+    KeySpec {
+        get => this.get_KeySpec()
+        set => this.put_KeySpec(value)
+    }
+
+    /**
+     */
+    ProviderFlags {
+        get => this.get_ProviderFlags()
+        set => this.put_ProviderFlags(value)
+    }
+
+    /**
+     */
+    UseExistingKeySet {
+        get => this.get_UseExistingKeySet()
+        set => this.put_UseExistingKeySet(value)
+    }
+
+    /**
+     */
+    GenKeyFlags {
+        get => this.get_GenKeyFlags()
+        set => this.put_GenKeyFlags(value)
+    }
+
+    /**
+     */
+    DeleteRequestCert {
+        get => this.get_DeleteRequestCert()
+        set => this.put_DeleteRequestCert(value)
+    }
+
+    /**
+     */
+    WriteCertToUserDS {
+        get => this.get_WriteCertToUserDS()
+        set => this.put_WriteCertToUserDS(value)
+    }
+
+    /**
+     */
+    EnableT61DNEncoding {
+        get => this.get_EnableT61DNEncoding()
+        set => this.put_EnableT61DNEncoding(value)
+    }
+
+    /**
+     */
+    WriteCertToCSP {
+        get => this.get_WriteCertToCSP()
+        set => this.put_WriteCertToCSP(value)
+    }
+
+    /**
+     */
+    SPCFileNameWStr {
+        get => this.get_SPCFileNameWStr()
+        set => this.put_SPCFileNameWStr(value)
+    }
+
+    /**
+     */
+    PVKFileNameWStr {
+        get => this.get_PVKFileNameWStr()
+        set => this.put_PVKFileNameWStr(value)
+    }
+
+    /**
+     */
+    HashAlgorithmWStr {
+        get => this.get_HashAlgorithmWStr()
+        set => this.put_HashAlgorithmWStr(value)
+    }
+
+    /**
+     */
+    RenewalCertificate {
+        get => this.get_RenewalCertificate()
+        set => this.put_RenewalCertificate(value)
+    }
+
+    /**
      * 
      * @param {PWSTR} DNName 
      * @param {PWSTR} Usage 

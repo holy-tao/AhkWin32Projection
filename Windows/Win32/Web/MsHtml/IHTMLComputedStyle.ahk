@@ -29,6 +29,132 @@ class IHTMLComputedStyle extends IUnknown{
     static VTableNames => ["get_bold", "get_italic", "get_underline", "get_overline", "get_strikeOut", "get_subScript", "get_superScript", "get_explicitFace", "get_fontWeight", "get_fontSize", "get_fontName", "get_hasBgColor", "get_textColor", "get_backgroundColor", "get_preFormatted", "get_direction", "get_blockDirection", "get_OL", "IsEqual"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    bold {
+        get => this.get_bold()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    italic {
+        get => this.get_italic()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    underline {
+        get => this.get_underline()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    overline {
+        get => this.get_overline()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    strikeOut {
+        get => this.get_strikeOut()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    subScript {
+        get => this.get_subScript()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    superScript {
+        get => this.get_superScript()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    explicitFace {
+        get => this.get_explicitFace()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    fontWeight {
+        get => this.get_fontWeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    fontSize {
+        get => this.get_fontSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    fontName {
+        get => this.get_fontName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    hasBgColor {
+        get => this.get_hasBgColor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    textColor {
+        get => this.get_textColor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    backgroundColor {
+        get => this.get_backgroundColor()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    preFormatted {
+        get => this.get_preFormatted()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    direction {
+        get => this.get_direction()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    blockDirection {
+        get => this.get_blockDirection()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    OL {
+        get => this.get_OL()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

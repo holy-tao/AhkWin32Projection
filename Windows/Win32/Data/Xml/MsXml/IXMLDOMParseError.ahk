@@ -30,6 +30,55 @@ class IXMLDOMParseError extends IDispatch{
     static VTableNames => ["get_errorCode", "get_url", "get_reason", "get_srcText", "get_line", "get_linepos", "get_filepos"]
 
     /**
+     * @type {Integer} 
+     */
+    errorCode {
+        get => this.get_errorCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    url {
+        get => this.get_url()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    reason {
+        get => this.get_reason()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    srcText {
+        get => this.get_srcText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    line {
+        get => this.get_line()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    linepos {
+        get => this.get_linepos()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    filepos {
+        get => this.get_filepos()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

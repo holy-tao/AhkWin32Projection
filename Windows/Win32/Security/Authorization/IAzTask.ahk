@@ -33,6 +33,83 @@ class IAzTask extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_BizRule", "put_BizRule", "get_BizRuleLanguage", "put_BizRuleLanguage", "get_BizRuleImportedPath", "put_BizRuleImportedPath", "get_IsRoleDefinition", "put_IsRoleDefinition", "get_Operations", "get_Tasks", "AddOperation", "DeleteOperation", "AddTask", "DeleteTask", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "Submit"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationData {
+        get => this.get_ApplicationData()
+        set => this.put_ApplicationData(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BizRule {
+        get => this.get_BizRule()
+        set => this.put_BizRule(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BizRuleLanguage {
+        get => this.get_BizRuleLanguage()
+        set => this.put_BizRuleLanguage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BizRuleImportedPath {
+        get => this.get_BizRuleImportedPath()
+        set => this.put_BizRuleImportedPath(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsRoleDefinition {
+        get => this.get_IsRoleDefinition()
+        set => this.put_IsRoleDefinition(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Operations {
+        get => this.get_Operations()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Tasks {
+        get => this.get_Tasks()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_name

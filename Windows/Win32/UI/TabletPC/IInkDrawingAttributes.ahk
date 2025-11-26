@@ -33,6 +33,85 @@ class IInkDrawingAttributes extends IDispatch{
     static VTableNames => ["get_Color", "put_Color", "get_Width", "put_Width", "get_Height", "put_Height", "get_FitToCurve", "put_FitToCurve", "get_IgnorePressure", "put_IgnorePressure", "get_AntiAliased", "put_AntiAliased", "get_Transparency", "put_Transparency", "get_RasterOperation", "put_RasterOperation", "get_PenTip", "put_PenTip", "get_ExtendedProperties", "Clone"]
 
     /**
+     * @type {Integer} 
+     */
+    Color {
+        get => this.get_Color()
+        set => this.put_Color(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Width {
+        get => this.get_Width()
+        set => this.put_Width(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Height {
+        get => this.get_Height()
+        set => this.put_Height(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FitToCurve {
+        get => this.get_FitToCurve()
+        set => this.put_FitToCurve(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IgnorePressure {
+        get => this.get_IgnorePressure()
+        set => this.put_IgnorePressure(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AntiAliased {
+        get => this.get_AntiAliased()
+        set => this.put_AntiAliased(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Transparency {
+        get => this.get_Transparency()
+        set => this.put_Transparency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RasterOperation {
+        get => this.get_RasterOperation()
+        set => this.put_RasterOperation(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PenTip {
+        get => this.get_PenTip()
+        set => this.put_PenTip(value)
+    }
+
+    /**
+     * @type {IInkExtendedProperties} 
+     */
+    ExtendedProperties {
+        get => this.get_ExtendedProperties()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_color

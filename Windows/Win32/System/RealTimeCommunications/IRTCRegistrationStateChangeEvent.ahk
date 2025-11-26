@@ -31,6 +31,34 @@ class IRTCRegistrationStateChangeEvent extends IDispatch{
     static VTableNames => ["get_Profile", "get_State", "get_StatusCode", "get_StatusText"]
 
     /**
+     * @type {IRTCProfile} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
      * 
      * @returns {IRTCProfile} 
      */

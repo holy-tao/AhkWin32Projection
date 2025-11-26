@@ -32,6 +32,48 @@ class ISpeechRecognizerStatus extends IDispatch{
     static VTableNames => ["get_AudioStatus", "get_CurrentStreamPosition", "get_CurrentStreamNumber", "get_NumberOfActiveRules", "get_ClsidEngine", "get_SupportedLanguages"]
 
     /**
+     * @type {ISpeechAudioStatus} 
+     */
+    AudioStatus {
+        get => this.get_AudioStatus()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CurrentStreamPosition {
+        get => this.get_CurrentStreamPosition()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentStreamNumber {
+        get => this.get_CurrentStreamNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfActiveRules {
+        get => this.get_NumberOfActiveRules()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClsidEngine {
+        get => this.get_ClsidEngine()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SupportedLanguages {
+        get => this.get_SupportedLanguages()
+    }
+
+    /**
      * 
      * @returns {ISpeechAudioStatus} 
      */

@@ -31,6 +31,13 @@ class IWMPVideoRenderConfig extends IUnknown{
     static VTableNames => ["put_presenterActivate"]
 
     /**
+     * @type {HRESULT} 
+     */
+    presenterActivate {
+        set => this.put_presenterActivate(value)
+    }
+
+    /**
      * 
      * @param {IMFActivate} pActivate 
      * @returns {HRESULT} 

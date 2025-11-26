@@ -40,6 +40,108 @@ class IDiscFormat2RawCD extends IDiscFormat2{
     static VTableNames => ["PrepareMedia", "WriteMedia", "WriteMedia2", "CancelWrite", "ReleaseMedia", "SetWriteSpeed", "put_Recorder", "get_Recorder", "put_BufferUnderrunFreeDisabled", "get_BufferUnderrunFreeDisabled", "get_StartOfNextSession", "get_LastPossibleStartOfLeadout", "get_CurrentPhysicalMediaType", "get_SupportedSectorTypes", "put_RequestedSectorType", "get_RequestedSectorType", "put_ClientName", "get_ClientName", "get_RequestedWriteSpeed", "get_RequestedRotationTypeIsPureCAV", "get_CurrentWriteSpeed", "get_CurrentRotationTypeIsPureCAV", "get_SupportedWriteSpeeds", "get_SupportedWriteSpeedDescriptors"]
 
     /**
+     * @type {IDiscRecorder2} 
+     */
+    Recorder {
+        get => this.get_Recorder()
+        set => this.put_Recorder(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BufferUnderrunFreeDisabled {
+        get => this.get_BufferUnderrunFreeDisabled()
+        set => this.put_BufferUnderrunFreeDisabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartOfNextSession {
+        get => this.get_StartOfNextSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastPossibleStartOfLeadout {
+        get => this.get_LastPossibleStartOfLeadout()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPhysicalMediaType {
+        get => this.get_CurrentPhysicalMediaType()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedSectorTypes {
+        get => this.get_SupportedSectorTypes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestedSectorType {
+        get => this.get_RequestedSectorType()
+        set => this.put_RequestedSectorType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientName {
+        get => this.get_ClientName()
+        set => this.put_ClientName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestedWriteSpeed {
+        get => this.get_RequestedWriteSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RequestedRotationTypeIsPureCAV {
+        get => this.get_RequestedRotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWriteSpeed {
+        get => this.get_CurrentWriteSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CurrentRotationTypeIsPureCAV {
+        get => this.get_CurrentRotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedWriteSpeeds {
+        get => this.get_SupportedWriteSpeeds()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedWriteSpeedDescriptors {
+        get => this.get_SupportedWriteSpeedDescriptors()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-preparemedia

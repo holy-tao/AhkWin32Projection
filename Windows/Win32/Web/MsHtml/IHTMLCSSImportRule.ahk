@@ -38,6 +38,28 @@ class IHTMLCSSImportRule extends IDispatch{
     static VTableNames => ["get_href", "put_media", "get_media", "get_styleSheet"]
 
     /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    media {
+        get => this.get_media()
+        set => this.put_media(value)
+    }
+
+    /**
+     * @type {IHTMLStyleSheet} 
+     */
+    styleSheet {
+        get => this.get_styleSheet()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

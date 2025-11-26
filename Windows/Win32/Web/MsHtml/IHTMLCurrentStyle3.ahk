@@ -31,6 +31,34 @@ class IHTMLCurrentStyle3 extends IDispatch{
     static VTableNames => ["get_textOverflow", "get_minHeight", "get_wordSpacing", "get_whiteSpace"]
 
     /**
+     * @type {BSTR} 
+     */
+    textOverflow {
+        get => this.get_textOverflow()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    minHeight {
+        get => this.get_minHeight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    wordSpacing {
+        get => this.get_wordSpacing()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    whiteSpace {
+        get => this.get_whiteSpace()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

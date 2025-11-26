@@ -35,6 +35,41 @@ class ITaskService extends IDispatch{
     static VTableNames => ["GetFolder", "GetRunningTasks", "NewTask", "Connect", "get_Connected", "get_TargetServer", "get_ConnectedUser", "get_ConnectedDomain", "get_HighestVersion"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Connected {
+        get => this.get_Connected()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetServer {
+        get => this.get_TargetServer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ConnectedUser {
+        get => this.get_ConnectedUser()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ConnectedDomain {
+        get => this.get_ConnectedDomain()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HighestVersion {
+        get => this.get_HighestVersion()
+    }
+
+    /**
      * 
      * @param {BSTR} path 
      * @returns {ITaskFolder} 

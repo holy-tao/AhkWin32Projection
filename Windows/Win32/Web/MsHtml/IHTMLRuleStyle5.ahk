@@ -31,6 +31,38 @@ class IHTMLRuleStyle5 extends IDispatch{
     static VTableNames => ["put_msInterpolationMode", "get_msInterpolationMode", "put_maxHeight", "get_maxHeight", "put_minWidth", "get_minWidth", "put_maxWidth", "get_maxWidth"]
 
     /**
+     * @type {BSTR} 
+     */
+    msInterpolationMode {
+        get => this.get_msInterpolationMode()
+        set => this.put_msInterpolationMode(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    maxHeight {
+        get => this.get_maxHeight()
+        set => this.put_maxHeight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    minWidth {
+        get => this.get_minWidth()
+        set => this.put_minWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    maxWidth {
+        get => this.get_maxWidth()
+        set => this.put_maxWidth(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

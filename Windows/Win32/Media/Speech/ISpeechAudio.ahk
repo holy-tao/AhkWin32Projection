@@ -32,6 +32,50 @@ class ISpeechAudio extends ISpeechBaseStream{
     static VTableNames => ["get_Status", "get_BufferInfo", "get_DefaultFormat", "get_Volume", "put_Volume", "get_BufferNotifySize", "put_BufferNotifySize", "get_EventHandle", "SetState"]
 
     /**
+     * @type {ISpeechAudioStatus} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {ISpeechAudioBufferInfo} 
+     */
+    BufferInfo {
+        get => this.get_BufferInfo()
+    }
+
+    /**
+     * @type {ISpeechAudioFormat} 
+     */
+    DefaultFormat {
+        get => this.get_DefaultFormat()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Volume {
+        get => this.get_Volume()
+        set => this.put_Volume(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BufferNotifySize {
+        get => this.get_BufferNotifySize()
+        set => this.put_BufferNotifySize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventHandle {
+        get => this.get_EventHandle()
+    }
+
+    /**
      * 
      * @returns {ISpeechAudioStatus} 
      */

@@ -31,6 +31,20 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
     static VTableNames => ["Expand", "Collapse", "get_CurrentExpandCollapseState", "get_CachedExpandCollapseState"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentExpandCollapseState {
+        get => this.get_CurrentExpandCollapseState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedExpandCollapseState {
+        get => this.get_CachedExpandCollapseState()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-expand

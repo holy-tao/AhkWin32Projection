@@ -31,6 +31,21 @@ class IXMLDOMAttribute extends IXMLDOMNode{
     static VTableNames => ["get_name", "get_value", "put_value"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

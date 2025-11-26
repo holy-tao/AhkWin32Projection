@@ -32,6 +32,20 @@ class IMediaControl extends IDispatch{
     static VTableNames => ["Run", "Pause", "Stop", "GetState", "RenderFile", "AddSourceFilter", "get_FilterCollection", "get_RegFilterCollection", "StopWhenReady"]
 
     /**
+     * @type {IDispatch} 
+     */
+    FilterCollection {
+        get => this.get_FilterCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    RegFilterCollection {
+        get => this.get_RegFilterCollection()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-run

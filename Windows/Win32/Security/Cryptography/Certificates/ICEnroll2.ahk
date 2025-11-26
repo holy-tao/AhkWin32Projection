@@ -38,6 +38,22 @@ class ICEnroll2 extends ICEnroll{
     static VTableNames => ["addCertTypeToRequest", "addNameValuePairToSignature", "get_WriteCertToUserDS", "put_WriteCertToUserDS", "get_EnableT61DNEncoding", "put_EnableT61DNEncoding"]
 
     /**
+     * @type {BOOL} 
+     */
+    WriteCertToUserDS {
+        get => this.get_WriteCertToUserDS()
+        set => this.put_WriteCertToUserDS(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    EnableT61DNEncoding {
+        get => this.get_EnableT61DNEncoding()
+        set => this.put_EnableT61DNEncoding(value)
+    }
+
+    /**
      * 
      * @param {BSTR} CertType 
      * @returns {HRESULT} 

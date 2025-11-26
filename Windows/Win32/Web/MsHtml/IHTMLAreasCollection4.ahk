@@ -31,6 +31,13 @@ class IHTMLAreasCollection4 extends IDispatch{
     static VTableNames => ["get_length", "item", "namedItem"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

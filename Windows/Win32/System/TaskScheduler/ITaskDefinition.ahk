@@ -43,6 +43,60 @@ class ITaskDefinition extends IDispatch{
     static VTableNames => ["get_RegistrationInfo", "put_RegistrationInfo", "get_Triggers", "put_Triggers", "get_Settings", "put_Settings", "get_Data", "put_Data", "get_Principal", "put_Principal", "get_Actions", "put_Actions", "get_XmlText", "put_XmlText"]
 
     /**
+     * @type {IRegistrationInfo} 
+     */
+    RegistrationInfo {
+        get => this.get_RegistrationInfo()
+        set => this.put_RegistrationInfo(value)
+    }
+
+    /**
+     * @type {ITriggerCollection} 
+     */
+    Triggers {
+        get => this.get_Triggers()
+        set => this.put_Triggers(value)
+    }
+
+    /**
+     * @type {ITaskSettings} 
+     */
+    Settings {
+        get => this.get_Settings()
+        set => this.put_Settings(value)
+    }
+
+    /**
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
+     * @type {IPrincipal} 
+     */
+    Principal {
+        get => this.get_Principal()
+        set => this.put_Principal(value)
+    }
+
+    /**
+     * @type {IActionCollection} 
+     */
+    Actions {
+        get => this.get_Actions()
+        set => this.put_Actions(value)
+    }
+
+    /**
+     */
+    XmlText {
+        get => this.get_XmlText()
+        set => this.put_XmlText(value)
+    }
+
+    /**
      * 
      * @returns {IRegistrationInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_registrationinfo

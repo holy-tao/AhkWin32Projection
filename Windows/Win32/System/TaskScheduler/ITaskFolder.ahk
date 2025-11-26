@@ -36,6 +36,20 @@ class ITaskFolder extends IDispatch{
     static VTableNames => ["get_Name", "get_Path", "GetFolder", "GetFolders", "CreateFolder", "DeleteFolder", "GetTask", "GetTasks", "DeleteTask", "RegisterTask", "RegisterTaskDefinition", "GetSecurityDescriptor", "SetSecurityDescriptor"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_name

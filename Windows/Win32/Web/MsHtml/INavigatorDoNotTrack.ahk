@@ -30,6 +30,13 @@ class INavigatorDoNotTrack extends IDispatch{
     static VTableNames => ["get_msDoNotTrack"]
 
     /**
+     * @type {BSTR} 
+     */
+    msDoNotTrack {
+        get => this.get_msDoNotTrack()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

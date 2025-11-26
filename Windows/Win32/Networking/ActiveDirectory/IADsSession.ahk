@@ -42,6 +42,48 @@ class IADsSession extends IADs{
     static VTableNames => ["get_User", "get_UserPath", "get_Computer", "get_ComputerPath", "get_ConnectTime", "get_IdleTime"]
 
     /**
+     * @type {BSTR} 
+     */
+    User {
+        get => this.get_User()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserPath {
+        get => this.get_UserPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Computer {
+        get => this.get_Computer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ComputerPath {
+        get => this.get_ComputerPath()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectTime {
+        get => this.get_ConnectTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IdleTime {
+        get => this.get_IdleTime()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -31,6 +31,13 @@ class IUIAutomationAndCondition extends IUIAutomationCondition{
     static VTableNames => ["get_ChildCount", "GetChildrenAsNativeArray", "GetChildren"]
 
     /**
+     * @type {Integer} 
+     */
+    ChildCount {
+        get => this.get_ChildCount()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-get_childcount

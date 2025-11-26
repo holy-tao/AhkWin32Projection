@@ -31,6 +31,34 @@ class IInstallationBehavior extends IDispatch{
     static VTableNames => ["get_CanRequestUserInput", "get_Impact", "get_RebootBehavior", "get_RequiresNetworkConnectivity"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    CanRequestUserInput {
+        get => this.get_CanRequestUserInput()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Impact {
+        get => this.get_Impact()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RebootBehavior {
+        get => this.get_RebootBehavior()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RequiresNetworkConnectivity {
+        get => this.get_RequiresNetworkConnectivity()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_canrequestuserinput

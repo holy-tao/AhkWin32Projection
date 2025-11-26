@@ -37,6 +37,13 @@ class IDTFilter2 extends IDTFilter{
     static VTableNames => ["get_ChallengeUrl", "GetCurrLicenseExpDate", "GetLastErrorCode"]
 
     /**
+     * @type {BSTR} 
+     */
+    ChallengeUrl {
+        get => this.get_ChallengeUrl()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-get_challengeurl

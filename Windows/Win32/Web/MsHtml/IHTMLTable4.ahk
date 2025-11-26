@@ -31,6 +31,27 @@ class IHTMLTable4 extends IDispatch{
     static VTableNames => ["putref_tHead", "get_tHead", "putref_tFoot", "get_tFoot", "putref_caption", "get_caption", "insertRow", "deleteRow", "createTBody"]
 
     /**
+     * @type {IHTMLTableSection} 
+     */
+    tHead {
+        get => this.get_tHead()
+    }
+
+    /**
+     * @type {IHTMLTableSection} 
+     */
+    tFoot {
+        get => this.get_tFoot()
+    }
+
+    /**
+     * @type {IHTMLTableCaption} 
+     */
+    caption {
+        get => this.get_caption()
+    }
+
+    /**
      * 
      * @param {IHTMLTableSection} v 
      * @returns {HRESULT} 

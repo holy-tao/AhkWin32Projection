@@ -37,6 +37,57 @@ class IRDPSRAPIViewer extends IDispatch{
     static VTableNames => ["Connect", "Disconnect", "get_Attendees", "get_Invitations", "get_ApplicationFilter", "get_VirtualChannelManager", "put_SmartSizing", "get_SmartSizing", "RequestControl", "put_DisconnectedText", "get_DisconnectedText", "RequestColorDepthChange", "get_Properties", "StartReverseConnectListener"]
 
     /**
+     * @type {IRDPSRAPIAttendeeManager} 
+     */
+    Attendees {
+        get => this.get_Attendees()
+    }
+
+    /**
+     * @type {IRDPSRAPIInvitationManager} 
+     */
+    Invitations {
+        get => this.get_Invitations()
+    }
+
+    /**
+     * @type {IRDPSRAPIApplicationFilter} 
+     */
+    ApplicationFilter {
+        get => this.get_ApplicationFilter()
+    }
+
+    /**
+     * @type {IRDPSRAPIVirtualChannelManager} 
+     */
+    VirtualChannelManager {
+        get => this.get_VirtualChannelManager()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SmartSizing {
+        get => this.get_SmartSizing()
+        set => this.put_SmartSizing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisconnectedText {
+        get => this.get_DisconnectedText()
+        set => this.put_DisconnectedText(value)
+    }
+
+    /**
+     * @type {IRDPSRAPISessionProperties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrConnectionString 
      * @param {BSTR} bstrName 

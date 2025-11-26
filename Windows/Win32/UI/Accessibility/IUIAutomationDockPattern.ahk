@@ -36,6 +36,20 @@ class IUIAutomationDockPattern extends IUnknown{
     static VTableNames => ["SetDockPosition", "get_CurrentDockPosition", "get_CachedDockPosition"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentDockPosition {
+        get => this.get_CurrentDockPosition()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedDockPosition {
+        get => this.get_CachedDockPosition()
+    }
+
+    /**
      * 
      * @param {Integer} dockPos 
      * @returns {HRESULT} 

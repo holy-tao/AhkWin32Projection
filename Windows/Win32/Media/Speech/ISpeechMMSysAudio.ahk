@@ -29,6 +29,29 @@ class ISpeechMMSysAudio extends ISpeechAudio{
     static VTableNames => ["get_DeviceId", "put_DeviceId", "get_LineId", "put_LineId", "get_MMHandle"]
 
     /**
+     * @type {Integer} 
+     */
+    DeviceId {
+        get => this.get_DeviceId()
+        set => this.put_DeviceId(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LineId {
+        get => this.get_LineId()
+        set => this.put_LineId(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MMHandle {
+        get => this.get_MMHandle()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

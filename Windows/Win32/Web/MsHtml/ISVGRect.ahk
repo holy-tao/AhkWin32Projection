@@ -35,6 +35,38 @@ class ISVGRect extends IDispatch{
     static VTableNames => ["put_x", "get_x", "put_y", "get_y", "put_width", "get_width", "put_height", "get_height"]
 
     /**
+     * @type {Float} 
+     */
+    x {
+        get => this.get_x()
+        set => this.put_x(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    y {
+        get => this.get_y()
+        set => this.put_y(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

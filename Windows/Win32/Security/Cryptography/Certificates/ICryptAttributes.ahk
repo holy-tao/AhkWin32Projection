@@ -33,6 +33,20 @@ class ICryptAttributes extends IDispatch{
     static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "get_IndexByObjectId", "AddRange"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @param {Integer} Index 
      * @returns {ICryptAttribute} 

@@ -32,6 +32,34 @@ class IUIAutomationSelectionPattern extends IUnknown{
     static VTableNames => ["GetCurrentSelection", "get_CurrentCanSelectMultiple", "get_CurrentIsSelectionRequired", "GetCachedSelection", "get_CachedCanSelectMultiple", "get_CachedIsSelectionRequired"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentCanSelectMultiple {
+        get => this.get_CurrentCanSelectMultiple()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsSelectionRequired {
+        get => this.get_CurrentIsSelectionRequired()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanSelectMultiple {
+        get => this.get_CachedCanSelectMultiple()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsSelectionRequired {
+        get => this.get_CachedIsSelectionRequired()
+    }
+
+    /**
      * 
      * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcurrentselection

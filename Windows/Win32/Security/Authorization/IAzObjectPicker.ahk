@@ -36,6 +36,13 @@ class IAzObjectPicker extends IDispatch{
     static VTableNames => ["GetPrincipals", "get_Name"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @param {HWND} hParentWnd 
      * @param {BSTR} bstrTitle 

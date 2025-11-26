@@ -32,6 +32,12 @@ class IWMPSyncServices extends IUnknown{
     static VTableNames => ["get_deviceCount", "getDevice"]
 
     /**
+     */
+    deviceCount {
+        get => this.get_deviceCount()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

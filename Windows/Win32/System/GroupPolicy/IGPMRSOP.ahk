@@ -46,6 +46,132 @@ class IGPMRSOP extends IDispatch{
     static VTableNames => ["get_Mode", "get_Namespace", "put_LoggingComputer", "get_LoggingComputer", "put_LoggingUser", "get_LoggingUser", "put_LoggingFlags", "get_LoggingFlags", "put_PlanningFlags", "get_PlanningFlags", "put_PlanningDomainController", "get_PlanningDomainController", "put_PlanningSiteName", "get_PlanningSiteName", "put_PlanningUser", "get_PlanningUser", "put_PlanningUserSOM", "get_PlanningUserSOM", "put_PlanningUserWMIFilters", "get_PlanningUserWMIFilters", "put_PlanningUserSecurityGroups", "get_PlanningUserSecurityGroups", "put_PlanningComputer", "get_PlanningComputer", "put_PlanningComputerSOM", "get_PlanningComputerSOM", "put_PlanningComputerWMIFilters", "get_PlanningComputerWMIFilters", "put_PlanningComputerSecurityGroups", "get_PlanningComputerSecurityGroups", "LoggingEnumerateUsers", "CreateQueryResults", "ReleaseQueryResults", "GenerateReport", "GenerateReportToFile"]
 
     /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Namespace {
+        get => this.get_Namespace()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LoggingComputer {
+        get => this.get_LoggingComputer()
+        set => this.put_LoggingComputer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LoggingUser {
+        get => this.get_LoggingUser()
+        set => this.put_LoggingUser(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LoggingFlags {
+        get => this.get_LoggingFlags()
+        set => this.put_LoggingFlags(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PlanningFlags {
+        get => this.get_PlanningFlags()
+        set => this.put_PlanningFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlanningDomainController {
+        get => this.get_PlanningDomainController()
+        set => this.put_PlanningDomainController(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlanningSiteName {
+        get => this.get_PlanningSiteName()
+        set => this.put_PlanningSiteName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlanningUser {
+        get => this.get_PlanningUser()
+        set => this.put_PlanningUser(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlanningUserSOM {
+        get => this.get_PlanningUserSOM()
+        set => this.put_PlanningUserSOM(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PlanningUserWMIFilters {
+        get => this.get_PlanningUserWMIFilters()
+        set => this.put_PlanningUserWMIFilters(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PlanningUserSecurityGroups {
+        get => this.get_PlanningUserSecurityGroups()
+        set => this.put_PlanningUserSecurityGroups(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlanningComputer {
+        get => this.get_PlanningComputer()
+        set => this.put_PlanningComputer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlanningComputerSOM {
+        get => this.get_PlanningComputerSOM()
+        set => this.put_PlanningComputerSOM(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PlanningComputerWMIFilters {
+        get => this.get_PlanningComputerWMIFilters()
+        set => this.put_PlanningComputerWMIFilters(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PlanningComputerSecurityGroups {
+        get => this.get_PlanningComputerSecurityGroups()
+        set => this.put_PlanningComputerSecurityGroups(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

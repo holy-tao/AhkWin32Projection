@@ -37,6 +37,22 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_Components", "put_Components"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Components {
+        get => this.get_Components()
+        set => this.put_Components(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_enabled

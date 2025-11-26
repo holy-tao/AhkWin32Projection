@@ -39,6 +39,20 @@ class IUPnPDescriptionDocument extends IDispatch{
     static VTableNames => ["get_ReadyState", "Load", "LoadAsync", "get_LoadResult", "Abort", "RootDevice", "DeviceByUDN"]
 
     /**
+     * @type {Integer} 
+     */
+    ReadyState {
+        get => this.get_ReadyState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LoadResult {
+        get => this.get_LoadResult()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-get_readystate

@@ -36,6 +36,14 @@ class IDVBTuningSpace2 extends IDVBTuningSpace{
     static VTableNames => ["get_NetworkID", "put_NetworkID"]
 
     /**
+     * @type {Integer} 
+     */
+    NetworkID {
+        get => this.get_NetworkID()
+        set => this.put_NetworkID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-get_networkid

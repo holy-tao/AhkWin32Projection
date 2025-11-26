@@ -31,6 +31,27 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
     static VTableNames => ["get_errorXPath", "get_allErrors", "errorParameters", "get_errorParametersCount"]
 
     /**
+     * @type {BSTR} 
+     */
+    errorXPath {
+        get => this.get_errorXPath()
+    }
+
+    /**
+     * @type {IXMLDOMParseErrorCollection} 
+     */
+    allErrors {
+        get => this.get_allErrors()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    errorParametersCount {
+        get => this.get_errorParametersCount()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

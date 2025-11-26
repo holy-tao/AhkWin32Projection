@@ -33,6 +33,13 @@ class IADsPropertyList extends IDispatch{
     static VTableNames => ["get_PropertyCount", "Next", "Skip", "Reset", "Item", "GetPropertyItem", "PutPropertyItem", "ResetPropertyItem", "PurgePropertyList"]
 
     /**
+     * @type {Integer} 
+     */
+    PropertyCount {
+        get => this.get_PropertyCount()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

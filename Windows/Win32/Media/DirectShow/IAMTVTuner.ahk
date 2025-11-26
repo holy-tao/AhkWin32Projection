@@ -31,6 +31,49 @@ class IAMTVTuner extends IAMTuner{
     static VTableNames => ["get_AvailableTVFormats", "get_TVFormat", "AutoTune", "StoreAutoTune", "get_NumInputConnections", "put_InputType", "get_InputType", "put_ConnectInput", "get_ConnectInput", "get_VideoFrequency", "get_AudioFrequency"]
 
     /**
+     * @type {Integer} 
+     */
+    AvailableTVFormats {
+        get => this.get_AvailableTVFormats()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TVFormat {
+        get => this.get_TVFormat()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumInputConnections {
+        get => this.get_NumInputConnections()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectInput {
+        get => this.get_ConnectInput()
+        set => this.put_ConnectInput(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VideoFrequency {
+        get => this.get_VideoFrequency()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioFrequency {
+        get => this.get_AudioFrequency()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_availabletvformats

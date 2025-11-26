@@ -42,6 +42,48 @@ class IPrincipal extends IDispatch{
     static VTableNames => ["get_Id", "put_Id", "get_DisplayName", "put_DisplayName", "get_UserId", "put_UserId", "get_LogonType", "put_LogonType", "get_GroupId", "put_GroupId", "get_RunLevel", "put_RunLevel"]
 
     /**
+     */
+    Id {
+        get => this.get_Id()
+        set => this.put_Id(value)
+    }
+
+    /**
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     */
+    UserId {
+        get => this.get_UserId()
+        set => this.put_UserId(value)
+    }
+
+    /**
+     */
+    LogonType {
+        get => this.get_LogonType()
+        set => this.put_LogonType(value)
+    }
+
+    /**
+     */
+    GroupId {
+        get => this.get_GroupId()
+        set => this.put_GroupId(value)
+    }
+
+    /**
+     */
+    RunLevel {
+        get => this.get_RunLevel()
+        set => this.put_RunLevel(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pId 
      * @returns {HRESULT} 

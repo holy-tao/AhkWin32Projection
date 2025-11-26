@@ -53,6 +53,22 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
     static VTableNames => ["get_MajorChannel", "put_MajorChannel", "get_SourceID", "put_SourceID"]
 
     /**
+     * @type {Integer} 
+     */
+    MajorChannel {
+        get => this.get_MajorChannel()
+        set => this.put_MajorChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceID {
+        get => this.get_SourceID()
+        set => this.put_SourceID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-get_majorchannel

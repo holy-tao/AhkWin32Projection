@@ -32,6 +32,13 @@ class IInstallationProgressChangedCallbackArgs extends IDispatch{
     static VTableNames => ["get_Progress"]
 
     /**
+     * @type {IInstallationProgress} 
+     */
+    Progress {
+        get => this.get_Progress()
+    }
+
+    /**
      * 
      * @returns {IInstallationProgress} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogresschangedcallbackargs-get_progress

@@ -32,6 +32,30 @@ class IADsTypedName extends IDispatch{
     static VTableNames => ["get_ObjectName", "put_ObjectName", "get_Level", "put_Level", "get_Interval", "put_Interval"]
 
     /**
+     * @type {BSTR} 
+     */
+    ObjectName {
+        get => this.get_ObjectName()
+        set => this.put_ObjectName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Level {
+        get => this.get_Level()
+        set => this.put_Level(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Interval {
+        get => this.get_Interval()
+        set => this.put_Interval(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

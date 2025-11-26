@@ -37,6 +37,21 @@ class IHTMLDOMTextNode extends IDispatch{
     static VTableNames => ["put_data", "get_data", "toString", "get_length", "splitText"]
 
     /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

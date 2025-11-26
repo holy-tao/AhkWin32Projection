@@ -33,6 +33,36 @@ class ITFileTrack extends IDispatch{
     static VTableNames => ["get_Format", "put_Format", "get_ControllingTerminal", "get_AudioFormatForScripting", "put_AudioFormatForScripting", "get_EmptyAudioFormatForScripting"]
 
     /**
+     * @type {Pointer<AM_MEDIA_TYPE>} 
+     */
+    Format {
+        get => this.get_Format()
+        set => this.put_Format(value)
+    }
+
+    /**
+     * @type {ITTerminal} 
+     */
+    ControllingTerminal {
+        get => this.get_ControllingTerminal()
+    }
+
+    /**
+     * @type {ITScriptableAudioFormat} 
+     */
+    AudioFormatForScripting {
+        get => this.get_AudioFormatForScripting()
+        set => this.put_AudioFormatForScripting(value)
+    }
+
+    /**
+     * @type {ITScriptableAudioFormat} 
+     */
+    EmptyAudioFormatForScripting {
+        get => this.get_EmptyAudioFormatForScripting()
+    }
+
+    /**
      * 
      * @returns {Pointer<AM_MEDIA_TYPE>} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_format

@@ -44,6 +44,181 @@ class IFaxOutgoingJob extends IDispatch{
     static VTableNames => ["get_Subject", "get_DocumentName", "get_Pages", "get_Size", "get_SubmissionId", "get_Id", "get_OriginalScheduledTime", "get_SubmissionTime", "get_ReceiptType", "get_Priority", "get_Sender", "get_Recipient", "get_CurrentPage", "get_DeviceId", "get_Status", "get_ExtendedStatusCode", "get_ExtendedStatus", "get_AvailableOperations", "get_Retries", "get_ScheduledTime", "get_TransmissionStart", "get_TransmissionEnd", "get_CSID", "get_TSID", "get_GroupBroadcastReceipts", "Pause", "Resume", "Restart", "CopyTiff", "Refresh", "Cancel"]
 
     /**
+     * @type {BSTR} 
+     */
+    Subject {
+        get => this.get_Subject()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DocumentName {
+        get => this.get_DocumentName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Pages {
+        get => this.get_Pages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubmissionId {
+        get => this.get_SubmissionId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    OriginalScheduledTime {
+        get => this.get_OriginalScheduledTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    SubmissionTime {
+        get => this.get_SubmissionTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReceiptType {
+        get => this.get_ReceiptType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+    }
+
+    /**
+     * @type {IFaxSender} 
+     */
+    Sender {
+        get => this.get_Sender()
+    }
+
+    /**
+     * @type {IFaxRecipient} 
+     */
+    Recipient {
+        get => this.get_Recipient()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPage {
+        get => this.get_CurrentPage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceId {
+        get => this.get_DeviceId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExtendedStatusCode {
+        get => this.get_ExtendedStatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtendedStatus {
+        get => this.get_ExtendedStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AvailableOperations {
+        get => this.get_AvailableOperations()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ScheduledTime {
+        get => this.get_ScheduledTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionStart {
+        get => this.get_TransmissionStart()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionEnd {
+        get => this.get_TransmissionEnd()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSID {
+        get => this.get_CSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    GroupBroadcastReceipts {
+        get => this.get_GroupBroadcastReceipts()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_subject

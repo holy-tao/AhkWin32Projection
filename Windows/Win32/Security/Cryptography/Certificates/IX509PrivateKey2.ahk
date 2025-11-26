@@ -30,6 +30,38 @@ class IX509PrivateKey2 extends IX509PrivateKey{
     static VTableNames => ["get_HardwareKeyUsage", "put_HardwareKeyUsage", "get_AlternateStorageLocation", "put_AlternateStorageLocation", "get_AlgorithmName", "put_AlgorithmName", "get_AlgorithmParameters", "put_AlgorithmParameters", "get_ParametersExportType", "put_ParametersExportType"]
 
     /**
+     * @type {Integer} 
+     */
+    HardwareKeyUsage {
+        get => this.get_HardwareKeyUsage()
+        set => this.put_HardwareKeyUsage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AlternateStorageLocation {
+        get => this.get_AlternateStorageLocation()
+        set => this.put_AlternateStorageLocation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AlgorithmName {
+        get => this.get_AlgorithmName()
+        set => this.put_AlgorithmName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ParametersExportType {
+        get => this.get_ParametersExportType()
+        set => this.put_ParametersExportType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

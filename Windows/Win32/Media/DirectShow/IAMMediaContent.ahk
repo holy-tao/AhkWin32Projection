@@ -37,6 +37,84 @@ class IAMMediaContent extends IDispatch{
     static VTableNames => ["get_AuthorName", "get_Title", "get_Rating", "get_Description", "get_Copyright", "get_BaseURL", "get_LogoURL", "get_LogoIconURL", "get_WatermarkURL", "get_MoreInfoURL", "get_MoreInfoBannerImage", "get_MoreInfoBannerURL", "get_MoreInfoText"]
 
     /**
+     */
+    AuthorName {
+        get => this.get_AuthorName()
+    }
+
+    /**
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     */
+    Rating {
+        get => this.get_Rating()
+    }
+
+    /**
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     */
+    Copyright {
+        get => this.get_Copyright()
+    }
+
+    /**
+     */
+    BaseURL {
+        get => this.get_BaseURL()
+    }
+
+    /**
+     */
+    LogoURL {
+        get => this.get_LogoURL()
+    }
+
+    /**
+     */
+    LogoIconURL {
+        get => this.get_LogoIconURL()
+    }
+
+    /**
+     */
+    WatermarkURL {
+        get => this.get_WatermarkURL()
+    }
+
+    /**
+     */
+    MoreInfoURL {
+        get => this.get_MoreInfoURL()
+    }
+
+    /**
+     */
+    MoreInfoBannerImage {
+        get => this.get_MoreInfoBannerImage()
+    }
+
+    /**
+     */
+    MoreInfoBannerURL {
+        get => this.get_MoreInfoBannerURL()
+    }
+
+    /**
+     */
+    MoreInfoText {
+        get => this.get_MoreInfoText()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrAuthorName 
      * @returns {HRESULT} 

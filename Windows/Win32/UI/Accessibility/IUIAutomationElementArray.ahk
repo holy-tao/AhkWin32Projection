@@ -32,6 +32,13 @@ class IUIAutomationElementArray extends IUnknown{
     static VTableNames => ["get_Length", "GetElement"]
 
     /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length

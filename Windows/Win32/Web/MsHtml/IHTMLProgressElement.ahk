@@ -36,6 +36,36 @@ class IHTMLProgressElement extends IDispatch{
     static VTableNames => ["put_value", "get_value", "put_max", "get_max", "get_position", "get_form"]
 
     /**
+     * @type {Float} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    max {
+        get => this.get_max()
+        set => this.put_max(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    position {
+        get => this.get_position()
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

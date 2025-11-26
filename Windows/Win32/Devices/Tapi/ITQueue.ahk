@@ -32,6 +32,84 @@ class ITQueue extends IDispatch{
     static VTableNames => ["put_MeasurementPeriod", "get_MeasurementPeriod", "get_TotalCallsQueued", "get_CurrentCallsQueued", "get_TotalCallsAbandoned", "get_TotalCallsFlowedIn", "get_TotalCallsFlowedOut", "get_LongestEverWaitTime", "get_CurrentLongestWaitTime", "get_AverageWaitTime", "get_FinalDisposition", "get_Name"]
 
     /**
+     * @type {Integer} 
+     */
+    MeasurementPeriod {
+        get => this.get_MeasurementPeriod()
+        set => this.put_MeasurementPeriod(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalCallsQueued {
+        get => this.get_TotalCallsQueued()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentCallsQueued {
+        get => this.get_CurrentCallsQueued()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalCallsAbandoned {
+        get => this.get_TotalCallsAbandoned()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalCallsFlowedIn {
+        get => this.get_TotalCallsFlowedIn()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalCallsFlowedOut {
+        get => this.get_TotalCallsFlowedOut()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LongestEverWaitTime {
+        get => this.get_LongestEverWaitTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentLongestWaitTime {
+        get => this.get_CurrentLongestWaitTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AverageWaitTime {
+        get => this.get_AverageWaitTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FinalDisposition {
+        get => this.get_FinalDisposition()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @param {Integer} lPeriod 
      * @returns {HRESULT} 

@@ -41,6 +41,38 @@ class IFaxEventLogging extends IDispatch{
     static VTableNames => ["get_InitEventsLevel", "put_InitEventsLevel", "get_InboundEventsLevel", "put_InboundEventsLevel", "get_OutboundEventsLevel", "put_OutboundEventsLevel", "get_GeneralEventsLevel", "put_GeneralEventsLevel", "Refresh", "Save"]
 
     /**
+     * @type {Integer} 
+     */
+    InitEventsLevel {
+        get => this.get_InitEventsLevel()
+        set => this.put_InitEventsLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InboundEventsLevel {
+        get => this.get_InboundEventsLevel()
+        set => this.put_InboundEventsLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OutboundEventsLevel {
+        get => this.get_OutboundEventsLevel()
+        set => this.put_OutboundEventsLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GeneralEventsLevel {
+        get => this.get_GeneralEventsLevel()
+        set => this.put_GeneralEventsLevel(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_initeventslevel

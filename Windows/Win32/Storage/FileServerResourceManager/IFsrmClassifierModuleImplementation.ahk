@@ -33,6 +33,13 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
     static VTableNames => ["get_LastModified", "UseRulesAndDefinitions", "OnBeginFile", "DoesPropertyValueApply", "GetPropertyValueToApply", "OnEndFile"]
 
     /**
+     * @type {VARIANT} 
+     */
+    LastModified {
+        get => this.get_LastModified()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-get_lastmodified

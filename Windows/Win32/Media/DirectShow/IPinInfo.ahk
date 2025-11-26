@@ -31,6 +31,62 @@ class IPinInfo extends IDispatch{
     static VTableNames => ["get_Pin", "get_ConnectedTo", "get_ConnectionMediaType", "get_FilterInfo", "get_Name", "get_Direction", "get_PinID", "get_MediaTypes", "Connect", "ConnectDirect", "ConnectWithType", "Disconnect", "Render"]
 
     /**
+     * @type {IUnknown} 
+     */
+    Pin {
+        get => this.get_Pin()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    ConnectedTo {
+        get => this.get_ConnectedTo()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    ConnectionMediaType {
+        get => this.get_ConnectionMediaType()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    FilterInfo {
+        get => this.get_FilterInfo()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PinID {
+        get => this.get_PinID()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    MediaTypes {
+        get => this.get_MediaTypes()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

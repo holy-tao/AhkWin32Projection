@@ -33,6 +33,25 @@ class IWMPPlaylist extends IDispatch{
     static VTableNames => ["get_count", "get_name", "put_name", "get_attributeCount", "get_attributeName", "get_item", "getItemInfo", "setItemInfo", "get_isIdentical", "clear", "insertItem", "appendItem", "removeItem", "moveItem"]
 
     /**
+     */
+    count {
+        get => this.get_count()
+    }
+
+    /**
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     */
+    attributeCount {
+        get => this.get_attributeCount()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

@@ -32,6 +32,28 @@ class IObjectId extends IDispatch{
     static VTableNames => ["InitializeFromName", "InitializeFromValue", "InitializeFromAlgorithmName", "get_Name", "get_FriendlyName", "put_FriendlyName", "get_Value", "GetAlgorithmName"]
 
     /**
+     * @type {Integer} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+        set => this.put_FriendlyName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
      * 
      * @param {Integer} Name 
      * @returns {HRESULT} 

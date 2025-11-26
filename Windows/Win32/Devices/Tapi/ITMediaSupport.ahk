@@ -31,6 +31,13 @@ class ITMediaSupport extends IDispatch{
     static VTableNames => ["get_MediaTypes", "QueryMediaType"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaTypes {
+        get => this.get_MediaTypes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-get_mediatypes

@@ -33,6 +33,20 @@ class IMSCEPSetup extends IDispatch{
     static VTableNames => ["get_MSCEPErrorId", "get_MSCEPErrorString", "InitializeDefaults", "GetMSCEPSetupProperty", "SetMSCEPSetupProperty", "SetAccountInformation", "IsMSCEPStoreEmpty", "GetProviderNameList", "GetKeyLengthList", "Install", "PreUnInstall", "PostUnInstall"]
 
     /**
+     * @type {Integer} 
+     */
+    MSCEPErrorId {
+        get => this.get_MSCEPErrorId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MSCEPErrorString {
+        get => this.get_MSCEPErrorString()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-get_msceperrorid

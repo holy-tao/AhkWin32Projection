@@ -31,6 +31,18 @@ class IWMPPlayerApplication extends IDispatch{
     static VTableNames => ["switchToPlayerApplication", "switchToControl", "get_playerDocked", "get_hasDisplay"]
 
     /**
+     */
+    playerDocked {
+        get => this.get_playerDocked()
+    }
+
+    /**
+     */
+    hasDisplay {
+        get => this.get_hasDisplay()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-switchtoplayerapplication

@@ -39,6 +39,35 @@ class IInkDisp extends IDispatch{
     static VTableNames => ["get_Strokes", "get_ExtendedProperties", "get_Dirty", "put_Dirty", "get_CustomStrokes", "GetBoundingBox", "DeleteStrokes", "DeleteStroke", "ExtractStrokes", "ExtractWithRectangle", "Clip", "Clone", "HitTestCircle", "HitTestWithRectangle", "HitTestWithLasso", "NearestPoint", "CreateStrokes", "AddStrokesAtRectangle", "Save", "Load", "CreateStroke", "ClipboardCopyWithRectangle", "ClipboardCopy", "CanPaste", "ClipboardPaste"]
 
     /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
+     * @type {IInkExtendedProperties} 
+     */
+    ExtendedProperties {
+        get => this.get_ExtendedProperties()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Dirty {
+        get => this.get_Dirty()
+        set => this.put_Dirty(value)
+    }
+
+    /**
+     * @type {IInkCustomStrokes} 
+     */
+    CustomStrokes {
+        get => this.get_CustomStrokes()
+    }
+
+    /**
      * 
      * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_strokes

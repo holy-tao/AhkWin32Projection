@@ -33,6 +33,45 @@ class ICEnroll4 extends ICEnroll3{
     static VTableNames => ["put_PrivateKeyArchiveCertificate", "get_PrivateKeyArchiveCertificate", "put_ThumbPrint", "get_ThumbPrint", "binaryToString", "stringToBinary", "addExtensionToRequest", "addAttributeToRequest", "addNameValuePairToRequest", "resetExtensions", "resetAttributes", "createRequest", "createFileRequest", "acceptResponse", "acceptFileResponse", "getCertFromResponse", "getCertFromFileResponse", "createPFX", "createFilePFX", "setPendingRequestInfo", "enumPendingRequest", "removePendingRequest", "GetKeyLenEx", "InstallPKCS7Ex", "addCertTypeToRequestEx", "getProviderType", "put_SignerCertificate", "put_ClientId", "get_ClientId", "addBlobPropertyToCertificate", "resetBlobProperties", "put_IncludeSubjectKeyID", "get_IncludeSubjectKeyID"]
 
     /**
+     * @type {BSTR} 
+     */
+    PrivateKeyArchiveCertificate {
+        get => this.get_PrivateKeyArchiveCertificate()
+        set => this.put_PrivateKeyArchiveCertificate(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ThumbPrint {
+        get => this.get_ThumbPrint()
+        set => this.put_ThumbPrint(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    SignerCertificate {
+        set => this.put_SignerCertificate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClientId {
+        get => this.get_ClientId()
+        set => this.put_ClientId(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IncludeSubjectKeyID {
+        get => this.get_IncludeSubjectKeyID()
+        set => this.put_IncludeSubjectKeyID(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrCert 
      * @returns {HRESULT} 

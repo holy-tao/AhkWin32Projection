@@ -35,6 +35,110 @@ class IEventSubscription extends IDispatch{
     static VTableNames => ["get_SubscriptionID", "put_SubscriptionID", "get_SubscriptionName", "put_SubscriptionName", "get_PublisherID", "put_PublisherID", "get_EventClassID", "put_EventClassID", "get_MethodName", "put_MethodName", "get_SubscriberCLSID", "put_SubscriberCLSID", "get_SubscriberInterface", "put_SubscriberInterface", "get_PerUser", "put_PerUser", "get_OwnerSID", "put_OwnerSID", "get_Enabled", "put_Enabled", "get_Description", "put_Description", "get_MachineName", "put_MachineName", "GetPublisherProperty", "PutPublisherProperty", "RemovePublisherProperty", "GetPublisherPropertyCollection", "GetSubscriberProperty", "PutSubscriberProperty", "RemoveSubscriberProperty", "GetSubscriberPropertyCollection", "get_InterfaceID", "put_InterfaceID"]
 
     /**
+     * @type {BSTR} 
+     */
+    SubscriptionID {
+        get => this.get_SubscriptionID()
+        set => this.put_SubscriptionID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubscriptionName {
+        get => this.get_SubscriptionName()
+        set => this.put_SubscriptionName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PublisherID {
+        get => this.get_PublisherID()
+        set => this.put_PublisherID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EventClassID {
+        get => this.get_EventClassID()
+        set => this.put_EventClassID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MethodName {
+        get => this.get_MethodName()
+        set => this.put_MethodName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubscriberCLSID {
+        get => this.get_SubscriberCLSID()
+        set => this.put_SubscriberCLSID(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    SubscriberInterface {
+        get => this.get_SubscriberInterface()
+        set => this.put_SubscriberInterface(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    PerUser {
+        get => this.get_PerUser()
+        set => this.put_PerUser(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSID {
+        get => this.get_OwnerSID()
+        set => this.put_OwnerSID(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MachineName {
+        get => this.get_MachineName()
+        set => this.put_MachineName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InterfaceID {
+        get => this.get_InterfaceID()
+        set => this.put_InterfaceID(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionid

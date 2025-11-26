@@ -34,6 +34,13 @@ class IEnumNetworkConnections extends IDispatch{
     static VTableNames => ["get__NewEnum", "Next", "Skip", "Reset", "Clone"]
 
     /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-get__newenum

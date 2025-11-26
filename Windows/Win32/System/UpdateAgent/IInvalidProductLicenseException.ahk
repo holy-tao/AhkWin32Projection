@@ -32,6 +32,13 @@ class IInvalidProductLicenseException extends IUpdateException{
     static VTableNames => ["get_Product"]
 
     /**
+     * @type {BSTR} 
+     */
+    Product {
+        get => this.get_Product()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product

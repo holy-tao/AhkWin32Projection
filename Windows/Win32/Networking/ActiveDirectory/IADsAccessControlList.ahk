@@ -59,6 +59,29 @@ class IADsAccessControlList extends IDispatch{
     static VTableNames => ["get_AclRevision", "put_AclRevision", "get_AceCount", "put_AceCount", "AddAce", "RemoveAce", "CopyAccessList", "get__NewEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    AclRevision {
+        get => this.get_AclRevision()
+        set => this.put_AclRevision(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AceCount {
+        get => this.get_AceCount()
+        set => this.put_AceCount(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

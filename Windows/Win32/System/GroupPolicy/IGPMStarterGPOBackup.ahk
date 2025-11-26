@@ -39,6 +39,62 @@ class IGPMStarterGPOBackup extends IDispatch{
     static VTableNames => ["get_BackupDir", "get_Comment", "get_DisplayName", "get_Domain", "get_StarterGPOID", "get_ID", "get_Timestamp", "get_Type", "Delete", "GenerateReport", "GenerateReportToFile"]
 
     /**
+     * @type {BSTR} 
+     */
+    BackupDir {
+        get => this.get_BackupDir()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Comment {
+        get => this.get_Comment()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Domain {
+        get => this.get_Domain()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StarterGPOID {
+        get => this.get_StarterGPOID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Timestamp {
+        get => this.get_Timestamp()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -30,6 +30,100 @@ class IHeaderFooter extends IDispatch{
     static VTableNames => ["get_htmlHead", "get_htmlFoot", "put_textHead", "get_textHead", "put_textFoot", "get_textFoot", "put_page", "get_page", "put_pageTotal", "get_pageTotal", "put_URL", "get_URL", "put_title", "get_title", "put_dateShort", "get_dateShort", "put_dateLong", "get_dateLong", "put_timeShort", "get_timeShort", "put_timeLong", "get_timeLong"]
 
     /**
+     * @type {BSTR} 
+     */
+    htmlHead {
+        get => this.get_htmlHead()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    htmlFoot {
+        get => this.get_htmlFoot()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textHead {
+        get => this.get_textHead()
+        set => this.put_textHead(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textFoot {
+        get => this.get_textFoot()
+        set => this.put_textFoot(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    page {
+        get => this.get_page()
+        set => this.put_page(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageTotal {
+        get => this.get_pageTotal()
+        set => this.put_pageTotal(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    URL {
+        get => this.get_URL()
+        set => this.put_URL(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    title {
+        get => this.get_title()
+        set => this.put_title(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dateShort {
+        get => this.get_dateShort()
+        set => this.put_dateShort(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dateLong {
+        get => this.get_dateLong()
+        set => this.put_dateLong(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    timeShort {
+        get => this.get_timeShort()
+        set => this.put_timeShort(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    timeLong {
+        get => this.get_timeLong()
+        set => this.put_timeLong(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

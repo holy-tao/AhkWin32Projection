@@ -38,6 +38,55 @@ class IWdsTransportTftpClient extends IDispatch{
     static VTableNames => ["get_FileName", "get_IpAddress", "get_Timeout", "get_CurrentFileOffset", "get_FileSize", "get_BlockSize", "get_WindowSize"]
 
     /**
+     * @type {BSTR} 
+     */
+    FileName {
+        get => this.get_FileName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    IpAddress {
+        get => this.get_IpAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Timeout {
+        get => this.get_Timeout()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentFileOffset {
+        get => this.get_CurrentFileOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileSize {
+        get => this.get_FileSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BlockSize {
+        get => this.get_BlockSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowSize {
+        get => this.get_WindowSize()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filename

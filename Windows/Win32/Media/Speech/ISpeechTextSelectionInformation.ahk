@@ -29,6 +29,38 @@ class ISpeechTextSelectionInformation extends IDispatch{
     static VTableNames => ["put_ActiveOffset", "get_ActiveOffset", "put_ActiveLength", "get_ActiveLength", "put_SelectionOffset", "get_SelectionOffset", "put_SelectionLength", "get_SelectionLength"]
 
     /**
+     * @type {Integer} 
+     */
+    ActiveOffset {
+        get => this.get_ActiveOffset()
+        set => this.put_ActiveOffset(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ActiveLength {
+        get => this.get_ActiveLength()
+        set => this.put_ActiveLength(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SelectionOffset {
+        get => this.get_SelectionOffset()
+        set => this.put_SelectionOffset(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SelectionLength {
+        get => this.get_SelectionLength()
+        set => this.put_SelectionLength(value)
+    }
+
+    /**
      * 
      * @param {Integer} ActiveOffset 
      * @returns {HRESULT} 

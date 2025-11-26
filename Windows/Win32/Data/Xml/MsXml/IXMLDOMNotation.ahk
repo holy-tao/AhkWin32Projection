@@ -30,6 +30,20 @@ class IXMLDOMNotation extends IXMLDOMNode{
     static VTableNames => ["get_publicId", "get_systemId"]
 
     /**
+     * @type {VARIANT} 
+     */
+    publicId {
+        get => this.get_publicId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    systemId {
+        get => this.get_systemId()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

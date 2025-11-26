@@ -40,6 +40,13 @@ class ISWbemServices extends IDispatch{
     static VTableNames => ["Get", "GetAsync", "Delete", "DeleteAsync", "InstancesOf", "InstancesOfAsync", "SubclassesOf", "SubclassesOfAsync", "ExecQuery", "ExecQueryAsync", "AssociatorsOf", "AssociatorsOfAsync", "ReferencesTo", "ReferencesToAsync", "ExecNotificationQuery", "ExecNotificationQueryAsync", "ExecMethod", "ExecMethodAsync", "get_Security_"]
 
     /**
+     * @type {ISWbemSecurity} 
+     */
+    Security_ {
+        get => this.get_Security_()
+    }
+
+    /**
      * 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 

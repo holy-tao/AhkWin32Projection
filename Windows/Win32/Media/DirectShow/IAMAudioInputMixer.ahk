@@ -31,6 +31,76 @@ class IAMAudioInputMixer extends IUnknown{
     static VTableNames => ["put_Enable", "get_Enable", "put_Mono", "get_Mono", "put_MixLevel", "get_MixLevel", "put_Pan", "get_Pan", "put_Loudness", "get_Loudness", "put_Treble", "get_Treble", "get_TrebleRange", "put_Bass", "get_Bass", "get_BassRange"]
 
     /**
+     * @type {BOOL} 
+     */
+    Enable {
+        get => this.get_Enable()
+        set => this.put_Enable(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Mono {
+        get => this.get_Mono()
+        set => this.put_Mono(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    MixLevel {
+        get => this.get_MixLevel()
+        set => this.put_MixLevel(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Pan {
+        get => this.get_Pan()
+        set => this.put_Pan(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Loudness {
+        get => this.get_Loudness()
+        set => this.put_Loudness(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Treble {
+        get => this.get_Treble()
+        set => this.put_Treble(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TrebleRange {
+        get => this.get_TrebleRange()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Bass {
+        get => this.get_Bass()
+        set => this.put_Bass(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    BassRange {
+        get => this.get_BassRange()
+    }
+
+    /**
      * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 

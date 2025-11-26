@@ -40,6 +40,21 @@ class IInkExtendedProperty extends IDispatch{
     static VTableNames => ["get_Guid", "get_Data", "put_Data"]
 
     /**
+     * @type {BSTR} 
+     */
+    Guid {
+        get => this.get_Guid()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperty-get_guid

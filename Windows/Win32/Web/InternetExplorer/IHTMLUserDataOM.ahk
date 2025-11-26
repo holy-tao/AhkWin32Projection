@@ -31,6 +31,21 @@ class IHTMLUserDataOM extends IDispatch{
     static VTableNames => ["get_XMLDocument", "save", "load", "getAttribute", "setAttribute", "removeAttribute", "put_expires", "get_expires"]
 
     /**
+     * @type {IDispatch} 
+     */
+    XMLDocument {
+        get => this.get_XMLDocument()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    expires {
+        get => this.get_expires()
+        set => this.put_expires(value)
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

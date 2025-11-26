@@ -33,6 +33,14 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
     static VTableNames => ["get_Name", "put_Name", "CopyTemplate", "CommitAndUpdateDerived"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name

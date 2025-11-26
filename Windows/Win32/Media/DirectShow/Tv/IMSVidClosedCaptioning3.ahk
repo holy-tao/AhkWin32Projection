@@ -37,6 +37,13 @@ class IMSVidClosedCaptioning3 extends IMSVidClosedCaptioning2{
     static VTableNames => ["get_TeleTextFilter"]
 
     /**
+     * @type {IUnknown} 
+     */
+    TeleTextFilter {
+        get => this.get_TeleTextFilter()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning3-get_teletextfilter

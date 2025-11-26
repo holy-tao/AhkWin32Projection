@@ -30,6 +30,13 @@ class IHTMLFramesCollection2 extends IDispatch{
     static VTableNames => ["item", "get_length"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} pvarIndex 
      * @returns {VARIANT} 

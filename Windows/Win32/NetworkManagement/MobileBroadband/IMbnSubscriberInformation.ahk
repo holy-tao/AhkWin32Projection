@@ -36,6 +36,27 @@ class IMbnSubscriberInformation extends IUnknown{
     static VTableNames => ["get_SubscriberID", "get_SimIccID", "get_TelephoneNumbers"]
 
     /**
+     * @type {BSTR} 
+     */
+    SubscriberID {
+        get => this.get_SubscriberID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SimIccID {
+        get => this.get_SimIccID()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    TelephoneNumbers {
+        get => this.get_TelephoneNumbers()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_subscriberid

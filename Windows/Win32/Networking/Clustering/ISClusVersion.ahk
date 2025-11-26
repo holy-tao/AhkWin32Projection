@@ -31,6 +31,76 @@ class ISClusVersion extends IDispatch{
     static VTableNames => ["get_Name", "get_MajorVersion", "get_MinorVersion", "get_BuildNumber", "get_VendorId", "get_CSDVersion", "get_ClusterHighestVersion", "get_ClusterLowestVersion", "get_Flags", "get_MixedVersion"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BuildNumber {
+        get => this.get_BuildNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VendorId {
+        get => this.get_VendorId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSDVersion {
+        get => this.get_CSDVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClusterHighestVersion {
+        get => this.get_ClusterHighestVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClusterLowestVersion {
+        get => this.get_ClusterLowestVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    MixedVersion {
+        get => this.get_MixedVersion()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

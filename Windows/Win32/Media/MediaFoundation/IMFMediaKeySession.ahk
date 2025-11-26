@@ -32,6 +32,20 @@ class IMFMediaKeySession extends IUnknown{
     static VTableNames => ["GetError", "get_KeySystem", "get_SessionId", "Update", "Close"]
 
     /**
+     * @type {BSTR} 
+     */
+    KeySystem {
+        get => this.get_KeySystem()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SessionId {
+        get => this.get_SessionId()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} code 
      * @param {Pointer<Integer>} systemCode 

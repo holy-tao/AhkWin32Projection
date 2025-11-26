@@ -39,6 +39,35 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     static VTableNames => ["get_HasCoverPage", "get_ReceiptType", "get_ReceiptAddress", "get_Read", "put_Read", "Save", "Refresh"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    HasCoverPage {
+        get => this.get_HasCoverPage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReceiptType {
+        get => this.get_ReceiptType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReceiptAddress {
+        get => this.get_ReceiptAddress()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Read {
+        get => this.get_Read()
+        set => this.put_Read(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_hascoverpage

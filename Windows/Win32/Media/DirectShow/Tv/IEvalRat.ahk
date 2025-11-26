@@ -42,6 +42,14 @@ class IEvalRat extends IDispatch{
     static VTableNames => ["get_BlockedRatingAttributes", "put_BlockedRatingAttributes", "get_BlockUnRated", "put_BlockUnRated", "MostRestrictiveRating", "TestRating"]
 
     /**
+     * @type {BOOL} 
+     */
+    BlockUnRated {
+        get => this.get_BlockUnRated()
+        set => this.put_BlockUnRated(value)
+    }
+
+    /**
      * 
      * @param {Integer} enSystem 
      * @param {Integer} enLevel 

@@ -32,6 +32,27 @@ class IInstallationResult extends IDispatch{
     static VTableNames => ["get_HResult", "get_RebootRequired", "get_ResultCode", "GetUpdateResult"]
 
     /**
+     * @type {Integer} 
+     */
+    HResult {
+        get => this.get_HResult()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RebootRequired {
+        get => this.get_RebootRequired()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ResultCode {
+        get => this.get_ResultCode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_hresult

@@ -33,6 +33,27 @@ class ICatalogObject extends IDispatch{
     static VTableNames => ["get_Value", "put_Value", "get_Key", "get_Name", "IsPropertyReadOnly", "get_Valid", "IsPropertyWriteOnly"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Key {
+        get => this.get_Key()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Valid {
+        get => this.get_Valid()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrPropName 
      * @returns {VARIANT} 

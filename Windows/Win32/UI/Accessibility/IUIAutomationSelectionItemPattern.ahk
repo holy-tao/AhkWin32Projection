@@ -32,6 +32,34 @@ class IUIAutomationSelectionItemPattern extends IUnknown{
     static VTableNames => ["Select", "AddToSelection", "RemoveFromSelection", "get_CurrentIsSelected", "get_CurrentSelectionContainer", "get_CachedIsSelected", "get_CachedSelectionContainer"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentIsSelected {
+        get => this.get_CurrentIsSelected()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CurrentSelectionContainer {
+        get => this.get_CurrentSelectionContainer()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsSelected {
+        get => this.get_CachedIsSelected()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CachedSelectionContainer {
+        get => this.get_CachedSelectionContainer()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionitempattern-select

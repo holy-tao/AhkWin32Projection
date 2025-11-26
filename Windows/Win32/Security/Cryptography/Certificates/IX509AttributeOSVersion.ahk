@@ -32,6 +32,13 @@ class IX509AttributeOSVersion extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_OSVersion"]
 
     /**
+     * @type {BSTR} 
+     */
+    OSVersion {
+        get => this.get_OSVersion()
+    }
+
+    /**
      * 
      * @param {BSTR} strOSVersion 
      * @returns {HRESULT} 

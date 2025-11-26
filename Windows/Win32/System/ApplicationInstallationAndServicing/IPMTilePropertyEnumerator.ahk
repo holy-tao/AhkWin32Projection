@@ -30,6 +30,13 @@ class IPMTilePropertyEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMTilePropertyInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMTilePropertyInfo} 
      */

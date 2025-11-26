@@ -42,6 +42,13 @@ class IETFilter extends IUnknown{
     static VTableNames => ["get_EvalRatObjOK", "GetCurrRating", "GetCurrLicenseExpDate", "GetLastErrorCode", "SetRecordingOn"]
 
     /**
+     * @type {HRESULT} 
+     */
+    EvalRatObjOK {
+        get => this.get_EvalRatObjOK()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-get_evalratobjok

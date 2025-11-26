@@ -29,6 +29,13 @@ class IMSMQPrivateEvent extends IDispatch{
     static VTableNames => ["get_Hwnd", "FireArrivedEvent", "FireArrivedErrorEvent"]
 
     /**
+     * @type {Integer} 
+     */
+    Hwnd {
+        get => this.get_Hwnd()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -29,6 +29,34 @@ class IHTMLTableRowMetrics extends IDispatch{
     static VTableNames => ["get_clientHeight", "get_clientWidth", "get_clientTop", "get_clientLeft"]
 
     /**
+     * @type {Integer} 
+     */
+    clientHeight {
+        get => this.get_clientHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientWidth {
+        get => this.get_clientWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientTop {
+        get => this.get_clientTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientLeft {
+        get => this.get_clientLeft()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

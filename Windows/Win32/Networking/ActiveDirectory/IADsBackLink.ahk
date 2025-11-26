@@ -32,6 +32,22 @@ class IADsBackLink extends IDispatch{
     static VTableNames => ["get_RemoteID", "put_RemoteID", "get_ObjectName", "put_ObjectName"]
 
     /**
+     * @type {Integer} 
+     */
+    RemoteID {
+        get => this.get_RemoteID()
+        set => this.put_RemoteID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ObjectName {
+        get => this.get_ObjectName()
+        set => this.put_ObjectName(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

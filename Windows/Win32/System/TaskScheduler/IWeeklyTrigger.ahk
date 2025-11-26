@@ -39,6 +39,27 @@ class IWeeklyTrigger extends ITrigger{
     static VTableNames => ["get_DaysOfWeek", "put_DaysOfWeek", "get_WeeksInterval", "put_WeeksInterval", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     */
+    DaysOfWeek {
+        get => this.get_DaysOfWeek()
+        set => this.put_DaysOfWeek(value)
+    }
+
+    /**
+     */
+    WeeksInterval {
+        get => this.get_WeeksInterval()
+        set => this.put_WeeksInterval(value)
+    }
+
+    /**
+     */
+    RandomDelay {
+        get => this.get_RandomDelay()
+        set => this.put_RandomDelay(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 

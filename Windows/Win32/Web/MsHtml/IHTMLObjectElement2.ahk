@@ -30,6 +30,22 @@ class IHTMLObjectElement2 extends IDispatch{
     static VTableNames => ["namedRecordset", "put_classid", "get_classid", "put_data", "get_data"]
 
     /**
+     * @type {BSTR} 
+     */
+    classid {
+        get => this.get_classid()
+        set => this.put_classid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
      * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 

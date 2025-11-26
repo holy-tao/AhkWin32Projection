@@ -51,6 +51,148 @@ class ITaskSettings extends IDispatch{
     static VTableNames => ["get_AllowDemandStart", "put_AllowDemandStart", "get_RestartInterval", "put_RestartInterval", "get_RestartCount", "put_RestartCount", "get_MultipleInstances", "put_MultipleInstances", "get_StopIfGoingOnBatteries", "put_StopIfGoingOnBatteries", "get_DisallowStartIfOnBatteries", "put_DisallowStartIfOnBatteries", "get_AllowHardTerminate", "put_AllowHardTerminate", "get_StartWhenAvailable", "put_StartWhenAvailable", "get_XmlText", "put_XmlText", "get_RunOnlyIfNetworkAvailable", "put_RunOnlyIfNetworkAvailable", "get_ExecutionTimeLimit", "put_ExecutionTimeLimit", "get_Enabled", "put_Enabled", "get_DeleteExpiredTaskAfter", "put_DeleteExpiredTaskAfter", "get_Priority", "put_Priority", "get_Compatibility", "put_Compatibility", "get_Hidden", "put_Hidden", "get_IdleSettings", "put_IdleSettings", "get_RunOnlyIfIdle", "put_RunOnlyIfIdle", "get_WakeToRun", "put_WakeToRun", "get_NetworkSettings", "put_NetworkSettings"]
 
     /**
+     */
+    AllowDemandStart {
+        get => this.get_AllowDemandStart()
+        set => this.put_AllowDemandStart(value)
+    }
+
+    /**
+     */
+    RestartInterval {
+        get => this.get_RestartInterval()
+        set => this.put_RestartInterval(value)
+    }
+
+    /**
+     */
+    RestartCount {
+        get => this.get_RestartCount()
+        set => this.put_RestartCount(value)
+    }
+
+    /**
+     */
+    MultipleInstances {
+        get => this.get_MultipleInstances()
+        set => this.put_MultipleInstances(value)
+    }
+
+    /**
+     */
+    StopIfGoingOnBatteries {
+        get => this.get_StopIfGoingOnBatteries()
+        set => this.put_StopIfGoingOnBatteries(value)
+    }
+
+    /**
+     */
+    DisallowStartIfOnBatteries {
+        get => this.get_DisallowStartIfOnBatteries()
+        set => this.put_DisallowStartIfOnBatteries(value)
+    }
+
+    /**
+     */
+    AllowHardTerminate {
+        get => this.get_AllowHardTerminate()
+        set => this.put_AllowHardTerminate(value)
+    }
+
+    /**
+     */
+    StartWhenAvailable {
+        get => this.get_StartWhenAvailable()
+        set => this.put_StartWhenAvailable(value)
+    }
+
+    /**
+     */
+    XmlText {
+        get => this.get_XmlText()
+        set => this.put_XmlText(value)
+    }
+
+    /**
+     */
+    RunOnlyIfNetworkAvailable {
+        get => this.get_RunOnlyIfNetworkAvailable()
+        set => this.put_RunOnlyIfNetworkAvailable(value)
+    }
+
+    /**
+     */
+    ExecutionTimeLimit {
+        get => this.get_ExecutionTimeLimit()
+        set => this.put_ExecutionTimeLimit(value)
+    }
+
+    /**
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     */
+    DeleteExpiredTaskAfter {
+        get => this.get_DeleteExpiredTaskAfter()
+        set => this.put_DeleteExpiredTaskAfter(value)
+    }
+
+    /**
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     */
+    Compatibility {
+        get => this.get_Compatibility()
+        set => this.put_Compatibility(value)
+    }
+
+    /**
+     */
+    Hidden {
+        get => this.get_Hidden()
+        set => this.put_Hidden(value)
+    }
+
+    /**
+     * @type {IIdleSettings} 
+     */
+    IdleSettings {
+        get => this.get_IdleSettings()
+        set => this.put_IdleSettings(value)
+    }
+
+    /**
+     */
+    RunOnlyIfIdle {
+        get => this.get_RunOnlyIfIdle()
+        set => this.put_RunOnlyIfIdle(value)
+    }
+
+    /**
+     */
+    WakeToRun {
+        get => this.get_WakeToRun()
+        set => this.put_WakeToRun(value)
+    }
+
+    /**
+     * @type {INetworkSettings} 
+     */
+    NetworkSettings {
+        get => this.get_NetworkSettings()
+        set => this.put_NetworkSettings(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pAllowDemandStart 
      * @returns {HRESULT} 

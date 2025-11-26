@@ -37,6 +37,38 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
     static VTableNames => ["get_GroupBy", "put_GroupBy", "get_FolderFlags", "put_FolderFlags", "get_SortColumns", "put_SortColumns", "put_IconSize", "get_IconSize", "FilterView"]
 
     /**
+     * @type {BSTR} 
+     */
+    GroupBy {
+        get => this.get_GroupBy()
+        set => this.put_GroupBy(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FolderFlags {
+        get => this.get_FolderFlags()
+        set => this.put_FolderFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SortColumns {
+        get => this.get_SortColumns()
+        set => this.put_SortColumns(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IconSize {
+        get => this.get_IconSize()
+        set => this.put_IconSize(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_groupby

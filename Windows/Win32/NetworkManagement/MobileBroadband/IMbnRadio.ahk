@@ -35,6 +35,20 @@ class IMbnRadio extends IUnknown{
     static VTableNames => ["get_SoftwareRadioState", "get_HardwareRadioState", "SetSoftwareRadioState"]
 
     /**
+     * @type {Integer} 
+     */
+    SoftwareRadioState {
+        get => this.get_SoftwareRadioState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HardwareRadioState {
+        get => this.get_HardwareRadioState()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_softwareradiostate

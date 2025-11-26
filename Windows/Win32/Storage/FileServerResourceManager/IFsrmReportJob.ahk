@@ -45,6 +45,66 @@ class IFsrmReportJob extends IFsrmObject{
     static VTableNames => ["get_Task", "put_Task", "get_NamespaceRoots", "put_NamespaceRoots", "get_Formats", "put_Formats", "get_MailTo", "put_MailTo", "get_RunningStatus", "get_LastRun", "get_LastError", "get_LastGeneratedInDirectory", "EnumReports", "CreateReport", "Run", "WaitForCompletion", "Cancel"]
 
     /**
+     * @type {BSTR} 
+     */
+    Task {
+        get => this.get_Task()
+        set => this.put_Task(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    NamespaceRoots {
+        get => this.get_NamespaceRoots()
+        set => this.put_NamespaceRoots(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Formats {
+        get => this.get_Formats()
+        set => this.put_Formats(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailTo {
+        get => this.get_MailTo()
+        set => this.put_MailTo(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RunningStatus {
+        get => this.get_RunningStatus()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastRun {
+        get => this.get_LastRun()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastError {
+        get => this.get_LastError()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastGeneratedInDirectory {
+        get => this.get_LastGeneratedInDirectory()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task

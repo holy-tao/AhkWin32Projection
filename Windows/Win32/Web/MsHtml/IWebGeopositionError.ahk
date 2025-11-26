@@ -36,6 +36,20 @@ class IWebGeopositionError extends IDispatch{
     static VTableNames => ["get_code", "get_message"]
 
     /**
+     * @type {Integer} 
+     */
+    code {
+        get => this.get_code()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    message {
+        get => this.get_message()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

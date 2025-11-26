@@ -31,6 +31,30 @@ class IUIAutomation2 extends IUIAutomation{
     static VTableNames => ["get_AutoSetFocus", "put_AutoSetFocus", "get_ConnectionTimeout", "put_ConnectionTimeout", "get_TransactionTimeout", "put_TransactionTimeout"]
 
     /**
+     * @type {BOOL} 
+     */
+    AutoSetFocus {
+        get => this.get_AutoSetFocus()
+        set => this.put_AutoSetFocus(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectionTimeout {
+        get => this.get_ConnectionTimeout()
+        set => this.put_ConnectionTimeout(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TransactionTimeout {
+        get => this.get_TransactionTimeout()
+        set => this.put_TransactionTimeout(value)
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_autosetfocus

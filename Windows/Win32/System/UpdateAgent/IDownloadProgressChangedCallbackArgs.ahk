@@ -32,6 +32,13 @@ class IDownloadProgressChangedCallbackArgs extends IDispatch{
     static VTableNames => ["get_Progress"]
 
     /**
+     * @type {IDownloadProgress} 
+     */
+    Progress {
+        get => this.get_Progress()
+    }
+
+    /**
      * 
      * @returns {IDownloadProgress} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogresschangedcallbackargs-get_progress

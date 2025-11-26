@@ -31,6 +31,13 @@ class ICertPropertyArchived extends ICertProperty{
     static VTableNames => ["Initialize", "get_Archived"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Archived {
+        get => this.get_Archived()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {VARIANT_BOOL} ArchivedValue 
      * @returns {HRESULT} <ul>

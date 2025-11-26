@@ -36,6 +36,14 @@ class IHTCPropertyBehavior extends IDispatch{
     static VTableNames => ["fireChange", "put_value", "get_value"]
 
     /**
+     * @type {VARIANT} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

@@ -43,6 +43,110 @@ class IFaxDevice extends IDispatch{
     static VTableNames => ["get_Id", "get_DeviceName", "get_ProviderUniqueName", "get_PoweredOff", "get_ReceivingNow", "get_SendingNow", "get_UsedRoutingMethods", "get_Description", "put_Description", "get_SendEnabled", "put_SendEnabled", "get_ReceiveMode", "put_ReceiveMode", "get_RingsBeforeAnswer", "put_RingsBeforeAnswer", "get_CSID", "put_CSID", "get_TSID", "put_TSID", "Refresh", "Save", "GetExtensionProperty", "SetExtensionProperty", "UseRoutingMethod", "get_RingingNow", "AnswerCall"]
 
     /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceName {
+        get => this.get_DeviceName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderUniqueName {
+        get => this.get_ProviderUniqueName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PoweredOff {
+        get => this.get_PoweredOff()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReceivingNow {
+        get => this.get_ReceivingNow()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SendingNow {
+        get => this.get_SendingNow()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    UsedRoutingMethods {
+        get => this.get_UsedRoutingMethods()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SendEnabled {
+        get => this.get_SendEnabled()
+        set => this.put_SendEnabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReceiveMode {
+        get => this.get_ReceiveMode()
+        set => this.put_ReceiveMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RingsBeforeAnswer {
+        get => this.get_RingsBeforeAnswer()
+        set => this.put_RingsBeforeAnswer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSID {
+        get => this.get_CSID()
+        set => this.put_CSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+        set => this.put_TSID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RingingNow {
+        get => this.get_RingingNow()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_id

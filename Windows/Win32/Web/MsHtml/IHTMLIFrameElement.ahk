@@ -30,6 +30,30 @@ class IHTMLIFrameElement extends IDispatch{
     static VTableNames => ["put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_align", "get_align"]
 
     /**
+     * @type {Integer} 
+     */
+    vspace {
+        get => this.get_vspace()
+        set => this.put_vspace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    hspace {
+        get => this.get_hspace()
+        set => this.put_hspace(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

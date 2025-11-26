@@ -45,6 +45,301 @@ class IUpdate extends IDispatch{
     static VTableNames => ["get_Title", "get_AutoSelectOnWebSites", "get_BundledUpdates", "get_CanRequireSource", "get_Categories", "get_Deadline", "get_DeltaCompressedContentAvailable", "get_DeltaCompressedContentPreferred", "get_Description", "get_EulaAccepted", "get_EulaText", "get_HandlerID", "get_Identity", "get_Image", "get_InstallationBehavior", "get_IsBeta", "get_IsDownloaded", "get_IsHidden", "put_IsHidden", "get_IsInstalled", "get_IsMandatory", "get_IsUninstallable", "get_Languages", "get_LastDeploymentChangeTime", "get_MaxDownloadSize", "get_MinDownloadSize", "get_MoreInfoUrls", "get_MsrcSeverity", "get_RecommendedCpuSpeed", "get_RecommendedHardDiskSpace", "get_RecommendedMemory", "get_ReleaseNotes", "get_SecurityBulletinIDs", "get_SupersededUpdateIDs", "get_SupportUrl", "get_Type", "get_UninstallationNotes", "get_UninstallationBehavior", "get_UninstallationSteps", "get_KBArticleIDs", "AcceptEula", "get_DeploymentAction", "CopyFromCache", "get_DownloadPriority", "get_DownloadContents"]
 
     /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoSelectOnWebSites {
+        get => this.get_AutoSelectOnWebSites()
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    BundledUpdates {
+        get => this.get_BundledUpdates()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CanRequireSource {
+        get => this.get_CanRequireSource()
+    }
+
+    /**
+     * @type {ICategoryCollection} 
+     */
+    Categories {
+        get => this.get_Categories()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Deadline {
+        get => this.get_Deadline()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DeltaCompressedContentAvailable {
+        get => this.get_DeltaCompressedContentAvailable()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DeltaCompressedContentPreferred {
+        get => this.get_DeltaCompressedContentPreferred()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EulaAccepted {
+        get => this.get_EulaAccepted()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EulaText {
+        get => this.get_EulaText()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HandlerID {
+        get => this.get_HandlerID()
+    }
+
+    /**
+     * @type {IUpdateIdentity} 
+     */
+    Identity {
+        get => this.get_Identity()
+    }
+
+    /**
+     * @type {IImageInformation} 
+     */
+    Image {
+        get => this.get_Image()
+    }
+
+    /**
+     * @type {IInstallationBehavior} 
+     */
+    InstallationBehavior {
+        get => this.get_InstallationBehavior()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsBeta {
+        get => this.get_IsBeta()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsDownloaded {
+        get => this.get_IsDownloaded()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsHidden {
+        get => this.get_IsHidden()
+        set => this.put_IsHidden(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsInstalled {
+        get => this.get_IsInstalled()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsMandatory {
+        get => this.get_IsMandatory()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsUninstallable {
+        get => this.get_IsUninstallable()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    Languages {
+        get => this.get_Languages()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastDeploymentChangeTime {
+        get => this.get_LastDeploymentChangeTime()
+    }
+
+    /**
+     * @type {DECIMAL} 
+     */
+    MaxDownloadSize {
+        get => this.get_MaxDownloadSize()
+    }
+
+    /**
+     * @type {DECIMAL} 
+     */
+    MinDownloadSize {
+        get => this.get_MinDownloadSize()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    MoreInfoUrls {
+        get => this.get_MoreInfoUrls()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MsrcSeverity {
+        get => this.get_MsrcSeverity()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecommendedCpuSpeed {
+        get => this.get_RecommendedCpuSpeed()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecommendedHardDiskSpace {
+        get => this.get_RecommendedHardDiskSpace()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecommendedMemory {
+        get => this.get_RecommendedMemory()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReleaseNotes {
+        get => this.get_ReleaseNotes()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    SecurityBulletinIDs {
+        get => this.get_SecurityBulletinIDs()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    SupersededUpdateIDs {
+        get => this.get_SupersededUpdateIDs()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SupportUrl {
+        get => this.get_SupportUrl()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UninstallationNotes {
+        get => this.get_UninstallationNotes()
+    }
+
+    /**
+     * @type {IInstallationBehavior} 
+     */
+    UninstallationBehavior {
+        get => this.get_UninstallationBehavior()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    UninstallationSteps {
+        get => this.get_UninstallationSteps()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    KBArticleIDs {
+        get => this.get_KBArticleIDs()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeploymentAction {
+        get => this.get_DeploymentAction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DownloadPriority {
+        get => this.get_DownloadPriority()
+    }
+
+    /**
+     * @type {IUpdateDownloadContentCollection} 
+     */
+    DownloadContents {
+        get => this.get_DownloadContents()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_title

@@ -32,6 +32,69 @@ class ISchema extends ISchemaItem{
     static VTableNames => ["get_targetNamespace", "get_version", "get_types", "get_elements", "get_attributes", "get_attributeGroups", "get_modelGroups", "get_notations", "get_schemaLocations"]
 
     /**
+     * @type {BSTR} 
+     */
+    targetNamespace {
+        get => this.get_targetNamespace()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    types {
+        get => this.get_types()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    elements {
+        get => this.get_elements()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    attributeGroups {
+        get => this.get_attributeGroups()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    modelGroups {
+        get => this.get_modelGroups()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    notations {
+        get => this.get_notations()
+    }
+
+    /**
+     * @type {ISchemaStringCollection} 
+     */
+    schemaLocations {
+        get => this.get_schemaLocations()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

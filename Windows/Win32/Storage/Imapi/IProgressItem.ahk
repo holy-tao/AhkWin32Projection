@@ -43,6 +43,34 @@ class IProgressItem extends IDispatch{
     static VTableNames => ["get_Description", "get_FirstBlock", "get_LastBlock", "get_BlockCount"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirstBlock {
+        get => this.get_FirstBlock()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastBlock {
+        get => this.get_LastBlock()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BlockCount {
+        get => this.get_BlockCount()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_description

@@ -32,6 +32,41 @@ class IMcastScope extends IDispatch{
     static VTableNames => ["get_ScopeID", "get_ServerID", "get_InterfaceID", "get_ScopeDescription", "get_TTL"]
 
     /**
+     * @type {Integer} 
+     */
+    ScopeID {
+        get => this.get_ScopeID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ServerID {
+        get => this.get_ServerID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InterfaceID {
+        get => this.get_InterfaceID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ScopeDescription {
+        get => this.get_ScopeDescription()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TTL {
+        get => this.get_TTL()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopeid

@@ -35,6 +35,62 @@ class ISVGPathSegArcRel extends IDispatch{
     static VTableNames => ["put_x", "get_x", "put_y", "get_y", "put_r1", "get_r1", "put_r2", "get_r2", "put_angle", "get_angle", "put_largeArcFlag", "get_largeArcFlag", "put_sweepFlag", "get_sweepFlag"]
 
     /**
+     * @type {Float} 
+     */
+    x {
+        get => this.get_x()
+        set => this.put_x(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    y {
+        get => this.get_y()
+        set => this.put_y(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    r1 {
+        get => this.get_r1()
+        set => this.put_r1(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    r2 {
+        get => this.get_r2()
+        set => this.put_r2(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    angle {
+        get => this.get_angle()
+        set => this.put_angle(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    largeArcFlag {
+        get => this.get_largeArcFlag()
+        set => this.put_largeArcFlag(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    sweepFlag {
+        get => this.get_sweepFlag()
+        set => this.put_sweepFlag(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

@@ -32,6 +32,27 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "Refresh", "get_Item", "InsertItem", "RemoveItem", "get_Modified", "SaveChanges", "AddItem"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Modified {
+        get => this.get_Modified()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

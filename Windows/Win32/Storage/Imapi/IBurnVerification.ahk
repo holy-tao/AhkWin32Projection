@@ -38,6 +38,14 @@ class IBurnVerification extends IUnknown{
     static VTableNames => ["put_BurnVerificationLevel", "get_BurnVerificationLevel"]
 
     /**
+     * @type {Integer} 
+     */
+    BurnVerificationLevel {
+        get => this.get_BurnVerificationLevel()
+        set => this.put_BurnVerificationLevel(value)
+    }
+
+    /**
      * 
      * @param {Integer} value 
      * @returns {HRESULT} 

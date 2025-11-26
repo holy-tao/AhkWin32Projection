@@ -32,6 +32,83 @@ class ITLocationInfo extends IDispatch{
     static VTableNames => ["get_PermanentLocationID", "get_CountryCode", "get_CountryID", "get_Options", "get_PreferredCardID", "get_LocationName", "get_CityCode", "get_LocalAccessCode", "get_LongDistanceAccessCode", "get_TollPrefixList", "get_CancelCallWaitingCode"]
 
     /**
+     * @type {Integer} 
+     */
+    PermanentLocationID {
+        get => this.get_PermanentLocationID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CountryID {
+        get => this.get_CountryID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Options {
+        get => this.get_Options()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PreferredCardID {
+        get => this.get_PreferredCardID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocationName {
+        get => this.get_LocationName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CityCode {
+        get => this.get_CityCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalAccessCode {
+        get => this.get_LocalAccessCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LongDistanceAccessCode {
+        get => this.get_LongDistanceAccessCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TollPrefixList {
+        get => this.get_TollPrefixList()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CancelCallWaitingCode {
+        get => this.get_CancelCallWaitingCode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_permanentlocationid

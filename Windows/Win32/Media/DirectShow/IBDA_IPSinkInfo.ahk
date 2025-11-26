@@ -37,6 +37,20 @@ class IBDA_IPSinkInfo extends IUnknown{
     static VTableNames => ["get_MulticastList", "get_AdapterIPAddress", "get_AdapterDescription"]
 
     /**
+     * @type {BSTR} 
+     */
+    AdapterIPAddress {
+        get => this.get_AdapterIPAddress()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AdapterDescription {
+        get => this.get_AdapterDescription()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pulcbAddresses 
      * @returns {Pointer<Integer>} 

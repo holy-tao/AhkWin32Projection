@@ -40,6 +40,27 @@ class IRendezvousSession extends IUnknown{
     static VTableNames => ["get_State", "get_RemoteUser", "get_Flags", "SendContextData", "Terminate"]
 
     /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteUser {
+        get => this.get_RemoteUser()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_state

@@ -38,6 +38,21 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
     static VTableNames => ["put_name", "get_name", "get_cssRules", "appendRule", "deleteRule", "findRule"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {IHTMLStyleSheetRulesCollection} 
+     */
+    cssRules {
+        get => this.get_cssRules()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

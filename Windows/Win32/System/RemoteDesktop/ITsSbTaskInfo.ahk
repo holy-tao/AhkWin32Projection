@@ -33,6 +33,69 @@ class ITsSbTaskInfo extends IUnknown{
     static VTableNames => ["get_TargetId", "get_StartTime", "get_EndTime", "get_Deadline", "get_Identifier", "get_Label", "get_Context", "get_Plugin", "get_Status"]
 
     /**
+     * @type {BSTR} 
+     */
+    TargetId {
+        get => this.get_TargetId()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    EndTime {
+        get => this.get_EndTime()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    Deadline {
+        get => this.get_Deadline()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Identifier {
+        get => this.get_Identifier()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Label {
+        get => this.get_Label()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Context {
+        get => this.get_Context()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Plugin {
+        get => this.get_Plugin()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_targetid

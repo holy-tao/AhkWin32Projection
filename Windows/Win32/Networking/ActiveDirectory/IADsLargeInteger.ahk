@@ -37,6 +37,22 @@ class IADsLargeInteger extends IDispatch{
     static VTableNames => ["get_HighPart", "put_HighPart", "get_LowPart", "put_LowPart"]
 
     /**
+     * @type {Integer} 
+     */
+    HighPart {
+        get => this.get_HighPart()
+        set => this.put_HighPart(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LowPart {
+        get => this.get_LowPart()
+        set => this.put_LowPart(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

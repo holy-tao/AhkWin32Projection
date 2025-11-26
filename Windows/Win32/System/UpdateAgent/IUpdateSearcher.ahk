@@ -45,6 +45,54 @@ class IUpdateSearcher extends IDispatch{
     static VTableNames => ["get_CanAutomaticallyUpgradeService", "put_CanAutomaticallyUpgradeService", "get_ClientApplicationID", "put_ClientApplicationID", "get_IncludePotentiallySupersededUpdates", "put_IncludePotentiallySupersededUpdates", "get_ServerSelection", "put_ServerSelection", "BeginSearch", "EndSearch", "EscapeString", "QueryHistory", "Search", "get_Online", "put_Online", "GetTotalHistoryCount", "get_ServiceID", "put_ServiceID"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    CanAutomaticallyUpgradeService {
+        get => this.get_CanAutomaticallyUpgradeService()
+        set => this.put_CanAutomaticallyUpgradeService(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IncludePotentiallySupersededUpdates {
+        get => this.get_IncludePotentiallySupersededUpdates()
+        set => this.put_IncludePotentiallySupersededUpdates(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ServerSelection {
+        get => this.get_ServerSelection()
+        set => this.put_ServerSelection(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Online {
+        get => this.get_Online()
+        set => this.put_Online(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceID {
+        get => this.get_ServiceID()
+        set => this.put_ServiceID(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_canautomaticallyupgradeservice

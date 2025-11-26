@@ -38,6 +38,13 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     static VTableNames => ["get_Item", "get_Count", "GetProperty"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {IWindowsMediaLibrarySharingDeviceProperty} 

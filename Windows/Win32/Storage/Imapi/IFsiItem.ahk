@@ -32,6 +32,52 @@ class IFsiItem extends IDispatch{
     static VTableNames => ["get_Name", "get_FullPath", "get_CreationTime", "put_CreationTime", "get_LastAccessedTime", "put_LastAccessedTime", "get_LastModifiedTime", "put_LastModifiedTime", "get_IsHidden", "put_IsHidden", "FileSystemName", "FileSystemPath"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FullPath {
+        get => this.get_FullPath()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CreationTime {
+        get => this.get_CreationTime()
+        set => this.put_CreationTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastAccessedTime {
+        get => this.get_LastAccessedTime()
+        set => this.put_LastAccessedTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastModifiedTime {
+        get => this.get_LastModifiedTime()
+        set => this.put_LastModifiedTime(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsHidden {
+        get => this.get_IsHidden()
+        set => this.put_IsHidden(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_name

@@ -31,6 +31,13 @@ class IUIAutomationBoolCondition extends IUIAutomationCondition{
     static VTableNames => ["get_BooleanValue"]
 
     /**
+     * @type {BOOL} 
+     */
+    BooleanValue {
+        get => this.get_BooleanValue()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue

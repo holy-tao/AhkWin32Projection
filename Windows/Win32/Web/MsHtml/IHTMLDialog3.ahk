@@ -30,6 +30,22 @@ class IHTMLDialog3 extends IDispatch{
     static VTableNames => ["put_unadorned", "get_unadorned", "put_dialogHide", "get_dialogHide"]
 
     /**
+     * @type {BSTR} 
+     */
+    unadorned {
+        get => this.get_unadorned()
+        set => this.put_unadorned(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dialogHide {
+        get => this.get_dialogHide()
+        set => this.put_dialogHide(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

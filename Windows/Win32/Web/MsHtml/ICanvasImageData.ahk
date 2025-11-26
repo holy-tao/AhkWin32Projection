@@ -36,6 +36,27 @@ class ICanvasImageData extends IDispatch{
     static VTableNames => ["get_width", "get_height", "get_data"]
 
     /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    data {
+        get => this.get_data()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

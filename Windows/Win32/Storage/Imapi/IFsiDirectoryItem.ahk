@@ -50,6 +50,27 @@ class IFsiDirectoryItem extends IFsiItem{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_EnumFsiItems", "AddDirectory", "AddFile", "AddTree", "Add", "Remove", "RemoveTree"]
 
     /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumFsiItems} 
+     */
+    EnumFsiItems {
+        get => this.get_EnumFsiItems()
+    }
+
+    /**
      * 
      * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum

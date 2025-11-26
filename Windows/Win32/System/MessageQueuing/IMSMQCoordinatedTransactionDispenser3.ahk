@@ -30,6 +30,13 @@ class IMSMQCoordinatedTransactionDispenser3 extends IDispatch{
     static VTableNames => ["BeginTransaction", "get_Properties"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {IMSMQTransaction3} 
      */

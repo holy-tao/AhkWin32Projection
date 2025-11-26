@@ -38,6 +38,20 @@ class IWSMan extends IDispatch{
     static VTableNames => ["CreateSession", "CreateConnectionOptions", "get_CommandLine", "get_Error"]
 
     /**
+     * @type {BSTR} 
+     */
+    CommandLine {
+        get => this.get_CommandLine()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
      * 
      * @param {BSTR} connection 
      * @param {Integer} flags 

@@ -41,6 +41,107 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
     static VTableNames => ["InitializeFromTemplateName", "InitializeFromPrivateKey", "InitializeFromPublicKey", "InitializeFromCertificate", "InitializeDecode", "CheckSignature", "IsSmartCard", "get_TemplateObjectId", "get_PublicKey", "get_PrivateKey", "get_NullSigned", "get_ReuseKey", "get_OldCertificate", "get_Subject", "put_Subject", "get_CspStatuses", "get_SmimeCapabilities", "put_SmimeCapabilities", "get_SignatureInformation", "get_KeyContainerNamePrefix", "put_KeyContainerNamePrefix", "get_CryptAttributes", "get_X509Extensions", "get_CriticalExtensions", "get_SuppressOids", "get_RawDataToBeSigned", "get_Signature", "GetCspStatuses"]
 
     /**
+     * @type {IObjectId} 
+     */
+    TemplateObjectId {
+        get => this.get_TemplateObjectId()
+    }
+
+    /**
+     * @type {IX509PublicKey} 
+     */
+    PublicKey {
+        get => this.get_PublicKey()
+    }
+
+    /**
+     * @type {IX509PrivateKey} 
+     */
+    PrivateKey {
+        get => this.get_PrivateKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NullSigned {
+        get => this.get_NullSigned()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReuseKey {
+        get => this.get_ReuseKey()
+    }
+
+    /**
+     * @type {IX500DistinguishedName} 
+     */
+    Subject {
+        get => this.get_Subject()
+        set => this.put_Subject(value)
+    }
+
+    /**
+     * @type {ICspStatuses} 
+     */
+    CspStatuses {
+        get => this.get_CspStatuses()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SmimeCapabilities {
+        get => this.get_SmimeCapabilities()
+        set => this.put_SmimeCapabilities(value)
+    }
+
+    /**
+     * @type {IX509SignatureInformation} 
+     */
+    SignatureInformation {
+        get => this.get_SignatureInformation()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    KeyContainerNamePrefix {
+        get => this.get_KeyContainerNamePrefix()
+        set => this.put_KeyContainerNamePrefix(value)
+    }
+
+    /**
+     * @type {ICryptAttributes} 
+     */
+    CryptAttributes {
+        get => this.get_CryptAttributes()
+    }
+
+    /**
+     * @type {IX509Extensions} 
+     */
+    X509Extensions {
+        get => this.get_X509Extensions()
+    }
+
+    /**
+     * @type {IObjectIds} 
+     */
+    CriticalExtensions {
+        get => this.get_CriticalExtensions()
+    }
+
+    /**
+     * @type {IObjectIds} 
+     */
+    SuppressOids {
+        get => this.get_SuppressOids()
+    }
+
+    /**
      * 
      * @param {Integer} Context 
      * @param {BSTR} strTemplateName 

@@ -38,6 +38,41 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch{
     static VTableNames => ["get_Protocol", "get_LocalPort", "get_LocalIP", "get_PeerPort", "get_PeerIP"]
 
     /**
+     * @type {Integer} 
+     */
+    Protocol {
+        get => this.get_Protocol()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalPort {
+        get => this.get_LocalPort()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalIP {
+        get => this.get_LocalIP()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PeerPort {
+        get => this.get_PeerPort()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PeerIP {
+        get => this.get_PeerIP()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_protocol

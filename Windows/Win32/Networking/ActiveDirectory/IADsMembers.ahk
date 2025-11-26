@@ -33,6 +33,28 @@ class IADsMembers extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Filter", "put_Filter"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Filter {
+        get => this.get_Filter()
+        set => this.put_Filter(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

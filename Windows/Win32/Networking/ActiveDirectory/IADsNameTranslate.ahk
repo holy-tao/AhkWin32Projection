@@ -33,6 +33,13 @@ class IADsNameTranslate extends IDispatch{
     static VTableNames => ["put_ChaseReferral", "Init", "InitEx", "Set", "Get", "SetEx", "GetEx"]
 
     /**
+     * @type {HRESULT} 
+     */
+    ChaseReferral {
+        set => this.put_ChaseReferral(value)
+    }
+
+    /**
      * 
      * @param {Integer} lnChaseReferral 
      * @returns {HRESULT} 

@@ -42,6 +42,30 @@ class IDVBTuneRequest extends ITuneRequest{
     static VTableNames => ["get_ONID", "put_ONID", "get_TSID", "put_TSID", "get_SID", "put_SID"]
 
     /**
+     * @type {Integer} 
+     */
+    ONID {
+        get => this.get_ONID()
+        set => this.put_ONID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TSID {
+        get => this.get_TSID()
+        set => this.put_TSID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SID {
+        get => this.get_SID()
+        set => this.put_SID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_onid

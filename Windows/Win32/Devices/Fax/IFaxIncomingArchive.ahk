@@ -40,6 +40,68 @@ class IFaxIncomingArchive extends IDispatch{
     static VTableNames => ["get_UseArchive", "put_UseArchive", "get_ArchiveFolder", "put_ArchiveFolder", "get_SizeQuotaWarning", "put_SizeQuotaWarning", "get_HighQuotaWaterMark", "put_HighQuotaWaterMark", "get_LowQuotaWaterMark", "put_LowQuotaWaterMark", "get_AgeLimit", "put_AgeLimit", "get_SizeLow", "get_SizeHigh", "Refresh", "Save", "GetMessages", "GetMessage"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseArchive {
+        get => this.get_UseArchive()
+        set => this.put_UseArchive(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ArchiveFolder {
+        get => this.get_ArchiveFolder()
+        set => this.put_ArchiveFolder(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SizeQuotaWarning {
+        get => this.get_SizeQuotaWarning()
+        set => this.put_SizeQuotaWarning(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HighQuotaWaterMark {
+        get => this.get_HighQuotaWaterMark()
+        set => this.put_HighQuotaWaterMark(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LowQuotaWaterMark {
+        get => this.get_LowQuotaWaterMark()
+        set => this.put_LowQuotaWaterMark(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AgeLimit {
+        get => this.get_AgeLimit()
+        set => this.put_AgeLimit(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SizeLow {
+        get => this.get_SizeLow()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SizeHigh {
+        get => this.get_SizeHigh()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingarchive-get_usearchive

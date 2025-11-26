@@ -32,6 +32,14 @@ class ITMediaRecord extends IDispatch{
     static VTableNames => ["put_FileName", "get_FileName"]
 
     /**
+     * @type {BSTR} 
+     */
+    FileName {
+        get => this.get_FileName()
+        set => this.put_FileName(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrFileName 
      * @returns {HRESULT} 

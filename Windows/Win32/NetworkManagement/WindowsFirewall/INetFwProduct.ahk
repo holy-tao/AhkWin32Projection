@@ -39,6 +39,29 @@ class INetFwProduct extends IDispatch{
     static VTableNames => ["get_RuleCategories", "put_RuleCategories", "get_DisplayName", "put_DisplayName", "get_PathToSignedProductExe"]
 
     /**
+     * @type {VARIANT} 
+     */
+    RuleCategories {
+        get => this.get_RuleCategories()
+        set => this.put_RuleCategories(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PathToSignedProductExe {
+        get => this.get_PathToSignedProductExe()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_rulecategories

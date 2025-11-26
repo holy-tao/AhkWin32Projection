@@ -36,6 +36,27 @@ class IWriteSpeedDescriptor extends IDispatch{
     static VTableNames => ["get_MediaType", "get_RotationTypeIsPureCAV", "get_WriteSpeed"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RotationTypeIsPureCAV {
+        get => this.get_RotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WriteSpeed {
+        get => this.get_WriteSpeed()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_mediatype

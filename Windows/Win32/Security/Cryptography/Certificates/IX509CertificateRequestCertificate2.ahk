@@ -33,6 +33,20 @@ class IX509CertificateRequestCertificate2 extends IX509CertificateRequestCertifi
     static VTableNames => ["InitializeFromTemplate", "InitializeFromPrivateKeyTemplate", "get_PolicyServer", "get_Template"]
 
     /**
+     * @type {IX509EnrollmentPolicyServer} 
+     */
+    PolicyServer {
+        get => this.get_PolicyServer()
+    }
+
+    /**
+     * @type {IX509CertificateTemplate} 
+     */
+    Template {
+        get => this.get_Template()
+    }
+
+    /**
      * 
      * @param {Integer} context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer 

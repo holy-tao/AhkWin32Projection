@@ -32,6 +32,35 @@ class ITaskSettings3 extends ITaskSettings{
     static VTableNames => ["get_DisallowStartOnRemoteAppSession", "put_DisallowStartOnRemoteAppSession", "get_UseUnifiedSchedulingEngine", "put_UseUnifiedSchedulingEngine", "get_MaintenanceSettings", "put_MaintenanceSettings", "CreateMaintenanceSettings", "get_Volatile", "put_Volatile"]
 
     /**
+     */
+    DisallowStartOnRemoteAppSession {
+        get => this.get_DisallowStartOnRemoteAppSession()
+        set => this.put_DisallowStartOnRemoteAppSession(value)
+    }
+
+    /**
+     */
+    UseUnifiedSchedulingEngine {
+        get => this.get_UseUnifiedSchedulingEngine()
+        set => this.put_UseUnifiedSchedulingEngine(value)
+    }
+
+    /**
+     * @type {IMaintenanceSettings} 
+     */
+    MaintenanceSettings {
+        get => this.get_MaintenanceSettings()
+        set => this.put_MaintenanceSettings(value)
+    }
+
+    /**
+     */
+    Volatile {
+        get => this.get_Volatile()
+        set => this.put_Volatile(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pDisallowStart 
      * @returns {HRESULT} 

@@ -43,6 +43,22 @@ class IMSVidEVR extends IMSVidVideoRenderer{
     static VTableNames => ["get_Presenter", "put_Presenter", "put_SuppressEffects", "get_SuppressEffects"]
 
     /**
+     * @type {IMFVideoPresenter} 
+     */
+    Presenter {
+        get => this.get_Presenter()
+        set => this.put_Presenter(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SuppressEffects {
+        get => this.get_SuppressEffects()
+        set => this.put_SuppressEffects(value)
+    }
+
+    /**
      * 
      * @returns {IMFVideoPresenter} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-get_presenter

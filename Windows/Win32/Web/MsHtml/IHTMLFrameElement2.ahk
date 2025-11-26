@@ -30,6 +30,22 @@ class IHTMLFrameElement2 extends IDispatch{
     static VTableNames => ["put_height", "get_height", "put_width", "get_width"]
 
     /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

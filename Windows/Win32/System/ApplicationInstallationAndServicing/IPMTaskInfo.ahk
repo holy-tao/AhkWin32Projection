@@ -29,6 +29,132 @@ class IPMTaskInfo extends IUnknown{
     static VTableNames => ["get_ProductID", "get_TaskID", "get_NavigationPage", "get_TaskTransition", "get_RuntimeType", "get_ActivationPolicy", "get_TaskType", "get_InvocationInfo", "get_ImagePath", "get_ImageParams", "get_InstallRootFolder", "get_DataRootFolder", "get_IsSingleInstanceHost", "get_IsInteropEnabled", "get_ApplicationState", "get_InstallType", "get_Version", "get_BitsPerPixel", "get_SuppressesDehydration", "get_BackgroundExecutionAbilities", "get_IsOptedForExtendedMem"]
 
     /**
+     * @type {Guid} 
+     */
+    ProductID {
+        get => this.get_ProductID()
+    }
+
+    /**
+     */
+    TaskID {
+        get => this.get_TaskID()
+    }
+
+    /**
+     */
+    NavigationPage {
+        get => this.get_NavigationPage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TaskTransition {
+        get => this.get_TaskTransition()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RuntimeType {
+        get => this.get_RuntimeType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ActivationPolicy {
+        get => this.get_ActivationPolicy()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TaskType {
+        get => this.get_TaskType()
+    }
+
+    /**
+     */
+    ImagePath {
+        get => this.get_ImagePath()
+    }
+
+    /**
+     */
+    ImageParams {
+        get => this.get_ImageParams()
+    }
+
+    /**
+     */
+    InstallRootFolder {
+        get => this.get_InstallRootFolder()
+    }
+
+    /**
+     */
+    DataRootFolder {
+        get => this.get_DataRootFolder()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsSingleInstanceHost {
+        get => this.get_IsSingleInstanceHost()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsInteropEnabled {
+        get => this.get_IsInteropEnabled()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ApplicationState {
+        get => this.get_ApplicationState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InstallType {
+        get => this.get_InstallType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BitsPerPixel {
+        get => this.get_BitsPerPixel()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    SuppressesDehydration {
+        get => this.get_SuppressesDehydration()
+    }
+
+    /**
+     */
+    BackgroundExecutionAbilities {
+        get => this.get_BackgroundExecutionAbilities()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsOptedForExtendedMem {
+        get => this.get_IsOptedForExtendedMem()
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

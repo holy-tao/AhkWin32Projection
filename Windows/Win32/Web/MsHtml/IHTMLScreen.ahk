@@ -35,6 +35,64 @@ class IHTMLScreen extends IDispatch{
     static VTableNames => ["get_colorDepth", "put_bufferDepth", "get_bufferDepth", "get_width", "get_height", "put_updateInterval", "get_updateInterval", "get_availHeight", "get_availWidth", "get_fontSmoothingEnabled"]
 
     /**
+     * @type {Integer} 
+     */
+    colorDepth {
+        get => this.get_colorDepth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    bufferDepth {
+        get => this.get_bufferDepth()
+        set => this.put_bufferDepth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    updateInterval {
+        get => this.get_updateInterval()
+        set => this.put_updateInterval(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    availHeight {
+        get => this.get_availHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    availWidth {
+        get => this.get_availWidth()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    fontSmoothingEnabled {
+        get => this.get_fontSmoothingEnabled()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

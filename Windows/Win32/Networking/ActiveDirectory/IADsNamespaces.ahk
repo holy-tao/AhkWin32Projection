@@ -32,6 +32,14 @@ class IADsNamespaces extends IADs{
     static VTableNames => ["get_DefaultContainer", "put_DefaultContainer"]
 
     /**
+     * @type {BSTR} 
+     */
+    DefaultContainer {
+        get => this.get_DefaultContainer()
+        set => this.put_DefaultContainer(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

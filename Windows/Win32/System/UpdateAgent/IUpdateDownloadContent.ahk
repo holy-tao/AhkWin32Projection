@@ -32,6 +32,13 @@ class IUpdateDownloadContent extends IDispatch{
     static VTableNames => ["get_DownloadUrl"]
 
     /**
+     * @type {BSTR} 
+     */
+    DownloadUrl {
+        get => this.get_DownloadUrl()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent-get_downloadurl

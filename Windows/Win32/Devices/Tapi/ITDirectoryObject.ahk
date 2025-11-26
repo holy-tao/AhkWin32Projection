@@ -34,6 +34,29 @@ class ITDirectoryObject extends IDispatch{
     static VTableNames => ["get_ObjectType", "get_Name", "put_Name", "get_DialableAddrs", "EnumerateDialableAddrs", "get_SecurityDescriptor", "put_SecurityDescriptor"]
 
     /**
+     * @type {Integer} 
+     */
+    ObjectType {
+        get => this.get_ObjectType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    SecurityDescriptor {
+        get => this.get_SecurityDescriptor()
+        set => this.put_SecurityDescriptor(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_objecttype

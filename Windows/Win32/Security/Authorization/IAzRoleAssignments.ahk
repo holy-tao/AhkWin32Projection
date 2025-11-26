@@ -33,6 +33,20 @@ class IAzRoleAssignments extends IDispatch{
     static VTableNames => ["get_Item", "get_Count", "get__NewEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @param {Integer} Index 
      * @returns {VARIANT} 

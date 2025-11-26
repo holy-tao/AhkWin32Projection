@@ -36,6 +36,41 @@ class MenuItem extends IDispatch{
     static VTableNames => ["get_DisplayName", "get_LanguageIndependentName", "get_Path", "get_LanguageIndependentPath", "Execute", "get_Enabled"]
 
     /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LanguageIndependentName {
+        get => this.get_LanguageIndependentName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LanguageIndependentPath {
+        get => this.get_LanguageIndependentPath()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

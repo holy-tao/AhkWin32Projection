@@ -32,6 +32,163 @@ class IHTMLEventObj extends IDispatch{
     static VTableNames => ["get_srcElement", "get_altKey", "get_ctrlKey", "get_shiftKey", "put_returnValue", "get_returnValue", "put_cancelBubble", "get_cancelBubble", "get_fromElement", "get_toElement", "put_keyCode", "get_keyCode", "get_button", "get_type", "get_qualifier", "get_reason", "get_x", "get_y", "get_clientX", "get_clientY", "get_offsetX", "get_offsetY", "get_screenX", "get_screenY", "get_srcFilter"]
 
     /**
+     * @type {IHTMLElement} 
+     */
+    srcElement {
+        get => this.get_srcElement()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    altKey {
+        get => this.get_altKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ctrlKey {
+        get => this.get_ctrlKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    shiftKey {
+        get => this.get_shiftKey()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    returnValue {
+        get => this.get_returnValue()
+        set => this.put_returnValue(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    cancelBubble {
+        get => this.get_cancelBubble()
+        set => this.put_cancelBubble(value)
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    fromElement {
+        get => this.get_fromElement()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    toElement {
+        get => this.get_toElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    keyCode {
+        get => this.get_keyCode()
+        set => this.put_keyCode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    button {
+        get => this.get_button()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    qualifier {
+        get => this.get_qualifier()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    reason {
+        get => this.get_reason()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    x {
+        get => this.get_x()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    y {
+        get => this.get_y()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientX {
+        get => this.get_clientX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientY {
+        get => this.get_clientY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetX {
+        get => this.get_offsetX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetY {
+        get => this.get_offsetY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenX {
+        get => this.get_screenX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenY {
+        get => this.get_screenY()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    srcFilter {
+        get => this.get_srcFilter()
+    }
+
+    /**
      * 
      * @returns {IHTMLElement} 
      */

@@ -32,6 +32,34 @@ class IUIAutomationValuePattern extends IUnknown{
     static VTableNames => ["SetValue", "get_CurrentValue", "get_CurrentIsReadOnly", "get_CachedValue", "get_CachedIsReadOnly"]
 
     /**
+     * @type {BSTR} 
+     */
+    CurrentValue {
+        get => this.get_CurrentValue()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsReadOnly {
+        get => this.get_CurrentIsReadOnly()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedValue {
+        get => this.get_CachedValue()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsReadOnly {
+        get => this.get_CachedIsReadOnly()
+    }
+
+    /**
      * 
      * @param {BSTR} val 
      * @returns {HRESULT} 

@@ -29,6 +29,13 @@ class IFeedItem2 extends IFeedItem{
     static VTableNames => ["get_EffectiveId"]
 
     /**
+     * @type {Integer} 
+     */
+    EffectiveId {
+        get => this.get_EffectiveId()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -43,6 +43,83 @@ class IFaxInboundRoutingExtension extends IDispatch{
     static VTableNames => ["get_FriendlyName", "get_ImageName", "get_UniqueName", "get_MajorVersion", "get_MinorVersion", "get_MajorBuild", "get_MinorBuild", "get_Debug", "get_Status", "get_InitErrorCode", "get_Methods"]
 
     /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ImageName {
+        get => this.get_ImageName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UniqueName {
+        get => this.get_UniqueName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorBuild {
+        get => this.get_MajorBuild()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorBuild {
+        get => this.get_MinorBuild()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Debug {
+        get => this.get_Debug()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InitErrorCode {
+        get => this.get_InitErrorCode()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Methods {
+        get => this.get_Methods()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_friendlyname

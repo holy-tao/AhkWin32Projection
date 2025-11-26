@@ -51,6 +51,69 @@ class INetFwOpenPort extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_IpVersion", "put_IpVersion", "get_Protocol", "put_Protocol", "get_Port", "put_Port", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled", "get_BuiltIn"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IpVersion {
+        get => this.get_IpVersion()
+        set => this.put_IpVersion(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Protocol {
+        get => this.get_Protocol()
+        set => this.put_Protocol(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Port {
+        get => this.get_Port()
+        set => this.put_Port(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Scope {
+        get => this.get_Scope()
+        set => this.put_Scope(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteAddresses {
+        get => this.get_RemoteAddresses()
+        set => this.put_RemoteAddresses(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BuiltIn {
+        get => this.get_BuiltIn()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_name

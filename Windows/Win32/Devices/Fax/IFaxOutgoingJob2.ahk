@@ -36,6 +36,27 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
     static VTableNames => ["get_HasCoverPage", "get_ReceiptAddress", "get_ScheduleType"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    HasCoverPage {
+        get => this.get_HasCoverPage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReceiptAddress {
+        get => this.get_ReceiptAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScheduleType {
+        get => this.get_ScheduleType()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_hascoverpage

@@ -31,6 +31,21 @@ class IGPMDomain3 extends IGPMDomain2{
     static VTableNames => ["GenerateReport", "get_InfrastructureDC", "put_InfrastructureDC", "put_InfrastructureFlags"]
 
     /**
+     * @type {BSTR} 
+     */
+    InfrastructureDC {
+        get => this.get_InfrastructureDC()
+        set => this.put_InfrastructureDC(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    InfrastructureFlags {
+        set => this.put_InfrastructureFlags(value)
+    }
+
+    /**
      * 
      * @param {Integer} gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 

@@ -32,6 +32,13 @@ class ICertPropertyRequestOriginator extends ICertProperty{
     static VTableNames => ["Initialize", "InitializeFromLocalRequestOriginator", "get_RequestOriginator"]
 
     /**
+     * @type {BSTR} 
+     */
+    RequestOriginator {
+        get => this.get_RequestOriginator()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} strRequestOriginator 
      * @returns {HRESULT} <ul>

@@ -36,6 +36,13 @@ class ISVGViewElement extends IDispatch{
     static VTableNames => ["putref_viewTarget", "get_viewTarget"]
 
     /**
+     * @type {ISVGStringList} 
+     */
+    viewTarget {
+        get => this.get_viewTarget()
+    }
+
+    /**
      * 
      * @param {ISVGStringList} v 
      * @returns {HRESULT} 

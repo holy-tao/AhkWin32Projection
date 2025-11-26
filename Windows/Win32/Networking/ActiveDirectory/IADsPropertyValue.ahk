@@ -33,6 +33,102 @@ class IADsPropertyValue extends IDispatch{
     static VTableNames => ["Clear", "get_ADsType", "put_ADsType", "get_DNString", "put_DNString", "get_CaseExactString", "put_CaseExactString", "get_CaseIgnoreString", "put_CaseIgnoreString", "get_PrintableString", "put_PrintableString", "get_NumericString", "put_NumericString", "get_Boolean", "put_Boolean", "get_Integer", "put_Integer", "get_OctetString", "put_OctetString", "get_SecurityDescriptor", "put_SecurityDescriptor", "get_LargeInteger", "put_LargeInteger", "get_UTCTime", "put_UTCTime"]
 
     /**
+     * @type {Integer} 
+     */
+    ADsType {
+        get => this.get_ADsType()
+        set => this.put_ADsType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DNString {
+        get => this.get_DNString()
+        set => this.put_DNString(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CaseExactString {
+        get => this.get_CaseExactString()
+        set => this.put_CaseExactString(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CaseIgnoreString {
+        get => this.get_CaseIgnoreString()
+        set => this.put_CaseIgnoreString(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PrintableString {
+        get => this.get_PrintableString()
+        set => this.put_PrintableString(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NumericString {
+        get => this.get_NumericString()
+        set => this.put_NumericString(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Boolean {
+        get => this.get_Boolean()
+        set => this.put_Boolean(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Integer {
+        get => this.get_Integer()
+        set => this.put_Integer(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    OctetString {
+        get => this.get_OctetString()
+        set => this.put_OctetString(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    SecurityDescriptor {
+        get => this.get_SecurityDescriptor()
+        set => this.put_SecurityDescriptor(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    LargeInteger {
+        get => this.get_LargeInteger()
+        set => this.put_LargeInteger(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    UTCTime {
+        get => this.get_UTCTime()
+        set => this.put_UTCTime(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue-clear

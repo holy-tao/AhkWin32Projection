@@ -36,6 +36,20 @@ class IHTMLCSSNamespaceRule extends IDispatch{
     static VTableNames => ["get_namespaceURI", "get_prefix"]
 
     /**
+     * @type {BSTR} 
+     */
+    namespaceURI {
+        get => this.get_namespaceURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    prefix {
+        get => this.get_prefix()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

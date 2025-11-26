@@ -33,6 +33,22 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
     static VTableNames => ["InitializeFromTemplateName", "InitializeFromCertificate", "InitializeFromInnerRequest", "InitializeDecode", "get_RequesterName", "put_RequesterName", "get_SignerCertificate", "put_SignerCertificate"]
 
     /**
+     * @type {BSTR} 
+     */
+    RequesterName {
+        get => this.get_RequesterName()
+        set => this.put_RequesterName(value)
+    }
+
+    /**
+     * @type {ISignerCertificate} 
+     */
+    SignerCertificate {
+        get => this.get_SignerCertificate()
+        set => this.put_SignerCertificate(value)
+    }
+
+    /**
      * 
      * @param {Integer} Context 
      * @param {BSTR} strTemplateName 

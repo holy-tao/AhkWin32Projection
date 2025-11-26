@@ -84,6 +84,107 @@ class IDataCollector extends IDispatch{
     static VTableNames => ["get_DataCollectorSet", "put_DataCollectorSet", "get_DataCollectorType", "get_FileName", "put_FileName", "get_FileNameFormat", "put_FileNameFormat", "get_FileNameFormatPattern", "put_FileNameFormatPattern", "get_LatestOutputLocation", "put_LatestOutputLocation", "get_LogAppend", "put_LogAppend", "get_LogCircular", "put_LogCircular", "get_LogOverwrite", "put_LogOverwrite", "get_Name", "put_Name", "get_OutputLocation", "get_Index", "put_Index", "get_Xml", "SetXml", "CreateOutputLocation"]
 
     /**
+     * @type {IDataCollectorSet} 
+     */
+    DataCollectorSet {
+        get => this.get_DataCollectorSet()
+        set => this.put_DataCollectorSet(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataCollectorType {
+        get => this.get_DataCollectorType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FileName {
+        get => this.get_FileName()
+        set => this.put_FileName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileNameFormat {
+        get => this.get_FileNameFormat()
+        set => this.put_FileNameFormat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FileNameFormatPattern {
+        get => this.get_FileNameFormatPattern()
+        set => this.put_FileNameFormatPattern(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LatestOutputLocation {
+        get => this.get_LatestOutputLocation()
+        set => this.put_LatestOutputLocation(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogAppend {
+        get => this.get_LogAppend()
+        set => this.put_LogAppend(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogCircular {
+        get => this.get_LogCircular()
+        set => this.put_LogCircular(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogOverwrite {
+        get => this.get_LogOverwrite()
+        set => this.put_LogOverwrite(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OutputLocation {
+        get => this.get_OutputLocation()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Index {
+        get => this.get_Index()
+        set => this.put_Index(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Xml {
+        get => this.get_Xml()
+    }
+
+    /**
      * 
      * @returns {IDataCollectorSet} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_datacollectorset

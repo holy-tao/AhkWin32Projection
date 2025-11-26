@@ -31,6 +31,34 @@ class IHTMLCurrentStyle4 extends IDispatch{
     static VTableNames => ["get_msInterpolationMode", "get_maxHeight", "get_minWidth", "get_maxWidth"]
 
     /**
+     * @type {BSTR} 
+     */
+    msInterpolationMode {
+        get => this.get_msInterpolationMode()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    maxHeight {
+        get => this.get_maxHeight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    minWidth {
+        get => this.get_minWidth()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    maxWidth {
+        get => this.get_maxWidth()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

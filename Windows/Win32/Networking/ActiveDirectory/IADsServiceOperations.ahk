@@ -32,6 +32,13 @@ class IADsServiceOperations extends IADs{
     static VTableNames => ["get_Status", "Start", "Stop", "Pause", "Continue", "SetPassword"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -34,6 +34,34 @@ class IMtsEventInfo extends IDispatch{
     static VTableNames => ["get_Names", "get_DisplayName", "get_EventID", "get_Count", "get_Value"]
 
     /**
+     * @type {IUnknown} 
+     */
+    Names {
+        get => this.get_Names()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EventID {
+        get => this.get_EventID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_names

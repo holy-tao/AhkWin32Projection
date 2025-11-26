@@ -33,6 +33,20 @@ class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7{
     static VTableNames => ["InitializeFromTemplate", "get_PolicyServer", "get_Template", "CheckCertificateSignature"]
 
     /**
+     * @type {IX509EnrollmentPolicyServer} 
+     */
+    PolicyServer {
+        get => this.get_PolicyServer()
+    }
+
+    /**
+     * @type {IX509CertificateTemplate} 
+     */
+    Template {
+        get => this.get_Template()
+    }
+
+    /**
      * 
      * @param {Integer} context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer 

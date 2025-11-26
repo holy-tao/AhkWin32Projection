@@ -39,6 +39,41 @@ class IWinHttpRequest extends IDispatch{
     static VTableNames => ["SetProxy", "SetCredentials", "Open", "SetRequestHeader", "GetResponseHeader", "GetAllResponseHeaders", "Send", "get_Status", "get_StatusText", "get_ResponseText", "get_ResponseBody", "get_ResponseStream", "get_Option", "put_Option", "WaitForResponse", "Abort", "SetTimeouts", "SetClientCertificate", "SetAutoLogonPolicy"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ResponseText {
+        get => this.get_ResponseText()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ResponseBody {
+        get => this.get_ResponseBody()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ResponseStream {
+        get => this.get_ResponseStream()
+    }
+
+    /**
      * 
      * @param {Integer} ProxySetting 
      * @param {VARIANT} ProxyServer 

@@ -42,6 +42,20 @@ class IDailyTrigger extends ITrigger{
     static VTableNames => ["get_DaysInterval", "put_DaysInterval", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     */
+    DaysInterval {
+        get => this.get_DaysInterval()
+        set => this.put_DaysInterval(value)
+    }
+
+    /**
+     */
+    RandomDelay {
+        get => this.get_RandomDelay()
+        set => this.put_RandomDelay(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 

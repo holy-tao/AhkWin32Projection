@@ -31,6 +31,82 @@ class IWebBrowserApp extends IWebBrowser{
     static VTableNames => ["Quit", "ClientToWindow", "PutProperty", "GetProperty", "get_Name", "get_HWND", "get_FullName", "get_Path", "get_Visible", "put_Visible", "get_StatusBar", "put_StatusBar", "get_StatusText", "put_StatusText", "get_ToolBar", "put_ToolBar", "get_MenuBar", "put_MenuBar", "get_FullScreen", "put_FullScreen"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {SHANDLE_PTR} 
+     */
+    HWND {
+        get => this.get_HWND()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FullName {
+        get => this.get_FullName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    StatusBar {
+        get => this.get_StatusBar()
+        set => this.put_StatusBar(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+        set => this.put_StatusText(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ToolBar {
+        get => this.get_ToolBar()
+        set => this.put_ToolBar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MenuBar {
+        get => this.get_MenuBar()
+        set => this.put_MenuBar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FullScreen {
+        get => this.get_FullScreen()
+        set => this.put_FullScreen(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

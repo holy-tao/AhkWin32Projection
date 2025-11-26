@@ -30,6 +30,41 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
     static VTableNames => ["get_UserInputRequired", "get_UnitType", "get_DataType", "get_RangeMin", "get_RangeMax"]
 
     /**
+     * @type {BOOL} 
+     */
+    UserInputRequired {
+        get => this.get_UserInputRequired()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UnitType {
+        get => this.get_UnitType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataType {
+        get => this.get_DataType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RangeMin {
+        get => this.get_RangeMin()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RangeMax {
+        get => this.get_RangeMax()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      */

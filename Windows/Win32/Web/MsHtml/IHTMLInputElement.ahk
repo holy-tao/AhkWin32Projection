@@ -39,6 +39,267 @@ class IHTMLInputElement extends IDispatch{
     static VTableNames => ["put_type", "get_type", "put_value", "get_value", "put_name", "get_name", "put_status", "get_status", "put_disabled", "get_disabled", "get_form", "put_size", "get_size", "put_maxLength", "get_maxLength", "select", "put_onchange", "get_onchange", "put_onselect", "get_onselect", "put_defaultValue", "get_defaultValue", "put_readOnly", "get_readOnly", "createTextRange", "put_indeterminate", "get_indeterminate", "put_defaultChecked", "get_defaultChecked", "put_checked", "get_checked", "put_border", "get_border", "put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_alt", "get_alt", "put_src", "get_src", "put_lowsrc", "get_lowsrc", "put_vrml", "get_vrml", "put_dynsrc", "get_dynsrc", "get_readyState", "get_complete", "put_loop", "get_loop", "put_align", "get_align", "put_onload", "get_onload", "put_onerror", "get_onerror", "put_onabort", "get_onabort", "put_width", "get_width", "put_height", "get_height", "put_start", "get_start"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    status {
+        get => this.get_status()
+        set => this.put_status(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    size {
+        get => this.get_size()
+        set => this.put_size(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    maxLength {
+        get => this.get_maxLength()
+        set => this.put_maxLength(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselect {
+        get => this.get_onselect()
+        set => this.put_onselect(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultValue {
+        get => this.get_defaultValue()
+        set => this.put_defaultValue(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    readOnly {
+        get => this.get_readOnly()
+        set => this.put_readOnly(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    indeterminate {
+        get => this.get_indeterminate()
+        set => this.put_indeterminate(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    defaultChecked {
+        get => this.get_defaultChecked()
+        set => this.put_defaultChecked(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    checked {
+        get => this.get_checked()
+        set => this.put_checked(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    vspace {
+        get => this.get_vspace()
+        set => this.put_vspace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    hspace {
+        get => this.get_hspace()
+        set => this.put_hspace(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alt {
+        get => this.get_alt()
+        set => this.put_alt(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lowsrc {
+        get => this.get_lowsrc()
+        set => this.put_lowsrc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vrml {
+        get => this.get_vrml()
+        set => this.put_vrml(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dynsrc {
+        get => this.get_dynsrc()
+        set => this.put_dynsrc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    complete {
+        get => this.get_complete()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    loop {
+        get => this.get_loop()
+        set => this.put_loop(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onabort {
+        get => this.get_onabort()
+        set => this.put_onabort(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    start {
+        get => this.get_start()
+        set => this.put_start(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

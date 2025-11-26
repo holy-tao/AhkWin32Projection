@@ -30,6 +30,14 @@ class IHTMLMetaElement3 extends IDispatch{
     static VTableNames => ["put_url", "get_url"]
 
     /**
+     * @type {BSTR} 
+     */
+    url {
+        get => this.get_url()
+        set => this.put_url(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -29,6 +29,22 @@ class IHTMLInputTextElement2 extends IDispatch{
     static VTableNames => ["put_selectionStart", "get_selectionStart", "put_selectionEnd", "get_selectionEnd", "setSelectionRange"]
 
     /**
+     * @type {Integer} 
+     */
+    selectionStart {
+        get => this.get_selectionStart()
+        set => this.put_selectionStart(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    selectionEnd {
+        get => this.get_selectionEnd()
+        set => this.put_selectionEnd(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

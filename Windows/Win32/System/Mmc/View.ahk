@@ -44,6 +44,93 @@ class View extends IDispatch{
     static VTableNames => ["get_ActiveScopeNode", "put_ActiveScopeNode", "get_Selection", "get_ListItems", "SnapinScopeObject", "SnapinSelectionObject", "Is", "get_Document", "SelectAll", "Select", "Deselect", "IsSelected", "DisplayScopeNodePropertySheet", "DisplaySelectionPropertySheet", "CopyScopeNode", "CopySelection", "DeleteScopeNode", "DeleteSelection", "RenameScopeNode", "RenameSelectedItem", "get_ScopeNodeContextMenu", "get_SelectionContextMenu", "RefreshScopeNode", "RefreshSelection", "ExecuteSelectionMenuItem", "ExecuteScopeNodeMenuItem", "ExecuteShellCommand", "get_Frame", "Close", "get_ScopeTreeVisible", "put_ScopeTreeVisible", "Back", "Forward", "put_StatusBarText", "get_Memento", "ViewMemento", "get_Columns", "get_CellContents", "ExportList", "get_ListViewMode", "put_ListViewMode", "get_ControlObject"]
 
     /**
+     * @type {Node} 
+     */
+    ActiveScopeNode {
+        get => this.get_ActiveScopeNode()
+        set => this.put_ActiveScopeNode(value)
+    }
+
+    /**
+     * @type {Nodes} 
+     */
+    Selection {
+        get => this.get_Selection()
+    }
+
+    /**
+     * @type {Nodes} 
+     */
+    ListItems {
+        get => this.get_ListItems()
+    }
+
+    /**
+     * @type {Document} 
+     */
+    Document {
+        get => this.get_Document()
+    }
+
+    /**
+     * @type {ContextMenu} 
+     */
+    SelectionContextMenu {
+        get => this.get_SelectionContextMenu()
+    }
+
+    /**
+     * @type {Frame} 
+     */
+    Frame {
+        get => this.get_Frame()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ScopeTreeVisible {
+        get => this.get_ScopeTreeVisible()
+        set => this.put_ScopeTreeVisible(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    StatusBarText {
+        set => this.put_StatusBarText(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Memento {
+        get => this.get_Memento()
+    }
+
+    /**
+     * @type {Columns} 
+     */
+    Columns {
+        get => this.get_Columns()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ListViewMode {
+        get => this.get_ListViewMode()
+        set => this.put_ListViewMode(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    ControlObject {
+        get => this.get_ControlObject()
+    }
+
+    /**
      * 
      * @returns {Node} 
      */

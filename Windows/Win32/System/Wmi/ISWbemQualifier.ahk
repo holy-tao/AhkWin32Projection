@@ -37,6 +37,59 @@ class ISWbemQualifier extends IDispatch{
     static VTableNames => ["get_Value", "put_Value", "get_Name", "get_IsLocal", "get_PropagatesToSubclass", "put_PropagatesToSubclass", "get_PropagatesToInstance", "put_PropagatesToInstance", "get_IsOverridable", "put_IsOverridable", "get_IsAmended"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsLocal {
+        get => this.get_IsLocal()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PropagatesToSubclass {
+        get => this.get_PropagatesToSubclass()
+        set => this.put_PropagatesToSubclass(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PropagatesToInstance {
+        get => this.get_PropagatesToInstance()
+        set => this.put_PropagatesToInstance(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsOverridable {
+        get => this.get_IsOverridable()
+        set => this.put_IsOverridable(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsAmended {
+        get => this.get_IsAmended()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

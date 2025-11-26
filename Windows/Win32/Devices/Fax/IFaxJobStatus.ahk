@@ -43,6 +43,125 @@ class IFaxJobStatus extends IDispatch{
     static VTableNames => ["get_Status", "get_Pages", "get_Size", "get_CurrentPage", "get_DeviceId", "get_CSID", "get_TSID", "get_ExtendedStatusCode", "get_ExtendedStatus", "get_AvailableOperations", "get_Retries", "get_JobType", "get_ScheduledTime", "get_TransmissionStart", "get_TransmissionEnd", "get_CallerId", "get_RoutingInformation"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Pages {
+        get => this.get_Pages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPage {
+        get => this.get_CurrentPage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceId {
+        get => this.get_DeviceId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSID {
+        get => this.get_CSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExtendedStatusCode {
+        get => this.get_ExtendedStatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtendedStatus {
+        get => this.get_ExtendedStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AvailableOperations {
+        get => this.get_AvailableOperations()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    JobType {
+        get => this.get_JobType()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ScheduledTime {
+        get => this.get_ScheduledTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionStart {
+        get => this.get_TransmissionStart()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionEnd {
+        get => this.get_TransmissionEnd()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CallerId {
+        get => this.get_CallerId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RoutingInformation {
+        get => this.get_RoutingInformation()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_status

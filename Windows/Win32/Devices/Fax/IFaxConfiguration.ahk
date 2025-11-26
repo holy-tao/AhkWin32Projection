@@ -42,6 +42,172 @@ class IFaxConfiguration extends IDispatch{
     static VTableNames => ["get_UseArchive", "put_UseArchive", "get_ArchiveLocation", "put_ArchiveLocation", "get_SizeQuotaWarning", "put_SizeQuotaWarning", "get_HighQuotaWaterMark", "put_HighQuotaWaterMark", "get_LowQuotaWaterMark", "put_LowQuotaWaterMark", "get_ArchiveAgeLimit", "put_ArchiveAgeLimit", "get_ArchiveSizeLow", "get_ArchiveSizeHigh", "get_OutgoingQueueBlocked", "put_OutgoingQueueBlocked", "get_OutgoingQueuePaused", "put_OutgoingQueuePaused", "get_AllowPersonalCoverPages", "put_AllowPersonalCoverPages", "get_UseDeviceTSID", "put_UseDeviceTSID", "get_Retries", "put_Retries", "get_RetryDelay", "put_RetryDelay", "get_DiscountRateStart", "put_DiscountRateStart", "get_DiscountRateEnd", "put_DiscountRateEnd", "get_OutgoingQueueAgeLimit", "put_OutgoingQueueAgeLimit", "get_Branding", "put_Branding", "get_IncomingQueueBlocked", "put_IncomingQueueBlocked", "get_AutoCreateAccountOnConnect", "put_AutoCreateAccountOnConnect", "get_IncomingFaxesArePublic", "put_IncomingFaxesArePublic", "Refresh", "Save"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseArchive {
+        get => this.get_UseArchive()
+        set => this.put_UseArchive(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ArchiveLocation {
+        get => this.get_ArchiveLocation()
+        set => this.put_ArchiveLocation(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SizeQuotaWarning {
+        get => this.get_SizeQuotaWarning()
+        set => this.put_SizeQuotaWarning(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HighQuotaWaterMark {
+        get => this.get_HighQuotaWaterMark()
+        set => this.put_HighQuotaWaterMark(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LowQuotaWaterMark {
+        get => this.get_LowQuotaWaterMark()
+        set => this.put_LowQuotaWaterMark(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ArchiveAgeLimit {
+        get => this.get_ArchiveAgeLimit()
+        set => this.put_ArchiveAgeLimit(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ArchiveSizeLow {
+        get => this.get_ArchiveSizeLow()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ArchiveSizeHigh {
+        get => this.get_ArchiveSizeHigh()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    OutgoingQueueBlocked {
+        get => this.get_OutgoingQueueBlocked()
+        set => this.put_OutgoingQueueBlocked(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    OutgoingQueuePaused {
+        get => this.get_OutgoingQueuePaused()
+        set => this.put_OutgoingQueuePaused(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AllowPersonalCoverPages {
+        get => this.get_AllowPersonalCoverPages()
+        set => this.put_AllowPersonalCoverPages(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseDeviceTSID {
+        get => this.get_UseDeviceTSID()
+        set => this.put_UseDeviceTSID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+        set => this.put_Retries(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RetryDelay {
+        get => this.get_RetryDelay()
+        set => this.put_RetryDelay(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DiscountRateStart {
+        get => this.get_DiscountRateStart()
+        set => this.put_DiscountRateStart(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DiscountRateEnd {
+        get => this.get_DiscountRateEnd()
+        set => this.put_DiscountRateEnd(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OutgoingQueueAgeLimit {
+        get => this.get_OutgoingQueueAgeLimit()
+        set => this.put_OutgoingQueueAgeLimit(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Branding {
+        get => this.get_Branding()
+        set => this.put_Branding(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IncomingQueueBlocked {
+        get => this.get_IncomingQueueBlocked()
+        set => this.put_IncomingQueueBlocked(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoCreateAccountOnConnect {
+        get => this.get_AutoCreateAccountOnConnect()
+        set => this.put_AutoCreateAccountOnConnect(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IncomingFaxesArePublic {
+        get => this.get_IncomingFaxesArePublic()
+        set => this.put_IncomingFaxesArePublic(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_usearchive

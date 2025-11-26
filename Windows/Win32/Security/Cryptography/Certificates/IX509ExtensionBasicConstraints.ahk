@@ -32,6 +32,20 @@ class IX509ExtensionBasicConstraints extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_IsCA", "get_PathLenConstraint"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsCA {
+        get => this.get_IsCA()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PathLenConstraint {
+        get => this.get_PathLenConstraint()
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} IsCA 
      * @param {Integer} PathLenConstraint 

@@ -31,6 +31,20 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
     static VTableNames => ["get_CurrentHeadingLevel", "get_CachedHeadingLevel"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentHeadingLevel {
+        get => this.get_CurrentHeadingLevel()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedHeadingLevel {
+        get => this.get_CachedHeadingLevel()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel

@@ -43,6 +43,41 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
     static VTableNames => ["get_Start", "get_RecordingAttribute", "CurrentRatings", "MaxRatingsLevel", "put_BlockUnrated", "put_UnratedDelay", "get_SBESource"]
 
     /**
+     * @type {Integer} 
+     */
+    Start {
+        get => this.get_Start()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    RecordingAttribute {
+        get => this.get_RecordingAttribute()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    BlockUnrated {
+        set => this.put_BlockUnrated(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    UnratedDelay {
+        set => this.put_UnratedDelay(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    SBESource {
+        get => this.get_SBESource()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_start

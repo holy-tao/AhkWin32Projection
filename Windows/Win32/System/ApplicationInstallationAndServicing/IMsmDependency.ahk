@@ -31,6 +31,24 @@ class IMsmDependency extends IDispatch{
     static VTableNames => ["get_Module", "get_Language", "get_Version"]
 
     /**
+     */
+    Module {
+        get => this.get_Module()
+    }
+
+    /**
+     */
+    Language {
+        get => this.get_Language()
+    }
+
+    /**
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} Module 
      * @returns {HRESULT} 

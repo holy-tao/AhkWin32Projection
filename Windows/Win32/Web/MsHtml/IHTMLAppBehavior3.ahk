@@ -30,6 +30,14 @@ class IHTMLAppBehavior3 extends IDispatch{
     static VTableNames => ["put_navigable", "get_navigable"]
 
     /**
+     * @type {BSTR} 
+     */
+    navigable {
+        get => this.get_navigable()
+        set => this.put_navigable(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

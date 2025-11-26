@@ -35,6 +35,48 @@ class IShellFolderViewDual extends IDispatch{
     static VTableNames => ["get_Application", "get_Parent", "get_Folder", "SelectedItems", "get_FocusedItem", "SelectItem", "PopupItemMenu", "get_Script", "get_ViewOptions"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {Folder} 
+     */
+    Folder {
+        get => this.get_Folder()
+    }
+
+    /**
+     * @type {FolderItem} 
+     */
+    FocusedItem {
+        get => this.get_FocusedItem()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Script {
+        get => this.get_Script()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ViewOptions {
+        get => this.get_ViewOptions()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_application

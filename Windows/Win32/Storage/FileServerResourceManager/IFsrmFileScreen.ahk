@@ -42,6 +42,41 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     static VTableNames => ["get_Path", "get_SourceTemplateName", "get_MatchesSourceTemplate", "get_UserSid", "get_UserAccount", "ApplyTemplate"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SourceTemplateName {
+        get => this.get_SourceTemplateName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MatchesSourceTemplate {
+        get => this.get_MatchesSourceTemplate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserSid {
+        get => this.get_UserSid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserAccount {
+        get => this.get_UserAccount()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path

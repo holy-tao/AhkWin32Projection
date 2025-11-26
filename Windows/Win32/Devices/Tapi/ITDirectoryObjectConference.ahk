@@ -32,6 +32,69 @@ class ITDirectoryObjectConference extends IDispatch{
     static VTableNames => ["get_Protocol", "get_Originator", "put_Originator", "get_AdvertisingScope", "put_AdvertisingScope", "get_Url", "put_Url", "get_Description", "put_Description", "get_IsEncrypted", "put_IsEncrypted", "get_StartTime", "put_StartTime", "get_StopTime", "put_StopTime"]
 
     /**
+     * @type {BSTR} 
+     */
+    Protocol {
+        get => this.get_Protocol()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Originator {
+        get => this.get_Originator()
+        set => this.put_Originator(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AdvertisingScope {
+        get => this.get_AdvertisingScope()
+        set => this.put_AdvertisingScope(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Url {
+        get => this.get_Url()
+        set => this.put_Url(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsEncrypted {
+        get => this.get_IsEncrypted()
+        set => this.put_IsEncrypted(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StopTime {
+        get => this.get_StopTime()
+        set => this.put_StopTime(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_protocol

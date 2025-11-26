@@ -42,6 +42,70 @@ class IFaxReceiptOptions extends IDispatch{
     static VTableNames => ["get_AuthenticationType", "put_AuthenticationType", "get_SMTPServer", "put_SMTPServer", "get_SMTPPort", "put_SMTPPort", "get_SMTPSender", "put_SMTPSender", "get_SMTPUser", "put_SMTPUser", "get_AllowedReceipts", "put_AllowedReceipts", "get_SMTPPassword", "put_SMTPPassword", "Refresh", "Save", "get_UseForInboundRouting", "put_UseForInboundRouting"]
 
     /**
+     * @type {Integer} 
+     */
+    AuthenticationType {
+        get => this.get_AuthenticationType()
+        set => this.put_AuthenticationType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SMTPServer {
+        get => this.get_SMTPServer()
+        set => this.put_SMTPServer(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SMTPPort {
+        get => this.get_SMTPPort()
+        set => this.put_SMTPPort(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SMTPSender {
+        get => this.get_SMTPSender()
+        set => this.put_SMTPSender(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SMTPUser {
+        get => this.get_SMTPUser()
+        set => this.put_SMTPUser(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AllowedReceipts {
+        get => this.get_AllowedReceipts()
+        set => this.put_AllowedReceipts(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SMTPPassword {
+        get => this.get_SMTPPassword()
+        set => this.put_SMTPPassword(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseForInboundRouting {
+        get => this.get_UseForInboundRouting()
+        set => this.put_UseForInboundRouting(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_authenticationtype

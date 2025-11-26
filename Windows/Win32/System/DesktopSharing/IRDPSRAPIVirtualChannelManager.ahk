@@ -34,6 +34,13 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "CreateVirtualChannel"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get__newenum

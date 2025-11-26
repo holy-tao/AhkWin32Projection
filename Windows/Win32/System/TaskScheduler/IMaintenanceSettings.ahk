@@ -32,6 +32,27 @@ class IMaintenanceSettings extends IDispatch{
     static VTableNames => ["put_Period", "get_Period", "put_Deadline", "get_Deadline", "put_Exclusive", "get_Exclusive"]
 
     /**
+     */
+    Period {
+        get => this.get_Period()
+        set => this.put_Period(value)
+    }
+
+    /**
+     */
+    Deadline {
+        get => this.get_Deadline()
+        set => this.put_Deadline(value)
+    }
+
+    /**
+     */
+    Exclusive {
+        get => this.get_Exclusive()
+        set => this.put_Exclusive(value)
+    }
+
+    /**
      * 
      * @param {BSTR} value 
      * @returns {HRESULT} 

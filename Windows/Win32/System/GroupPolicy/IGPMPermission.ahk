@@ -305,6 +305,41 @@ class IGPMPermission extends IDispatch{
     static VTableNames => ["get_Inherited", "get_Inheritable", "get_Denied", "get_Permission", "get_Trustee"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Inherited {
+        get => this.get_Inherited()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Inheritable {
+        get => this.get_Inheritable()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Denied {
+        get => this.get_Denied()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Permission {
+        get => this.get_Permission()
+    }
+
+    /**
+     * @type {IGPMTrustee} 
+     */
+    Trustee {
+        get => this.get_Trustee()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

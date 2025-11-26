@@ -38,6 +38,83 @@ class IAMNetShowConfig extends IDispatch{
     static VTableNames => ["get_BufferingTime", "put_BufferingTime", "get_UseFixedUDPPort", "put_UseFixedUDPPort", "get_FixedUDPPort", "put_FixedUDPPort", "get_UseHTTPProxy", "put_UseHTTPProxy", "get_EnableAutoProxy", "put_EnableAutoProxy", "get_HTTPProxyHost", "put_HTTPProxyHost", "get_HTTPProxyPort", "put_HTTPProxyPort", "get_EnableMulticast", "put_EnableMulticast", "get_EnableUDP", "put_EnableUDP", "get_EnableTCP", "put_EnableTCP", "get_EnableHTTP", "put_EnableHTTP"]
 
     /**
+     */
+    BufferingTime {
+        get => this.get_BufferingTime()
+        set => this.put_BufferingTime(value)
+    }
+
+    /**
+     */
+    UseFixedUDPPort {
+        get => this.get_UseFixedUDPPort()
+        set => this.put_UseFixedUDPPort(value)
+    }
+
+    /**
+     */
+    FixedUDPPort {
+        get => this.get_FixedUDPPort()
+        set => this.put_FixedUDPPort(value)
+    }
+
+    /**
+     */
+    UseHTTPProxy {
+        get => this.get_UseHTTPProxy()
+        set => this.put_UseHTTPProxy(value)
+    }
+
+    /**
+     */
+    EnableAutoProxy {
+        get => this.get_EnableAutoProxy()
+        set => this.put_EnableAutoProxy(value)
+    }
+
+    /**
+     */
+    HTTPProxyHost {
+        get => this.get_HTTPProxyHost()
+        set => this.put_HTTPProxyHost(value)
+    }
+
+    /**
+     */
+    HTTPProxyPort {
+        get => this.get_HTTPProxyPort()
+        set => this.put_HTTPProxyPort(value)
+    }
+
+    /**
+     */
+    EnableMulticast {
+        get => this.get_EnableMulticast()
+        set => this.put_EnableMulticast(value)
+    }
+
+    /**
+     */
+    EnableUDP {
+        get => this.get_EnableUDP()
+        set => this.put_EnableUDP(value)
+    }
+
+    /**
+     */
+    EnableTCP {
+        get => this.get_EnableTCP()
+        set => this.put_EnableTCP(value)
+    }
+
+    /**
+     */
+    EnableHTTP {
+        get => this.get_EnableHTTP()
+        set => this.put_EnableHTTP(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Float>} pBufferingTime 
      * @returns {HRESULT} 

@@ -30,6 +30,22 @@ class IHTMLInputElement2 extends IDispatch{
     static VTableNames => ["put_accept", "get_accept", "put_useMap", "get_useMap"]
 
     /**
+     * @type {BSTR} 
+     */
+    accept {
+        get => this.get_accept()
+        set => this.put_accept(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    useMap {
+        get => this.get_useMap()
+        set => this.put_useMap(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

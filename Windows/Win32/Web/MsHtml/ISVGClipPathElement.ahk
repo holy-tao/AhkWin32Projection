@@ -36,6 +36,13 @@ class ISVGClipPathElement extends IDispatch{
     static VTableNames => ["putref_clipPathUnits", "get_clipPathUnits"]
 
     /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    clipPathUnits {
+        get => this.get_clipPathUnits()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 

@@ -45,6 +45,48 @@ class IInkRecognizer extends IDispatch{
     static VTableNames => ["get_Name", "get_Vendor", "get_Capabilities", "get_Languages", "get_SupportedProperties", "get_PreferredPacketDescription", "CreateRecognizerContext"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Vendor {
+        get => this.get_Vendor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Capabilities {
+        get => this.get_Capabilities()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Languages {
+        get => this.get_Languages()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SupportedProperties {
+        get => this.get_SupportedProperties()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PreferredPacketDescription {
+        get => this.get_PreferredPacketDescription()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_name

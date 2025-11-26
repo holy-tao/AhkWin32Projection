@@ -42,6 +42,14 @@ class IDVBTLocator2 extends IDVBTLocator{
     static VTableNames => ["get_PhysicalLayerPipeId", "put_PhysicalLayerPipeId"]
 
     /**
+     * @type {Integer} 
+     */
+    PhysicalLayerPipeId {
+        get => this.get_PhysicalLayerPipeId()
+        set => this.put_PhysicalLayerPipeId(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator2-get_physicallayerpipeid

@@ -36,6 +36,35 @@ class ITTAPI extends IDispatch{
     static VTableNames => ["Initialize", "Shutdown", "get_Addresses", "EnumerateAddresses", "RegisterCallNotifications", "UnregisterNotifications", "get_CallHubs", "EnumerateCallHubs", "SetCallHubTracking", "EnumeratePrivateTAPIObjects", "get_PrivateTAPIObjects", "RegisterRequestRecipient", "SetAssistedTelephonyPriority", "SetApplicationPriority", "put_EventFilter", "get_EventFilter"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Addresses {
+        get => this.get_Addresses()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CallHubs {
+        get => this.get_CallHubs()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PrivateTAPIObjects {
+        get => this.get_PrivateTAPIObjects()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventFilter {
+        get => this.get_EventFilter()
+        set => this.put_EventFilter(value)
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>

@@ -36,6 +36,20 @@ class IHTMLPopup extends IDispatch{
     static VTableNames => ["show", "hide", "get_document", "get_isOpen"]
 
     /**
+     * @type {IHTMLDocument} 
+     */
+    document {
+        get => this.get_document()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isOpen {
+        get => this.get_isOpen()
+    }
+
+    /**
      * 
      * @param {Integer} x 
      * @param {Integer} y 

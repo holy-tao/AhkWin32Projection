@@ -35,6 +35,13 @@ class IHTMLMediaError extends IDispatch{
     static VTableNames => ["get_code"]
 
     /**
+     * @type {Integer} 
+     */
+    code {
+        get => this.get_code()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

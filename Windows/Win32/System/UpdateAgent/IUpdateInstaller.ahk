@@ -48,6 +48,68 @@ class IUpdateInstaller extends IDispatch{
     static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "get_IsForced", "put_IsForced", "get_ParentHwnd", "put_ParentHwnd", "put_ParentWindow", "get_ParentWindow", "get_Updates", "put_Updates", "BeginInstall", "BeginUninstall", "EndInstall", "EndUninstall", "Install", "RunWizard", "get_IsBusy", "Uninstall", "get_AllowSourcePrompts", "put_AllowSourcePrompts", "get_RebootRequiredBeforeInstallation"]
 
     /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsForced {
+        get => this.get_IsForced()
+        set => this.put_IsForced(value)
+    }
+
+    /**
+     * @type {HWND} 
+     */
+    ParentHwnd {
+        get => this.get_ParentHwnd()
+        set => this.put_ParentHwnd(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ParentWindow {
+        get => this.get_ParentWindow()
+        set => this.put_ParentWindow(value)
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    Updates {
+        get => this.get_Updates()
+        set => this.put_Updates(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsBusy {
+        get => this.get_IsBusy()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AllowSourcePrompts {
+        get => this.get_AllowSourcePrompts()
+        set => this.put_AllowSourcePrompts(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RebootRequiredBeforeInstallation {
+        get => this.get_RebootRequiredBeforeInstallation()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_clientapplicationid

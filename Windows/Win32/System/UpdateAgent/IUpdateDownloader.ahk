@@ -46,6 +46,38 @@ class IUpdateDownloader extends IDispatch{
     static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "get_IsForced", "put_IsForced", "get_Priority", "put_Priority", "get_Updates", "put_Updates", "BeginDownload", "Download", "EndDownload"]
 
     /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsForced {
+        get => this.get_IsForced()
+        set => this.put_IsForced(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    Updates {
+        get => this.get_Updates()
+        set => this.put_Updates(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_clientapplicationid

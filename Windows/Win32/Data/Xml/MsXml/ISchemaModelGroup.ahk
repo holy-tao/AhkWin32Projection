@@ -30,6 +30,13 @@ class ISchemaModelGroup extends ISchemaParticle{
     static VTableNames => ["get_particles"]
 
     /**
+     * @type {ISchemaItemCollection} 
+     */
+    particles {
+        get => this.get_particles()
+    }
+
+    /**
      * 
      * @returns {ISchemaItemCollection} 
      */

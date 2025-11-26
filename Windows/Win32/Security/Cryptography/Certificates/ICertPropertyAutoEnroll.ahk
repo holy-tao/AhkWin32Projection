@@ -32,6 +32,13 @@ class ICertPropertyAutoEnroll extends ICertProperty{
     static VTableNames => ["Initialize", "get_TemplateName"]
 
     /**
+     * @type {BSTR} 
+     */
+    TemplateName {
+        get => this.get_TemplateName()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} strTemplateName 
      * @returns {HRESULT} <ul>

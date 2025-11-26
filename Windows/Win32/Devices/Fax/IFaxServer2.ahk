@@ -39,6 +39,34 @@ class IFaxServer2 extends IFaxServer{
     static VTableNames => ["get_Configuration", "get_CurrentAccount", "get_FaxAccountSet", "get_Security2"]
 
     /**
+     * @type {IFaxConfiguration} 
+     */
+    Configuration {
+        get => this.get_Configuration()
+    }
+
+    /**
+     * @type {IFaxAccount} 
+     */
+    CurrentAccount {
+        get => this.get_CurrentAccount()
+    }
+
+    /**
+     * @type {IFaxAccountSet} 
+     */
+    FaxAccountSet {
+        get => this.get_FaxAccountSet()
+    }
+
+    /**
+     * @type {IFaxSecurity2} 
+     */
+    Security2 {
+        get => this.get_Security2()
+    }
+
+    /**
      * 
      * @returns {IFaxConfiguration} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_configuration

@@ -33,6 +33,38 @@ class IADsLocality extends IADs{
     static VTableNames => ["get_Description", "put_Description", "get_LocalityName", "put_LocalityName", "get_PostalAddress", "put_PostalAddress", "get_SeeAlso", "put_SeeAlso"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalityName {
+        get => this.get_LocalityName()
+        set => this.put_LocalityName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PostalAddress {
+        get => this.get_PostalAddress()
+        set => this.put_PostalAddress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SeeAlso {
+        get => this.get_SeeAlso()
+        set => this.put_SeeAlso(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

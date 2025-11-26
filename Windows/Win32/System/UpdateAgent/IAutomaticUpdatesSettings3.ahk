@@ -31,6 +31,22 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
     static VTableNames => ["get_NonAdministratorsElevated", "put_NonAdministratorsElevated", "get_FeaturedUpdatesEnabled", "put_FeaturedUpdatesEnabled"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    NonAdministratorsElevated {
+        get => this.get_NonAdministratorsElevated()
+        set => this.put_NonAdministratorsElevated(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FeaturedUpdatesEnabled {
+        get => this.get_FeaturedUpdatesEnabled()
+        set => this.put_FeaturedUpdatesEnabled(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated

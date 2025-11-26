@@ -36,6 +36,41 @@ class IBDA_SignalStatistics extends IUnknown{
     static VTableNames => ["put_SignalStrength", "get_SignalStrength", "put_SignalQuality", "get_SignalQuality", "put_SignalPresent", "get_SignalPresent", "put_SignalLocked", "get_SignalLocked", "put_SampleTime", "get_SampleTime"]
 
     /**
+     */
+    SignalStrength {
+        get => this.get_SignalStrength()
+        set => this.put_SignalStrength(value)
+    }
+
+    /**
+     */
+    SignalQuality {
+        get => this.get_SignalQuality()
+        set => this.put_SignalQuality(value)
+    }
+
+    /**
+     */
+    SignalPresent {
+        get => this.get_SignalPresent()
+        set => this.put_SignalPresent(value)
+    }
+
+    /**
+     */
+    SignalLocked {
+        get => this.get_SignalLocked()
+        set => this.put_SignalLocked(value)
+    }
+
+    /**
+     */
+    SampleTime {
+        get => this.get_SampleTime()
+        set => this.put_SampleTime(value)
+    }
+
+    /**
      * 
      * @param {Integer} lDbStrength 
      * @returns {HRESULT} 

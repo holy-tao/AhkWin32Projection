@@ -33,6 +33,69 @@ class IADsADSystemInfo extends IDispatch{
     static VTableNames => ["get_UserName", "get_ComputerName", "get_SiteName", "get_DomainShortName", "get_DomainDNSName", "get_ForestDNSName", "get_PDCRoleOwner", "get_SchemaRoleOwner", "get_IsNativeMode", "GetAnyDCName", "GetDCSiteName", "RefreshSchemaCache", "GetTrees"]
 
     /**
+     * @type {BSTR} 
+     */
+    UserName {
+        get => this.get_UserName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ComputerName {
+        get => this.get_ComputerName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SiteName {
+        get => this.get_SiteName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DomainShortName {
+        get => this.get_DomainShortName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DomainDNSName {
+        get => this.get_DomainDNSName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ForestDNSName {
+        get => this.get_ForestDNSName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PDCRoleOwner {
+        get => this.get_PDCRoleOwner()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SchemaRoleOwner {
+        get => this.get_SchemaRoleOwner()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsNativeMode {
+        get => this.get_IsNativeMode()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

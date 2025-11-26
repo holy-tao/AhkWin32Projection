@@ -38,6 +38,20 @@ class SnapIns extends IDispatch{
     static VTableNames => ["get__NewEnum", "Item", "get_Count", "Add", "Remove"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

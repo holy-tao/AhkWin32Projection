@@ -31,6 +31,12 @@ class IWMPErrorItem2 extends IWMPErrorItem{
     static VTableNames => ["get_condition"]
 
     /**
+     */
+    condition {
+        get => this.get_condition()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCondition 
      * @returns {HRESULT} 

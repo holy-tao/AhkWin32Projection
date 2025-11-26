@@ -32,6 +32,55 @@ class IStylesProvider extends IUnknown{
     static VTableNames => ["get_StyleId", "get_StyleName", "get_FillColor", "get_FillPatternStyle", "get_Shape", "get_FillPatternColor", "get_ExtendedProperties"]
 
     /**
+     * @type {Integer} 
+     */
+    StyleId {
+        get => this.get_StyleId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StyleName {
+        get => this.get_StyleName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FillColor {
+        get => this.get_FillColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FillPatternStyle {
+        get => this.get_FillPatternStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Shape {
+        get => this.get_Shape()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FillPatternColor {
+        get => this.get_FillPatternColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtendedProperties {
+        get => this.get_ExtendedProperties()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_styleid

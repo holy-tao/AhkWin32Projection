@@ -41,6 +41,27 @@ class IInkRecognitionAlternates extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Strokes", "Item"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternates-get_count

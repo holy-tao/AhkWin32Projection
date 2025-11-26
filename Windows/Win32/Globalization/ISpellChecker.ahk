@@ -34,6 +34,34 @@ class ISpellChecker extends IUnknown{
     static VTableNames => ["get_LanguageTag", "Check", "Suggest", "Add", "Ignore", "AutoCorrect", "GetOptionValue", "get_OptionIds", "get_Id", "get_LocalizedName", "add_SpellCheckerChanged", "remove_SpellCheckerChanged", "GetOptionDescription", "ComprehensiveCheck"]
 
     /**
+     * @type {PWSTR} 
+     */
+    LanguageTag {
+        get => this.get_LanguageTag()
+    }
+
+    /**
+     * @type {IEnumString} 
+     */
+    OptionIds {
+        get => this.get_OptionIds()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    LocalizedName {
+        get => this.get_LocalizedName()
+    }
+
+    /**
      * 
      * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_languagetag

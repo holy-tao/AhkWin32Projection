@@ -31,6 +31,20 @@ class IKsNodeControl extends IUnknown{
     static VTableNames => ["put_NodeId", "put_KsControl"]
 
     /**
+     * @type {HRESULT} 
+     */
+    NodeId {
+        set => this.put_NodeId(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    KsControl {
+        set => this.put_KsControl(value)
+    }
+
+    /**
      * 
      * @param {Integer} dwNodeId 
      * @returns {HRESULT} 

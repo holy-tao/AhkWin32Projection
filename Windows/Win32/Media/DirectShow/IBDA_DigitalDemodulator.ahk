@@ -36,6 +36,55 @@ class IBDA_DigitalDemodulator extends IUnknown{
     static VTableNames => ["put_ModulationType", "get_ModulationType", "put_InnerFECMethod", "get_InnerFECMethod", "put_InnerFECRate", "get_InnerFECRate", "put_OuterFECMethod", "get_OuterFECMethod", "put_OuterFECRate", "get_OuterFECRate", "put_SymbolRate", "get_SymbolRate", "put_SpectralInversion", "get_SpectralInversion"]
 
     /**
+     */
+    ModulationType {
+        get => this.get_ModulationType()
+        set => this.put_ModulationType(value)
+    }
+
+    /**
+     */
+    InnerFECMethod {
+        get => this.get_InnerFECMethod()
+        set => this.put_InnerFECMethod(value)
+    }
+
+    /**
+     */
+    InnerFECRate {
+        get => this.get_InnerFECRate()
+        set => this.put_InnerFECRate(value)
+    }
+
+    /**
+     */
+    OuterFECMethod {
+        get => this.get_OuterFECMethod()
+        set => this.put_OuterFECMethod(value)
+    }
+
+    /**
+     */
+    OuterFECRate {
+        get => this.get_OuterFECRate()
+        set => this.put_OuterFECRate(value)
+    }
+
+    /**
+     */
+    SymbolRate {
+        get => this.get_SymbolRate()
+        set => this.put_SymbolRate(value)
+    }
+
+    /**
+     */
+    SpectralInversion {
+        get => this.get_SpectralInversion()
+        set => this.put_SpectralInversion(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pModulationType 
      * @returns {HRESULT} 

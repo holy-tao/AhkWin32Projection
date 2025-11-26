@@ -36,6 +36,13 @@ class IExpandCollapseProvider extends IUnknown{
     static VTableNames => ["Expand", "Collapse", "get_ExpandCollapseState"]
 
     /**
+     * @type {Integer} 
+     */
+    ExpandCollapseState {
+        get => this.get_ExpandCollapseState()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-expand

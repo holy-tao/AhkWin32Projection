@@ -36,6 +36,30 @@ class IHTMLSourceElement extends IDispatch{
     static VTableNames => ["put_src", "get_src", "put_type", "get_type", "put_media", "get_media"]
 
     /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    media {
+        get => this.get_media()
+        set => this.put_media(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

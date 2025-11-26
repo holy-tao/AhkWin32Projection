@@ -31,6 +31,20 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
     static VTableNames => ["get_Selected", "get_Constrained", "GetPropertyValue"]
 
     /**
+     * @type {BOOL} 
+     */
+    Selected {
+        get => this.get_Selected()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Constrained {
+        get => this.get_Constrained()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      */

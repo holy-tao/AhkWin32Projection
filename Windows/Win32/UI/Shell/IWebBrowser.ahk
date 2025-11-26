@@ -36,6 +36,101 @@ class IWebBrowser extends IDispatch{
     static VTableNames => ["GoBack", "GoForward", "GoHome", "GoSearch", "Navigate", "Refresh", "Refresh2", "Stop", "get_Application", "get_Parent", "get_Container", "get_Document", "get_TopLevelContainer", "get_Type", "get_Left", "put_Left", "get_Top", "put_Top", "get_Width", "put_Width", "get_Height", "put_Height", "get_LocationName", "get_LocationURL", "get_Busy"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Container {
+        get => this.get_Container()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Document {
+        get => this.get_Document()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    TopLevelContainer {
+        get => this.get_TopLevelContainer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Left {
+        get => this.get_Left()
+        set => this.put_Left(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Top {
+        get => this.get_Top()
+        set => this.put_Top(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+        set => this.put_Width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+        set => this.put_Height(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocationName {
+        get => this.get_LocationName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocationURL {
+        get => this.get_LocationURL()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Busy {
+        get => this.get_Busy()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

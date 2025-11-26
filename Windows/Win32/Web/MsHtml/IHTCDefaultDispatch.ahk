@@ -37,6 +37,27 @@ class IHTCDefaultDispatch extends IDispatch{
     static VTableNames => ["get_element", "createEventObject", "get_defaults", "get_document"]
 
     /**
+     * @type {IHTMLElement} 
+     */
+    element {
+        get => this.get_element()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    defaults {
+        get => this.get_defaults()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    document {
+        get => this.get_document()
+    }
+
+    /**
      * 
      * @returns {IHTMLElement} 
      */

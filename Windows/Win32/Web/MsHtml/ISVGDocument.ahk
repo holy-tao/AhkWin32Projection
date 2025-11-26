@@ -30,6 +30,13 @@ class ISVGDocument extends IDispatch{
     static VTableNames => ["get_rootElement"]
 
     /**
+     * @type {ISVGSVGElement} 
+     */
+    rootElement {
+        get => this.get_rootElement()
+    }
+
+    /**
      * 
      * @returns {ISVGSVGElement} 
      */

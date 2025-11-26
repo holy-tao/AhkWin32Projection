@@ -45,6 +45,20 @@ class IAzPrincipalLocator extends IDispatch{
     static VTableNames => ["get_NameResolver", "get_ObjectPicker"]
 
     /**
+     * @type {IAzNameResolver} 
+     */
+    NameResolver {
+        get => this.get_NameResolver()
+    }
+
+    /**
+     * @type {IAzObjectPicker} 
+     */
+    ObjectPicker {
+        get => this.get_ObjectPicker()
+    }
+
+    /**
      * 
      * @returns {IAzNameResolver} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_nameresolver

@@ -43,6 +43,90 @@ class IInkStrokeDisp extends IDispatch{
     static VTableNames => ["get_ID", "get_BezierPoints", "get_DrawingAttributes", "putref_DrawingAttributes", "get_Ink", "get_ExtendedProperties", "get_PolylineCusps", "get_BezierCusps", "get_SelfIntersections", "get_PacketCount", "get_PacketSize", "get_PacketDescription", "get_Deleted", "GetBoundingBox", "FindIntersections", "GetRectangleIntersections", "Clip", "HitTestCircle", "NearestPoint", "Split", "GetPacketDescriptionPropertyMetrics", "GetPoints", "SetPoints", "GetPacketData", "GetPacketValuesByProperty", "SetPacketValuesByProperty", "GetFlattenedBezierPoints", "Transform", "ScaleToRectangle", "Move", "Rotate", "Shear", "ScaleTransform"]
 
     /**
+     * @type {Integer} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    BezierPoints {
+        get => this.get_BezierPoints()
+    }
+
+    /**
+     * @type {IInkDrawingAttributes} 
+     */
+    DrawingAttributes {
+        get => this.get_DrawingAttributes()
+    }
+
+    /**
+     * @type {IInkDisp} 
+     */
+    Ink {
+        get => this.get_Ink()
+    }
+
+    /**
+     * @type {IInkExtendedProperties} 
+     */
+    ExtendedProperties {
+        get => this.get_ExtendedProperties()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolylineCusps {
+        get => this.get_PolylineCusps()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    BezierCusps {
+        get => this.get_BezierCusps()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelfIntersections {
+        get => this.get_SelfIntersections()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PacketCount {
+        get => this.get_PacketCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PacketSize {
+        get => this.get_PacketSize()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PacketDescription {
+        get => this.get_PacketDescription()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Deleted {
+        get => this.get_Deleted()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_id

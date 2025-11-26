@@ -38,6 +38,38 @@ class IFolderAction extends IDispatch{
     static VTableNames => ["get_Age", "put_Age", "get_Size", "put_Size", "get_Actions", "put_Actions", "get_SendCabTo", "put_SendCabTo"]
 
     /**
+     * @type {Integer} 
+     */
+    Age {
+        get => this.get_Age()
+        set => this.put_Age(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+        set => this.put_Size(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Actions {
+        get => this.get_Actions()
+        set => this.put_Actions(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SendCabTo {
+        get => this.get_SendCabTo()
+        set => this.put_SendCabTo(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_age

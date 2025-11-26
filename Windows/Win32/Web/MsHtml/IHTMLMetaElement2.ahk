@@ -30,6 +30,14 @@ class IHTMLMetaElement2 extends IDispatch{
     static VTableNames => ["put_scheme", "get_scheme"]
 
     /**
+     * @type {BSTR} 
+     */
+    scheme {
+        get => this.get_scheme()
+        set => this.put_scheme(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

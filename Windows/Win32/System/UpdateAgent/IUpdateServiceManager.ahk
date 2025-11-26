@@ -44,6 +44,13 @@ class IUpdateServiceManager extends IDispatch{
     static VTableNames => ["get_Services", "AddService", "RegisterServiceWithAU", "RemoveService", "UnregisterServiceWithAU", "AddScanPackageService", "SetOption"]
 
     /**
+     * @type {IUpdateServiceCollection} 
+     */
+    Services {
+        get => this.get_Services()
+    }
+
+    /**
      * 
      * @returns {IUpdateServiceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager-get_services

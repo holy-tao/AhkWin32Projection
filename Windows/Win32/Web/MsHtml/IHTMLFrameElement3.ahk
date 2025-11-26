@@ -30,6 +30,37 @@ class IHTMLFrameElement3 extends IDispatch{
     static VTableNames => ["get_contentDocument", "put_src", "get_src", "put_longDesc", "get_longDesc", "put_frameBorder", "get_frameBorder"]
 
     /**
+     * @type {IDispatch} 
+     */
+    contentDocument {
+        get => this.get_contentDocument()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    longDesc {
+        get => this.get_longDesc()
+        set => this.put_longDesc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    frameBorder {
+        get => this.get_frameBorder()
+        set => this.put_frameBorder(value)
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

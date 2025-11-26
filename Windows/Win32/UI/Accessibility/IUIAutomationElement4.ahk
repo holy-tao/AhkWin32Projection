@@ -32,6 +32,76 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
     static VTableNames => ["get_CurrentPositionInSet", "get_CurrentSizeOfSet", "get_CurrentLevel", "get_CurrentAnnotationTypes", "get_CurrentAnnotationObjects", "get_CachedPositionInSet", "get_CachedSizeOfSet", "get_CachedLevel", "get_CachedAnnotationTypes", "get_CachedAnnotationObjects"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentPositionInSet {
+        get => this.get_CurrentPositionInSet()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentSizeOfSet {
+        get => this.get_CurrentSizeOfSet()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentLevel {
+        get => this.get_CurrentLevel()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CurrentAnnotationTypes {
+        get => this.get_CurrentAnnotationTypes()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CurrentAnnotationObjects {
+        get => this.get_CurrentAnnotationObjects()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedPositionInSet {
+        get => this.get_CachedPositionInSet()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedSizeOfSet {
+        get => this.get_CachedSizeOfSet()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedLevel {
+        get => this.get_CachedLevel()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CachedAnnotationTypes {
+        get => this.get_CachedAnnotationTypes()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CachedAnnotationObjects {
+        get => this.get_CachedAnnotationObjects()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentpositioninset

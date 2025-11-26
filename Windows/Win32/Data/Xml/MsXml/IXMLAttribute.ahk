@@ -30,6 +30,20 @@ class IXMLAttribute extends IDispatch{
     static VTableNames => ["get_name", "get_value"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

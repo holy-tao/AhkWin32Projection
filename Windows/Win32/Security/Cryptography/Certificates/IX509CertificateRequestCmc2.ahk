@@ -33,6 +33,20 @@ class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc{
     static VTableNames => ["InitializeFromTemplate", "InitializeFromInnerRequestTemplate", "get_PolicyServer", "get_Template", "CheckSignature", "CheckCertificateSignature"]
 
     /**
+     * @type {IX509EnrollmentPolicyServer} 
+     */
+    PolicyServer {
+        get => this.get_PolicyServer()
+    }
+
+    /**
+     * @type {IX509CertificateTemplate} 
+     */
+    Template {
+        get => this.get_Template()
+    }
+
+    /**
      * 
      * @param {Integer} context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer 

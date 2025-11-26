@@ -31,6 +31,77 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
     static VTableNames => ["put__VMRendererMode", "put_Owner", "get_Owner", "get_UseOverlay", "put_UseOverlay", "get_Visible", "put_Visible", "get_ColorKey", "put_ColorKey", "get_Source", "put_Source", "get_Destination", "put_Destination", "get_NativeSize", "get_BorderColor", "put_BorderColor", "get_MaintainAspectRatio", "put_MaintainAspectRatio", "Refresh", "DisplayChange", "RePaint"]
 
     /**
+     * @type {HRESULT} 
+     */
+    _VMRendererMode {
+        set => this.put__VMRendererMode(value)
+    }
+
+    /**
+     * @type {HWND} 
+     */
+    Owner {
+        get => this.get_Owner()
+        set => this.put_Owner(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseOverlay {
+        get => this.get_UseOverlay()
+        set => this.put_UseOverlay(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ColorKey {
+        get => this.get_ColorKey()
+        set => this.put_ColorKey(value)
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    Source {
+        get => this.get_Source()
+        set => this.put_Source(value)
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    Destination {
+        get => this.get_Destination()
+        set => this.put_Destination(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BorderColor {
+        get => this.get_BorderColor()
+        set => this.put_BorderColor(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MaintainAspectRatio {
+        get => this.get_MaintainAspectRatio()
+        set => this.put_MaintainAspectRatio(value)
+    }
+
+    /**
      * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 

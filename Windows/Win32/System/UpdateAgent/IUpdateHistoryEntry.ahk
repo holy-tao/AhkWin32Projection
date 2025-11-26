@@ -34,6 +34,104 @@ class IUpdateHistoryEntry extends IDispatch{
     static VTableNames => ["get_Operation", "get_ResultCode", "get_HResult", "get_Date", "get_UpdateIdentity", "get_Title", "get_Description", "get_UnmappedResultCode", "get_ClientApplicationID", "get_ServerSelection", "get_ServiceID", "get_UninstallationSteps", "get_UninstallationNotes", "get_SupportUrl"]
 
     /**
+     * @type {Integer} 
+     */
+    Operation {
+        get => this.get_Operation()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ResultCode {
+        get => this.get_ResultCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HResult {
+        get => this.get_HResult()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Date {
+        get => this.get_Date()
+    }
+
+    /**
+     * @type {IUpdateIdentity} 
+     */
+    UpdateIdentity {
+        get => this.get_UpdateIdentity()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UnmappedResultCode {
+        get => this.get_UnmappedResultCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ServerSelection {
+        get => this.get_ServerSelection()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceID {
+        get => this.get_ServiceID()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    UninstallationSteps {
+        get => this.get_UninstallationSteps()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UninstallationNotes {
+        get => this.get_UninstallationNotes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SupportUrl {
+        get => this.get_SupportUrl()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_operation

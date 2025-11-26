@@ -33,6 +33,20 @@ class ICrmMonitorClerks extends IDispatch{
     static VTableNames => ["Item", "get__NewEnum", "get_Count", "ProgIdCompensator", "Description", "TransactionUOW", "ActivityId"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @param {VARIANT} Index 
      * @returns {VARIANT} 

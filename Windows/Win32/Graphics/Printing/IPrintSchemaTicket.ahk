@@ -33,6 +33,14 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
     static VTableNames => ["GetFeatureByKeyName", "GetFeature", "ValidateAsync", "CommitAsync", "NotifyXmlChanged", "GetCapabilities", "get_JobCopiesAllDocuments", "put_JobCopiesAllDocuments"]
 
     /**
+     * @type {Integer} 
+     */
+    JobCopiesAllDocuments {
+        get => this.get_JobCopiesAllDocuments()
+        set => this.put_JobCopiesAllDocuments(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrKeyName 
      * @returns {IPrintSchemaFeature} 

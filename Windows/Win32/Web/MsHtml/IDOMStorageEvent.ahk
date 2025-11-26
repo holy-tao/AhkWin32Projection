@@ -37,6 +37,41 @@ class IDOMStorageEvent extends IDispatch{
     static VTableNames => ["get_key", "get_oldValue", "get_newValue", "get_url", "get_storageArea", "initStorageEvent"]
 
     /**
+     * @type {BSTR} 
+     */
+    key {
+        get => this.get_key()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    oldValue {
+        get => this.get_oldValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    newValue {
+        get => this.get_newValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    url {
+        get => this.get_url()
+    }
+
+    /**
+     * @type {IHTMLStorage} 
+     */
+    storageArea {
+        get => this.get_storageArea()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

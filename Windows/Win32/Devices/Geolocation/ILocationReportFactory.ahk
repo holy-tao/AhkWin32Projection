@@ -29,6 +29,29 @@ class ILocationReportFactory extends IDispatch{
     static VTableNames => ["ListenForReports", "StopListeningForReports", "get_Status", "get_ReportInterval", "put_ReportInterval", "get_DesiredAccuracy", "put_DesiredAccuracy", "RequestPermissions"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReportInterval {
+        get => this.get_ReportInterval()
+        set => this.put_ReportInterval(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DesiredAccuracy {
+        get => this.get_DesiredAccuracy()
+        set => this.put_DesiredAccuracy(value)
+    }
+
+    /**
      * 
      * @param {Integer} requestedReportInterval 
      * @returns {HRESULT} 

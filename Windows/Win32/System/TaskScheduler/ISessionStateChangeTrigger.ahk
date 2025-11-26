@@ -37,6 +37,27 @@ class ISessionStateChangeTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay", "get_UserId", "put_UserId", "get_StateChange", "put_StateChange"]
 
     /**
+     */
+    Delay {
+        get => this.get_Delay()
+        set => this.put_Delay(value)
+    }
+
+    /**
+     */
+    UserId {
+        get => this.get_UserId()
+        set => this.put_UserId(value)
+    }
+
+    /**
+     */
+    StateChange {
+        get => this.get_StateChange()
+        set => this.put_StateChange(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 

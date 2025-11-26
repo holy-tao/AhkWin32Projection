@@ -32,6 +32,62 @@ class ISClusNetInterface extends IDispatch{
     static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Name", "get_Handle", "get_State", "get_Cluster"]
 
     /**
+     * @type {ISClusProperties} 
+     */
+    CommonProperties {
+        get => this.get_CommonProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateProperties {
+        get => this.get_PrivateProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    CommonROProperties {
+        get => this.get_CommonROProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateROProperties {
+        get => this.get_PrivateROProperties()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {ISCluster} 
+     */
+    Cluster {
+        get => this.get_Cluster()
+    }
+
+    /**
      * 
      * @returns {ISClusProperties} 
      */

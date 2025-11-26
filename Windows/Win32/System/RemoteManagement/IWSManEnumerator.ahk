@@ -41,6 +41,20 @@ class IWSManEnumerator extends IDispatch{
     static VTableNames => ["ReadItem", "get_AtEndOfStream", "get_Error"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    AtEndOfStream {
+        get => this.get_AtEndOfStream()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem

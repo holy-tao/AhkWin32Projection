@@ -36,6 +36,14 @@ class IRealTimeStylus2 extends IUnknown{
     static VTableNames => ["get_FlicksEnabled", "put_FlicksEnabled"]
 
     /**
+     * @type {BOOL} 
+     */
+    FlicksEnabled {
+        get => this.get_FlicksEnabled()
+        set => this.put_FlicksEnabled(value)
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus2-get_flicksenabled

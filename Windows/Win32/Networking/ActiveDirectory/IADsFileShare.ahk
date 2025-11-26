@@ -40,6 +40,45 @@ class IADsFileShare extends IADs{
     static VTableNames => ["get_CurrentUserCount", "get_Description", "put_Description", "get_HostComputer", "put_HostComputer", "get_Path", "put_Path", "get_MaxUserCount", "put_MaxUserCount"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentUserCount {
+        get => this.get_CurrentUserCount()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HostComputer {
+        get => this.get_HostComputer()
+        set => this.put_HostComputer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxUserCount {
+        get => this.get_MaxUserCount()
+        set => this.put_MaxUserCount(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

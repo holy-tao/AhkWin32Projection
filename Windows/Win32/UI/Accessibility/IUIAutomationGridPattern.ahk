@@ -37,6 +37,34 @@ class IUIAutomationGridPattern extends IUnknown{
     static VTableNames => ["GetItem", "get_CurrentRowCount", "get_CurrentColumnCount", "get_CachedRowCount", "get_CachedColumnCount"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentRowCount {
+        get => this.get_CurrentRowCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentColumnCount {
+        get => this.get_CurrentColumnCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedRowCount {
+        get => this.get_CachedRowCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedColumnCount {
+        get => this.get_CachedColumnCount()
+    }
+
+    /**
      * 
      * @param {Integer} row 
      * @param {Integer} column 

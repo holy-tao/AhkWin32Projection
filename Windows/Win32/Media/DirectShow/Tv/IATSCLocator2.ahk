@@ -36,6 +36,14 @@ class IATSCLocator2 extends IATSCLocator{
     static VTableNames => ["get_ProgramNumber", "put_ProgramNumber"]
 
     /**
+     * @type {Integer} 
+     */
+    ProgramNumber {
+        get => this.get_ProgramNumber()
+        set => this.put_ProgramNumber(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator2-get_programnumber

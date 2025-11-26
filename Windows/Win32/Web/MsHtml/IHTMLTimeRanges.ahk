@@ -35,6 +35,13 @@ class IHTMLTimeRanges extends IDispatch{
     static VTableNames => ["get_length", "start", "end"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

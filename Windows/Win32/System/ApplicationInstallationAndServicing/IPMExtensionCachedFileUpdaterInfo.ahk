@@ -29,6 +29,13 @@ class IPMExtensionCachedFileUpdaterInfo extends IUnknown{
     static VTableNames => ["get_SupportsUpdates"]
 
     /**
+     * @type {BOOL} 
+     */
+    SupportsUpdates {
+        get => this.get_SupportsUpdates()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      */

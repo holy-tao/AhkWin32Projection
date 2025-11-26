@@ -34,6 +34,34 @@ class ITStream extends IDispatch{
     static VTableNames => ["get_MediaType", "get_Direction", "get_Name", "StartStream", "PauseStream", "StopStream", "SelectTerminal", "UnselectTerminal", "EnumerateTerminals", "get_Terminals"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Terminals {
+        get => this.get_Terminals()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_mediatype

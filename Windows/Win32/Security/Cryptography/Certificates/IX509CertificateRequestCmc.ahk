@@ -39,6 +39,101 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     static VTableNames => ["InitializeFromInnerRequestTemplateName", "get_TemplateObjectId", "get_NullSigned", "get_CryptAttributes", "get_NameValuePairs", "get_X509Extensions", "get_CriticalExtensions", "get_SuppressOids", "get_TransactionId", "put_TransactionId", "get_SenderNonce", "put_SenderNonce", "get_SignatureInformation", "get_ArchivePrivateKey", "put_ArchivePrivateKey", "get_KeyArchivalCertificate", "put_KeyArchivalCertificate", "get_EncryptionAlgorithm", "put_EncryptionAlgorithm", "get_EncryptionStrength", "put_EncryptionStrength", "get_EncryptedKeyHash", "get_SignerCertificates"]
 
     /**
+     * @type {IObjectId} 
+     */
+    TemplateObjectId {
+        get => this.get_TemplateObjectId()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NullSigned {
+        get => this.get_NullSigned()
+    }
+
+    /**
+     * @type {ICryptAttributes} 
+     */
+    CryptAttributes {
+        get => this.get_CryptAttributes()
+    }
+
+    /**
+     * @type {IX509NameValuePairs} 
+     */
+    NameValuePairs {
+        get => this.get_NameValuePairs()
+    }
+
+    /**
+     * @type {IX509Extensions} 
+     */
+    X509Extensions {
+        get => this.get_X509Extensions()
+    }
+
+    /**
+     * @type {IObjectIds} 
+     */
+    CriticalExtensions {
+        get => this.get_CriticalExtensions()
+    }
+
+    /**
+     * @type {IObjectIds} 
+     */
+    SuppressOids {
+        get => this.get_SuppressOids()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TransactionId {
+        get => this.get_TransactionId()
+        set => this.put_TransactionId(value)
+    }
+
+    /**
+     * @type {IX509SignatureInformation} 
+     */
+    SignatureInformation {
+        get => this.get_SignatureInformation()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ArchivePrivateKey {
+        get => this.get_ArchivePrivateKey()
+        set => this.put_ArchivePrivateKey(value)
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    EncryptionAlgorithm {
+        get => this.get_EncryptionAlgorithm()
+        set => this.put_EncryptionAlgorithm(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EncryptionStrength {
+        get => this.get_EncryptionStrength()
+        set => this.put_EncryptionStrength(value)
+    }
+
+    /**
+     * @type {ISignerCertificates} 
+     */
+    SignerCertificates {
+        get => this.get_SignerCertificates()
+    }
+
+    /**
      * 
      * @param {IX509CertificateRequest} pInnerRequest 
      * @param {BSTR} strTemplateName 

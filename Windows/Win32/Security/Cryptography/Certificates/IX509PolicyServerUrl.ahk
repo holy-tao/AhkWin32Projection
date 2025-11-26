@@ -32,6 +32,46 @@ class IX509PolicyServerUrl extends IDispatch{
     static VTableNames => ["Initialize", "get_Url", "put_Url", "get_Default", "put_Default", "get_Flags", "put_Flags", "get_AuthFlags", "put_AuthFlags", "get_Cost", "put_Cost", "GetStringProperty", "SetStringProperty", "UpdateRegistry", "RemoveFromRegistry"]
 
     /**
+     * @type {BSTR} 
+     */
+    Url {
+        get => this.get_Url()
+        set => this.put_Url(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Default {
+        get => this.get_Default()
+        set => this.put_Default(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+        set => this.put_Flags(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AuthFlags {
+        get => this.get_AuthFlags()
+        set => this.put_AuthFlags(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Cost {
+        get => this.get_Cost()
+        set => this.put_Cost(value)
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} context 
      * @returns {HRESULT} <ul>

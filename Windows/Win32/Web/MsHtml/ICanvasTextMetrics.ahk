@@ -35,6 +35,13 @@ class ICanvasTextMetrics extends IDispatch{
     static VTableNames => ["get_width"]
 
     /**
+     * @type {Float} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
      * 
      * @returns {Float} 
      */

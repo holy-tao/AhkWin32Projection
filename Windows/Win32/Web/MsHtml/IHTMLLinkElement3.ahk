@@ -30,6 +30,22 @@ class IHTMLLinkElement3 extends IDispatch{
     static VTableNames => ["put_charset", "get_charset", "put_hreflang", "get_hreflang"]
 
     /**
+     * @type {BSTR} 
+     */
+    charset {
+        get => this.get_charset()
+        set => this.put_charset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hreflang {
+        get => this.get_hreflang()
+        set => this.put_hreflang(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

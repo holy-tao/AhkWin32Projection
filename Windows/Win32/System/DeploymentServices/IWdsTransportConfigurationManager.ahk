@@ -39,6 +39,20 @@ class IWdsTransportConfigurationManager extends IDispatch{
     static VTableNames => ["get_ServicePolicy", "get_DiagnosticsPolicy", "get_WdsTransportServicesRunning", "EnableWdsTransportServices", "DisableWdsTransportServices", "StartWdsTransportServices", "StopWdsTransportServices", "RestartWdsTransportServices", "NotifyWdsTransportServices"]
 
     /**
+     * @type {IWdsTransportServicePolicy} 
+     */
+    ServicePolicy {
+        get => this.get_ServicePolicy()
+    }
+
+    /**
+     * @type {IWdsTransportDiagnosticsPolicy} 
+     */
+    DiagnosticsPolicy {
+        get => this.get_DiagnosticsPolicy()
+    }
+
+    /**
      * 
      * @returns {IWdsTransportServicePolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_servicepolicy

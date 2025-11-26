@@ -41,6 +41,38 @@ class INetFwRemoteAdminSettings extends IDispatch{
     static VTableNames => ["get_IpVersion", "put_IpVersion", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled"]
 
     /**
+     * @type {Integer} 
+     */
+    IpVersion {
+        get => this.get_IpVersion()
+        set => this.put_IpVersion(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Scope {
+        get => this.get_Scope()
+        set => this.put_Scope(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteAddresses {
+        get => this.get_RemoteAddresses()
+        set => this.put_RemoteAddresses(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_ipversion

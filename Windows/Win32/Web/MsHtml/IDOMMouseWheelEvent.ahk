@@ -36,6 +36,13 @@ class IDOMMouseWheelEvent extends IDispatch{
     static VTableNames => ["get_wheelDelta", "initMouseWheelEvent"]
 
     /**
+     * @type {Integer} 
+     */
+    wheelDelta {
+        get => this.get_wheelDelta()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

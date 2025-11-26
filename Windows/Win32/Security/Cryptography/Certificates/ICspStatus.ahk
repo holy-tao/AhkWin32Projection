@@ -35,6 +35,42 @@ class ICspStatus extends IDispatch{
     static VTableNames => ["Initialize", "get_Ordinal", "put_Ordinal", "get_CspAlgorithm", "get_CspInformation", "get_EnrollmentStatus", "get_DisplayName"]
 
     /**
+     * @type {Integer} 
+     */
+    Ordinal {
+        get => this.get_Ordinal()
+        set => this.put_Ordinal(value)
+    }
+
+    /**
+     * @type {ICspAlgorithm} 
+     */
+    CspAlgorithm {
+        get => this.get_CspAlgorithm()
+    }
+
+    /**
+     * @type {ICspInformation} 
+     */
+    CspInformation {
+        get => this.get_CspInformation()
+    }
+
+    /**
+     * @type {IX509EnrollmentStatus} 
+     */
+    EnrollmentStatus {
+        get => this.get_EnrollmentStatus()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {ICspInformation} pCsp 
      * @param {ICspAlgorithm} pAlgorithm 

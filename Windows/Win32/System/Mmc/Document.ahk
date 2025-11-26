@@ -43,6 +43,78 @@ class Document extends IDispatch{
     static VTableNames => ["Save", "SaveAs", "Close", "get_Views", "get_SnapIns", "get_ActiveView", "get_Name", "put_Name", "get_Location", "get_IsSaved", "get_Mode", "put_Mode", "get_RootNode", "get_ScopeNamespace", "CreateProperties", "get_Application"]
 
     /**
+     * @type {Views} 
+     */
+    Views {
+        get => this.get_Views()
+    }
+
+    /**
+     * @type {SnapIns} 
+     */
+    SnapIns {
+        get => this.get_SnapIns()
+    }
+
+    /**
+     * @type {View} 
+     */
+    ActiveView {
+        get => this.get_ActiveView()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Location {
+        get => this.get_Location()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsSaved {
+        get => this.get_IsSaved()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+        set => this.put_Mode(value)
+    }
+
+    /**
+     * @type {Node} 
+     */
+    RootNode {
+        get => this.get_RootNode()
+    }
+
+    /**
+     * @type {ScopeNamespace} 
+     */
+    ScopeNamespace {
+        get => this.get_ScopeNamespace()
+    }
+
+    /**
+     * @type {_Application} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

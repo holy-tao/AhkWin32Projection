@@ -32,6 +32,48 @@ class ISchemaItem extends IDispatch{
     static VTableNames => ["get_name", "get_namespaceURI", "get_schema", "get_id", "get_itemType", "get_unhandledAttributes", "writeAnnotation"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    namespaceURI {
+        get => this.get_namespaceURI()
+    }
+
+    /**
+     * @type {ISchema} 
+     */
+    schema {
+        get => this.get_schema()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    id {
+        get => this.get_id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    itemType {
+        get => this.get_itemType()
+    }
+
+    /**
+     * @type {IVBSAXAttributes} 
+     */
+    unhandledAttributes {
+        get => this.get_unhandledAttributes()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

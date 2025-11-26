@@ -32,6 +32,13 @@ class IX509ExtensionTemplateName extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_TemplateName"]
 
     /**
+     * @type {BSTR} 
+     */
+    TemplateName {
+        get => this.get_TemplateName()
+    }
+
+    /**
      * 
      * @param {BSTR} strTemplateName 
      * @returns {HRESULT} 

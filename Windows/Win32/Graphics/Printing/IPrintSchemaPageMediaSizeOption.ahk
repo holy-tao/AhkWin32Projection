@@ -29,6 +29,20 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
     static VTableNames => ["get_WidthInMicrons", "get_HeightInMicrons"]
 
     /**
+     * @type {Integer} 
+     */
+    WidthInMicrons {
+        get => this.get_WidthInMicrons()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HeightInMicrons {
+        get => this.get_HeightInMicrons()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

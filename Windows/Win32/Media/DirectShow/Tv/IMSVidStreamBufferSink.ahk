@@ -45,6 +45,21 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
     static VTableNames => ["get_ContentRecorder", "get_ReferenceRecorder", "get_SinkName", "put_SinkName", "NameSetLock", "get_SBESink"]
 
     /**
+     * @type {BSTR} 
+     */
+    SinkName {
+        get => this.get_SinkName()
+        set => this.put_SinkName(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    SBESink {
+        get => this.get_SBESink()
+    }
+
+    /**
      * 
      * @param {BSTR} pszFilename 
      * @returns {IMSVidStreamBufferRecordingControl} 

@@ -32,6 +32,14 @@ class ITForwardInformation extends IDispatch{
     static VTableNames => ["put_NumRingsNoAnswer", "get_NumRingsNoAnswer", "SetForwardType", "get_ForwardTypeDestination", "get_ForwardTypeCaller", "GetForwardType", "Clear"]
 
     /**
+     * @type {Integer} 
+     */
+    NumRingsNoAnswer {
+        get => this.get_NumRingsNoAnswer()
+        set => this.put_NumRingsNoAnswer(value)
+    }
+
+    /**
      * 
      * @param {Integer} lNumRings 
      * @returns {HRESULT} 

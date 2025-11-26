@@ -189,6 +189,150 @@ class INetFwRule extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationName", "put_ApplicationName", "get_ServiceName", "put_ServiceName", "get_Protocol", "put_Protocol", "get_LocalPorts", "put_LocalPorts", "get_RemotePorts", "put_RemotePorts", "get_LocalAddresses", "put_LocalAddresses", "get_RemoteAddresses", "put_RemoteAddresses", "get_IcmpTypesAndCodes", "put_IcmpTypesAndCodes", "get_Direction", "put_Direction", "get_Interfaces", "put_Interfaces", "get_InterfaceTypes", "put_InterfaceTypes", "get_Enabled", "put_Enabled", "get_Grouping", "put_Grouping", "get_Profiles", "put_Profiles", "get_EdgeTraversal", "put_EdgeTraversal", "get_Action", "put_Action"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationName {
+        get => this.get_ApplicationName()
+        set => this.put_ApplicationName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceName {
+        get => this.get_ServiceName()
+        set => this.put_ServiceName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Protocol {
+        get => this.get_Protocol()
+        set => this.put_Protocol(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalPorts {
+        get => this.get_LocalPorts()
+        set => this.put_LocalPorts(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemotePorts {
+        get => this.get_RemotePorts()
+        set => this.put_RemotePorts(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalAddresses {
+        get => this.get_LocalAddresses()
+        set => this.put_LocalAddresses(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteAddresses {
+        get => this.get_RemoteAddresses()
+        set => this.put_RemoteAddresses(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    IcmpTypesAndCodes {
+        get => this.get_IcmpTypesAndCodes()
+        set => this.put_IcmpTypesAndCodes(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+        set => this.put_Direction(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Interfaces {
+        get => this.get_Interfaces()
+        set => this.put_Interfaces(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InterfaceTypes {
+        get => this.get_InterfaceTypes()
+        set => this.put_InterfaceTypes(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Grouping {
+        get => this.get_Grouping()
+        set => this.put_Grouping(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Profiles {
+        get => this.get_Profiles()
+        set => this.put_Profiles(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EdgeTraversal {
+        get => this.get_EdgeTraversal()
+        set => this.put_EdgeTraversal(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Action {
+        get => this.get_Action()
+        set => this.put_Action(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_name

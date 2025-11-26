@@ -38,6 +38,34 @@ class IUpdateServiceRegistration extends IDispatch{
     static VTableNames => ["get_RegistrationState", "get_ServiceID", "get_IsPendingRegistrationWithAU", "get_Service"]
 
     /**
+     * @type {Integer} 
+     */
+    RegistrationState {
+        get => this.get_RegistrationState()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceID {
+        get => this.get_ServiceID()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsPendingRegistrationWithAU {
+        get => this.get_IsPendingRegistrationWithAU()
+    }
+
+    /**
+     * @type {IUpdateService2} 
+     */
+    Service {
+        get => this.get_Service()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_registrationstate

@@ -42,6 +42,46 @@ class IDVBSLocator extends IDigitalLocator{
     static VTableNames => ["get_SignalPolarisation", "put_SignalPolarisation", "get_WestPosition", "put_WestPosition", "get_OrbitalPosition", "put_OrbitalPosition", "get_Azimuth", "put_Azimuth", "get_Elevation", "put_Elevation"]
 
     /**
+     * @type {Integer} 
+     */
+    SignalPolarisation {
+        get => this.get_SignalPolarisation()
+        set => this.put_SignalPolarisation(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    WestPosition {
+        get => this.get_WestPosition()
+        set => this.put_WestPosition(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OrbitalPosition {
+        get => this.get_OrbitalPosition()
+        set => this.put_OrbitalPosition(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Azimuth {
+        get => this.get_Azimuth()
+        set => this.put_Azimuth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Elevation {
+        get => this.get_Elevation()
+        set => this.put_Elevation(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_signalpolarisation

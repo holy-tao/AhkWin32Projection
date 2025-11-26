@@ -30,6 +30,13 @@ class ISVGStylable extends IDispatch{
     static VTableNames => ["get_className"]
 
     /**
+     * @type {ISVGAnimatedString} 
+     */
+    className {
+        get => this.get_className()
+    }
+
+    /**
      * 
      * @returns {ISVGAnimatedString} 
      */

@@ -32,6 +32,62 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
     static VTableNames => ["get_CurrentFirstSelectedItem", "get_CurrentLastSelectedItem", "get_CurrentCurrentSelectedItem", "get_CurrentItemCount", "get_CachedFirstSelectedItem", "get_CachedLastSelectedItem", "get_CachedCurrentSelectedItem", "get_CachedItemCount"]
 
     /**
+     * @type {IUIAutomationElement} 
+     */
+    CurrentFirstSelectedItem {
+        get => this.get_CurrentFirstSelectedItem()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CurrentLastSelectedItem {
+        get => this.get_CurrentLastSelectedItem()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CurrentCurrentSelectedItem {
+        get => this.get_CurrentCurrentSelectedItem()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentItemCount {
+        get => this.get_CurrentItemCount()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CachedFirstSelectedItem {
+        get => this.get_CachedFirstSelectedItem()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CachedLastSelectedItem {
+        get => this.get_CachedLastSelectedItem()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CachedCurrentSelectedItem {
+        get => this.get_CachedCurrentSelectedItem()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedItemCount {
+        get => this.get_CachedItemCount()
+    }
+
+    /**
      * 
      * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentfirstselecteditem

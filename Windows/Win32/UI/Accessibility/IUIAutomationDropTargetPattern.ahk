@@ -32,6 +32,34 @@ class IUIAutomationDropTargetPattern extends IUnknown{
     static VTableNames => ["get_CurrentDropTargetEffect", "get_CachedDropTargetEffect", "get_CurrentDropTargetEffects", "get_CachedDropTargetEffects"]
 
     /**
+     * @type {BSTR} 
+     */
+    CurrentDropTargetEffect {
+        get => this.get_CurrentDropTargetEffect()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedDropTargetEffect {
+        get => this.get_CachedDropTargetEffect()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CurrentDropTargetEffects {
+        get => this.get_CurrentDropTargetEffects()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CachedDropTargetEffects {
+        get => this.get_CachedDropTargetEffects()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffect

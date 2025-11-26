@@ -38,6 +38,20 @@ class IGPMClientSideExtension extends IDispatch{
     static VTableNames => ["get_ID", "get_DisplayName", "IsUserEnabled", "IsComputerEnabled"]
 
     /**
+     * @type {BSTR} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

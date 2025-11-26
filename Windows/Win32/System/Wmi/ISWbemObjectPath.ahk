@@ -38,6 +38,105 @@ class ISWbemObjectPath extends IDispatch{
     static VTableNames => ["get_Path", "put_Path", "get_RelPath", "put_RelPath", "get_Server", "put_Server", "get_Namespace", "put_Namespace", "get_ParentNamespace", "get_DisplayName", "put_DisplayName", "get_Class", "put_Class", "get_IsClass", "SetAsClass", "get_IsSingleton", "SetAsSingleton", "get_Keys", "get_Security_", "get_Locale", "put_Locale", "get_Authority", "put_Authority"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RelPath {
+        get => this.get_RelPath()
+        set => this.put_RelPath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Server {
+        get => this.get_Server()
+        set => this.put_Server(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Namespace {
+        get => this.get_Namespace()
+        set => this.put_Namespace(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ParentNamespace {
+        get => this.get_ParentNamespace()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Class {
+        get => this.get_Class()
+        set => this.put_Class(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsClass {
+        get => this.get_IsClass()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsSingleton {
+        get => this.get_IsSingleton()
+    }
+
+    /**
+     * @type {ISWbemNamedValueSet} 
+     */
+    Keys {
+        get => this.get_Keys()
+    }
+
+    /**
+     * @type {ISWbemSecurity} 
+     */
+    Security_ {
+        get => this.get_Security_()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Locale {
+        get => this.get_Locale()
+        set => this.put_Locale(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Authority {
+        get => this.get_Authority()
+        set => this.put_Authority(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

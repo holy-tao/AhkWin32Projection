@@ -32,6 +32,20 @@ class ITPluggableTerminalSuperclassInfo extends IDispatch{
     static VTableNames => ["get_Name", "get_CLSID"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CLSID {
+        get => this.get_CLSID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_name

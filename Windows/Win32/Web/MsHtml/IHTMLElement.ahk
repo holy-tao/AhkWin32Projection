@@ -34,6 +34,366 @@ class IHTMLElement extends IDispatch{
     static VTableNames => ["setAttribute", "getAttribute", "removeAttribute", "put_className", "get_className", "put_id", "get_id", "get_tagName", "get_parentElement", "get_style", "put_onhelp", "get_onhelp", "put_onclick", "get_onclick", "put_ondblclick", "get_ondblclick", "put_onkeydown", "get_onkeydown", "put_onkeyup", "get_onkeyup", "put_onkeypress", "get_onkeypress", "put_onmouseout", "get_onmouseout", "put_onmouseover", "get_onmouseover", "put_onmousemove", "get_onmousemove", "put_onmousedown", "get_onmousedown", "put_onmouseup", "get_onmouseup", "get_document", "put_title", "get_title", "put_language", "get_language", "put_onselectstart", "get_onselectstart", "scrollIntoView", "contains", "get_sourceIndex", "get_recordNumber", "put_lang", "get_lang", "get_offsetLeft", "get_offsetTop", "get_offsetWidth", "get_offsetHeight", "get_offsetParent", "put_innerHTML", "get_innerHTML", "put_innerText", "get_innerText", "put_outerHTML", "get_outerHTML", "put_outerText", "get_outerText", "insertAdjacentHTML", "insertAdjacentText", "get_parentTextEdit", "get_isTextEdit", "click", "get_filters", "put_ondragstart", "get_ondragstart", "toString", "put_onbeforeupdate", "get_onbeforeupdate", "put_onafterupdate", "get_onafterupdate", "put_onerrorupdate", "get_onerrorupdate", "put_onrowexit", "get_onrowexit", "put_onrowenter", "get_onrowenter", "put_ondatasetchanged", "get_ondatasetchanged", "put_ondataavailable", "get_ondataavailable", "put_ondatasetcomplete", "get_ondatasetcomplete", "put_onfilterchange", "get_onfilterchange", "get_children", "get_all"]
 
     /**
+     * @type {BSTR} 
+     */
+    className {
+        get => this.get_className()
+        set => this.put_className(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    id {
+        get => this.get_id()
+        set => this.put_id(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    tagName {
+        get => this.get_tagName()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    parentElement {
+        get => this.get_parentElement()
+    }
+
+    /**
+     * @type {IHTMLStyle} 
+     */
+    style {
+        get => this.get_style()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onhelp {
+        get => this.get_onhelp()
+        set => this.put_onhelp(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onclick {
+        get => this.get_onclick()
+        set => this.put_onclick(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondblclick {
+        get => this.get_ondblclick()
+        set => this.put_ondblclick(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeydown {
+        get => this.get_onkeydown()
+        set => this.put_onkeydown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeyup {
+        get => this.get_onkeyup()
+        set => this.put_onkeyup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeypress {
+        get => this.get_onkeypress()
+        set => this.put_onkeypress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseout {
+        get => this.get_onmouseout()
+        set => this.put_onmouseout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseover {
+        get => this.get_onmouseover()
+        set => this.put_onmouseover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousemove {
+        get => this.get_onmousemove()
+        set => this.put_onmousemove(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousedown {
+        get => this.get_onmousedown()
+        set => this.put_onmousedown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseup {
+        get => this.get_onmouseup()
+        set => this.put_onmouseup(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    document {
+        get => this.get_document()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    title {
+        get => this.get_title()
+        set => this.put_title(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    language {
+        get => this.get_language()
+        set => this.put_language(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselectstart {
+        get => this.get_onselectstart()
+        set => this.put_onselectstart(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    sourceIndex {
+        get => this.get_sourceIndex()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    recordNumber {
+        get => this.get_recordNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lang {
+        get => this.get_lang()
+        set => this.put_lang(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetLeft {
+        get => this.get_offsetLeft()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetTop {
+        get => this.get_offsetTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetWidth {
+        get => this.get_offsetWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetHeight {
+        get => this.get_offsetHeight()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    offsetParent {
+        get => this.get_offsetParent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    innerHTML {
+        get => this.get_innerHTML()
+        set => this.put_innerHTML(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    innerText {
+        get => this.get_innerText()
+        set => this.put_innerText(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    outerHTML {
+        get => this.get_outerHTML()
+        set => this.put_outerHTML(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    outerText {
+        get => this.get_outerText()
+        set => this.put_outerText(value)
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    parentTextEdit {
+        get => this.get_parentTextEdit()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isTextEdit {
+        get => this.get_isTextEdit()
+    }
+
+    /**
+     * @type {IHTMLFiltersCollection} 
+     */
+    filters {
+        get => this.get_filters()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragstart {
+        get => this.get_ondragstart()
+        set => this.put_ondragstart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeupdate {
+        get => this.get_onbeforeupdate()
+        set => this.put_onbeforeupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onafterupdate {
+        get => this.get_onafterupdate()
+        set => this.put_onafterupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerrorupdate {
+        get => this.get_onerrorupdate()
+        set => this.put_onerrorupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowexit {
+        get => this.get_onrowexit()
+        set => this.put_onrowexit(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowenter {
+        get => this.get_onrowenter()
+        set => this.put_onrowenter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondatasetchanged {
+        get => this.get_ondatasetchanged()
+        set => this.put_ondatasetchanged(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondataavailable {
+        get => this.get_ondataavailable()
+        set => this.put_ondataavailable(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondatasetcomplete {
+        get => this.get_ondatasetcomplete()
+        set => this.put_ondatasetcomplete(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfilterchange {
+        get => this.get_onfilterchange()
+        set => this.put_onfilterchange(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    children {
+        get => this.get_children()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    all {
+        get => this.get_all()
+    }
+
+    /**
      * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 

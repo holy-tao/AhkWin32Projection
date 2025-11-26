@@ -31,6 +31,20 @@ class INATEventManager extends IDispatch{
     static VTableNames => ["put_ExternalIPAddressCallback", "put_NumberOfEntriesCallback"]
 
     /**
+     * @type {HRESULT} 
+     */
+    ExternalIPAddressCallback {
+        set => this.put_ExternalIPAddressCallback(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    NumberOfEntriesCallback {
+        set => this.put_NumberOfEntriesCallback(value)
+    }
+
+    /**
      * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 

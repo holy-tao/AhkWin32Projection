@@ -37,6 +37,27 @@ class IDragProvider extends IUnknown{
     static VTableNames => ["get_IsGrabbed", "get_DropEffect", "get_DropEffects", "GetGrabbedItems"]
 
     /**
+     * @type {BOOL} 
+     */
+    IsGrabbed {
+        get => this.get_IsGrabbed()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DropEffect {
+        get => this.get_DropEffect()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    DropEffects {
+        get => this.get_DropEffects()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idragprovider-get_isgrabbed

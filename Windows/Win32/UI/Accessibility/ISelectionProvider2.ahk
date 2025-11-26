@@ -58,6 +58,34 @@ class ISelectionProvider2 extends ISelectionProvider{
     static VTableNames => ["get_FirstSelectedItem", "get_LastSelectedItem", "get_CurrentSelectedItem", "get_ItemCount"]
 
     /**
+     * @type {IRawElementProviderSimple} 
+     */
+    FirstSelectedItem {
+        get => this.get_FirstSelectedItem()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    LastSelectedItem {
+        get => this.get_LastSelectedItem()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    CurrentSelectedItem {
+        get => this.get_CurrentSelectedItem()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ItemCount {
+        get => this.get_ItemCount()
+    }
+
+    /**
      * 
      * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_firstselecteditem

@@ -31,6 +31,13 @@ class ITMediaControl extends IDispatch{
     static VTableNames => ["Start", "Stop", "Pause", "get_MediaState"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaState {
+        get => this.get_MediaState()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-start

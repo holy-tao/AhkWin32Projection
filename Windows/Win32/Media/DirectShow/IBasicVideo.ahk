@@ -31,6 +31,105 @@ class IBasicVideo extends IDispatch{
     static VTableNames => ["get_AvgTimePerFrame", "get_BitRate", "get_BitErrorRate", "get_VideoWidth", "get_VideoHeight", "put_SourceLeft", "get_SourceLeft", "put_SourceWidth", "get_SourceWidth", "put_SourceTop", "get_SourceTop", "put_SourceHeight", "get_SourceHeight", "put_DestinationLeft", "get_DestinationLeft", "put_DestinationWidth", "get_DestinationWidth", "put_DestinationTop", "get_DestinationTop", "put_DestinationHeight", "get_DestinationHeight", "SetSourcePosition", "GetSourcePosition", "SetDefaultSourcePosition", "SetDestinationPosition", "GetDestinationPosition", "SetDefaultDestinationPosition", "GetVideoSize", "GetVideoPaletteEntries", "GetCurrentImage", "IsUsingDefaultSource", "IsUsingDefaultDestination"]
 
     /**
+     * @type {Float} 
+     */
+    AvgTimePerFrame {
+        get => this.get_AvgTimePerFrame()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BitRate {
+        get => this.get_BitRate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BitErrorRate {
+        get => this.get_BitErrorRate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VideoWidth {
+        get => this.get_VideoWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VideoHeight {
+        get => this.get_VideoHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceLeft {
+        get => this.get_SourceLeft()
+        set => this.put_SourceLeft(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceWidth {
+        get => this.get_SourceWidth()
+        set => this.put_SourceWidth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceTop {
+        get => this.get_SourceTop()
+        set => this.put_SourceTop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceHeight {
+        get => this.get_SourceHeight()
+        set => this.put_SourceHeight(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationLeft {
+        get => this.get_DestinationLeft()
+        set => this.put_DestinationLeft(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationWidth {
+        get => this.get_DestinationWidth()
+        set => this.put_DestinationWidth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationTop {
+        get => this.get_DestinationTop()
+        set => this.put_DestinationTop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationHeight {
+        get => this.get_DestinationHeight()
+        set => this.put_DestinationHeight(value)
+    }
+
+    /**
      * 
      * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_avgtimeperframe

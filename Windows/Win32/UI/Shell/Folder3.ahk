@@ -35,6 +35,14 @@ class Folder3 extends Folder2{
     static VTableNames => ["get_ShowWebViewBarricade", "put_ShowWebViewBarricade"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowWebViewBarricade {
+        get => this.get_ShowWebViewBarricade()
+        set => this.put_ShowWebViewBarricade(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

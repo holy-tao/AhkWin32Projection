@@ -39,6 +39,62 @@ class ISVGElementInstance extends IDispatch{
     static VTableNames => ["get_correspondingElement", "get_correspondingUseElement", "get_parentNode", "get_childNodes", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling"]
 
     /**
+     * @type {ISVGElement} 
+     */
+    correspondingElement {
+        get => this.get_correspondingElement()
+    }
+
+    /**
+     * @type {ISVGUseElement} 
+     */
+    correspondingUseElement {
+        get => this.get_correspondingUseElement()
+    }
+
+    /**
+     * @type {ISVGElementInstance} 
+     */
+    parentNode {
+        get => this.get_parentNode()
+    }
+
+    /**
+     * @type {ISVGElementInstanceList} 
+     */
+    childNodes {
+        get => this.get_childNodes()
+    }
+
+    /**
+     * @type {ISVGElementInstance} 
+     */
+    firstChild {
+        get => this.get_firstChild()
+    }
+
+    /**
+     * @type {ISVGElementInstance} 
+     */
+    lastChild {
+        get => this.get_lastChild()
+    }
+
+    /**
+     * @type {ISVGElementInstance} 
+     */
+    previousSibling {
+        get => this.get_previousSibling()
+    }
+
+    /**
+     * @type {ISVGElementInstance} 
+     */
+    nextSibling {
+        get => this.get_nextSibling()
+    }
+
+    /**
      * 
      * @returns {ISVGElement} 
      */

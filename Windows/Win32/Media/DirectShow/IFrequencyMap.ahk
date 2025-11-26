@@ -36,6 +36,14 @@ class IFrequencyMap extends IUnknown{
     static VTableNames => ["get_FrequencyMapping", "put_FrequencyMapping", "get_CountryCode", "put_CountryCode", "get_DefaultFrequencyMapping", "get_CountryCodeList"]
 
     /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} ulCount 
      * @param {Pointer<Pointer<Integer>>} ppulList 

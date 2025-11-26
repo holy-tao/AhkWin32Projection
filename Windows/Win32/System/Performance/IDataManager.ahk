@@ -38,6 +38,101 @@ class IDataManager extends IDispatch{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_CheckBeforeRunning", "put_CheckBeforeRunning", "get_MinFreeDisk", "put_MinFreeDisk", "get_MaxSize", "put_MaxSize", "get_MaxFolderCount", "put_MaxFolderCount", "get_ResourcePolicy", "put_ResourcePolicy", "get_FolderActions", "get_ReportSchema", "put_ReportSchema", "get_ReportFileName", "put_ReportFileName", "get_RuleTargetFileName", "put_RuleTargetFileName", "get_EventsFileName", "put_EventsFileName", "get_Rules", "put_Rules", "Run", "Extract"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CheckBeforeRunning {
+        get => this.get_CheckBeforeRunning()
+        set => this.put_CheckBeforeRunning(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinFreeDisk {
+        get => this.get_MinFreeDisk()
+        set => this.put_MinFreeDisk(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxSize {
+        get => this.get_MaxSize()
+        set => this.put_MaxSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxFolderCount {
+        get => this.get_MaxFolderCount()
+        set => this.put_MaxFolderCount(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ResourcePolicy {
+        get => this.get_ResourcePolicy()
+        set => this.put_ResourcePolicy(value)
+    }
+
+    /**
+     * @type {IFolderActionCollection} 
+     */
+    FolderActions {
+        get => this.get_FolderActions()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReportSchema {
+        get => this.get_ReportSchema()
+        set => this.put_ReportSchema(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReportFileName {
+        get => this.get_ReportFileName()
+        set => this.put_ReportFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RuleTargetFileName {
+        get => this.get_RuleTargetFileName()
+        set => this.put_RuleTargetFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EventsFileName {
+        get => this.get_EventsFileName()
+        set => this.put_EventsFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Rules {
+        get => this.get_Rules()
+        set => this.put_Rules(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_enabled

@@ -32,6 +32,42 @@ class IWMPFolderMonitorServices extends IUnknown{
     static VTableNames => ["get_count", "item", "add", "remove", "get_scanState", "get_currentFolder", "get_scannedFilesCount", "get_addedFilesCount", "get_updateProgress", "startScan", "stopScan"]
 
     /**
+     */
+    count {
+        get => this.get_count()
+    }
+
+    /**
+     */
+    scanState {
+        get => this.get_scanState()
+    }
+
+    /**
+     */
+    currentFolder {
+        get => this.get_currentFolder()
+    }
+
+    /**
+     */
+    scannedFilesCount {
+        get => this.get_scannedFilesCount()
+    }
+
+    /**
+     */
+    addedFilesCount {
+        get => this.get_addedFilesCount()
+    }
+
+    /**
+     */
+    updateProgress {
+        get => this.get_updateProgress()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

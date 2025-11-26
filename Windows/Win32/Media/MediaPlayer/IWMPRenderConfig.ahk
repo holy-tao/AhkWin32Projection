@@ -31,6 +31,13 @@ class IWMPRenderConfig extends IUnknown{
     static VTableNames => ["put_inProcOnly", "get_inProcOnly"]
 
     /**
+     */
+    inProcOnly {
+        get => this.get_inProcOnly()
+        set => this.put_inProcOnly(value)
+    }
+
+    /**
      * 
      * @param {BOOL} fInProc 
      * @returns {HRESULT} 

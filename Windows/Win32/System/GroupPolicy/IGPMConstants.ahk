@@ -45,6 +45,412 @@ class IGPMConstants extends IDispatch{
     static VTableNames => ["get_PermGPOApply", "get_PermGPORead", "get_PermGPOEdit", "get_PermGPOEditSecurityAndDelete", "get_PermGPOCustom", "get_PermWMIFilterEdit", "get_PermWMIFilterFullControl", "get_PermWMIFilterCustom", "get_PermSOMLink", "get_PermSOMLogging", "get_PermSOMPlanning", "get_PermSOMGPOCreate", "get_PermSOMWMICreate", "get_PermSOMWMIFullControl", "get_SearchPropertyGPOPermissions", "get_SearchPropertyGPOEffectivePermissions", "get_SearchPropertyGPODisplayName", "get_SearchPropertyGPOWMIFilter", "get_SearchPropertyGPOID", "get_SearchPropertyGPOComputerExtensions", "get_SearchPropertyGPOUserExtensions", "get_SearchPropertySOMLinks", "get_SearchPropertyGPODomain", "get_SearchPropertyBackupMostRecent", "get_SearchOpEquals", "get_SearchOpContains", "get_SearchOpNotContains", "get_SearchOpNotEquals", "get_UsePDC", "get_UseAnyDC", "get_DoNotUseW2KDC", "get_SOMSite", "get_SOMDomain", "get_SOMOU", "get_SecurityFlags", "get_DoNotValidateDC", "get_ReportHTML", "get_ReportXML", "get_RSOPModeUnknown", "get_RSOPModePlanning", "get_RSOPModeLogging", "get_EntryTypeUser", "get_EntryTypeComputer", "get_EntryTypeLocalGroup", "get_EntryTypeGlobalGroup", "get_EntryTypeUniversalGroup", "get_EntryTypeUNCPath", "get_EntryTypeUnknown", "get_DestinationOptionSameAsSource", "get_DestinationOptionNone", "get_DestinationOptionByRelativeName", "get_DestinationOptionSet", "get_MigrationTableOnly", "get_ProcessSecurity", "get_RsopLoggingNoComputer", "get_RsopLoggingNoUser", "get_RsopPlanningAssumeSlowLink", "get_RsopPlanningLoopbackOption", "get_RsopPlanningAssumeUserWQLFilterTrue", "get_RsopPlanningAssumeCompWQLFilterTrue"]
 
     /**
+     * @type {Integer} 
+     */
+    PermGPOApply {
+        get => this.get_PermGPOApply()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermGPORead {
+        get => this.get_PermGPORead()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermGPOEdit {
+        get => this.get_PermGPOEdit()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermGPOEditSecurityAndDelete {
+        get => this.get_PermGPOEditSecurityAndDelete()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermGPOCustom {
+        get => this.get_PermGPOCustom()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermWMIFilterEdit {
+        get => this.get_PermWMIFilterEdit()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermWMIFilterFullControl {
+        get => this.get_PermWMIFilterFullControl()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermWMIFilterCustom {
+        get => this.get_PermWMIFilterCustom()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermSOMLink {
+        get => this.get_PermSOMLink()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermSOMLogging {
+        get => this.get_PermSOMLogging()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermSOMPlanning {
+        get => this.get_PermSOMPlanning()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermSOMGPOCreate {
+        get => this.get_PermSOMGPOCreate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermSOMWMICreate {
+        get => this.get_PermSOMWMICreate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermSOMWMIFullControl {
+        get => this.get_PermSOMWMIFullControl()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPOPermissions {
+        get => this.get_SearchPropertyGPOPermissions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPOEffectivePermissions {
+        get => this.get_SearchPropertyGPOEffectivePermissions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPODisplayName {
+        get => this.get_SearchPropertyGPODisplayName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPOWMIFilter {
+        get => this.get_SearchPropertyGPOWMIFilter()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPOID {
+        get => this.get_SearchPropertyGPOID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPOComputerExtensions {
+        get => this.get_SearchPropertyGPOComputerExtensions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPOUserExtensions {
+        get => this.get_SearchPropertyGPOUserExtensions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertySOMLinks {
+        get => this.get_SearchPropertySOMLinks()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyGPODomain {
+        get => this.get_SearchPropertyGPODomain()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyBackupMostRecent {
+        get => this.get_SearchPropertyBackupMostRecent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchOpEquals {
+        get => this.get_SearchOpEquals()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchOpContains {
+        get => this.get_SearchOpContains()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchOpNotContains {
+        get => this.get_SearchOpNotContains()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchOpNotEquals {
+        get => this.get_SearchOpNotEquals()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UsePDC {
+        get => this.get_UsePDC()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UseAnyDC {
+        get => this.get_UseAnyDC()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DoNotUseW2KDC {
+        get => this.get_DoNotUseW2KDC()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SOMSite {
+        get => this.get_SOMSite()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SOMDomain {
+        get => this.get_SOMDomain()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SOMOU {
+        get => this.get_SOMOU()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DoNotValidateDC {
+        get => this.get_DoNotValidateDC()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReportHTML {
+        get => this.get_ReportHTML()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReportXML {
+        get => this.get_ReportXML()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RSOPModeUnknown {
+        get => this.get_RSOPModeUnknown()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RSOPModePlanning {
+        get => this.get_RSOPModePlanning()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RSOPModeLogging {
+        get => this.get_RSOPModeLogging()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeUser {
+        get => this.get_EntryTypeUser()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeComputer {
+        get => this.get_EntryTypeComputer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeLocalGroup {
+        get => this.get_EntryTypeLocalGroup()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeGlobalGroup {
+        get => this.get_EntryTypeGlobalGroup()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeUniversalGroup {
+        get => this.get_EntryTypeUniversalGroup()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeUNCPath {
+        get => this.get_EntryTypeUNCPath()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryTypeUnknown {
+        get => this.get_EntryTypeUnknown()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationOptionSameAsSource {
+        get => this.get_DestinationOptionSameAsSource()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationOptionNone {
+        get => this.get_DestinationOptionNone()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationOptionByRelativeName {
+        get => this.get_DestinationOptionByRelativeName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationOptionSet {
+        get => this.get_DestinationOptionSet()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MigrationTableOnly {
+        get => this.get_MigrationTableOnly()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProcessSecurity {
+        get => this.get_ProcessSecurity()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RsopLoggingNoComputer {
+        get => this.get_RsopLoggingNoComputer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RsopLoggingNoUser {
+        get => this.get_RsopLoggingNoUser()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RsopPlanningAssumeSlowLink {
+        get => this.get_RsopPlanningAssumeSlowLink()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RsopPlanningAssumeUserWQLFilterTrue {
+        get => this.get_RsopPlanningAssumeUserWQLFilterTrue()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RsopPlanningAssumeCompWQLFilterTrue {
+        get => this.get_RsopPlanningAssumeCompWQLFilterTrue()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

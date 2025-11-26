@@ -36,6 +36,22 @@ class IHTMLTableCaption extends IDispatch{
     static VTableNames => ["put_align", "get_align", "put_vAlign", "get_vAlign"]
 
     /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vAlign {
+        get => this.get_vAlign()
+        set => this.put_vAlign(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

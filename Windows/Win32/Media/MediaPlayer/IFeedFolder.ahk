@@ -30,6 +30,62 @@ class IFeedFolder extends IDispatch{
     static VTableNames => ["get_Feeds", "get_Subfolders", "CreateFeed", "CreateSubfolder", "ExistsFeed", "GetFeed", "ExistsSubfolder", "GetSubfolder", "Delete", "get_Name", "Rename", "get_Path", "Move", "get_Parent", "get_IsRoot", "get_TotalUnreadItemCount", "get_TotalItemCount", "GetWatcher"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Feeds {
+        get => this.get_Feeds()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Subfolders {
+        get => this.get_Subfolders()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsRoot {
+        get => this.get_IsRoot()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalUnreadItemCount {
+        get => this.get_TotalUnreadItemCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalItemCount {
+        get => this.get_TotalItemCount()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

@@ -31,6 +31,27 @@ class IFeed2 extends IFeed{
     static VTableNames => ["GetItemByEffectiveId", "get_LastItemDownloadTime", "get_Username", "get_Password", "SetCredentials", "ClearCredentials"]
 
     /**
+     * @type {Float} 
+     */
+    LastItemDownloadTime {
+        get => this.get_LastItemDownloadTime()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Username {
+        get => this.get_Username()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Password {
+        get => this.get_Password()
+    }
+
+    /**
      * 
      * @param {Integer} itemEffectiveId 
      * @returns {IDispatch} 

@@ -38,6 +38,42 @@ class IServicePoolConfig extends IUnknown{
     static VTableNames => ["put_MaxPoolSize", "get_MaxPoolSize", "put_MinPoolSize", "get_MinPoolSize", "put_CreationTimeout", "get_CreationTimeout", "put_TransactionAffinity", "get_TransactionAffinity", "put_ClassFactory", "get_ClassFactory"]
 
     /**
+     */
+    MaxPoolSize {
+        get => this.get_MaxPoolSize()
+        set => this.put_MaxPoolSize(value)
+    }
+
+    /**
+     */
+    MinPoolSize {
+        get => this.get_MinPoolSize()
+        set => this.put_MinPoolSize(value)
+    }
+
+    /**
+     */
+    CreationTimeout {
+        get => this.get_CreationTimeout()
+        set => this.put_CreationTimeout(value)
+    }
+
+    /**
+     */
+    TransactionAffinity {
+        get => this.get_TransactionAffinity()
+        set => this.put_TransactionAffinity(value)
+    }
+
+    /**
+     * @type {IClassFactory} 
+     */
+    ClassFactory {
+        get => this.get_ClassFactory()
+        set => this.put_ClassFactory(value)
+    }
+
+    /**
      * 
      * @param {Integer} dwMaxPool 
      * @returns {HRESULT} 

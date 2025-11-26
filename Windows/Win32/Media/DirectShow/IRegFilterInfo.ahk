@@ -30,6 +30,13 @@ class IRegFilterInfo extends IDispatch{
     static VTableNames => ["get_Name", "Filter"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -32,6 +32,77 @@ class IHTMLDOMNode extends IDispatch{
     static VTableNames => ["get_nodeType", "get_parentNode", "hasChildNodes", "get_childNodes", "get_attributes", "insertBefore", "removeChild", "replaceChild", "cloneNode", "removeNode", "swapNode", "replaceNode", "appendChild", "get_nodeName", "put_nodeValue", "get_nodeValue", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling"]
 
     /**
+     * @type {Integer} 
+     */
+    nodeType {
+        get => this.get_nodeType()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    parentNode {
+        get => this.get_parentNode()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    childNodes {
+        get => this.get_childNodes()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nodeName {
+        get => this.get_nodeName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    nodeValue {
+        get => this.get_nodeValue()
+        set => this.put_nodeValue(value)
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    firstChild {
+        get => this.get_firstChild()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    lastChild {
+        get => this.get_lastChild()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    previousSibling {
+        get => this.get_previousSibling()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    nextSibling {
+        get => this.get_nextSibling()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

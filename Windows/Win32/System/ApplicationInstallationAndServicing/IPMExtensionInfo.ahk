@@ -29,6 +29,37 @@ class IPMExtensionInfo extends IUnknown{
     static VTableNames => ["get_SupplierPID", "get_SupplierTaskID", "get_Title", "get_IconPath", "get_ExtraFile", "get_InvocationInfo"]
 
     /**
+     * @type {Guid} 
+     */
+    SupplierPID {
+        get => this.get_SupplierPID()
+    }
+
+    /**
+     */
+    SupplierTaskID {
+        get => this.get_SupplierTaskID()
+    }
+
+    /**
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     */
+    IconPath {
+        get => this.get_IconPath()
+    }
+
+    /**
+     */
+    ExtraFile {
+        get => this.get_ExtraFile()
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

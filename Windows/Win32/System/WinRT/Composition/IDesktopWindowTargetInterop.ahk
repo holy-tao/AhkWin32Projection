@@ -30,6 +30,13 @@ class IDesktopWindowTargetInterop extends IUnknown{
     static VTableNames => ["get_Hwnd"]
 
     /**
+     * @type {HWND} 
+     */
+    Hwnd {
+        get => this.get_Hwnd()
+    }
+
+    /**
      * 
      * @returns {HWND} 
      */

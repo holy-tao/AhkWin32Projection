@@ -32,6 +32,13 @@ class IX509ExtensionKeyUsage extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_KeyUsage"]
 
     /**
+     * @type {Integer} 
+     */
+    KeyUsage {
+        get => this.get_KeyUsage()
+    }
+
+    /**
      * 
      * @param {Integer} UsageFlags 
      * @returns {HRESULT} 

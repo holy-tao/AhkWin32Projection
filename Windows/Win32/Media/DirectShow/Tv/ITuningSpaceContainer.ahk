@@ -42,6 +42,35 @@ class ITuningSpaceContainer extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Item", "put_Item", "TuningSpacesForCLSID", "_TuningSpacesForCLSID2", "TuningSpacesForName", "FindID", "Add", "get_EnumTuningSpaces", "Remove", "get_MaxCount", "put_MaxCount"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {IEnumTuningSpaces} 
+     */
+    EnumTuningSpaces {
+        get => this.get_EnumTuningSpaces()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxCount {
+        get => this.get_MaxCount()
+        set => this.put_MaxCount(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_count

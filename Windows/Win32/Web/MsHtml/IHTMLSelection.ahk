@@ -32,6 +32,48 @@ class IHTMLSelection extends IDispatch{
     static VTableNames => ["get_anchorNode", "get_anchorOffset", "get_focusNode", "get_focusOffset", "get_isCollapsed", "collapse", "collapseToStart", "collapseToEnd", "selectAllChildren", "deleteFromDocument", "get_rangeCount", "getRangeAt", "addRange", "removeRange", "removeAllRanges", "toString"]
 
     /**
+     * @type {IHTMLDOMNode} 
+     */
+    anchorNode {
+        get => this.get_anchorNode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    anchorOffset {
+        get => this.get_anchorOffset()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    focusNode {
+        get => this.get_focusNode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    focusOffset {
+        get => this.get_focusOffset()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isCollapsed {
+        get => this.get_isCollapsed()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    rangeCount {
+        get => this.get_rangeCount()
+    }
+
+    /**
      * 
      * @returns {IHTMLDOMNode} 
      */

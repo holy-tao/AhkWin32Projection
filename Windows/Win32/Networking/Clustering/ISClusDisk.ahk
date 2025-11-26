@@ -31,6 +31,34 @@ class ISClusDisk extends IDispatch{
     static VTableNames => ["get_Signature", "get_ScsiAddress", "get_DiskNumber", "get_Partitions"]
 
     /**
+     * @type {Integer} 
+     */
+    Signature {
+        get => this.get_Signature()
+    }
+
+    /**
+     * @type {ISClusScsiAddress} 
+     */
+    ScsiAddress {
+        get => this.get_ScsiAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DiskNumber {
+        get => this.get_DiskNumber()
+    }
+
+    /**
+     * @type {ISClusPartitions} 
+     */
+    Partitions {
+        get => this.get_Partitions()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

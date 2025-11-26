@@ -32,6 +32,62 @@ class IEventClass extends IDispatch{
     static VTableNames => ["get_EventClassID", "put_EventClassID", "get_EventClassName", "put_EventClassName", "get_OwnerSID", "put_OwnerSID", "get_FiringInterfaceID", "put_FiringInterfaceID", "get_Description", "put_Description", "get_CustomConfigCLSID", "put_CustomConfigCLSID", "get_TypeLib", "put_TypeLib"]
 
     /**
+     * @type {BSTR} 
+     */
+    EventClassID {
+        get => this.get_EventClassID()
+        set => this.put_EventClassID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EventClassName {
+        get => this.get_EventClassName()
+        set => this.put_EventClassName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSID {
+        get => this.get_OwnerSID()
+        set => this.put_OwnerSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FiringInterfaceID {
+        get => this.get_FiringInterfaceID()
+        set => this.put_FiringInterfaceID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CustomConfigCLSID {
+        get => this.get_CustomConfigCLSID()
+        set => this.put_CustomConfigCLSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TypeLib {
+        get => this.get_TypeLib()
+        set => this.put_TypeLib(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassid

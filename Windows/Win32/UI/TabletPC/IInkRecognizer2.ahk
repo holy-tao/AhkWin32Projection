@@ -33,6 +33,20 @@ class IInkRecognizer2 extends IDispatch{
     static VTableNames => ["get_Id", "get_UnicodeRanges"]
 
     /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    UnicodeRanges {
+        get => this.get_UnicodeRanges()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer2-get_id

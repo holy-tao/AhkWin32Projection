@@ -32,6 +32,92 @@ class IPMTileInfo extends IUnknown{
     static VTableNames => ["get_ProductID", "get_TileID", "get_TemplateType", "get_HubPinnedState", "get_HubPosition", "get_IsNotified", "get_IsDefault", "get_TaskID", "get_TileType", "get_IsThemable", "get_PropertyById", "get_InvocationInfo", "get_PropertyEnum", "get_HubTileSize", "set_HubPosition", "set_NotifiedState", "set_HubPinnedState", "set_HubTileSize", "set_InvocationInfo", "get_StartTileBlob", "get_IsRestoring", "get_IsAutoRestoreDisabled", "set_IsRestoring", "set_IsAutoRestoreDisabled"]
 
     /**
+     * @type {Guid} 
+     */
+    ProductID {
+        get => this.get_ProductID()
+    }
+
+    /**
+     */
+    TileID {
+        get => this.get_TileID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TemplateType {
+        get => this.get_TemplateType()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsNotified {
+        get => this.get_IsNotified()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsDefault {
+        get => this.get_IsDefault()
+    }
+
+    /**
+     */
+    TaskID {
+        get => this.get_TaskID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TileType {
+        get => this.get_TileType()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsThemable {
+        get => this.get_IsThemable()
+    }
+
+    /**
+     * @type {IPMTilePropertyEnumerator} 
+     */
+    PropertyEnum {
+        get => this.get_PropertyEnum()
+    }
+
+    /**
+     */
+    NotifiedState {
+    }
+
+    /**
+     */
+    StartTileBlob {
+        get => this.get_StartTileBlob()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsRestoring {
+        get => this.get_IsRestoring()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsAutoRestoreDisabled {
+        get => this.get_IsAutoRestoreDisabled()
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

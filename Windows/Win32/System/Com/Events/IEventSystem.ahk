@@ -33,6 +33,13 @@ class IEventSystem extends IDispatch{
     static VTableNames => ["Query", "Store", "Remove", "get_EventObjectChangeEventClassID", "QueryS", "RemoveS"]
 
     /**
+     * @type {BSTR} 
+     */
+    EventObjectChangeEventClassID {
+        get => this.get_EventObjectChangeEventClassID()
+    }
+
+    /**
      * 
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria 

@@ -38,6 +38,14 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
     static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "QueryServiceRegistration", "AddService2"]
 
     /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-get_clientapplicationid

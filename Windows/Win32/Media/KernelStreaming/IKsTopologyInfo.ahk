@@ -43,6 +43,27 @@ class IKsTopologyInfo extends IUnknown{
     static VTableNames => ["get_NumCategories", "get_Category", "get_NumConnections", "get_ConnectionInfo", "get_NodeName", "get_NumNodes", "get_NodeType", "CreateNodeInstance"]
 
     /**
+     * @type {Integer} 
+     */
+    NumCategories {
+        get => this.get_NumCategories()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumConnections {
+        get => this.get_NumConnections()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumNodes {
+        get => this.get_NumNodes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numcategories

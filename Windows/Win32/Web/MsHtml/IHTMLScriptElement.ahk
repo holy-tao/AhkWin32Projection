@@ -37,6 +37,69 @@ class IHTMLScriptElement extends IDispatch{
     static VTableNames => ["put_src", "get_src", "put_htmlFor", "get_htmlFor", "put_event", "get_event", "put_text", "get_text", "put_defer", "get_defer", "get_readyState", "put_onerror", "get_onerror", "put_type", "get_type"]
 
     /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    htmlFor {
+        get => this.get_htmlFor()
+        set => this.put_htmlFor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    event {
+        get => this.get_event()
+        set => this.put_event(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    defer {
+        get => this.get_defer()
+        set => this.put_defer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

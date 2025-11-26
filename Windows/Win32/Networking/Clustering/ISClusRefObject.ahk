@@ -29,6 +29,13 @@ class ISClusRefObject extends IDispatch{
     static VTableNames => ["get_Handle"]
 
     /**
+     * @type {Pointer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
      * 
      * @returns {Pointer} 
      */

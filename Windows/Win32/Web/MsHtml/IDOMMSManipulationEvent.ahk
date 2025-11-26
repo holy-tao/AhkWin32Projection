@@ -36,6 +36,20 @@ class IDOMMSManipulationEvent extends IDispatch{
     static VTableNames => ["get_lastState", "get_currentState", "initMSManipulationEvent"]
 
     /**
+     * @type {Integer} 
+     */
+    lastState {
+        get => this.get_lastState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    currentState {
+        get => this.get_currentState()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

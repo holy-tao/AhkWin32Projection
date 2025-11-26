@@ -38,6 +38,34 @@ class IGPMStatusMessage extends IDispatch{
     static VTableNames => ["get_ObjectPath", "ErrorCode", "get_ExtensionName", "get_SettingsName", "OperationCode", "get_Message"]
 
     /**
+     * @type {BSTR} 
+     */
+    ObjectPath {
+        get => this.get_ObjectPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtensionName {
+        get => this.get_ExtensionName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SettingsName {
+        get => this.get_SettingsName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

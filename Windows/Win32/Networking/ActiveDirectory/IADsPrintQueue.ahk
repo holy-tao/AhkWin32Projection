@@ -69,6 +69,110 @@ class IADsPrintQueue extends IADs{
     static VTableNames => ["get_PrinterPath", "put_PrinterPath", "get_Model", "put_Model", "get_Datatype", "put_Datatype", "get_PrintProcessor", "put_PrintProcessor", "get_Description", "put_Description", "get_Location", "put_Location", "get_StartTime", "put_StartTime", "get_UntilTime", "put_UntilTime", "get_DefaultJobPriority", "put_DefaultJobPriority", "get_Priority", "put_Priority", "get_BannerPage", "put_BannerPage", "get_PrintDevices", "put_PrintDevices", "get_NetAddresses", "put_NetAddresses"]
 
     /**
+     * @type {BSTR} 
+     */
+    PrinterPath {
+        get => this.get_PrinterPath()
+        set => this.put_PrinterPath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Model {
+        get => this.get_Model()
+        set => this.put_Model(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Datatype {
+        get => this.get_Datatype()
+        set => this.put_Datatype(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PrintProcessor {
+        get => this.get_PrintProcessor()
+        set => this.put_PrintProcessor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Location {
+        get => this.get_Location()
+        set => this.put_Location(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    UntilTime {
+        get => this.get_UntilTime()
+        set => this.put_UntilTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultJobPriority {
+        get => this.get_DefaultJobPriority()
+        set => this.put_DefaultJobPriority(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BannerPage {
+        get => this.get_BannerPage()
+        set => this.put_BannerPage(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PrintDevices {
+        get => this.get_PrintDevices()
+        set => this.put_PrintDevices(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    NetAddresses {
+        get => this.get_NetAddresses()
+        set => this.put_NetAddresses(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

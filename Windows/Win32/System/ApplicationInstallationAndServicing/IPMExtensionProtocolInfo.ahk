@@ -29,6 +29,12 @@ class IPMExtensionProtocolInfo extends IUnknown{
     static VTableNames => ["get_Protocol", "get_InvocationInfo"]
 
     /**
+     */
+    Protocol {
+        get => this.get_Protocol()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pProtocol 
      * @returns {HRESULT} 

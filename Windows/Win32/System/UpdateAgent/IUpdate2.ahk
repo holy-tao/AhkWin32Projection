@@ -32,6 +32,27 @@ class IUpdate2 extends IUpdate{
     static VTableNames => ["get_RebootRequired", "get_IsPresent", "get_CveIDs", "CopyToCache"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    RebootRequired {
+        get => this.get_RebootRequired()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsPresent {
+        get => this.get_IsPresent()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    CveIDs {
+        get => this.get_CveIDs()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate2-get_rebootrequired

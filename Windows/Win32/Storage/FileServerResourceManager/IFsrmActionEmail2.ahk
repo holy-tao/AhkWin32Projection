@@ -31,6 +31,14 @@ class IFsrmActionEmail2 extends IFsrmActionEmail{
     static VTableNames => ["get_AttachmentFileListSize", "put_AttachmentFileListSize"]
 
     /**
+     * @type {Integer} 
+     */
+    AttachmentFileListSize {
+        get => this.get_AttachmentFileListSize()
+        set => this.put_AttachmentFileListSize(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail2-get_attachmentfilelistsize

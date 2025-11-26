@@ -33,6 +33,36 @@ class IFsrmReport extends IDispatch{
     static VTableNames => ["get_Type", "get_Name", "put_Name", "get_Description", "put_Description", "get_LastGeneratedFileNamePrefix", "GetFilter", "SetFilter", "Delete"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastGeneratedFileNamePrefix {
+        get => this.get_LastGeneratedFileNamePrefix()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_type

@@ -32,6 +32,76 @@ class IWMPSettings extends IDispatch{
     static VTableNames => ["get_isAvailable", "get_autoStart", "put_autoStart", "get_baseURL", "put_baseURL", "get_defaultFrame", "put_defaultFrame", "get_invokeURLs", "put_invokeURLs", "get_mute", "put_mute", "get_playCount", "put_playCount", "get_rate", "put_rate", "get_balance", "put_balance", "get_volume", "put_volume", "getMode", "setMode", "get_enableErrorDialogs", "put_enableErrorDialogs"]
 
     /**
+     */
+    autoStart {
+        get => this.get_autoStart()
+        set => this.put_autoStart(value)
+    }
+
+    /**
+     */
+    baseURL {
+        get => this.get_baseURL()
+        set => this.put_baseURL(value)
+    }
+
+    /**
+     */
+    defaultFrame {
+        get => this.get_defaultFrame()
+        set => this.put_defaultFrame(value)
+    }
+
+    /**
+     */
+    invokeURLs {
+        get => this.get_invokeURLs()
+        set => this.put_invokeURLs(value)
+    }
+
+    /**
+     */
+    mute {
+        get => this.get_mute()
+        set => this.put_mute(value)
+    }
+
+    /**
+     */
+    playCount {
+        get => this.get_playCount()
+        set => this.put_playCount(value)
+    }
+
+    /**
+     */
+    rate {
+        get => this.get_rate()
+        set => this.put_rate(value)
+    }
+
+    /**
+     */
+    balance {
+        get => this.get_balance()
+        set => this.put_balance(value)
+    }
+
+    /**
+     */
+    volume {
+        get => this.get_volume()
+        set => this.put_volume(value)
+    }
+
+    /**
+     */
+    enableErrorDialogs {
+        get => this.get_enableErrorDialogs()
+        set => this.put_enableErrorDialogs(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrItem 
      * @param {Pointer<VARIANT_BOOL>} pIsAvailable 

@@ -41,6 +41,34 @@ class IWdsTransportServer extends IDispatch{
     static VTableNames => ["get_Name", "get_SetupManager", "get_ConfigurationManager", "get_NamespaceManager", "DisconnectClient"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {IWdsTransportSetupManager} 
+     */
+    SetupManager {
+        get => this.get_SetupManager()
+    }
+
+    /**
+     * @type {IWdsTransportConfigurationManager} 
+     */
+    ConfigurationManager {
+        get => this.get_ConfigurationManager()
+    }
+
+    /**
+     * @type {IWdsTransportNamespaceManager} 
+     */
+    NamespaceManager {
+        get => this.get_NamespaceManager()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_name

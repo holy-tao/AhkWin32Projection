@@ -34,6 +34,97 @@ class ICspInformation extends IDispatch{
     static VTableNames => ["InitializeFromName", "InitializeFromType", "get_CspAlgorithms", "get_HasHardwareRandomNumberGenerator", "get_IsHardwareDevice", "get_IsRemovable", "get_IsSoftwareDevice", "get_Valid", "get_MaxKeyContainerNameLength", "get_Name", "get_Type", "get_Version", "get_KeySpec", "get_IsSmartCard", "GetDefaultSecurityDescriptor", "get_LegacyCsp", "GetCspStatusFromOperations"]
 
     /**
+     * @type {ICspAlgorithms} 
+     */
+    CspAlgorithms {
+        get => this.get_CspAlgorithms()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    HasHardwareRandomNumberGenerator {
+        get => this.get_HasHardwareRandomNumberGenerator()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsHardwareDevice {
+        get => this.get_IsHardwareDevice()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsRemovable {
+        get => this.get_IsRemovable()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsSoftwareDevice {
+        get => this.get_IsSoftwareDevice()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Valid {
+        get => this.get_Valid()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxKeyContainerNameLength {
+        get => this.get_MaxKeyContainerNameLength()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KeySpec {
+        get => this.get_KeySpec()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsSmartCard {
+        get => this.get_IsSmartCard()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LegacyCsp {
+        get => this.get_LegacyCsp()
+    }
+
+    /**
      * 
      * @param {BSTR} strName 
      * @returns {HRESULT} 

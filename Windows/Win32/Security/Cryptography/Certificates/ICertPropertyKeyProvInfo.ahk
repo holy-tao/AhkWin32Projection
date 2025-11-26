@@ -32,6 +32,13 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
     static VTableNames => ["Initialize", "get_PrivateKey"]
 
     /**
+     * @type {IX509PrivateKey} 
+     */
+    PrivateKey {
+        get => this.get_PrivateKey()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IX509PrivateKey} pValue 
      * @returns {HRESULT} <ul>

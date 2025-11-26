@@ -32,6 +32,34 @@ class ICertPropertyEnrollment extends ICertProperty{
     static VTableNames => ["Initialize", "get_RequestId", "get_CADnsName", "get_CAName", "get_FriendlyName"]
 
     /**
+     * @type {Integer} 
+     */
+    RequestId {
+        get => this.get_RequestId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CADnsName {
+        get => this.get_CADnsName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAName {
+        get => this.get_CAName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} RequestId 
      * @param {BSTR} strCADnsName 

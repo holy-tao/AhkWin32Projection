@@ -36,6 +36,14 @@ class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
     static VTableNames => ["get_CountryCode", "put_CountryCode"]
 
     /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace2-get_countrycode

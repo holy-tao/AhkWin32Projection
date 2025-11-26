@@ -33,6 +33,13 @@ class IX509AttributeExtensions extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_X509Extensions"]
 
     /**
+     * @type {IX509Extensions} 
+     */
+    X509Extensions {
+        get => this.get_X509Extensions()
+    }
+
+    /**
      * 
      * @param {IX509Extensions} pExtensions 
      * @returns {HRESULT} 

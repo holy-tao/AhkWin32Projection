@@ -34,6 +34,27 @@ class INetSharingConfiguration extends IDispatch{
     static VTableNames => ["get_SharingEnabled", "get_SharingConnectionType", "DisableSharing", "EnableSharing", "get_InternetFirewallEnabled", "DisableInternetFirewall", "EnableInternetFirewall", "get_EnumPortMappings", "AddPortMapping", "RemovePortMapping"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    SharingEnabled {
+        get => this.get_SharingEnabled()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SharingConnectionType {
+        get => this.get_SharingConnectionType()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    InternetFirewallEnabled {
+        get => this.get_InternetFirewallEnabled()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingenabled

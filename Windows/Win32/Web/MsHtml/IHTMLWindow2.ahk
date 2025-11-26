@@ -48,6 +48,237 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
     static VTableNames => ["get_frames", "put_defaultStatus", "get_defaultStatus", "put_status", "get_status", "setTimeout", "clearTimeout", "alert", "confirm", "prompt", "get_Image", "get_location", "get_history", "close", "put_opener", "get_opener", "get_navigator", "put_name", "get_name", "get_parent", "open", "get_self", "get_top", "get_window", "navigate", "put_onfocus", "get_onfocus", "put_onblur", "get_onblur", "put_onload", "get_onload", "put_onbeforeunload", "get_onbeforeunload", "put_onunload", "get_onunload", "put_onhelp", "get_onhelp", "put_onerror", "get_onerror", "put_onresize", "get_onresize", "put_onscroll", "get_onscroll", "get_document", "get_event", "get__newEnum", "showModalDialog", "showHelp", "get_screen", "get_Option", "focus", "get_closed", "blur", "scroll", "get_clientInformation", "setInterval", "clearInterval", "put_offscreenBuffering", "get_offscreenBuffering", "execScript", "toString", "scrollBy", "scrollTo", "moveTo", "moveBy", "resizeTo", "resizeBy", "get_external"]
 
     /**
+     * @type {IHTMLFramesCollection2} 
+     */
+    frames {
+        get => this.get_frames()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultStatus {
+        get => this.get_defaultStatus()
+        set => this.put_defaultStatus(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    status {
+        get => this.get_status()
+        set => this.put_status(value)
+    }
+
+    /**
+     * @type {IHTMLImageElementFactory} 
+     */
+    Image {
+        get => this.get_Image()
+    }
+
+    /**
+     * @type {IHTMLLocation} 
+     */
+    location {
+        get => this.get_location()
+    }
+
+    /**
+     * @type {IOmHistory} 
+     */
+    history {
+        get => this.get_history()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    opener {
+        get => this.get_opener()
+        set => this.put_opener(value)
+    }
+
+    /**
+     * @type {IOmNavigator} 
+     */
+    navigator {
+        get => this.get_navigator()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    parent {
+        get => this.get_parent()
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    self {
+        get => this.get_self()
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    top {
+        get => this.get_top()
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    window {
+        get => this.get_window()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocus {
+        get => this.get_onfocus()
+        set => this.put_onfocus(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onblur {
+        get => this.get_onblur()
+        set => this.put_onblur(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeunload {
+        get => this.get_onbeforeunload()
+        set => this.put_onbeforeunload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onunload {
+        get => this.get_onunload()
+        set => this.put_onunload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onhelp {
+        get => this.get_onhelp()
+        set => this.put_onhelp(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onresize {
+        get => this.get_onresize()
+        set => this.put_onresize(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onscroll {
+        get => this.get_onscroll()
+        set => this.put_onscroll(value)
+    }
+
+    /**
+     * @type {IHTMLDocument2} 
+     */
+    document {
+        get => this.get_document()
+    }
+
+    /**
+     * @type {IHTMLEventObj} 
+     */
+    event {
+        get => this.get_event()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
+     * @type {IHTMLScreen} 
+     */
+    screen {
+        get => this.get_screen()
+    }
+
+    /**
+     * @type {IHTMLOptionElementFactory} 
+     */
+    Option {
+        get => this.get_Option()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    closed {
+        get => this.get_closed()
+    }
+
+    /**
+     * @type {IOmNavigator} 
+     */
+    clientInformation {
+        get => this.get_clientInformation()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    offscreenBuffering {
+        get => this.get_offscreenBuffering()
+        set => this.put_offscreenBuffering(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    external {
+        get => this.get_external()
+    }
+
+    /**
      * 
      * @returns {IHTMLFramesCollection2} 
      */

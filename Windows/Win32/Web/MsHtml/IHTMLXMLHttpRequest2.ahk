@@ -30,6 +30,22 @@ class IHTMLXMLHttpRequest2 extends IDispatch{
     static VTableNames => ["put_timeout", "get_timeout", "put_ontimeout", "get_ontimeout"]
 
     /**
+     * @type {Integer} 
+     */
+    timeout {
+        get => this.get_timeout()
+        set => this.put_timeout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ontimeout {
+        get => this.get_ontimeout()
+        set => this.put_ontimeout(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

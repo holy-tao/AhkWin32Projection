@@ -37,6 +37,13 @@ class IAMNetShowPreroll extends IDispatch{
     static VTableNames => ["put_Preroll", "get_Preroll"]
 
     /**
+     */
+    Preroll {
+        get => this.get_Preroll()
+        set => this.put_Preroll(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} fPreroll 
      * @returns {HRESULT} 

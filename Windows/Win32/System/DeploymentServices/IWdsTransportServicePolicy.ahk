@@ -38,6 +38,30 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     static VTableNames => ["get_IpAddressSource", "put_IpAddressSource", "get_StartIpAddress", "put_StartIpAddress", "get_EndIpAddress", "put_EndIpAddress", "get_StartPort", "put_StartPort", "get_EndPort", "put_EndPort", "get_NetworkProfile", "put_NetworkProfile"]
 
     /**
+     * @type {Integer} 
+     */
+    StartPort {
+        get => this.get_StartPort()
+        set => this.put_StartPort(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EndPort {
+        get => this.get_EndPort()
+        set => this.put_EndPort(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NetworkProfile {
+        get => this.get_NetworkProfile()
+        set => this.put_NetworkProfile(value)
+    }
+
+    /**
      * 
      * @param {Integer} AddressType 
      * @returns {Integer} 

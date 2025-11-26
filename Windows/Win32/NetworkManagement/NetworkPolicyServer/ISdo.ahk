@@ -33,6 +33,13 @@ class ISdo extends IDispatch{
     static VTableNames => ["GetPropertyInfo", "GetProperty", "PutProperty", "ResetProperty", "Apply", "Restore", "get__NewEnum"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @param {Integer} Id 
      * @returns {IUnknown} 

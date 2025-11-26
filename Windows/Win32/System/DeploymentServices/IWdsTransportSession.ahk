@@ -40,6 +40,48 @@ class IWdsTransportSession extends IDispatch{
     static VTableNames => ["get_Content", "get_Id", "get_NetworkInterfaceName", "get_NetworkInterfaceAddress", "get_TransferRate", "get_MasterClientId", "RetrieveClients", "Terminate"]
 
     /**
+     * @type {IWdsTransportContent} 
+     */
+    Content {
+        get => this.get_Content()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NetworkInterfaceName {
+        get => this.get_NetworkInterfaceName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NetworkInterfaceAddress {
+        get => this.get_NetworkInterfaceAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TransferRate {
+        get => this.get_TransferRate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MasterClientId {
+        get => this.get_MasterClientId()
+    }
+
+    /**
      * 
      * @returns {IWdsTransportContent} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_content

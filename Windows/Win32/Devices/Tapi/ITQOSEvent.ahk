@@ -32,6 +32,27 @@ class ITQOSEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_Event", "get_MediaType"]
 
     /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
      * 
      * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_call

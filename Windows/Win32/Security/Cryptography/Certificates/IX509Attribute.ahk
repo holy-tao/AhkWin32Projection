@@ -33,6 +33,13 @@ class IX509Attribute extends IDispatch{
     static VTableNames => ["Initialize", "get_ObjectId", "get_RawData"]
 
     /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IObjectId} pObjectId 
      * @param {Integer} Encoding 

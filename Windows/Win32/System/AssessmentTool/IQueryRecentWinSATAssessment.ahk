@@ -34,6 +34,13 @@ class IQueryRecentWinSATAssessment extends IDispatch{
     static VTableNames => ["get_XML", "get_Info"]
 
     /**
+     * @type {IProvideWinSATResultsInfo} 
+     */
+    Info {
+        get => this.get_Info()
+    }
+
+    /**
      * 
      * @param {BSTR} xPath 
      * @param {BSTR} namespaces 

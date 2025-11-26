@@ -32,6 +32,20 @@ class IX509NameValuePair extends IDispatch{
     static VTableNames => ["Initialize", "get_Value", "get_Name"]
 
     /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} strName 
      * @param {BSTR} strValue 

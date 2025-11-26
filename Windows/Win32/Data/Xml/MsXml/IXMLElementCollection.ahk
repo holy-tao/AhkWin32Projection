@@ -32,6 +32,21 @@ class IXMLElementCollection extends IDispatch{
     static VTableNames => ["put_length", "get_length", "get__newEnum", "item"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+        set => this.put_length(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

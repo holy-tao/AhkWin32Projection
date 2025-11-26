@@ -42,6 +42,21 @@ class IXDSCodec extends IUnknown{
     static VTableNames => ["get_XDSToRatObjOK", "put_CCSubstreamService", "get_CCSubstreamService", "GetContentAdvisoryRating", "GetXDSPacket", "GetCurrLicenseExpDate", "GetLastErrorCode"]
 
     /**
+     * @type {HRESULT} 
+     */
+    XDSToRatObjOK {
+        get => this.get_XDSToRatObjOK()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CCSubstreamService {
+        get => this.get_CCSubstreamService()
+        set => this.put_CCSubstreamService(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-get_xdstoratobjok

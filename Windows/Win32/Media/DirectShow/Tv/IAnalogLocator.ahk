@@ -42,6 +42,14 @@ class IAnalogLocator extends ILocator{
     static VTableNames => ["get_VideoStandard", "put_VideoStandard"]
 
     /**
+     * @type {Integer} 
+     */
+    VideoStandard {
+        get => this.get_VideoStandard()
+        set => this.put_VideoStandard(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianaloglocator-get_videostandard

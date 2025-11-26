@@ -38,6 +38,14 @@ class IFileSystemImage2 extends IFileSystemImage{
     static VTableNames => ["get_BootImageOptionsArray", "put_BootImageOptionsArray"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    BootImageOptionsArray {
+        get => this.get_BootImageOptionsArray()
+        set => this.put_BootImageOptionsArray(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage2-get_bootimageoptionsarray

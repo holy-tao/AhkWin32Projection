@@ -30,6 +30,20 @@ class ISchemaAny extends ISchemaParticle{
     static VTableNames => ["get_namespaces", "get_processContents"]
 
     /**
+     * @type {ISchemaStringCollection} 
+     */
+    namespaces {
+        get => this.get_namespaces()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    processContents {
+        get => this.get_processContents()
+    }
+
+    /**
      * 
      * @returns {ISchemaStringCollection} 
      */

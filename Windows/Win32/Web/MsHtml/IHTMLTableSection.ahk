@@ -38,6 +38,37 @@ class IHTMLTableSection extends IDispatch{
     static VTableNames => ["put_align", "get_align", "put_vAlign", "get_vAlign", "put_bgColor", "get_bgColor", "get_rows", "insertRow", "deleteRow"]
 
     /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vAlign {
+        get => this.get_vAlign()
+        set => this.put_vAlign(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    rows {
+        get => this.get_rows()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

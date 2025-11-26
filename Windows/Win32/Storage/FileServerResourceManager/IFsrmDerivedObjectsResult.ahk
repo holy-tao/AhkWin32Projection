@@ -32,6 +32,20 @@ class IFsrmDerivedObjectsResult extends IDispatch{
     static VTableNames => ["get_DerivedObjects", "get_Results"]
 
     /**
+     * @type {IFsrmCollection} 
+     */
+    DerivedObjects {
+        get => this.get_DerivedObjects()
+    }
+
+    /**
+     * @type {IFsrmCollection} 
+     */
+    Results {
+        get => this.get_Results()
+    }
+
+    /**
      * 
      * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects

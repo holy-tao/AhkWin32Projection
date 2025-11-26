@@ -41,6 +41,34 @@ class Folder extends IDispatch{
     static VTableNames => ["get_Title", "get_Application", "get_Parent", "get_ParentFolder", "Items", "ParseName", "NewFolder", "MoveHere", "CopyHere", "GetDetailsOf"]
 
     /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {Folder} 
+     */
+    ParentFolder {
+        get => this.get_ParentFolder()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

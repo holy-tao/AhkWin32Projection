@@ -33,6 +33,40 @@ class IWMPCdromBurn extends IUnknown{
     static VTableNames => ["isAvailable", "getItemInfo", "get_label", "put_label", "get_burnFormat", "put_burnFormat", "get_burnPlaylist", "put_burnPlaylist", "refreshStatus", "get_burnState", "get_burnProgress", "startBurn", "stopBurn", "erase"]
 
     /**
+     */
+    label {
+        get => this.get_label()
+        set => this.put_label(value)
+    }
+
+    /**
+     */
+    burnFormat {
+        get => this.get_burnFormat()
+        set => this.put_burnFormat(value)
+    }
+
+    /**
+     * @type {IWMPPlaylist} 
+     */
+    burnPlaylist {
+        get => this.get_burnPlaylist()
+        set => this.put_burnPlaylist(value)
+    }
+
+    /**
+     */
+    burnState {
+        get => this.get_burnState()
+    }
+
+    /**
+     */
+    burnProgress {
+        get => this.get_burnProgress()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrItem 
      * @param {Pointer<VARIANT_BOOL>} pIsAvailable 

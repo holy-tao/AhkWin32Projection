@@ -33,6 +33,27 @@ class ITASRTerminalEvent extends IDispatch{
     static VTableNames => ["get_Terminal", "get_Call", "get_Error"]
 
     /**
+     * @type {ITTerminal} 
+     */
+    Terminal {
+        get => this.get_Terminal()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
      * 
      * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itasrterminalevent-get_terminal

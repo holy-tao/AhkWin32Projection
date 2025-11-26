@@ -49,6 +49,69 @@ class ITuningSpace extends IDispatch{
     static VTableNames => ["get_UniqueName", "put_UniqueName", "get_FriendlyName", "put_FriendlyName", "get_CLSID", "get_NetworkType", "put_NetworkType", "get__NetworkType", "put__NetworkType", "CreateTuneRequest", "EnumCategoryGUIDs", "EnumDeviceMonikers", "get_DefaultPreferredComponentTypes", "put_DefaultPreferredComponentTypes", "get_FrequencyMapping", "put_FrequencyMapping", "get_DefaultLocator", "put_DefaultLocator", "Clone"]
 
     /**
+     * @type {BSTR} 
+     */
+    UniqueName {
+        get => this.get_UniqueName()
+        set => this.put_UniqueName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+        set => this.put_FriendlyName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CLSID {
+        get => this.get_CLSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NetworkType {
+        get => this.get_NetworkType()
+        set => this.put_NetworkType(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _NetworkType {
+        get => this.get__NetworkType()
+        set => this.put__NetworkType(value)
+    }
+
+    /**
+     * @type {IComponentTypes} 
+     */
+    DefaultPreferredComponentTypes {
+        get => this.get_DefaultPreferredComponentTypes()
+        set => this.put_DefaultPreferredComponentTypes(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FrequencyMapping {
+        get => this.get_FrequencyMapping()
+        set => this.put_FrequencyMapping(value)
+    }
+
+    /**
+     * @type {ILocator} 
+     */
+    DefaultLocator {
+        get => this.get_DefaultLocator()
+        set => this.put_DefaultLocator(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_uniquename

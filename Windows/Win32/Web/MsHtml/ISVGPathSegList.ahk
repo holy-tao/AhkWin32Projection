@@ -36,6 +36,14 @@ class ISVGPathSegList extends IDispatch{
     static VTableNames => ["put_numberOfItems", "get_numberOfItems", "clear", "initialize", "getItem", "insertItemBefore", "replaceItem", "removeItem", "appendItem"]
 
     /**
+     * @type {Integer} 
+     */
+    numberOfItems {
+        get => this.get_numberOfItems()
+        set => this.put_numberOfItems(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

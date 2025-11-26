@@ -30,6 +30,13 @@ class IHTMLSelectionObject extends IDispatch{
     static VTableNames => ["createRange", "empty", "clear", "get_type"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

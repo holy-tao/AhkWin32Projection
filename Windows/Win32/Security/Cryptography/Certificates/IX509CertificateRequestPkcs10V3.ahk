@@ -34,6 +34,45 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
     static VTableNames => ["get_AttestPrivateKey", "put_AttestPrivateKey", "get_AttestationEncryptionCertificate", "put_AttestationEncryptionCertificate", "get_EncryptionAlgorithm", "put_EncryptionAlgorithm", "get_EncryptionStrength", "put_EncryptionStrength", "get_ChallengePassword", "put_ChallengePassword", "get_NameValuePairs"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    AttestPrivateKey {
+        get => this.get_AttestPrivateKey()
+        set => this.put_AttestPrivateKey(value)
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    EncryptionAlgorithm {
+        get => this.get_EncryptionAlgorithm()
+        set => this.put_EncryptionAlgorithm(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EncryptionStrength {
+        get => this.get_EncryptionStrength()
+        set => this.put_EncryptionStrength(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ChallengePassword {
+        get => this.get_ChallengePassword()
+        set => this.put_ChallengePassword(value)
+    }
+
+    /**
+     * @type {IX509NameValuePairs} 
+     */
+    NameValuePairs {
+        get => this.get_NameValuePairs()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_attestprivatekey

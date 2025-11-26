@@ -81,6 +81,36 @@ class IADsContainer extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Filter", "put_Filter", "get_Hints", "put_Hints", "GetObject", "Create", "Delete", "CopyHere", "MoveHere"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Filter {
+        get => this.get_Filter()
+        set => this.put_Filter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Hints {
+        get => this.get_Hints()
+        set => this.put_Hints(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

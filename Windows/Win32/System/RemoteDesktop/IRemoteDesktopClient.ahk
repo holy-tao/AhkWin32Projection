@@ -35,6 +35,27 @@ class IRemoteDesktopClient extends IDispatch{
     static VTableNames => ["Connect", "Disconnect", "Reconnect", "get_Settings", "get_Actions", "get_TouchPointer", "DeleteSavedCredentials", "UpdateSessionDisplaySettings", "attachEvent", "detachEvent"]
 
     /**
+     * @type {IRemoteDesktopClientSettings} 
+     */
+    Settings {
+        get => this.get_Settings()
+    }
+
+    /**
+     * @type {IRemoteDesktopClientActions} 
+     */
+    Actions {
+        get => this.get_Actions()
+    }
+
+    /**
+     * @type {IRemoteDesktopClientTouchPointer} 
+     */
+    TouchPointer {
+        get => this.get_TouchPointer()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclient-connect

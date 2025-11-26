@@ -47,6 +47,130 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     static VTableNames => ["get_CustomCompositorClass", "put_CustomCompositorClass", "get__CustomCompositorClass", "put__CustomCompositorClass", "get__CustomCompositor", "put__CustomCompositor", "get_MixerBitmap", "get__MixerBitmap", "put_MixerBitmap", "put__MixerBitmap", "get_MixerBitmapPositionRect", "put_MixerBitmapPositionRect", "get_MixerBitmapOpacity", "put_MixerBitmapOpacity", "SetupMixerBitmap", "get_SourceSize", "put_SourceSize", "get_OverScan", "put_OverScan", "get_AvailableSourceRect", "get_MaxVidRect", "get_MinVidRect", "get_ClippedSourceRect", "put_ClippedSourceRect", "get_UsingOverlay", "put_UsingOverlay", "Capture", "get_FramesPerSecond", "get_DecimateInput", "put_DecimateInput"]
 
     /**
+     * @type {BSTR} 
+     */
+    CustomCompositorClass {
+        get => this.get_CustomCompositorClass()
+        set => this.put_CustomCompositorClass(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _CustomCompositorClass {
+        get => this.get__CustomCompositorClass()
+        set => this.put__CustomCompositorClass(value)
+    }
+
+    /**
+     * @type {IVMRImageCompositor} 
+     */
+    _CustomCompositor {
+        get => this.get__CustomCompositor()
+        set => this.put__CustomCompositor(value)
+    }
+
+    /**
+     * @type {IPictureDisp} 
+     */
+    MixerBitmap {
+        get => this.get_MixerBitmap()
+        set => this.put_MixerBitmap(value)
+    }
+
+    /**
+     * @type {IVMRMixerBitmap} 
+     */
+    _MixerBitmap {
+        get => this.get__MixerBitmap()
+        set => this.put__MixerBitmap(value)
+    }
+
+    /**
+     * @type {IMSVidRect} 
+     */
+    MixerBitmapPositionRect {
+        get => this.get_MixerBitmapPositionRect()
+        set => this.put_MixerBitmapPositionRect(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MixerBitmapOpacity {
+        get => this.get_MixerBitmapOpacity()
+        set => this.put_MixerBitmapOpacity(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SourceSize {
+        get => this.get_SourceSize()
+        set => this.put_SourceSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OverScan {
+        get => this.get_OverScan()
+        set => this.put_OverScan(value)
+    }
+
+    /**
+     * @type {IMSVidRect} 
+     */
+    AvailableSourceRect {
+        get => this.get_AvailableSourceRect()
+    }
+
+    /**
+     * @type {IMSVidRect} 
+     */
+    MaxVidRect {
+        get => this.get_MaxVidRect()
+    }
+
+    /**
+     * @type {IMSVidRect} 
+     */
+    MinVidRect {
+        get => this.get_MinVidRect()
+    }
+
+    /**
+     * @type {IMSVidRect} 
+     */
+    ClippedSourceRect {
+        get => this.get_ClippedSourceRect()
+        set => this.put_ClippedSourceRect(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UsingOverlay {
+        get => this.get_UsingOverlay()
+        set => this.put_UsingOverlay(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FramesPerSecond {
+        get => this.get_FramesPerSecond()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DecimateInput {
+        get => this.get_DecimateInput()
+        set => this.put_DecimateInput(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_customcompositorclass

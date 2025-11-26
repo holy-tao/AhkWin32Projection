@@ -37,6 +37,22 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
     static VTableNames => ["get_MinimumClients", "put_MinimumClients", "get_StartTime", "put_StartTime"]
 
     /**
+     * @type {Integer} 
+     */
+    MinimumClients {
+        get => this.get_MinimumClients()
+        set => this.put_MinimumClients(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_minimumclients

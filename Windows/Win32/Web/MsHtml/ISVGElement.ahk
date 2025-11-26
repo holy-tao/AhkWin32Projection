@@ -39,6 +39,35 @@ class ISVGElement extends IDispatch{
     static VTableNames => ["put_xmlbase", "get_xmlbase", "putref_ownerSVGElement", "get_ownerSVGElement", "putref_viewportElement", "get_viewportElement", "putref_focusable", "get_focusable"]
 
     /**
+     * @type {BSTR} 
+     */
+    xmlbase {
+        get => this.get_xmlbase()
+        set => this.put_xmlbase(value)
+    }
+
+    /**
+     * @type {ISVGSVGElement} 
+     */
+    ownerSVGElement {
+        get => this.get_ownerSVGElement()
+    }
+
+    /**
+     * @type {ISVGElement} 
+     */
+    viewportElement {
+        get => this.get_viewportElement()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    focusable {
+        get => this.get_focusable()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

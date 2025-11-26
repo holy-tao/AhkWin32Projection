@@ -37,6 +37,20 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
     static VTableNames => ["put__SourceFilter", "put___SourceFilter"]
 
     /**
+     * @type {HRESULT} 
+     */
+    _SourceFilter {
+        set => this.put__SourceFilter(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    __SourceFilter {
+        set => this.put___SourceFilter(value)
+    }
+
+    /**
      * 
      * @param {BSTR} FileName 
      * @returns {HRESULT} 

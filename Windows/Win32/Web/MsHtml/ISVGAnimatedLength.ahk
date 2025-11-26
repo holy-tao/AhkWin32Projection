@@ -36,6 +36,20 @@ class ISVGAnimatedLength extends IDispatch{
     static VTableNames => ["putref_baseVal", "get_baseVal", "putref_animVal", "get_animVal"]
 
     /**
+     * @type {ISVGLength} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+    }
+
+    /**
+     * @type {ISVGLength} 
+     */
+    animVal {
+        get => this.get_animVal()
+    }
+
+    /**
      * 
      * @param {ISVGLength} v 
      * @returns {HRESULT} 

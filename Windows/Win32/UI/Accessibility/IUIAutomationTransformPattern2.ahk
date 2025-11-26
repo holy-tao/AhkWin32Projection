@@ -31,6 +31,62 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
     static VTableNames => ["Zoom", "ZoomByUnit", "get_CurrentCanZoom", "get_CachedCanZoom", "get_CurrentZoomLevel", "get_CachedZoomLevel", "get_CurrentZoomMinimum", "get_CachedZoomMinimum", "get_CurrentZoomMaximum", "get_CachedZoomMaximum"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentCanZoom {
+        get => this.get_CurrentCanZoom()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanZoom {
+        get => this.get_CachedCanZoom()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentZoomLevel {
+        get => this.get_CurrentZoomLevel()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedZoomLevel {
+        get => this.get_CachedZoomLevel()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentZoomMinimum {
+        get => this.get_CurrentZoomMinimum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedZoomMinimum {
+        get => this.get_CachedZoomMinimum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentZoomMaximum {
+        get => this.get_CurrentZoomMaximum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedZoomMaximum {
+        get => this.get_CachedZoomMaximum()
+    }
+
+    /**
      * 
      * @param {Float} zoomValue 
      * @returns {HRESULT} 

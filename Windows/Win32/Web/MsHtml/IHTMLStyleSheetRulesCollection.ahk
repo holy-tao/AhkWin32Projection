@@ -36,6 +36,13 @@ class IHTMLStyleSheetRulesCollection extends IDispatch{
     static VTableNames => ["get_length", "item"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

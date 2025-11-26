@@ -43,6 +43,20 @@ class IMSVidEncoder extends IMSVidFeature{
     static VTableNames => ["get_VideoEncoderInterface", "get_AudioEncoderInterface"]
 
     /**
+     * @type {IUnknown} 
+     */
+    VideoEncoderInterface {
+        get => this.get_VideoEncoderInterface()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    AudioEncoderInterface {
+        get => this.get_AudioEncoderInterface()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidencoder-get_videoencoderinterface

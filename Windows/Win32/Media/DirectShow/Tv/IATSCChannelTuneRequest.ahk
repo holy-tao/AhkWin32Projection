@@ -64,6 +64,14 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest{
     static VTableNames => ["get_MinorChannel", "put_MinorChannel"]
 
     /**
+     * @type {Integer} 
+     */
+    MinorChannel {
+        get => this.get_MinorChannel()
+        set => this.put_MinorChannel(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatscchanneltunerequest-get_minorchannel

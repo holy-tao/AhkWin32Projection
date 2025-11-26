@@ -37,6 +37,27 @@ class IAzClientContext3 extends IAzClientContext2{
     static VTableNames => ["AccessCheck2", "IsInRoleAssignment", "GetOperations", "GetTasks", "get_BizRuleParameters", "get_BizRuleInterfaces", "GetGroups", "get_Sids"]
 
     /**
+     * @type {IAzBizRuleParameters} 
+     */
+    BizRuleParameters {
+        get => this.get_BizRuleParameters()
+    }
+
+    /**
+     * @type {IAzBizRuleInterfaces} 
+     */
+    BizRuleInterfaces {
+        get => this.get_BizRuleInterfaces()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Sids {
+        get => this.get_Sids()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrObjectName 
      * @param {BSTR} bstrScopeName 

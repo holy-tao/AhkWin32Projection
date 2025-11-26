@@ -40,6 +40,88 @@ class IWdsTransportNamespace extends IDispatch{
     static VTableNames => ["get_Type", "get_Id", "get_Name", "put_Name", "get_FriendlyName", "put_FriendlyName", "get_Description", "put_Description", "get_ContentProvider", "put_ContentProvider", "get_Configuration", "put_Configuration", "get_Registered", "get_Tombstoned", "get_TombstoneTime", "get_TransmissionStarted", "Register", "Deregister", "Clone", "Refresh", "RetrieveContents"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+        set => this.put_FriendlyName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ContentProvider {
+        get => this.get_ContentProvider()
+        set => this.put_ContentProvider(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Configuration {
+        get => this.get_Configuration()
+        set => this.put_Configuration(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Registered {
+        get => this.get_Registered()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Tombstoned {
+        get => this.get_Tombstoned()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TombstoneTime {
+        get => this.get_TombstoneTime()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    TransmissionStarted {
+        get => this.get_TransmissionStarted()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_type

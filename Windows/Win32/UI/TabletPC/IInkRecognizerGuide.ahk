@@ -33,6 +33,54 @@ class IInkRecognizerGuide extends IDispatch{
     static VTableNames => ["get_WritingBox", "put_WritingBox", "get_DrawnBox", "put_DrawnBox", "get_Rows", "put_Rows", "get_Columns", "put_Columns", "get_Midline", "put_Midline", "get_GuideData", "put_GuideData"]
 
     /**
+     * @type {IInkRectangle} 
+     */
+    WritingBox {
+        get => this.get_WritingBox()
+        set => this.put_WritingBox(value)
+    }
+
+    /**
+     * @type {IInkRectangle} 
+     */
+    DrawnBox {
+        get => this.get_DrawnBox()
+        set => this.put_DrawnBox(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Rows {
+        get => this.get_Rows()
+        set => this.put_Rows(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Columns {
+        get => this.get_Columns()
+        set => this.put_Columns(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Midline {
+        get => this.get_Midline()
+        set => this.put_Midline(value)
+    }
+
+    /**
+     * @type {InkRecoGuide} 
+     */
+    GuideData {
+        get => this.get_GuideData()
+        set => this.put_GuideData(value)
+    }
+
+    /**
      * 
      * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_writingbox

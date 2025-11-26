@@ -33,6 +33,61 @@ class IWMPPlayer4 extends IWMPCore3{
     static VTableNames => ["get_enabled", "put_enabled", "get_fullScreen", "put_fullScreen", "get_enableContextMenu", "put_enableContextMenu", "put_uiMode", "get_uiMode", "get_stretchToFit", "put_stretchToFit", "get_windowlessVideo", "put_windowlessVideo", "get_isRemote", "get_playerApplication", "openPlayer"]
 
     /**
+     */
+    enabled {
+        get => this.get_enabled()
+        set => this.put_enabled(value)
+    }
+
+    /**
+     */
+    fullScreen {
+        get => this.get_fullScreen()
+        set => this.put_fullScreen(value)
+    }
+
+    /**
+     */
+    enableContextMenu {
+        get => this.get_enableContextMenu()
+        set => this.put_enableContextMenu(value)
+    }
+
+    /**
+     */
+    uiMode {
+        get => this.get_uiMode()
+        set => this.put_uiMode(value)
+    }
+
+    /**
+     */
+    stretchToFit {
+        get => this.get_stretchToFit()
+        set => this.put_stretchToFit(value)
+    }
+
+    /**
+     */
+    windowlessVideo {
+        get => this.get_windowlessVideo()
+        set => this.put_windowlessVideo(value)
+    }
+
+    /**
+     */
+    isRemote {
+        get => this.get_isRemote()
+    }
+
+    /**
+     * @type {IWMPPlayerApplication} 
+     */
+    playerApplication {
+        get => this.get_playerApplication()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 

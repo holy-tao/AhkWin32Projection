@@ -38,6 +38,20 @@ class IWindowsMediaLibrarySharingDeviceProperty extends IDispatch{
     static VTableNames => ["get_Name", "get_Value"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_name

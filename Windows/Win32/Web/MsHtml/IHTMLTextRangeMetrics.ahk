@@ -29,6 +29,48 @@ class IHTMLTextRangeMetrics extends IDispatch{
     static VTableNames => ["get_offsetTop", "get_offsetLeft", "get_boundingTop", "get_boundingLeft", "get_boundingWidth", "get_boundingHeight"]
 
     /**
+     * @type {Integer} 
+     */
+    offsetTop {
+        get => this.get_offsetTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetLeft {
+        get => this.get_offsetLeft()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    boundingTop {
+        get => this.get_boundingTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    boundingLeft {
+        get => this.get_boundingLeft()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    boundingWidth {
+        get => this.get_boundingWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    boundingHeight {
+        get => this.get_boundingHeight()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

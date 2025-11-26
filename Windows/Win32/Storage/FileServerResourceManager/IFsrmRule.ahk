@@ -38,6 +38,60 @@ class IFsrmRule extends IFsrmObject{
     static VTableNames => ["get_Name", "put_Name", "get_RuleType", "get_ModuleDefinitionName", "put_ModuleDefinitionName", "get_NamespaceRoots", "put_NamespaceRoots", "get_RuleFlags", "put_RuleFlags", "get_Parameters", "put_Parameters", "get_LastModified"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RuleType {
+        get => this.get_RuleType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ModuleDefinitionName {
+        get => this.get_ModuleDefinitionName()
+        set => this.put_ModuleDefinitionName(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    NamespaceRoots {
+        get => this.get_NamespaceRoots()
+        set => this.put_NamespaceRoots(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RuleFlags {
+        get => this.get_RuleFlags()
+        set => this.put_RuleFlags(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Parameters {
+        get => this.get_Parameters()
+        set => this.put_Parameters(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LastModified {
+        get => this.get_LastModified()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_name

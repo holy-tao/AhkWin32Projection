@@ -36,6 +36,13 @@ class ISVGStopElement extends IDispatch{
     static VTableNames => ["putref_offset", "get_offset"]
 
     /**
+     * @type {ISVGAnimatedNumber} 
+     */
+    offset {
+        get => this.get_offset()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedNumber} v 
      * @returns {HRESULT} 

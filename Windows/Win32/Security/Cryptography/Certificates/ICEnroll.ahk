@@ -38,6 +38,198 @@ class ICEnroll extends IDispatch{
     static VTableNames => ["createFilePKCS10", "acceptFilePKCS7", "createPKCS10", "acceptPKCS7", "getCertFromPKCS7", "enumProviders", "enumContainers", "freeRequestInfo", "get_MyStoreName", "put_MyStoreName", "get_MyStoreType", "put_MyStoreType", "get_MyStoreFlags", "put_MyStoreFlags", "get_CAStoreName", "put_CAStoreName", "get_CAStoreType", "put_CAStoreType", "get_CAStoreFlags", "put_CAStoreFlags", "get_RootStoreName", "put_RootStoreName", "get_RootStoreType", "put_RootStoreType", "get_RootStoreFlags", "put_RootStoreFlags", "get_RequestStoreName", "put_RequestStoreName", "get_RequestStoreType", "put_RequestStoreType", "get_RequestStoreFlags", "put_RequestStoreFlags", "get_ContainerName", "put_ContainerName", "get_ProviderName", "put_ProviderName", "get_ProviderType", "put_ProviderType", "get_KeySpec", "put_KeySpec", "get_ProviderFlags", "put_ProviderFlags", "get_UseExistingKeySet", "put_UseExistingKeySet", "get_GenKeyFlags", "put_GenKeyFlags", "get_DeleteRequestCert", "put_DeleteRequestCert", "get_WriteCertToCSP", "put_WriteCertToCSP", "get_SPCFileName", "put_SPCFileName", "get_PVKFileName", "put_PVKFileName", "get_HashAlgorithm", "put_HashAlgorithm"]
 
     /**
+     * @type {BSTR} 
+     */
+    MyStoreName {
+        get => this.get_MyStoreName()
+        set => this.put_MyStoreName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MyStoreType {
+        get => this.get_MyStoreType()
+        set => this.put_MyStoreType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MyStoreFlags {
+        get => this.get_MyStoreFlags()
+        set => this.put_MyStoreFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAStoreName {
+        get => this.get_CAStoreName()
+        set => this.put_CAStoreName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAStoreType {
+        get => this.get_CAStoreType()
+        set => this.put_CAStoreType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CAStoreFlags {
+        get => this.get_CAStoreFlags()
+        set => this.put_CAStoreFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RootStoreName {
+        get => this.get_RootStoreName()
+        set => this.put_RootStoreName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RootStoreType {
+        get => this.get_RootStoreType()
+        set => this.put_RootStoreType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RootStoreFlags {
+        get => this.get_RootStoreFlags()
+        set => this.put_RootStoreFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RequestStoreName {
+        get => this.get_RequestStoreName()
+        set => this.put_RequestStoreName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RequestStoreType {
+        get => this.get_RequestStoreType()
+        set => this.put_RequestStoreType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestStoreFlags {
+        get => this.get_RequestStoreFlags()
+        set => this.put_RequestStoreFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ContainerName {
+        get => this.get_ContainerName()
+        set => this.put_ContainerName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderName {
+        get => this.get_ProviderName()
+        set => this.put_ProviderName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProviderType {
+        get => this.get_ProviderType()
+        set => this.put_ProviderType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KeySpec {
+        get => this.get_KeySpec()
+        set => this.put_KeySpec(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProviderFlags {
+        get => this.get_ProviderFlags()
+        set => this.put_ProviderFlags(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    UseExistingKeySet {
+        get => this.get_UseExistingKeySet()
+        set => this.put_UseExistingKeySet(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GenKeyFlags {
+        get => this.get_GenKeyFlags()
+        set => this.put_GenKeyFlags(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    DeleteRequestCert {
+        get => this.get_DeleteRequestCert()
+        set => this.put_DeleteRequestCert(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    WriteCertToCSP {
+        get => this.get_WriteCertToCSP()
+        set => this.put_WriteCertToCSP(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SPCFileName {
+        get => this.get_SPCFileName()
+        set => this.put_SPCFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PVKFileName {
+        get => this.get_PVKFileName()
+        set => this.put_PVKFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
      * 
      * @param {BSTR} DNName 
      * @param {BSTR} Usage 

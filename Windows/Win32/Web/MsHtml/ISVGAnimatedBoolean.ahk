@@ -35,6 +35,22 @@ class ISVGAnimatedBoolean extends IDispatch{
     static VTableNames => ["put_baseVal", "get_baseVal", "put_animVal", "get_animVal"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+        set => this.put_baseVal(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    animVal {
+        get => this.get_animVal()
+        set => this.put_animVal(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

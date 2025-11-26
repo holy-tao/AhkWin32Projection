@@ -30,6 +30,48 @@ class IPrintJob extends IUnknown{
     static VTableNames => ["get_Name", "get_Id", "get_PrintedPages", "get_TotalPages", "get_Status", "get_SubmissionTime", "RequestCancel"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PrintedPages {
+        get => this.get_PrintedPages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalPages {
+        get => this.get_TotalPages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    SubmissionTime {
+        get => this.get_SubmissionTime()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -38,6 +38,12 @@ class IAMMediaContent2 extends IDispatch{
     static VTableNames => ["get_MediaParameter", "get_MediaParameterName", "get_PlaylistCount"]
 
     /**
+     */
+    PlaylistCount {
+        get => this.get_PlaylistCount()
+    }
+
+    /**
      * 
      * @param {Integer} EntryNum 
      * @param {BSTR} bstrName 

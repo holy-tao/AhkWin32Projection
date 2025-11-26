@@ -44,6 +44,13 @@ class IBlockRangeList extends IDispatch{
     static VTableNames => ["get_BlockRanges"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    BlockRanges {
+        get => this.get_BlockRanges()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrangelist-get_blockranges

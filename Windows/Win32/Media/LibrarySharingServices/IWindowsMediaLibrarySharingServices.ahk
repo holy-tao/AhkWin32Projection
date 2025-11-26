@@ -44,6 +44,69 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
     static VTableNames => ["showShareMediaCPL", "get_userHomeMediaSharingState", "put_userHomeMediaSharingState", "get_userHomeMediaSharingLibraryName", "put_userHomeMediaSharingLibraryName", "get_computerHomeMediaSharingAllowedState", "put_computerHomeMediaSharingAllowedState", "get_userInternetMediaSharingState", "put_userInternetMediaSharingState", "get_computerInternetMediaSharingAllowedState", "put_computerInternetMediaSharingAllowedState", "get_internetMediaSharingSecurityGroup", "put_internetMediaSharingSecurityGroup", "get_allowSharingToAllDevices", "put_allowSharingToAllDevices", "setDefaultAuthorization", "setAuthorizationState", "getAllDevices", "get_customSettingsApplied"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    userHomeMediaSharingState {
+        get => this.get_userHomeMediaSharingState()
+        set => this.put_userHomeMediaSharingState(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    userHomeMediaSharingLibraryName {
+        get => this.get_userHomeMediaSharingLibraryName()
+        set => this.put_userHomeMediaSharingLibraryName(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    computerHomeMediaSharingAllowedState {
+        get => this.get_computerHomeMediaSharingAllowedState()
+        set => this.put_computerHomeMediaSharingAllowedState(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    userInternetMediaSharingState {
+        get => this.get_userInternetMediaSharingState()
+        set => this.put_userInternetMediaSharingState(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    computerInternetMediaSharingAllowedState {
+        get => this.get_computerInternetMediaSharingAllowedState()
+        set => this.put_computerInternetMediaSharingAllowedState(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    internetMediaSharingSecurityGroup {
+        get => this.get_internetMediaSharingSecurityGroup()
+        set => this.put_internetMediaSharingSecurityGroup(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    allowSharingToAllDevices {
+        get => this.get_allowSharingToAllDevices()
+        set => this.put_allowSharingToAllDevices(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    customSettingsApplied {
+        get => this.get_customSettingsApplied()
+    }
+
+    /**
      * 
      * @param {BSTR} device 
      * @returns {HRESULT} 

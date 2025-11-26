@@ -31,6 +31,22 @@ class ITBasicAudioTerminal extends IDispatch{
     static VTableNames => ["put_Volume", "get_Volume", "put_Balance", "get_Balance"]
 
     /**
+     * @type {Integer} 
+     */
+    Volume {
+        get => this.get_Volume()
+        set => this.put_Volume(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Balance {
+        get => this.get_Balance()
+        set => this.put_Balance(value)
+    }
+
+    /**
      * 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 

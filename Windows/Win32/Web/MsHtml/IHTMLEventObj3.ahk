@@ -30,6 +30,100 @@ class IHTMLEventObj3 extends IDispatch{
     static VTableNames => ["get_contentOverflow", "put_shiftLeft", "get_shiftLeft", "put_altLeft", "get_altLeft", "put_ctrlLeft", "get_ctrlLeft", "get_imeCompositionChange", "get_imeNotifyCommand", "get_imeNotifyData", "get_imeRequest", "get_imeRequestData", "get_keyboardLayout", "get_behaviorCookie", "get_behaviorPart", "get_nextPage"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    contentOverflow {
+        get => this.get_contentOverflow()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    shiftLeft {
+        get => this.get_shiftLeft()
+        set => this.put_shiftLeft(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    altLeft {
+        get => this.get_altLeft()
+        set => this.put_altLeft(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ctrlLeft {
+        get => this.get_ctrlLeft()
+        set => this.put_ctrlLeft(value)
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    imeCompositionChange {
+        get => this.get_imeCompositionChange()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    imeNotifyCommand {
+        get => this.get_imeNotifyCommand()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    imeNotifyData {
+        get => this.get_imeNotifyData()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    imeRequest {
+        get => this.get_imeRequest()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    imeRequestData {
+        get => this.get_imeRequestData()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    keyboardLayout {
+        get => this.get_keyboardLayout()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    behaviorCookie {
+        get => this.get_behaviorCookie()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    behaviorPart {
+        get => this.get_behaviorPart()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nextPage {
+        get => this.get_nextPage()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

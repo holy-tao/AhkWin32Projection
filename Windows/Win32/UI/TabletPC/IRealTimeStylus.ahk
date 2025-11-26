@@ -56,6 +56,37 @@ class IRealTimeStylus extends IUnknown{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_HWND", "put_HWND", "get_WindowInputRectangle", "put_WindowInputRectangle", "AddStylusSyncPlugin", "RemoveStylusSyncPlugin", "RemoveAllStylusSyncPlugins", "GetStylusSyncPlugin", "GetStylusSyncPluginCount", "AddStylusAsyncPlugin", "RemoveStylusAsyncPlugin", "RemoveAllStylusAsyncPlugins", "GetStylusAsyncPlugin", "GetStylusAsyncPluginCount", "get_ChildRealTimeStylusPlugin", "putref_ChildRealTimeStylusPlugin", "AddCustomStylusDataToQueue", "ClearStylusQueues", "SetAllTabletsMode", "SetSingleTabletMode", "GetTablet", "GetTabletContextIdFromTablet", "GetTabletFromTabletContextId", "GetAllTabletContextIds", "GetStyluses", "GetStylusForId", "SetDesiredPacketDescription", "GetDesiredPacketDescription", "GetPacketDescriptionData"]
 
     /**
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {HANDLE_PTR} 
+     */
+    HWND {
+        get => this.get_HWND()
+        set => this.put_HWND(value)
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    WindowInputRectangle {
+        get => this.get_WindowInputRectangle()
+        set => this.put_WindowInputRectangle(value)
+    }
+
+    /**
+     * @type {IRealTimeStylus} 
+     */
+    ChildRealTimeStylusPlugin {
+        get => this.get_ChildRealTimeStylusPlugin()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_enabled

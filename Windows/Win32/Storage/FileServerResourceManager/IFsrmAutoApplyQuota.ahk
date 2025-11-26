@@ -48,6 +48,14 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject{
     static VTableNames => ["get_ExcludeFolders", "put_ExcludeFolders", "CommitAndUpdateDerived"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ExcludeFolders {
+        get => this.get_ExcludeFolders()
+        set => this.put_ExcludeFolders(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-get_excludefolders

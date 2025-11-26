@@ -31,6 +31,177 @@ class IHTMLElement3 extends IDispatch{
     static VTableNames => ["mergeAttributes", "get_isMultiLine", "get_canHaveHTML", "put_onlayoutcomplete", "get_onlayoutcomplete", "put_onpage", "get_onpage", "put_inflateBlock", "get_inflateBlock", "put_onbeforedeactivate", "get_onbeforedeactivate", "setActive", "put_contentEditable", "get_contentEditable", "get_isContentEditable", "put_hideFocus", "get_hideFocus", "put_disabled", "get_disabled", "get_isDisabled", "put_onmove", "get_onmove", "put_oncontrolselect", "get_oncontrolselect", "fireEvent", "put_onresizestart", "get_onresizestart", "put_onresizeend", "get_onresizeend", "put_onmovestart", "get_onmovestart", "put_onmoveend", "get_onmoveend", "put_onmouseenter", "get_onmouseenter", "put_onmouseleave", "get_onmouseleave", "put_onactivate", "get_onactivate", "put_ondeactivate", "get_ondeactivate", "dragDrop", "get_glyphMode"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    isMultiLine {
+        get => this.get_isMultiLine()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    canHaveHTML {
+        get => this.get_canHaveHTML()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onlayoutcomplete {
+        get => this.get_onlayoutcomplete()
+        set => this.put_onlayoutcomplete(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpage {
+        get => this.get_onpage()
+        set => this.put_onpage(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    inflateBlock {
+        get => this.get_inflateBlock()
+        set => this.put_inflateBlock(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforedeactivate {
+        get => this.get_onbeforedeactivate()
+        set => this.put_onbeforedeactivate(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    contentEditable {
+        get => this.get_contentEditable()
+        set => this.put_contentEditable(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isContentEditable {
+        get => this.get_isContentEditable()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    hideFocus {
+        get => this.get_hideFocus()
+        set => this.put_hideFocus(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isDisabled {
+        get => this.get_isDisabled()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmove {
+        get => this.get_onmove()
+        set => this.put_onmove(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncontrolselect {
+        get => this.get_oncontrolselect()
+        set => this.put_oncontrolselect(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onresizestart {
+        get => this.get_onresizestart()
+        set => this.put_onresizestart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onresizeend {
+        get => this.get_onresizeend()
+        set => this.put_onresizeend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmovestart {
+        get => this.get_onmovestart()
+        set => this.put_onmovestart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmoveend {
+        get => this.get_onmoveend()
+        set => this.put_onmoveend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseenter {
+        get => this.get_onmouseenter()
+        set => this.put_onmouseenter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseleave {
+        get => this.get_onmouseleave()
+        set => this.put_onmouseleave(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onactivate {
+        get => this.get_onactivate()
+        set => this.put_onactivate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondeactivate {
+        get => this.get_ondeactivate()
+        set => this.put_ondeactivate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    glyphMode {
+        get => this.get_glyphMode()
+    }
+
+    /**
      * 
      * @param {IHTMLElement} mergeThis 
      * @param {Pointer<VARIANT>} pvarFlags 

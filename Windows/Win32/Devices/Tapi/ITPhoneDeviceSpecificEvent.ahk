@@ -32,6 +32,34 @@ class ITPhoneDeviceSpecificEvent extends IDispatch{
     static VTableNames => ["get_Phone", "get_lParam1", "get_lParam2", "get_lParam3"]
 
     /**
+     * @type {ITPhone} 
+     */
+    Phone {
+        get => this.get_Phone()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lParam1 {
+        get => this.get_lParam1()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lParam2 {
+        get => this.get_lParam2()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lParam3 {
+        get => this.get_lParam3()
+    }
+
+    /**
      * 
      * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphonedevicespecificevent-get_phone

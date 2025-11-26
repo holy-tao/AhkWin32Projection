@@ -52,6 +52,13 @@ class IMcastAddressAllocation extends IDispatch{
     static VTableNames => ["get_Scopes", "EnumerateScopes", "RequestAddress", "RenewAddress", "ReleaseAddress", "CreateLeaseInfo", "CreateLeaseInfoFromVariant"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Scopes {
+        get => this.get_Scopes()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-get_scopes

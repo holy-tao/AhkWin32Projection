@@ -31,6 +31,68 @@ class IHTMLEmbedElement extends IDispatch{
     static VTableNames => ["put_hidden", "get_hidden", "get_palette", "get_pluginspage", "put_src", "get_src", "put_units", "get_units", "put_name", "get_name", "put_width", "get_width", "put_height", "get_height"]
 
     /**
+     * @type {BSTR} 
+     */
+    hidden {
+        get => this.get_hidden()
+        set => this.put_hidden(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    palette {
+        get => this.get_palette()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pluginspage {
+        get => this.get_pluginspage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    units {
+        get => this.get_units()
+        set => this.put_units(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

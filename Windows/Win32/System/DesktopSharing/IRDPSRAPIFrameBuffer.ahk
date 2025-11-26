@@ -37,6 +37,27 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
     static VTableNames => ["get_Width", "get_Height", "get_Bpp", "GetFrameBufferBits"]
 
     /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Bpp {
+        get => this.get_Bpp()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width

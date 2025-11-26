@@ -29,6 +29,20 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
     static VTableNames => ["get_MediaTypes", "get_RemotePreferredSecurityLevel", "get_IsForked", "GetRemoteSessionDescription"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaTypes {
+        get => this.get_MediaTypes()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsForked {
+        get => this.get_IsForked()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

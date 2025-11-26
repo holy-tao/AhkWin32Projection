@@ -40,6 +40,13 @@ class IGPMBackupDir extends IDispatch{
     static VTableNames => ["get_BackupDirectory", "GetBackup", "SearchBackups"]
 
     /**
+     * @type {BSTR} 
+     */
+    BackupDirectory {
+        get => this.get_BackupDirectory()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

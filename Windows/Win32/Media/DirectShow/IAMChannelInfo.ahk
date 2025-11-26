@@ -37,6 +37,42 @@ class IAMChannelInfo extends IDispatch{
     static VTableNames => ["get_ChannelName", "get_ChannelDescription", "get_ChannelURL", "get_ContactAddress", "get_ContactPhone", "get_ContactEmail"]
 
     /**
+     */
+    ChannelName {
+        get => this.get_ChannelName()
+    }
+
+    /**
+     */
+    ChannelDescription {
+        get => this.get_ChannelDescription()
+    }
+
+    /**
+     */
+    ChannelURL {
+        get => this.get_ChannelURL()
+    }
+
+    /**
+     */
+    ContactAddress {
+        get => this.get_ContactAddress()
+    }
+
+    /**
+     */
+    ContactPhone {
+        get => this.get_ContactPhone()
+    }
+
+    /**
+     */
+    ContactEmail {
+        get => this.get_ContactEmail()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrChannelName 
      * @returns {HRESULT} 

@@ -32,6 +32,41 @@ class ITDigitDetectionEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_Digit", "get_DigitMode", "get_TickCount", "get_CallbackInstance"]
 
     /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Digit {
+        get => this.get_Digit()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DigitMode {
+        get => this.get_DigitMode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TickCount {
+        get => this.get_TickCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallbackInstance {
+        get => this.get_CallbackInstance()
+    }
+
+    /**
      * 
      * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_call

@@ -36,6 +36,20 @@ class ISVGAnimatedRect extends IDispatch{
     static VTableNames => ["putref_baseVal", "get_baseVal", "putref_animVal", "get_animVal"]
 
     /**
+     * @type {ISVGRect} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+    }
+
+    /**
+     * @type {ISVGRect} 
+     */
+    animVal {
+        get => this.get_animVal()
+    }
+
+    /**
      * 
      * @param {ISVGRect} v 
      * @returns {HRESULT} 

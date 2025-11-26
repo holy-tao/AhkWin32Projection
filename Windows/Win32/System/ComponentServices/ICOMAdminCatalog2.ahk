@@ -33,6 +33,48 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     static VTableNames => ["GetCollectionByQuery2", "GetApplicationInstanceIDFromProcessID", "ShutdownApplicationInstances", "PauseApplicationInstances", "ResumeApplicationInstances", "RecycleApplicationInstances", "AreApplicationInstancesPaused", "DumpApplicationInstance", "get_IsApplicationInstanceDumpSupported", "CreateServiceForApplication", "DeleteServiceForApplication", "GetPartitionID", "GetPartitionName", "put_CurrentPartition", "get_CurrentPartitionID", "get_CurrentPartitionName", "get_GlobalPartitionID", "FlushPartitionCache", "CopyApplications", "CopyComponents", "MoveComponents", "AliasComponent", "IsSafeToDelete", "ImportUnconfiguredComponents", "PromoteUnconfiguredComponents", "ImportComponents", "get_Is64BitCatalogServer", "ExportPartition", "InstallPartition", "QueryApplicationFile2", "GetComponentVersionCount"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsApplicationInstanceDumpSupported {
+        get => this.get_IsApplicationInstanceDumpSupported()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    CurrentPartition {
+        set => this.put_CurrentPartition(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentPartitionID {
+        get => this.get_CurrentPartitionID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentPartitionName {
+        get => this.get_CurrentPartitionName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GlobalPartitionID {
+        get => this.get_GlobalPartitionID()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Is64BitCatalogServer {
+        get => this.get_Is64BitCatalogServer()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrCollectionName 
      * @param {Pointer<VARIANT>} pVarQueryStrings 

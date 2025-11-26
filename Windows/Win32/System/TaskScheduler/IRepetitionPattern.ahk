@@ -51,6 +51,27 @@ class IRepetitionPattern extends IDispatch{
     static VTableNames => ["get_Interval", "put_Interval", "get_Duration", "put_Duration", "get_StopAtDurationEnd", "put_StopAtDurationEnd"]
 
     /**
+     */
+    Interval {
+        get => this.get_Interval()
+        set => this.put_Interval(value)
+    }
+
+    /**
+     */
+    Duration {
+        get => this.get_Duration()
+        set => this.put_Duration(value)
+    }
+
+    /**
+     */
+    StopAtDurationEnd {
+        get => this.get_StopAtDurationEnd()
+        set => this.put_StopAtDurationEnd(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pInterval 
      * @returns {HRESULT} 

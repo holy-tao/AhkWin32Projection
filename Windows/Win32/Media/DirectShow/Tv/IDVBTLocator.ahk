@@ -42,6 +42,62 @@ class IDVBTLocator extends IDigitalLocator{
     static VTableNames => ["get_Bandwidth", "put_Bandwidth", "get_LPInnerFEC", "put_LPInnerFEC", "get_LPInnerFECRate", "put_LPInnerFECRate", "get_HAlpha", "put_HAlpha", "get_Guard", "put_Guard", "get_Mode", "put_Mode", "get_OtherFrequencyInUse", "put_OtherFrequencyInUse"]
 
     /**
+     * @type {Integer} 
+     */
+    Bandwidth {
+        get => this.get_Bandwidth()
+        set => this.put_Bandwidth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LPInnerFEC {
+        get => this.get_LPInnerFEC()
+        set => this.put_LPInnerFEC(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LPInnerFECRate {
+        get => this.get_LPInnerFECRate()
+        set => this.put_LPInnerFECRate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HAlpha {
+        get => this.get_HAlpha()
+        set => this.put_HAlpha(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Guard {
+        get => this.get_Guard()
+        set => this.put_Guard(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+        set => this.put_Mode(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    OtherFrequencyInUse {
+        get => this.get_OtherFrequencyInUse()
+        set => this.put_OtherFrequencyInUse(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_bandwidth

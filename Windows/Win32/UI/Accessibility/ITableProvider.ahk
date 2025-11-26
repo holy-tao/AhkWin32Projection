@@ -41,6 +41,13 @@ class ITableProvider extends IUnknown{
     static VTableNames => ["GetRowHeaders", "GetColumnHeaders", "get_RowOrColumnMajor"]
 
     /**
+     * @type {Integer} 
+     */
+    RowOrColumnMajor {
+        get => this.get_RowOrColumnMajor()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getrowheaders

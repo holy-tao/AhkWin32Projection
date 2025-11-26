@@ -32,6 +32,20 @@ class IX509AttributeCspProvider extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_KeySpec", "get_ProviderName", "get_Signature"]
 
     /**
+     * @type {Integer} 
+     */
+    KeySpec {
+        get => this.get_KeySpec()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderName {
+        get => this.get_ProviderName()
+    }
+
+    /**
      * 
      * @param {Integer} KeySpec 
      * @param {BSTR} strProviderName 

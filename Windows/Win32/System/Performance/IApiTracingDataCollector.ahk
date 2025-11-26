@@ -55,6 +55,62 @@ class IApiTracingDataCollector extends IDataCollector{
     static VTableNames => ["get_LogApiNamesOnly", "put_LogApiNamesOnly", "get_LogApisRecursively", "put_LogApisRecursively", "get_ExePath", "put_ExePath", "get_LogFilePath", "put_LogFilePath", "get_IncludeModules", "put_IncludeModules", "get_IncludeApis", "put_IncludeApis", "get_ExcludeApis", "put_ExcludeApis"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogApiNamesOnly {
+        get => this.get_LogApiNamesOnly()
+        set => this.put_LogApiNamesOnly(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogApisRecursively {
+        get => this.get_LogApisRecursively()
+        set => this.put_LogApisRecursively(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExePath {
+        get => this.get_ExePath()
+        set => this.put_ExePath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LogFilePath {
+        get => this.get_LogFilePath()
+        set => this.put_LogFilePath(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    IncludeModules {
+        get => this.get_IncludeModules()
+        set => this.put_IncludeModules(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    IncludeApis {
+        get => this.get_IncludeApis()
+        set => this.put_IncludeApis(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ExcludeApis {
+        get => this.get_ExcludeApis()
+        set => this.put_ExcludeApis(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapinamesonly

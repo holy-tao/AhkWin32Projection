@@ -78,6 +78,55 @@ class ITrigger extends IDispatch{
     static VTableNames => ["get_Type", "get_Id", "put_Id", "get_Repetition", "put_Repetition", "get_ExecutionTimeLimit", "put_ExecutionTimeLimit", "get_StartBoundary", "put_StartBoundary", "get_EndBoundary", "put_EndBoundary", "get_Enabled", "put_Enabled"]
 
     /**
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     */
+    Id {
+        get => this.get_Id()
+        set => this.put_Id(value)
+    }
+
+    /**
+     * @type {IRepetitionPattern} 
+     */
+    Repetition {
+        get => this.get_Repetition()
+        set => this.put_Repetition(value)
+    }
+
+    /**
+     */
+    ExecutionTimeLimit {
+        get => this.get_ExecutionTimeLimit()
+        set => this.put_ExecutionTimeLimit(value)
+    }
+
+    /**
+     */
+    StartBoundary {
+        get => this.get_StartBoundary()
+        set => this.put_StartBoundary(value)
+    }
+
+    /**
+     */
+    EndBoundary {
+        get => this.get_EndBoundary()
+        set => this.put_EndBoundary(value)
+    }
+
+    /**
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pType 
      * @returns {HRESULT} 

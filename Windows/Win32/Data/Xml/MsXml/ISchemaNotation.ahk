@@ -30,6 +30,20 @@ class ISchemaNotation extends ISchemaItem{
     static VTableNames => ["get_systemIdentifier", "get_publicIdentifier"]
 
     /**
+     * @type {BSTR} 
+     */
+    systemIdentifier {
+        get => this.get_systemIdentifier()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    publicIdentifier {
+        get => this.get_publicIdentifier()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

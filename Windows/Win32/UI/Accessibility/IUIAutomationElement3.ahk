@@ -31,6 +31,20 @@ class IUIAutomationElement3 extends IUIAutomationElement2{
     static VTableNames => ["ShowContextMenu", "get_CurrentIsPeripheral", "get_CachedIsPeripheral"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentIsPeripheral {
+        get => this.get_CurrentIsPeripheral()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsPeripheral {
+        get => this.get_CachedIsPeripheral()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement3-showcontextmenu

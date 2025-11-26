@@ -32,6 +32,41 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     static VTableNames => ["get_Path", "get_UserSid", "get_UserAccount", "get_SourceTemplateName", "get_MatchesSourceTemplate", "ApplyTemplate"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserSid {
+        get => this.get_UserSid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserAccount {
+        get => this.get_UserAccount()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SourceTemplateName {
+        get => this.get_SourceTemplateName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MatchesSourceTemplate {
+        get => this.get_MatchesSourceTemplate()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_path

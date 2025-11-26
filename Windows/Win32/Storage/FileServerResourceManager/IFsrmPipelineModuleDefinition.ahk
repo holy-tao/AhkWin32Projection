@@ -44,6 +44,85 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     static VTableNames => ["get_ModuleClsid", "put_ModuleClsid", "get_Name", "put_Name", "get_Company", "put_Company", "get_Version", "put_Version", "get_ModuleType", "get_Enabled", "put_Enabled", "get_NeedsFileContent", "put_NeedsFileContent", "get_Account", "put_Account", "get_SupportedExtensions", "put_SupportedExtensions", "get_Parameters", "put_Parameters"]
 
     /**
+     * @type {BSTR} 
+     */
+    ModuleClsid {
+        get => this.get_ModuleClsid()
+        set => this.put_ModuleClsid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Company {
+        get => this.get_Company()
+        set => this.put_Company(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Version {
+        get => this.get_Version()
+        set => this.put_Version(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ModuleType {
+        get => this.get_ModuleType()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NeedsFileContent {
+        get => this.get_NeedsFileContent()
+        set => this.put_NeedsFileContent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Account {
+        get => this.get_Account()
+        set => this.put_Account(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedExtensions {
+        get => this.get_SupportedExtensions()
+        set => this.put_SupportedExtensions(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Parameters {
+        get => this.get_Parameters()
+        set => this.put_Parameters(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduleclsid

@@ -34,6 +34,69 @@ class ITPhoneEvent extends IDispatch{
     static VTableNames => ["get_Phone", "get_Event", "get_ButtonState", "get_HookSwitchState", "get_HookSwitchDevice", "get_RingMode", "get_ButtonLampId", "get_NumberGathered", "get_Call"]
 
     /**
+     * @type {ITPhone} 
+     */
+    Phone {
+        get => this.get_Phone()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ButtonState {
+        get => this.get_ButtonState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HookSwitchState {
+        get => this.get_HookSwitchState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HookSwitchDevice {
+        get => this.get_HookSwitchDevice()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RingMode {
+        get => this.get_RingMode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ButtonLampId {
+        get => this.get_ButtonLampId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NumberGathered {
+        get => this.get_NumberGathered()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
      * 
      * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_phone

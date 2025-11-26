@@ -31,6 +31,34 @@ class IRTCSessionOperationCompleteEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_Cookie", "get_StatusCode", "get_StatusText"]
 
     /**
+     * @type {IRTCSession} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Cookie {
+        get => this.get_Cookie()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
      * 
      * @returns {IRTCSession} 
      */

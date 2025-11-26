@@ -31,6 +31,41 @@ class ISpeechLexiconPronunciation extends IDispatch{
     static VTableNames => ["get_Type", "get_LangId", "get_PartOfSpeech", "get_PhoneIds", "get_Symbolic"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LangId {
+        get => this.get_LangId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PartOfSpeech {
+        get => this.get_PartOfSpeech()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PhoneIds {
+        get => this.get_PhoneIds()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Symbolic {
+        get => this.get_Symbolic()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

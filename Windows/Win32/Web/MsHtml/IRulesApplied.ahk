@@ -39,6 +39,27 @@ class IRulesApplied extends IDispatch{
     static VTableNames => ["get_element", "get_inlineStyles", "get_appliedRules", "propertyIsInline", "propertyIsInheritable", "hasInheritableProperty"]
 
     /**
+     * @type {IHTMLElement} 
+     */
+    element {
+        get => this.get_element()
+    }
+
+    /**
+     * @type {IHTMLStyle} 
+     */
+    inlineStyles {
+        get => this.get_inlineStyles()
+    }
+
+    /**
+     * @type {IHTMLStyleSheetRulesAppliedCollection} 
+     */
+    appliedRules {
+        get => this.get_appliedRules()
+    }
+
+    /**
      * 
      * @returns {IHTMLElement} 
      */

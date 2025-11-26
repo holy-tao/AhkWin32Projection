@@ -32,6 +32,48 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     static VTableNames => ["get_CurrentOptimizeForVisualContent", "get_CachedOptimizeForVisualContent", "get_CurrentLiveSetting", "get_CachedLiveSetting", "get_CurrentFlowsFrom", "get_CachedFlowsFrom"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentOptimizeForVisualContent {
+        get => this.get_CurrentOptimizeForVisualContent()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedOptimizeForVisualContent {
+        get => this.get_CachedOptimizeForVisualContent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentLiveSetting {
+        get => this.get_CurrentLiveSetting()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedLiveSetting {
+        get => this.get_CachedLiveSetting()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CurrentFlowsFrom {
+        get => this.get_CurrentFlowsFrom()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CachedFlowsFrom {
+        get => this.get_CachedFlowsFrom()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentoptimizeforvisualcontent

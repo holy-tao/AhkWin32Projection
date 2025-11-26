@@ -32,6 +32,13 @@ class IBackgroundCopyJob1 extends IUnknown{
     static VTableNames => ["CancelJob", "GetProgress", "GetStatus", "AddFiles", "GetFile", "GetFileCount", "SwitchToForeground", "get_JobID"]
 
     /**
+     * @type {Guid} 
+     */
+    JobID {
+        get => this.get_JobID()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyjob1

@@ -33,6 +33,27 @@ class ITCallHub extends IDispatch{
     static VTableNames => ["Clear", "EnumerateCalls", "get_Calls", "get_NumCalls", "get_State"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Calls {
+        get => this.get_Calls()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumCalls {
+        get => this.get_NumCalls()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-clear

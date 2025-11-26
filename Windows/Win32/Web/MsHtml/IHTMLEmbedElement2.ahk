@@ -30,6 +30,21 @@ class IHTMLEmbedElement2 extends IDispatch{
     static VTableNames => ["put_src", "get_src", "get_pluginspage"]
 
     /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pluginspage {
+        get => this.get_pluginspage()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

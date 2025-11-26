@@ -38,6 +38,34 @@ class IBDA_DiseqCommand extends IUnknown{
     static VTableNames => ["put_EnableDiseqCommands", "put_DiseqLNBSource", "put_DiseqUseToneBurst", "put_DiseqRepeats", "put_DiseqSendCommand", "get_DiseqResponse"]
 
     /**
+     * @type {HRESULT} 
+     */
+    EnableDiseqCommands {
+        set => this.put_EnableDiseqCommands(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    DiseqLNBSource {
+        set => this.put_DiseqLNBSource(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    DiseqUseToneBurst {
+        set => this.put_DiseqUseToneBurst(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    DiseqRepeats {
+        set => this.put_DiseqRepeats(value)
+    }
+
+    /**
      * 
      * @param {BOOLEAN} bEnable 
      * @returns {HRESULT} 

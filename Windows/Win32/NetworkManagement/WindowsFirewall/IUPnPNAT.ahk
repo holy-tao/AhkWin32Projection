@@ -40,6 +40,27 @@ class IUPnPNAT extends IDispatch{
     static VTableNames => ["get_StaticPortMappingCollection", "get_DynamicPortMappingCollection", "get_NATEventManager"]
 
     /**
+     * @type {IStaticPortMappingCollection} 
+     */
+    StaticPortMappingCollection {
+        get => this.get_StaticPortMappingCollection()
+    }
+
+    /**
+     * @type {IDynamicPortMappingCollection} 
+     */
+    DynamicPortMappingCollection {
+        get => this.get_DynamicPortMappingCollection()
+    }
+
+    /**
+     * @type {INATEventManager} 
+     */
+    NATEventManager {
+        get => this.get_NATEventManager()
+    }
+
+    /**
      * 
      * @returns {IStaticPortMappingCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_staticportmappingcollection

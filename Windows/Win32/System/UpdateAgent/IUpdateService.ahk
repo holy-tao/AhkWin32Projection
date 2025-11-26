@@ -34,6 +34,97 @@ class IUpdateService extends IDispatch{
     static VTableNames => ["get_Name", "get_ContentValidationCert", "get_ExpirationDate", "get_IsManaged", "get_IsRegisteredWithAU", "get_IssueDate", "get_OffersWindowsUpdates", "get_RedirectUrls", "get_ServiceID", "get_IsScanPackageService", "get_CanRegisterWithAU", "get_ServiceUrl", "get_SetupPrefix"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ContentValidationCert {
+        get => this.get_ContentValidationCert()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ExpirationDate {
+        get => this.get_ExpirationDate()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsManaged {
+        get => this.get_IsManaged()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsRegisteredWithAU {
+        get => this.get_IsRegisteredWithAU()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    IssueDate {
+        get => this.get_IssueDate()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    OffersWindowsUpdates {
+        get => this.get_OffersWindowsUpdates()
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    RedirectUrls {
+        get => this.get_RedirectUrls()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceID {
+        get => this.get_ServiceID()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsScanPackageService {
+        get => this.get_IsScanPackageService()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CanRegisterWithAU {
+        get => this.get_CanRegisterWithAU()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceUrl {
+        get => this.get_ServiceUrl()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SetupPrefix {
+        get => this.get_SetupPrefix()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_name

@@ -41,6 +41,186 @@ class IFileSystemImage extends IDispatch{
     static VTableNames => ["get_Root", "get_SessionStartBlock", "put_SessionStartBlock", "get_FreeMediaBlocks", "put_FreeMediaBlocks", "SetMaxMediaBlocksFromDevice", "get_UsedBlocks", "get_VolumeName", "put_VolumeName", "get_ImportedVolumeName", "get_BootImageOptions", "put_BootImageOptions", "get_FileCount", "get_DirectoryCount", "get_WorkingDirectory", "put_WorkingDirectory", "get_ChangePoint", "get_StrictFileSystemCompliance", "put_StrictFileSystemCompliance", "get_UseRestrictedCharacterSet", "put_UseRestrictedCharacterSet", "get_FileSystemsToCreate", "put_FileSystemsToCreate", "get_FileSystemsSupported", "put_UDFRevision", "get_UDFRevision", "get_UDFRevisionsSupported", "ChooseImageDefaults", "ChooseImageDefaultsForMediaType", "put_ISO9660InterchangeLevel", "get_ISO9660InterchangeLevel", "get_ISO9660InterchangeLevelsSupported", "CreateResultImage", "Exists", "CalculateDiscIdentifier", "IdentifyFileSystemsOnDisc", "GetDefaultFileSystemForImport", "ImportFileSystem", "ImportSpecificFileSystem", "RollbackToChangePoint", "LockInChangePoint", "CreateDirectoryItem", "CreateFileItem", "get_VolumeNameUDF", "get_VolumeNameJoliet", "get_VolumeNameISO9660", "get_StageFiles", "put_StageFiles", "get_MultisessionInterfaces", "put_MultisessionInterfaces"]
 
     /**
+     * @type {IFsiDirectoryItem} 
+     */
+    Root {
+        get => this.get_Root()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SessionStartBlock {
+        get => this.get_SessionStartBlock()
+        set => this.put_SessionStartBlock(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeMediaBlocks {
+        get => this.get_FreeMediaBlocks()
+        set => this.put_FreeMediaBlocks(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UsedBlocks {
+        get => this.get_UsedBlocks()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeName {
+        get => this.get_VolumeName()
+        set => this.put_VolumeName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ImportedVolumeName {
+        get => this.get_ImportedVolumeName()
+    }
+
+    /**
+     * @type {IBootOptions} 
+     */
+    BootImageOptions {
+        get => this.get_BootImageOptions()
+        set => this.put_BootImageOptions(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileCount {
+        get => this.get_FileCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DirectoryCount {
+        get => this.get_DirectoryCount()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    WorkingDirectory {
+        get => this.get_WorkingDirectory()
+        set => this.put_WorkingDirectory(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ChangePoint {
+        get => this.get_ChangePoint()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    StrictFileSystemCompliance {
+        get => this.get_StrictFileSystemCompliance()
+        set => this.put_StrictFileSystemCompliance(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseRestrictedCharacterSet {
+        get => this.get_UseRestrictedCharacterSet()
+        set => this.put_UseRestrictedCharacterSet(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileSystemsToCreate {
+        get => this.get_FileSystemsToCreate()
+        set => this.put_FileSystemsToCreate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileSystemsSupported {
+        get => this.get_FileSystemsSupported()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UDFRevision {
+        get => this.get_UDFRevision()
+        set => this.put_UDFRevision(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    UDFRevisionsSupported {
+        get => this.get_UDFRevisionsSupported()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ISO9660InterchangeLevel {
+        get => this.get_ISO9660InterchangeLevel()
+        set => this.put_ISO9660InterchangeLevel(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ISO9660InterchangeLevelsSupported {
+        get => this.get_ISO9660InterchangeLevelsSupported()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeNameUDF {
+        get => this.get_VolumeNameUDF()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeNameJoliet {
+        get => this.get_VolumeNameJoliet()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeNameISO9660 {
+        get => this.get_VolumeNameISO9660()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    StageFiles {
+        get => this.get_StageFiles()
+        set => this.put_StageFiles(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    MultisessionInterfaces {
+        get => this.get_MultisessionInterfaces()
+        set => this.put_MultisessionInterfaces(value)
+    }
+
+    /**
      * 
      * @returns {IFsiDirectoryItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_root

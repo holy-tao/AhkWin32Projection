@@ -39,6 +39,13 @@ class IRDPSRAPIWindowList extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum

@@ -36,6 +36,48 @@ class IWindowProvider extends IUnknown{
     static VTableNames => ["SetVisualState", "Close", "WaitForInputIdle", "get_CanMaximize", "get_CanMinimize", "get_IsModal", "get_WindowVisualState", "get_WindowInteractionState", "get_IsTopmost"]
 
     /**
+     * @type {BOOL} 
+     */
+    CanMaximize {
+        get => this.get_CanMaximize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CanMinimize {
+        get => this.get_CanMinimize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsModal {
+        get => this.get_IsModal()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowVisualState {
+        get => this.get_WindowVisualState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowInteractionState {
+        get => this.get_WindowInteractionState()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsTopmost {
+        get => this.get_IsTopmost()
+    }
+
+    /**
      * 
      * @param {Integer} state 
      * @returns {HRESULT} 

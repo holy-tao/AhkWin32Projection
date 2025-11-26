@@ -52,6 +52,111 @@ class IFaxServer extends IDispatch{
     static VTableNames => ["Connect", "get_ServerName", "GetDeviceProviders", "GetDevices", "get_InboundRouting", "get_Folders", "get_LoggingOptions", "get_MajorVersion", "get_MinorVersion", "get_MajorBuild", "get_MinorBuild", "get_Debug", "get_Activity", "get_OutboundRouting", "get_ReceiptOptions", "get_Security", "Disconnect", "GetExtensionProperty", "SetExtensionProperty", "ListenToServerEvents", "RegisterDeviceProvider", "UnregisterDeviceProvider", "RegisterInboundRoutingExtension", "UnregisterInboundRoutingExtension", "get_RegisteredEvents", "get_APIVersion"]
 
     /**
+     * @type {BSTR} 
+     */
+    ServerName {
+        get => this.get_ServerName()
+    }
+
+    /**
+     * @type {IFaxInboundRouting} 
+     */
+    InboundRouting {
+        get => this.get_InboundRouting()
+    }
+
+    /**
+     * @type {IFaxFolders} 
+     */
+    Folders {
+        get => this.get_Folders()
+    }
+
+    /**
+     * @type {IFaxLoggingOptions} 
+     */
+    LoggingOptions {
+        get => this.get_LoggingOptions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorBuild {
+        get => this.get_MajorBuild()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorBuild {
+        get => this.get_MinorBuild()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Debug {
+        get => this.get_Debug()
+    }
+
+    /**
+     * @type {IFaxActivity} 
+     */
+    Activity {
+        get => this.get_Activity()
+    }
+
+    /**
+     * @type {IFaxOutboundRouting} 
+     */
+    OutboundRouting {
+        get => this.get_OutboundRouting()
+    }
+
+    /**
+     * @type {IFaxReceiptOptions} 
+     */
+    ReceiptOptions {
+        get => this.get_ReceiptOptions()
+    }
+
+    /**
+     * @type {IFaxSecurity} 
+     */
+    Security {
+        get => this.get_Security()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RegisteredEvents {
+        get => this.get_RegisteredEvents()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    APIVersion {
+        get => this.get_APIVersion()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrServerName 
      * @returns {HRESULT} 

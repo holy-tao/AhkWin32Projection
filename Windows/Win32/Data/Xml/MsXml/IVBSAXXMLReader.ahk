@@ -35,6 +35,50 @@ class IVBSAXXMLReader extends IDispatch{
     static VTableNames => ["getFeature", "putFeature", "getProperty", "putProperty", "get_entityResolver", "putref_entityResolver", "get_contentHandler", "putref_contentHandler", "get_dtdHandler", "putref_dtdHandler", "get_errorHandler", "putref_errorHandler", "get_baseURL", "put_baseURL", "get_secureBaseURL", "put_secureBaseURL", "parse", "parseURL"]
 
     /**
+     * @type {IVBSAXEntityResolver} 
+     */
+    entityResolver {
+        get => this.get_entityResolver()
+    }
+
+    /**
+     * @type {IVBSAXContentHandler} 
+     */
+    contentHandler {
+        get => this.get_contentHandler()
+    }
+
+    /**
+     * @type {IVBSAXDTDHandler} 
+     */
+    dtdHandler {
+        get => this.get_dtdHandler()
+    }
+
+    /**
+     * @type {IVBSAXErrorHandler} 
+     */
+    errorHandler {
+        get => this.get_errorHandler()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    baseURL {
+        get => this.get_baseURL()
+        set => this.put_baseURL(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    secureBaseURL {
+        get => this.get_secureBaseURL()
+        set => this.put_secureBaseURL(value)
+    }
+
+    /**
      * 
      * @param {BSTR} strName 
      * @returns {VARIANT_BOOL} 

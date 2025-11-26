@@ -40,6 +40,122 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     static VTableNames => ["PrepareMedia", "AddAudioTrack", "CancelAddTrack", "ReleaseMedia", "SetWriteSpeed", "put_Recorder", "get_Recorder", "put_BufferUnderrunFreeDisabled", "get_BufferUnderrunFreeDisabled", "get_NumberOfExistingTracks", "get_TotalSectorsOnMedia", "get_FreeSectorsOnMedia", "get_UsedSectorsOnMedia", "put_DoNotFinalizeMedia", "get_DoNotFinalizeMedia", "get_ExpectedTableOfContents", "get_CurrentPhysicalMediaType", "put_ClientName", "get_ClientName", "get_RequestedWriteSpeed", "get_RequestedRotationTypeIsPureCAV", "get_CurrentWriteSpeed", "get_CurrentRotationTypeIsPureCAV", "get_SupportedWriteSpeeds", "get_SupportedWriteSpeedDescriptors"]
 
     /**
+     * @type {IDiscRecorder2} 
+     */
+    Recorder {
+        get => this.get_Recorder()
+        set => this.put_Recorder(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BufferUnderrunFreeDisabled {
+        get => this.get_BufferUnderrunFreeDisabled()
+        set => this.put_BufferUnderrunFreeDisabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfExistingTracks {
+        get => this.get_NumberOfExistingTracks()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalSectorsOnMedia {
+        get => this.get_TotalSectorsOnMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeSectorsOnMedia {
+        get => this.get_FreeSectorsOnMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UsedSectorsOnMedia {
+        get => this.get_UsedSectorsOnMedia()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DoNotFinalizeMedia {
+        get => this.get_DoNotFinalizeMedia()
+        set => this.put_DoNotFinalizeMedia(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ExpectedTableOfContents {
+        get => this.get_ExpectedTableOfContents()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPhysicalMediaType {
+        get => this.get_CurrentPhysicalMediaType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientName {
+        get => this.get_ClientName()
+        set => this.put_ClientName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestedWriteSpeed {
+        get => this.get_RequestedWriteSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RequestedRotationTypeIsPureCAV {
+        get => this.get_RequestedRotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWriteSpeed {
+        get => this.get_CurrentWriteSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CurrentRotationTypeIsPureCAV {
+        get => this.get_CurrentRotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedWriteSpeeds {
+        get => this.get_SupportedWriteSpeeds()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedWriteSpeedDescriptors {
+        get => this.get_SupportedWriteSpeedDescriptors()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-preparemedia

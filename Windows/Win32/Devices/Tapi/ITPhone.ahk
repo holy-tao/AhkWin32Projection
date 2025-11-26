@@ -35,6 +35,50 @@ class ITPhone extends IDispatch{
     static VTableNames => ["Open", "Close", "get_Addresses", "EnumerateAddresses", "get_PhoneCapsLong", "get_PhoneCapsString", "get_Terminals", "EnumerateTerminals", "get_ButtonMode", "put_ButtonMode", "get_ButtonFunction", "put_ButtonFunction", "get_ButtonText", "put_ButtonText", "get_ButtonState", "get_HookSwitchState", "put_HookSwitchState", "put_RingMode", "get_RingMode", "put_RingVolume", "get_RingVolume", "get_Privilege", "GetPhoneCapsBuffer", "get_PhoneCapsBuffer", "get_LampMode", "put_LampMode", "get_Display", "SetDisplay", "get_PreferredAddresses", "EnumeratePreferredAddresses", "DeviceSpecific", "DeviceSpecificVariant", "NegotiateExtVersion"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Addresses {
+        get => this.get_Addresses()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RingMode {
+        get => this.get_RingMode()
+        set => this.put_RingMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RingVolume {
+        get => this.get_RingVolume()
+        set => this.put_RingVolume(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Privilege {
+        get => this.get_Privilege()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Display {
+        get => this.get_Display()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PreferredAddresses {
+        get => this.get_PreferredAddresses()
+    }
+
+    /**
      * 
      * @param {Integer} Privilege 
      * @returns {HRESULT} 

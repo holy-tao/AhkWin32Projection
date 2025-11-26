@@ -30,6 +30,14 @@ class IRDPSRAPIDebug extends IUnknown{
     static VTableNames => ["put_CLXCmdLine", "get_CLXCmdLine"]
 
     /**
+     * @type {BSTR} 
+     */
+    CLXCmdLine {
+        get => this.get_CLXCmdLine()
+        set => this.put_CLXCmdLine(value)
+    }
+
+    /**
      * 
      * @param {BSTR} CLXCmdLine 
      * @returns {HRESULT} 

@@ -54,6 +54,76 @@ class IInkRecognitionAlternate extends IDispatch{
     static VTableNames => ["get_String", "get_Confidence", "get_Baseline", "get_Midline", "get_Ascender", "get_Descender", "get_LineNumber", "get_Strokes", "get_LineAlternates", "get_ConfidenceAlternates", "GetStrokesFromStrokeRanges", "GetStrokesFromTextRange", "GetTextRangeFromStrokes", "AlternatesWithConstantPropertyValues", "GetPropertyValue"]
 
     /**
+     * @type {BSTR} 
+     */
+    String {
+        get => this.get_String()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Confidence {
+        get => this.get_Confidence()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Baseline {
+        get => this.get_Baseline()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Midline {
+        get => this.get_Midline()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Ascender {
+        get => this.get_Ascender()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Descender {
+        get => this.get_Descender()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LineNumber {
+        get => this.get_LineNumber()
+    }
+
+    /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
+     * @type {IInkRecognitionAlternates} 
+     */
+    LineAlternates {
+        get => this.get_LineAlternates()
+    }
+
+    /**
+     * @type {IInkRecognitionAlternates} 
+     */
+    ConfidenceAlternates {
+        get => this.get_ConfidenceAlternates()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_string

@@ -33,6 +33,20 @@ class ICertificatePolicy extends IDispatch{
     static VTableNames => ["Initialize", "get_ObjectId", "get_PolicyQualifiers"]
 
     /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
+     * @type {IPolicyQualifiers} 
+     */
+    PolicyQualifiers {
+        get => this.get_PolicyQualifiers()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IObjectId} pValue 
      * @returns {HRESULT} <ul>

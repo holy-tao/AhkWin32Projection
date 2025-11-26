@@ -40,6 +40,34 @@ class IIdleSettings extends IDispatch{
     static VTableNames => ["get_IdleDuration", "put_IdleDuration", "get_WaitTimeout", "put_WaitTimeout", "get_StopOnIdleEnd", "put_StopOnIdleEnd", "get_RestartOnIdle", "put_RestartOnIdle"]
 
     /**
+     */
+    IdleDuration {
+        get => this.get_IdleDuration()
+        set => this.put_IdleDuration(value)
+    }
+
+    /**
+     */
+    WaitTimeout {
+        get => this.get_WaitTimeout()
+        set => this.put_WaitTimeout(value)
+    }
+
+    /**
+     */
+    StopOnIdleEnd {
+        get => this.get_StopOnIdleEnd()
+        set => this.put_StopOnIdleEnd(value)
+    }
+
+    /**
+     */
+    RestartOnIdle {
+        get => this.get_RestartOnIdle()
+        set => this.put_RestartOnIdle(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 

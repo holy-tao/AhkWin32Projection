@@ -42,6 +42,27 @@ class IExecAction extends IAction{
     static VTableNames => ["get_Path", "put_Path", "get_Arguments", "put_Arguments", "get_WorkingDirectory", "put_WorkingDirectory"]
 
     /**
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
+     */
+    Arguments {
+        get => this.get_Arguments()
+        set => this.put_Arguments(value)
+    }
+
+    /**
+     */
+    WorkingDirectory {
+        get => this.get_WorkingDirectory()
+        set => this.put_WorkingDirectory(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pPath 
      * @returns {HRESULT} 

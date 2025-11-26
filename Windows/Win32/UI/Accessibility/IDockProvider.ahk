@@ -42,6 +42,13 @@ class IDockProvider extends IUnknown{
     static VTableNames => ["SetDockPosition", "get_DockPosition"]
 
     /**
+     * @type {Integer} 
+     */
+    DockPosition {
+        get => this.get_DockPosition()
+    }
+
+    /**
      * 
      * @param {Integer} dockPosition 
      * @returns {HRESULT} 

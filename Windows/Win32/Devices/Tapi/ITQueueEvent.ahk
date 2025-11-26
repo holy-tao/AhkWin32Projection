@@ -32,6 +32,20 @@ class ITQueueEvent extends IDispatch{
     static VTableNames => ["get_Queue", "get_Event"]
 
     /**
+     * @type {ITQueue} 
+     */
+    Queue {
+        get => this.get_Queue()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
      * 
      * @returns {ITQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_queue

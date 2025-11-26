@@ -37,6 +37,28 @@ class IMultisession extends IDispatch{
     static VTableNames => ["get_IsSupportedOnCurrentMediaState", "put_InUse", "get_InUse", "get_ImportRecorder"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsSupportedOnCurrentMediaState {
+        get => this.get_IsSupportedOnCurrentMediaState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    InUse {
+        get => this.get_InUse()
+        set => this.put_InUse(value)
+    }
+
+    /**
+     * @type {IDiscRecorder2} 
+     */
+    ImportRecorder {
+        get => this.get_ImportRecorder()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_issupportedoncurrentmediastate

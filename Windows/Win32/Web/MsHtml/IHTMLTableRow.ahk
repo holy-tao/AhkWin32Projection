@@ -38,6 +38,75 @@ class IHTMLTableRow extends IDispatch{
     static VTableNames => ["put_align", "get_align", "put_vAlign", "get_vAlign", "put_bgColor", "get_bgColor", "put_borderColor", "get_borderColor", "put_borderColorLight", "get_borderColorLight", "put_borderColorDark", "get_borderColorDark", "get_rowIndex", "get_sectionRowIndex", "get_cells", "insertCell", "deleteCell"]
 
     /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vAlign {
+        get => this.get_vAlign()
+        set => this.put_vAlign(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+        set => this.put_borderColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColorLight {
+        get => this.get_borderColorLight()
+        set => this.put_borderColorLight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColorDark {
+        get => this.get_borderColorDark()
+        set => this.put_borderColorDark(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    rowIndex {
+        get => this.get_rowIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    sectionRowIndex {
+        get => this.get_sectionRowIndex()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    cells {
+        get => this.get_cells()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -31,6 +31,14 @@ class IUpdateInstaller3 extends IUpdateInstaller2{
     static VTableNames => ["get_AttemptCloseAppsIfNecessary", "put_AttemptCloseAppsIfNecessary"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    AttemptCloseAppsIfNecessary {
+        get => this.get_AttemptCloseAppsIfNecessary()
+        set => this.put_AttemptCloseAppsIfNecessary(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller3-get_attemptcloseappsifnecessary

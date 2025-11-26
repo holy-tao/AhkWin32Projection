@@ -37,6 +37,71 @@ class ITAddress extends IDispatch{
     static VTableNames => ["get_State", "get_AddressName", "get_ServiceProviderName", "get_TAPIObject", "CreateCall", "get_Calls", "EnumerateCalls", "get_DialableAddress", "CreateForwardInfoObject", "Forward", "get_CurrentForwardInfo", "put_MessageWaiting", "get_MessageWaiting", "put_DoNotDisturb", "get_DoNotDisturb"]
 
     /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AddressName {
+        get => this.get_AddressName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceProviderName {
+        get => this.get_ServiceProviderName()
+    }
+
+    /**
+     * @type {ITTAPI} 
+     */
+    TAPIObject {
+        get => this.get_TAPIObject()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Calls {
+        get => this.get_Calls()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DialableAddress {
+        get => this.get_DialableAddress()
+    }
+
+    /**
+     * @type {ITForwardInformation} 
+     */
+    CurrentForwardInfo {
+        get => this.get_CurrentForwardInfo()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MessageWaiting {
+        get => this.get_MessageWaiting()
+        set => this.put_MessageWaiting(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DoNotDisturb {
+        get => this.get_DoNotDisturb()
+        set => this.put_DoNotDisturb(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_state

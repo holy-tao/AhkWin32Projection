@@ -32,6 +32,51 @@ class IHTMLWindow6 extends IDispatch{
     static VTableNames => ["put_XDomainRequest", "get_XDomainRequest", "get_sessionStorage", "get_localStorage", "put_onhashchange", "get_onhashchange", "get_maxConnectionsPerServer", "postMessage", "toStaticHTML", "put_onmessage", "get_onmessage", "msWriteProfilerMark"]
 
     /**
+     * @type {VARIANT} 
+     */
+    XDomainRequest {
+        get => this.get_XDomainRequest()
+        set => this.put_XDomainRequest(value)
+    }
+
+    /**
+     * @type {IHTMLStorage} 
+     */
+    sessionStorage {
+        get => this.get_sessionStorage()
+    }
+
+    /**
+     * @type {IHTMLStorage} 
+     */
+    localStorage {
+        get => this.get_localStorage()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onhashchange {
+        get => this.get_onhashchange()
+        set => this.put_onhashchange(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    maxConnectionsPerServer {
+        get => this.get_maxConnectionsPerServer()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmessage {
+        get => this.get_onmessage()
+        set => this.put_onmessage(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

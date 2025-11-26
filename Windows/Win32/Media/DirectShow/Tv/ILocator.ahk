@@ -43,6 +43,62 @@ class ILocator extends IDispatch{
     static VTableNames => ["get_CarrierFrequency", "put_CarrierFrequency", "get_InnerFEC", "put_InnerFEC", "get_InnerFECRate", "put_InnerFECRate", "get_OuterFEC", "put_OuterFEC", "get_OuterFECRate", "put_OuterFECRate", "get_Modulation", "put_Modulation", "get_SymbolRate", "put_SymbolRate", "Clone"]
 
     /**
+     * @type {Integer} 
+     */
+    CarrierFrequency {
+        get => this.get_CarrierFrequency()
+        set => this.put_CarrierFrequency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InnerFEC {
+        get => this.get_InnerFEC()
+        set => this.put_InnerFEC(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InnerFECRate {
+        get => this.get_InnerFECRate()
+        set => this.put_InnerFECRate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OuterFEC {
+        get => this.get_OuterFEC()
+        set => this.put_OuterFEC(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OuterFECRate {
+        get => this.get_OuterFECRate()
+        set => this.put_OuterFECRate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Modulation {
+        get => this.get_Modulation()
+        set => this.put_Modulation(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SymbolRate {
+        get => this.get_SymbolRate()
+        set => this.put_SymbolRate(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_carrierfrequency

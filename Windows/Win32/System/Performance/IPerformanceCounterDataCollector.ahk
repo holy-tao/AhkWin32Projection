@@ -55,6 +55,46 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     static VTableNames => ["get_DataSourceName", "put_DataSourceName", "get_PerformanceCounters", "put_PerformanceCounters", "get_LogFileFormat", "put_LogFileFormat", "get_SampleInterval", "put_SampleInterval", "get_SegmentMaxRecords", "put_SegmentMaxRecords"]
 
     /**
+     * @type {BSTR} 
+     */
+    DataSourceName {
+        get => this.get_DataSourceName()
+        set => this.put_DataSourceName(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    PerformanceCounters {
+        get => this.get_PerformanceCounters()
+        set => this.put_PerformanceCounters(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LogFileFormat {
+        get => this.get_LogFileFormat()
+        set => this.put_LogFileFormat(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SampleInterval {
+        get => this.get_SampleInterval()
+        set => this.put_SampleInterval(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SegmentMaxRecords {
+        get => this.get_SegmentMaxRecords()
+        set => this.put_SegmentMaxRecords(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_datasourcename

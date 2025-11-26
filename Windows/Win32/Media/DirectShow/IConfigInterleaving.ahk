@@ -31,6 +31,14 @@ class IConfigInterleaving extends IUnknown{
     static VTableNames => ["put_Mode", "get_Mode", "put_Interleaving", "get_Interleaving"]
 
     /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+        set => this.put_Mode(value)
+    }
+
+    /**
      * 
      * @param {Integer} mode 
      * @returns {HRESULT} 

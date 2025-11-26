@@ -40,6 +40,30 @@ class IUIAutomationCacheRequest extends IUnknown{
     static VTableNames => ["AddProperty", "AddPattern", "Clone", "get_TreeScope", "put_TreeScope", "get_TreeFilter", "put_TreeFilter", "get_AutomationElementMode", "put_AutomationElementMode"]
 
     /**
+     * @type {Integer} 
+     */
+    TreeScope {
+        get => this.get_TreeScope()
+        set => this.put_TreeScope(value)
+    }
+
+    /**
+     * @type {IUIAutomationCondition} 
+     */
+    TreeFilter {
+        get => this.get_TreeFilter()
+        set => this.put_TreeFilter(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutomationElementMode {
+        get => this.get_AutomationElementMode()
+        set => this.put_AutomationElementMode(value)
+    }
+
+    /**
      * 
      * @param {Integer} propertyId 
      * @returns {HRESULT} 

@@ -38,6 +38,238 @@ class IMSVidWebDVD extends IMSVidPlayback{
     static VTableNames => ["OnDVDEvent", "PlayTitle", "PlayChapterInTitle", "PlayChapter", "PlayChaptersAutoStop", "PlayAtTime", "PlayAtTimeInTitle", "PlayPeriodInTitleAutoStop", "ReplayChapter", "PlayPrevChapter", "PlayNextChapter", "StillOff", "get_AudioLanguage", "ShowMenu", "Resume", "ReturnFromSubmenu", "get_ButtonsAvailable", "get_CurrentButton", "SelectAndActivateButton", "ActivateButton", "SelectRightButton", "SelectLeftButton", "SelectLowerButton", "SelectUpperButton", "ActivateAtPosition", "SelectAtPosition", "get_ButtonAtPosition", "get_NumberOfChapters", "get_TotalTitleTime", "get_TitlesAvailable", "get_VolumesAvailable", "get_CurrentVolume", "get_CurrentDiscSide", "get_CurrentDomain", "get_CurrentChapter", "get_CurrentTitle", "get_CurrentTime", "DVDTimeCode2bstr", "get_DVDDirectory", "put_DVDDirectory", "IsSubpictureStreamEnabled", "IsAudioStreamEnabled", "get_CurrentSubpictureStream", "put_CurrentSubpictureStream", "get_SubpictureLanguage", "get_CurrentAudioStream", "put_CurrentAudioStream", "get_AudioStreamsAvailable", "get_AnglesAvailable", "get_CurrentAngle", "put_CurrentAngle", "get_SubpictureStreamsAvailable", "get_SubpictureOn", "put_SubpictureOn", "get_DVDUniqueID", "AcceptParentalLevelChange", "NotifyParentalLevelChange", "SelectParentalCountry", "SelectParentalLevel", "get_TitleParentalLevels", "get_PlayerParentalCountry", "get_PlayerParentalLevel", "Eject", "UOPValid", "get_SPRM", "get_GPRM", "put_GPRM", "get_DVDTextStringType", "get_DVDTextString", "get_DVDTextNumberOfStrings", "get_DVDTextNumberOfLanguages", "get_DVDTextLanguageLCID", "RegionChange", "get_DVDAdm", "DeleteBookmark", "RestoreBookmark", "SaveBookmark", "SelectDefaultAudioLanguage", "SelectDefaultSubpictureLanguage", "get_PreferredSubpictureStream", "get_DefaultMenuLanguage", "put_DefaultMenuLanguage", "get_DefaultSubpictureLanguage", "get_DefaultAudioLanguage", "get_DefaultSubpictureLanguageExt", "get_DefaultAudioLanguageExt", "get_LanguageFromLCID", "get_KaraokeAudioPresentationMode", "put_KaraokeAudioPresentationMode", "get_KaraokeChannelContent", "get_KaraokeChannelAssignment", "RestorePreferredSettings", "get_ButtonRect", "get_DVDScreenInMouseCoordinates", "put_DVDScreenInMouseCoordinates"]
 
     /**
+     * @type {Integer} 
+     */
+    ButtonsAvailable {
+        get => this.get_ButtonsAvailable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentButton {
+        get => this.get_CurrentButton()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TotalTitleTime {
+        get => this.get_TotalTitleTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TitlesAvailable {
+        get => this.get_TitlesAvailable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VolumesAvailable {
+        get => this.get_VolumesAvailable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentVolume {
+        get => this.get_CurrentVolume()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentDiscSide {
+        get => this.get_CurrentDiscSide()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentDomain {
+        get => this.get_CurrentDomain()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentChapter {
+        get => this.get_CurrentChapter()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentTitle {
+        get => this.get_CurrentTitle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentTime {
+        get => this.get_CurrentTime()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DVDDirectory {
+        get => this.get_DVDDirectory()
+        set => this.put_DVDDirectory(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentSubpictureStream {
+        get => this.get_CurrentSubpictureStream()
+        set => this.put_CurrentSubpictureStream(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentAudioStream {
+        get => this.get_CurrentAudioStream()
+        set => this.put_CurrentAudioStream(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioStreamsAvailable {
+        get => this.get_AudioStreamsAvailable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AnglesAvailable {
+        get => this.get_AnglesAvailable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentAngle {
+        get => this.get_CurrentAngle()
+        set => this.put_CurrentAngle(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SubpictureStreamsAvailable {
+        get => this.get_SubpictureStreamsAvailable()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SubpictureOn {
+        get => this.get_SubpictureOn()
+        set => this.put_SubpictureOn(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DVDUniqueID {
+        get => this.get_DVDUniqueID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PlayerParentalCountry {
+        get => this.get_PlayerParentalCountry()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PlayerParentalLevel {
+        get => this.get_PlayerParentalLevel()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DVDTextNumberOfLanguages {
+        get => this.get_DVDTextNumberOfLanguages()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    DVDAdm {
+        get => this.get_DVDAdm()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PreferredSubpictureStream {
+        get => this.get_PreferredSubpictureStream()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultMenuLanguage {
+        get => this.get_DefaultMenuLanguage()
+        set => this.put_DefaultMenuLanguage(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultSubpictureLanguage {
+        get => this.get_DefaultSubpictureLanguage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultAudioLanguage {
+        get => this.get_DefaultAudioLanguage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultSubpictureLanguageExt {
+        get => this.get_DefaultSubpictureLanguageExt()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultAudioLanguageExt {
+        get => this.get_DefaultAudioLanguageExt()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KaraokeAudioPresentationMode {
+        get => this.get_KaraokeAudioPresentationMode()
+        set => this.put_KaraokeAudioPresentationMode(value)
+    }
+
+    /**
+     * @type {IMSVidRect} 
+     */
+    DVDScreenInMouseCoordinates {
+        get => this.get_DVDScreenInMouseCoordinates()
+        set => this.put_DVDScreenInMouseCoordinates(value)
+    }
+
+    /**
      * 
      * @param {Integer} lEvent 
      * @param {Pointer} lParam1 

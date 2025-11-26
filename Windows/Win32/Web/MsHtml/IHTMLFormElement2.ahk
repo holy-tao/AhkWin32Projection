@@ -30,6 +30,14 @@ class IHTMLFormElement2 extends IDispatch{
     static VTableNames => ["put_acceptCharset", "get_acceptCharset", "urns"]
 
     /**
+     * @type {BSTR} 
+     */
+    acceptCharset {
+        get => this.get_acceptCharset()
+        set => this.put_acceptCharset(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

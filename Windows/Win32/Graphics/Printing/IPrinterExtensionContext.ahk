@@ -32,6 +32,34 @@ class IPrinterExtensionContext extends IDispatch{
     static VTableNames => ["get_PrinterQueue", "get_PrintSchemaTicket", "get_DriverProperties", "get_UserProperties"]
 
     /**
+     * @type {IPrinterQueue} 
+     */
+    PrinterQueue {
+        get => this.get_PrinterQueue()
+    }
+
+    /**
+     * @type {IPrintSchemaTicket} 
+     */
+    PrintSchemaTicket {
+        get => this.get_PrintSchemaTicket()
+    }
+
+    /**
+     * @type {IPrinterPropertyBag} 
+     */
+    DriverProperties {
+        get => this.get_DriverProperties()
+    }
+
+    /**
+     * @type {IPrinterPropertyBag} 
+     */
+    UserProperties {
+        get => this.get_UserProperties()
+    }
+
+    /**
      * 
      * @returns {IPrinterQueue} 
      */

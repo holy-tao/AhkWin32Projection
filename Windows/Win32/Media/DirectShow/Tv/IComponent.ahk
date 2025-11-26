@@ -45,6 +45,38 @@ class IComponent extends IDispatch{
     static VTableNames => ["get_Type", "put_Type", "get_DescLangID", "put_DescLangID", "get_Status", "put_Status", "get_Description", "put_Description", "Clone"]
 
     /**
+     * @type {IComponentType} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DescLangID {
+        get => this.get_DescLangID()
+        set => this.put_DescLangID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+        set => this.put_Status(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {IComponentType} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_type

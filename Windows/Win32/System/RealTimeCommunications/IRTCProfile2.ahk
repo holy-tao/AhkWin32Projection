@@ -30,6 +30,22 @@ class IRTCProfile2 extends IRTCProfile{
     static VTableNames => ["get_Realm", "put_Realm", "get_AllowedAuth", "put_AllowedAuth"]
 
     /**
+     * @type {BSTR} 
+     */
+    Realm {
+        get => this.get_Realm()
+        set => this.put_Realm(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AllowedAuth {
+        get => this.get_AllowedAuth()
+        set => this.put_AllowedAuth(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

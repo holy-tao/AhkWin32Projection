@@ -36,6 +36,14 @@ class IHTMLFieldSetElement extends IDispatch{
     static VTableNames => ["put_align", "get_align"]
 
     /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

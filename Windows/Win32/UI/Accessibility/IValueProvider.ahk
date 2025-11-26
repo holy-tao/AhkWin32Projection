@@ -40,6 +40,20 @@ class IValueProvider extends IUnknown{
     static VTableNames => ["SetValue", "get_Value", "get_IsReadOnly"]
 
     /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsReadOnly {
+        get => this.get_IsReadOnly()
+    }
+
+    /**
      * 
      * @param {PWSTR} val 
      * @returns {HRESULT} 

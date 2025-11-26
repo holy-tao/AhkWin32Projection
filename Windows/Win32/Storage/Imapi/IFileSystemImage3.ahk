@@ -42,6 +42,14 @@ class IFileSystemImage3 extends IFileSystemImage2{
     static VTableNames => ["get_CreateRedundantUdfMetadataFiles", "put_CreateRedundantUdfMetadataFiles", "ProbeSpecificFileSystem"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    CreateRedundantUdfMetadataFiles {
+        get => this.get_CreateRedundantUdfMetadataFiles()
+        set => this.put_CreateRedundantUdfMetadataFiles(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-get_createredundantudfmetadatafiles

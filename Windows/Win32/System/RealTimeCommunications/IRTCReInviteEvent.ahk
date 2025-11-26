@@ -31,6 +31,20 @@ class IRTCReInviteEvent extends IDispatch{
     static VTableNames => ["get_Session", "Accept", "Reject", "get_State", "GetRemoteSessionDescription"]
 
     /**
+     * @type {IRTCSession2} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
      * 
      * @returns {IRTCSession2} 
      */

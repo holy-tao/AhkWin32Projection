@@ -32,6 +32,20 @@ class IDropTargetProvider extends IUnknown{
     static VTableNames => ["get_DropTargetEffect", "get_DropTargetEffects"]
 
     /**
+     * @type {BSTR} 
+     */
+    DropTargetEffect {
+        get => this.get_DropTargetEffect()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    DropTargetEffects {
+        get => this.get_DropTargetEffects()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idroptargetprovider-get_droptargeteffect

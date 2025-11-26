@@ -33,6 +33,21 @@ class IHTMLTxtRange extends IDispatch{
     static VTableNames => ["get_htmlText", "put_text", "get_text", "parentElement", "duplicate", "inRange", "isEqual", "scrollIntoView", "collapse", "expand", "move", "moveStart", "moveEnd", "select", "pasteHTML", "moveToElementText", "setEndPoint", "compareEndPoints", "findText", "moveToPoint", "getBookmark", "moveToBookmark", "queryCommandSupported", "queryCommandEnabled", "queryCommandState", "queryCommandIndeterm", "queryCommandText", "queryCommandValue", "execCommand", "execCommandShowHelp"]
 
     /**
+     * @type {BSTR} 
+     */
+    htmlText {
+        get => this.get_htmlText()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

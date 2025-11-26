@@ -42,6 +42,14 @@ class IChannelTuneRequest extends ITuneRequest{
     static VTableNames => ["get_Channel", "put_Channel"]
 
     /**
+     * @type {Integer} 
+     */
+    Channel {
+        get => this.get_Channel()
+        set => this.put_Channel(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-get_channel

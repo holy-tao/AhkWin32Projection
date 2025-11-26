@@ -46,6 +46,139 @@ class IFaxDocument extends IDispatch{
     static VTableNames => ["get_Body", "put_Body", "get_Sender", "get_Recipients", "get_CoverPage", "put_CoverPage", "get_Subject", "put_Subject", "get_Note", "put_Note", "get_ScheduleTime", "put_ScheduleTime", "get_ReceiptAddress", "put_ReceiptAddress", "get_DocumentName", "put_DocumentName", "get_CallHandle", "put_CallHandle", "get_CoverPageType", "put_CoverPageType", "get_ScheduleType", "put_ScheduleType", "get_ReceiptType", "put_ReceiptType", "get_GroupBroadcastReceipts", "put_GroupBroadcastReceipts", "get_Priority", "put_Priority", "get_TapiConnection", "putref_TapiConnection", "Submit", "ConnectedSubmit", "get_AttachFaxToReceipt", "put_AttachFaxToReceipt"]
 
     /**
+     * @type {BSTR} 
+     */
+    Body {
+        get => this.get_Body()
+        set => this.put_Body(value)
+    }
+
+    /**
+     * @type {IFaxSender} 
+     */
+    Sender {
+        get => this.get_Sender()
+    }
+
+    /**
+     * @type {IFaxRecipients} 
+     */
+    Recipients {
+        get => this.get_Recipients()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CoverPage {
+        get => this.get_CoverPage()
+        set => this.put_CoverPage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Subject {
+        get => this.get_Subject()
+        set => this.put_Subject(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Note {
+        get => this.get_Note()
+        set => this.put_Note(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ScheduleTime {
+        get => this.get_ScheduleTime()
+        set => this.put_ScheduleTime(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReceiptAddress {
+        get => this.get_ReceiptAddress()
+        set => this.put_ReceiptAddress(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DocumentName {
+        get => this.get_DocumentName()
+        set => this.put_DocumentName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallHandle {
+        get => this.get_CallHandle()
+        set => this.put_CallHandle(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CoverPageType {
+        get => this.get_CoverPageType()
+        set => this.put_CoverPageType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScheduleType {
+        get => this.get_ScheduleType()
+        set => this.put_ScheduleType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReceiptType {
+        get => this.get_ReceiptType()
+        set => this.put_ReceiptType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    GroupBroadcastReceipts {
+        get => this.get_GroupBroadcastReceipts()
+        set => this.put_GroupBroadcastReceipts(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    TapiConnection {
+        get => this.get_TapiConnection()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AttachFaxToReceipt {
+        get => this.get_AttachFaxToReceipt()
+        set => this.put_AttachFaxToReceipt(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_body

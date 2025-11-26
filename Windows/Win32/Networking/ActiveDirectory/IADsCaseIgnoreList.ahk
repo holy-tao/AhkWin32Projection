@@ -32,6 +32,14 @@ class IADsCaseIgnoreList extends IDispatch{
     static VTableNames => ["get_CaseIgnoreList", "put_CaseIgnoreList"]
 
     /**
+     * @type {VARIANT} 
+     */
+    CaseIgnoreList {
+        get => this.get_CaseIgnoreList()
+        set => this.put_CaseIgnoreList(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

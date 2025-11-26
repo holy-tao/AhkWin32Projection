@@ -46,6 +46,20 @@ class IRawElementProviderSimple extends IUnknown{
     static VTableNames => ["get_ProviderOptions", "GetPatternProvider", "GetPropertyValue", "get_HostRawElementProvider"]
 
     /**
+     * @type {Integer} 
+     */
+    ProviderOptions {
+        get => this.get_ProviderOptions()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    HostRawElementProvider {
+        get => this.get_HostRawElementProvider()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_provideroptions

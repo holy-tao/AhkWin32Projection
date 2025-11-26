@@ -31,6 +31,90 @@ class IUIAutomationScrollPattern extends IUnknown{
     static VTableNames => ["Scroll", "SetScrollPercent", "get_CurrentHorizontalScrollPercent", "get_CurrentVerticalScrollPercent", "get_CurrentHorizontalViewSize", "get_CurrentVerticalViewSize", "get_CurrentHorizontallyScrollable", "get_CurrentVerticallyScrollable", "get_CachedHorizontalScrollPercent", "get_CachedVerticalScrollPercent", "get_CachedHorizontalViewSize", "get_CachedVerticalViewSize", "get_CachedHorizontallyScrollable", "get_CachedVerticallyScrollable"]
 
     /**
+     * @type {Float} 
+     */
+    CurrentHorizontalScrollPercent {
+        get => this.get_CurrentHorizontalScrollPercent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentVerticalScrollPercent {
+        get => this.get_CurrentVerticalScrollPercent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentHorizontalViewSize {
+        get => this.get_CurrentHorizontalViewSize()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentVerticalViewSize {
+        get => this.get_CurrentVerticalViewSize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentHorizontallyScrollable {
+        get => this.get_CurrentHorizontallyScrollable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentVerticallyScrollable {
+        get => this.get_CurrentVerticallyScrollable()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedHorizontalScrollPercent {
+        get => this.get_CachedHorizontalScrollPercent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedVerticalScrollPercent {
+        get => this.get_CachedVerticalScrollPercent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedHorizontalViewSize {
+        get => this.get_CachedHorizontalViewSize()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedVerticalViewSize {
+        get => this.get_CachedVerticalViewSize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedHorizontallyScrollable {
+        get => this.get_CachedHorizontallyScrollable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedVerticallyScrollable {
+        get => this.get_CachedVerticallyScrollable()
+    }
+
+    /**
      * 
      * @param {Integer} horizontalAmount 
      * @param {Integer} verticalAmount 

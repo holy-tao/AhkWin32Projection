@@ -40,6 +40,167 @@ class IDiscFormat2Data extends IDiscFormat2{
     static VTableNames => ["put_Recorder", "get_Recorder", "put_BufferUnderrunFreeDisabled", "get_BufferUnderrunFreeDisabled", "put_PostgapAlreadyInImage", "get_PostgapAlreadyInImage", "get_CurrentMediaStatus", "get_WriteProtectStatus", "get_TotalSectorsOnMedia", "get_FreeSectorsOnMedia", "get_NextWritableAddress", "get_StartAddressOfPreviousSession", "get_LastWrittenAddressOfPreviousSession", "put_ForceMediaToBeClosed", "get_ForceMediaToBeClosed", "put_DisableConsumerDvdCompatibilityMode", "get_DisableConsumerDvdCompatibilityMode", "get_CurrentPhysicalMediaType", "put_ClientName", "get_ClientName", "get_RequestedWriteSpeed", "get_RequestedRotationTypeIsPureCAV", "get_CurrentWriteSpeed", "get_CurrentRotationTypeIsPureCAV", "get_SupportedWriteSpeeds", "get_SupportedWriteSpeedDescriptors", "put_ForceOverwrite", "get_ForceOverwrite", "get_MultisessionInterfaces", "Write", "CancelWrite", "SetWriteSpeed"]
 
     /**
+     * @type {IDiscRecorder2} 
+     */
+    Recorder {
+        get => this.get_Recorder()
+        set => this.put_Recorder(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BufferUnderrunFreeDisabled {
+        get => this.get_BufferUnderrunFreeDisabled()
+        set => this.put_BufferUnderrunFreeDisabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PostgapAlreadyInImage {
+        get => this.get_PostgapAlreadyInImage()
+        set => this.put_PostgapAlreadyInImage(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentMediaStatus {
+        get => this.get_CurrentMediaStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WriteProtectStatus {
+        get => this.get_WriteProtectStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalSectorsOnMedia {
+        get => this.get_TotalSectorsOnMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeSectorsOnMedia {
+        get => this.get_FreeSectorsOnMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NextWritableAddress {
+        get => this.get_NextWritableAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartAddressOfPreviousSession {
+        get => this.get_StartAddressOfPreviousSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastWrittenAddressOfPreviousSession {
+        get => this.get_LastWrittenAddressOfPreviousSession()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ForceMediaToBeClosed {
+        get => this.get_ForceMediaToBeClosed()
+        set => this.put_ForceMediaToBeClosed(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DisableConsumerDvdCompatibilityMode {
+        get => this.get_DisableConsumerDvdCompatibilityMode()
+        set => this.put_DisableConsumerDvdCompatibilityMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPhysicalMediaType {
+        get => this.get_CurrentPhysicalMediaType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientName {
+        get => this.get_ClientName()
+        set => this.put_ClientName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestedWriteSpeed {
+        get => this.get_RequestedWriteSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RequestedRotationTypeIsPureCAV {
+        get => this.get_RequestedRotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWriteSpeed {
+        get => this.get_CurrentWriteSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CurrentRotationTypeIsPureCAV {
+        get => this.get_CurrentRotationTypeIsPureCAV()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedWriteSpeeds {
+        get => this.get_SupportedWriteSpeeds()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedWriteSpeedDescriptors {
+        get => this.get_SupportedWriteSpeedDescriptors()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ForceOverwrite {
+        get => this.get_ForceOverwrite()
+        set => this.put_ForceOverwrite(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    MultisessionInterfaces {
+        get => this.get_MultisessionInterfaces()
+    }
+
+    /**
      * 
      * @param {IDiscRecorder2} value 
      * @returns {HRESULT} 

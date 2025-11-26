@@ -30,6 +30,207 @@ class IFeed extends IDispatch{
     static VTableNames => ["Xml", "get_Name", "Rename", "get_Url", "put_Url", "get_LocalId", "get_Path", "Move", "get_Parent", "get_LastWriteTime", "Delete", "Download", "AsyncDownload", "CancelAsyncDownload", "get_SyncSetting", "put_SyncSetting", "get_Interval", "put_Interval", "get_LastDownloadTime", "get_LocalEnclosurePath", "get_Items", "GetItem", "get_Title", "get_Description", "get_Link", "get_Image", "get_LastBuildDate", "get_PubDate", "get_Ttl", "get_Language", "get_Copyright", "get_MaxItemCount", "put_MaxItemCount", "get_DownloadEnclosuresAutomatically", "put_DownloadEnclosuresAutomatically", "get_DownloadStatus", "get_LastDownloadError", "Merge", "get_DownloadUrl", "get_IsList", "MarkAllItemsRead", "GetWatcher", "get_UnreadItemCount", "get_ItemCount"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Url {
+        get => this.get_Url()
+        set => this.put_Url(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalId {
+        get => this.get_LocalId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastWriteTime {
+        get => this.get_LastWriteTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SyncSetting {
+        get => this.get_SyncSetting()
+        set => this.put_SyncSetting(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Interval {
+        get => this.get_Interval()
+        set => this.put_Interval(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastDownloadTime {
+        get => this.get_LastDownloadTime()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalEnclosurePath {
+        get => this.get_LocalEnclosurePath()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Items {
+        get => this.get_Items()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Link {
+        get => this.get_Link()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Image {
+        get => this.get_Image()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastBuildDate {
+        get => this.get_LastBuildDate()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PubDate {
+        get => this.get_PubDate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Ttl {
+        get => this.get_Ttl()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Language {
+        get => this.get_Language()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Copyright {
+        get => this.get_Copyright()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxItemCount {
+        get => this.get_MaxItemCount()
+        set => this.put_MaxItemCount(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DownloadEnclosuresAutomatically {
+        get => this.get_DownloadEnclosuresAutomatically()
+        set => this.put_DownloadEnclosuresAutomatically(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DownloadStatus {
+        get => this.get_DownloadStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastDownloadError {
+        get => this.get_LastDownloadError()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DownloadUrl {
+        get => this.get_DownloadUrl()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsList {
+        get => this.get_IsList()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UnreadItemCount {
+        get => this.get_UnreadItemCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ItemCount {
+        get => this.get_ItemCount()
+    }
+
+    /**
      * 
      * @param {Integer} count 
      * @param {Integer} sortProperty 

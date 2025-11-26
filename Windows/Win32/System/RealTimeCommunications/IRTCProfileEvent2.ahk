@@ -29,6 +29,13 @@ class IRTCProfileEvent2 extends IRTCProfileEvent{
     static VTableNames => ["get_EventType"]
 
     /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

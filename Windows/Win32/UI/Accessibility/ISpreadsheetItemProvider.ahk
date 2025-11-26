@@ -32,6 +32,13 @@ class ISpreadsheetItemProvider extends IUnknown{
     static VTableNames => ["get_Formula", "GetAnnotationObjects", "GetAnnotationTypes"]
 
     /**
+     * @type {BSTR} 
+     */
+    Formula {
+        get => this.get_Formula()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-get_formula

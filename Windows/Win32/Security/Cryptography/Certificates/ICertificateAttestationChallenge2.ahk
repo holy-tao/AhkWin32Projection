@@ -30,6 +30,13 @@ class ICertificateAttestationChallenge2 extends ICertificateAttestationChallenge
     static VTableNames => ["put_KeyContainerName", "put_KeyBlob"]
 
     /**
+     * @type {HRESULT} 
+     */
+    KeyContainerName {
+        set => this.put_KeyContainerName(value)
+    }
+
+    /**
      * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 

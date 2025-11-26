@@ -32,6 +32,20 @@ class ITACDGroupEvent extends IDispatch{
     static VTableNames => ["get_Group", "get_Event"]
 
     /**
+     * @type {ITACDGroup} 
+     */
+    Group {
+        get => this.get_Group()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
      * 
      * @returns {ITACDGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroupevent-get_group

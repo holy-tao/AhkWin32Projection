@@ -43,6 +43,21 @@ class IAzBizRuleContext extends IDispatch{
     static VTableNames => ["put_BusinessRuleResult", "put_BusinessRuleString", "get_BusinessRuleString", "GetParameter"]
 
     /**
+     * @type {HRESULT} 
+     */
+    BusinessRuleResult {
+        set => this.put_BusinessRuleResult(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BusinessRuleString {
+        get => this.get_BusinessRuleString()
+        set => this.put_BusinessRuleString(value)
+    }
+
+    /**
      * 
      * @param {BOOL} bResult 
      * @returns {HRESULT} 

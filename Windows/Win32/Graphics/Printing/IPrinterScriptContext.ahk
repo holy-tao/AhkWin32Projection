@@ -30,6 +30,27 @@ class IPrinterScriptContext extends IDispatch{
     static VTableNames => ["get_DriverProperties", "get_QueueProperties", "get_UserProperties"]
 
     /**
+     * @type {IPrinterScriptablePropertyBag} 
+     */
+    DriverProperties {
+        get => this.get_DriverProperties()
+    }
+
+    /**
+     * @type {IPrinterScriptablePropertyBag} 
+     */
+    QueueProperties {
+        get => this.get_QueueProperties()
+    }
+
+    /**
+     * @type {IPrinterScriptablePropertyBag} 
+     */
+    UserProperties {
+        get => this.get_UserProperties()
+    }
+
+    /**
      * 
      * @returns {IPrinterScriptablePropertyBag} 
      */

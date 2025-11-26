@@ -32,6 +32,13 @@ class IShellLinkDual2 extends IShellLinkDual{
     static VTableNames => ["get_Target"]
 
     /**
+     * @type {FolderItem} 
+     */
+    Target {
+        get => this.get_Target()
+    }
+
+    /**
      * 
      * @returns {FolderItem} 
      */

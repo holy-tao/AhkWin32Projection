@@ -37,6 +37,28 @@ class IAzApplication3 extends IAzApplication2{
     static VTableNames => ["ScopeExists", "OpenScope2", "CreateScope2", "DeleteScope2", "get_RoleDefinitions", "CreateRoleDefinition", "OpenRoleDefinition", "DeleteRoleDefinition", "get_RoleAssignments", "CreateRoleAssignment", "OpenRoleAssignment", "DeleteRoleAssignment", "get_BizRulesEnabled", "put_BizRulesEnabled"]
 
     /**
+     * @type {IAzRoleDefinitions} 
+     */
+    RoleDefinitions {
+        get => this.get_RoleDefinitions()
+    }
+
+    /**
+     * @type {IAzRoleAssignments} 
+     */
+    RoleAssignments {
+        get => this.get_RoleAssignments()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BizRulesEnabled {
+        get => this.get_BizRulesEnabled()
+        set => this.put_BizRulesEnabled(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrScopeName 
      * @returns {VARIANT_BOOL} 

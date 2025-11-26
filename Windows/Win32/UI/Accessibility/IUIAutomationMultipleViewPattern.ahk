@@ -32,6 +32,20 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
     static VTableNames => ["GetViewName", "SetCurrentView", "get_CurrentCurrentView", "GetCurrentSupportedViews", "get_CachedCurrentView", "GetCachedSupportedViews"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentCurrentView {
+        get => this.get_CurrentCurrentView()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedCurrentView {
+        get => this.get_CachedCurrentView()
+    }
+
+    /**
      * 
      * @param {Integer} view 
      * @returns {BSTR} 

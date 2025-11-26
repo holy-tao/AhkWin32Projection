@@ -39,6 +39,61 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
     static VTableNames => ["get_Subject", "put_Subject", "get_SenderName", "put_SenderName", "get_SenderFaxNumber", "put_SenderFaxNumber", "get_HasCoverPage", "put_HasCoverPage", "get_Recipients", "put_Recipients", "get_WasReAssigned", "get_Read", "put_Read", "ReAssign", "Save", "Refresh"]
 
     /**
+     * @type {BSTR} 
+     */
+    Subject {
+        get => this.get_Subject()
+        set => this.put_Subject(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SenderName {
+        get => this.get_SenderName()
+        set => this.put_SenderName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SenderFaxNumber {
+        get => this.get_SenderFaxNumber()
+        set => this.put_SenderFaxNumber(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    HasCoverPage {
+        get => this.get_HasCoverPage()
+        set => this.put_HasCoverPage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Recipients {
+        get => this.get_Recipients()
+        set => this.put_Recipients(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    WasReAssigned {
+        get => this.get_WasReAssigned()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Read {
+        get => this.get_Read()
+        set => this.put_Read(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_subject

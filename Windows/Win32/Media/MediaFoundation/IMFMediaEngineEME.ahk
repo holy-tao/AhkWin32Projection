@@ -32,6 +32,13 @@ class IMFMediaEngineEME extends IUnknown{
     static VTableNames => ["get_Keys", "SetMediaKeys"]
 
     /**
+     * @type {IMFMediaKeys} 
+     */
+    Keys {
+        get => this.get_Keys()
+    }
+
+    /**
      * 
      * @returns {IMFMediaKeys} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineeme-get_keys

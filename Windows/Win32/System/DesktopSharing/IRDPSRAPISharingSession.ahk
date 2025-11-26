@@ -37,6 +37,49 @@ class IRDPSRAPISharingSession extends IDispatch{
     static VTableNames => ["Open", "Close", "put_ColorDepth", "get_ColorDepth", "get_Properties", "get_Attendees", "get_Invitations", "get_ApplicationFilter", "get_VirtualChannelManager", "Pause", "Resume", "ConnectToClient", "SetDesktopSharedRect", "GetDesktopSharedRect"]
 
     /**
+     * @type {Integer} 
+     */
+    ColorDepth {
+        get => this.get_ColorDepth()
+        set => this.put_ColorDepth(value)
+    }
+
+    /**
+     * @type {IRDPSRAPISessionProperties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
+     * @type {IRDPSRAPIAttendeeManager} 
+     */
+    Attendees {
+        get => this.get_Attendees()
+    }
+
+    /**
+     * @type {IRDPSRAPIInvitationManager} 
+     */
+    Invitations {
+        get => this.get_Invitations()
+    }
+
+    /**
+     * @type {IRDPSRAPIApplicationFilter} 
+     */
+    ApplicationFilter {
+        get => this.get_ApplicationFilter()
+    }
+
+    /**
+     * @type {IRDPSRAPIVirtualChannelManager} 
+     */
+    VirtualChannelManager {
+        get => this.get_VirtualChannelManager()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-open

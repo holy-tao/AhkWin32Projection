@@ -93,6 +93,20 @@ class IOCSPAdmin extends IDispatch{
     static VTableNames => ["get_OCSPServiceProperties", "get_OCSPCAConfigurationCollection", "GetConfiguration", "SetConfiguration", "GetMyRoles", "Ping", "SetSecurity", "GetSecurity", "GetSigningCertificates", "GetHashAlgorithms"]
 
     /**
+     * @type {IOCSPPropertyCollection} 
+     */
+    OCSPServiceProperties {
+        get => this.get_OCSPServiceProperties()
+    }
+
+    /**
+     * @type {IOCSPCAConfigurationCollection} 
+     */
+    OCSPCAConfigurationCollection {
+        get => this.get_OCSPCAConfigurationCollection()
+    }
+
+    /**
      * 
      * @returns {IOCSPPropertyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties

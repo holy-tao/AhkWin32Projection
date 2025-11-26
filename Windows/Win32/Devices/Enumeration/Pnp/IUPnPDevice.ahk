@@ -41,6 +41,132 @@ class IUPnPDevice extends IDispatch{
     static VTableNames => ["get_IsRootDevice", "get_RootDevice", "get_ParentDevice", "get_HasChildren", "get_Children", "get_UniqueDeviceName", "get_FriendlyName", "get_Type", "get_PresentationURL", "get_ManufacturerName", "get_ManufacturerURL", "get_ModelName", "get_ModelNumber", "get_Description", "get_ModelURL", "get_UPC", "get_SerialNumber", "IconURL", "get_Services"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsRootDevice {
+        get => this.get_IsRootDevice()
+    }
+
+    /**
+     * @type {IUPnPDevice} 
+     */
+    RootDevice {
+        get => this.get_RootDevice()
+    }
+
+    /**
+     * @type {IUPnPDevice} 
+     */
+    ParentDevice {
+        get => this.get_ParentDevice()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    HasChildren {
+        get => this.get_HasChildren()
+    }
+
+    /**
+     * @type {IUPnPDevices} 
+     */
+    Children {
+        get => this.get_Children()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UniqueDeviceName {
+        get => this.get_UniqueDeviceName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PresentationURL {
+        get => this.get_PresentationURL()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ManufacturerName {
+        get => this.get_ManufacturerName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ManufacturerURL {
+        get => this.get_ManufacturerURL()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ModelName {
+        get => this.get_ModelName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ModelNumber {
+        get => this.get_ModelNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ModelURL {
+        get => this.get_ModelURL()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UPC {
+        get => this.get_UPC()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SerialNumber {
+        get => this.get_SerialNumber()
+    }
+
+    /**
+     * @type {IUPnPServices} 
+     */
+    Services {
+        get => this.get_Services()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_isrootdevice

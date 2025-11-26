@@ -35,6 +35,97 @@ class ISpeechPhraseInfo extends IDispatch{
     static VTableNames => ["get_LanguageId", "get_GrammarId", "get_StartTime", "get_AudioStreamPosition", "get_AudioSizeBytes", "get_RetainedSizeBytes", "get_AudioSizeTime", "get_Rule", "get_Properties", "get_Elements", "get_Replacements", "get_EngineId", "get_EnginePrivateData", "SaveToMemory", "GetText", "GetDisplayAttributes"]
 
     /**
+     * @type {Integer} 
+     */
+    LanguageId {
+        get => this.get_LanguageId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    GrammarId {
+        get => this.get_GrammarId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AudioStreamPosition {
+        get => this.get_AudioStreamPosition()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioSizeBytes {
+        get => this.get_AudioSizeBytes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RetainedSizeBytes {
+        get => this.get_RetainedSizeBytes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioSizeTime {
+        get => this.get_AudioSizeTime()
+    }
+
+    /**
+     * @type {ISpeechPhraseRule} 
+     */
+    Rule {
+        get => this.get_Rule()
+    }
+
+    /**
+     * @type {ISpeechPhraseProperties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
+     * @type {ISpeechPhraseElements} 
+     */
+    Elements {
+        get => this.get_Elements()
+    }
+
+    /**
+     * @type {ISpeechPhraseReplacements} 
+     */
+    Replacements {
+        get => this.get_Replacements()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EngineId {
+        get => this.get_EngineId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    EnginePrivateData {
+        get => this.get_EnginePrivateData()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

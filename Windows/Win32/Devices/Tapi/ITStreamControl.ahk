@@ -34,6 +34,13 @@ class ITStreamControl extends IDispatch{
     static VTableNames => ["CreateStream", "RemoveStream", "EnumerateStreams", "get_Streams"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Streams {
+        get => this.get_Streams()
+    }
+
+    /**
      * 
      * @param {Integer} lMediaType 
      * @param {Integer} td 

@@ -39,6 +39,34 @@ class IMonthlyTrigger extends ITrigger{
     static VTableNames => ["get_DaysOfMonth", "put_DaysOfMonth", "get_MonthsOfYear", "put_MonthsOfYear", "get_RunOnLastDayOfMonth", "put_RunOnLastDayOfMonth", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     */
+    DaysOfMonth {
+        get => this.get_DaysOfMonth()
+        set => this.put_DaysOfMonth(value)
+    }
+
+    /**
+     */
+    MonthsOfYear {
+        get => this.get_MonthsOfYear()
+        set => this.put_MonthsOfYear(value)
+    }
+
+    /**
+     */
+    RunOnLastDayOfMonth {
+        get => this.get_RunOnLastDayOfMonth()
+        set => this.put_RunOnLastDayOfMonth(value)
+    }
+
+    /**
+     */
+    RandomDelay {
+        get => this.get_RandomDelay()
+        set => this.put_RandomDelay(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 

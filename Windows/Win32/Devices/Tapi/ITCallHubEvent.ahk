@@ -33,6 +33,27 @@ class ITCallHubEvent extends IDispatch{
     static VTableNames => ["get_Event", "get_CallHub", "get_Call"]
 
     /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {ITCallHub} 
+     */
+    CallHub {
+        get => this.get_CallHub()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_event

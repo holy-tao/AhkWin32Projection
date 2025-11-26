@@ -32,6 +32,50 @@ class IMsmError extends IDispatch{
     static VTableNames => ["get_Type", "get_Path", "get_Language", "get_DatabaseTable", "get_DatabaseKeys", "get_ModuleTable", "get_ModuleKeys"]
 
     /**
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     */
+    Language {
+        get => this.get_Language()
+    }
+
+    /**
+     */
+    DatabaseTable {
+        get => this.get_DatabaseTable()
+    }
+
+    /**
+     * @type {IMsmStrings} 
+     */
+    DatabaseKeys {
+        get => this.get_DatabaseKeys()
+    }
+
+    /**
+     */
+    ModuleTable {
+        get => this.get_ModuleTable()
+    }
+
+    /**
+     * @type {IMsmStrings} 
+     */
+    ModuleKeys {
+        get => this.get_ModuleKeys()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} ErrorType 
      * @returns {HRESULT} 

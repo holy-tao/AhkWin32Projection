@@ -39,6 +39,62 @@ class IFsrmActionEmail extends IFsrmAction{
     static VTableNames => ["get_MailFrom", "put_MailFrom", "get_MailReplyTo", "put_MailReplyTo", "get_MailTo", "put_MailTo", "get_MailCc", "put_MailCc", "get_MailBcc", "put_MailBcc", "get_MailSubject", "put_MailSubject", "get_MessageText", "put_MessageText"]
 
     /**
+     * @type {BSTR} 
+     */
+    MailFrom {
+        get => this.get_MailFrom()
+        set => this.put_MailFrom(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailReplyTo {
+        get => this.get_MailReplyTo()
+        set => this.put_MailReplyTo(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailTo {
+        get => this.get_MailTo()
+        set => this.put_MailTo(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailCc {
+        get => this.get_MailCc()
+        set => this.put_MailCc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailBcc {
+        get => this.get_MailBcc()
+        set => this.put_MailBcc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailSubject {
+        get => this.get_MailSubject()
+        set => this.put_MailSubject(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MessageText {
+        get => this.get_MessageText()
+        set => this.put_MessageText(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom

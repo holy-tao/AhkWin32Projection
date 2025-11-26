@@ -32,6 +32,27 @@ class ICrmMonitorLogRecords extends IUnknown{
     static VTableNames => ["get_Count", "get_TransactionState", "get_StructuredRecords", "GetLogRecord", "GetLogRecordVariants"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TransactionState {
+        get => this.get_TransactionState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    StructuredRecords {
+        get => this.get_StructuredRecords()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_count

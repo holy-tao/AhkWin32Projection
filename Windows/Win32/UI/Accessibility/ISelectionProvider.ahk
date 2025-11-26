@@ -38,6 +38,20 @@ class ISelectionProvider extends IUnknown{
     static VTableNames => ["GetSelection", "get_CanSelectMultiple", "get_IsSelectionRequired"]
 
     /**
+     * @type {BOOL} 
+     */
+    CanSelectMultiple {
+        get => this.get_CanSelectMultiple()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsSelectionRequired {
+        get => this.get_IsSelectionRequired()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider-getselection

@@ -39,6 +39,20 @@ class IRawElementProviderFragment extends IUnknown{
     static VTableNames => ["Navigate", "GetRuntimeId", "get_BoundingRectangle", "GetEmbeddedFragmentRoots", "SetFocus", "get_FragmentRoot"]
 
     /**
+     * @type {UiaRect} 
+     */
+    BoundingRectangle {
+        get => this.get_BoundingRectangle()
+    }
+
+    /**
+     * @type {IRawElementProviderFragmentRoot} 
+     */
+    FragmentRoot {
+        get => this.get_FragmentRoot()
+    }
+
+    /**
      * 
      * @param {Integer} direction 
      * @returns {IRawElementProviderFragment} 

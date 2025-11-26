@@ -29,6 +29,34 @@ class IDOMNodeIterator extends IDispatch{
     static VTableNames => ["get_root", "get_whatToShow", "get_filter", "get_expandEntityReferences", "nextNode", "previousNode", "detach"]
 
     /**
+     * @type {IDispatch} 
+     */
+    root {
+        get => this.get_root()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    whatToShow {
+        get => this.get_whatToShow()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    filter {
+        get => this.get_filter()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    expandEntityReferences {
+        get => this.get_expandEntityReferences()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

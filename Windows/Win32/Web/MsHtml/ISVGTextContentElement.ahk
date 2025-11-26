@@ -39,6 +39,20 @@ class ISVGTextContentElement extends IDispatch{
     static VTableNames => ["putref_textLength", "get_textLength", "putref_lengthAdjust", "get_lengthAdjust", "getNumberOfChars", "getComputedTextLength", "getSubStringLength", "getStartPositionOfChar", "getEndPositionOfChar", "getExtentOfChar", "getRotationOfChar", "getCharNumAtPosition", "selectSubString"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    textLength {
+        get => this.get_textLength()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    lengthAdjust {
+        get => this.get_lengthAdjust()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

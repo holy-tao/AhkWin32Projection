@@ -32,6 +32,48 @@ class INetConnectionProps extends IDispatch{
     static VTableNames => ["get_Guid", "get_Name", "get_DeviceName", "get_Status", "get_MediaType", "get_Characteristics"]
 
     /**
+     * @type {BSTR} 
+     */
+    Guid {
+        get => this.get_Guid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceName {
+        get => this.get_DeviceName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Characteristics {
+        get => this.get_Characteristics()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_guid

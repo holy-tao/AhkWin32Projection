@@ -29,6 +29,69 @@ class IContactAggregationLink extends IUnknown{
     static VTableNames => ["Delete", "Save", "get_AccountId", "put_AccountId", "get_Id", "get_IsLinkResolved", "put_IsLinkResolved", "get_NetworkSourceIdString", "put_NetworkSourceIdString", "get_RemoteObjectId", "put_RemoteObjectId", "get_ServerPerson", "put_ServerPerson", "get_ServerPersonBaseline", "put_ServerPersonBaseline", "get_SyncIdentityHash", "put_SyncIdentityHash"]
 
     /**
+     * @type {PWSTR} 
+     */
+    AccountId {
+        get => this.get_AccountId()
+        set => this.put_AccountId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsLinkResolved {
+        get => this.get_IsLinkResolved()
+        set => this.put_IsLinkResolved(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    NetworkSourceIdString {
+        get => this.get_NetworkSourceIdString()
+        set => this.put_NetworkSourceIdString(value)
+    }
+
+    /**
+     * @type {Pointer<CONTACT_AGGREGATION_BLOB>} 
+     */
+    RemoteObjectId {
+        get => this.get_RemoteObjectId()
+        set => this.put_RemoteObjectId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    ServerPerson {
+        get => this.get_ServerPerson()
+        set => this.put_ServerPerson(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    ServerPersonBaseline {
+        get => this.get_ServerPersonBaseline()
+        set => this.put_ServerPersonBaseline(value)
+    }
+
+    /**
+     * @type {Pointer<CONTACT_AGGREGATION_BLOB>} 
+     */
+    SyncIdentityHash {
+        get => this.get_SyncIdentityHash()
+        set => this.put_SyncIdentityHash(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

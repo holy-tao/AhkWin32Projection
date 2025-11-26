@@ -32,6 +32,30 @@ class IADsAcl extends IDispatch{
     static VTableNames => ["get_ProtectedAttrName", "put_ProtectedAttrName", "get_SubjectName", "put_SubjectName", "get_Privileges", "put_Privileges", "CopyAcl"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProtectedAttrName {
+        get => this.get_ProtectedAttrName()
+        set => this.put_ProtectedAttrName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubjectName {
+        get => this.get_SubjectName()
+        set => this.put_SubjectName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Privileges {
+        get => this.get_Privileges()
+        set => this.put_Privileges(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

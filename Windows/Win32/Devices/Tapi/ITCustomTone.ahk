@@ -31,6 +31,38 @@ class ITCustomTone extends IDispatch{
     static VTableNames => ["get_Frequency", "put_Frequency", "get_CadenceOn", "put_CadenceOn", "get_CadenceOff", "put_CadenceOff", "get_Volume", "put_Volume"]
 
     /**
+     * @type {Integer} 
+     */
+    Frequency {
+        get => this.get_Frequency()
+        set => this.put_Frequency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CadenceOn {
+        get => this.get_CadenceOn()
+        set => this.put_CadenceOn(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CadenceOff {
+        get => this.get_CadenceOff()
+        set => this.put_CadenceOff(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Volume {
+        get => this.get_Volume()
+        set => this.put_Volume(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_frequency

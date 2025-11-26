@@ -31,6 +31,86 @@ class IHTMLFrameSetElement extends IDispatch{
     static VTableNames => ["put_rows", "get_rows", "put_cols", "get_cols", "put_border", "get_border", "put_borderColor", "get_borderColor", "put_frameBorder", "get_frameBorder", "put_frameSpacing", "get_frameSpacing", "put_name", "get_name", "put_onload", "get_onload", "put_onunload", "get_onunload", "put_onbeforeunload", "get_onbeforeunload"]
 
     /**
+     * @type {BSTR} 
+     */
+    rows {
+        get => this.get_rows()
+        set => this.put_rows(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cols {
+        get => this.get_cols()
+        set => this.put_cols(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+        set => this.put_borderColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    frameBorder {
+        get => this.get_frameBorder()
+        set => this.put_frameBorder(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    frameSpacing {
+        get => this.get_frameSpacing()
+        set => this.put_frameSpacing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onunload {
+        get => this.get_onunload()
+        set => this.put_onunload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeunload {
+        get => this.get_onbeforeunload()
+        set => this.put_onbeforeunload(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

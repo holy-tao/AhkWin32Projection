@@ -36,6 +36,13 @@ class ITunerCapEx extends IUnknown{
     static VTableNames => ["get_Has608_708Caption"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Has608_708Caption {
+        get => this.get_Has608_708Caption()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercapex-get_has608_708caption

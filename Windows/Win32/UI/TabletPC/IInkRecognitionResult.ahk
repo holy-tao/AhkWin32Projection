@@ -51,6 +51,34 @@ class IInkRecognitionResult extends IDispatch{
     static VTableNames => ["get_TopString", "get_TopAlternate", "get_TopConfidence", "get_Strokes", "AlternatesFromSelection", "ModifyTopAlternate", "SetResultOnStrokes"]
 
     /**
+     * @type {BSTR} 
+     */
+    TopString {
+        get => this.get_TopString()
+    }
+
+    /**
+     * @type {IInkRecognitionAlternate} 
+     */
+    TopAlternate {
+        get => this.get_TopAlternate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TopConfidence {
+        get => this.get_TopConfidence()
+    }
+
+    /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topstring

@@ -32,6 +32,62 @@ class IFsrmActionCommand extends IFsrmAction{
     static VTableNames => ["get_ExecutablePath", "put_ExecutablePath", "get_Arguments", "put_Arguments", "get_Account", "put_Account", "get_WorkingDirectory", "put_WorkingDirectory", "get_MonitorCommand", "put_MonitorCommand", "get_KillTimeOut", "put_KillTimeOut", "get_LogResult", "put_LogResult"]
 
     /**
+     * @type {BSTR} 
+     */
+    ExecutablePath {
+        get => this.get_ExecutablePath()
+        set => this.put_ExecutablePath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Arguments {
+        get => this.get_Arguments()
+        set => this.put_Arguments(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Account {
+        get => this.get_Account()
+        set => this.put_Account(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    WorkingDirectory {
+        get => this.get_WorkingDirectory()
+        set => this.put_WorkingDirectory(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MonitorCommand {
+        get => this.get_MonitorCommand()
+        set => this.put_MonitorCommand(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KillTimeOut {
+        get => this.get_KillTimeOut()
+        set => this.put_KillTimeOut(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogResult {
+        get => this.get_LogResult()
+        set => this.put_LogResult(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_executablepath

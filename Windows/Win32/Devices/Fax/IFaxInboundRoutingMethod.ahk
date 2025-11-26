@@ -42,6 +42,49 @@ class IFaxInboundRoutingMethod extends IDispatch{
     static VTableNames => ["get_Name", "get_GUID", "get_FunctionName", "get_ExtensionFriendlyName", "get_ExtensionImageName", "get_Priority", "put_Priority", "Refresh", "Save"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GUID {
+        get => this.get_GUID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FunctionName {
+        get => this.get_FunctionName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtensionFriendlyName {
+        get => this.get_ExtensionFriendlyName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtensionImageName {
+        get => this.get_ExtensionImageName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_name

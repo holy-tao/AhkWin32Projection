@@ -34,6 +34,48 @@ class ITCallMediaEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_Event", "get_Error", "get_Terminal", "get_Stream", "get_Cause"]
 
     /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
+     * @type {ITTerminal} 
+     */
+    Terminal {
+        get => this.get_Terminal()
+    }
+
+    /**
+     * @type {ITStream} 
+     */
+    Stream {
+        get => this.get_Stream()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Cause {
+        get => this.get_Cause()
+    }
+
+    /**
      * 
      * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_call

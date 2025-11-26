@@ -29,6 +29,14 @@ class IRTCWatcher extends IRTCPresenceContact{
     static VTableNames => ["get_State", "put_State"]
 
     /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -33,6 +33,14 @@ class IEventControl extends IDispatch{
     static VTableNames => ["SetPublisherFilter", "get_AllowInprocActivation", "put_AllowInprocActivation", "GetSubscriptions", "SetDefaultQuery"]
 
     /**
+     * @type {BOOL} 
+     */
+    AllowInprocActivation {
+        get => this.get_AllowInprocActivation()
+        set => this.put_AllowInprocActivation(value)
+    }
+
+    /**
      * 
      * @param {BSTR} methodName 
      * @param {IPublisherFilter} pPublisherFilter 

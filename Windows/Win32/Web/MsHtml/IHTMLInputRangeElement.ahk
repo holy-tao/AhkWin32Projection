@@ -30,6 +30,77 @@ class IHTMLInputRangeElement extends IDispatch{
     static VTableNames => ["put_disabled", "get_disabled", "get_type", "put_alt", "get_alt", "put_name", "get_name", "put_value", "get_value", "put_min", "get_min", "put_max", "get_max", "put_step", "get_step", "put_valueAsNumber", "get_valueAsNumber", "stepUp", "stepDown"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alt {
+        get => this.get_alt()
+        set => this.put_alt(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    min {
+        get => this.get_min()
+        set => this.put_min(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    max {
+        get => this.get_max()
+        set => this.put_max(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    step {
+        get => this.get_step()
+        set => this.put_step(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    valueAsNumber {
+        get => this.get_valueAsNumber()
+        set => this.put_valueAsNumber(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

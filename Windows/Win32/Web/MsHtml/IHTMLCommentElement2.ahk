@@ -30,6 +30,21 @@ class IHTMLCommentElement2 extends IDispatch{
     static VTableNames => ["put_data", "get_data", "get_length", "substringData", "appendData", "insertData", "deleteData", "replaceData"]
 
     /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

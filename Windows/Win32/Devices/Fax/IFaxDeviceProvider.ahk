@@ -43,6 +43,90 @@ class IFaxDeviceProvider extends IDispatch{
     static VTableNames => ["get_FriendlyName", "get_ImageName", "get_UniqueName", "get_TapiProviderName", "get_MajorVersion", "get_MinorVersion", "get_MajorBuild", "get_MinorBuild", "get_Debug", "get_Status", "get_InitErrorCode", "get_DeviceIds"]
 
     /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ImageName {
+        get => this.get_ImageName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UniqueName {
+        get => this.get_UniqueName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TapiProviderName {
+        get => this.get_TapiProviderName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorBuild {
+        get => this.get_MajorBuild()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorBuild {
+        get => this.get_MinorBuild()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Debug {
+        get => this.get_Debug()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InitErrorCode {
+        get => this.get_InitErrorCode()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DeviceIds {
+        get => this.get_DeviceIds()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_friendlyname

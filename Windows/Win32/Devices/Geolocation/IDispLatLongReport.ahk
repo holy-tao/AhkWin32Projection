@@ -35,6 +35,48 @@ class IDispLatLongReport extends IDispatch{
     static VTableNames => ["get_Latitude", "get_Longitude", "get_ErrorRadius", "get_Altitude", "get_AltitudeError", "get_Timestamp"]
 
     /**
+     * @type {Float} 
+     */
+    Latitude {
+        get => this.get_Latitude()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Longitude {
+        get => this.get_Longitude()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ErrorRadius {
+        get => this.get_ErrorRadius()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Altitude {
+        get => this.get_Altitude()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    AltitudeError {
+        get => this.get_AltitudeError()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Timestamp {
+        get => this.get_Timestamp()
+    }
+
+    /**
      * 
      * @returns {Float} 
      */

@@ -34,6 +34,41 @@ class ITPrivateEvent extends IDispatch{
     static VTableNames => ["get_Address", "get_Call", "get_CallHub", "get_EventCode", "get_EventInterface"]
 
     /**
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {ITCallHub} 
+     */
+    CallHub {
+        get => this.get_CallHub()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventCode {
+        get => this.get_EventCode()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    EventInterface {
+        get => this.get_EventInterface()
+    }
+
+    /**
      * 
      * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_address

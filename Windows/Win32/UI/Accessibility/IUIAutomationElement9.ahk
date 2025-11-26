@@ -31,6 +31,20 @@ class IUIAutomationElement9 extends IUIAutomationElement8{
     static VTableNames => ["get_CurrentIsDialog", "get_CachedIsDialog"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentIsDialog {
+        get => this.get_CurrentIsDialog()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsDialog {
+        get => this.get_CachedIsDialog()
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_currentisdialog

@@ -43,6 +43,20 @@ class ISystemInformation extends IDispatch{
     static VTableNames => ["get_OemHardwareSupportLink", "get_RebootRequired"]
 
     /**
+     * @type {BSTR} 
+     */
+    OemHardwareSupportLink {
+        get => this.get_OemHardwareSupportLink()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RebootRequired {
+        get => this.get_RebootRequired()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isysteminformation-get_oemhardwaresupportlink

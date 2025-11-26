@@ -40,6 +40,13 @@ class INetSharingPortMapping extends IDispatch{
     static VTableNames => ["Disable", "Enable", "get_Properties", "Delete"]
 
     /**
+     * @type {INetSharingPortMappingProps} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmapping-disable

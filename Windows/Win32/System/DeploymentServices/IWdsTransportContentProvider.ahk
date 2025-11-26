@@ -38,6 +38,34 @@ class IWdsTransportContentProvider extends IDispatch{
     static VTableNames => ["get_Name", "get_Description", "get_FilePath", "get_InitializationRoutine"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FilePath {
+        get => this.get_FilePath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InitializationRoutine {
+        get => this.get_InitializationRoutine()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name

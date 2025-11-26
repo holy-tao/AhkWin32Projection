@@ -37,6 +37,31 @@ class IAMExtendedSeeking extends IDispatch{
     static VTableNames => ["get_ExSeekCapabilities", "get_MarkerCount", "get_CurrentMarker", "GetMarkerTime", "GetMarkerName", "put_PlaybackSpeed", "get_PlaybackSpeed"]
 
     /**
+     */
+    ExSeekCapabilities {
+        get => this.get_ExSeekCapabilities()
+    }
+
+    /**
+     */
+    MarkerCount {
+        get => this.get_MarkerCount()
+    }
+
+    /**
+     */
+    CurrentMarker {
+        get => this.get_CurrentMarker()
+    }
+
+    /**
+     */
+    PlaybackSpeed {
+        get => this.get_PlaybackSpeed()
+        set => this.put_PlaybackSpeed(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pExCapabilities 
      * @returns {HRESULT} 

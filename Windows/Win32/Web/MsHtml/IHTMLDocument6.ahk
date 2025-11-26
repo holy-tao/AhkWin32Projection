@@ -33,6 +33,36 @@ class IHTMLDocument6 extends IDispatch{
     static VTableNames => ["get_compatible", "get_documentMode", "put_onstorage", "get_onstorage", "put_onstoragecommit", "get_onstoragecommit", "getElementById", "updateSettings"]
 
     /**
+     * @type {IHTMLDocumentCompatibleInfoCollection} 
+     */
+    compatible {
+        get => this.get_compatible()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    documentMode {
+        get => this.get_documentMode()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstorage {
+        get => this.get_onstorage()
+        set => this.put_onstorage(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstoragecommit {
+        get => this.get_onstoragecommit()
+        set => this.put_onstoragecommit(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLDocumentCompatibleInfoCollection} 
      */

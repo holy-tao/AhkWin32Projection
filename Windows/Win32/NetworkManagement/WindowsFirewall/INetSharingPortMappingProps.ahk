@@ -32,6 +32,62 @@ class INetSharingPortMappingProps extends IDispatch{
     static VTableNames => ["get_Name", "get_IPProtocol", "get_ExternalPort", "get_InternalPort", "get_Options", "get_TargetName", "get_TargetIPAddress", "get_Enabled"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IPProtocol {
+        get => this.get_IPProtocol()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExternalPort {
+        get => this.get_ExternalPort()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InternalPort {
+        get => this.get_InternalPort()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Options {
+        get => this.get_Options()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetName {
+        get => this.get_TargetName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetIPAddress {
+        get => this.get_TargetIPAddress()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_name

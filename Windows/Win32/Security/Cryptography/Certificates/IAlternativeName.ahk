@@ -33,6 +33,27 @@ class IAlternativeName extends IDispatch{
     static VTableNames => ["InitializeFromString", "InitializeFromRawData", "InitializeFromOtherName", "get_Type", "get_StrValue", "get_ObjectId", "get_RawData"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StrValue {
+        get => this.get_StrValue()
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
      * 
      * @param {Integer} Type 
      * @param {BSTR} strValue 

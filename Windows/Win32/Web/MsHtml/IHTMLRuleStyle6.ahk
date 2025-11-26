@@ -31,6 +31,134 @@ class IHTMLRuleStyle6 extends IDispatch{
     static VTableNames => ["put_content", "get_content", "put_captionSide", "get_captionSide", "put_counterIncrement", "get_counterIncrement", "put_counterReset", "get_counterReset", "put_outline", "get_outline", "put_outlineWidth", "get_outlineWidth", "put_outlineStyle", "get_outlineStyle", "put_outlineColor", "get_outlineColor", "put_boxSizing", "get_boxSizing", "put_borderSpacing", "get_borderSpacing", "put_orphans", "get_orphans", "put_widows", "get_widows", "put_pageBreakInside", "get_pageBreakInside", "put_emptyCells", "get_emptyCells", "put_msBlockProgression", "get_msBlockProgression", "put_quotes", "get_quotes"]
 
     /**
+     * @type {BSTR} 
+     */
+    content {
+        get => this.get_content()
+        set => this.put_content(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    captionSide {
+        get => this.get_captionSide()
+        set => this.put_captionSide(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    counterIncrement {
+        get => this.get_counterIncrement()
+        set => this.put_counterIncrement(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    counterReset {
+        get => this.get_counterReset()
+        set => this.put_counterReset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    outline {
+        get => this.get_outline()
+        set => this.put_outline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    outlineWidth {
+        get => this.get_outlineWidth()
+        set => this.put_outlineWidth(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    outlineStyle {
+        get => this.get_outlineStyle()
+        set => this.put_outlineStyle(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    outlineColor {
+        get => this.get_outlineColor()
+        set => this.put_outlineColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    boxSizing {
+        get => this.get_boxSizing()
+        set => this.put_boxSizing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderSpacing {
+        get => this.get_borderSpacing()
+        set => this.put_borderSpacing(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    orphans {
+        get => this.get_orphans()
+        set => this.put_orphans(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    widows {
+        get => this.get_widows()
+        set => this.put_widows(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pageBreakInside {
+        get => this.get_pageBreakInside()
+        set => this.put_pageBreakInside(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    emptyCells {
+        get => this.get_emptyCells()
+        set => this.put_emptyCells(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msBlockProgression {
+        get => this.get_msBlockProgression()
+        set => this.put_msBlockProgression(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    quotes {
+        get => this.get_quotes()
+        set => this.put_quotes(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

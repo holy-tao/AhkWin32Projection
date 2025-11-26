@@ -31,6 +31,60 @@ class IHTMLXDomainRequest extends IDispatch{
     static VTableNames => ["get_responseText", "put_timeout", "get_timeout", "get_contentType", "put_onprogress", "get_onprogress", "put_onerror", "get_onerror", "put_ontimeout", "get_ontimeout", "put_onload", "get_onload", "abort", "open", "send"]
 
     /**
+     * @type {BSTR} 
+     */
+    responseText {
+        get => this.get_responseText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    timeout {
+        get => this.get_timeout()
+        set => this.put_timeout(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    contentType {
+        get => this.get_contentType()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onprogress {
+        get => this.get_onprogress()
+        set => this.put_onprogress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ontimeout {
+        get => this.get_ontimeout()
+        set => this.put_ontimeout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

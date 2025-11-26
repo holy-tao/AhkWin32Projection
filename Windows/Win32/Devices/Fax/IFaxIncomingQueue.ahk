@@ -45,6 +45,14 @@ class IFaxIncomingQueue extends IDispatch{
     static VTableNames => ["get_Blocked", "put_Blocked", "Refresh", "Save", "GetJobs", "GetJob"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Blocked {
+        get => this.get_Blocked()
+        set => this.put_Blocked(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-get_blocked

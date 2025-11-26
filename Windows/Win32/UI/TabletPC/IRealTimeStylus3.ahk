@@ -31,6 +31,14 @@ class IRealTimeStylus3 extends IUnknown{
     static VTableNames => ["get_MultiTouchEnabled", "put_MultiTouchEnabled"]
 
     /**
+     * @type {BOOL} 
+     */
+    MultiTouchEnabled {
+        get => this.get_MultiTouchEnabled()
+        set => this.put_MultiTouchEnabled(value)
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus3-get_multitouchenabled

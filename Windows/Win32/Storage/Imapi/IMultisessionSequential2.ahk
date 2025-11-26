@@ -31,6 +31,13 @@ class IMultisessionSequential2 extends IMultisessionSequential{
     static VTableNames => ["get_WriteUnitSize"]
 
     /**
+     * @type {Integer} 
+     */
+    WriteUnitSize {
+        get => this.get_WriteUnitSize()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential2-get_writeunitsize

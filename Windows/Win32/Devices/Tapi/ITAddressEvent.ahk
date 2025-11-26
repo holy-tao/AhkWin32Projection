@@ -40,6 +40,27 @@ class ITAddressEvent extends IDispatch{
     static VTableNames => ["get_Address", "get_Event", "get_Terminal"]
 
     /**
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {ITTerminal} 
+     */
+    Terminal {
+        get => this.get_Terminal()
+    }
+
+    /**
      * 
      * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_address

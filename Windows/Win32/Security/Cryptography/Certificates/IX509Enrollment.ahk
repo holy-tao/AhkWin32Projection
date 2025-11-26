@@ -35,6 +35,80 @@ class IX509Enrollment extends IDispatch{
     static VTableNames => ["Initialize", "InitializeFromTemplateName", "InitializeFromRequest", "CreateRequest", "Enroll", "InstallResponse", "CreatePFX", "get_Request", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_NameValuePairs", "get_EnrollmentContext", "get_Status", "get_Certificate", "get_Response", "get_CertificateFriendlyName", "put_CertificateFriendlyName", "get_CertificateDescription", "put_CertificateDescription", "get_RequestId", "get_CAConfigString"]
 
     /**
+     * @type {IX509CertificateRequest} 
+     */
+    Request {
+        get => this.get_Request()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Silent {
+        get => this.get_Silent()
+        set => this.put_Silent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ParentWindow {
+        get => this.get_ParentWindow()
+        set => this.put_ParentWindow(value)
+    }
+
+    /**
+     * @type {IX509NameValuePairs} 
+     */
+    NameValuePairs {
+        get => this.get_NameValuePairs()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EnrollmentContext {
+        get => this.get_EnrollmentContext()
+    }
+
+    /**
+     * @type {IX509EnrollmentStatus} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CertificateFriendlyName {
+        get => this.get_CertificateFriendlyName()
+        set => this.put_CertificateFriendlyName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CertificateDescription {
+        get => this.get_CertificateDescription()
+        set => this.put_CertificateDescription(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestId {
+        get => this.get_RequestId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAConfigString {
+        get => this.get_CAConfigString()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} Context 
      * @returns {HRESULT} <ul>

@@ -36,6 +36,14 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning{
     static VTableNames => ["get_Service", "put_Service"]
 
     /**
+     * @type {Integer} 
+     */
+    Service {
+        get => this.get_Service()
+        set => this.put_Service(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning2-get_service

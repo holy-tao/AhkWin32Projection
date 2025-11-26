@@ -31,6 +31,14 @@ class ISpeechPhoneConverter extends IDispatch{
     static VTableNames => ["get_LanguageId", "put_LanguageId", "PhoneToId", "IdToPhone"]
 
     /**
+     * @type {Integer} 
+     */
+    LanguageId {
+        get => this.get_LanguageId()
+        set => this.put_LanguageId(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

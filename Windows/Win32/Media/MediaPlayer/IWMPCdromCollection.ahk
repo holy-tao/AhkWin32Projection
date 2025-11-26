@@ -33,6 +33,12 @@ class IWMPCdromCollection extends IDispatch{
     static VTableNames => ["get_count", "item", "getByDriveSpecifier"]
 
     /**
+     */
+    count {
+        get => this.get_count()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

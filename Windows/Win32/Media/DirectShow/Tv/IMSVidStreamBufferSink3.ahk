@@ -38,6 +38,89 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     static VTableNames => ["SetMinSeek", "get_AudioCounter", "get_VideoCounter", "get_CCCounter", "get_WSTCounter", "put_AudioAnalysisFilter", "get_AudioAnalysisFilter", "put__AudioAnalysisFilter", "get__AudioAnalysisFilter", "put_VideoAnalysisFilter", "get_VideoAnalysisFilter", "put__VideoAnalysisFilter", "get__VideoAnalysisFilter", "put_DataAnalysisFilter", "get_DataAnalysisFilter", "put__DataAnalysisFilter", "get__DataAnalysisFilter", "get_LicenseErrorCode"]
 
     /**
+     * @type {IUnknown} 
+     */
+    AudioCounter {
+        get => this.get_AudioCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    VideoCounter {
+        get => this.get_VideoCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    CCCounter {
+        get => this.get_CCCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    WSTCounter {
+        get => this.get_WSTCounter()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AudioAnalysisFilter {
+        get => this.get_AudioAnalysisFilter()
+        set => this.put_AudioAnalysisFilter(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _AudioAnalysisFilter {
+        get => this.get__AudioAnalysisFilter()
+        set => this.put__AudioAnalysisFilter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VideoAnalysisFilter {
+        get => this.get_VideoAnalysisFilter()
+        set => this.put_VideoAnalysisFilter(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _VideoAnalysisFilter {
+        get => this.get__VideoAnalysisFilter()
+        set => this.put__VideoAnalysisFilter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DataAnalysisFilter {
+        get => this.get_DataAnalysisFilter()
+        set => this.put_DataAnalysisFilter(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _DataAnalysisFilter {
+        get => this.get__DataAnalysisFilter()
+        set => this.put__DataAnalysisFilter(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    LicenseErrorCode {
+        get => this.get_LicenseErrorCode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-setminseek

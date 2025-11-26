@@ -31,6 +31,30 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     static VTableNames => ["get_Capabilities", "put_Capabilities", "get_StorageType", "put_StorageType", "get_UpdatesFileContent", "put_UpdatesFileContent"]
 
     /**
+     * @type {Integer} 
+     */
+    Capabilities {
+        get => this.get_Capabilities()
+        set => this.put_Capabilities(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StorageType {
+        get => this.get_StorageType()
+        set => this.put_StorageType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UpdatesFileContent {
+        get => this.get_UpdatesFileContent()
+        set => this.put_UpdatesFileContent(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_capabilities

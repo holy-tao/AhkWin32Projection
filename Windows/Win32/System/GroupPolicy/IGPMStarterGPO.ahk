@@ -50,6 +50,85 @@ class IGPMStarterGPO extends IDispatch{
     static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Description", "put_Description", "get_Author", "get_Product", "get_CreationTime", "get_ID", "get_ModifiedTime", "get_Type", "get_ComputerVersion", "get_UserVersion", "get_StarterGPOVersion", "Delete", "Save", "Backup", "CopyTo", "GenerateReport", "GenerateReportToFile", "GetSecurityInfo", "SetSecurityInfo"]
 
     /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Author {
+        get => this.get_Author()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Product {
+        get => this.get_Product()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CreationTime {
+        get => this.get_CreationTime()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ModifiedTime {
+        get => this.get_ModifiedTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ComputerVersion {
+        get => this.get_ComputerVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UserVersion {
+        get => this.get_UserVersion()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StarterGPOVersion {
+        get => this.get_StarterGPOVersion()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

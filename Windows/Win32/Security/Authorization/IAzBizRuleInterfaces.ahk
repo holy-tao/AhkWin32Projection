@@ -32,6 +32,13 @@ class IAzBizRuleInterfaces extends IDispatch{
     static VTableNames => ["AddInterface", "AddInterfaces", "GetInterfaceValue", "Remove", "RemoveAll", "get_Count"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrInterfaceName 
      * @param {Integer} lInterfaceFlag 

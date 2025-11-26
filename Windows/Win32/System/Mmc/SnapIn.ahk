@@ -38,6 +38,48 @@ class SnapIn extends IDispatch{
     static VTableNames => ["get_Name", "get_Vendor", "get_Version", "get_Extensions", "get_SnapinCLSID", "get_Properties", "EnableAllExtensions"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Vendor {
+        get => this.get_Vendor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {Extensions} 
+     */
+    Extensions {
+        get => this.get_Extensions()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SnapinCLSID {
+        get => this.get_SnapinCLSID()
+    }
+
+    /**
+     * @type {Properties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

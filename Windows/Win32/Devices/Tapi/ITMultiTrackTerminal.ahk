@@ -34,6 +34,27 @@ class ITMultiTrackTerminal extends IDispatch{
     static VTableNames => ["get_TrackTerminals", "EnumerateTrackTerminals", "CreateTrackTerminal", "get_MediaTypesInUse", "get_DirectionsInUse", "RemoveTrackTerminal"]
 
     /**
+     * @type {VARIANT} 
+     */
+    TrackTerminals {
+        get => this.get_TrackTerminals()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaTypesInUse {
+        get => this.get_MediaTypesInUse()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DirectionsInUse {
+        get => this.get_DirectionsInUse()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_trackterminals

@@ -43,6 +43,27 @@ class IFaxOutboundRoutingGroup extends IDispatch{
     static VTableNames => ["get_Name", "get_Status", "get_DeviceIds"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {IFaxDeviceIds} 
+     */
+    DeviceIds {
+        get => this.get_DeviceIds()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_name

@@ -39,6 +39,34 @@ class IMbnSmsReadMsgPdu extends IUnknown{
     static VTableNames => ["get_Index", "get_Status", "get_PduData", "get_Message"]
 
     /**
+     * @type {Integer} 
+     */
+    Index {
+        get => this.get_Index()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PduData {
+        get => this.get_PduData()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_index

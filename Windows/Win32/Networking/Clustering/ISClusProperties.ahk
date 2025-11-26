@@ -33,6 +33,48 @@ class ISClusProperties extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "Refresh", "get_Item", "CreateItem", "UseDefaultValue", "SaveChanges", "get_ReadOnly", "get_Private", "get_Common", "get_Modified"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Private {
+        get => this.get_Private()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Common {
+        get => this.get_Common()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Modified {
+        get => this.get_Modified()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

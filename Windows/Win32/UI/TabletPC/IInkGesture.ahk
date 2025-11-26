@@ -38,6 +38,20 @@ class IInkGesture extends IDispatch{
     static VTableNames => ["get_Confidence", "get_Id", "GetHotPoint"]
 
     /**
+     * @type {Integer} 
+     */
+    Confidence {
+        get => this.get_Confidence()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_confidence

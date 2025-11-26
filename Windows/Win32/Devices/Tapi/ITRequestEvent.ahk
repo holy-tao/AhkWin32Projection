@@ -32,6 +32,48 @@ class ITRequestEvent extends IDispatch{
     static VTableNames => ["get_RegistrationInstance", "get_RequestMode", "get_DestAddress", "get_AppName", "get_CalledParty", "get_Comment"]
 
     /**
+     * @type {Integer} 
+     */
+    RegistrationInstance {
+        get => this.get_RegistrationInstance()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequestMode {
+        get => this.get_RequestMode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DestAddress {
+        get => this.get_DestAddress()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AppName {
+        get => this.get_AppName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CalledParty {
+        get => this.get_CalledParty()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Comment {
+        get => this.get_Comment()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_registrationinstance

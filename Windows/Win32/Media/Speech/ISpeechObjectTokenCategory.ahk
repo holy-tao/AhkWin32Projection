@@ -32,6 +32,21 @@ class ISpeechObjectTokenCategory extends IDispatch{
     static VTableNames => ["get_Id", "put_Default", "get_Default", "SetId", "GetDataKey", "EnumerateTokens"]
 
     /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Default {
+        get => this.get_Default()
+        set => this.put_Default(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

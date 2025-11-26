@@ -36,6 +36,77 @@ class IADsDomain extends IADs{
     static VTableNames => ["get_IsWorkgroup", "get_MinPasswordLength", "put_MinPasswordLength", "get_MinPasswordAge", "put_MinPasswordAge", "get_MaxPasswordAge", "put_MaxPasswordAge", "get_MaxBadPasswordsAllowed", "put_MaxBadPasswordsAllowed", "get_PasswordHistoryLength", "put_PasswordHistoryLength", "get_PasswordAttributes", "put_PasswordAttributes", "get_AutoUnlockInterval", "put_AutoUnlockInterval", "get_LockoutObservationInterval", "put_LockoutObservationInterval"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsWorkgroup {
+        get => this.get_IsWorkgroup()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinPasswordLength {
+        get => this.get_MinPasswordLength()
+        set => this.put_MinPasswordLength(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinPasswordAge {
+        get => this.get_MinPasswordAge()
+        set => this.put_MinPasswordAge(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxPasswordAge {
+        get => this.get_MaxPasswordAge()
+        set => this.put_MaxPasswordAge(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxBadPasswordsAllowed {
+        get => this.get_MaxBadPasswordsAllowed()
+        set => this.put_MaxBadPasswordsAllowed(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PasswordHistoryLength {
+        get => this.get_PasswordHistoryLength()
+        set => this.put_PasswordHistoryLength(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PasswordAttributes {
+        get => this.get_PasswordAttributes()
+        set => this.put_PasswordAttributes(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoUnlockInterval {
+        get => this.get_AutoUnlockInterval()
+        set => this.put_AutoUnlockInterval(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LockoutObservationInterval {
+        get => this.get_LockoutObservationInterval()
+        set => this.put_LockoutObservationInterval(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

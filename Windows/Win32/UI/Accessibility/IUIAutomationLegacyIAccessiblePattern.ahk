@@ -39,6 +39,132 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     static VTableNames => ["Select", "DoDefaultAction", "SetValue", "get_CurrentChildId", "get_CurrentName", "get_CurrentValue", "get_CurrentDescription", "get_CurrentRole", "get_CurrentState", "get_CurrentHelp", "get_CurrentKeyboardShortcut", "GetCurrentSelection", "get_CurrentDefaultAction", "get_CachedChildId", "get_CachedName", "get_CachedValue", "get_CachedDescription", "get_CachedRole", "get_CachedState", "get_CachedHelp", "get_CachedKeyboardShortcut", "GetCachedSelection", "get_CachedDefaultAction", "GetIAccessible"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentChildId {
+        get => this.get_CurrentChildId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentName {
+        get => this.get_CurrentName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentValue {
+        get => this.get_CurrentValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentDescription {
+        get => this.get_CurrentDescription()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentRole {
+        get => this.get_CurrentRole()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentState {
+        get => this.get_CurrentState()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentHelp {
+        get => this.get_CurrentHelp()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentKeyboardShortcut {
+        get => this.get_CurrentKeyboardShortcut()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentDefaultAction {
+        get => this.get_CurrentDefaultAction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedChildId {
+        get => this.get_CachedChildId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedName {
+        get => this.get_CachedName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedValue {
+        get => this.get_CachedValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedDescription {
+        get => this.get_CachedDescription()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedRole {
+        get => this.get_CachedRole()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedState {
+        get => this.get_CachedState()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedHelp {
+        get => this.get_CachedHelp()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedKeyboardShortcut {
+        get => this.get_CachedKeyboardShortcut()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedDefaultAction {
+        get => this.get_CachedDefaultAction()
+    }
+
+    /**
      * 
      * @param {Integer} flagsSelect 
      * @returns {HRESULT} 

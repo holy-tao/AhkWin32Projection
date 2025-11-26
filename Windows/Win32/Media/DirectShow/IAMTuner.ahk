@@ -31,6 +31,30 @@ class IAMTuner extends IUnknown{
     static VTableNames => ["put_Channel", "get_Channel", "ChannelMinMax", "put_CountryCode", "get_CountryCode", "put_TuningSpace", "get_TuningSpace", "Logon", "Logout", "SignalPresent", "put_Mode", "get_Mode", "GetAvailableModes", "RegisterNotificationCallBack", "UnRegisterNotificationCallBack"]
 
     /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TuningSpace {
+        get => this.get_TuningSpace()
+        set => this.put_TuningSpace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+        set => this.put_Mode(value)
+    }
+
+    /**
      * 
      * @param {Integer} lChannel 
      * @param {Integer} lVideoSubChannel 

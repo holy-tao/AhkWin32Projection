@@ -36,6 +36,13 @@ class IBDA_TransportStreamInfo extends IUnknown{
     static VTableNames => ["get_PatTableTickCount"]
 
     /**
+     * @type {Integer} 
+     */
+    PatTableTickCount {
+        get => this.get_PatTableTickCount()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_transportstreaminfo-get_pattabletickcount

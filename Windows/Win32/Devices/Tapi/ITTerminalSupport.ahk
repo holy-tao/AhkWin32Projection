@@ -36,6 +36,20 @@ class ITTerminalSupport extends IDispatch{
     static VTableNames => ["get_StaticTerminals", "EnumerateStaticTerminals", "get_DynamicTerminalClasses", "EnumerateDynamicTerminalClasses", "CreateTerminal", "GetDefaultStaticTerminal"]
 
     /**
+     * @type {VARIANT} 
+     */
+    StaticTerminals {
+        get => this.get_StaticTerminals()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DynamicTerminalClasses {
+        get => this.get_DynamicTerminalClasses()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals

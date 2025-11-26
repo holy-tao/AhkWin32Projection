@@ -34,6 +34,13 @@ class IAzRoleDefinition extends IAzTask{
     static VTableNames => ["RoleAssignments", "AddRoleDefinition", "DeleteRoleDefinition", "get_RoleDefinitions"]
 
     /**
+     * @type {IAzRoleDefinitions} 
+     */
+    RoleDefinitions {
+        get => this.get_RoleDefinitions()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT_BOOL} bRecursive 

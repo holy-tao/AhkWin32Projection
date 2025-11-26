@@ -31,6 +31,36 @@ class IWMPErrorItem extends IDispatch{
     static VTableNames => ["get_errorCode", "get_errorDescription", "get_errorContext", "get_remedy", "get_customUrl"]
 
     /**
+     */
+    errorCode {
+        get => this.get_errorCode()
+    }
+
+    /**
+     */
+    errorDescription {
+        get => this.get_errorDescription()
+    }
+
+    /**
+     */
+    errorContext {
+        get => this.get_errorContext()
+    }
+
+    /**
+     */
+    remedy {
+        get => this.get_remedy()
+    }
+
+    /**
+     */
+    customUrl {
+        get => this.get_customUrl()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} phr 
      * @returns {HRESULT} 

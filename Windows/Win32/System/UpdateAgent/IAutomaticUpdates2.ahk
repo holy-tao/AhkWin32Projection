@@ -38,6 +38,13 @@ class IAutomaticUpdates2 extends IAutomaticUpdates{
     static VTableNames => ["get_Results"]
 
     /**
+     * @type {IAutomaticUpdatesResults} 
+     */
+    Results {
+        get => this.get_Results()
+    }
+
+    /**
      * 
      * @returns {IAutomaticUpdatesResults} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates2-get_results

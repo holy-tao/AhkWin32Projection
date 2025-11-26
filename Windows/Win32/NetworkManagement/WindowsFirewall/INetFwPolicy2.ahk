@@ -48,6 +48,34 @@ class INetFwPolicy2 extends IDispatch{
     static VTableNames => ["get_CurrentProfileTypes", "get_FirewallEnabled", "put_FirewallEnabled", "get_ExcludedInterfaces", "put_ExcludedInterfaces", "get_BlockAllInboundTraffic", "put_BlockAllInboundTraffic", "get_NotificationsDisabled", "put_NotificationsDisabled", "get_UnicastResponsesToMulticastBroadcastDisabled", "put_UnicastResponsesToMulticastBroadcastDisabled", "get_Rules", "get_ServiceRestriction", "EnableRuleGroup", "IsRuleGroupEnabled", "RestoreLocalFirewallDefaults", "get_DefaultInboundAction", "put_DefaultInboundAction", "get_DefaultOutboundAction", "put_DefaultOutboundAction", "get_IsRuleGroupCurrentlyEnabled", "get_LocalPolicyModifyState"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentProfileTypes {
+        get => this.get_CurrentProfileTypes()
+    }
+
+    /**
+     * @type {INetFwRules} 
+     */
+    Rules {
+        get => this.get_Rules()
+    }
+
+    /**
+     * @type {INetFwServiceRestriction} 
+     */
+    ServiceRestriction {
+        get => this.get_ServiceRestriction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalPolicyModifyState {
+        get => this.get_LocalPolicyModifyState()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes

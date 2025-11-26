@@ -37,6 +37,13 @@ class IFileSystemImageResult2 extends IFileSystemImageResult{
     static VTableNames => ["get_ModifiedBlocks"]
 
     /**
+     * @type {IBlockRangeList} 
+     */
+    ModifiedBlocks {
+        get => this.get_ModifiedBlocks()
+    }
+
+    /**
      * 
      * @returns {IBlockRangeList} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult2-get_modifiedblocks

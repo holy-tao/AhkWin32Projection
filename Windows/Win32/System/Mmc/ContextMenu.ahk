@@ -39,6 +39,20 @@ class ContextMenu extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

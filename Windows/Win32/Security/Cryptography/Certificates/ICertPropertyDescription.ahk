@@ -32,6 +32,13 @@ class ICertPropertyDescription extends ICertProperty{
     static VTableNames => ["Initialize", "get_Description"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} strDescription 
      * @returns {HRESULT} <ul>

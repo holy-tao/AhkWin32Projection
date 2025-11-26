@@ -33,6 +33,13 @@ class ICertificateEnrollmentPolicyServerSetup extends IDispatch{
     static VTableNames => ["get_ErrorString", "InitializeInstallDefaults", "GetProperty", "SetProperty", "Install", "UnInstall"]
 
     /**
+     * @type {BSTR} 
+     */
+    ErrorString {
+        get => this.get_ErrorString()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentpolicyserversetup-get_errorstring

@@ -43,6 +43,46 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
     static VTableNames => ["get_LowOscillator", "put_LowOscillator", "get_HighOscillator", "put_HighOscillator", "get_LNBSwitch", "put_LNBSwitch", "get_InputRange", "put_InputRange", "get_SpectralInversion", "put_SpectralInversion"]
 
     /**
+     * @type {Integer} 
+     */
+    LowOscillator {
+        get => this.get_LowOscillator()
+        set => this.put_LowOscillator(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HighOscillator {
+        get => this.get_HighOscillator()
+        set => this.put_HighOscillator(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LNBSwitch {
+        get => this.get_LNBSwitch()
+        set => this.put_LNBSwitch(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InputRange {
+        get => this.get_InputRange()
+        set => this.put_InputRange(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SpectralInversion {
+        get => this.get_SpectralInversion()
+        set => this.put_SpectralInversion(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_lowoscillator

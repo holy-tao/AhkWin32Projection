@@ -33,6 +33,28 @@ class ITsSbEnvironment extends IUnknown{
     static VTableNames => ["get_Name", "get_ServerWeight", "get_EnvironmentPropertySet", "put_EnvironmentPropertySet"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ServerWeight {
+        get => this.get_ServerWeight()
+    }
+
+    /**
+     * @type {ITsSbEnvironmentPropertySet} 
+     */
+    EnvironmentPropertySet {
+        get => this.get_EnvironmentPropertySet()
+        set => this.put_EnvironmentPropertySet(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_name

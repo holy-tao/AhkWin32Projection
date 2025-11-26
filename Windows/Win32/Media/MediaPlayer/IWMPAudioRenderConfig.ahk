@@ -32,6 +32,13 @@ class IWMPAudioRenderConfig extends IUnknown{
     static VTableNames => ["get_audioOutputDevice", "put_audioOutputDevice"]
 
     /**
+     */
+    audioOutputDevice {
+        get => this.get_audioOutputDevice()
+        set => this.put_audioOutputDevice(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrOutputDevice 
      * @returns {HRESULT} 

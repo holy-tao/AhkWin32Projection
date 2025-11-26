@@ -31,6 +31,13 @@ class IUpdate4 extends IUpdate3{
     static VTableNames => ["get_PerUser"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    PerUser {
+        get => this.get_PerUser()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate4-get_peruser

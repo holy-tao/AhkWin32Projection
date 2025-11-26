@@ -29,6 +29,38 @@ class IHTMLRect extends IDispatch{
     static VTableNames => ["put_left", "get_left", "put_top", "get_top", "put_right", "get_right", "put_bottom", "get_bottom"]
 
     /**
+     * @type {Integer} 
+     */
+    left {
+        get => this.get_left()
+        set => this.put_left(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    top {
+        get => this.get_top()
+        set => this.put_top(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    right {
+        get => this.get_right()
+        set => this.put_right(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    bottom {
+        get => this.get_bottom()
+        set => this.put_bottom(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

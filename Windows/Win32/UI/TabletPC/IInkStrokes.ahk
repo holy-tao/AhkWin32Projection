@@ -37,6 +37,34 @@ class IInkStrokes extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Ink", "get_RecognitionResult", "ToString", "Item", "Add", "AddStrokes", "Remove", "RemoveStrokes", "ModifyDrawingAttributes", "GetBoundingBox", "Transform", "ScaleToRectangle", "Move", "Rotate", "Shear", "ScaleTransform", "Clip", "RemoveRecognitionResult"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {IInkDisp} 
+     */
+    Ink {
+        get => this.get_Ink()
+    }
+
+    /**
+     * @type {IInkRecognitionResult} 
+     */
+    RecognitionResult {
+        get => this.get_RecognitionResult()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-get_count

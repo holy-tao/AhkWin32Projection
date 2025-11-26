@@ -38,6 +38,14 @@ class ISharedProperty extends IDispatch{
     static VTableNames => ["get_Value", "put_Value"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-get_value

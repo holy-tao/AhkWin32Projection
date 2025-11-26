@@ -42,6 +42,14 @@ class ILanguageComponentType extends IComponentType{
     static VTableNames => ["get_LangID", "put_LangID"]
 
     /**
+     * @type {Integer} 
+     */
+    LangID {
+        get => this.get_LangID()
+        set => this.put_LangID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilanguagecomponenttype-get_langid

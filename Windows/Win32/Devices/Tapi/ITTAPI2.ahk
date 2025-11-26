@@ -34,6 +34,13 @@ class ITTAPI2 extends ITTAPI{
     static VTableNames => ["get_Phones", "EnumeratePhones", "CreateEmptyCollectionObject"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Phones {
+        get => this.get_Phones()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-get_phones

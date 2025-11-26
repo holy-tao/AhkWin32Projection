@@ -38,6 +38,20 @@ class ICOMAdminCatalog extends IDispatch{
     static VTableNames => ["GetCollection", "Connect", "get_MajorVersion", "get_MinorVersion", "GetCollectionByQuery", "ImportComponent", "InstallComponent", "ShutdownApplication", "ExportApplication", "InstallApplication", "StopRouter", "RefreshRouter", "StartRouter", "Reserved1", "Reserved2", "InstallMultipleComponents", "GetMultipleComponentsInfo", "RefreshComponents", "BackupREGDB", "RestoreREGDB", "QueryApplicationFile", "StartApplication", "ServiceCheck", "InstallMultipleEventClasses", "InstallEventClass", "GetEventClassesForIID"]
 
     /**
+     * @type {Integer} 
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrCollName 
      * @returns {IDispatch} 

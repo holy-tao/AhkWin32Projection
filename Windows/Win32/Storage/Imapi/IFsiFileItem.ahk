@@ -45,6 +45,35 @@ class IFsiFileItem extends IFsiItem{
     static VTableNames => ["get_DataSize", "get_DataSize32BitLow", "get_DataSize32BitHigh", "get_Data", "put_Data"]
 
     /**
+     * @type {Integer} 
+     */
+    DataSize {
+        get => this.get_DataSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataSize32BitLow {
+        get => this.get_DataSize32BitLow()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataSize32BitHigh {
+        get => this.get_DataSize32BitHigh()
+    }
+
+    /**
+     * @type {IStream} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize

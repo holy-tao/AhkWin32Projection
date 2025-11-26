@@ -32,6 +32,13 @@ class IX500DistinguishedName extends IDispatch{
     static VTableNames => ["Decode", "Encode", "get_Name", "get_EncodedName"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @param {BSTR} strEncodedName 
      * @param {Integer} Encoding 

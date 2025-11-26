@@ -31,6 +31,13 @@ class IHTMLDOMConstructor extends IDispatch{
     static VTableNames => ["get_constructor", "LookupGetter", "LookupSetter", "DefineGetter", "DefineSetter"]
 
     /**
+     * @type {IDispatch} 
+     */
+    constructor {
+        get => this.get_constructor()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

@@ -40,6 +40,33 @@ class IActionCollection extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "get_XmlText", "put_XmlText", "Create", "Remove", "Clear", "get_Context", "put_Context"]
 
     /**
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     */
+    XmlText {
+        get => this.get_XmlText()
+        set => this.put_XmlText(value)
+    }
+
+    /**
+     */
+    Context {
+        get => this.get_Context()
+        set => this.put_Context(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 

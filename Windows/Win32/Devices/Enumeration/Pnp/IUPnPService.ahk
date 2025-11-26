@@ -39,6 +39,27 @@ class IUPnPService extends IDispatch{
     static VTableNames => ["QueryStateVariable", "InvokeAction", "get_ServiceTypeIdentifier", "AddCallback", "get_Id", "get_LastTransportStatus"]
 
     /**
+     * @type {BSTR} 
+     */
+    ServiceTypeIdentifier {
+        get => this.get_ServiceTypeIdentifier()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastTransportStatus {
+        get => this.get_LastTransportStatus()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrVariableName 
      * @returns {VARIANT} 

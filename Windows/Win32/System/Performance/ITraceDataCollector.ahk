@@ -91,6 +91,172 @@ class ITraceDataCollector extends IDataCollector{
     static VTableNames => ["get_BufferSize", "put_BufferSize", "get_BuffersLost", "put_BuffersLost", "get_BuffersWritten", "put_BuffersWritten", "get_ClockType", "put_ClockType", "get_EventsLost", "put_EventsLost", "get_ExtendedModes", "put_ExtendedModes", "get_FlushTimer", "put_FlushTimer", "get_FreeBuffers", "put_FreeBuffers", "get_Guid", "put_Guid", "get_IsKernelTrace", "get_MaximumBuffers", "put_MaximumBuffers", "get_MinimumBuffers", "put_MinimumBuffers", "get_NumberOfBuffers", "put_NumberOfBuffers", "get_PreallocateFile", "put_PreallocateFile", "get_ProcessMode", "put_ProcessMode", "get_RealTimeBuffersLost", "put_RealTimeBuffersLost", "get_SessionId", "put_SessionId", "get_SessionName", "put_SessionName", "get_SessionThreadId", "put_SessionThreadId", "get_StreamMode", "put_StreamMode", "get_TraceDataProviders"]
 
     /**
+     * @type {Integer} 
+     */
+    BufferSize {
+        get => this.get_BufferSize()
+        set => this.put_BufferSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BuffersLost {
+        get => this.get_BuffersLost()
+        set => this.put_BuffersLost(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BuffersWritten {
+        get => this.get_BuffersWritten()
+        set => this.put_BuffersWritten(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClockType {
+        get => this.get_ClockType()
+        set => this.put_ClockType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventsLost {
+        get => this.get_EventsLost()
+        set => this.put_EventsLost(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExtendedModes {
+        get => this.get_ExtendedModes()
+        set => this.put_ExtendedModes(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FlushTimer {
+        get => this.get_FlushTimer()
+        set => this.put_FlushTimer(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeBuffers {
+        get => this.get_FreeBuffers()
+        set => this.put_FreeBuffers(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    Guid {
+        get => this.get_Guid()
+        set => this.put_Guid(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsKernelTrace {
+        get => this.get_IsKernelTrace()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaximumBuffers {
+        get => this.get_MaximumBuffers()
+        set => this.put_MaximumBuffers(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinimumBuffers {
+        get => this.get_MinimumBuffers()
+        set => this.put_MinimumBuffers(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfBuffers {
+        get => this.get_NumberOfBuffers()
+        set => this.put_NumberOfBuffers(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PreallocateFile {
+        get => this.get_PreallocateFile()
+        set => this.put_PreallocateFile(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ProcessMode {
+        get => this.get_ProcessMode()
+        set => this.put_ProcessMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RealTimeBuffersLost {
+        get => this.get_RealTimeBuffersLost()
+        set => this.put_RealTimeBuffersLost(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SessionId {
+        get => this.get_SessionId()
+        set => this.put_SessionId(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SessionName {
+        get => this.get_SessionName()
+        set => this.put_SessionName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SessionThreadId {
+        get => this.get_SessionThreadId()
+        set => this.put_SessionThreadId(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StreamMode {
+        get => this.get_StreamMode()
+        set => this.put_StreamMode(value)
+    }
+
+    /**
+     * @type {ITraceDataProviderCollection} 
+     */
+    TraceDataProviders {
+        get => this.get_TraceDataProviders()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_buffersize

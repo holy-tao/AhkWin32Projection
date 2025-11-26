@@ -34,6 +34,90 @@ class ISpeechVoice extends IDispatch{
     static VTableNames => ["get_Status", "get_Voice", "putref_Voice", "get_AudioOutput", "putref_AudioOutput", "get_AudioOutputStream", "putref_AudioOutputStream", "get_Rate", "put_Rate", "get_Volume", "put_Volume", "put_AllowAudioOutputFormatChangesOnNextSet", "get_AllowAudioOutputFormatChangesOnNextSet", "get_EventInterests", "put_EventInterests", "put_Priority", "get_Priority", "put_AlertBoundary", "get_AlertBoundary", "put_SynchronousSpeakTimeout", "get_SynchronousSpeakTimeout", "Speak", "SpeakStream", "Pause", "Resume", "Skip", "GetVoices", "GetAudioOutputs", "WaitUntilDone", "SpeakCompleteEvent", "IsUISupported", "DisplayUI"]
 
     /**
+     * @type {ISpeechVoiceStatus} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {ISpeechObjectToken} 
+     */
+    Voice {
+        get => this.get_Voice()
+    }
+
+    /**
+     * @type {ISpeechObjectToken} 
+     */
+    AudioOutput {
+        get => this.get_AudioOutput()
+    }
+
+    /**
+     * @type {ISpeechBaseStream} 
+     */
+    AudioOutputStream {
+        get => this.get_AudioOutputStream()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Rate {
+        get => this.get_Rate()
+        set => this.put_Rate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Volume {
+        get => this.get_Volume()
+        set => this.put_Volume(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AllowAudioOutputFormatChangesOnNextSet {
+        get => this.get_AllowAudioOutputFormatChangesOnNextSet()
+        set => this.put_AllowAudioOutputFormatChangesOnNextSet(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventInterests {
+        get => this.get_EventInterests()
+        set => this.put_EventInterests(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AlertBoundary {
+        get => this.get_AlertBoundary()
+        set => this.put_AlertBoundary(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SynchronousSpeakTimeout {
+        get => this.get_SynchronousSpeakTimeout()
+        set => this.put_SynchronousSpeakTimeout(value)
+    }
+
+    /**
      * 
      * @returns {ISpeechVoiceStatus} 
      */

@@ -42,6 +42,115 @@ class IWMPCore extends IDispatch{
     static VTableNames => ["close", "get_URL", "put_URL", "get_openState", "get_playState", "get_controls", "get_settings", "get_currentMedia", "put_currentMedia", "get_mediaCollection", "get_playlistCollection", "get_versionInfo", "launchURL", "get_network", "get_currentPlaylist", "put_currentPlaylist", "get_cdromCollection", "get_closedCaption", "get_isOnline", "get_error", "get_status"]
 
     /**
+     */
+    URL {
+        get => this.get_URL()
+        set => this.put_URL(value)
+    }
+
+    /**
+     */
+    openState {
+        get => this.get_openState()
+    }
+
+    /**
+     */
+    playState {
+        get => this.get_playState()
+    }
+
+    /**
+     * @type {IWMPControls} 
+     */
+    controls {
+        get => this.get_controls()
+    }
+
+    /**
+     * @type {IWMPSettings} 
+     */
+    settings {
+        get => this.get_settings()
+    }
+
+    /**
+     * @type {IWMPMedia} 
+     */
+    currentMedia {
+        get => this.get_currentMedia()
+        set => this.put_currentMedia(value)
+    }
+
+    /**
+     * @type {IWMPMediaCollection} 
+     */
+    mediaCollection {
+        get => this.get_mediaCollection()
+    }
+
+    /**
+     * @type {IWMPPlaylistCollection} 
+     */
+    playlistCollection {
+        get => this.get_playlistCollection()
+    }
+
+    /**
+     */
+    versionInfo {
+        get => this.get_versionInfo()
+    }
+
+    /**
+     * @type {IWMPNetwork} 
+     */
+    network {
+        get => this.get_network()
+    }
+
+    /**
+     * @type {IWMPPlaylist} 
+     */
+    currentPlaylist {
+        get => this.get_currentPlaylist()
+        set => this.put_currentPlaylist(value)
+    }
+
+    /**
+     * @type {IWMPCdromCollection} 
+     */
+    cdromCollection {
+        get => this.get_cdromCollection()
+    }
+
+    /**
+     * @type {IWMPClosedCaption} 
+     */
+    closedCaption {
+        get => this.get_closedCaption()
+    }
+
+    /**
+     */
+    isOnline {
+        get => this.get_isOnline()
+    }
+
+    /**
+     * @type {IWMPError} 
+     */
+    error {
+        get => this.get_error()
+    }
+
+    /**
+     */
+    status {
+        get => this.get_status()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-close

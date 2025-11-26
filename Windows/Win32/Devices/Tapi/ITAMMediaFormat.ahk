@@ -31,6 +31,14 @@ class ITAMMediaFormat extends IUnknown{
     static VTableNames => ["get_MediaFormat", "put_MediaFormat"]
 
     /**
+     * @type {Pointer<AM_MEDIA_TYPE>} 
+     */
+    MediaFormat {
+        get => this.get_MediaFormat()
+        set => this.put_MediaFormat(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<AM_MEDIA_TYPE>} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itammediaformat-get_mediaformat

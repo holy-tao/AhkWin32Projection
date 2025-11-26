@@ -43,6 +43,50 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
     static VTableNames => ["get_StartTime", "put_StartTime", "get_StopTime", "put_StopTime", "get_RecordingStopped", "get_RecordingStarted", "get_RecordingType", "get_RecordingAttribute"]
 
     /**
+     * @type {Integer} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StopTime {
+        get => this.get_StopTime()
+        set => this.put_StopTime(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RecordingStopped {
+        get => this.get_RecordingStopped()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RecordingStarted {
+        get => this.get_RecordingStarted()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecordingType {
+        get => this.get_RecordingType()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    RecordingAttribute {
+        get => this.get_RecordingAttribute()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_starttime

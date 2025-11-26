@@ -40,6 +40,20 @@ class IIsoImageManager extends IDispatch{
     static VTableNames => ["get_Path", "get_Stream", "SetPath", "SetStream", "Validate"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {IStream} 
+     */
+    Stream {
+        get => this.get_Stream()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-get_path

@@ -34,6 +34,13 @@ class IMFMediaKeys extends IUnknown{
     static VTableNames => ["CreateSession", "get_KeySystem", "Shutdown", "GetSuspendNotify"]
 
     /**
+     * @type {BSTR} 
+     */
+    KeySystem {
+        get => this.get_KeySystem()
+    }
+
+    /**
      * 
      * @param {BSTR} mimeType 
      * @param {Pointer} initData 

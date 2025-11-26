@@ -38,6 +38,28 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     static VTableNames => ["get_DeviceID", "get_Authorization", "put_Authorization", "get_Properties"]
 
     /**
+     * @type {BSTR} 
+     */
+    DeviceID {
+        get => this.get_DeviceID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Authorization {
+        get => this.get_Authorization()
+        set => this.put_Authorization(value)
+    }
+
+    /**
+     * @type {IWindowsMediaLibrarySharingDeviceProperties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
