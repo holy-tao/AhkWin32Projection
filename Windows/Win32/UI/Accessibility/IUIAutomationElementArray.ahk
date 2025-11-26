@@ -39,9 +39,9 @@ class IUIAutomationElementArray extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the number of elements in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length
      */
     get_Length() {
         result := ComCall(3, this, "int*", &length := 0, "HRESULT")
@@ -49,10 +49,14 @@ class IUIAutomationElementArray extends IUnknown{
     }
 
     /**
+     * Retrieves a Microsoft UI Automation element from the collection.
+     * @param {Integer} index Type: <b>int</b>
      * 
-     * @param {Integer} index 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-getelement
+     * The zero-based index of the element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-getelement
      */
     GetElement(index) {
         result := ComCall(4, this, "int", index, "ptr*", &element := 0, "HRESULT")

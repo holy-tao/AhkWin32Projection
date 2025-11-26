@@ -48,11 +48,11 @@ class IDXGIDebug extends IUnknown{
     static VTableNames => ["ReportLiveObjects"]
 
     /**
-     * 
-     * @param {Guid} apiid 
-     * @param {Integer} flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgidebug-reportliveobjects
+     * Reports info about the lifetime of an object or objects.
+     * @param {Guid} apiid The globally unique identifier (GUID) of the object or objects to get info about. Use one of the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> GUIDs.
+     * @param {Integer} flags A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags">DXGI_DEBUG_RLO_FLAGS</a>-typed value that specifies the amount of info to report.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgidebug-reportliveobjects
      */
     ReportLiveObjects(apiid, flags) {
         result := ComCall(3, this, "ptr", apiid, "int", flags, "HRESULT")

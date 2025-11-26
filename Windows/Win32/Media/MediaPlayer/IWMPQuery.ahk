@@ -32,12 +32,30 @@ class IWMPQuery extends IDispatch{
     static VTableNames => ["addCondition", "beginNextGroup"]
 
     /**
+     * The addCondition method adds a condition to the compound query using AND logic.
+     * @param {BSTR} bstrAttribute String containing the attribute name.
+     * @param {BSTR} bstrOperator String containing the operator. See Remarks for supported values.
+     * @param {BSTR} bstrValue String containing the attribute value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrAttribute 
-     * @param {BSTR} bstrOperator 
-     * @param {BSTR} bstrValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpquery-addcondition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpquery-addcondition
      */
     addCondition(bstrAttribute, bstrOperator, bstrValue) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
@@ -49,9 +67,27 @@ class IWMPQuery extends IDispatch{
     }
 
     /**
+     * The beginNextGroup method begins a new condition group.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpquery-beginnextgroup
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpquery-beginnextgroup
      */
     beginNextGroup() {
         result := ComCall(8, this, "HRESULT")

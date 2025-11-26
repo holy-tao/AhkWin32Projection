@@ -43,14 +43,22 @@ class IAzObjectPicker extends IDispatch{
     }
 
     /**
+     * Displays a dialog box from which users can choose one or more principals, and then returns the chosen list of principals and their corresponding security identifiers (SIDs).
+     * @param {HWND} hParentWnd A handle to the parent window of the dialog box.
+     * @param {BSTR} bstrTitle The display title of the dialog box.
+     * @param {Pointer<VARIANT>} pvSidTypes A pointer to an array of elements of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumeration that specify the types of the SIDs that correspond to the principals chosen by the user.
      * 
-     * @param {HWND} hParentWnd 
-     * @param {BSTR} bstrTitle 
-     * @param {Pointer<VARIANT>} pvSidTypes 
-     * @param {Pointer<VARIANT>} pvNames 
-     * @param {Pointer<VARIANT>} pvSids 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazobjectpicker-getprincipals
+     * This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_I4</b> value that specifies an element of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumeration.
+     * @param {Pointer<VARIANT>} pvNames A pointer to an array of display names of the principals chosen by the user. 
+     * 
+     * This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_BSTR</b> that contains a display name.
+     * @param {Pointer<VARIANT>} pvSids A pointer to an array of string representations of the SIDs that correspond to the principals chosen by the user.
+     * 
+     * This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_BSTR</b> that contains a string representation of a SID.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
+     * 
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazobjectpicker-getprincipals
      */
     GetPrincipals(hParentWnd, bstrTitle, pvSidTypes, pvNames, pvSids) {
         hParentWnd := hParentWnd is Win32Handle ? NumGet(hParentWnd, "ptr") : hParentWnd
@@ -61,9 +69,9 @@ class IAzObjectPicker extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the name of the IAzObjectPicker object.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazobjectpicker-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazobjectpicker-get_name
      */
     get_Name() {
         pbstrName := BSTR()

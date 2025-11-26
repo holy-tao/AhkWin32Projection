@@ -84,20 +84,14 @@ class ICertPolicy extends IDispatch{
     static VTableNames => ["Initialize", "VerifyRequest", "GetDescription", "ShutDown"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {BSTR} strConfig 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Called by the server engine to allow the policy module to perform initialization tasks.
+     * @param {BSTR} strConfig Represents the name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig2">ICertConfig2</a>.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-initialize
      */
     Initialize(strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -107,13 +101,57 @@ class ICertPolicy extends IDispatch{
     }
 
     /**
+     * Notifies the policy module that a new request has entered the system.
+     * @param {BSTR} strConfig Represents the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>, as entered during Certificate Services setup. For information about the configuration string name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
+     * @param {Integer} Context Identifies the request and associated certificate under construction. The certificate server passes the context to this method.
+     * @param {Integer} bNewRequest If set to <b>TRUE</b>, specifies that the request is new. If set to <b>FALSE</b>, the request is being resubmitted to the policy module as a result of an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-resubmitrequest">ICertAdmin::ResubmitRequest</a> call. A value of <b>FALSE</b> can be used to indicate that the administrator wants the request to be issued or that request properties set by the administrator should be examined.
      * 
-     * @param {BSTR} strConfig 
-     * @param {Integer} Context 
-     * @param {Integer} bNewRequest 
-     * @param {Integer} Flags 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-verifyrequest
+     * Note that <b>TRUE</b> is defined (in a Microsoft header file) for C/C++ programmers as one, while  Visual Basic defines the <b>True</b> keyword as negative one. As a result, Visual Basic developers must use one (instead of <b>True</b>) to set this parameter to <b>TRUE</b>. However, to set this parameter to <b>FALSE</b>, Visual Basic developers can use zero or <b>False</b>.
+     * @param {Integer} Flags This parameter is reserved and must be set to zero.
+     * @returns {Integer} A pointer to the disposition value. The method sets one of the following dispositions.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="VR_INSTANT_BAD"></a><a id="vr_instant_bad"></a><dl>
+     * <dt><b>VR_INSTANT_BAD</b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Deny the request.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="VR_INSTANT_OK"></a><a id="vr_instant_ok"></a><dl>
+     * <dt><b>VR_INSTANT_OK</b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Accept the request.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="VR_PENDING"></a><a id="vr_pending"></a><dl>
+     * <dt><b>VR_PENDING</b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Add the request to the queue to accept or deny the request at a later  time.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-verifyrequest
      */
     VerifyRequest(strConfig, Context, bNewRequest, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -123,9 +161,9 @@ class ICertPolicy extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-getdescription
+     * Returns a human-readable description of the policy module and its function.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that describes the policy module.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-getdescription
      */
     GetDescription() {
         pstrDescription := BSTR()
@@ -134,9 +172,12 @@ class ICertPolicy extends IDispatch{
     }
 
     /**
+     * Called by the server engine before the server is terminated.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-shutdown
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-shutdown
      */
     ShutDown() {
         result := ComCall(10, this, "HRESULT")

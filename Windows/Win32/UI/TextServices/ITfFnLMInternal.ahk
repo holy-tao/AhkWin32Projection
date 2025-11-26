@@ -31,10 +31,39 @@ class ITfFnLMInternal extends ITfFnLMProcessor{
     static VTableNames => ["ProcessLattice"]
 
     /**
+     * ITfFnLMInternal::ProcessLattice method
+     * @param {ITfRange} pRange Not used.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITfRange} pRange 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlminternal-processlattice
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlminternal-processlattice
      */
     ProcessLattice(pRange) {
         result := ComCall(11, this, "ptr", pRange, "HRESULT")

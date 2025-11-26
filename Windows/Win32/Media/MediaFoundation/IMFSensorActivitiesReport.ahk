@@ -36,9 +36,9 @@ class IMFSensorActivitiesReport extends IUnknown{
     static VTableNames => ["GetCount", "GetActivityReport", "GetActivityReportByDeviceName"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getcount
+     * Gets the count of IMFSensorActivityReport objects that are available to be retrieved.
+     * @returns {Integer} The count of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivityreport">IMFSensorActivityReport</a> objects that are available to be retrieved.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivitiesreport-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pcCount := 0, "HRESULT")
@@ -46,10 +46,10 @@ class IMFSensorActivitiesReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {IMFSensorActivityReport} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getactivityreport
+     * Retrieves an IMFSensorActivityReport based on the specified index.
+     * @param {Integer} Index The index of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivityreport">IMFSensorActivityReport</a> to retrieve. This value must be less than the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getcount">GetCount</a>.
+     * @returns {IMFSensorActivityReport} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivityreport">IMFSensorActivityReport</a> associated with the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivitiesreport-getactivityreport
      */
     GetActivityReport(Index) {
         result := ComCall(4, this, "uint", Index, "ptr*", &sensorActivityReport := 0, "HRESULT")
@@ -57,10 +57,10 @@ class IMFSensorActivitiesReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} SymbolicName 
-     * @returns {IMFSensorActivityReport} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getactivityreportbydevicename
+     * Retrieves an IMFSensorActivityReport based on the specified device name.
+     * @param {PWSTR} SymbolicName The symbolic name of the sensor for which the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivityreport">IMFSensorActivityReport</a> is retrieved.
+     * @returns {IMFSensorActivityReport} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivityreport">IMFSensorActivityReport</a> associated with the sensor with the specified symbolic name.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivitiesreport-getactivityreportbydevicename
      */
     GetActivityReportByDeviceName(SymbolicName) {
         SymbolicName := SymbolicName is String ? StrPtr(SymbolicName) : SymbolicName

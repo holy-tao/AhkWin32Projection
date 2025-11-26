@@ -31,11 +31,11 @@ class IAMVfwCompressDialogs extends IUnknown{
     static VTableNames => ["ShowDialog", "GetState", "SetState", "SendDriverMessage"]
 
     /**
-     * 
-     * @param {Integer} iDialog 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-showdialog
+     * The ShowDialog method displays the specified dialog box.
+     * @param {Integer} iDialog Dialog box to display. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcompressdialogs">VfwCompressDialogs</a> enumeration.
+     * @param {HWND} hwnd Handle of the dialog box's parent window.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcompressdialogs-showdialog
      */
     ShowDialog(iDialog, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -45,11 +45,11 @@ class IAMVfwCompressDialogs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pState 
-     * @param {Pointer<Integer>} pcbState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-getstate
+     * The GetState method retrieves the current configuration settings for the VCM codec currently being used.
+     * @param {Pointer} pState State of the VCM codec.
+     * @param {Pointer<Integer>} pcbState Pointer to the size of the state.
+     * @returns {HRESULT} Return value varies depending on the implementation within each driver.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcompressdialogs-getstate
      */
     GetState(pState, pcbState) {
         pcbStateMarshal := pcbState is VarRef ? "int*" : "ptr"
@@ -59,11 +59,11 @@ class IAMVfwCompressDialogs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pState 
-     * @param {Integer} cbState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-setstate
+     * The SetState method sets configuration for the VCM codec.
+     * @param {Pointer} pState State of the VCM codec.
+     * @param {Integer} cbState Size of the state.
+     * @returns {HRESULT} Return value varies depending on the implementation within each driver.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcompressdialogs-setstate
      */
     SetState(pState, cbState) {
         result := ComCall(5, this, "ptr", pState, "int", cbState, "HRESULT")
@@ -71,12 +71,12 @@ class IAMVfwCompressDialogs extends IUnknown{
     }
 
     /**
-     * Sends the specified message to the installable driver.
-     * @param {Integer} uMsg 
-     * @param {Integer} dw1 
-     * @param {Integer} dw2 
-     * @returns {HRESULT} Returns nonzero if successful or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//mmiscapi/nf-mmiscapi-senddrivermessage
+     * The SendDriverMessage method sends a driver-specific message.
+     * @param {Integer} uMsg Message to send to the driver.
+     * @param {Integer} dw1 Message data.
+     * @param {Integer} dw2 Message data.
+     * @returns {HRESULT} Return value varies depending on the implementation within each driver.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvfwcompressdialogs-senddrivermessage
      */
     SendDriverMessage(uMsg, dw1, dw2) {
         result := ComCall(6, this, "int", uMsg, "int", dw1, "int", dw2, "HRESULT")

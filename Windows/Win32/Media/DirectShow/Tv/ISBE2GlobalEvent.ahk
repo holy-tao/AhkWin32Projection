@@ -35,17 +35,57 @@ class ISBE2GlobalEvent extends IUnknown{
     static VTableNames => ["GetEvent"]
 
     /**
+     * Gets a global spanning event and its data from a Stream Buffer Source filter.
+     * @param {Pointer<Guid>} idEvt GUID identifying the event.
+     * @param {Integer} param1 First event-specific parameter.
+     * @param {Integer} param2 Second event-specific parameter.
+     * @param {Integer} param3 Third  event-specific parameter.
+     * @param {Integer} param4 Fourth  event-specific parameter.
+     * @param {Pointer<BOOL>} pSpanning Receives a flag indicating whether the event is a spanning event.
+     * @param {Pointer<Integer>} pcb Pointer to a value specifying the buffer size. If the <i>pb</i> parameter is <b>NULL</b>, this parameter returns the required buffer size.
+     * @param {Pointer<Integer>} pb Pointer to a buffer that receives the event data. If this parameter is <b>NULL</b>, the <i>pcb</i> parameter returns the required buffer size. The structure of the event data depends on the event type. For a list of event types, see the description of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-isbe2spanningevent-getevent">ISBE2SpanningEvent::GetEvent</a> method.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
-     * @param {Pointer<Guid>} idEvt 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Integer} param4 
-     * @param {Pointer<BOOL>} pSpanning 
-     * @param {Pointer<Integer>} pcb 
-     * @param {Pointer<Integer>} pb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2globalevent-getevent
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>ERROR_INSUFFICIENT_BUFFER</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Buffer was too small to hold event data.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>ERROR_CONTEXT_EXPIRED</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Too much time elapsed between the broadcast event and the call to retrieve it.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2globalevent-getevent
      */
     GetEvent(idEvt, param1, param2, param3, param4, pSpanning, pcb, pb) {
         pSpanningMarshal := pSpanning is VarRef ? "int*" : "ptr"

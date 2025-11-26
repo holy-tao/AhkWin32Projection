@@ -36,9 +36,11 @@ class IPropertyEnumType extends IUnknown{
     static VTableNames => ["GetEnumType", "GetValue", "GetRangeMinValue", "GetRangeSetValue", "GetDisplayText"]
 
     /**
+     * Gets an enumeration type from an enumeration information structure.
+     * @returns {Integer} Type: <b>PROPENUMTYPE*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getenumtype
+     * When this method returns, contains a pointer to one of the values listed below that indicate the enumeration type.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype-getenumtype
      */
     GetEnumType() {
         result := ComCall(3, this, "int*", &penumtype := 0, "HRESULT")
@@ -46,9 +48,11 @@ class IPropertyEnumType extends IUnknown{
     }
 
     /**
+     * Gets a value from an enumeration information structure.
+     * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getvalue
+     * When this method returns, contains a pointer to the property value.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype-getvalue
      */
     GetValue() {
         ppropvar := PROPVARIANT()
@@ -57,9 +61,11 @@ class IPropertyEnumType extends IUnknown{
     }
 
     /**
+     * Gets a minimum value from an enumeration information structure.
+     * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getrangeminvalue
+     * When this method returns, contains a pointer to the minimum value.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype-getrangeminvalue
      */
     GetRangeMinValue() {
         ppropvarMin := PROPVARIANT()
@@ -68,9 +74,11 @@ class IPropertyEnumType extends IUnknown{
     }
 
     /**
+     * Gets a set value from an enumeration information structure.
+     * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getrangesetvalue
+     * When this method returns, contains a pointer to the set value.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype-getrangesetvalue
      */
     GetRangeSetValue() {
         ppropvarSet := PROPVARIANT()
@@ -79,9 +87,11 @@ class IPropertyEnumType extends IUnknown{
     }
 
     /**
+     * Gets display text from an enumeration information structure.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getdisplaytext
+     * When this method returns, contains the address of a pointer to a null-terminated Unicode string that contains the display text.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype-getdisplaytext
      */
     GetDisplayText() {
         result := ComCall(7, this, "ptr*", &ppszDisplay := 0, "HRESULT")

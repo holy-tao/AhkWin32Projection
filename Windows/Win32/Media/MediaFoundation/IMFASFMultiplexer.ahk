@@ -32,114 +32,13 @@ class IMFASFMultiplexer extends IUnknown{
     static VTableNames => ["Initialize", "SetFlags", "GetFlags", "ProcessSample", "GetNextPacket", "Flush", "End", "GetStatistics", "SetSyncTolerance"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IMFASFContentInfo} pIContentInfo 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
-     */
-    Initialize(pIContentInfo) {
-        result := ComCall(3, this, "ptr", pIContentInfo, "HRESULT")
-        return result
-    }
-
-    /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} dwFlags The following table lists the flags that you may set to specify how the recognizer interprets the ink and determines the result string. Use the <b>OR</b> operator (|) to combine flags as appropriate.
-     * 
-     * 
+     * Initializes the multiplexer with the data from an ASF ContentInfo object.
+     * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the <b>MFASFContentInfo</b> object that contains the header information of the new ASF file. The multiplexer will generate data packets for this file.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
-     * <th>Bit flag</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_AUTOSPACE"></a><a id="recoflag_autospace"></a><dl>
-     * <dt><b>RECOFLAG_AUTOSPACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer uses smart spacing based on language model rules.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_COERCE"></a><a id="recoflag_coerce"></a><dl>
-     * <dt><b>RECOFLAG_COERCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer coerces the result based on the factoid you specify for the context. For example, if you specify a phone number factoid and the user enters the word "hello", the recognizer may return a random phone number or an empty string. If you do not specify this flag, the recognizer returns "hello" as the result.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_PREFIXOK"></a><a id="recoflag_prefixok"></a><dl>
-     * <dt><b>RECOFLAG_PREFIXOK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer supports the recognition of any prefix part of the strings that are defined in the default or specified (factoid) language model.
-     * 
-     * For example, without this flag, the user writes "handw" and the recognizer returns suggestions (such as "hander" or "handed") that are words that exist in the recognizer lexicon. With the flag, the recognizer may return "handw" as one of the suggestions since it is a valid prefix of the word "handwriting" that exists in the recognizer lexicon.
-     * 
-     * The Tablet PC Input Panel sets this flag in most cases, except when the input scope is IS_DEFAULT (or no input scope) or when there is no user word list or regular expression.
-     * 
-     * Recognizers of East Asian characters should return E_INVALIDARG when a caller passes in this flag.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_LINEMODE"></a><a id="recoflag_linemode"></a><dl>
-     * <dt><b>RECOFLAG_LINEMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not split lines but must still do character and word separation. This is the same as lined mode, except that there is no guide, and all ink is assumed to be in a single line. When this flag is set, a guide, if set, is ignored.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_SINGLESEG"></a><a id="recoflag_singleseg"></a><dl>
-     * <dt><b>RECOFLAG_SINGLESEG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Disables multiple segmentation. By default, the recognizer returns multiple segmentations (alternates) for the ink.
-     * 
-     * For example, if you write "together" as separate strokes, the recognizer may segment the ink as "to get her", "to gather", or "together". Set this flag if you do not need multiple segmentations of the ink when you query for alternates. This improves performance and reduces memory usage.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_WORDMODE"></a><a id="recoflag_wordmode"></a><dl>
-     * <dt><b>RECOFLAG_WORDMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer treats the ink as a single word. For example, if the context contains "to get her", the recognizer returns "together".
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
+     * <th>Return code</th>
      * <th>Description</th>
      * </tr>
      * <tr>
@@ -149,68 +48,41 @@ class IMFASFMultiplexer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
+     * The method succeeded.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-initialize
+     */
+    Initialize(pIContentInfo) {
+        result := ComCall(3, this, "ptr", pIContentInfo, "HRESULT")
+        return result
+    }
+
+    /**
+     * Sets multiplexer options.
+     * @param {Integer} dwFlags Bitwise <b>OR</b> of zero or more members of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-mfasf_multiplexerflags">MFASF_MULTIPLEXERFLAGS</a> enumeration. These flags specify which multiplexer options to use. For more information, see "Multiplexer Initialization and Leaky Bucket Settings" in <a href="https://docs.microsoft.com/windows/desktop/medfound/creating-the-multiplexer-object">Creating the Multiplexer Object</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-setflags
      */
     SetFlags(dwFlags) {
         result := ComCall(4, this, "uint", dwFlags, "HRESULT")
@@ -218,9 +90,9 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getflags
+     * Retrieves flags indicating the configured multiplexer options.
+     * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-mfasf_multiplexerflags">MFASF_MULTIPLEXERFLAGS</a> enumeration. To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setflags">IMFASFMultiplexer::SetFlags</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-getflags
      */
     GetFlags() {
         result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -228,12 +100,79 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
+     * Delivers input samples to the multiplexer.
+     * @param {Integer} wStreamNumber The stream number of the stream to which the sample belongs.
+     * @param {IMFSample} pISample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the input sample. The input sample contains the media data to be converted to ASF data packets. When possible, the time stamp of this sample should be accurate.
+     * @param {Integer} hnsTimestampAdjust The adjustment to apply to the time stamp of the sample. This parameter is used if the caller wants to shift the sample time on <i>pISample</i>. This value should be positive if the time stamp should be pushed ahead and negative if the time stamp should be pushed back. This time stamp is added to sample time on <i>pISample</i>, and the resulting time is used by the multiplexer instead of the original sample time. If no adjustment is needed, set this value to 0.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *           
      * 
-     * @param {Integer} wStreamNumber 
-     * @param {IMFSample} pISample 
-     * @param {Integer} hnsTimestampAdjust 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-processsample
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOTACCEPTING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There are too many packets waiting to be retrieved from the multiplexer. Call <a href="/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">IMFASFMultiplexer::GetNextPacket</a> to get the packets.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_BANDWIDTH_OVERRUN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The sample that was processed violates the bandwidth limitations specified for the stream in the ASF ContentInfo object. When this error is generated, the sample is dropped.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALIDSTREAMNUMBER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value passed in <i>wStreamNumber</i> is invalid.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_LATE_SAMPLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The presentation time of the input media sample is earlier than the send time.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-processsample
      */
     ProcessSample(wStreamNumber, pISample, hnsTimestampAdjust) {
         result := ComCall(6, this, "ushort", wStreamNumber, "ptr", pISample, "int64", hnsTimestampAdjust, "HRESULT")
@@ -241,11 +180,30 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
+     * Retrieves the next output ASF packet from the multiplexer.
+     * @param {Pointer<Integer>} pdwStatusFlags Receives zero or more status flags. If more than one packet is waiting, the method sets the <b>ASF_STATUSFLAGS_INCOMPLETE</b> flag.
+     * @param {Pointer<IMFSample>} ppIPacket Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the first output sample of the data packet. The caller must release the interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pdwStatusFlags 
-     * @param {Pointer<IMFSample>} ppIPacket 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket
      */
     GetNextPacket(pdwStatusFlags, ppIPacket) {
         pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "uint*" : "ptr"
@@ -255,9 +213,27 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
+     * Signals the multiplexer to process all queued output media samples. Call this method after passing the last sample to the multiplexer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush
      */
     Flush() {
         result := ComCall(8, this, "HRESULT")
@@ -265,10 +241,39 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
+     * Collects data from the multiplexer and updates the ASF ContentInfo object to include that information in the ASF Header Object.
+     * @param {IMFASFContentInfo} pIContentInfo Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object. This must be the same object that was used to initialize the multiplexer. The ContentInfo object represents the ASF Header Object of the file for which the multiplexer generated data packets.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFASFContentInfo} pIContentInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-end
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_FLUSH_NEEDED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There are pending output media samples waiting in the multiplexer. Call <a href="/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush">IMFASFMultiplexer::Flush</a> to force the media samples to be packetized.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-end
      */
     End(pIContentInfo) {
         result := ComCall(9, this, "ptr", pIContentInfo, "HRESULT")
@@ -276,10 +281,10 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} wStreamNumber 
-     * @returns {ASF_MUX_STATISTICS} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getstatistics
+     * Retrieves multiplexer statistics.
+     * @param {Integer} wStreamNumber The stream number for which to obtain statistics.
+     * @returns {ASF_MUX_STATISTICS} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_mux_statistics">ASF_MUX_STATISTICS</a> structure that receives the statistics.
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-getstatistics
      */
     GetStatistics(wStreamNumber) {
         pMuxStats := ASF_MUX_STATISTICS()
@@ -288,10 +293,28 @@ class IMFASFMultiplexer extends IUnknown{
     }
 
     /**
+     * Sets the maximum time by which samples from various streams can be out of synchronization.
+     * @param {Integer} msSyncTolerance Synchronization tolerance in milliseconds.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} msSyncTolerance 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setsynctolerance
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-setsynctolerance
      */
     SetSyncTolerance(msSyncTolerance) {
         result := ComCall(11, this, "uint", msSyncTolerance, "HRESULT")

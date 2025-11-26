@@ -37,9 +37,9 @@ class ObjectControl extends IUnknown{
     static VTableNames => ["Activate", "Deactivate", "CanBePooled"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontrol-activate
+     * Enables a COM+ object to perform context-specific initialization whenever it is activated.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontrol-activate
      */
     Activate() {
         result := ComCall(3, this, "HRESULT")
@@ -47,9 +47,9 @@ class ObjectControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontrol-deactivate
+     * Enables a COM+ object to perform cleanup required before it is recycled or destroyed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontrol-deactivate
      */
     Deactivate() {
         result := ComCall(4, this, "HRESULT")
@@ -57,10 +57,10 @@ class ObjectControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pbPoolable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontrol-canbepooled
+     * Indicates whether the object can be pooled for reuse when it is deactivated.
+     * @param {Pointer<VARIANT_BOOL>} pbPoolable Indicates whether the COM+ run-time environment can pool this object on deactivation for later reuse.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontrol-canbepooled
      */
     CanBePooled(pbPoolable) {
         pbPoolableMarshal := pbPoolable is VarRef ? "short*" : "ptr"

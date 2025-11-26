@@ -66,9 +66,9 @@ class IUpdateServiceRegistration extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an UpdateServiceRegistrationState value that indicates the current state of the service registration.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_registrationstate
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateserviceregistration-get_registrationstate
      */
     get_RegistrationState() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -86,9 +86,14 @@ class IUpdateServiceRegistration extends IDispatch{
     }
 
     /**
+     * Gets a Boolean value that indicates whether the service will also be registered with Automatic Updates, when added.
+     * @remarks
+     * 
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-updateserviceregistrationstate">RegistrationState</a> property is <b>usrsRegistrationPending</b>, registration with Automatic Updates is subject to the allowed settings that are specified in the authorization cabinet  file (.cab) for the service.  If the authorization cabinet file does not allow registration with Automatic Updates, the service will  be registered with Windows Update Agent (WUA). However, the service will  not be registered with Automatic Updates.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_ispendingregistrationwithau
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateserviceregistration-get_ispendingregistrationwithau
      */
     get_IsPendingRegistrationWithAU() {
         result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
@@ -96,9 +101,9 @@ class IUpdateServiceRegistration extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a pointer to an IUpdateService2 interface. This property is the default property.
      * @returns {IUpdateService2} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_service
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateserviceregistration-get_service
      */
     get_Service() {
         result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")

@@ -40,9 +40,9 @@ class IXpsOMStoryFragmentsResource extends IXpsOMResource{
     static VTableNames => ["GetOwner", "GetStream", "SetContent"]
 
     /**
-     * 
-     * @returns {IXpsOMPageReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomstoryfragmentsresource-getowner
+     * Gets a pointer to the IXpsOMPage interface that contains this resource.
+     * @returns {IXpsOMPageReference} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompage">IXpsOMPage</a> interface that contains this resource. If the resource is not part of a page, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomstoryfragmentsresource-getowner
      */
     GetOwner() {
         result := ComCall(5, this, "ptr*", &owner := 0, "HRESULT")
@@ -50,9 +50,9 @@ class IXpsOMStoryFragmentsResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomstoryfragmentsresource-getstream
+     * Gets a new, read-only copy of the stream that is associated with this resource.
+     * @returns {IStream} A new, read-only copy of the stream that is associated with this resource.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomstoryfragmentsresource-getstream
      */
     GetStream() {
         result := ComCall(6, this, "ptr*", &stream := 0, "HRESULT")
@@ -60,11 +60,11 @@ class IXpsOMStoryFragmentsResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @param {IStream} sourceStream 
-     * @param {IOpcPartUri} partName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomstoryfragmentsresource-setcontent
+     * Sets the read-only stream to be associated with this resource.
+     * @param {IStream} sourceStream The read-only stream to be associated with this resource.
+     * @param {IOpcPartUri} partName The part name to be assigned to this resource.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomstoryfragmentsresource-setcontent
      */
     SetContent(sourceStream, partName) {
         result := ComCall(7, this, "ptr", sourceStream, "ptr", partName, "HRESULT")

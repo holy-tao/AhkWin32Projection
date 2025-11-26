@@ -33,11 +33,11 @@ class IEnumSyncChanges extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cChanges 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {ISyncChange} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-next
+     * Returns the next item change.
+     * @param {Integer} cChanges The number of changes to fetch. The only valid value is 1.
+     * @param {Pointer<Integer>} pcFetched Returns the number of changes that are fetched.
+     * @returns {ISyncChange} Returns the next item change.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-next
      */
     Next(cChanges, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +47,25 @@ class IEnumSyncChanges extends IUnknown{
     }
 
     /**
+     * This method is not implemented.
+     * @param {Integer} cChanges The number of changes to skip.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} cChanges 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-skip
      */
     Skip(cChanges) {
         result := ComCall(4, this, "uint", cChanges, "HRESULT")
@@ -58,9 +73,27 @@ class IEnumSyncChanges extends IUnknown{
     }
 
     /**
+     * Resets the enumerator to the beginning of the list.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +101,9 @@ class IEnumSyncChanges extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumSyncChanges} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-clone
+     * This method is not implemented.
+     * @returns {IEnumSyncChanges} Returns the cloned enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

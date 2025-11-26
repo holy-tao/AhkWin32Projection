@@ -31,10 +31,14 @@ class IFolderBandPriv extends IUnknown{
     static VTableNames => ["SetCascade", "SetAccelerators", "SetNoIcons", "SetNoText"]
 
     /**
+     * Sets a cascade folder.
+     * @param {BOOL} fCascade Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fCascade 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setcascade
+     * <b>TRUE</b> to enable cascade folders; <b>FALSE</b> to disable them.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setcascade
      */
     SetCascade(fCascade) {
         result := ComCall(3, this, "int", fCascade, "HRESULT")
@@ -42,10 +46,14 @@ class IFolderBandPriv extends IUnknown{
     }
 
     /**
+     * Sets accelerators.
+     * @param {BOOL} fAccelerators Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fAccelerators 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setaccelerators
+     * <b>TRUE</b> to enable accelerators; <b>FALSE</b> to disable them.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setaccelerators
      */
     SetAccelerators(fAccelerators) {
         result := ComCall(4, this, "int", fAccelerators, "HRESULT")
@@ -53,10 +61,14 @@ class IFolderBandPriv extends IUnknown{
     }
 
     /**
+     * Sets whether icons are displayed in a folder band.
+     * @param {BOOL} fNoIcons Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fNoIcons 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setnoicons
+     * <b>TRUE</b> to display icons; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setnoicons
      */
     SetNoIcons(fNoIcons) {
         result := ComCall(5, this, "int", fNoIcons, "HRESULT")
@@ -64,10 +76,14 @@ class IFolderBandPriv extends IUnknown{
     }
 
     /**
+     * Sets whether text is displayed in a folder band.
+     * @param {BOOL} fNoText Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fNoText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderbandpriv-setnotext
+     * <b>TRUE</b> to display text; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderbandpriv-setnotext
      */
     SetNoText(fNoText) {
         result := ComCall(6, this, "int", fNoText, "HRESULT")

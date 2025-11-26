@@ -31,11 +31,40 @@ class IMediaSample2 extends IMediaSample{
     static VTableNames => ["GetProperties", "SetProperties"]
 
     /**
+     * The GetProperties method retrieves the properties of a media sample.
+     * @param {Integer} cbProperties Length of property data to retrieve, in bytes.
+     * @param {Pointer} pbProperties Pointer to a buffer of size <i>cbProperties</i>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} cbProperties 
-     * @param {Pointer} pbProperties 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample2-getproperties
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imediasample2-getproperties
      */
     GetProperties(cbProperties, pbProperties) {
         result := ComCall(19, this, "uint", cbProperties, "ptr", pbProperties, "HRESULT")
@@ -43,11 +72,62 @@ class IMediaSample2 extends IMediaSample{
     }
 
     /**
+     * The SetProperties method sets the properties of a media sample.
+     * @param {Integer} cbProperties Length of property data to set, in bytes.
+     * @param {Pointer} pbProperties Pointer to a buffer of size <i>cbProperties</i>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} cbProperties 
-     * @param {Pointer} pbProperties 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample2-setproperties
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imediasample2-setproperties
      */
     SetProperties(cbProperties, pbProperties) {
         result := ComCall(20, this, "uint", cbProperties, "ptr", pbProperties, "HRESULT")

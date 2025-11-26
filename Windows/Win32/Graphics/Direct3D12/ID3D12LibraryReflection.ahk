@@ -42,9 +42,11 @@ class ID3D12LibraryReflection extends IUnknown{
     static VTableNames => ["GetDesc", "GetFunctionByIndex"]
 
     /**
+     * Fills the library descriptor structure for the library reflection.
+     * @returns {D3D12_LIBRARY_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_library_desc">D3D12_LIBRARY_DESC</a>*</b>
      * 
-     * @returns {D3D12_LIBRARY_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12libraryreflection-getdesc
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_library_desc">D3D12_LIBRARY_DESC</a> structure that receives a description of the library reflection.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12libraryreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D12_LIBRARY_DESC()
@@ -53,10 +55,14 @@ class ID3D12LibraryReflection extends IUnknown{
     }
 
     /**
+     * Gets the function reflector.
+     * @param {Integer} FunctionIndex Type: <b>INT</b>
      * 
-     * @param {Integer} FunctionIndex 
-     * @returns {ID3D12FunctionReflection} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12libraryreflection-getfunctionbyindex
+     * The zero-based index of the function reflector to retrieve.
+     * @returns {ID3D12FunctionReflection} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12functionreflection">ID3D12FunctionReflection</a>*</b>
+     * 
+     * The function reflector, as a pointer to <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12functionreflection">ID3D12FunctionReflection</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12libraryreflection-getfunctionbyindex
      */
     GetFunctionByIndex(FunctionIndex) {
         result := ComCall(4, this, "int", FunctionIndex, "ptr")

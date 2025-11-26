@@ -33,10 +33,10 @@ class IVdsDiskPartitionMF extends IUnknown{
     static VTableNames => ["GetPartitionFileSystemProperties", "GetPartitionFileSystemTypeName", "QueryPartitionFileSystemFormatSupport", "FormatPartitionEx"]
 
     /**
-     * 
-     * @param {Integer} ullOffset 
-     * @returns {VDS_FILE_SYSTEM_PROP} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemproperties
+     * Returns property details about the file system on a partition on the disk at a specified byte offset.
+     * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of the start of a partition.
+     * @returns {VDS_FILE_SYSTEM_PROP} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_file_system_prop">VDS_FILE_SYSTEM_PROP</a> structure that upon successful completion receives the properties of the file system volume on the partition.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemproperties
      */
     GetPartitionFileSystemProperties(ullOffset) {
         pFileSystemProp := VDS_FILE_SYSTEM_PROP()
@@ -45,10 +45,10 @@ class IVdsDiskPartitionMF extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ullOffset 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
+     * Retrieves the name of the file system on a partition on the disk at a specified byte offset.
+     * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of a start of a partition.
+     * @returns {PWSTR} Pointer that upon successful completion receives a null-terminated Unicode string with the file system name.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
      */
     GetPartitionFileSystemTypeName(ullOffset) {
         result := ComCall(4, this, "uint", ullOffset, "ptr*", &ppwszFileSystemTypeName := 0, "HRESULT")
@@ -56,12 +56,91 @@ class IVdsDiskPartitionMF extends IUnknown{
     }
 
     /**
+     * Retrieves the properties of the file systems that are supported for formatting a partition on the disk at a specified byte offset.
+     * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of the start of a partition.
+     * @param {Pointer<Pointer<VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP>>} ppFileSystemSupportProps A pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_file_system_format_support_prop">VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP</a> structures passed in by the caller. Upon successful completion, this array receives information about the properties of the supported file systems. Callers must free this array by using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @param {Pointer<Integer>} plNumberOfFileSystems A pointer to a variable that upon successful completion receives the total number of elements in the <i>ppFileSystemSupportProps</i> parameter.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Integer} ullOffset 
-     * @param {Pointer<Pointer<VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP>>} ppFileSystemSupportProps 
-     * @param {Pointer<Integer>} plNumberOfFileSystems 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-querypartitionfilesystemformatsupport
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_BAD_PROVIDER_DATA</b></dt>
+     * <dt>0x80042441L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A provider returned bad data.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_DISK_REMOVEABLE</b></dt>
+     * <dt>0x8004255AL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported on removable media.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_MISSING_DISK</b></dt>
+     * <dt>0x80042454L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The disk is missing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_NOT_FOUND</b></dt>
+     * <dt>0x80042405L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The partition does not exist.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_PARTITION_NOT_OEM</b></dt>
+     * <dt>0x8004256FL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported on non-OEM partitions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-querypartitionfilesystemformatsupport
      */
     QueryPartitionFileSystemFormatSupport(ullOffset, ppFileSystemSupportProps, plNumberOfFileSystems) {
         ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : "ptr"
@@ -72,17 +151,20 @@ class IVdsDiskPartitionMF extends IUnknown{
     }
 
     /**
+     * Formats an existing OEM, ESP, or unknown partition.
+     * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of the start of a partition.
+     * @param {PWSTR} pwszFileSystemTypeName A <b>NULL</b>-terminated Unicode string containing the name of the file system with which to format the partition. Must be <b>NULL</b> or one of the following: "NTFS", "FAT","FAT32", "UDF", or "EXFAT". If this parameter is <b>NULL</b>, a default value is used.
+     * @param {Integer} usFileSystemRevision The revision of the file system, if any.  This member is expressed as a 16-bit binary-coded decimal number, where a decimal point is implied between the second and third digits. For example, a value of 0x0250 indicates revision 2.50.
+     * @param {Integer} ulDesiredUnitAllocationSize The size of the allocation unit for the file system, in bytes.  The value must be a power of 2.  If the value is 0, a default allocation unit determined by the file system type will be used.  The allocation unit range is file system dependent.
+     * @param {PWSTR} pwszLabel <b>Null</b>-terminated Unicode string to assign to the new file system for the volume.  The maximum label size is file system dependent.
+     * @param {BOOL} bForce Boolean that determines whether a file system format is forced, regardless of whether the partition is in use.
+     * @param {BOOL} bQuickFormat Boolean that determines whether a file system volume is quick-formatted.  A quick format does not verify each sector on the volume.
+     * @param {BOOL} bEnableCompression Boolean that determines whether a file system will be created with compression enabled.
      * 
-     * @param {Integer} ullOffset 
-     * @param {PWSTR} pwszFileSystemTypeName 
-     * @param {Integer} usFileSystemRevision 
-     * @param {Integer} ulDesiredUnitAllocationSize 
-     * @param {PWSTR} pwszLabel 
-     * @param {BOOL} bForce 
-     * @param {BOOL} bQuickFormat 
-     * @param {BOOL} bEnableCompression 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-formatpartitionex
+     * <div class="alert"><b>Note</b>  This parameter is ignored if the file system is not NTFS.</div>
+     * <div> </div>
+     * @returns {IVdsAsync} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface that upon successful completion receives the <b>IVdsAsync</b> interface to monitor and control this operation.  Callers must release the interface received when they are done with it.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-formatpartitionex
      */
     FormatPartitionEx(ullOffset, pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, bForce, bQuickFormat, bEnableCompression) {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName

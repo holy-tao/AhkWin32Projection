@@ -73,9 +73,11 @@ class ISyncMgrHandlerCollection extends IUnknown{
     static VTableNames => ["GetHandlerEnumerator", "BindToHandler"]
 
     /**
+     * Gets an enumerator that provides access to the IDs of sync handlers exposed to and managed by the user.
+     * @returns {IEnumString} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a>**</b>
      * 
-     * @returns {IEnumString} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlercollection-gethandlerenumerator
+     * When this method returns, contains an address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> that enumerates the IDs of known sync handlers.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrhandlercollection-gethandlerenumerator
      */
     GetHandlerEnumerator() {
         result := ComCall(3, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -83,11 +85,17 @@ class ISyncMgrHandlerCollection extends IUnknown{
     }
 
     /**
+     * Instantiates a specified sync handler when called by Sync Center.
+     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszHandlerID 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlercollection-bindtohandler
+     * The ID of the sync handler.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The IID of the requested interface. This will typically be IID_ISyncMgrHandler. If the method fails when passed IID_ISyncMgrHandler, it is recalled using IID_ISyncMgrSynchronize, the IID of the older <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronize">ISyncMgrSynchronize</a> interface. When the method returns successfully, a pointer to the requested interface is referenced in the <i>ppv</i> parameter.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains an address of a pointer to an interface representing the sync handler.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrhandlercollection-bindtohandler
      */
     BindToHandler(pszHandlerID, riid) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID

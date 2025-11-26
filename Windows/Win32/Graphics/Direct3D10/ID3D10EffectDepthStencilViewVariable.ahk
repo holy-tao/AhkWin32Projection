@@ -32,10 +32,14 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
     static VTableNames => ["SetDepthStencil", "GetDepthStencil", "SetDepthStencilArray", "GetDepthStencilArray"]
 
     /**
+     * Set a depth-stencil-view resource.
+     * @param {ID3D10DepthStencilView} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>*</b>
      * 
-     * @param {ID3D10DepthStencilView} pResource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencil
+     * A pointer to a depth-stencil-view interface. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView Interface</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencil
      */
     SetDepthStencil(pResource) {
         result := ComCall(25, this, "ptr", pResource, "HRESULT")
@@ -43,9 +47,11 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a depth-stencil-view resource.
+     * @returns {ID3D10DepthStencilView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>**</b>
      * 
-     * @returns {ID3D10DepthStencilView} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencil
+     * The address of a pointer to a depth-stencil-view interface. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencil
      */
     GetDepthStencil() {
         result := ComCall(26, this, "ptr*", &ppResource := 0, "HRESULT")
@@ -53,12 +59,20 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set an array of depth-stencil-view resources.
+     * @param {Pointer<ID3D10DepthStencilView>} ppResources Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>**</b>
      * 
-     * @param {Pointer<ID3D10DepthStencilView>} ppResources 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencilarray
+     * A pointer to an array of depth-stencil-view interfaces. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView Interface</a>.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The zero-based array index to set the first interface.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of elements in the array.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencilarray
      */
     SetDepthStencilArray(ppResources, Offset, Count) {
         result := ComCall(27, this, "ptr*", ppResources, "uint", Offset, "uint", Count, "HRESULT")
@@ -66,11 +80,17 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get an array of depth-stencil-view resources.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {ID3D10DepthStencilView} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencilarray
+     * The zero-based array index to get the first interface.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of elements in the array.
+     * @returns {ID3D10DepthStencilView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>**</b>
+     * 
+     * A pointer to an array of depth-stencil-view interfaces. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencilarray
      */
     GetDepthStencilArray(Offset, Count) {
         result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "HRESULT")

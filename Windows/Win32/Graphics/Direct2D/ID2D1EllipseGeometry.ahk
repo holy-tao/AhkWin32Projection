@@ -39,10 +39,12 @@ class ID2D1EllipseGeometry extends ID2D1Geometry{
     static VTableNames => ["GetEllipse"]
 
     /**
+     * Gets the D2D1_ELLIPSE structure that describes this ellipse geometry.
+     * @param {Pointer<D2D1_ELLIPSE>} ellipse Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_ellipse">D2D1_ELLIPSE</a>*</b>
      * 
-     * @param {Pointer<D2D1_ELLIPSE>} ellipse 
+     * When this method returns, contains the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_ellipse">D2D1_ELLIPSE</a> that describes the size and position of the ellipse. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1ellipsegeometry-getellipse
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1ellipsegeometry-getellipse
      */
     GetEllipse(ellipse) {
         ComCall(17, this, "ptr", ellipse)

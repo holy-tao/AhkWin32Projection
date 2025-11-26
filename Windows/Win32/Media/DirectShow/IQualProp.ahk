@@ -73,9 +73,9 @@ class IQualProp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdroppedinrenderer
+     * The get_FramesDroppedInRenderer method retrieves the number of frames dropped by the renderer.
+     * @returns {Integer} Pointer to the number of frames dropped by the renderer.
+     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-iqualprop-get_framesdroppedinrenderer
      */
     get_FramesDroppedInRenderer() {
         result := ComCall(3, this, "int*", &pcFrames := 0, "HRESULT")
@@ -83,9 +83,9 @@ class IQualProp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdrawn
+     * The get_FramesDrawn method retrieves the number of frames actually drawn since streaming started.
+     * @returns {Integer} Pointer to the number of frames drawn since streaming started.
+     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-iqualprop-get_framesdrawn
      */
     get_FramesDrawn() {
         result := ComCall(4, this, "int*", &pcFramesDrawn := 0, "HRESULT")
@@ -93,9 +93,9 @@ class IQualProp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_avgframerate
+     * The get_AvgFrameRate method retrieves the actual average frame rate since streaming started.
+     * @returns {Integer} Pointer to a variable that receives the actual number of frames per second, multiplied by 100. For example, an average frame rate of 30 frames per second will be represented as 3000.
+     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-iqualprop-get_avgframerate
      */
     get_AvgFrameRate() {
         result := ComCall(5, this, "int*", &piAvgFrameRate := 0, "HRESULT")
@@ -103,9 +103,9 @@ class IQualProp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_jitter
+     * The get_Jitter method gets the jitter (variation in time) between successive frames delivered to the video renderer.
+     * @returns {Integer} Receives the standard deviation of the interframe time, in milliseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-iqualprop-get_jitter
      */
     get_Jitter() {
         result := ComCall(6, this, "int*", &iJitter := 0, "HRESULT")
@@ -113,9 +113,9 @@ class IQualProp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_avgsyncoffset
+     * The get_AvgSyncOffset method retrieves the average time difference between when the video frames should have been displayed and when they actually were.
+     * @returns {Integer} Pointer to the time difference, expressed in milliseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-iqualprop-get_avgsyncoffset
      */
     get_AvgSyncOffset() {
         result := ComCall(7, this, "int*", &piAvg := 0, "HRESULT")
@@ -123,9 +123,9 @@ class IQualProp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_devsyncoffset
+     * The get_DevSyncOffset method retrieves the average time difference between when the video frames should have been displayed and when they actually were.
+     * @returns {Integer} Pointer to a value denoting the accuracy of the video frames displayed.
+     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-iqualprop-get_devsyncoffset
      */
     get_DevSyncOffset() {
         result := ComCall(8, this, "int*", &piDev := 0, "HRESULT")

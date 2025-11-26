@@ -57,9 +57,9 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-get_name
+     * The get_Name method gets the agent handler name.
+     * @returns {BSTR} Pointer to <b>BSTR</b> representation of the agent handler name.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-get_name
      */
     get_Name() {
         ppName := BSTR()
@@ -68,9 +68,10 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITAgent} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-createagent
+     * The CreateAgent method creates an Agent object.
+     * @returns {ITAgent} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagent">ITAgent</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-createagent
      */
     CreateAgent() {
         result := ComCall(8, this, "ptr*", &ppAgent := 0, "HRESULT")
@@ -78,11 +79,12 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} pID 
-     * @param {BSTR} pPIN 
-     * @returns {ITAgent} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-createagentwithid
+     * The CreateAgentWithID method creates an Agent object based on an agent identifier.
+     * @param {BSTR} pID Pointer to <b>BSTR</b> containing the agent identifier.
+     * @param {BSTR} pPIN Pointer to <b>BSTR</b> containing the agent PIN.
+     * @returns {ITAgent} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagent">ITAgent</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-createagentwithid
      */
     CreateAgentWithID(pID, pPIN) {
         pID := pID is String ? BSTR.Alloc(pID).Value : pID
@@ -93,9 +95,10 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumACDGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-enumerateacdgroups
+     * The EnumerateACDGroups method enumerates ACD groups currently associated with the agent handler.
+     * @returns {IEnumACDGroup} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumacdgroup">IEnumACDGroup</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-enumerateacdgroups
      */
     EnumerateACDGroups() {
         result := ComCall(10, this, "ptr*", &ppEnumACDGroup := 0, "HRESULT")
@@ -103,9 +106,10 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumAddress} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-enumerateusableaddresses
+     * The EnumerateUsableAddresses method enumerates addresses available for receiving ACD calls on this agent handler.
+     * @returns {IEnumAddress} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumaddress">IEnumAddress</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-enumerateusableaddresses
      */
     EnumerateUsableAddresses() {
         result := ComCall(11, this, "ptr*", &ppEnumAddress := 0, "HRESULT")
@@ -113,9 +117,11 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-get_acdgroups
+     * The get_ACDGroups method creates a collection of ACD groups currently associated with the agent handler.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> interface pointers (ACD group objects).
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-get_acdgroups
      */
     get_ACDGroups() {
         pVariant := VARIANT()
@@ -124,9 +130,11 @@ class ITAgentHandler extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-get_usableaddresses
+     * The get_UsableAddresses method creates a collection of addresses available for receiving ACD calls on this agent handler.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface pointers (address objects).
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandler-get_usableaddresses
      */
     get_UsableAddresses() {
         pVariant := VARIANT()

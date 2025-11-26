@@ -31,14 +31,14 @@ class IDirectInputEffectDriver extends IUnknown{
     static VTableNames => ["DeviceID", "GetVersions", "Escape", "SetGain", "SendForceFeedbackCommand", "GetForceFeedbackState", "DownloadEffect", "DestroyEffect", "StartEffect", "StopEffect", "GetEffectStatus"]
 
     /**
-     * 
+     * The IDirectInputEffectDriver::DeviceID method sends the driver the identity of the device.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Pointer<Void>} param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-deviceid
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-deviceid
      */
     DeviceID(param0, param1, param2, param3, param4) {
         param4Marshal := param4 is VarRef ? "ptr" : "ptr"
@@ -48,10 +48,10 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::GetVersions method obtains version information about the force-feedback hardware and driver.
      * @param {Pointer<DIDRIVERVERSIONS>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-getversions
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-getversions
      */
     GetVersions(param0) {
         result := ComCall(4, this, "ptr", param0, "HRESULT")
@@ -59,14 +59,12 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * Enables an application to access the system-defined device capabilities that are not available through GDI.
+     * The IDirectInputEffectDriver::Escape method escapes to the driver. This method is called in response to an application invoking the IDirectInputEffect::Escape or IDirectInputDevice::Escape methods.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer<DIEFFESCAPE>} param2 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero, except with the <a href="/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
-     * 
-     * If the function fails, the return value is a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-escape
      */
     Escape(param0, param1, param2) {
         result := ComCall(5, this, "uint", param0, "uint", param1, "ptr", param2, "HRESULT")
@@ -74,11 +72,11 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::SetGain method sets the overall device gain.
      * @param {Integer} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-setgain
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-setgain
      */
     SetGain(param0, param1) {
         result := ComCall(6, this, "uint", param0, "uint", param1, "HRESULT")
@@ -86,11 +84,11 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::SendForceFeedbackCommand method changes the force-feedback state for the device.
      * @param {Integer} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-sendforcefeedbackcommand
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-sendforcefeedbackcommand
      */
     SendForceFeedbackCommand(param0, param1) {
         result := ComCall(7, this, "uint", param0, "uint", param1, "HRESULT")
@@ -98,11 +96,11 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::GetForceFeedbackState method retrieves the force-feedback state for the device.
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICESTATE>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-getforcefeedbackstate
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-getforcefeedbackstate
      */
     GetForceFeedbackState(param0, param1) {
         result := ComCall(8, this, "uint", param0, "ptr", param1, "HRESULT")
@@ -110,14 +108,14 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::DownloadEffect method sends an effect to the device.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
      * @param {Pointer<DIEFFECT>} param3 
      * @param {Integer} param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-downloadeffect
+     * @returns {HRESULT} Returns S_OK if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-downloadeffect
      */
     DownloadEffect(param0, param1, param2, param3, param4) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
@@ -127,11 +125,11 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::DestroyEffect method removes an effect from the device. If the effect is playing, the driver should stop it before unloading it.
      * @param {Integer} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-destroyeffect
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-destroyeffect
      */
     DestroyEffect(param0, param1) {
         result := ComCall(10, this, "uint", param0, "uint", param1, "HRESULT")
@@ -139,13 +137,13 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::StartEffect method begins the playback of an effect. If the effect is already playing, it is restarted from the beginning.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-starteffect
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-starteffect
      */
     StartEffect(param0, param1, param2, param3) {
         result := ComCall(11, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "HRESULT")
@@ -153,11 +151,11 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::StopEffect method halts the playback of an effect.
      * @param {Integer} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-stopeffect
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-stopeffect
      */
     StopEffect(param0, param1) {
         result := ComCall(12, this, "uint", param0, "uint", param1, "HRESULT")
@@ -165,12 +163,12 @@ class IDirectInputEffectDriver extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputEffectDriver::GetEffectStatus method obtains information about the status of an effect.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-geteffectstatus
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-geteffectstatus
      */
     GetEffectStatus(param0, param1, param2) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"

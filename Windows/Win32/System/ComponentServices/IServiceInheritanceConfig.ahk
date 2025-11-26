@@ -31,10 +31,10 @@ class IServiceInheritanceConfig extends IUnknown{
     static VTableNames => ["ContainingContextTreatment"]
 
     /**
-     * 
-     * @param {Integer} inheritanceConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceinheritanceconfig-containingcontexttreatment
+     * Determines whether the containing context is based on the current context.
+     * @param {Integer} inheritanceConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceinheritanceconfig-containingcontexttreatment
      */
     ContainingContextTreatment(inheritanceConfig) {
         result := ComCall(3, this, "int", inheritanceConfig, "HRESULT")

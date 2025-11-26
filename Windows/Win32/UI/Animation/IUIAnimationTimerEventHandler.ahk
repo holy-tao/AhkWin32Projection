@@ -40,9 +40,9 @@ class IUIAnimationTimerEventHandler extends IUnknown{
     static VTableNames => ["OnPreUpdate", "OnPostUpdate", "OnRenderingTooSlow"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onpreupdate
+     * Handles events that occur before an animation update begins.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">UIAnimation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimereventhandler-onpreupdate
      */
     OnPreUpdate() {
         result := ComCall(3, this, "HRESULT")
@@ -50,9 +50,9 @@ class IUIAnimationTimerEventHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onpostupdate
+     * Handles events that occur after an animation update is finished.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">UIAnimation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimereventhandler-onpostupdate
      */
     OnPostUpdate() {
         result := ComCall(4, this, "HRESULT")
@@ -60,10 +60,10 @@ class IUIAnimationTimerEventHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} framesPerSecond 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onrenderingtooslow
+     * Handles events that occur when the rendering frame rate for an animation falls below a minimum desirable frame rate.
+     * @param {Integer} framesPerSecond The current frame rate, in frames per second.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">UIAnimation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimereventhandler-onrenderingtooslow
      */
     OnRenderingTooSlow(framesPerSecond) {
         result := ComCall(5, this, "uint", framesPerSecond, "HRESULT")

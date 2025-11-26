@@ -31,10 +31,10 @@ class IEnterpriseDropTarget extends IUnknown{
     static VTableNames => ["SetDropSourceEnterpriseId", "IsEvaluatingEdpPolicy"]
 
     /**
-     * 
-     * @param {PWSTR} identity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ienterprisedroptarget-setdropsourceenterpriseid
+     * Provides the drop target with the enterprise ID of the drop source.
+     * @param {PWSTR} identity The enterprise identity of the drop source.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ienterprisedroptarget-setdropsourceenterpriseid
      */
     SetDropSourceEnterpriseId(identity) {
         identity := identity is String ? StrPtr(identity) : identity
@@ -44,9 +44,9 @@ class IEnterpriseDropTarget extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ienterprisedroptarget-isevaluatingedppolicy
+     * Indicates whether the drop target is intends to handle the evaluation of the enterprise protection policy.
+     * @returns {BOOL} A boolean value that indicates whether the drop target intends to handle the evaluation of enterprise protection policy.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ienterprisedroptarget-isevaluatingedppolicy
      */
     IsEvaluatingEdpPolicy() {
         result := ComCall(4, this, "int*", &value := 0, "HRESULT")

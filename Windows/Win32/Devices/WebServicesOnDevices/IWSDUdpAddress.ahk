@@ -32,10 +32,83 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     static VTableNames => ["SetSockaddr", "GetSockaddr", "SetExclusive", "GetExclusive", "SetMessageType", "GetMessageType", "SetTTL", "GetTTL", "SetAlias", "GetAlias"]
 
     /**
+     * Sets the socket address information.
+     * @param {Pointer<SOCKADDR_STORAGE>} pSockAddr Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms740504(v=vs.85)">SOCKADDR_STORAGE</a> structure.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {Pointer<SOCKADDR_STORAGE>} pSockAddr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setsockaddr
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pSockAddr</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(WSAEINVAL)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified address is not a valid socket address, or no transport provider supports the indicated address family.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(WSANOTINITIALISED)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Winsock 2 DLL has not been initialized. The application must first call <a href="/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> to initialize Winsock 2.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(WSAENOBUFS)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space available.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-setsockaddr
      */
     SetSockaddr(pSockAddr) {
         result := ComCall(10, this, "ptr", pSockAddr, "HRESULT")
@@ -43,9 +116,9 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
-     * 
-     * @returns {SOCKADDR_STORAGE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getsockaddr
+     * Gets the socket address information.
+     * @returns {SOCKADDR_STORAGE} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms740504(v=vs.85)">SOCKADDR_STORAGE</a> structure that contains the address information.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-getsockaddr
      */
     GetSockaddr() {
         pSockAddr := SOCKADDR_STORAGE()
@@ -54,10 +127,33 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Controls whether the socket is in exclusive mode.
+     * @param {BOOL} fExclusive A value of <b>TRUE</b> indicates that the socket should be set to exclusive mode. A value of <b>FALSE</b> indicates that the socket should not be in exclusive mode.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} fExclusive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setexclusive
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-setexclusive
      */
     SetExclusive(fExclusive) {
         result := ComCall(12, this, "int", fExclusive, "HRESULT")
@@ -65,9 +161,38 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Determines whether the socket is in exclusive mode.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getexclusive
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is in exclusive mode.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not in exclusive mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-getexclusive
      */
     GetExclusive() {
         result := ComCall(13, this, "HRESULT")
@@ -75,10 +200,33 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Sets the message type for this UDP address configuration.
+     * @param {Integer} messageType A <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ne-wsdbase-wsdudpmessagetype">WSDUdpMessageType</a> value that specifies the message type used for this address configuration.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} messageType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setmessagetype
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-setmessagetype
      */
     SetMessageType(messageType) {
         result := ComCall(14, this, "int", messageType, "HRESULT")
@@ -86,9 +234,9 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getmessagetype
+     * Gets the message type for this UDP address configuration.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ne-wsdbase-wsdudpmessagetype">WSDUdpMessageType</a> value that specifies the message type used for this address configuration.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-getmessagetype
      */
     GetMessageType() {
         result := ComCall(15, this, "int*", &pMessageType := 0, "HRESULT")
@@ -96,10 +244,39 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Sets the time-to-live (TTL) for all outbound packets using this address.
+     * @param {Integer} dwTTL The TTL of outgoing UDP packets. Generally, the TTL represents the maximum number of hops before a packet is discarded. Some implementations interpret the TTL differently.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Integer} dwTTL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setttl
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>dwTTL</i> is greater than 255.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-setttl
      */
     SetTTL(dwTTL) {
         result := ComCall(16, this, "uint", dwTTL, "HRESULT")
@@ -107,9 +284,9 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getttl
+     * Gets the time-to-live (TTL) for all outbound packets using this address.
+     * @returns {Integer} Pointer to the TTL of outgoing UDP packets. Generally, the TTL represents the maximum number of hops before a packet is discarded. Some implementations interpret the TTL differently.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-getttl
      */
     GetTTL() {
         result := ComCall(17, this, "uint*", &pdwTTL := 0, "HRESULT")
@@ -117,10 +294,33 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Sets the alias for the discovery address.
+     * @param {Pointer<Guid>} pAlias A pointer to the alias of the discovery address.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} pAlias 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setalias
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-setalias
      */
     SetAlias(pAlias) {
         result := ComCall(18, this, "ptr", pAlias, "HRESULT")
@@ -128,9 +328,9 @@ class IWSDUdpAddress extends IWSDTransportAddress{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getalias
+     * Gets the alias for the discovery address.
+     * @returns {Guid} Pointer to the alias of the discovery address.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpaddress-getalias
      */
     GetAlias() {
         pAlias := Guid()

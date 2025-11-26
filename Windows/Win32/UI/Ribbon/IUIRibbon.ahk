@@ -37,9 +37,11 @@ class IUIRibbon extends IUnknown{
     static VTableNames => ["GetHeight", "LoadSettingsFromStream", "SaveSettingsToStream"]
 
     /**
+     * Retrieves the height of the ribbon.
+     * @returns {Integer} Type: <b>UINT32*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiribbon-getheight
+     * The height of the ribbon, in pixels.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiribbon-getheight
      */
     GetHeight() {
         result := ComCall(3, this, "uint*", &cy := 0, "HRESULT")
@@ -47,10 +49,14 @@ class IUIRibbon extends IUnknown{
     }
 
     /**
+     * Reads ribbon settings from a binary stream.
+     * @param {IStream} pStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} pStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiribbon-loadsettingsfromstream
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or E_FAIL if the format or content of the serialized stream is empty or cannot be verified by the Ribbon framework.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiribbon-loadsettingsfromstream
      */
     LoadSettingsFromStream(pStream) {
         result := ComCall(4, this, "ptr", pStream, "HRESULT")
@@ -58,10 +64,14 @@ class IUIRibbon extends IUnknown{
     }
 
     /**
+     * Writes ribbon settings to a binary stream.
+     * @param {IStream} pStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} pStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiribbon-savesettingstostream
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiribbon-savesettingstostream
      */
     SaveSettingsToStream(pStream) {
         result := ComCall(5, this, "ptr", pStream, "HRESULT")

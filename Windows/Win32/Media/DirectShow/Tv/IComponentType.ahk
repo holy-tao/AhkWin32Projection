@@ -109,9 +109,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_category
+     * The get_Category method retrieves the component category.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentcategory">ComponentCategory</a> data type that will receive the category.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get_category
      */
     get_Category() {
         result := ComCall(7, this, "int*", &Category := 0, "HRESULT")
@@ -119,10 +119,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Category 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_category
+     * The put_Category method sets the component category.
+     * @param {Integer} Category A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentcategory">ComponentCategory</a> value that specifies the new category for this component type.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put_category
      */
     put_Category(Category) {
         result := ComCall(8, this, "int", Category, "HRESULT")
@@ -130,9 +130,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediamajortype
+     * The get_MediaMajorType method retrieves the DirectShow media major type as a BSTR.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that will receive the GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get_mediamajortype
      */
     get_MediaMajorType() {
         MediaMajorType := BSTR()
@@ -141,10 +141,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} MediaMajorType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediamajortype
+     * The put_MediaMajorType method sets the DirectShow media major type.
+     * @param {BSTR} MediaMajorType <b>BSTR</b> that specifies the GUID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put_mediamajortype
      */
     put_MediaMajorType(MediaMajorType) {
         MediaMajorType := MediaMajorType is String ? BSTR.Alloc(MediaMajorType).Value : MediaMajorType
@@ -154,9 +154,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get__mediamajortype
+     * The get__MediaMajorType method retrieves the DirectShow media format type as a GUID.
+     * @returns {Guid} Pointer to a GUID that will receive the major type.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get__mediamajortype
      */
     get__MediaMajorType() {
         MediaMajorTypeGuid := Guid()
@@ -165,10 +165,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} MediaMajorTypeGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put__mediamajortype
+     * The put__MediaMajorType method sets the DirectShow media major type.
+     * @param {Pointer<Guid>} MediaMajorTypeGuid <b>REFCLSID</b> that specifies the media major type.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put__mediamajortype
      */
     put__MediaMajorType(MediaMajorTypeGuid) {
         result := ComCall(12, this, "ptr", MediaMajorTypeGuid, "HRESULT")
@@ -176,9 +176,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediasubtype
+     * The get_MediaSubType method retrieves the DirectShow media subtype as a BSTR.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that will receive the GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get_mediasubtype
      */
     get_MediaSubType() {
         MediaSubType := BSTR()
@@ -187,10 +187,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} MediaSubType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediasubtype
+     * The put_MediaSubType method sets the DirectShow media subtype.
+     * @param {BSTR} MediaSubType <b>BSTR</b> that specifies the GUID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put_mediasubtype
      */
     put_MediaSubType(MediaSubType) {
         MediaSubType := MediaSubType is String ? BSTR.Alloc(MediaSubType).Value : MediaSubType
@@ -200,9 +200,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get__mediasubtype
+     * The get__MediaSubType method retrieves the DirectShow media subtype as a GUID.
+     * @returns {Guid} Pointer to a GUID that will receive the major type.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get__mediasubtype
      */
     get__MediaSubType() {
         MediaSubTypeGuid := Guid()
@@ -211,10 +211,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} MediaSubTypeGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put__mediasubtype
+     * The put__MediaSubType method sets the DirectShow media subtype.
+     * @param {Pointer<Guid>} MediaSubTypeGuid <b>REFCLSID</b> that specifies the media sub type.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put__mediasubtype
      */
     put__MediaSubType(MediaSubTypeGuid) {
         result := ComCall(16, this, "ptr", MediaSubTypeGuid, "HRESULT")
@@ -222,9 +222,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediaformattype
+     * The get_MediaFormatType method retrieves the DirectShow media format type as a BSTR.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that will receive the GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get_mediaformattype
      */
     get_MediaFormatType() {
         MediaFormatType := BSTR()
@@ -233,10 +233,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} MediaFormatType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediaformattype
+     * The put_MediaFormatType method sets the DirectShow media format type.
+     * @param {BSTR} MediaFormatType <b>BSTR</b> that specifies the GUID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put_mediaformattype
      */
     put_MediaFormatType(MediaFormatType) {
         MediaFormatType := MediaFormatType is String ? BSTR.Alloc(MediaFormatType).Value : MediaFormatType
@@ -246,9 +246,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get__mediaformattype
+     * The get__MediaFormatType method retrieves the DirectShow media format type as a GUID.
+     * @returns {Guid} Pointer to a GUID that will receive the format type.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get__mediaformattype
      */
     get__MediaFormatType() {
         MediaFormatTypeGuid := Guid()
@@ -257,10 +257,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} MediaFormatTypeGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put__mediaformattype
+     * The put__MediaFormatType method sets the DirectShow media format type.
+     * @param {Pointer<Guid>} MediaFormatTypeGuid <b>REFCLSID</b> that specifies the media format type.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put__mediaformattype
      */
     put__MediaFormatType(MediaFormatTypeGuid) {
         result := ComCall(20, this, "ptr", MediaFormatTypeGuid, "HRESULT")
@@ -268,9 +268,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {AM_MEDIA_TYPE} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediatype
+     * The get_MediaType method retrieves the DirectShow AM_MEDIA_TYPE structure for the component.
+     * @returns {AM_MEDIA_TYPE} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that will be filled in with the values associated with the current <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd693036(v=vs.85)">ComponentType</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-get_mediatype
      */
     get_MediaType() {
         MediaType := AM_MEDIA_TYPE()
@@ -279,10 +279,10 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<AM_MEDIA_TYPE>} MediaType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediatype
+     * The put_MediaType method sets the DirectShow AM_MEDIA_TYPE structure for the component.
+     * @param {Pointer<AM_MEDIA_TYPE>} MediaType An <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the major type, subtype, format, and so on.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-put_mediatype
      */
     put_MediaType(MediaType) {
         result := ComCall(22, this, "ptr", MediaType, "HRESULT")
@@ -290,9 +290,9 @@ class IComponentType extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IComponentType} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-clone
+     * The Clone method creates a new copy of this component type.
+     * @returns {IComponentType} Address of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> interface pointer that will be set to the returned interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponenttype-clone
      */
     Clone() {
         result := ComCall(23, this, "ptr*", &NewCT := 0, "HRESULT")

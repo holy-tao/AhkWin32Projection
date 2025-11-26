@@ -32,12 +32,12 @@ class ItsPubPlugin2 extends ItsPubPlugin{
     static VTableNames => ["GetResource2List", "GetResource2", "ResolvePersonalDesktop", "DeletePersonalDesktopAssignment"]
 
     /**
-     * 
-     * @param {PWSTR} userID 
-     * @param {Pointer<Integer>} pceAppListSize 
-     * @param {Pointer<Pointer<pluginResource2>>} resourceList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-getresource2list
+     * Retrieves a list of resources assigned to the specified user.
+     * @param {PWSTR} userID A null-terminated string that contains the security identifier (SID) of the user. If this parameter is <b>NULL</b>, this method should return the resources for all users.
+     * @param {Pointer<Integer>} pceAppListSize The address of a <b>LONG</b> variable that receives the number of elements in the <i>resourceList</i> array.
+     * @param {Pointer<Pointer<pluginResource2>>} resourceList The address of an array of <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ns-tspubplugin2com-pluginresource2">pluginResource2</a> structures that contains the resources for the specified user. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function to allocate this memory. The caller is responsible for freeing this memory.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/nf-tspubplugin2com-itspubplugin2-getresource2list
      */
     GetResource2List(userID, pceAppListSize, resourceList) {
         userID := userID is String ? StrPtr(userID) : userID
@@ -50,11 +50,11 @@ class ItsPubPlugin2 extends ItsPubPlugin{
     }
 
     /**
-     * 
-     * @param {PWSTR} alias 
-     * @param {Integer} flags 
-     * @returns {pluginResource2} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-getresource2
+     * This method is reserved and should always return E_NOTIMPL.
+     * @param {PWSTR} alias This parameter is reserved.
+     * @param {Integer} flags This parameter is reserved.
+     * @returns {pluginResource2} This parameter is reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/nf-tspubplugin2com-itspubplugin2-getresource2
      */
     GetResource2(alias, flags) {
         alias := alias is String ? StrPtr(alias) : alias
@@ -65,13 +65,13 @@ class ItsPubPlugin2 extends ItsPubPlugin{
     }
 
     /**
-     * 
-     * @param {PWSTR} userId 
-     * @param {PWSTR} poolId 
-     * @param {Integer} ePdResolutionType 
-     * @param {PWSTR} endPointName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop
+     * Called to resolve a mapping between the specified user and a virtual machine in a personal virtual desktop collection.
+     * @param {PWSTR} userId A null-terminated string that contains the security identifier (SID) of the user.
+     * @param {PWSTR} poolId A null-terminated string that contains the identifier of the collection to obtain the personal desktop from or create the personal desktop in.
+     * @param {Integer} ePdResolutionType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_resolution_type">TSPUB_PLUGIN_PD_RESOLUTION_TYPE</a> enumeration that specifies the type of resolution being requested.
+     * @param {PWSTR} endPointName A null-terminated string that receives the name of the end point for the desktop. The length of this string is limited to <b>MAX_ENDPOINT_SIZE</b> characters, including the terminating <b>NULL</b> character.
+     * @returns {Integer} A value of the <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_assignment_type">TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE</a> enumeration that specifies what type of assignment was made for the personal desktop.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop
      */
     ResolvePersonalDesktop(userId, poolId, ePdResolutionType, endPointName) {
         userId := userId is String ? StrPtr(userId) : userId
@@ -83,12 +83,12 @@ class ItsPubPlugin2 extends ItsPubPlugin{
     }
 
     /**
-     * 
-     * @param {PWSTR} userId 
-     * @param {PWSTR} poolId 
-     * @param {PWSTR} endpointName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-deletepersonaldesktopassignment
+     * Called to delete a mapping between the specified user and a virtual machine in a personal virtual desktop collection.
+     * @param {PWSTR} userId A null-terminated string that contains the security identifier (SID) of the user.
+     * @param {PWSTR} poolId A null-terminated string that contains the identifier of the collection that the personal desktop exists in.
+     * @param {PWSTR} endpointName A null-terminated string that contains the name of the desktop end point to be deleted.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/nf-tspubplugin2com-itspubplugin2-deletepersonaldesktopassignment
      */
     DeletePersonalDesktopAssignment(userId, poolId, endpointName) {
         userId := userId is String ? StrPtr(userId) : userId

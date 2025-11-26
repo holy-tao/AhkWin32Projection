@@ -58,9 +58,9 @@ class IMPEG2TuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-get_tsid
+     * The get_TSID method retrieves the transport stream ID.
+     * @returns {Integer} Pointer to a variable that receives the transport stream ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2tunerequest-get_tsid
      */
     get_TSID() {
         result := ComCall(12, this, "int*", &TSID := 0, "HRESULT")
@@ -68,10 +68,10 @@ class IMPEG2TuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} TSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-put_tsid
+     * The put_TSID method sets the transport stream ID.
+     * @param {Integer} TSID Specifies the transport stream ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2tunerequest-put_tsid
      */
     put_TSID(TSID) {
         result := ComCall(13, this, "int", TSID, "HRESULT")
@@ -79,9 +79,9 @@ class IMPEG2TuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-get_progno
+     * The get_ProgNo method retrieves the program number ID.
+     * @returns {Integer} Pointer to a variable that receives the program number ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2tunerequest-get_progno
      */
     get_ProgNo() {
         result := ComCall(14, this, "int*", &ProgNo := 0, "HRESULT")
@@ -89,10 +89,10 @@ class IMPEG2TuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} ProgNo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-put_progno
+     * The put_ProgNo method sets the program number ID.
+     * @param {Integer} ProgNo Specifies the program number ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2tunerequest-put_progno
      */
     put_ProgNo(ProgNo) {
         result := ComCall(15, this, "int", ProgNo, "HRESULT")

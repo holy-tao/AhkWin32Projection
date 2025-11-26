@@ -31,11 +31,29 @@ class IAudioMute extends IUnknown{
     static VTableNames => ["SetMute", "GetMute"]
 
     /**
+     * The SetMute method enables or disables the mute control.
+     * @param {BOOL} bMuted The new muting state. If <i>bMuted</i> is <b>TRUE</b> (nonzero), the method enables muting. If <b>FALSE</b>, the method disables muting.
+     * @param {Pointer<Guid>} pguidEventContext Context value for the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify">IControlChangeNotify::OnNotify</a> method. This parameter points to an event-context GUID. If the <b>SetMute</b> call changes the state of the mute control, all clients that have registered <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-icontrolchangenotify">IControlChangeNotify</a> interfaces with that control receive notifications. In its implementation of the <b>OnNotify</b> method, a client can inspect the event-context GUID to discover whether it or another client is the source of the control-change event. If the caller supplies a <b>NULL</b> pointer for this parameter, the client's notification method receives a <b>NULL</b> context pointer.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {BOOL} bMuted 
-     * @param {Pointer<Guid>} pguidEventContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiomute-setmute
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Out of memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudiomute-setmute
      */
     SetMute(bMuted, pguidEventContext) {
         result := ComCall(3, this, "int", bMuted, "ptr", pguidEventContext, "HRESULT")
@@ -43,9 +61,9 @@ class IAudioMute extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiomute-getmute
+     * The GetMute method gets the current state (enabled or disabled) of the mute control.
+     * @returns {BOOL} Pointer to a <b>BOOL</b> variable into which the method writes the current state of the mute control. If the state is <b>TRUE</b>, muting is enabled. If <b>FALSE</b>, it is disabled.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudiomute-getmute
      */
     GetMute() {
         result := ComCall(4, this, "int*", &pbMuted := 0, "HRESULT")

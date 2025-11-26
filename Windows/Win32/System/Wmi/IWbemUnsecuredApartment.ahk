@@ -43,12 +43,18 @@ class IWbemUnsecuredApartment extends IUnsecuredApartment{
     static VTableNames => ["CreateSinkStub"]
 
     /**
-     * 
-     * @param {IWbemObjectSink} pSink 
+     * The CreateSinkStub method is similar to the IUnsecuredApartment::CreateObjectStub and creates an object forwarder sink and performs access checks for receiving asynchronous calls from Windows Management.
+     * @param {IWbemObjectSink} pSink Pointer to the client's in-process implementation of 
+     *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a>.
      * @param {Integer} dwFlags 
-     * @param {PWSTR} wszReserved 
-     * @returns {IWbemObjectSink} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemunsecuredapartment-createsinkstub
+     * @param {PWSTR} wszReserved Reserved.
+     * @returns {IWbemObjectSink} Receives a pointer to a substitute object to be used in asynchronous 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> calls. The user receives an 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer and must call 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for 
+     *       <b>IID_WbemObjectSink</b> before using this object in asynchronous 
+     *       <b>IWbemServices</b> calls.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemunsecuredapartment-createsinkstub
      */
     CreateSinkStub(pSink, dwFlags, wszReserved) {
         wszReserved := wszReserved is String ? StrPtr(wszReserved) : wszReserved

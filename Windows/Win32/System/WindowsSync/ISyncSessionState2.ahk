@@ -36,10 +36,39 @@ class ISyncSessionState2 extends ISyncSessionState{
     static VTableNames => ["SetProviderWithError", "GetSessionErrorStatus"]
 
     /**
+     * Indicates which provider caused synchronization to fail.
+     * @param {BOOL} fSelf <b>TRUE</b> when the provider that calls this method is the provider that caused the error. Otherwise,<b> FALSE</b>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {BOOL} fSelf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate2-setproviderwitherror
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A synchronization session does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate2-setproviderwitherror
      */
     SetProviderWithError(fSelf) {
         result := ComCall(10, this, "int", fSelf, "HRESULT")
@@ -47,10 +76,40 @@ class ISyncSessionState2 extends ISyncSessionState{
     }
 
     /**
+     * Gets the error value that indicates why the synchronization session failed.
+     * @param {Pointer<HRESULT>} phrSessionError The error value that indicates why the synchronization session failed.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<HRESULT>} phrSessionError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate2-getsessionerrorstatus
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate2-getsessionerrorstatus
      */
     GetSessionErrorStatus(phrSessionError) {
         phrSessionErrorMarshal := phrSessionError is VarRef ? "int*" : "ptr"

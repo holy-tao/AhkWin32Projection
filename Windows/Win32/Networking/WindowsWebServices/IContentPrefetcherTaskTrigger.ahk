@@ -31,10 +31,40 @@ class IContentPrefetcherTaskTrigger extends IInspectable{
     static VTableNames => ["TriggerContentPrefetcherTask", "IsRegisteredForContentPrefetch"]
 
     /**
+     * Triggers a content prefetch background task for the specified app package.
+     * @param {PWSTR} packageFullName The package ID.
+     * @returns {HRESULT} Returns S_OK on success. Other possible values include:
      * 
-     * @param {PWSTR} packageFullName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-triggercontentprefetchertask
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The provided package ID is not an installed package that has registered for the content prefetch background task, or the package ID is empty or null.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method call was not made at the required Medium Integrity Level (Medium IL).
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-triggercontentprefetchertask
      */
     TriggerContentPrefetcherTask(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -44,10 +74,10 @@ class IContentPrefetcherTaskTrigger extends IInspectable{
     }
 
     /**
-     * 
-     * @param {PWSTR} packageFullName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-isregisteredforcontentprefetch
+     * Indicates if an app package has registered for the content prefetch background task.
+     * @param {PWSTR} packageFullName The package ID.
+     * @returns {Integer} True if the app package has registered for the content prefetch background task; otherwise, false.
+     * @see https://docs.microsoft.com/windows/win32/api//icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-isregisteredforcontentprefetch
      */
     IsRegisteredForContentPrefetch(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName

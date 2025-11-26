@@ -47,9 +47,27 @@ class IMFPMPServer extends IUnknown{
     static VTableNames => ["LockProcess", "UnlockProcess", "CreateObjectByCLSID"]
 
     /**
+     * Blocks the protected media path (PMP) process from ending.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmpserver-lockprocess
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpserver-lockprocess
      */
     LockProcess() {
         result := ComCall(3, this, "HRESULT")
@@ -57,9 +75,27 @@ class IMFPMPServer extends IUnknown{
     }
 
     /**
+     * Decrements the lock count on the protected media path (PMP) process. Call this method once for each call to IMFPMPServer::LockProcess.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmpserver-unlockprocess
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpserver-unlockprocess
      */
     UnlockProcess() {
         result := ComCall(4, this, "HRESULT")
@@ -67,11 +103,11 @@ class IMFPMPServer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmpserver-createobjectbyclsid
+     * Creates an object in the protected media path (PMP) process.
+     * @param {Pointer<Guid>} clsid CLSID of the object to create.
+     * @param {Pointer<Guid>} riid Interface identifier of the interface to retrieve.
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpserver-createobjectbyclsid
      */
     CreateObjectByCLSID(clsid, riid) {
         result := ComCall(5, this, "ptr", clsid, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")

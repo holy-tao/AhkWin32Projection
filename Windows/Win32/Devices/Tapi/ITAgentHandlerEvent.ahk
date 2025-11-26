@@ -46,9 +46,10 @@ class ITAgentHandlerEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITAgentHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandlerevent-get_agenthandler
+     * The get_AgentHandler method gets the ITAgentHandler interface pointer.
+     * @returns {ITAgentHandler} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagenthandler">ITAgentHandler</a> interface on which the event occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandlerevent-get_agenthandler
      */
     get_AgentHandler() {
         result := ComCall(7, this, "ptr*", &ppAgentHandler := 0, "HRESULT")
@@ -56,9 +57,10 @@ class ITAgentHandlerEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandlerevent-get_event
+     * The get_Event method gets the description for the event that has occurred.
+     * @returns {Integer} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agenthandler_event">AGENTHANDLER_EVENT</a> descriptor.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagenthandlerevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

@@ -49,10 +49,14 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the parent element of the specified UI Automation element.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getparentelement
+     * A pointer to the element for which to retrieve the parent.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the parent element, or <b>NULL</b> if there is no parent element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getparentelement
      */
     GetParentElement(element) {
         result := ComCall(3, this, "ptr", element, "ptr*", &parent := 0, "HRESULT")
@@ -60,10 +64,14 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the first child element of the specified UI Automation element.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getfirstchildelement
+     * A pointer to  the element for which to retrieve the first child.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the first child element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getfirstchildelement
      */
     GetFirstChildElement(element) {
         result := ComCall(4, this, "ptr", element, "ptr*", &first := 0, "HRESULT")
@@ -71,10 +79,14 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the last child element of the specified UI Automation element.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getlastchildelement
+     * A pointer to  the element for which to retrieve the last child.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the last child element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getlastchildelement
      */
     GetLastChildElement(element) {
         result := ComCall(5, this, "ptr", element, "ptr*", &last := 0, "HRESULT")
@@ -82,10 +94,14 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the next sibling element of the specified UI Automation element.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getnextsiblingelement
+     * A pointer to the element for which to retrieve the next sibling.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the next sibling element, or <b>NULL</b> if there is no sibling element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getnextsiblingelement
      */
     GetNextSiblingElement(element) {
         result := ComCall(6, this, "ptr", element, "ptr*", &next := 0, "HRESULT")
@@ -93,10 +109,14 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the previous sibling element of the specified UI Automation element.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getprevioussiblingelement
+     * A pointer to the element for which to retrieve the previous sibling.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the previous sibling element, or <b>NULL</b> if there is no sibling element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getprevioussiblingelement
      */
     GetPreviousSiblingElement(element) {
         result := ComCall(7, this, "ptr", element, "ptr*", &previous := 0, "HRESULT")
@@ -104,10 +124,14 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the ancestor element nearest to the specified Microsoft UI Automation element in the tree view.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-normalizeelement
+     * A pointer to the element from which to start the normalization.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the ancestor element nearest to the specified element in the tree view.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-normalizeelement
      */
     NormalizeElement(element) {
         result := ComCall(8, this, "ptr", element, "ptr*", &normalized := 0, "HRESULT")
@@ -115,11 +139,17 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the parent element of the specified UI Automation element, and caches properties and control patterns.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getparentelementbuildcache
+     * A pointer to the element for which to retrieve the parent.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the properties and control patterns to cache on the returned element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the parent element, or <b>NULL</b> if there is no parent element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getparentelementbuildcache
      */
     GetParentElementBuildCache(element, cacheRequest) {
         result := ComCall(9, this, "ptr", element, "ptr", cacheRequest, "ptr*", &parent := 0, "HRESULT")
@@ -127,11 +157,17 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the first child element of the specified UI Automation element, and caches properties and control patterns.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getfirstchildelementbuildcache
+     * A pointer to the element for which to retrieve the first child.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to  a cache request that specifies the properties and control patterns to cache on the returned element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the first child element, or <b>NULL</b> if there is no child element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getfirstchildelementbuildcache
      */
     GetFirstChildElementBuildCache(element, cacheRequest) {
         result := ComCall(10, this, "ptr", element, "ptr", cacheRequest, "ptr*", &first := 0, "HRESULT")
@@ -139,11 +175,17 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the last child element of the specified UI Automation element, and caches properties and control patterns.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getlastchildelementbuildcache
+     * A pointer to the element for which to retrieve the last child.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the properties and control patterns to cache on the returned element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the last child element, or <b>NULL</b> if there is no child element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getlastchildelementbuildcache
      */
     GetLastChildElementBuildCache(element, cacheRequest) {
         result := ComCall(11, this, "ptr", element, "ptr", cacheRequest, "ptr*", &last := 0, "HRESULT")
@@ -151,11 +193,17 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the next sibling element of the specified UI Automation element, and caches properties and control patterns.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getnextsiblingelementbuildcache
+     * A pointer to the element for which to retrieve the next sibling.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the properties and control patterns to cache on the returned element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the next sibling element, or <b>NULL</b> if there is no sibling element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getnextsiblingelementbuildcache
      */
     GetNextSiblingElementBuildCache(element, cacheRequest) {
         result := ComCall(12, this, "ptr", element, "ptr", cacheRequest, "ptr*", &next := 0, "HRESULT")
@@ -163,11 +211,17 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the previous sibling element of the specified UI Automation element, and caches properties and control patterns.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getprevioussiblingelementbuildcache
+     * A pointer to the element for which to retrieve the previous sibling.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the properties and control patterns to cache on the returned element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the previous sibling element, or <b>NULL</b> if there is no sibling element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getprevioussiblingelementbuildcache
      */
     GetPreviousSiblingElementBuildCache(element, cacheRequest) {
         result := ComCall(13, this, "ptr", element, "ptr", cacheRequest, "ptr*", &previous := 0, "HRESULT")
@@ -175,11 +229,17 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
+     * Retrieves the ancestor element nearest to the specified Microsoft UI Automation element in the tree view, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-normalizeelementbuildcache
+     * A pointer to the element from which to start the normalization.
+     * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request that specifies the properties and control patterns to cache on the returned element.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the ancestor element nearest to the specified element in the tree view.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-normalizeelementbuildcache
      */
     NormalizeElementBuildCache(element, cacheRequest) {
         result := ComCall(14, this, "ptr", element, "ptr", cacheRequest, "ptr*", &normalized := 0, "HRESULT")
@@ -187,9 +247,9 @@ class IUIAutomationTreeWalker extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the condition that defines the view of the UI Automation tree.
      * @returns {IUIAutomationCondition} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-get_condition
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-get_condition
      */
     get_Condition() {
         result := ComCall(15, this, "ptr*", &condition := 0, "HRESULT")

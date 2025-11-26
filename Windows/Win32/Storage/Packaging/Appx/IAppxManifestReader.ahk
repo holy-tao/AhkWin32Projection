@@ -50,9 +50,11 @@ class IAppxManifestReader extends IUnknown{
     static VTableNames => ["GetPackageId", "GetProperties", "GetPackageDependencies", "GetCapabilities", "GetResources", "GetDeviceCapabilities", "GetPrerequisite", "GetApplications", "GetStream"]
 
     /**
-     * Gets the package identifier (ID) for the specified process.
-     * @returns {IAppxManifestPackageId} 
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
+     * Gets the package identifier defined in the manifest.
+     * @returns {IAppxManifestPackageId} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestpackageid">IAppxManifestPackageId</a>**</b>
+     * 
+     * The package identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getpackageid
      */
     GetPackageId() {
         result := ComCall(3, this, "ptr*", &packageId := 0, "HRESULT")
@@ -60,9 +62,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets the properties of the package as defined in the manifest.
+     * @returns {IAppxManifestProperties} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestproperties">IAppxManifestProperties</a>**</b>
      * 
-     * @returns {IAppxManifestProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getproperties
+     * Properties of the package as described by the manifest.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getproperties
      */
     GetProperties() {
         result := ComCall(4, this, "ptr*", &packageProperties := 0, "HRESULT")
@@ -70,9 +74,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets an enumerator that iterates through dependencies defined in the manifest.
+     * @returns {IAppxManifestPackageDependenciesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestpackagedependenciesenumerator">IAppxManifestPackageDependenciesEnumerator</a>**</b>
      * 
-     * @returns {IAppxManifestPackageDependenciesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getpackagedependencies
+     * The enumerator that iterates through the dependencies.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getpackagedependencies
      */
     GetPackageDependencies() {
         result := ComCall(5, this, "ptr*", &dependencies := 0, "HRESULT")
@@ -80,9 +86,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets the list of capabilities requested by the package.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_capabilities">APPX_CAPABILITIES</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getcapabilities
+     * The list of capabilities requested by the package. This is a bitwise combination of  the values of the enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(6, this, "int*", &capabilities := 0, "HRESULT")
@@ -90,9 +98,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets an enumerator that iterates through the resources defined in the manifest.
+     * @returns {IAppxManifestResourcesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestresourcesenumerator">IAppxManifestResourcesEnumerator</a>**</b>
      * 
-     * @returns {IAppxManifestResourcesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getresources
+     * The enumerator that iterates through the resources.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getresources
      */
     GetResources() {
         result := ComCall(7, this, "ptr*", &resources := 0, "HRESULT")
@@ -100,9 +110,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets an enumerator that iterates through the device capabilities defined in the manifest.
+     * @returns {IAppxManifestDeviceCapabilitiesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestdevicecapabilitiesenumerator">IAppxManifestDeviceCapabilitiesEnumerator</a>**</b>
      * 
-     * @returns {IAppxManifestDeviceCapabilitiesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getdevicecapabilities
+     * The enumerator that iterates through the device capabilities.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getdevicecapabilities
      */
     GetDeviceCapabilities() {
         result := ComCall(8, this, "ptr*", &deviceCapabilities := 0, "HRESULT")
@@ -110,10 +122,15 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets the specified prerequisite as defined in the package manifest.
+     * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} name 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getprerequisite
+     * The name of the prerequisite, either "OSMinVersion" or "OSMaxVersionTested".
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
+     * 
+     * The specified prerequisite. In the manifest the dot-trio representation is Major.Minor.AppPlatform. This is converted to the 64-bit value as the follows:
+     * The highest order word contains the Major version. The next word contains the Minor version.	The next word contains the optional AppPlatform version, if specified.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getprerequisite
      */
     GetPrerequisite(name) {
         name := name is String ? StrPtr(name) : name
@@ -123,9 +140,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets an enumerator that iterates through the applications defined in the manifest.
+     * @returns {IAppxManifestApplicationsEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestapplicationsenumerator">IAppxManifestApplicationsEnumerator</a>**</b>
      * 
-     * @returns {IAppxManifestApplicationsEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getapplications
+     * The enumerator that iterates through the applications.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getapplications
      */
     GetApplications() {
         result := ComCall(10, this, "ptr*", &applications := 0, "HRESULT")
@@ -133,9 +152,11 @@ class IAppxManifestReader extends IUnknown{
     }
 
     /**
+     * Gets the raw XML parsed and read by the manifest reader.
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getstream
+     * The read-only stream that represents the XML content of the manifest.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader-getstream
      */
     GetStream() {
         result := ComCall(11, this, "ptr*", &manifestStream := 0, "HRESULT")

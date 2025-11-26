@@ -31,9 +31,11 @@ class IWRdsProtocolShadowCallback extends IUnknown{
     static VTableNames => ["StopShadow", "InvokeTargetShadow"]
 
     /**
+     * Instructs the Remote Desktop Services service to stop shadowing a target.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-stopshadow
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-stopshadow
      */
     StopShadow() {
         result := ComCall(3, this, "HRESULT")
@@ -41,20 +43,22 @@ class IWRdsProtocolShadowCallback extends IUnknown{
     }
 
     /**
+     * Instructs the Remote Desktop Services service to begin the target side of the shadow and passes any information that must be exchanged between the client and the target.
+     * @param {PWSTR} pTargetServerName A pointer to a string that contains the name of the shadow target server.
+     * @param {Integer} TargetSessionId An integer that specifies the ID of the target session to shadow.
+     * @param {Pointer<Integer>} pParam1 A pointer to a buffer that contains an arbitrary parameter.
+     * @param {Integer} Param1Size An integer that contains the size, in bytes, of the value referenced by the <i>pParam1</i> parameter.
+     * @param {Pointer<Integer>} pParam2 A pointer to a buffer that contains an arbitrary parameter.
+     * @param {Integer} Param2Size An integer that contains the size, in bytes, of the value referenced by the <i>pParam2</i> parameter.
+     * @param {Pointer<Integer>} pParam3 A pointer to a buffer that contains an arbitrary parameter.
+     * @param {Integer} Param3Size An integer that contains the size, in bytes, of the value referenced by the <i>pParam3</i> parameter.
+     * @param {Pointer<Integer>} pParam4 A pointer to a buffer that contains an arbitrary parameter.
+     * @param {Integer} Param4Size An integer that contains the size, in bytes, of the value referenced by the <i>pParam4</i> parameter.
+     * @param {PWSTR} pClientName A pointer to a string that contains the name of the shadow client.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {PWSTR} pTargetServerName 
-     * @param {Integer} TargetSessionId 
-     * @param {Pointer<Integer>} pParam1 
-     * @param {Integer} Param1Size 
-     * @param {Pointer<Integer>} pParam2 
-     * @param {Integer} Param2Size 
-     * @param {Pointer<Integer>} pParam3 
-     * @param {Integer} Param3Size 
-     * @param {Pointer<Integer>} pParam4 
-     * @param {Integer} Param4Size 
-     * @param {PWSTR} pClientName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-invoketargetshadow
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-invoketargetshadow
      */
     InvokeTargetShadow(pTargetServerName, TargetSessionId, pParam1, Param1Size, pParam2, Param2Size, pParam3, Param3Size, pParam4, Param4Size, pClientName) {
         pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName

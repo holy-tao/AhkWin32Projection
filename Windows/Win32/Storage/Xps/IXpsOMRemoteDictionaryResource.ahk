@@ -32,9 +32,9 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
     static VTableNames => ["GetDictionary", "SetDictionary"]
 
     /**
-     * 
-     * @returns {IXpsOMDictionary} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-getdictionary
+     * Gets a pointer to the IXpsOMDictionary interface of the remote dictionary that is associated with this resource.
+     * @returns {IXpsOMDictionary} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface of the dictionary that is associated with this resource.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-getdictionary
      */
     GetDictionary() {
         result := ComCall(5, this, "ptr*", &dictionary := 0, "HRESULT")
@@ -42,10 +42,39 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
     }
 
     /**
+     * Sets a pointer to the IXpsOMDictionary interface of the remote dictionary that is to be associated with this resource.
+     * @param {IXpsOMDictionary} dictionary The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface of the dictionary that is to be associated with this resource.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IXpsOMDictionary} dictionary 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-setdictionary
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>dictionary</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-setdictionary
      */
     SetDictionary(dictionary) {
         result := ComCall(6, this, "ptr", dictionary, "HRESULT")

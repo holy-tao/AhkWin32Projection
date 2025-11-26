@@ -63,10 +63,12 @@ class IFsrmReportScheduler extends IDispatch{
     static VTableNames => ["VerifyNamespaces", "CreateScheduleTask", "ModifyScheduleTask", "DeleteScheduleTask"]
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} namespacesSafeArray 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces
+     * Verifies that the specified local directory paths that are used as the source for the reports are valid.
+     * @param {Pointer<VARIANT>} namespacesSafeArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of local 
+     *       directory paths. Each element of the array is a variant of type <b>VT_BSTR</b>. Use the 
+     *       <b>bstrVal</b> member of the variant to set the path.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces
      */
     VerifyNamespaces(namespacesSafeArray) {
         result := ComCall(7, this, "ptr", namespacesSafeArray, "HRESULT")
@@ -74,12 +76,17 @@ class IFsrmReportScheduler extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} taskName 
-     * @param {Pointer<VARIANT>} namespacesSafeArray 
-     * @param {BSTR} serializedTask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask
+     * Creates a scheduled task that is used to trigger a report job.
+     * @param {BSTR} taskName The name of a <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a> 
+     *       task to create. The string is limited to 230 characters.
+     * @param {Pointer<VARIANT>} namespacesSafeArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of local 
+     *       directory paths to verify (see Remarks). Each element of the array is a variant of type 
+     *       <b>VT_BSTR</b>. Use the <b>bstrVal</b> member of the variant to set the 
+     *       path.
+     * @param {BSTR} serializedTask An XML string that defines the Task Scheduler job. For details, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-schema">Task Scheduler Schema</a>.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask
      */
     CreateScheduleTask(taskName, namespacesSafeArray, serializedTask) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
@@ -90,12 +97,17 @@ class IFsrmReportScheduler extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} taskName 
-     * @param {Pointer<VARIANT>} namespacesSafeArray 
-     * @param {BSTR} serializedTask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-modifyscheduletask
+     * Modifies a task that is used to trigger a report job.
+     * @param {BSTR} taskName The name of a <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a> 
+     *       task to modify. The string is limited to 230 characters.
+     * @param {Pointer<VARIANT>} namespacesSafeArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of local 
+     *       directory paths to verify (see Remarks). Each element of the array is a variant of type 
+     *       <b>VT_BSTR</b>. Use the <b>bstrVal</b> member of the variant to set the 
+     *       path.
+     * @param {BSTR} serializedTask An XML string that defines the Task Scheduler job. For details, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-schema">Task Scheduler Schema</a>.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-modifyscheduletask
      */
     ModifyScheduleTask(taskName, namespacesSafeArray, serializedTask) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
@@ -106,10 +118,11 @@ class IFsrmReportScheduler extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} taskName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-deletescheduletask
+     * Deletes a task that is used to trigger a report job.
+     * @param {BSTR} taskName The name of a <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a> 
+     *       task to delete. The string is limited to 230 characters.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-deletescheduletask
      */
     DeleteScheduleTask(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName

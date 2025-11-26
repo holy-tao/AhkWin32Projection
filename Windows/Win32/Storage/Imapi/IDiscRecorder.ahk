@@ -55,11 +55,11 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbyUniqueID 
-     * @param {Integer} ulBufferSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderguid
+     * Retrieves the GUID of the physical disc recorder currently associated with the recorder object.
+     * @param {Pointer<Integer>} pbyUniqueID Pointer to a GUID buffer to be filled in with this recorder's current GUID information. To query the required buffer size, use <b>NULL</b>.
+     * @param {Integer} ulBufferSize Size of the GUID buffer. If <i>pbyUniqueID</i> is <b>NULL</b>, this parameter must be zero.
+     * @returns {Integer} Size of the GUID information.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getrecorderguid
      */
     GetRecorderGUID(pbyUniqueID, ulBufferSize) {
         pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
@@ -69,9 +69,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
+     * Determines whether the disc recorder is a CD-R or CD-RW type device. This does not indicate the type of media that is currently inserted in the device.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecordertype
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getrecordertype
      */
     GetRecorderType() {
         result := ComCall(5, this, "int*", &fTypeCode := 0, "HRESULT")
@@ -79,12 +79,12 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrVendorID 
-     * @param {Pointer<BSTR>} pbstrProductID 
-     * @param {Pointer<BSTR>} pbstrRevision 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getdisplaynames
+     * Retrieves a formatted name for the recorder that can be displayed. The name consists of the manufacturer and product identifier of the device.
+     * @param {Pointer<BSTR>} pbstrVendorID Vendor of the disc recorder. This parameter can be <b>NULL</b>.
+     * @param {Pointer<BSTR>} pbstrProductID Product name of the disc recorder. This parameter can be <b>NULL</b>.
+     * @param {Pointer<BSTR>} pbstrRevision Revision of the disc recorder. This is typically the revision of the recorder firmware, but it can be a revision for the entire device. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getdisplaynames
      */
     GetDisplayNames(pbstrVendorID, pbstrProductID, pbstrRevision) {
         result := ComCall(6, this, "ptr", pbstrVendorID, "ptr", pbstrProductID, "ptr", pbstrRevision, "HRESULT")
@@ -92,9 +92,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getbasepnpid
+     * Retrieves a base PnP string that can be used to consistently identify a specific class of device by make and model. The string can be used by applications to customize their behavior according to the specific recorder type.
+     * @returns {BSTR} Base PnP ID string. The string is a concatenation of a recorder's manufacturer, product ID, and revision information (if available).
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getbasepnpid
      */
     GetBasePnPID() {
         pbstrBasePnPID := BSTR()
@@ -103,9 +103,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
+     * Retrieves a path to the device within the operating system. This path should be used in conjunction with the display name to completely identify an available disc recorder.
+     * @returns {BSTR} Path to the disc recorder. This path may be of the form \Device\CdRom<i>X</i>, but you should not rely on the path following this convention.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getpath
      */
     GetPath() {
         pbstrPath := BSTR()
@@ -114,9 +114,10 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IPropertyStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderproperties
+     * Retrieves a pointer to an IPropertyStorage interface.
+     * @returns {IPropertyStorage} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface to the property set with all current properties defined.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getrecorderproperties
      */
     GetRecorderProperties() {
         result := ComCall(9, this, "ptr*", &ppPropStg := 0, "HRESULT")
@@ -124,10 +125,11 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IPropertyStorage} pPropStg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-setrecorderproperties
+     * Accepts an IPropertyStorage pointer for an object with all the properties that the application wishes to change. Sparse settings are supported.
+     * @param {IPropertyStorage} pPropStg Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface that the disc recorder can use to retrieve new settings on various properties.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-setrecorderproperties
      */
     SetRecorderProperties(pPropStg) {
         result := ComCall(10, this, "ptr", pPropStg, "HRESULT")
@@ -135,9 +137,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the disc recorder state.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderstate
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-getrecorderstate
      */
     GetRecorderState() {
         result := ComCall(11, this, "uint*", &pulDevStateFlags := 0, "HRESULT")
@@ -145,9 +147,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-openexclusive
+     * Opens a disc recorder for exclusive access.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-openexclusive
      */
     OpenExclusive() {
         result := ComCall(12, this, "HRESULT")
@@ -155,11 +157,11 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
+     * Detects the type of media currently inserted in the recorder, if any.
      * @param {Pointer<Integer>} fMediaType 
      * @param {Pointer<Integer>} fMediaFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediatype
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-querymediatype
      */
     QueryMediaType(fMediaType, fMediaFlags) {
         fMediaTypeMarshal := fMediaType is VarRef ? "int*" : "ptr"
@@ -170,14 +172,14 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbSessions 
-     * @param {Pointer<Integer>} pbLastTrack 
-     * @param {Pointer<Integer>} ulStartAddress 
-     * @param {Pointer<Integer>} ulNextWritable 
-     * @param {Pointer<Integer>} ulFreeBlocks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediainfo
+     * Retrieves information about the currently mounted media, such as the total number of blocks used on the media.
+     * @param {Pointer<Integer>} pbSessions Number of sessions on the disc.
+     * @param {Pointer<Integer>} pbLastTrack Track number of the last track of the previous session.
+     * @param {Pointer<Integer>} ulStartAddress Start address of the last track of the previous session.
+     * @param {Pointer<Integer>} ulNextWritable Address at which writing is to begin.
+     * @param {Pointer<Integer>} ulFreeBlocks Number of blocks available for writing.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-querymediainfo
      */
     QueryMediaInfo(pbSessions, pbLastTrack, ulStartAddress, ulNextWritable, ulFreeBlocks) {
         pbSessionsMarshal := pbSessions is VarRef ? "char*" : "ptr"
@@ -191,9 +193,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-eject
+     * Unlocks and ejects the tray of the disc recorder, if possible.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-eject
      */
     Eject() {
         result := ComCall(15, this, "HRESULT")
@@ -201,10 +203,10 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bFullErase 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-erase
+     * Attempts to erase the CD-RW media if this is a CD-RW disc recorder. Both full and quick erases are supported.
+     * @param {Integer} bFullErase Indicates the erase type. If this parameter is <b>FALSE</b>, a quick erase is performed. If this parameter is <b>TRUE</b>, a full erase is performed.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-erase
      */
     Erase(bFullErase) {
         result := ComCall(16, this, "char", bFullErase, "HRESULT")
@@ -212,9 +214,9 @@ class IDiscRecorder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-close
+     * Releases exclusive access to a disc recorder. This restores file system access to the drive.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscrecorder-close
      */
     Close() {
         result := ComCall(17, this, "HRESULT")

@@ -46,10 +46,60 @@ class ISBE2StreamMap extends IUnknown{
     static VTableNames => ["MapStream", "UnmapStream", "EnumMappedStreams"]
 
     /**
+     * Maps a stream to an output pin for a Stream Buffer Source filter.
+     * @param {Integer} Stream Identifier for the stream mapped to an output pin. The major type of the stream must match the major type of the pin.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
      * 
-     * @param {Integer} Stream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2streammap-mapstream
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified stream has already been mapped to a pin.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Cannot unmap the stream, because the default mode is enabled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32 (ERROR_NOT_FOUND)</b></dt>
+     * <dt>0x80070490</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No stream exists with the specified stream identifier.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2streammap-mapstream
      */
     MapStream(Stream) {
         result := ComCall(3, this, "uint", Stream, "HRESULT")
@@ -57,10 +107,48 @@ class ISBE2StreamMap extends IUnknown{
     }
 
     /**
+     * Removes the mapping between a stream and an output pin for a Stream Buffer Source filter.
+     * @param {Integer} Stream Identifier for the stream. This stream will be unmapped from the output pin.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified stream does not exist or was not previously mapped to a pin.
      * 
-     * @param {Integer} Stream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2streammap-unmapstream
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Cannot unmap the stream, because the default mode is enabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2streammap-unmapstream
      */
     UnmapStream(Stream) {
         result := ComCall(4, this, "uint", Stream, "HRESULT")
@@ -68,9 +156,10 @@ class ISBE2StreamMap extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ISBE2EnumStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2streammap-enummappedstreams
+     * Enumerates streams that are mapped to output pins in a Stream Buffer Source filter.
+     * @returns {ISBE2EnumStream} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-isbe2enumstream">ISBE2EnumStream</a> interface for an enumeration object that lists all streams mapped to the filter outputs pin.
+     *           The caller is responsible for freeing the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2streammap-enummappedstreams
      */
     EnumMappedStreams() {
         result := ComCall(5, this, "ptr*", &ppStreams := 0, "HRESULT")

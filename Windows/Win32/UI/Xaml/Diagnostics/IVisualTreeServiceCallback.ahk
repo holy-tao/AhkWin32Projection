@@ -31,12 +31,12 @@ class IVisualTreeServiceCallback extends IUnknown{
     static VTableNames => ["OnVisualTreeChange"]
 
     /**
-     * 
-     * @param {ParentChildRelation} relation 
-     * @param {VisualElement} element 
-     * @param {Integer} mutationType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservicecallback-onvisualtreechange
+     * Communicates the state of the visual tree when it changes.
+     * @param {ParentChildRelation} relation The association of  a parent object with a child object.
+     * @param {VisualElement} element The XAML element in the visual tree.
+     * @param {Integer} mutationType A value that indicates whether the change was an add or remove.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservicecallback-onvisualtreechange
      */
     OnVisualTreeChange(relation, element, mutationType) {
         result := ComCall(3, this, "ptr", relation, "ptr", element, "int", mutationType, "HRESULT")

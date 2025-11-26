@@ -36,10 +36,10 @@ class IBDA_PinControl extends IUnknown{
     static VTableNames => ["GetPinID", "GetPinType", "RegistrationContext"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulPinID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpinid
+     * The GetPinID method retrieves the ID of the pin.
+     * @param {Pointer<Integer>} pulPinID Pointer that receives the pin's identifier.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_pincontrol-getpinid
      */
     GetPinID(pulPinID) {
         pulPinIDMarshal := pulPinID is VarRef ? "uint*" : "ptr"
@@ -49,10 +49,10 @@ class IBDA_PinControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulPinType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpintype
+     * The GetPinType method retrieves the type of the pin.
+     * @param {Pointer<Integer>} pulPinType Pointer that receives the pin type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_pincontrol-getpintype
      */
     GetPinType(pulPinType) {
         pulPinTypeMarshal := pulPinType is VarRef ? "uint*" : "ptr"
@@ -62,10 +62,10 @@ class IBDA_PinControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulRegistrationCtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-registrationcontext
+     * The RegistrationContext method retrieves the registration context of a particular pin.
+     * @param {Pointer<Integer>} pulRegistrationCtx Pointer that receives the registration context.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_pincontrol-registrationcontext
      */
     RegistrationContext(pulRegistrationCtx) {
         pulRegistrationCtxMarshal := pulRegistrationCtx is VarRef ? "uint*" : "ptr"

@@ -32,10 +32,10 @@ class IWinMLRuntimeFactory extends IUnknown{
     static VTableNames => ["CreateRuntime"]
 
     /**
-     * 
-     * @param {Integer} RuntimeType 
-     * @returns {IWinMLRuntime} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntimefactory-createruntime
+     * Creates a WinML runtime.
+     * @param {Integer} RuntimeType A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_runtime_type">WINML_RUNTIME_TYPE</a> that decribes the type of WinML runtime.
+     * @returns {IWinMLRuntime} A pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlruntime">IWinMLRuntime</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlruntimefactory-createruntime
      */
     CreateRuntime(RuntimeType) {
         result := ComCall(3, this, "int", RuntimeType, "ptr*", &ppRuntime := 0, "HRESULT")

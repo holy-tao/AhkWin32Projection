@@ -65,10 +65,10 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets a string in the collection.
      * @param {Integer} index 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-get_item
      */
     get_Item(index) {
         retval := BSTR()
@@ -77,11 +77,11 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets a string in the collection.
      * @param {Integer} index 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-put_item
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-put_item
      */
     put_Item(index, value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -91,9 +91,9 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an IEnumVARIANT interface that can be used to enumerate the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
@@ -101,9 +101,9 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of elements in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-get_count
      */
     get_Count() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
@@ -111,9 +111,9 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the collection is read-only.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_readonly
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-get_readonly
      */
     get_ReadOnly() {
         result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
@@ -121,10 +121,10 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} value 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-add
+     * Adds an item to the collection.
+     * @param {BSTR} value A string to be added to the collection.
+     * @returns {Integer} The index of the added interface in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-add
      */
     Add(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -134,9 +134,29 @@ class IStringCollection extends IDispatch{
     }
 
     /**
+     * Removes all the elements from the collection.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-clear
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-clear
      */
     Clear() {
         result := ComCall(13, this, "HRESULT")
@@ -144,9 +164,9 @@ class IStringCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IStringCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-copy
+     * Creates a deep read/write copy of the collection.
+     * @returns {IStringCollection} A deep read/write copy of the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-copy
      */
     Copy() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
@@ -154,11 +174,42 @@ class IStringCollection extends IDispatch{
     }
 
     /**
+     * Inserts an item into the collection at the specified position.
+     * @param {Integer} index The position at which a new string is inserted.
+     * @param {BSTR} value The string to be inserted.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @param {Integer} index 
-     * @param {BSTR} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-insert
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_INVALIDINDEX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An index is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-insert
      */
     Insert(index, value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -168,10 +219,41 @@ class IStringCollection extends IDispatch{
     }
 
     /**
+     * Removes the item at the specified index from the collection.
+     * @param {Integer} index The index of the string to be removed.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @param {Integer} index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-removeat
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_INVALIDINDEX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An index is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-istringcollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(16, this, "int", index, "HRESULT")

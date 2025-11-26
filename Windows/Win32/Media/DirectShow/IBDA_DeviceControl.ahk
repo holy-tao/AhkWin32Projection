@@ -36,9 +36,9 @@ class IBDA_DeviceControl extends IUnknown{
     static VTableNames => ["StartChanges", "CheckChanges", "CommitChanges", "GetChangeState"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_devicecontrol-startchanges
+     * The StartChanges method is called by a Network Provider before it begins to modify a set of properties on a BDA device filter.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-startchanges
      */
     StartChanges() {
         result := ComCall(3, this, "HRESULT")
@@ -46,9 +46,9 @@ class IBDA_DeviceControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_devicecontrol-checkchanges
+     * The CheckChanges method queries the device filter as to whether the changes that are pending would succeed if they were committed.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-checkchanges
      */
     CheckChanges() {
         result := ComCall(4, this, "HRESULT")
@@ -56,9 +56,9 @@ class IBDA_DeviceControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_devicecontrol-commitchanges
+     * The CommitChanges method instructs the device to perform the changes specified in the previous call to StartChanges.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-commitchanges
      */
     CommitChanges() {
         result := ComCall(5, this, "HRESULT")
@@ -66,10 +66,10 @@ class IBDA_DeviceControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_devicecontrol-getchangestate
+     * The GetChangeState method returns a value indicating whether any uncommitted changes are currently pending in the filter.
+     * @param {Pointer<Integer>} pState Receives the current state of the filter. See BDA_CHANGE_STATE in the Windows DDK for possible values.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-getchangestate
      */
     GetChangeState(pState) {
         pStateMarshal := pState is VarRef ? "uint*" : "ptr"

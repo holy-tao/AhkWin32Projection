@@ -31,9 +31,9 @@ class IWMProfile2 extends IWMProfile{
     static VTableNames => ["GetProfileID"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile2-getprofileid
+     * The GetProfileID method retrieves the globally unique identifier of a system profile.
+     * @returns {Guid} Pointer to a GUID specifying the ID of the profile. It the profile is not a system profile, this is set to GUID_NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile2-getprofileid
      */
     GetProfileID() {
         pguidID := Guid()

@@ -46,9 +46,11 @@ class IFileOpenDialog extends IFileDialog{
     static VTableNames => ["GetResults", "GetSelectedItems"]
 
     /**
+     * Gets the user's choices in a dialog that allows multiple selection.
+     * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
-     * @returns {IShellItemArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileopendialog-getresults
+     * The address of a pointer to an <b>IShellItemArray</b> through which the items selected in the dialog can be accessed.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileopendialog-getresults
      */
     GetResults() {
         result := ComCall(27, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -56,9 +58,11 @@ class IFileOpenDialog extends IFileDialog{
     }
 
     /**
+     * Gets the currently selected items in the dialog. These items may be items selected in the view, or text selected in the file name edit box.
+     * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
-     * @returns {IShellItemArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileopendialog-getselecteditems
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> through which the selected items can be accessed.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileopendialog-getselecteditems
      */
     GetSelectedItems() {
         result := ComCall(28, this, "ptr*", &ppsai := 0, "HRESULT")

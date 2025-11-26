@@ -31,10 +31,28 @@ class IWMPSubscriptionServiceCallback extends IUnknown{
     static VTableNames => ["onComplete"]
 
     /**
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The onComplete method notifies Windows Media Player when a background process is completed.
+     * @param {HRESULT} hrResult <b>HRESULT</b> success or error code.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HRESULT} hrResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservicecallback-oncomplete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservicecallback-oncomplete
      */
     onComplete(hrResult) {
         result := ComCall(3, this, "int", hrResult, "HRESULT")

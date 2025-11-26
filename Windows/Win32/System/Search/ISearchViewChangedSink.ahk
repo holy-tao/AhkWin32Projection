@@ -31,12 +31,12 @@ class ISearchViewChangedSink extends IUnknown{
     static VTableNames => ["OnChange"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwDocID 
-     * @param {Pointer<SEARCH_ITEM_CHANGE>} pChange 
-     * @param {Pointer<BOOL>} pfInView 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchviewchangedsink-onchange
+     * Not implemented.
+     * @param {Pointer<Integer>} pdwDocID This parameter is unused.
+     * @param {Pointer<SEARCH_ITEM_CHANGE>} pChange This parameter is unused.
+     * @param {Pointer<BOOL>} pfInView This parameter is unused.
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchviewchangedsink-onchange
      */
     OnChange(pdwDocID, pChange, pfInView) {
         pdwDocIDMarshal := pdwDocID is VarRef ? "int*" : "ptr"

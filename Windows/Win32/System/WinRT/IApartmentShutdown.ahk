@@ -36,10 +36,10 @@ class IApartmentShutdown extends IUnknown{
     static VTableNames => ["OnUninitialize"]
 
     /**
-     * 
-     * @param {Integer} ui64ApartmentIdentifier 
+     * Called when a registered apartment is shut down.
+     * @param {Integer} ui64ApartmentIdentifier The apartment Identifier of the apartment that is shutting down
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iapartmentshutdown-onuninitialize
      */
     OnUninitialize(ui64ApartmentIdentifier) {
         ComCall(3, this, "uint", ui64ApartmentIdentifier)

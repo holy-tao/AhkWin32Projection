@@ -96,9 +96,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba
+     * Retrieves the LBA of the first user sectors in this track.
+     * @returns {Integer} The LBA of the first user sectors in this track.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba
      */
     get_StartingLba() {
         result := ComCall(7, this, "int*", &value := 0, "HRESULT")
@@ -106,9 +106,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectorcount
+     * Retrieves the number of user sectors in this track.
+     * @returns {Integer} The number of user sectors in this track.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectorcount
      */
     get_SectorCount() {
         result := ComCall(8, this, "int*", &value := 0, "HRESULT")
@@ -116,9 +116,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_tracknumber
+     * Retrieves the track number for this track.
+     * @returns {Integer} The track number for this track.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_tracknumber
      */
     get_TrackNumber() {
         result := ComCall(9, this, "int*", &value := 0, "HRESULT")
@@ -126,9 +126,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
+     * Retrieves the type of data provided for the sectors in this track. For more detail on the possible sector types, see IMAPI_CD_SECTOR_TYPE.
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_cd_sector_type">IMAPI_CD_SECTOR_TYPE</a> enumeration that specifies the type of data provided for the sectors on the track.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
      */
     get_SectorType() {
         result := ComCall(10, this, "int*", &value := 0, "HRESULT")
@@ -136,9 +136,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
+     * Retrieves the International Standard Recording Code (ISRC) currently associated with the track. This property value defaults to NULL (or a zero-length string) and may only be set for tracks containing audio data.
+     * @returns {BSTR} The ISRC currently associated with the track.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
      */
     get_ISRC() {
         value := BSTR()
@@ -147,10 +147,10 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-put_isrc
+     * Sets the International Standard Recording Code (ISRC) currently associated with the track. This property value defaults to NULL (or a zero-length string) and may only be set for tracks containing audio data.
+     * @param {BSTR} value The ISRC to associate with the track.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-put_isrc
      */
     put_ISRC(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -160,9 +160,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
+     * Retrieves the value for the bit that represents the current digital audio copy setting on the resulting media. Please see the IMAPI_CD_TRACK_DIGITAL_COPY_SETTING enumeration for possible values.
+     * @returns {Integer} The current digital audio copy setting.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
      */
     get_DigitalAudioCopySetting() {
         result := ComCall(13, this, "int*", &value := 0, "HRESULT")
@@ -170,10 +170,10 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-put_digitalaudiocopysetting
+     * Sets the digital audio copy &quot;Allowed&quot; bit to one of three values on the resulting media. Please see the IMAPI_CD_TRACK_DIGITAL_COPY_SETTING enumeration for additional information on each possible value.
+     * @param {Integer} value The digital audio copy setting value to assign.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-put_digitalaudiocopysetting
      */
     put_DigitalAudioCopySetting(value) {
         result := ComCall(14, this, "int", value, "HRESULT")
@@ -181,9 +181,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_audiohaspreemphasis
+     * Retrieves the value that specifies if an audio track has an additional pre-emphasis added to the audio data.
+     * @returns {VARIANT_BOOL} Value that specifies if an audio track has an additional pre-emphasis added to the audio data.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_audiohaspreemphasis
      */
     get_AudioHasPreemphasis() {
         result := ComCall(15, this, "short*", &value := 0, "HRESULT")
@@ -191,10 +191,10 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-put_audiohaspreemphasis
+     * Sets the value that specifies if an audio track has an additional pre-emphasis added to the audio data prior to being written to CD.
+     * @param {VARIANT_BOOL} value Value that specifies if an audio track has an additional pre-emphasis added to the audio data.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-put_audiohaspreemphasis
      */
     put_AudioHasPreemphasis(value) {
         result := ComCall(16, this, "short", value, "HRESULT")
@@ -202,9 +202,9 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_trackindexes
+     * Retrieves the one-based index of the tracks on the disc.
+     * @returns {Pointer<SAFEARRAY>} The one-based index associated with this track.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_trackindexes
      */
     get_TrackIndexes() {
         result := ComCall(17, this, "ptr*", &value := 0, "HRESULT")

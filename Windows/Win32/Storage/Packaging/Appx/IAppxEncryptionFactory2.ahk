@@ -32,15 +32,15 @@ class IAppxEncryptionFactory2 extends IUnknown{
     static VTableNames => ["CreateEncryptedPackageWriter"]
 
     /**
-     * 
-     * @param {IStream} outputStream 
-     * @param {IStream} manifestStream 
-     * @param {IStream} contentGroupMapStream 
-     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS>} settings 
-     * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @returns {IAppxEncryptedPackageWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory2-createencryptedpackagewriter
+     * Creates a new instance of an IAppxEncryptedPackageWriter.
+     * @param {IStream} outputStream A writeable stream for sending bytes produced by the app package.
+     * @param {IStream} manifestStream A readable stream that defines the package for the  AppxManifest.xml.
+     * @param {IStream} contentGroupMapStream A stream that defines the content group map.
+     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS>} settings Settings for creating the package.
+     * @param {Pointer<APPX_KEY_INFO>} keyInfo Key info containing the base encryption key and key ID for encrypting the package. The base encryption key is used to derive the per file encryption keys. If this parameter is null, the global test key and key ID are used.
+     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles Files exempted from the package writer.
+     * @returns {IAppxEncryptedPackageWriter} The package writer object created.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptionfactory2-createencryptedpackagewriter
      */
     CreateEncryptedPackageWriter(outputStream, manifestStream, contentGroupMapStream, settings, keyInfo, exemptedFiles) {
         result := ComCall(3, this, "ptr", outputStream, "ptr", manifestStream, "ptr", contentGroupMapStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")

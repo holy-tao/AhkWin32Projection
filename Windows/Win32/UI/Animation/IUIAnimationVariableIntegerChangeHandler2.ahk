@@ -31,14 +31,20 @@ class IUIAnimationVariableIntegerChangeHandler2 extends IUnknown{
     static VTableNames => ["OnIntegerValueChanged"]
 
     /**
+     * Handles events that occur when the integer value of an animation variable changes in the specified dimension.
+     * @param {IUIAnimationStoryboard2} storyboard The storyboard that is animating the animation variable specified by the <i>variable</i> parameter.
+     * @param {IUIAnimationVariable2} variable The animation variable that has been updated.
+     * @param {Pointer<Integer>} newValue The new integer value of the animation variable.
      * 
-     * @param {IUIAnimationStoryboard2} storyboard 
-     * @param {IUIAnimationVariable2} variable 
-     * @param {Pointer<Integer>} newValue 
-     * @param {Pointer<Integer>} previousValue 
-     * @param {Integer} cDimension 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler2-onintegervaluechanged
+     * <div class="alert"><b>Note</b>  The rounding mode for an animation variable is specified using the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationvariable2-setroundingmode">SetRoundingMode</a> method.</div>
+     * <div> </div>
+     * @param {Pointer<Integer>} previousValue The previous integer value of the animation variable.
+     * 
+     * <div class="alert"><b>Note</b>  The rounding mode for an animation variable is specified using the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationvariable2-setroundingmode">SetRoundingMode</a> method.</div>
+     * <div> </div>
+     * @param {Integer} cDimension The dimension in which the integer value of the animation variable changed.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariableintegerchangehandler2-onintegervaluechanged
      */
     OnIntegerValueChanged(storyboard, variable, newValue, previousValue, cDimension) {
         newValueMarshal := newValue is VarRef ? "int*" : "ptr"

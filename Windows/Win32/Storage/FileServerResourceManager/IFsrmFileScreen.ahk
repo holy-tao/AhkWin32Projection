@@ -77,9 +77,16 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     }
 
     /**
+     * Retrieves the directory path associated with the file screen object.
+     * @remarks
+     * 
+     * Note that the file screen remains associated with the directory if the directory is renamed. If the directory 
+     *     is deleted, so is the file screen.
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path
      */
     get_Path() {
         path := BSTR()
@@ -88,9 +95,9 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     }
 
     /**
-     * 
+     * Retrieves the name of the template from which this file screen object was derived.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_sourcetemplatename
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_sourcetemplatename
      */
     get_SourceTemplateName() {
         fileScreenTemplateName := BSTR()
@@ -99,9 +106,9 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     }
 
     /**
-     * 
+     * Retrieves a value that determines whether the property values of this file screen object match those values of the template from which the object was derived.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_matchessourcetemplate
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_matchessourcetemplate
      */
     get_MatchesSourceTemplate() {
         result := ComCall(20, this, "short*", &matches := 0, "HRESULT")
@@ -109,9 +116,9 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     }
 
     /**
-     * 
+     * The SID of the user whose files will be screened.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_usersid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_usersid
      */
     get_UserSid() {
         userSid := BSTR()
@@ -120,9 +127,9 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     }
 
     /**
-     * 
+     * The account name of the user whose files will be screened.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_useraccount
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_useraccount
      */
     get_UserAccount() {
         userAccount := BSTR()
@@ -131,10 +138,10 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
     }
 
     /**
-     * 
-     * @param {BSTR} fileScreenTemplateName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-applytemplate
+     * Applies the property values of the specified file screen template to this file screen object.
+     * @param {BSTR} fileScreenTemplateName The name of the file screen template. The string is limited to 4,000 characters.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-applytemplate
      */
     ApplyTemplate(fileScreenTemplateName) {
         fileScreenTemplateName := fileScreenTemplateName is String ? BSTR.Alloc(fileScreenTemplateName).Value : fileScreenTemplateName

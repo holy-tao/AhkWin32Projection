@@ -37,10 +37,10 @@ class ICredentialProviderCredentialWithFieldOptions extends IUnknown{
     static VTableNames => ["GetFieldOptions"]
 
     /**
-     * 
-     * @param {Integer} fieldID 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialwithfieldoptions-getfieldoptions
+     * Retrieves the current option set for a specified field in a logon or credential UI. Called by the credential provider framework.
+     * @param {Integer} fieldID The ID of the field in the logon or credential UI.
+     * @returns {Integer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/ne-credentialprovider-credential_provider_credential_field_options">CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS</a> value that, when this method returns successfully, receives one or more flags that specify the current options for the field.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialwithfieldoptions-getfieldoptions
      */
     GetFieldOptions(fieldID) {
         result := ComCall(3, this, "uint", fieldID, "int*", &options := 0, "HRESULT")

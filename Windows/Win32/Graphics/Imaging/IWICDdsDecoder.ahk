@@ -37,9 +37,11 @@ class IWICDdsDecoder extends IUnknown{
     static VTableNames => ["GetParameters", "GetFrame"]
 
     /**
+     * Gets DDS-specific data.
+     * @returns {WICDdsParameters} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicddsparameters">WICDdsParameters</a>*</b>
      * 
-     * @returns {WICDdsParameters} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsdecoder-getparameters
+     * A pointer to the structure where the information is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsdecoder-getparameters
      */
     GetParameters() {
         pParameters := WICDdsParameters()
@@ -48,12 +50,20 @@ class IWICDdsDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves the specified frame of the DDS image.
+     * @param {Integer} arrayIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} arrayIndex 
-     * @param {Integer} mipLevel 
-     * @param {Integer} sliceIndex 
-     * @returns {IWICBitmapFrameDecode} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsdecoder-getframe
+     * The requested index within the texture array.
+     * @param {Integer} mipLevel Type: <b>UINT</b>
+     * 
+     * The requested mip level.
+     * @param {Integer} sliceIndex Type: <b>UINT</b>
+     * 
+     * The requested slice within the 3D texture.
+     * @returns {IWICBitmapFrameDecode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a>**</b>
+     * 
+     * A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsdecoder-getframe
      */
     GetFrame(arrayIndex, mipLevel, sliceIndex) {
         result := ComCall(4, this, "uint", arrayIndex, "uint", mipLevel, "uint", sliceIndex, "ptr*", &ppIBitmapFrame := 0, "HRESULT")

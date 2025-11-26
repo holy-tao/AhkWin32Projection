@@ -32,11 +32,11 @@ class IWTSBitmapRenderService extends IUnknown{
     static VTableNames => ["GetMappedRenderer"]
 
     /**
-     * 
-     * @param {Integer} mappingId 
-     * @param {IWTSBitmapRendererCallback} pMappedRendererCallback 
-     * @returns {IWTSBitmapRenderer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderservice-getmappedrenderer
+     * Obtains the bitmap rendering object used to render media on the server.
+     * @param {Integer} mappingId A 64-bit number that uniquely identifies the render mapping.
+     * @param {IWTSBitmapRendererCallback} pMappedRendererCallback The address of the caller's <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderercallback">IWTSBitmapRendererCallback</a> interface.
+     * @returns {IWTSBitmapRenderer} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderer">IWTSBitmapRenderer</a> interface pointer that receives the bitmap renderer. When you have finished using pointer, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release()</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderservice-getmappedrenderer
      */
     GetMappedRenderer(mappingId, pMappedRendererCallback) {
         result := ComCall(3, this, "uint", mappingId, "ptr", pMappedRendererCallback, "ptr*", &ppMappedRenderer := 0, "HRESULT")

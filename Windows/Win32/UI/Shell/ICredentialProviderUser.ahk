@@ -40,9 +40,9 @@ class ICredentialProviderUser extends IUnknown{
     static VTableNames => ["GetSid", "GetProviderID", "GetStringValue", "GetValue"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getsid
+     * Retrieves the user's security identifier (SID).
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID. It is the responsibility of the caller to free this resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruser-getsid
      */
     GetSid() {
         result := ComCall(3, this, "ptr*", &sid := 0, "HRESULT")
@@ -50,9 +50,9 @@ class ICredentialProviderUser extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getproviderid
+     * Retrieves the ID of the account provider for this user.
+     * @returns {Guid} A pointer to a value that, when this method returns successfully, receives the GUID of the user's account provider.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruser-getproviderid
      */
     GetProviderID() {
         providerID := Guid()
@@ -61,10 +61,10 @@ class ICredentialProviderUser extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves string properties from the ICredentialProviderUser object based on the input value.
      * @param {Pointer<PROPERTYKEY>} key 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getstringvalue
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the requested string.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruser-getstringvalue
      */
     GetStringValue(key) {
         result := ComCall(5, this, "ptr", key, "ptr*", &stringValue := 0, "HRESULT")
@@ -72,10 +72,10 @@ class ICredentialProviderUser extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a specified property value set for the user.
      * @param {Pointer<PROPERTYKEY>} key 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getvalue
+     * @returns {PROPVARIANT} A pointer to a value that, when this method returns successfully, receives the requested property value.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruser-getvalue
      */
     GetValue(key) {
         value := PROPVARIANT()

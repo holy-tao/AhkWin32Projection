@@ -31,10 +31,10 @@ class IWinMLEvaluationContext extends IUnknown{
     static VTableNames => ["BindValue", "GetValueByName", "Clear"]
 
     /**
-     * 
-     * @param {Pointer<WINML_BINDING_DESC>} pDescriptor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-bindvalue
+     * Binds the input/output to the given model.
+     * @param {Pointer<WINML_BINDING_DESC>} pDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winml/ns-winml-winml_binding_desc">WINML_BINDING_DESC</a> containing the input/output binding descriptor.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlevaluationcontext-bindvalue
      */
     BindValue(pDescriptor) {
         result := ComCall(3, this, "ptr", pDescriptor, "HRESULT")
@@ -42,10 +42,10 @@ class IWinMLEvaluationContext extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} Name 
-     * @returns {Pointer<WINML_BINDING_DESC>} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-getvaluebyname
+     * Returns the input/output description for the specific binding name.
+     * @param {PWSTR} Name The name of the binding.
+     * @returns {Pointer<WINML_BINDING_DESC>} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winml/ns-winml-winml_binding_desc">WINML_BINDING_DESC</a> containing the specified (Name) binding description.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlevaluationcontext-getvaluebyname
      */
     GetValueByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -55,9 +55,9 @@ class IWinMLEvaluationContext extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-clear
+     * Clears the bindings for a model.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlevaluationcontext-clear
      */
     Clear() {
         result := ComCall(5, this, "HRESULT")

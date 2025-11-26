@@ -31,10 +31,12 @@ class IShellRunDll extends IUnknown{
     static VTableNames => ["Run"]
 
     /**
+     * Not supported.
+     * @param {PWSTR} pszArgs Type: <b>LPCWSTR</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {PWSTR} pszArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ishellrundll-run
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ishellrundll-run
      */
     Run(pszArgs) {
         pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs

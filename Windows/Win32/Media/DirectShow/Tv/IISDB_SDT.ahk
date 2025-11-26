@@ -31,10 +31,11 @@ class IISDB_SDT extends IDVB_SDT{
     static VTableNames => ["GetRecordEITUserDefinedFlags"]
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdt-getrecordeituserdefinedflags
+     * Returns the EIT_user_defined_flags field value from a service descriptor in an Integrated Services Digital Broadcasting (ISDB) service description table (SDT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getcountofrecords">IDVB_SDT::GetCountOfRecords</a>method to get the number of records in the SDT.
+     * @returns {Integer} Receives the EIT_user_defined_flags field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdt-getrecordeituserdefinedflags
      */
     GetRecordEITUserDefinedFlags(dwRecordIndex) {
         result := ComCall(21, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")

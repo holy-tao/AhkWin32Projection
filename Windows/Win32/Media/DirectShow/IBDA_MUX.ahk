@@ -35,11 +35,11 @@ class IBDA_MUX extends IUnknown{
     static VTableNames => ["SetPidList", "GetPidList"]
 
     /**
-     * 
-     * @param {Integer} ulPidListCount 
-     * @param {Pointer<BDA_MUX_PIDLISTITEM>} pbPidListBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_mux-setpidlist
+     * Sets the list of packet identifiers (PIDs) that are enabled to go across the Protected Broadcast Driver Architecture (PBDA) interface.
+     * @param {Integer} ulPidListCount The number of elements in the <i>pbPidListBuffer</i> array.
+     * @param {Pointer<BDA_MUX_PIDLISTITEM>} pbPidListBuffer Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bda-mux-pidlistitem">BDA_MUX_PIDLISTITEM</a> structures.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_mux-setpidlist
      */
     SetPidList(ulPidListCount, pbPidListBuffer) {
         result := ComCall(3, this, "uint", ulPidListCount, "ptr", pbPidListBuffer, "HRESULT")
@@ -47,11 +47,40 @@ class IBDA_MUX extends IUnknown{
     }
 
     /**
+     * Gets the list of packet identifiers (PIDs) that are enabled to go across the Protected Broadcast Driver Architecture (PBDA) interface.
+     * @param {Pointer<Integer>} pulPidListCount On input, specifies the size, in array elements, of the <i>pbPidListBuffer</i> array. On output, receives the number of PIDs.
+     * @param {Pointer<BDA_MUX_PIDLISTITEM>} pbPidListBuffer Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bda-mux-pidlistitem">BDA_MUX_PIDLISTITEM</a> structures. The method fills in the array with the list of PIDs.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} pulPidListCount 
-     * @param {Pointer<BDA_MUX_PIDLISTITEM>} pbPidListBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_mux-getpidlist
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>E_NOT_SUFFICIENT_BUFFER</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pbPidListBuffer</i> array is too small.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_mux-getpidlist
      */
     GetPidList(pulPidListCount, pbPidListBuffer) {
         pulPidListCountMarshal := pulPidListCount is VarRef ? "uint*" : "ptr"

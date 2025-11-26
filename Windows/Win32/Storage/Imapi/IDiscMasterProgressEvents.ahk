@@ -31,9 +31,9 @@ class IDiscMasterProgressEvents extends IUnknown{
     static VTableNames => ["QueryCancel", "NotifyPnPActivity", "NotifyAddProgress", "NotifyBlockProgress", "NotifyTrackProgress", "NotifyPreparingBurn", "NotifyClosingDisc", "NotifyBurnComplete", "NotifyEraseComplete"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-querycancel
+     * Checks whether an AddData, AddAudioTrackBlocks, or RecordDisc operation should be canceled.
+     * @returns {Integer} If this parameter is <b>TRUE</b>, cancel the burn. If this parameter is <b>FALSE</b>, continue the burn.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-querycancel
      */
     QueryCancel() {
         result := ComCall(3, this, "char*", &pbCancel := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifypnpactivity
+     * Notifies the application that there is a change to the list of valid disc recorders. (For example, a USB CD-R driver is removed from the system.).
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifypnpactivity
      */
     NotifyPnPActivity() {
         result := ComCall(4, this, "HRESULT")
@@ -51,11 +51,11 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCompletedSteps 
-     * @param {Integer} nTotalSteps 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyaddprogress
+     * Notifies an application of its progress in response to calls to IRedbookDiscMaster::AddAudioTrackBlocks or IJolietDiscMaster::AddData. Notifications are sent for the first and last steps, and at points in between.
+     * @param {Integer} nCompletedSteps Number of arbitrary steps that have been completed in adding audio or data to a staged image.
+     * @param {Integer} nTotalSteps Total number of arbitrary steps that must be taken to add a full set of audio or data to the staged image.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifyaddprogress
      */
     NotifyAddProgress(nCompletedSteps, nTotalSteps) {
         result := ComCall(5, this, "int", nCompletedSteps, "int", nTotalSteps, "HRESULT")
@@ -63,11 +63,11 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCompleted 
-     * @param {Integer} nTotal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyblockprogress
+     * Notifies an application of its progress in burning a disc on the active recorder. Notifications are sent for the first and last blocks, and at points in between.
+     * @param {Integer} nCompleted Number of blocks that have been burned onto a disc or track so far.
+     * @param {Integer} nTotal Total number of blocks to be burned to finish a disc or track.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifyblockprogress
      */
     NotifyBlockProgress(nCompleted, nTotal) {
         result := ComCall(6, this, "int", nCompleted, "int", nTotal, "HRESULT")
@@ -75,11 +75,11 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCurrentTrack 
-     * @param {Integer} nTotalTracks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifytrackprogress
+     * Notifies an application that a track has started or finished during the burn of an audio disc.
+     * @param {Integer} nCurrentTrack Number of tracks that have been completely burned.
+     * @param {Integer} nTotalTracks Total number of tracks that must be burned.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifytrackprogress
      */
     NotifyTrackProgress(nCurrentTrack, nTotalTracks) {
         result := ComCall(7, this, "int", nCurrentTrack, "int", nTotalTracks, "HRESULT")
@@ -87,10 +87,10 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nEstimatedSeconds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifypreparingburn
+     * Notifies the application that it is preparing to burn a disc. No further notifications are sent until the burn starts.
+     * @param {Integer} nEstimatedSeconds Number of seconds from notification that IMAPI estimates it will take to prepare to burn the disc.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifypreparingburn
      */
     NotifyPreparingBurn(nEstimatedSeconds) {
         result := ComCall(8, this, "int", nEstimatedSeconds, "HRESULT")
@@ -98,10 +98,10 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nEstimatedSeconds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyclosingdisc
+     * Notifies the application that it is has started closing the disc. No further notifications are sent until the burn is finished.
+     * @param {Integer} nEstimatedSeconds Number of seconds from notification that IMAPI estimates it will take to close the disc.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifyclosingdisc
      */
     NotifyClosingDisc(nEstimatedSeconds) {
         result := ComCall(9, this, "int", nEstimatedSeconds, "HRESULT")
@@ -109,10 +109,11 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyburncomplete
+     * Notifies an application that a call to IDiscMaster::RecordDisc has finished.
+     * @param {HRESULT} status Status code to be returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscmaster-recorddisc">IDiscMaster::RecordDisc</a>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifyburncomplete
      */
     NotifyBurnComplete(status) {
         result := ComCall(10, this, "int", status, "HRESULT")
@@ -120,10 +121,11 @@ class IDiscMasterProgressEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyerasecomplete
+     * Notifies an application that a call to IDiscRecorder::Erase has finished.
+     * @param {HRESULT} status Status code to be returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscrecorder-erase">IDiscRecorder::Erase</a>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * @see https://docs.microsoft.com/windows/win32/api//imapi/nf-imapi-idiscmasterprogressevents-notifyerasecomplete
      */
     NotifyEraseComplete(status) {
         result := ComCall(11, this, "int", status, "HRESULT")

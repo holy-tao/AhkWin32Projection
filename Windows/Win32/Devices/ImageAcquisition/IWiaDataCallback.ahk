@@ -60,17 +60,33 @@ class IWiaDataCallback extends IUnknown{
     static VTableNames => ["BandedDataCallback"]
 
     /**
+     * Provides data transfer status notifications. Windows Image Acquisition (WIA) data transfer methods of the IWiaDataTransfer interface periodically call this method.
+     * @param {Integer} lMessage Type: <b>LONG</b>
+     * @param {Integer} lStatus Type: <b>LONG</b>
      * 
-     * @param {Integer} lMessage 
-     * @param {Integer} lStatus 
-     * @param {Integer} lPercentComplete 
-     * @param {Integer} lOffset 
-     * @param {Integer} lLength 
-     * @param {Integer} lReserved 
-     * @param {Integer} lResLength 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatacallback-bandeddatacallback
+     * Specifies a constant that indicates the status of the WIA device. Can be set to a combination of the following:
+     * @param {Integer} lPercentComplete Type: <b>LONG</b>
+     * 
+     * Specifies the percentage of the total data that has been transferred so far.
+     * @param {Integer} lOffset Type: <b>LONG</b>
+     * 
+     * Specifies an offset, in bytes, from the beginning of the buffer where the current band of data begins.
+     * @param {Integer} lLength Type: <b>LONG</b>
+     * 
+     * Specifies the length, in bytes, of the current band of data.
+     * @param {Integer} lReserved Type: <b>LONG</b>
+     * 
+     * Reserved for internal use by the WIA run-time system.
+     * @param {Integer} lResLength Type: <b>LONG</b>
+     * 
+     * Reserved for internal use by the WIA run-time system.
+     * @param {Pointer<Integer>} pbBuffer Type: <b>BYTE*</b>
+     * 
+     * Pointer to the data buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the method returns S_OK. To cancel the data transfer, it returns S_FALSE. If the method fails, it returns a standard COM error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiadatacallback-bandeddatacallback
      */
     BandedDataCallback(lMessage, lStatus, lPercentComplete, lOffset, lLength, lReserved, lResLength, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"

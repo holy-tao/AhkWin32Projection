@@ -81,9 +81,9 @@ class IWscProduct extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productname
+     * Returns the current product information for the security product.
+     * @returns {BSTR} A pointer to the name of the security product. This is displayed in the Windows Security Center user interface.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_productname
      */
     get_ProductName() {
         pVal := BSTR()
@@ -92,9 +92,9 @@ class IWscProduct extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productstate
+     * Returns the current state of the signature data for the security product.
+     * @returns {Integer} A pointer to the state value of the signature of the security product.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_productstate
      */
     get_ProductState() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -102,9 +102,9 @@ class IWscProduct extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_signaturestatus
+     * Returns the current status of the signature data for the security product.
+     * @returns {Integer} A pointer to the status value of the signature of the security product. If the security product is a Firewall product, the return value is always <b>WSC_SECURITY_PRODUCT_UP_TO_DATE</b> because firewalls do not contain signature data.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_signaturestatus
      */
     get_SignatureStatus() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -112,9 +112,9 @@ class IWscProduct extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_remediationpath
+     * Returns the current remediation path for the security product.
+     * @returns {BSTR} A pointer to the remediation path for the security product. This is displayed in the Windows Security Center user interface.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_remediationpath
      */
     get_RemediationPath() {
         pVal := BSTR()

@@ -36,12 +36,12 @@ class IDirectManipulationViewportEventHandler extends IUnknown{
     static VTableNames => ["OnViewportStatusChanged", "OnViewportUpdated", "OnContentUpdated"]
 
     /**
-     * 
-     * @param {IDirectManipulationViewport} viewport 
-     * @param {Integer} current 
-     * @param {Integer} previous 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-onviewportstatuschanged
+     * Called when the status of a viewport changes.
+     * @param {IDirectManipulationViewport} viewport The viewport for which status has changed.
+     * @param {Integer} current The new status of the viewport.
+     * @param {Integer} previous The previous status of the viewport.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-onviewportstatuschanged
      */
     OnViewportStatusChanged(viewport, current, previous) {
         result := ComCall(3, this, "ptr", viewport, "int", current, "int", previous, "HRESULT")
@@ -49,10 +49,10 @@ class IDirectManipulationViewportEventHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDirectManipulationViewport} viewport 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-onviewportupdated
+     * Called after all content in the viewport has been updated.
+     * @param {IDirectManipulationViewport} viewport The viewport that has been updated.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-onviewportupdated
      */
     OnViewportUpdated(viewport) {
         result := ComCall(4, this, "ptr", viewport, "HRESULT")
@@ -60,11 +60,11 @@ class IDirectManipulationViewportEventHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDirectManipulationViewport} viewport 
-     * @param {IDirectManipulationContent} content 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-oncontentupdated
+     * Called when content inside a viewport is updated.
+     * @param {IDirectManipulationViewport} viewport The viewport that is updated.
+     * @param {IDirectManipulationContent} content The content in the viewport that has changed.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-oncontentupdated
      */
     OnContentUpdated(viewport, content) {
         result := ComCall(5, this, "ptr", viewport, "ptr", content, "HRESULT")

@@ -36,9 +36,11 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
     static VTableNames => ["GetNumberInputs", "GetNumberOutputs", "GetInputConnectorInfo", "GetOutputConnectorInfo"]
 
     /**
+     * Retrieves the number of input pins the bitmap effect implements.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberinputs
+     * When this method returns, contains the number of input pins the bitmap effect implements.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberinputs
      */
     GetNumberInputs() {
         result := ComCall(3, this, "uint*", &puiNumInputs := 0, "HRESULT")
@@ -46,9 +48,11 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the number of output pins the bitmap effect implements.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberoutputs
+     * When this method returns, contains the number of output pins the bitmap effect implements.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberoutputs
      */
     GetNumberOutputs() {
         result := ComCall(4, this, "uint*", &puiNumOutputs := 0, "HRESULT")
@@ -56,10 +60,14 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the IMILBitmapEffectConnectorInfo associated with the given input pin.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectConnectorInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getinputconnectorinfo
+     * A zero based index value indicating which input pin to query for connector information.
+     * @returns {IMILBitmapEffectConnectorInfo} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnectorinfo">IMILBitmapEffectConnectorInfo</a>**</b>
+     * 
+     * When this method returns, contain the connector information for the given input pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getinputconnectorinfo
      */
     GetInputConnectorInfo(uiIndex) {
         result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
@@ -67,10 +75,14 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the IMILBitmapEffectConnectorInfo associated with the given output pin.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectConnectorInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getoutputconnectorinfo
+     * A zero based index value indicating which output pin to query for connector information.
+     * @returns {IMILBitmapEffectConnectorInfo} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnectorinfo">IMILBitmapEffectConnectorInfo</a>**</b>
+     * 
+     * When this method returns, contain the connector information for the given output pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getoutputconnectorinfo
      */
     GetOutputConnectorInfo(uiIndex) {
         result := ComCall(6, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")

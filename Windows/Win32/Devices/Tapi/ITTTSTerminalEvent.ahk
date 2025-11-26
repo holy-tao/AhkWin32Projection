@@ -54,9 +54,10 @@ class ITTTSTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itttsterminalevent-get_terminal
+     * The get_Terminal method gets an ITTerminal interface pointer for the terminal object involved in the event.
+     * @returns {ITTerminal} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itttsterminalevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(7, this, "ptr*", &ppTerminal := 0, "HRESULT")
@@ -64,9 +65,10 @@ class ITTTSTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itttsterminalevent-get_call
+     * The get_Call method returns an ITCallInfo interface pointer for the call involved in the terminal event.
+     * @returns {ITCallInfo} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itttsterminalevent-get_call
      */
     get_Call() {
         result := ComCall(8, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -74,9 +76,9 @@ class ITTTSTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itttsterminalevent-get_error
+     * The get_Error method gets an HRESULT cast of the error code involved in the terminal event.
+     * @returns {HRESULT} Pointer to the <b>HRESULT</b> cast of the error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itttsterminalevent-get_error
      */
     get_Error() {
         result := ComCall(9, this, "int*", &phrErrorCode := 0, "HRESULT")

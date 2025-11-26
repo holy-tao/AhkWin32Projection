@@ -31,10 +31,10 @@ class IDropSourceNotify extends IUnknown{
     static VTableNames => ["DragEnterTarget", "DragLeaveTarget"]
 
     /**
-     * 
-     * @param {HWND} hwndTarget 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idropsourcenotify-dragentertarget
+     * OLE calls this method when the user drags the mouse cursor into a potential drop target window.
+     * @param {HWND} hwndTarget The window handle of the potential drop target window.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-idropsourcenotify-dragentertarget
      */
     DragEnterTarget(hwndTarget) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
@@ -44,9 +44,9 @@ class IDropSourceNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idropsourcenotify-dragleavetarget
+     * OLE calls this method when the user drags the mouse cursor out of a potential drop target window.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-idropsourcenotify-dragleavetarget
      */
     DragLeaveTarget() {
         result := ComCall(4, this, "HRESULT")

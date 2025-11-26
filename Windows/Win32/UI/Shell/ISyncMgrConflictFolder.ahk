@@ -31,10 +31,14 @@ class ISyncMgrConflictFolder extends IUnknown{
     static VTableNames => ["GetConflictIDList"]
 
     /**
+     * Maps a conflict to its IShellItem.
+     * @param {ISyncMgrConflict} pConflict Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflict">ISyncMgrConflict</a>*</b>
      * 
-     * @param {ISyncMgrConflict} pConflict 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictfolder-getconflictidlist
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflict">ISyncMgrConflict</a> interface.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE*</b>
+     * 
+     * A pointer to a PIDL, specified relative to the folder.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictfolder-getconflictidlist
      */
     GetConflictIDList(pConflict) {
         result := ComCall(3, this, "ptr", pConflict, "ptr*", &ppidlConflict := 0, "HRESULT")

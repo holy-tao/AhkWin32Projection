@@ -35,10 +35,10 @@ class IMFSensorActivitiesReportCallback extends IUnknown{
     static VTableNames => ["OnActivitiesReport"]
 
     /**
-     * 
-     * @param {IMFSensorActivitiesReport} sensorActivitiesReport 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreportcallback-onactivitiesreport
+     * Raised by the media pipeline when a new IMFSensorActivitiesReport is available.
+     * @param {IMFSensorActivitiesReport} sensorActivitiesReport Receives a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreport">IMFSensorActivitiesReport</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivitiesreportcallback-onactivitiesreport
      */
     OnActivitiesReport(sensorActivitiesReport) {
         result := ComCall(3, this, "ptr", sensorActivitiesReport, "HRESULT")

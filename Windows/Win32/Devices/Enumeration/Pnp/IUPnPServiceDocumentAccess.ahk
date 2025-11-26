@@ -32,9 +32,9 @@ class IUPnPServiceDocumentAccess extends IUnknown{
     static VTableNames => ["GetDocumentURL", "GetDocument"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicedocumentaccess-getdocumenturl
+     * GetDocumentURL method retrieves the Service Control Protocol Description (SCPD) URL for a service object. Using this URL, the UPnP control point can download the complete SCPD document.
+     * @returns {BSTR} The URL to the complete SCPD document.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicedocumentaccess-getdocumenturl
      */
     GetDocumentURL() {
         pbstrDocUrl := BSTR()
@@ -43,9 +43,9 @@ class IUPnPServiceDocumentAccess extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicedocumentaccess-getdocument
+     * GetDocument method retrieves the Service Control Protocol Description (SCPD) document for a service object.
+     * @returns {BSTR} The  complete SCPD document.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicedocumentaccess-getdocument
      */
     GetDocument() {
         pbstrDoc := BSTR()

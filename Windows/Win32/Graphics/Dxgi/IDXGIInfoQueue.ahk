@@ -41,11 +41,11 @@ class IDXGIInfoQueue extends IUnknown{
     static VTableNames => ["SetMessageCountLimit", "ClearStoredMessages", "GetMessage", "GetNumStoredMessagesAllowedByRetrievalFilters", "GetNumStoredMessages", "GetNumMessagesDiscardedByMessageCountLimit", "GetMessageCountLimit", "GetNumMessagesAllowedByStorageFilter", "GetNumMessagesDeniedByStorageFilter", "AddStorageFilterEntries", "GetStorageFilter", "ClearStorageFilter", "PushEmptyStorageFilter", "PushDenyAllStorageFilter", "PushCopyOfStorageFilter", "PushStorageFilter", "PopStorageFilter", "GetStorageFilterStackSize", "AddRetrievalFilterEntries", "GetRetrievalFilter", "ClearRetrievalFilter", "PushEmptyRetrievalFilter", "PushDenyAllRetrievalFilter", "PushCopyOfRetrievalFilter", "PushRetrievalFilter", "PopRetrievalFilter", "GetRetrievalFilterStackSize", "AddMessage", "AddApplicationMessage", "SetBreakOnCategory", "SetBreakOnSeverity", "SetBreakOnID", "GetBreakOnCategory", "GetBreakOnSeverity", "GetBreakOnID", "SetMuteDebugOutput", "GetMuteDebugOutput"]
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} MessageCountLimit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmessagecountlimit
+     * Sets the maximum number of messages that can be added to the message queue.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that sets the limit on the number of messages.
+     * @param {Integer} MessageCountLimit The maximum number of messages that can be added to the queue. –1 means no limit.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmessagecountlimit
      */
     SetMessageCountLimit(Producer, MessageCountLimit) {
         result := ComCall(3, this, "ptr", Producer, "uint", MessageCountLimit, "HRESULT")
@@ -53,57 +53,29 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
+     * Clears all messages from the message queue.
+     * @remarks
      * 
-     * @param {Guid} Producer 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that clears the messages.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearstoredmessages
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearstoredmessages
      */
     ClearStoredMessages(Producer) {
         ComCall(4, this, "ptr", Producer)
     }
 
     /**
-     * Retrieves a message from the calling thread's message queue. The function dispatches incoming sent messages until a posted message is available for retrieval.
-     * @param {Guid} Producer 
-     * @param {Integer} MessageIndex 
-     * @param {Pointer} pMessage 
-     * @param {Pointer<Pointer>} pMessageByteLength 
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function retrieves a message other than <a href="/windows/desktop/winmsg/wm-quit">WM_QUIT</a>, the return value is nonzero.
-     * 
-     * If the function retrieves the <a href="/windows/desktop/winmsg/wm-quit">WM_QUIT</a> message, the return value is zero. 
-     * 
-     * If there is an error, the return value is -1. For example, the function fails if <i>hWnd</i> is an invalid window handle or <i>lpMsg</i> is an invalid pointer. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * Because the return value can be nonzero, zero, or -1, avoid code like this:
-     * 
-     * 
-     * ```
-     * while (GetMessage( lpMsg, hWnd, 0, 0)) ...
-     * ```
-     * 
-     * 
-     * The possibility of a -1 return value in the case that hWnd is an invalid parameter (such as referring to a window that has already been destroyed) means that such code can lead to fatal application errors. Instead, use code like this:
-     * 
-     * 
-     * ```
-     * BOOL bRet;
-     * 
-     * while( (bRet = GetMessage( &msg, hWnd, 0, 0 )) != 0)
-     * { 
-     *     if (bRet == -1)
-     *     {
-     *         // handle the error and possibly exit
-     *     }
-     *     else
-     *     {
-     *         TranslateMessage(&msg); 
-     *         DispatchMessage(&msg); 
-     *     }
-     * }
-     * ```
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmessage
+     * Gets a message from the message queue.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the message.
+     * @param {Integer} MessageIndex An index into the message queue after an optional retrieval filter has been applied. This can be between 0 and the number of messages in the message queue that pass through the retrieval filter. Call <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessagesallowedbyretrievalfilters">IDXGIInfoQueue::GetNumStoredMessagesAllowedByRetrievalFilters</a> to obtain this number. 0 is the message at the beginning of the message queue.
+     * @param {Pointer} pMessage A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_message">DXGI_INFO_QUEUE_MESSAGE</a> structure that describes the message.
+     * @param {Pointer<Pointer>} pMessageByteLength A pointer to a variable that receives the size, in bytes, of the message description that <i>pMessage</i> points to. This size includes the size of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_message">DXGI_INFO_QUEUE_MESSAGE</a> structure in bytes.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmessage
      */
     GetMessage(Producer, MessageIndex, pMessage, pMessageByteLength) {
         pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
@@ -113,10 +85,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessagesallowedbyretrievalfilters
+     * Gets the number of messages that can pass through a retrieval filter.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the number.
+     * @returns {Integer} Returns the number of messages that can pass through a retrieval filter.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessagesallowedbyretrievalfilters
      */
     GetNumStoredMessagesAllowedByRetrievalFilters(Producer) {
         result := ComCall(6, this, "ptr", Producer, "uint")
@@ -124,10 +96,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessages
+     * Gets the number of messages currently stored in the message queue.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the number.
+     * @returns {Integer} Returns the number of messages currently stored in the message queue.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnumstoredmessages
      */
     GetNumStoredMessages(Producer) {
         result := ComCall(7, this, "ptr", Producer, "uint")
@@ -135,10 +107,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesdiscardedbymessagecountlimit
+     * Gets the number of messages that were discarded due to the message count limit.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the number.
+     * @returns {Integer} Returns the number of messages that were discarded.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesdiscardedbymessagecountlimit
      */
     GetNumMessagesDiscardedByMessageCountLimit(Producer) {
         result := ComCall(8, this, "ptr", Producer, "uint")
@@ -146,10 +118,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmessagecountlimit
+     * Gets the maximum number of messages that can be added to the message queue.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the number.
+     * @returns {Integer} Returns the maximum number of messages that can be added to the queue. –1 means no limit.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmessagecountlimit
      */
     GetMessageCountLimit(Producer) {
         result := ComCall(9, this, "ptr", Producer, "uint")
@@ -157,10 +129,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesallowedbystoragefilter
+     * Gets the number of messages that a storage filter allowed to pass through.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the number.
+     * @returns {Integer} Returns the number of messages allowed by a storage filter.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesallowedbystoragefilter
      */
     GetNumMessagesAllowedByStorageFilter(Producer) {
         result := ComCall(10, this, "ptr", Producer, "uint")
@@ -168,10 +140,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesdeniedbystoragefilter
+     * Gets the number of messages that were denied passage through a storage filter.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the number.
+     * @returns {Integer} Returns the number of messages denied by a storage filter.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getnummessagesdeniedbystoragefilter
      */
     GetNumMessagesDeniedByStorageFilter(Producer) {
         result := ComCall(11, this, "ptr", Producer, "uint")
@@ -179,11 +151,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addstoragefilterentries
+     * Adds storage filters to the top of the storage-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that produced the filters.
+     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter">DXGI_INFO_QUEUE_FILTER</a> structures that describe the filters.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-addstoragefilterentries
      */
     AddStorageFilterEntries(Producer, pFilter) {
         result := ComCall(12, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
@@ -191,12 +163,12 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Pointer} pFilter 
-     * @param {Pointer<Pointer>} pFilterByteLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilter
+     * Gets the storage filter at the top of the storage-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the filter.
+     * @param {Pointer} pFilter A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter">DXGI_INFO_QUEUE_FILTER</a> structure that describes the filter.
+     * @param {Pointer<Pointer>} pFilterByteLength A pointer to a variable that receives the size, in bytes, of the filter description to which <i>pFilter</i> points. If <i>pFilter</i> is <b>NULL</b>, <b>GetStorageFilter</b> outputs the size of the storage filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilter
      */
     GetStorageFilter(Producer, pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
@@ -206,20 +178,26 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
+     * Removes a storage filter from the top of the storage-filter stack.
+     * @remarks
      * 
-     * @param {Guid} Producer 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that removes the filter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearstoragefilter
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearstoragefilter
      */
     ClearStorageFilter(Producer) {
         ComCall(14, this, "ptr", Producer)
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushemptystoragefilter
+     * Pushes an empty storage filter onto the storage-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the empty storage filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushemptystoragefilter
      */
     PushEmptyStorageFilter(Producer) {
         result := ComCall(15, this, "ptr", Producer, "HRESULT")
@@ -227,10 +205,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushdenyallstoragefilter
+     * Pushes a deny-all storage filter onto the storage-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushdenyallstoragefilter
      */
     PushDenyAllStorageFilter(Producer) {
         result := ComCall(16, this, "ptr", Producer, "HRESULT")
@@ -238,10 +216,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushcopyofstoragefilter
+     * Pushes a copy of the storage filter that is currently on the top of the storage-filter stack onto the storage-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the copy of the storage filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushcopyofstoragefilter
      */
     PushCopyOfStorageFilter(Producer) {
         result := ComCall(17, this, "ptr", Producer, "HRESULT")
@@ -249,11 +227,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushstoragefilter
+     * Pushes a storage filter onto the storage-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the filter.
+     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter">DXGI_INFO_QUEUE_FILTER</a> structure that describes the filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushstoragefilter
      */
     PushStorageFilter(Producer, pFilter) {
         result := ComCall(18, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
@@ -261,20 +239,26 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
+     * Pops a storage filter from the top of the storage-filter stack.
+     * @remarks
      * 
-     * @param {Guid} Producer 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pops the filter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-popstoragefilter
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-popstoragefilter
      */
     PopStorageFilter(Producer) {
         ComCall(19, this, "ptr", Producer)
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilterstacksize
+     * Gets the size of the storage-filter stack in bytes.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the size.
+     * @returns {Integer} Returns the size of the storage-filter stack in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilterstacksize
      */
     GetStorageFilterStackSize(Producer) {
         result := ComCall(20, this, "ptr", Producer, "uint")
@@ -282,11 +266,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addretrievalfilterentries
+     * Adds retrieval filters to the top of the retrieval-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that produced the filters.
+     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter">DXGI_INFO_QUEUE_FILTER</a> structures that describe the filters.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-addretrievalfilterentries
      */
     AddRetrievalFilterEntries(Producer, pFilter) {
         result := ComCall(21, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
@@ -294,12 +278,12 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Pointer} pFilter 
-     * @param {Pointer<Pointer>} pFilterByteLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilter
+     * Gets the retrieval filter at the top of the retrieval-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the filter.
+     * @param {Pointer} pFilter A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter">DXGI_INFO_QUEUE_FILTER</a> structure that describes the filter.
+     * @param {Pointer<Pointer>} pFilterByteLength A pointer to a variable that receives the size, in bytes, of the filter description to which <i>pFilter</i> points. If <i>pFilter</i> is <b>NULL</b>, <b>GetRetrievalFilter</b> outputs the size of the retrieval filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilter
      */
     GetRetrievalFilter(Producer, pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
@@ -309,20 +293,26 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
+     * Removes a retrieval filter from the top of the retrieval-filter stack.
+     * @remarks
      * 
-     * @param {Guid} Producer 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that removes the filter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearretrievalfilter
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-clearretrievalfilter
      */
     ClearRetrievalFilter(Producer) {
         ComCall(23, this, "ptr", Producer)
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushemptyretrievalfilter
+     * Pushes an empty retrieval filter onto the retrieval-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the empty retrieval filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushemptyretrievalfilter
      */
     PushEmptyRetrievalFilter(Producer) {
         result := ComCall(24, this, "ptr", Producer, "HRESULT")
@@ -330,10 +320,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushdenyallretrievalfilter
+     * Pushes a deny-all retrieval filter onto the retrieval-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the deny-all retrieval filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushdenyallretrievalfilter
      */
     PushDenyAllRetrievalFilter(Producer) {
         result := ComCall(25, this, "ptr", Producer, "HRESULT")
@@ -341,10 +331,10 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushcopyofretrievalfilter
+     * Pushes a copy of the retrieval filter that is currently on the top of the retrieval-filter stack onto the retrieval-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the copy of the retrieval filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushcopyofretrievalfilter
      */
     PushCopyOfRetrievalFilter(Producer) {
         result := ComCall(26, this, "ptr", Producer, "HRESULT")
@@ -352,11 +342,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushretrievalfilter
+     * Pushes a retrieval filter onto the retrieval-filter stack.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pushes the filter.
+     * @param {Pointer<DXGI_INFO_QUEUE_FILTER>} pFilter A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter">DXGI_INFO_QUEUE_FILTER</a> structure that describes the filter.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-pushretrievalfilter
      */
     PushRetrievalFilter(Producer, pFilter) {
         result := ComCall(27, this, "ptr", Producer, "ptr", pFilter, "HRESULT")
@@ -364,20 +354,26 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
+     * Pops a retrieval filter from the top of the retrieval-filter stack.
+     * @remarks
      * 
-     * @param {Guid} Producer 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that pops the filter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-popretrievalfilter
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-popretrievalfilter
      */
     PopRetrievalFilter(Producer) {
         ComCall(28, this, "ptr", Producer)
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilterstacksize
+     * Gets the size of the retrieval-filter stack in bytes.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the size.
+     * @returns {Integer} Returns the size of the retrieval-filter stack in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilterstacksize
      */
     GetRetrievalFilterStackSize(Producer) {
         result := ComCall(29, this, "ptr", Producer, "uint")
@@ -385,14 +381,14 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} Category 
-     * @param {Integer} Severity 
-     * @param {Integer} ID 
-     * @param {PSTR} pDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addmessage
+     * Adds a debug message to the message queue and sends that message to the debug output.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that produced the message.
+     * @param {Integer} Category A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a>-typed value that specifies the category of the message.
+     * @param {Integer} Severity A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a>-typed value that specifies the severity of the message.
+     * @param {Integer} ID An integer that uniquely identifies the message.
+     * @param {PSTR} pDescription The message string.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-addmessage
      */
     AddMessage(Producer, Category, Severity, ID, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
@@ -402,11 +398,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Severity 
-     * @param {PSTR} pDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addapplicationmessage
+     * Adds a user-defined message to the message queue and sends that message to the debug output.
+     * @param {Integer} Severity A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a>-typed value that specifies the severity of the message.
+     * @param {PSTR} pDescription The message string.
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-addapplicationmessage
      */
     AddApplicationMessage(Severity, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
@@ -416,12 +412,12 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} Category 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakoncategory
+     * Sets a message category to break on when a message with that category passes through the storage filter.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that sets the breaking condition.
+     * @param {Integer} Category A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a>-typed value that specifies the category of the message.
+     * @param {BOOL} bEnable A Boolean value that specifies whether <b>SetBreakOnCategory</b> turns on or off this breaking condition (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakoncategory
      */
     SetBreakOnCategory(Producer, Category, bEnable) {
         result := ComCall(32, this, "ptr", Producer, "int", Category, "int", bEnable, "HRESULT")
@@ -429,12 +425,12 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} Severity 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonseverity
+     * Sets a message severity level to break on when a message with that severity level passes through the storage filter.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that sets the breaking condition.
+     * @param {Integer} Severity A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a>-typed value that specifies the severity of the message.
+     * @param {BOOL} bEnable A Boolean value that specifies whether <b>SetBreakOnSeverity</b> turns on or off this breaking condition (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonseverity
      */
     SetBreakOnSeverity(Producer, Severity, bEnable) {
         result := ComCall(33, this, "ptr", Producer, "int", Severity, "int", bEnable, "HRESULT")
@@ -442,12 +438,12 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} ID 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonid
+     * Sets a message identifier to break on when a message with that identifier passes through the storage filter.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that sets the breaking condition.
+     * @param {Integer} ID An integer value that specifies the identifier of the message.
+     * @param {BOOL} bEnable A Boolean value that specifies whether <b>SetBreakOnID</b> turns on or off this breaking condition (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @returns {HRESULT} Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonid
      */
     SetBreakOnID(Producer, ID, bEnable) {
         result := ComCall(34, this, "ptr", Producer, "int", ID, "int", bEnable, "HRESULT")
@@ -455,11 +451,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} Category 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakoncategory
+     * Determines whether the break on a message category is turned on or off.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the breaking status.
+     * @param {Integer} Category A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a>-typed value that specifies the category of the message.
+     * @returns {BOOL} Returns a Boolean value that specifies whether this category of breaking condition is turned on or off (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakoncategory
      */
     GetBreakOnCategory(Producer, Category) {
         result := ComCall(35, this, "ptr", Producer, "int", Category, "int")
@@ -467,11 +463,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} Severity 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonseverity
+     * Determines whether the break on a message severity level is turned on or off.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the breaking status.
+     * @param {Integer} Severity A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a>-typed value that specifies the severity of the message.
+     * @returns {BOOL} Returns a Boolean value that specifies whether this severity of breaking condition is turned on or off (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonseverity
      */
     GetBreakOnSeverity(Producer, Severity) {
         result := ComCall(36, this, "ptr", Producer, "int", Severity, "int")
@@ -479,11 +475,11 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @param {Integer} ID 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonid
+     * Determines whether the break on a message identifier is turned on or off.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the breaking status.
+     * @param {Integer} ID An integer value that specifies the identifier of the message.
+     * @returns {BOOL} Returns a Boolean value that specifies whether this break on a message identifier is turned on or off (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonid
      */
     GetBreakOnID(Producer, ID) {
         result := ComCall(37, this, "ptr", Producer, "int", ID, "int")
@@ -491,21 +487,27 @@ class IDXGIInfoQueue extends IUnknown{
     }
 
     /**
+     * Turns the debug output on or off.
+     * @remarks
      * 
-     * @param {Guid} Producer 
-     * @param {BOOL} bMute 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the mute status.
+     * @param {BOOL} bMute A Boolean value that specifies whether to turn the debug output on or off (<b>TRUE</b> for on, <b>FALSE</b> for off).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmutedebugoutput
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmutedebugoutput
      */
     SetMuteDebugOutput(Producer, bMute) {
         ComCall(38, this, "ptr", Producer, "int", bMute)
     }
 
     /**
-     * 
-     * @param {Guid} Producer 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmutedebugoutput
+     * Determines whether the debug output is turned on or off.
+     * @param {Guid} Producer A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that gets the mute status.
+     * @returns {BOOL} Returns a Boolean value that specifies whether the debug output is turned on or off (<b>TRUE</b> for on, <b>FALSE</b> for off).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmutedebugoutput
      */
     GetMuteDebugOutput(Producer) {
         result := ComCall(39, this, "ptr", Producer, "int")

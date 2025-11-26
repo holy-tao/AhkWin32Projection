@@ -41,10 +41,14 @@ class ID3D10EffectSamplerVariable extends ID3D10EffectVariable{
     static VTableNames => ["GetSampler", "GetBackingStore"]
 
     /**
+     * Get a pointer to a sampler interface.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10SamplerState} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getsampler
+     * Index into an array of sampler interfaces. If there is only one sampler interface, use 0.
+     * @returns {ID3D10SamplerState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>**</b>
+     * 
+     * The address of a pointer to a sampler interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getsampler
      */
     GetSampler(Index) {
         result := ComCall(25, this, "uint", Index, "ptr*", &ppSampler := 0, "HRESULT")
@@ -52,10 +56,14 @@ class ID3D10EffectSamplerVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a pointer to a variable that contains sampler state.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {D3D10_SAMPLER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getbackingstore
+     * Index into an array of sampler descriptions. If there is only one sampler variable in the effect, use 0.
+     * @returns {D3D10_SAMPLER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a>*</b>
+     * 
+     * A pointer to a sampler description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getbackingstore
      */
     GetBackingStore(Index) {
         pSamplerDesc := D3D10_SAMPLER_DESC()

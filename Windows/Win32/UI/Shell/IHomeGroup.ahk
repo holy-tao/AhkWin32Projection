@@ -49,9 +49,11 @@ class IHomeGroup extends IUnknown{
     static VTableNames => ["IsMember", "ShowSharingWizard"]
 
     /**
+     * Determines whether the local computer is a member of a HomeGroup.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-ismember
+     * When this method returns successfully, receives <b>TRUE</b> if the local computer is a member of a HomeGroup; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihomegroup-ismember
      */
     IsMember() {
         result := ComCall(3, this, "int*", &member := 0, "HRESULT")
@@ -59,10 +61,12 @@ class IHomeGroup extends IUnknown{
     }
 
     /**
+     * Displays a wizard that allows a user to create a Home Group, and then retrieves the sharing options that the user selected through the wizard.
+     * @param {HWND} owner Type: <b>HWND</b>
      * 
-     * @param {HWND} owner 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-showsharingwizard
+     * Handle of the owner window of the wizard, used for notifications. This value can be <b>NULL</b>.
+     * @returns {Integer} Type: <b>HOMEGROUPSHARINGCHOICES*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihomegroup-showsharingwizard
      */
     ShowSharingWizard(owner) {
         owner := owner is Win32Handle ? NumGet(owner, "ptr") : owner

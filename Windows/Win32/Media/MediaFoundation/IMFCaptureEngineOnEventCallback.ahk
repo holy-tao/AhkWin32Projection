@@ -36,10 +36,10 @@ class IMFCaptureEngineOnEventCallback extends IUnknown{
     static VTableNames => ["OnEvent"]
 
     /**
-     * 
-     * @param {IMFMediaEvent} pEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineoneventcallback-onevent
+     * Called by the capture engine to notify the application of a capture event.
+     * @param {IMFMediaEvent} pEvent A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface. Use this interface to get information about the event, as described in Remarks.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcaptureengineoneventcallback-onevent
      */
     OnEvent(pEvent) {
         result := ComCall(3, this, "ptr", pEvent, "HRESULT")

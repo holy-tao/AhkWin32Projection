@@ -40,10 +40,14 @@ class ID3D11InfoQueue extends IUnknown{
     static VTableNames => ["SetMessageCountLimit", "ClearStoredMessages", "GetMessage", "GetNumMessagesAllowedByStorageFilter", "GetNumMessagesDeniedByStorageFilter", "GetNumStoredMessages", "GetNumStoredMessagesAllowedByRetrievalFilter", "GetNumMessagesDiscardedByMessageCountLimit", "GetMessageCountLimit", "AddStorageFilterEntries", "GetStorageFilter", "ClearStorageFilter", "PushEmptyStorageFilter", "PushCopyOfStorageFilter", "PushStorageFilter", "PopStorageFilter", "GetStorageFilterStackSize", "AddRetrievalFilterEntries", "GetRetrievalFilter", "ClearRetrievalFilter", "PushEmptyRetrievalFilter", "PushCopyOfRetrievalFilter", "PushRetrievalFilter", "PopRetrievalFilter", "GetRetrievalFilterStackSize", "AddMessage", "AddApplicationMessage", "SetBreakOnCategory", "SetBreakOnSeverity", "SetBreakOnID", "GetBreakOnCategory", "GetBreakOnSeverity", "GetBreakOnID", "SetMuteDebugOutput", "GetMuteDebugOutput"]
 
     /**
+     * Set the maximum number of messages that can be added to the message queue.
+     * @param {Integer} MessageCountLimit Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @param {Integer} MessageCountLimit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setmessagecountlimit
+     * Maximum number of messages that can be added to the message queue. -1 means no limit.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setmessagecountlimit
      */
     SetMessageCountLimit(MessageCountLimit) {
         result := ComCall(3, this, "uint", MessageCountLimit, "HRESULT")
@@ -51,55 +55,29 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
-     * 
+     * Clear all messages from the message queue.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-clearstoredmessages
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-clearstoredmessages
      */
     ClearStoredMessages() {
         ComCall(4, this)
     }
 
     /**
-     * Retrieves a message from the calling thread's message queue. The function dispatches incoming sent messages until a posted message is available for retrieval.
-     * @param {Integer} MessageIndex 
-     * @param {Pointer} pMessage 
-     * @param {Pointer<Pointer>} pMessageByteLength 
-     * @returns {HRESULT} Type: <b>BOOL</b>
+     * Get a message from the message queue.
+     * @param {Integer} MessageIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * If the function retrieves a message other than <a href="/windows/desktop/winmsg/wm-quit">WM_QUIT</a>, the return value is nonzero.
+     * Index into message queue after an optional retrieval filter has been applied. This can be between 0 and the number of messages in the message queue that pass through the retrieval filter (which can be obtained with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnumstoredmessagesallowedbyretrievalfilter">ID3D11InfoQueue::GetNumStoredMessagesAllowedByRetrievalFilter</a>). 0 is the message at the front of the message queue.
+     * @param {Pointer} pMessage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_message">D3D11_MESSAGE</a>*</b>
      * 
-     * If the function retrieves the <a href="/windows/desktop/winmsg/wm-quit">WM_QUIT</a> message, the return value is zero. 
+     * Returned message (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_message">D3D11_MESSAGE</a>).
+     * @param {Pointer<Pointer>} pMessageByteLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a>*</b>
      * 
-     * If there is an error, the return value is -1. For example, the function fails if <i>hWnd</i> is an invalid window handle or <i>lpMsg</i> is an invalid pointer. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * Size of pMessage in bytes, including the size of the message string that the pMessage points to.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Because the return value can be nonzero, zero, or -1, avoid code like this:
-     * 
-     * 
-     * ```
-     * while (GetMessage( lpMsg, hWnd, 0, 0)) ...
-     * ```
-     * 
-     * 
-     * The possibility of a -1 return value in the case that hWnd is an invalid parameter (such as referring to a window that has already been destroyed) means that such code can lead to fatal application errors. Instead, use code like this:
-     * 
-     * 
-     * ```
-     * BOOL bRet;
-     * 
-     * while( (bRet = GetMessage( &msg, hWnd, 0, 0 )) != 0)
-     * { 
-     *     if (bRet == -1)
-     *     {
-     *         // handle the error and possibly exit
-     *     }
-     *     else
-     *     {
-     *         TranslateMessage(&msg); 
-     *         DispatchMessage(&msg); 
-     *     }
-     * }
-     * ```
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmessage
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getmessage
      */
     GetMessage(MessageIndex, pMessage, pMessageByteLength) {
         pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
@@ -109,9 +87,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the number of messages that were allowed to pass through a storage filter.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnummessagesallowedbystoragefilter
+     * Number of messages allowed by a storage filter.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnummessagesallowedbystoragefilter
      */
     GetNumMessagesAllowedByStorageFilter() {
         result := ComCall(6, this, "uint")
@@ -119,9 +99,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the number of messages that were denied passage through a storage filter.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnummessagesdeniedbystoragefilter
+     * Number of messages denied by a storage filter.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnummessagesdeniedbystoragefilter
      */
     GetNumMessagesDeniedByStorageFilter() {
         result := ComCall(7, this, "uint")
@@ -129,9 +111,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the number of messages currently stored in the message queue.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnumstoredmessages
+     * Number of messages currently stored in the message queue.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnumstoredmessages
      */
     GetNumStoredMessages() {
         result := ComCall(8, this, "uint")
@@ -139,9 +123,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the number of messages that are able to pass through a retrieval filter.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnumstoredmessagesallowedbyretrievalfilter
+     * Number of messages allowed by a retrieval filter.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnumstoredmessagesallowedbyretrievalfilter
      */
     GetNumStoredMessagesAllowedByRetrievalFilter() {
         result := ComCall(9, this, "uint")
@@ -149,9 +135,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the number of messages that were discarded due to the message count limit.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnummessagesdiscardedbymessagecountlimit
+     * Number of messages discarded.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getnummessagesdiscardedbymessagecountlimit
      */
     GetNumMessagesDiscardedByMessageCountLimit() {
         result := ComCall(10, this, "uint")
@@ -159,9 +147,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the maximum number of messages that can be added to the message queue.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getmessagecountlimit
+     * Maximum number of messages that can be added to the queue. -1 means no limit.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getmessagecountlimit
      */
     GetMessageCountLimit() {
         result := ComCall(11, this, "uint")
@@ -169,10 +159,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Add storage filters to the top of the storage-filter stack.
+     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>*</b>
      * 
-     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addstoragefilterentries
+     * Array of storage filters (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addstoragefilterentries
      */
     AddStorageFilterEntries(pFilter) {
         result := ComCall(12, this, "ptr", pFilter, "HRESULT")
@@ -180,11 +174,17 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the storage filter at the top of the storage-filter stack.
+     * @param {Pointer} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>*</b>
      * 
-     * @param {Pointer} pFilter 
-     * @param {Pointer<Pointer>} pFilterByteLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getstoragefilter
+     * Storage filter at the top of the storage-filter stack.
+     * @param {Pointer<Pointer>} pFilterByteLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a>*</b>
+     * 
+     * Size of the storage filter in bytes. If pFilter is <b>NULL</b>, the size of the storage filter will be output to this parameter.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getstoragefilter
      */
     GetStorageFilter(pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
@@ -194,18 +194,20 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
-     * 
+     * Remove a storage filter from the top of the storage-filter stack.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-clearstoragefilter
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-clearstoragefilter
      */
     ClearStorageFilter() {
         ComCall(14, this)
     }
 
     /**
+     * Push an empty storage filter onto the storage-filter stack.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushemptystoragefilter
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushemptystoragefilter
      */
     PushEmptyStorageFilter() {
         result := ComCall(15, this, "HRESULT")
@@ -213,9 +215,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Push a copy of storage filter currently on the top of the storage-filter stack onto the storage-filter stack.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushcopyofstoragefilter
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushcopyofstoragefilter
      */
     PushCopyOfStorageFilter() {
         result := ComCall(16, this, "HRESULT")
@@ -223,10 +227,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Push a storage filter onto the storage-filter stack.
+     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>*</b>
      * 
-     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushstoragefilter
+     * Pointer to a storage filter (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushstoragefilter
      */
     PushStorageFilter(pFilter) {
         result := ComCall(17, this, "ptr", pFilter, "HRESULT")
@@ -234,18 +242,20 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
-     * 
+     * Pop a storage filter from the top of the storage-filter stack.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-popstoragefilter
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-popstoragefilter
      */
     PopStorageFilter() {
         ComCall(18, this)
     }
 
     /**
+     * Get the size of the storage-filter stack in bytes.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getstoragefilterstacksize
+     * Size of the storage-filter stack in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getstoragefilterstacksize
      */
     GetStorageFilterStackSize() {
         result := ComCall(19, this, "uint")
@@ -253,10 +263,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Add storage filters to the top of the retrieval-filter stack.
+     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>*</b>
      * 
-     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addretrievalfilterentries
+     * Array of retrieval filters (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addretrievalfilterentries
      */
     AddRetrievalFilterEntries(pFilter) {
         result := ComCall(20, this, "ptr", pFilter, "HRESULT")
@@ -264,11 +278,17 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get the retrieval filter at the top of the retrieval-filter stack.
+     * @param {Pointer} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>*</b>
      * 
-     * @param {Pointer} pFilter 
-     * @param {Pointer<Pointer>} pFilterByteLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getretrievalfilter
+     * Retrieval filter at the top of the retrieval-filter stack.
+     * @param {Pointer<Pointer>} pFilterByteLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a>*</b>
+     * 
+     * Size of the retrieval filter in bytes. If pFilter is <b>NULL</b>, the size of the retrieval filter will be output to this parameter.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getretrievalfilter
      */
     GetRetrievalFilter(pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
@@ -278,18 +298,20 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
-     * 
+     * Remove a retrieval filter from the top of the retrieval-filter stack.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-clearretrievalfilter
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-clearretrievalfilter
      */
     ClearRetrievalFilter() {
         ComCall(22, this)
     }
 
     /**
+     * Push an empty retrieval filter onto the retrieval-filter stack.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushemptyretrievalfilter
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushemptyretrievalfilter
      */
     PushEmptyRetrievalFilter() {
         result := ComCall(23, this, "HRESULT")
@@ -297,9 +319,11 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Push a copy of retrieval filter currently on the top of the retrieval-filter stack onto the retrieval-filter stack.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushcopyofretrievalfilter
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushcopyofretrievalfilter
      */
     PushCopyOfRetrievalFilter() {
         result := ComCall(24, this, "HRESULT")
@@ -307,10 +331,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Push a retrieval filter onto the retrieval-filter stack.
+     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>*</b>
      * 
-     * @param {Pointer<D3D11_INFO_QUEUE_FILTER>} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushretrievalfilter
+     * Pointer to a retrieval filter (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter">D3D11_INFO_QUEUE_FILTER</a>).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-pushretrievalfilter
      */
     PushRetrievalFilter(pFilter) {
         result := ComCall(25, this, "ptr", pFilter, "HRESULT")
@@ -318,18 +346,20 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
-     * 
+     * Pop a retrieval filter from the top of the retrieval-filter stack.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-popretrievalfilter
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-popretrievalfilter
      */
     PopRetrievalFilter() {
         ComCall(26, this)
     }
 
     /**
+     * Get the size of the retrieval-filter stack in bytes.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getretrievalfilterstacksize
+     * Size of the retrieval-filter stack in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getretrievalfilterstacksize
      */
     GetRetrievalFilterStackSize() {
         result := ComCall(27, this, "uint")
@@ -337,13 +367,23 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Add a debug message to the message queue and send that message to debug output.
+     * @param {Integer} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category">D3D11_MESSAGE_CATEGORY</a></b>
      * 
-     * @param {Integer} Category 
-     * @param {Integer} Severity 
-     * @param {Integer} ID 
-     * @param {PSTR} pDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addmessage
+     * Category of a message (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category">D3D11_MESSAGE_CATEGORY</a>).
+     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a></b>
+     * 
+     * Severity of a message (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a>).
+     * @param {Integer} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id">D3D11_MESSAGE_ID</a></b>
+     * 
+     * Unique identifier of a message (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id">D3D11_MESSAGE_ID</a>).
+     * @param {PSTR} pDescription Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * 
+     * User-defined message.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addmessage
      */
     AddMessage(Category, Severity, ID, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
@@ -353,11 +393,17 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Add a user-defined message to the message queue and send that message to debug output.
+     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a></b>
      * 
-     * @param {Integer} Severity 
-     * @param {PSTR} pDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addapplicationmessage
+     * Severity of a message (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a>).
+     * @param {PSTR} pDescription Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * 
+     * Message string.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addapplicationmessage
      */
     AddApplicationMessage(Severity, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
@@ -367,11 +413,17 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Set a message category to break on when a message with that category passes through the storage filter.
+     * @param {Integer} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category">D3D11_MESSAGE_CATEGORY</a></b>
      * 
-     * @param {Integer} Category 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setbreakoncategory
+     * Message category to break on (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category">D3D11_MESSAGE_CATEGORY</a>).
+     * @param {BOOL} bEnable Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Turns this breaking condition on or off (true for on, false for off).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setbreakoncategory
      */
     SetBreakOnCategory(Category, bEnable) {
         result := ComCall(30, this, "int", Category, "int", bEnable, "HRESULT")
@@ -379,11 +431,17 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Set a message severity level to break on when a message with that severity level passes through the storage filter.
+     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a></b>
      * 
-     * @param {Integer} Severity 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setbreakonseverity
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a>, which represents a message severity level to break on.
+     * @param {BOOL} bEnable Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Turns this breaking condition on or off (true for on, false for off).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setbreakonseverity
      */
     SetBreakOnSeverity(Severity, bEnable) {
         result := ComCall(31, this, "int", Severity, "int", bEnable, "HRESULT")
@@ -391,11 +449,17 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Set a message identifier to break on when a message with that identifier passes through the storage filter.
+     * @param {Integer} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id">D3D11_MESSAGE_ID</a></b>
      * 
-     * @param {Integer} ID 
-     * @param {BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setbreakonid
+     * Message identifier to break on (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id">D3D11_MESSAGE_ID</a>).
+     * @param {BOOL} bEnable Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Turns this breaking condition on or off (true for on, false for off).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns one of the following <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setbreakonid
      */
     SetBreakOnID(ID, bEnable) {
         result := ComCall(32, this, "int", ID, "int", bEnable, "HRESULT")
@@ -403,10 +467,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get a message category to break on when a message with that category passes through the storage filter.
+     * @param {Integer} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category">D3D11_MESSAGE_CATEGORY</a></b>
      * 
-     * @param {Integer} Category 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getbreakoncategory
+     * Message category to break on (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category">D3D11_MESSAGE_CATEGORY</a>).
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Whether this breaking condition is turned on or off (true for on, false for off).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getbreakoncategory
      */
     GetBreakOnCategory(Category) {
         result := ComCall(33, this, "int", Category, "int")
@@ -414,10 +482,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get a message severity level to break on when a message with that severity level passes through the storage filter.
+     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a></b>
      * 
-     * @param {Integer} Severity 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getbreakonseverity
+     * Message severity level to break on (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_severity">D3D11_MESSAGE_SEVERITY</a>).
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Whether this breaking condition is turned on or off (true for on, false for off).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getbreakonseverity
      */
     GetBreakOnSeverity(Severity) {
         result := ComCall(34, this, "int", Severity, "int")
@@ -425,10 +497,14 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Get a message identifier to break on when a message with that identifier passes through the storage filter.
+     * @param {Integer} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id">D3D11_MESSAGE_ID</a></b>
      * 
-     * @param {Integer} ID 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getbreakonid
+     * Message identifier to break on (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id">D3D11_MESSAGE_ID</a>).
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Whether this breaking condition is turned on or off (true for on, false for off).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getbreakonid
      */
     GetBreakOnID(ID) {
         result := ComCall(35, this, "int", ID, "int")
@@ -436,19 +512,28 @@ class ID3D11InfoQueue extends IUnknown{
     }
 
     /**
+     * Set a boolean that turns the debug output on or off.
+     * @remarks
      * 
-     * @param {BOOL} bMute 
+     * This will stop messages that pass the storage filter from being printed out in the debug output, however those messages will still be added to the message queue.
+     * 
+     * 
+     * @param {BOOL} bMute Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Disable/Enable the debug output (<b>TRUE</b> to disable or mute the output, <b>FALSE</b> to enable the output).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setmutedebugoutput
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setmutedebugoutput
      */
     SetMuteDebugOutput(bMute) {
         ComCall(36, this, "int", bMute)
     }
 
     /**
+     * Get a boolean that turns the debug output on or off.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getmutedebugoutput
+     * Whether the debug output is on or off (true for on, false for off).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-getmutedebugoutput
      */
     GetMuteDebugOutput() {
         result := ComCall(37, this, "int")

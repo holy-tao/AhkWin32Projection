@@ -31,10 +31,10 @@ class ITfClientId extends IUnknown{
     static VTableNames => ["GetClientId"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rclsid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfclientid-getclientid
+     * ITfClientId::GetClientId method
+     * @param {Pointer<Guid>} rclsid CLSID to obtain the client identifier for.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that receives the client identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfclientid-getclientid
      */
     GetClientId(rclsid) {
         result := ComCall(3, this, "ptr", rclsid, "uint*", &ptid := 0, "HRESULT")

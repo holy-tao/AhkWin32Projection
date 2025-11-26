@@ -51,10 +51,28 @@ class IWMPLibrary extends IUnknown{
     }
 
     /**
+     * The get_name method retrieves the display name of the current library.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a string containing the name of the current library.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_name
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-get_name
      */
     get_name(pbstrName) {
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
@@ -62,10 +80,28 @@ class IWMPLibrary extends IUnknown{
     }
 
     /**
+     * The get_type method retrieves a value that indicates the library type.
+     * @param {Pointer<Integer>} pwmplt Pointer to a variable that receives a value from the <b>WMPLibraryType</b> enumeration that indicates the library type.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pwmplt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_type
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-get_type
      */
     get_type(pwmplt) {
         pwmpltMarshal := pwmplt is VarRef ? "int*" : "ptr"
@@ -75,9 +111,9 @@ class IWMPLibrary extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IWMPMediaCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_mediacollection
+     * The get_mediaCollection method retrieves a pointer to the IWMPMediaCollection interface for the current library.
+     * @returns {IWMPMediaCollection} Address of a variable that receives a pointer to the <b>IWMPMediaCollection</b> interface for the current library.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-get_mediacollection
      */
     get_mediaCollection() {
         result := ComCall(5, this, "ptr*", &ppIWMPMediaCollection := 0, "HRESULT")
@@ -85,11 +121,29 @@ class IWMPLibrary extends IUnknown{
     }
 
     /**
+     * The isIdentical method retrieves a value that indicates whether the supplied object is the same as the current one.
+     * @param {IWMPLibrary} pIWMPLibrary Pointer to an <b>IWMPLibrary</b> interface that represents the object to compare with current one.
+     * @param {Pointer<VARIANT_BOOL>} pvbool Pointer to a <b>VARIANT_BOOL</b> that receives the result of the comparison. VARIANT_TRUE indicates that the objects are the same.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPLibrary} pIWMPLibrary 
-     * @param {Pointer<VARIANT_BOOL>} pvbool 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-isidentical
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrary-isidentical
      */
     isIdentical(pIWMPLibrary, pvbool) {
         pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"

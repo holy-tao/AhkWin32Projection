@@ -31,13 +31,13 @@ class IAudioProcessingObjectRT extends IUnknown{
     static VTableNames => ["APOProcess", "CalcInputFrames", "CalcOutputFrames"]
 
     /**
-     * 
-     * @param {Integer} u32NumInputConnections 
-     * @param {Pointer<Pointer<APO_CONNECTION_PROPERTY>>} ppInputConnections 
-     * @param {Integer} u32NumOutputConnections 
-     * @param {Pointer<Pointer<APO_CONNECTION_PROPERTY>>} ppOutputConnections 
+     * The APOProcess method causes the APO to make a processing pass.
+     * @param {Integer} u32NumInputConnections The number of input connections that are attached to this APO.
+     * @param {Pointer<Pointer<APO_CONNECTION_PROPERTY>>} ppInputConnections An array of input connection property structures. There is one structure per input connection.
+     * @param {Integer} u32NumOutputConnections The number of output connections that are attached to this APO.
+     * @param {Pointer<Pointer<APO_CONNECTION_PROPERTY>>} ppOutputConnections An array of output connection property structures. There is one structure per output connection.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess
      */
     APOProcess(u32NumInputConnections, ppInputConnections, u32NumOutputConnections, ppOutputConnections) {
         ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
@@ -47,10 +47,17 @@ class IAudioProcessingObjectRT extends IUnknown{
     }
 
     /**
+     * The CalcInputFrames method returns the number of input frames that an APO requires to generate a given number of output frames.
+     * @param {Integer} u32OutputFrameCount This is a count of the number of output frames.
+     * @returns {Integer} The <code>CalcInputFrames</code> method returns the number of input frames that are required to generate the given number of output frames.
      * 
-     * @param {Integer} u32OutputFrameCount 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcinputframes
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcinputframes
      */
     CalcInputFrames(u32OutputFrameCount) {
         result := ComCall(4, this, "uint", u32OutputFrameCount, "uint")
@@ -58,10 +65,17 @@ class IAudioProcessingObjectRT extends IUnknown{
     }
 
     /**
+     * The CalcOutputFrames method returns the number of output frames that an APO requires for a given number of input frames.
+     * @param {Integer} u32InputFrameCount This is a count of the number of input frames.
+     * @returns {Integer} The <code>CalcOutputFrames</code> method returns the number of output frames that an APO will generate for a given number of input frames.
      * 
-     * @param {Integer} u32InputFrameCount 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcoutputframes
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcoutputframes
      */
     CalcOutputFrames(u32InputFrameCount) {
         result := ComCall(5, this, "uint", u32InputFrameCount, "uint")

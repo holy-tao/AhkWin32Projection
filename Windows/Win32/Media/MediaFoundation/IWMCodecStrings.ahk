@@ -31,13 +31,31 @@ class IWMCodecStrings extends IUnknown{
     static VTableNames => ["GetName", "GetDescription"]
 
     /**
+     * Retrieves the name of a codec.
+     * @param {Pointer<DMO_MEDIA_TYPE>} pmt Pointer to the output media type. If <b>NULL</b>, the codec will use the media type that is currently set.
+     * @param {Integer} cchLength Size of szName buffer in wide characters.
+     * @param {PWSTR} szName Address of the wide-character buffer that receives the name. If <b>NULL</b>, pcchLength receives the required length.
+     * @param {Pointer<Integer>} pcchLength Pointer to the required buffer length in wide characters, including the null terminating character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @param {Integer} cchLength 
-     * @param {PWSTR} szName 
-     * @param {Pointer<Integer>} pcchLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getname
      */
     GetName(pmt, cchLength, szName, pcchLength) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -49,13 +67,31 @@ class IWMCodecStrings extends IUnknown{
     }
 
     /**
+     * Retrieves the description of an output format.
+     * @param {Pointer<DMO_MEDIA_TYPE>} pmt Pointer to the output media type. If <b>NULL</b>, the codec will use the media type that is currently set.
+     * @param {Integer} cchLength Size of szDescription buffer, in wide characters.
+     * @param {PWSTR} szDescription Address of the wide-character buffer that receives the description. If <b>NULL</b>, pcchLength receives the required length.
+     * @param {Pointer<Integer>} pcchLength Pointer to the required buffer length in wide characters, including the null terminating character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @param {Integer} cchLength 
-     * @param {PWSTR} szDescription 
-     * @param {Pointer<Integer>} pcchLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getdescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getdescription
      */
     GetDescription(pmt, cchLength, szDescription, pcchLength) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription

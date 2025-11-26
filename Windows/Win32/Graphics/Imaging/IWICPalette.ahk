@@ -44,11 +44,17 @@ class IWICPalette extends IUnknown{
     static VTableNames => ["InitializePredefined", "InitializeCustom", "InitializeFromBitmap", "InitializeFromPalette", "GetType", "GetColorCount", "GetColors", "IsBlackWhite", "IsGrayscale", "HasAlpha"]
 
     /**
+     * Initializes the palette to one of the pre-defined palettes specified by WICBitmapPaletteType and optionally adds a transparent color.
+     * @param {Integer} ePaletteType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
      * 
-     * @param {Integer} ePaletteType 
-     * @param {BOOL} fAddTransparentColor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializepredefined
+     * The desired pre-defined palette type.
+     * @param {BOOL} fAddTransparentColor Type: <b>BOOL</b>
+     * 
+     * The optional transparent color to add to the palette. If no transparent color is needed, use 0. When initializing to a grayscale or black and white palette, set this parameter to <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-initializepredefined
      */
     InitializePredefined(ePaletteType, fAddTransparentColor) {
         result := ComCall(3, this, "int", ePaletteType, "int", fAddTransparentColor, "HRESULT")
@@ -56,11 +62,17 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Initializes a palette to the custom color entries provided.
+     * @param {Pointer<Integer>} pColors Type: <b>WICColor*</b>
      * 
-     * @param {Pointer<Integer>} pColors 
-     * @param {Integer} cCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializecustom
+     * Pointer to the color array.
+     * @param {Integer} cCount Type: <b>UINT</b>
+     * 
+     * The number of colors in <i>pColors</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-initializecustom
      */
     InitializeCustom(pColors, cCount) {
         pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
@@ -70,12 +82,20 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Initializes a palette using a computed optimized values based on the reference bitmap.
+     * @param {IWICBitmapSource} pISurface Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
-     * @param {IWICBitmapSource} pISurface 
-     * @param {Integer} cCount 
-     * @param {BOOL} fAddTransparentColor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializefrombitmap
+     * Pointer to the source bitmap.
+     * @param {Integer} cCount Type: <b>UINT</b>
+     * 
+     * The number of colors to initialize the palette with.
+     * @param {BOOL} fAddTransparentColor Type: <b>BOOL</b>
+     * 
+     * A value to indicate whether to add a transparent color.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-initializefrombitmap
      */
     InitializeFromBitmap(pISurface, cCount, fAddTransparentColor) {
         result := ComCall(5, this, "ptr", pISurface, "uint", cCount, "int", fAddTransparentColor, "HRESULT")
@@ -83,10 +103,14 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Initialize the palette based on a given palette.
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
      * 
-     * @param {IWICPalette} pIPalette 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializefrompalette
+     * Pointer to the source palette.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-initializefrompalette
      */
     InitializeFromPalette(pIPalette) {
         result := ComCall(6, this, "ptr", pIPalette, "HRESULT")
@@ -94,9 +118,11 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Retrieves the WICBitmapPaletteType that describes the palette.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-gettype
+     * Pointer that receives the palette type of the bimtap.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-gettype
      */
     GetType() {
         result := ComCall(7, this, "int*", &pePaletteType := 0, "HRESULT")
@@ -104,9 +130,11 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Retrieves the number of colors in the color table.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-getcolorcount
+     * Pointer that receives the number of colors in the color table.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-getcolorcount
      */
     GetColorCount() {
         result := ComCall(8, this, "uint*", &pcCount := 0, "HRESULT")
@@ -114,12 +142,20 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Fills out the supplied color array with the colors from the internal color table. The color array should be sized according to the return results from GetColorCount.
+     * @param {Integer} cCount Type: <b>UINT</b>
      * 
-     * @param {Integer} cCount 
-     * @param {Pointer<Integer>} pColors 
-     * @param {Pointer<Integer>} pcActualColors 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-getcolors
+     * The size of the <i>pColors</i> array.
+     * @param {Pointer<Integer>} pColors Type: <b>WICColor*</b>
+     * 
+     * Pointer that receives the colors of the palette.
+     * @param {Pointer<Integer>} pcActualColors Type: <b>UINT*</b>
+     * 
+     * The actual size needed to obtain the palette colors.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-getcolors
      */
     GetColors(cCount, pColors, pcActualColors) {
         pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
@@ -130,9 +166,11 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Retrieves a value that describes whether the palette is black and white.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-isblackwhite
+     * A pointer to a variable  that receives a boolean value that indicates whether the palette is black and white. <b>TRUE</b> indicates that the palette is black and white; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-isblackwhite
      */
     IsBlackWhite() {
         result := ComCall(10, this, "int*", &pfIsBlackWhite := 0, "HRESULT")
@@ -140,9 +178,11 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Retrieves a value that describes whether a palette is grayscale.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-isgrayscale
+     * A pointer to a variable that receives a boolean value that indicates whether the palette is grayscale. <b>TRUE</b> indicates that the palette is grayscale; otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-isgrayscale
      */
     IsGrayscale() {
         result := ComCall(11, this, "int*", &pfIsGrayscale := 0, "HRESULT")
@@ -150,9 +190,11 @@ class IWICPalette extends IUnknown{
     }
 
     /**
+     * Indicates whether the palette contains an entry that is non-opaque (that is, an entry with an alpha that is less than 1).
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-hasalpha
+     * Pointer that receives <c>TRUE</code> if the palette contains a transparent color; otherwise, <code>FALSE</c>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpalette-hasalpha
      */
     HasAlpha() {
         result := ComCall(12, this, "int*", &pfHasAlpha := 0, "HRESULT")

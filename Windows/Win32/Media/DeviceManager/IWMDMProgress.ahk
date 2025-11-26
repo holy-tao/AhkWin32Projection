@@ -31,10 +31,39 @@ class IWMDMProgress extends IUnknown{
     static VTableNames => ["Begin", "Progress", "End"]
 
     /**
+     * The Begin method indicates that an operation is beginning. An estimate of the duration of the operation is provided when possible.
+     * @param {Integer} dwEstimatedTicks <b>DWORD</b> specifying the estimated number of ticks that are needed for the operation to complete.
+     * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
-     * @param {Integer} dwEstimatedTicks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress-begin
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation should continue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WMDM_E_USER_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Windows Media Device Manager should cancel the current operation without waiting for it to finish. If the application is using block mode, then Windows Media Device Manager will return this error to the application.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress-begin
      */
     Begin(dwEstimatedTicks) {
         result := ComCall(3, this, "uint", dwEstimatedTicks, "HRESULT")
@@ -42,10 +71,39 @@ class IWMDMProgress extends IUnknown{
     }
 
     /**
+     * The Progress method indicates that an operation is still in progress.
+     * @param {Integer} dwTranspiredTicks <b>DWORD</b> specifying the number of ticks that have transpired so far.
+     * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
-     * @param {Integer} dwTranspiredTicks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress-progress
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation should continue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WMDM_E_USER_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Windows Media Device Manager should cancel the current operation without waiting for it to finish. If the application is using block mode, then Windows Media Device Manager will return this error to the application.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress-progress
      */
     Progress(dwTranspiredTicks) {
         result := ComCall(4, this, "uint", dwTranspiredTicks, "HRESULT")
@@ -53,9 +111,9 @@ class IWMDMProgress extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress-end
+     * The End method indicates that an operation is finished.
+     * @returns {HRESULT} The return value from the method is ignored by Windows Media Device Manager.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress-end
      */
     End() {
         result := ComCall(5, this, "HRESULT")

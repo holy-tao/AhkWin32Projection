@@ -73,10 +73,10 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
+     * The get_SourceProtocol method retrieves the source protocol.
      * @param {Pointer<Integer>} pSourceProtocol 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_sourceprotocol
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-get_sourceprotocol
      */
     get_SourceProtocol(pSourceProtocol) {
         pSourceProtocolMarshal := pSourceProtocol is VarRef ? "int*" : "ptr"
@@ -86,10 +86,10 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pBandwidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_bandwidth
+     * The get_Bandwidth method retrieves the bandwidth.
+     * @param {Pointer<Integer>} pBandwidth Pointer to a variable that receives the bandwidth.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-get_bandwidth
      */
     get_Bandwidth(pBandwidth) {
         pBandwidthMarshal := pBandwidth is VarRef ? "int*" : "ptr"
@@ -99,10 +99,10 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrErrorCorrection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_errorcorrection
+     * The get_ErrorCorrection method retrieves the current error correction method.
+     * @param {Pointer<BSTR>} pbstrErrorCorrection Pointer to a variable that receives a string describing the error correction method.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-get_errorcorrection
      */
     get_ErrorCorrection(pbstrErrorCorrection) {
         result := ComCall(9, this, "ptr", pbstrErrorCorrection, "HRESULT")
@@ -110,10 +110,10 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pCodecCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_codeccount
+     * The get_CodecCount method retrieves the number codecs needed to play the file.
+     * @param {Pointer<Integer>} pCodecCount Pointer to a variable that receives the number of codecs.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-get_codeccount
      */
     get_CodecCount(pCodecCount) {
         pCodecCountMarshal := pCodecCount is VarRef ? "int*" : "ptr"
@@ -123,11 +123,11 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} CodecNum 
-     * @param {Pointer<VARIANT_BOOL>} pCodecInstalled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecinstalled
+     * The GetCodecInstalled method queries whether a specified codec is installed on the local system.
+     * @param {Integer} CodecNum Specifies the codec to query, indexed from zero. Call <b>get_CodecCount</b> to obtain the number of codecs.
+     * @param {Pointer<VARIANT_BOOL>} pCodecInstalled Pointer that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-getcodecinstalled
      */
     GetCodecInstalled(CodecNum, pCodecInstalled) {
         pCodecInstalledMarshal := pCodecInstalled is VarRef ? "short*" : "ptr"
@@ -137,11 +137,11 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} CodecNum 
-     * @param {Pointer<BSTR>} pbstrCodecDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecdescription
+     * The GetCodecDescription method retrieves a user-friendly description of a specified codec.
+     * @param {Integer} CodecNum Specifies the codec to query, indexed from zero. Call <b>get_CodecCount</b> to obtain the number of codecs.
+     * @param {Pointer<BSTR>} pbstrCodecDescription Pointer to a variable that receives the description.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-getcodecdescription
      */
     GetCodecDescription(CodecNum, pbstrCodecDescription) {
         result := ComCall(12, this, "int", CodecNum, "ptr", pbstrCodecDescription, "HRESULT")
@@ -149,11 +149,11 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} CodecNum 
-     * @param {Pointer<BSTR>} pbstrCodecURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecurl
+     * The GetCodecURL method retrieves the URL where the codec may be downloaded.
+     * @param {Integer} CodecNum Specifies the codec to query, indexed from zero. Call <b>get_CodecCount</b> to obtain the number of codecs.
+     * @param {Pointer<BSTR>} pbstrCodecURL Pointer that receives the URL.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-getcodecurl
      */
     GetCodecURL(CodecNum, pbstrCodecURL) {
         result := ComCall(13, this, "int", CodecNum, "ptr", pbstrCodecURL, "HRESULT")
@@ -161,10 +161,10 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Float>} pCreationDate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_creationdate
+     * The get_CreationDate method retrieves the creation date of the source file.
+     * @param {Pointer<Float>} pCreationDate Pointer to a variable that receives the date.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-get_creationdate
      */
     get_CreationDate(pCreationDate) {
         pCreationDateMarshal := pCreationDate is VarRef ? "double*" : "ptr"
@@ -174,10 +174,10 @@ class IAMNetShowExProps extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrSourceLink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_sourcelink
+     * The get_SourceLink method retrieves the source link.
+     * @param {Pointer<BSTR>} pbstrSourceLink Pointer to a variable that receives the source link.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowexprops-get_sourcelink
      */
     get_SourceLink(pbstrSourceLink) {
         result := ComCall(15, this, "ptr", pbstrSourceLink, "HRESULT")

@@ -37,9 +37,11 @@ class IPropertyEnumType2 extends IPropertyEnumType{
     static VTableNames => ["GetImageReference"]
 
     /**
+     * Retrieves the image reference associated with a property enumeration.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype2-getimagereference
+     * A pointer to a buffer that, when this method returns successfully, receives a string of the form &lt;dll name&gt;,-&lt;resid&gt; that is suitable to be passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathparseiconlocationa">PathParseIconLocation</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertyenumtype2-getimagereference
      */
     GetImageReference() {
         result := ComCall(8, this, "ptr*", &ppszImageRes := 0, "HRESULT")

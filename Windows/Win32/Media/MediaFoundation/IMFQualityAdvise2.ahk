@@ -44,10 +44,10 @@ class IMFQualityAdvise2 extends IMFQualityAdvise{
     static VTableNames => ["NotifyQualityEvent"]
 
     /**
-     * 
-     * @param {IMFMediaEvent} pEvent 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise2-notifyqualityevent
+     * Forwards an MEQualityNotify event from the media sink.
+     * @param {IMFMediaEvent} pEvent A pointer to the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface.
+     * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_advise_flags">MF_QUALITY_ADVISE_FLAGS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise2-notifyqualityevent
      */
     NotifyQualityEvent(pEvent) {
         result := ComCall(8, this, "ptr", pEvent, "uint*", &pdwFlags := 0, "HRESULT")

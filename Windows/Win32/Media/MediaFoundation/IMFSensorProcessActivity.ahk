@@ -32,9 +32,9 @@ class IMFSensorProcessActivity extends IUnknown{
     static VTableNames => ["GetProcessId", "GetStreamingState", "GetStreamingMode", "GetReportTime"]
 
     /**
-     * Retrieves the process identifier of the specified process.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
+     * Gets the ID of the process with which the activity is associated.
+     * @returns {Integer} Receives the process ID.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprocessactivity-getprocessid
      */
     GetProcessId() {
         result := ComCall(3, this, "uint*", &pPID := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IMFSensorProcessActivity extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingstate
+     * Gets a value indicating whether the sensor is currently streaming.
+     * @returns {BOOL} Receives a value indicating whether the sensor is currently streaming.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingstate
      */
     GetStreamingState() {
         result := ComCall(4, this, "int*", &pfStreaming := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IMFSensorProcessActivity extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingmode
+     * Gets the streaming mode of the sensor process.
+     * @returns {Integer} Receives the process ID.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingmode
      */
     GetStreamingMode() {
         result := ComCall(5, this, "int*", &pMode := 0, "HRESULT")
@@ -62,9 +62,9 @@ class IMFSensorProcessActivity extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getreporttime
+     * Gets the time associated with the sensor activity report.
+     * @returns {FILETIME} Receives the time associated with the sensor activity report.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorprocessactivity-getreporttime
      */
     GetReportTime() {
         pft := FILETIME()

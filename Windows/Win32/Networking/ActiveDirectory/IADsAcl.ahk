@@ -119,9 +119,9 @@ class IADsAcl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsacl-copyacl
+     * The IADsAcl::CopyAcl method makes a copy of the existing ACL.
+     * @returns {IDispatch} Pointer to the newly created copy of the existing ACL.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsacl-copyacl
      */
     CopyAcl() {
         result := ComCall(13, this, "ptr*", &ppAcl := 0, "HRESULT")

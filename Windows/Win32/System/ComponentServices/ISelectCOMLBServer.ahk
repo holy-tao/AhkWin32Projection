@@ -31,9 +31,9 @@ class ISelectCOMLBServer extends IUnknown{
     static VTableNames => ["Init", "GetLBServer"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iselectcomlbserver-init
+     * Initializes the load balancing server object.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iselectcomlbserver-init
      */
     Init() {
         result := ComCall(3, this, "HRESULT")
@@ -41,10 +41,10 @@ class ISelectCOMLBServer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pUnk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iselectcomlbserver-getlbserver
+     * Retrieves the name of the load balancing server.
+     * @param {IUnknown} pUnk A pointer to the load balancing server's name.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iselectcomlbserver-getlbserver
      */
     GetLBServer(pUnk) {
         result := ComCall(4, this, "ptr", pUnk, "HRESULT")

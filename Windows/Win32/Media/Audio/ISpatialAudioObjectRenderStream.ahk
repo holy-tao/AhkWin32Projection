@@ -38,10 +38,10 @@ class ISpatialAudioObjectRenderStream extends ISpatialAudioObjectRenderStreamBas
     static VTableNames => ["ActivateSpatialAudioObject"]
 
     /**
-     * 
-     * @param {Integer} type 
-     * @returns {ISpatialAudioObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstream-activatespatialaudioobject
+     * Activates an ISpatialAudioObject for audio rendering.
+     * @param {Integer} type The type of audio object to activate. For dynamic audio objects, this value must be <b>AudioObjectType_Dynamic</b>. For static audio objects, specify one of the static audio channel values from the enumeration. Specifying <b>AudioObjectType_None</b> will produce an audio object that is not spatialized.
+     * @returns {ISpatialAudioObject} Receives a pointer to the activated interface.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstream-activatespatialaudioobject
      */
     ActivateSpatialAudioObject(type) {
         result := ComCall(10, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")

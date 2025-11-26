@@ -32,10 +32,10 @@ class IFhTarget extends IUnknown{
     static VTableNames => ["GetStringProperty", "GetNumericalProperty"]
 
     /**
-     * 
-     * @param {Integer} PropertyType 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getstringproperty
+     * Retrieves a string property of the File History backup target that is represented by an IFhTarget interface.
+     * @param {Integer} PropertyType Specifies the string property. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_target_property_type">FH_TARGET_PROPERTY_TYPE</a> enumeration for the list of possible string property types.
+     * @returns {BSTR} This parameter must be <b>NULL</b> on input. On output, it receives a pointer to a string that contains the string property. This string is allocated by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. You must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the string when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhtarget-getstringproperty
      */
     GetStringProperty(PropertyType) {
         PropertyValue := BSTR()
@@ -44,10 +44,10 @@ class IFhTarget extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} PropertyType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getnumericalproperty
+     * Retrieves a numeric property of the File History backup target that is represented by an IFhTarget interface.
+     * @param {Integer} PropertyType Specifies the numeric property. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_target_property_type">FH_TARGET_PROPERTY_TYPE</a> enumeration for a list of possible numeric properties.
+     * @returns {Integer} Receives the value of the numeric property.
+     * @see https://docs.microsoft.com/windows/win32/api//fhcfg/nf-fhcfg-ifhtarget-getnumericalproperty
      */
     GetNumericalProperty(PropertyType) {
         result := ComCall(4, this, "int", PropertyType, "uint*", &PropertyValue := 0, "HRESULT")

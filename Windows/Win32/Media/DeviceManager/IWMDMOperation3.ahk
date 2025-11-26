@@ -31,11 +31,51 @@ class IWMDMOperation3 extends IWMDMOperation{
     static VTableNames => ["TransferObjectDataOnClearChannel"]
 
     /**
+     * The TransferObjectDataOnClearChannel method is a more efficient implementation of IWMDMOperation::TransferObjectData.
+     * @param {Pointer<Integer>} pData Pointer to an unencrypted byte buffer.
+     * @param {Pointer<Integer>} pdwSize Pointer to a variable specifying the buffer size.
+     * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
-     * @param {Pointer<Integer>} pData 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation3-transferobjectdataonclearchannel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read operation should continue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WMDM_E_USER_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read operation should be cancelled without finishing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred, and the read operation should be cancelled without finishing.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation3-transferobjectdataonclearchannel
      */
     TransferObjectDataOnClearChannel(pData, pdwSize) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"

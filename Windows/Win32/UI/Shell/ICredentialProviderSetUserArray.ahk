@@ -40,10 +40,10 @@ class ICredentialProviderSetUserArray extends IUnknown{
     static VTableNames => ["SetUserArray"]
 
     /**
-     * 
-     * @param {ICredentialProviderUserArray} users 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidersetuserarray-setuserarray
+     * Called by the system during the initialization of a logon or credential UI to retrieve the set of users to show in that UI.
+     * @param {ICredentialProviderUserArray} users A pointer to an array object that contains a set of <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialprovideruser">ICredentialProviderUser</a> objects, each representing a user that will appear in the logon or credential UI. This array enables the credential provider to enumerate and query each of the user objects for their SID, their associated credential provider's ID, various forms of the user name, and their logon status string.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidersetuserarray-setuserarray
      */
     SetUserArray(users) {
         result := ComCall(3, this, "ptr", users, "HRESULT")

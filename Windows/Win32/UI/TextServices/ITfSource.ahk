@@ -61,11 +61,11 @@ class ITfSource extends IUnknown{
     static VTableNames => ["AdviseSink", "UnadviseSink"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @param {IUnknown} punk 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsource-advisesink
+     * ITfSource::AdviseSink method
+     * @param {Pointer<Guid>} riid Identifies the type of advise sink to install.
+     * @param {IUnknown} punk The advise sink <b>IUnknown</b> pointer.
+     * @returns {Integer} Address of a DWORD value that receives an identifying cookie. This value is used to uninstall the advise sink in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-unadvisesink">ITfSource::UnadviseSink</a>. Receives (DWORD)-1 if a failure occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsource-advisesink
      */
     AdviseSink(riid, punk) {
         result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint*", &pdwCookie := 0, "HRESULT")
@@ -73,10 +73,50 @@ class ITfSource extends IUnknown{
     }
 
     /**
+     * ITfSource::UnadviseSink method
+     * @param {Integer} dwCookie A DWORD that identifies the advise sink to uninstall. This value is provided by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsource-unadvisesink
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>dwCookie</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONNECT_E_NOCONNECTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The advise sink cannot be found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsource-unadvisesink
      */
     UnadviseSink(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")

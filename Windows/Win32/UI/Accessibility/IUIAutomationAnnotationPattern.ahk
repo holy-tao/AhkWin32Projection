@@ -103,9 +103,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that identifies the annotation's type.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypeid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypeid
      */
     get_CurrentAnnotationTypeId() {
         result := ComCall(3, this, "int*", &retVal := 0, "HRESULT")
@@ -113,9 +113,14 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the localized name of this annotation's type.
+     * @remarks
+     * 
+     * The name of the annotation type can correspond to one of the annotation type identifiers (for example, “Comment” for  <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">AnnotationType_Comment</a>), but it is not required to.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypename
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypename
      */
     get_CurrentAnnotationTypeName() {
         retVal := BSTR()
@@ -124,9 +129,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the name of the annotation author.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentauthor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentauthor
      */
     get_CurrentAuthor() {
         retVal := BSTR()
@@ -135,9 +140,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the date and time that this annotation was created.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentdatetime
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentdatetime
      */
     get_CurrentDateTime() {
         retVal := BSTR()
@@ -146,9 +151,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the element that is being annotated.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currenttarget
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currenttarget
      */
     get_CurrentTarget() {
         result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
@@ -156,9 +161,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that identifies this annotation's type.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypeid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypeid
      */
     get_CachedAnnotationTypeId() {
         result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
@@ -166,9 +171,14 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the cached localized name of this annotation's type.
+     * @remarks
+     * 
+     * The name of the annotation type can correspond to one of the annotation type identifiers (for example, “Comment” for  <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">AnnotationType_Comment</a>), but it is not required to.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypename
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypename
      */
     get_CachedAnnotationTypeName() {
         retVal := BSTR()
@@ -177,9 +187,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached name of the annotation author.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedauthor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedauthor
      */
     get_CachedAuthor() {
         retVal := BSTR()
@@ -188,9 +198,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached date and time that this annotation was created.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cacheddatetime
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cacheddatetime
      */
     get_CachedDateTime() {
         retVal := BSTR()
@@ -199,9 +209,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached element that is being annotated.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedtarget
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedtarget
      */
     get_CachedTarget() {
         result := ComCall(12, this, "ptr*", &retVal := 0, "HRESULT")

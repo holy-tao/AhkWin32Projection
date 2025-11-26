@@ -51,11 +51,70 @@ class IOpcSignatureCustomObject extends IUnknown{
     static VTableNames => ["GetXml"]
 
     /**
+     * Gets the XML markup of an application-specific Object element.
+     * @param {Pointer<Pointer<Integer>>} xmlMarkup A pointer to a buffer that contains the XML markup of an <b>Object</b> element and includes the opening and closing <b>Object</b> tags.
      * 
-     * @param {Pointer<Pointer<Integer>>} xmlMarkup 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml
+     * In the buffer, XML markup is preceded by a <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a> that corresponds to the encoding of the markup.
+     * 
+     * Supported encodings and <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a> values.<table>
+     * <tr>
+     * <th>Encoding</th>
+     * <th>Description</th>
+     * <th>Byte order mark</th>
+     * </tr>
+     * <tr>
+     * <td>UTF8</td>
+     * <td>UTF-8</td>
+     * <td>EF BB BF</td>
+     * </tr>
+     * <tr>
+     * <td>UTF16LE</td>
+     * <td>UTF-16, little endian</td>
+     * <td>FF FE</td>
+     * </tr>
+     * <tr>
+     * <td>UTF16BE</td>
+     * <td>UTF-16, big endian</td>
+     * <td>FE FF</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * For an example of a buffer with a <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a>, see the Remarks section.
+     * @param {Pointer<Integer>} count A pointer to  the size of the <i>xmlMarkup</i> buffer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  At least one of the <i>xmlMarkup</i>, and <i>count</i> parameters is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobject-getxml
      */
     GetXml(xmlMarkup, count) {
         xmlMarkupMarshal := xmlMarkup is VarRef ? "ptr*" : "ptr"

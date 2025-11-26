@@ -31,10 +31,19 @@ class IRootStorage extends IUnknown{
     static VTableNames => ["SwitchToFile"]
 
     /**
+     * The SwitchToFile method copies the current file associated with the storage object to a new file.
+     * @param {PWSTR} pszFile A pointer to a null terminated string that specifies the file name for the new file. It cannot be the name of an existing file. If <b>NULL</b>, this method creates a temporary file with a unique name, and you can call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-stat">IStorage::Stat</a> to retrieve the name of the temporary file.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pszFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irootstorage-switchtofile
+     * | Return code | Description |
+     * |----------------|---------------|
+     * |S_OK | The file was successfully copied.|
+     * |STG_E_MEDIUMFULL | The file was not copied because of insufficient space on the storage device.|
+     * |STG_E_ACCESSDENIED | The file was not copied because the caller does not have permission to access storage device.|
+     * |STG_E_INVALIDPOINTER | The file was not copied because the *pszFile* pointer is not valid.|
+     * |STG_E_FILEALREADYEXISTS | The file was not copied because the new filename (*pszFile*) points to an existing file.|
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irootstorage-switchtofile
      */
     SwitchToFile(pszFile) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile

@@ -32,9 +32,9 @@ class IWMPContentContainer extends IUnknown{
     static VTableNames => ["GetID", "GetPrice", "GetType", "GetContentCount", "GetContentPrice", "GetContentID"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getid
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetID method retrieves the ID of the album or list represented by the content container.
+     * @returns {Integer} Pointer to a <b>ULONG</b> that receives the ID.
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainer-getid
      */
     GetID() {
         result := ComCall(3, this, "uint*", &pContentID := 0, "HRESULT")
@@ -42,9 +42,30 @@ class IWMPContentContainer extends IUnknown{
     }
 
     /**
+     * Note  This section describes functionality designed for use by online stores.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the price or one of the following constants.
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getprice
+     * <table>
+     * <tr>
+     * <th>String
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>g_szContentPrice_Unknown</td>
+     * <td>The price of the content is unknown.</td>
+     * </tr>
+     * <tr>
+     * <td>g_szContentPrice_CannotBuy</td>
+     * <td>The content cannot be purchased.</td>
+     * </tr>
+     * <tr>
+     * <td>g_szContentPrice_Free</td>
+     * <td>The content is free.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainer-getprice
      */
     GetPrice() {
         pbstrPrice := BSTR()
@@ -53,9 +74,9 @@ class IWMPContentContainer extends IUnknown{
     }
 
     /**
-     * 
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetType method retrieves the type of the content container.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-gettype
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainer-gettype
      */
     GetType() {
         pbstrType := BSTR()
@@ -64,9 +85,9 @@ class IWMPContentContainer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentcount
+     * Note  This section describes functionality designed for use by online stores.
+     * @returns {Integer} Pointer to a <b>ULONG</b> that receives the count.
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentcount
      */
     GetContentCount() {
         result := ComCall(6, this, "uint*", &pcContent := 0, "HRESULT")
@@ -74,10 +95,31 @@ class IWMPContentContainer extends IUnknown{
     }
 
     /**
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {Integer} idxContent Specifies the zero-based index of the media item for which to retrieve the price.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the price or one of the following constants.
      * 
-     * @param {Integer} idxContent 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentprice
+     * <table>
+     * <tr>
+     * <th>String
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>g_szContentPrice_Unknown</td>
+     * <td>The price of the content is unknown.</td>
+     * </tr>
+     * <tr>
+     * <td>g_szContentPrice_CannotBuy</td>
+     * <td>The content cannot be purchased.</td>
+     * </tr>
+     * <tr>
+     * <td>g_szContentPrice_Free</td>
+     * <td>The content is free.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentprice
      */
     GetContentPrice(idxContent) {
         pbstrPrice := BSTR()
@@ -86,10 +128,10 @@ class IWMPContentContainer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} idxContent 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentid
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {Integer} idxContent Specifies the zero-based index of the media item in the container..
+     * @returns {Integer} Pointer to a <b>ULONG</b> that receives the ID of the media item.
+     * @see https://docs.microsoft.com/windows/win32/api//contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentid
      */
     GetContentID(idxContent) {
         result := ComCall(8, this, "uint", idxContent, "uint*", &pContentID := 0, "HRESULT")

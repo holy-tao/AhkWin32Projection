@@ -35,10 +35,14 @@ class ISearchLanguageSupport extends IUnknown{
     static VTableNames => ["SetDiacriticSensitivity", "GetDiacriticSensitivity", "LoadWordBreaker", "LoadStemmer", "IsPrefixNormalized"]
 
     /**
+     * Sets a value that indicates whether an implemented ISearchLanguageSupport interface is sensitive to diacritics. A diacritic is an accent mark added to a letter to indicate a special phonetic value or pronunciation.
+     * @param {BOOL} fDiacriticSensitive Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fDiacriticSensitive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-setdiacriticsensitivity
+     * A Boolean value that indicates whether the interface is sensitive to diacritics. The default setting is <b>FALSE</b>, indicating that the interface ignores diacritical characters.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-setdiacriticsensitivity
      */
     SetDiacriticSensitivity(fDiacriticSensitive) {
         result := ComCall(3, this, "int", fDiacriticSensitive, "HRESULT")
@@ -46,9 +50,11 @@ class ISearchLanguageSupport extends IUnknown{
     }
 
     /**
+     * Gets the sensitivity of an implemented ISearchLanguageSupport interface to diacritics. A diacritic is an accent mark added to a letter to indicate a special phonetic value or pronunciation.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-getdiacriticsensitivity
+     * On return, contains a pointer to the sensitivity setting. <b>FALSE</b> indicates that the interface ignores diacritics; <b>TRUE</b> indicates the interface recognizes diacritics.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-getdiacriticsensitivity
      */
     GetDiacriticSensitivity() {
         result := ComCall(4, this, "int*", &pfDiacriticSensitive := 0, "HRESULT")
@@ -56,13 +62,23 @@ class ISearchLanguageSupport extends IUnknown{
     }
 
     /**
+     * Retrieves an interface to the word breaker registered for the specified language code identifier (LCID).
+     * @param {Integer} lcid Type: <b>LCID</b>
      * 
-     * @param {Integer} lcid 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppWordBreaker 
-     * @param {Pointer<Integer>} pLcidUsed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
+     * The LCID requested.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * IID of the interface to be queried.
+     * @param {Pointer<Pointer<Void>>} ppWordBreaker Type: <b>void**</b>
+     * 
+     * On return, contains the address of a pointer to the interface of the LCID contained in <i>pLcidUsed</i>.
+     * @param {Pointer<Integer>} pLcidUsed Type: <b>LCID*</b>
+     * 
+     * On return, contains a pointer to the actual LCID used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
      */
     LoadWordBreaker(lcid, riid, ppWordBreaker, pLcidUsed) {
         ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : "ptr"
@@ -73,13 +89,23 @@ class ISearchLanguageSupport extends IUnknown{
     }
 
     /**
+     * Retrieves an interface to the word stemmer registered for the specified language code identifier (LCID).
+     * @param {Integer} lcid Type: <b>LCID</b>
      * 
-     * @param {Integer} lcid 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppStemmer 
-     * @param {Pointer<Integer>} pLcidUsed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
+     * The LCID requested.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * IID of the interface to be queried.
+     * @param {Pointer<Pointer<Void>>} ppStemmer Type: <b>void**</b>
+     * 
+     * On return, contains the address of a pointer to the interface of the LCID contained in <i>pLcidUsed</i>.
+     * @param {Pointer<Integer>} pLcidUsed Type: <b>LCID*</b>
+     * 
+     * On return, contains a pointer to the actual LCID used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
      */
     LoadStemmer(lcid, riid, ppStemmer, pLcidUsed) {
         ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : "ptr"
@@ -90,13 +116,23 @@ class ISearchLanguageSupport extends IUnknown{
     }
 
     /**
+     * Determines whether the query token is a prefix of the document token, disregarding case, width, and (optionally) diacritics.
+     * @param {PWSTR} pwcsQueryToken Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pwcsQueryToken 
-     * @param {Integer} cwcQueryToken 
-     * @param {PWSTR} pwcsDocumentToken 
-     * @param {Integer} cwcDocumentToken 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-isprefixnormalized
+     * Pointer to the prefix to search for.
+     * @param {Integer} cwcQueryToken Type: <b>ULONG</b>
+     * 
+     * The size of <i>pwcsQueryToken</i>.
+     * @param {PWSTR} pwcsDocumentToken Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to the document to be searched.
+     * @param {Integer} cwcDocumentToken Type: <b>ULONG</b>
+     * 
+     * The size of <i>pwcsDocumentToken</i>.
+     * @returns {Integer} Type: <b>ULONG*</b>
+     * 
+     * Returns a pointer to the number of characters matched in <i>pwcsDocumentToken</i>. Typically, but not necessarily, the number of characters in <i>pwcsQueryToken</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-isprefixnormalized
      */
     IsPrefixNormalized(pwcsQueryToken, cwcQueryToken, pwcsDocumentToken, cwcDocumentToken) {
         pwcsQueryToken := pwcsQueryToken is String ? StrPtr(pwcsQueryToken) : pwcsQueryToken

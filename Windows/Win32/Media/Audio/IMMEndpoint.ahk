@@ -31,9 +31,16 @@ class IMMEndpoint extends IUnknown{
     static VTableNames => ["GetDataFlow"]
 
     /**
+     * The GetDataFlow method indicates whether the audio endpoint device is a rendering device or a capture device.
+     * @returns {Integer} Pointer to a variable into which the method writes the data-flow direction of the endpoint device. The direction is indicated by one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration constants:
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immendpoint-getdataflow
+     * <ul>
+     *  <li>eRender</li>
+     *  <li>eCapture</li>
+     * </ul>
+     * 
+     * The data-flow direction for a rendering device is eRender. The data-flow direction for a capture device is eCapture.
+     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immendpoint-getdataflow
      */
     GetDataFlow() {
         result := ComCall(3, this, "int*", &pDataFlow := 0, "HRESULT")

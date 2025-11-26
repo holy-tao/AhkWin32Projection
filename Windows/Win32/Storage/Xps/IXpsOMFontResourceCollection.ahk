@@ -37,9 +37,9 @@ class IXpsOMFontResourceCollection extends IUnknown{
     static VTableNames => ["GetCount", "GetAt", "SetAt", "InsertAt", "Append", "RemoveAt", "GetByPartName"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getcount
+     * Gets the number of IXpsOMFontResource interface pointers in the collection.
+     * @returns {Integer} The number of <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointers in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -47,10 +47,10 @@ class IXpsOMFontResourceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IXpsOMFontResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getat
+     * Gets an IXpsOMFontResource interface pointer from a specified location in the collection.
+     * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointer to be obtained.
+     * @returns {IXpsOMFontResource} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointer at the location specified by <i>index</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &value := 0, "HRESULT")
@@ -58,11 +58,11 @@ class IXpsOMFontResourceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {IXpsOMFontResource} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-setat
+     * Replaces an IXpsOMFontResource interface pointer at a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointer is to be replaced.
+     * @param {IXpsOMFontResource} value The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointer that will replace current contents at the location specified by <i>index</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-setat
      */
     SetAt(index, value) {
         result := ComCall(5, this, "uint", index, "ptr", value, "HRESULT")
@@ -70,11 +70,11 @@ class IXpsOMFontResourceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {IXpsOMFontResource} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-insertat
+     * Inserts an IXpsOMFontResource interface pointer at a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where the interface pointer that is passed in <i>value</i>  is to be inserted.
+     * @param {IXpsOMFontResource} value The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointer that is to be inserted at the location specified by <i>index</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-insertat
      */
     InsertAt(index, value) {
         result := ComCall(6, this, "uint", index, "ptr", value, "HRESULT")
@@ -82,10 +82,10 @@ class IXpsOMFontResourceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IXpsOMFontResource} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-append
+     * Appends an IXpsOMFontResource interface to the end of the collection.
+     * @param {IXpsOMFontResource} value A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface that is to be appended to the collection.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-append
      */
     Append(value) {
         result := ComCall(7, this, "ptr", value, "HRESULT")
@@ -93,10 +93,10 @@ class IXpsOMFontResourceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-removeat
+     * Removes and releases an IXpsOMFontResource interface pointer from a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface pointer is to be removed and released.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(8, this, "uint", index, "HRESULT")
@@ -104,10 +104,10 @@ class IXpsOMFontResourceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IOpcPartUri} partName 
-     * @returns {IXpsOMFontResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getbypartname
+     * Gets an IXpsOMFontResource interface pointer from the collection by matching the interface's part name.
+     * @param {IOpcPartUri} partName The part name of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface to be found in the collection.
+     * @returns {IXpsOMFontResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource">IXpsOMFontResource</a> interface that has the matching part name. If a matching interface is not found in the collection, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getbypartname
      */
     GetByPartName(partName) {
         result := ComCall(9, this, "ptr", partName, "ptr*", &part := 0, "HRESULT")

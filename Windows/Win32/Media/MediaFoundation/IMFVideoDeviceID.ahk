@@ -31,9 +31,9 @@ class IMFVideoDeviceID extends IUnknown{
     static VTableNames => ["GetDeviceID"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodeviceid-getdeviceid
+     * Returns the identifier of the video device supported by an EVR mixer or presenter.
+     * @returns {Guid} Receives the device identifier. Generally, the value is IID_IDirect3DDevice9.
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideodeviceid-getdeviceid
      */
     GetDeviceID() {
         pDeviceID := Guid()

@@ -37,11 +37,17 @@ class IDynamicHWHandler extends IUnknown{
     static VTableNames => ["GetDynamicInfo"]
 
     /**
+     * Called by the system to determine whether a particular handler will be shown before the AutoPlay dialog is displayed.
+     * @param {PWSTR} pszDeviceID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszDeviceID 
-     * @param {Integer} dwContentType 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo
+     * A pointer to a string that indicates the device path or drive root.
+     * @param {Integer} dwContentType Type: <b>DWORD</b>
+     * 
+     * The content type.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to the new action string, or <b>NULL</b> if the default action string is to be used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo
      */
     GetDynamicInfo(pszDeviceID, dwContentType) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID

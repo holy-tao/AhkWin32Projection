@@ -37,11 +37,11 @@ class IDirectManipulationUpdateManager extends IUnknown{
     static VTableNames => ["RegisterWaitHandleCallback", "UnregisterWaitHandleCallback", "Update"]
 
     /**
-     * 
-     * @param {HANDLE} handle 
-     * @param {IDirectManipulationUpdateHandler} eventHandler 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-registerwaithandlecallback
+     * Registers a callback that is triggered by a handle.
+     * @param {HANDLE} handle The event handle that triggers the callback.
+     * @param {IDirectManipulationUpdateHandler} eventHandler The event handler to call when the event is fired.
+     * @returns {Integer} The unique ID of the event callback instance.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-registerwaithandlecallback
      */
     RegisterWaitHandleCallback(handle, eventHandler) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
@@ -51,10 +51,10 @@ class IDirectManipulationUpdateManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-unregisterwaithandlecallback
+     * Deregisters a callback.
+     * @param {Integer} cookie The unique ID of the event callback instance.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-unregisterwaithandlecallback
      */
     UnregisterWaitHandleCallback(cookie) {
         result := ComCall(4, this, "uint", cookie, "HRESULT")
@@ -62,10 +62,10 @@ class IDirectManipulationUpdateManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDirectManipulationFrameInfoProvider} frameInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-update
+     * Updates Direct Manipulation at the current time.
+     * @param {IDirectManipulationFrameInfoProvider} frameInfo The frame info provider used to predict the position of the content and compensate for latency during composition.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-update
      */
     Update(frameInfo) {
         result := ComCall(5, this, "ptr", frameInfo, "HRESULT")

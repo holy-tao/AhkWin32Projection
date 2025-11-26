@@ -162,9 +162,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The Status property is a number that indicates the current status of fax job in the job queue.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_status
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_status
      */
     get_Status() {
         result := ComCall(7, this, "int*", &pStatus := 0, "HRESULT")
@@ -172,9 +172,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The Pages property is a number that indicates the total number of pages received so far in the fax transmission.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_pages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_pages
      */
     get_Pages() {
         result := ComCall(8, this, "int*", &plPages := 0, "HRESULT")
@@ -182,9 +182,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The Size property is a value that indicates the number of bytes of the Tagged Image File Format Class F (TIFF Class F) file received so far for the fax job.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_size
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_size
      */
     get_Size() {
         result := ComCall(9, this, "int*", &plSize := 0, "HRESULT")
@@ -192,9 +192,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The CurrentPage property is a number that identifies the page that the fax service is actively processing.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_currentpage
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_currentpage
      */
     get_CurrentPage() {
         result := ComCall(10, this, "int*", &plCurrentPage := 0, "HRESULT")
@@ -202,9 +202,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The DeviceId property indicates the device ID of the device associated with the fax job.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_deviceid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_deviceid
      */
     get_DeviceId() {
         result := ComCall(11, this, "int*", &plDeviceId := 0, "HRESULT")
@@ -212,9 +212,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The CSID property is a null-terminated string that contains the called station identifier (CSID) for the job.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_csid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_csid
      */
     get_CSID() {
         pbstrCSID := BSTR()
@@ -223,9 +223,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The TSID property is a null-terminated string that contains the transmitting station identifier (TSID) associated with the fax job.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_tsid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_tsid
      */
     get_TSID() {
         pbstrTSID := BSTR()
@@ -234,9 +234,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The ExtendedStatusCode property specifies a code describing the job's extended status.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_extendedstatuscode
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_extendedstatuscode
      */
     get_ExtendedStatusCode() {
         result := ComCall(14, this, "int*", &pExtendedStatusCode := 0, "HRESULT")
@@ -244,9 +244,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The ExtendedStatus property is a null-terminated string that describes the job's extended status.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_extendedstatus
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_extendedstatus
      */
     get_ExtendedStatus() {
         pbstrExtendedStatus := BSTR()
@@ -255,9 +255,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The AvailableOperations property indicates the combination of valid operations that you can perform on the fax job, given its current status.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_availableoperations
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_availableoperations
      */
     get_AvailableOperations() {
         result := ComCall(16, this, "int*", &pAvailableOperations := 0, "HRESULT")
@@ -265,9 +265,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The Retries property is a value that indicates the number of times that the fax service attempted to transmit a fax job when the initial attempt failed.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_retries
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_retries
      */
     get_Retries() {
         result := ComCall(17, this, "int*", &plRetries := 0, "HRESULT")
@@ -275,9 +275,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The JobType property describes the type of fax job; for example, the job can be a receive job, a send job, or a routing job.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_jobtype
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_jobtype
      */
     get_JobType() {
         result := ComCall(18, this, "int*", &pJobType := 0, "HRESULT")
@@ -285,9 +285,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The ScheduledTime property indicates the time that the fax job is scheduled for transmission.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_scheduledtime
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_scheduledtime
      */
     get_ScheduledTime() {
         result := ComCall(19, this, "double*", &pdateScheduledTime := 0, "HRESULT")
@@ -295,9 +295,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The TransmissionStart property indicates the time that the fax job began transmitting.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_transmissionstart
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_transmissionstart
      */
     get_TransmissionStart() {
         result := ComCall(20, this, "double*", &pdateTransmissionStart := 0, "HRESULT")
@@ -305,9 +305,14 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
+     * The TransmissionEnd property indicates the time that the fax job completed transmission.
+     * @remarks
+     * 
+     * The property is not valid as long as the fax is still being received by the fax device.
+     * 
      * 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_transmissionend
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_transmissionend
      */
     get_TransmissionEnd() {
         result := ComCall(21, this, "double*", &pdateTransmissionEnd := 0, "HRESULT")
@@ -315,9 +320,9 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * 
+     * The CallerId property is a null-terminated string that identifies the calling device associated with the fax job.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_callerid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_callerid
      */
     get_CallerId() {
         pbstrCallerId := BSTR()
@@ -326,9 +331,14 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
+     * The RoutingInformation property is a null-terminated string that specifies the routing information for the fax job.
+     * @remarks
+     * 
+     * For more information about routing information, see the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">RoutingInfo</a> member of the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">FAX_DEV_STATUS</a> structure.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_routinginformation
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxjobstatus-get_routinginformation
      */
     get_RoutingInformation() {
         pbstrRoutingInformation := BSTR()

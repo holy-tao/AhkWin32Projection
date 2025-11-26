@@ -44,9 +44,9 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning2-get_service
+     * The get_Service method retrieves the current closed captioning service.
+     * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-msvidccservice">MSVidCCService</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning2-get_service
      */
     get_Service() {
         result := ComCall(18, this, "int*", &On := 0, "HRESULT")
@@ -54,10 +54,28 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning{
     }
 
     /**
+     * The get_Service method sets the closed captioning service.
+     * @param {Integer} On Specifies the closed captioning service, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-msvidccservice">MSVidCCService</a> enumeration.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} On 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning2-put_service
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning2-put_service
      */
     put_Service(On) {
         result := ComCall(19, this, "int", On, "HRESULT")

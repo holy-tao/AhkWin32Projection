@@ -31,12 +31,41 @@ class IMFCaptureSink2 extends IMFCaptureSink{
     static VTableNames => ["SetOutputMediaType"]
 
     /**
+     * Dynamically sets the output media type of the record sink or preview sink.
+     * @param {Integer} dwStreamIndex The stream index to change the output media type on.
+     * @param {IMFMediaType} pMediaType The new output media type.
+     * @param {IMFAttributes} pEncodingAttributes The new encoder attributes. This can be  <b>null</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwStreamIndex 
-     * @param {IMFMediaType} pMediaType 
-     * @param {IMFAttributes} pEncodingAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink2-setoutputmediatype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALID_MEDIATYPE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The sink does not support the media type.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink2-setoutputmediatype
      */
     SetOutputMediaType(dwStreamIndex, pMediaType, pEncodingAttributes) {
         result := ComCall(8, this, "uint", dwStreamIndex, "ptr", pMediaType, "ptr", pEncodingAttributes, "HRESULT")

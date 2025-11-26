@@ -31,10 +31,39 @@ class IWMDRMWriter3 extends IWMDRMWriter2{
     static VTableNames => ["SetProtectStreamSamples"]
 
     /**
+     * The SetProtectStreamSamples method configures the writer to accept encrypted stream samples. This method is used as part of the process of importing protected content from a third party content protection scheme (CPS) into Windows Media DRM.
+     * @param {Pointer<WMDRM_IMPORT_INIT_STRUCT>} pImportInitStruct Address of a <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wmdrm_import_init_struct">WMDRM_IMPORT_INIT_STRUCT</a> structure containing initialization information needed to import protected content.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<WMDRM_IMPORT_INIT_STRUCT>} pImportInitStruct 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter3-setprotectstreamsamples
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_DRM_RIV_TOO_SMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An updated content revocation list is needed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmwriter3-setprotectstreamsamples
      */
     SetProtectStreamSamples(pImportInitStruct) {
         result := ComCall(8, this, "ptr", pImportInitStruct, "HRESULT")

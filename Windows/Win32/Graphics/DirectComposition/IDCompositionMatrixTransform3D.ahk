@@ -40,10 +40,14 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
     static VTableNames => ["SetMatrix", "SetMatrixElement", "SetMatrixElement1"]
 
     /**
+     * Changes all values of the matrix of this 3D transformation effect.
+     * @param {Pointer<D3DMATRIX>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a></b>
      * 
-     * @param {Pointer<D3DMATRIX>} matrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrix
+     * The new matrix for this 3D transformation effect.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrix
      */
     SetMatrix(matrix) {
         result := ComCall(3, this, "ptr", matrix, "HRESULT")

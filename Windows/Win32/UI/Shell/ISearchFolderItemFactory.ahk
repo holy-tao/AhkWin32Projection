@@ -41,10 +41,14 @@ class ISearchFolderItemFactory extends IUnknown{
     static VTableNames => ["SetDisplayName", "SetFolderTypeID", "SetFolderLogicalViewMode", "SetIconSize", "SetVisibleColumns", "SetSortColumns", "SetGroupColumn", "SetStacks", "SetScope", "SetCondition", "GetShellItem", "GetIDList"]
 
     /**
+     * Sets the search folder display name, as specified.
+     * @param {PWSTR} pszDisplayName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszDisplayName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setdisplayname
+     * A pointer to a folder display name as a Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setdisplayname
      */
     SetDisplayName(pszDisplayName) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
@@ -54,10 +58,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Sets a search folder type ID, as specified.
+     * @param {Guid} ftid Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a></b>
      * 
-     * @param {Guid} ftid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfoldertypeid
+     * The FOLDERTYPEID, which is a <b>GUID</b> used to identify folder types within the system. The default is <b>FOLDERTYPID_Library</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfoldertypeid
      */
     SetFolderTypeID(ftid) {
         result := ComCall(4, this, "ptr", ftid, "HRESULT")
@@ -65,10 +73,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Sets folder logical view mode. The default settings are based on the FolderTypeID which is set by the ISearchFolderItemFactory::SetFolderTypeID method.
+     * @param {Integer} flvm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a></b>
      * 
-     * @param {Integer} flvm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfolderlogicalviewmode
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a> value.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfolderlogicalviewmode
      */
     SetFolderLogicalViewMode(flvm) {
         result := ComCall(5, this, "int", flvm, "HRESULT")
@@ -76,10 +88,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Sets the search folder icon size, as specified. The default settings are based on the FolderTypeID which is set by the ISearchFolderItemFactory::SetFolderTypeID method.
+     * @param {Integer} iIconSize Type: <b>int</b>
      * 
-     * @param {Integer} iIconSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-seticonsize
+     * The icon size.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-seticonsize
      */
     SetIconSize(iIconSize) {
         result := ComCall(6, this, "int", iIconSize, "HRESULT")
@@ -87,11 +103,17 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Creates a new column list whose columns are all visible, given an array of PROPERTYKEY structures. The default is based on FolderTypeID.
+     * @param {Integer} cVisibleColumns Type: <b>UINT</b>
      * 
-     * @param {Integer} cVisibleColumns 
-     * @param {Pointer<PROPERTYKEY>} rgKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setvisiblecolumns
+     * The number of array elements.
+     * @param {Pointer<PROPERTYKEY>} rgKey Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
+     * 
+     * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setvisiblecolumns
      */
     SetVisibleColumns(cVisibleColumns, rgKey) {
         result := ComCall(7, this, "uint", cVisibleColumns, "ptr", rgKey, "HRESULT")
@@ -99,11 +121,17 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Creates a list of sort column directions, as specified.
+     * @param {Integer} cSortColumns Type: <b>UINT</b>
      * 
-     * @param {Integer} cSortColumns 
-     * @param {Pointer<SORTCOLUMN>} rgSortColumns 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setsortcolumns
+     * The number of sort columns.
+     * @param {Pointer<SORTCOLUMN>} rgSortColumns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-sortcolumn">SORTCOLUMN</a>*</b>
+     * 
+     * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-sortcolumn">SORTCOLUMN</a> structures containing sort direction.  The default is <b>PKEY_ItemNameDisplay</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setsortcolumns
      */
     SetSortColumns(cSortColumns, rgSortColumns) {
         result := ComCall(8, this, "uint", cSortColumns, "ptr", rgSortColumns, "HRESULT")
@@ -111,10 +139,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Sets a group column, as specified. If no group column is specified, no grouping occurs.
+     * @param {Pointer<PROPERTYKEY>} keyGroup Type: <b>REFPROPERTYKEY</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} keyGroup 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setgroupcolumn
+     * A reference to a group column <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setgroupcolumn
      */
     SetGroupColumn(keyGroup) {
         result := ComCall(9, this, "ptr", keyGroup, "HRESULT")
@@ -122,11 +154,17 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Creates a list of stack keys, as specified. If this method is not called, by default the folder will not be stacked.
+     * @param {Integer} cStackKeys Type: <b>UINT</b>
      * 
-     * @param {Integer} cStackKeys 
-     * @param {Pointer<PROPERTYKEY>} rgStackKeys 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setstacks
+     * The number of stacks keys.
+     * @param {Pointer<PROPERTYKEY>} rgStackKeys Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
+     * 
+     * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures containing stack key information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setstacks
      */
     SetStacks(cStackKeys, rgStackKeys) {
         result := ComCall(10, this, "uint", cStackKeys, "ptr", rgStackKeys, "HRESULT")
@@ -134,10 +172,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Sets search scope, as specified.
+     * @param {IShellItemArray} psiaScope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
-     * @param {IShellItemArray} psiaScope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setscope
+     * A pointer to the list of locations to search. The search will include this location and all its subcontainers. The default is <b>FOLDERID_Profile</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setscope
      */
     SetScope(psiaScope) {
         result := ComCall(11, this, "ptr", psiaScope, "HRESULT")
@@ -145,10 +187,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Sets the ICondition of the search. When this method is not called, the resulting search will have no filters applied.
+     * @param {ICondition} pCondition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>*</b>
      * 
-     * @param {ICondition} pCondition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setcondition
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setcondition
      */
     SetCondition(pCondition) {
         result := ComCall(12, this, "ptr", pCondition, "HRESULT")
@@ -156,10 +202,14 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Gets the search folder as a IShellItem.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getshellitem
+     * A reference to the desired IID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface pointer specified in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getshellitem
      */
     GetShellItem(riid) {
         result := ComCall(13, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -167,9 +217,11 @@ class ISearchFolderItemFactory extends IUnknown{
     }
 
     /**
+     * Gets the search folder as an ITEMIDLIST.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getidlist
+     * When this method returns successfully, contains a PIDL.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getidlist
      */
     GetIDList() {
         result := ComCall(14, this, "ptr*", &ppidl := 0, "HRESULT")

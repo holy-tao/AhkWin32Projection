@@ -48,10 +48,10 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an IX509CertificateTemplate object from the collection by index number.
      * @param {Integer} Index 
      * @returns {IX509CertificateTemplate} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyindex
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -59,9 +59,9 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of IX509CertificateTemplate objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the enumerator for the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -79,10 +79,12 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
+     * Adds an IX509CertificateTemplate object to the collection.
+     * @param {IX509CertificateTemplate} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object to add to the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {IX509CertificateTemplate} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -90,10 +92,12 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
+     * Removes an IX509CertificateTemplate object from the collection by index number.
+     * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -101,9 +105,11 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
+     * Removes all IX509CertificateTemplate objects from the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -111,10 +117,10 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an IX509CertificateTemplate object from the collection by name.
      * @param {BSTR} bstrName 
      * @returns {IX509CertificateTemplate} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-get_itembyname
      */
     get_ItemByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -124,10 +130,10 @@ class IX509CertificateTemplates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an IX509CertificateTemplate object from the collection by object identifier.
      * @param {IObjectId} pOid 
      * @returns {IX509CertificateTemplate} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyoid
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplates-get_itembyoid
      */
     get_ItemByOid(pOid) {
         result := ComCall(14, this, "ptr", pOid, "ptr*", &ppValue := 0, "HRESULT")

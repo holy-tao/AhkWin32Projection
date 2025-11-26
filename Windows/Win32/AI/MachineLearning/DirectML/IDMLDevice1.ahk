@@ -31,12 +31,20 @@ class IDMLDevice1 extends IDMLDevice{
     static VTableNames => ["CompileGraph"]
 
     /**
+     * Compiles a graph of DirectML operators into an object that can be dispatched to the GPU.
+     * @param {Pointer<DML_GRAPH_DESC>} desc Type: **[DML_GRAPH_DESC](/windows/win32/api/directml/ns-directml-dml_graph_desc)\***
      * 
-     * @param {Pointer<DML_GRAPH_DESC>} desc 
-     * @param {Integer} flags 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice1-compilegraph
+     * A description of the graph to compile. See [DML_GRAPH_DESC](/windows/win32/api/directml/ns-directml-dml_graph_desc).
+     * @param {Integer} flags Type: [**DML_EXECUTION_FLAGS**](/windows/win32/api/directml/ne-directml-dml_execution_flags)
+     * 
+     * Any flags to control the execution of this operator.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>ppv</i>. This is expected to be the GUID of [IDMLCompiledOperator](/windows/win32/api/directml/nn-directml-idmlcompiledoperator).
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the compiled operator. This is the address of a pointer to an [IDMLCompiledOperator](/windows/win32/api/directml/nn-directml-idmlcompiledoperator), representing  the compiled operator created.
+     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevice1-compilegraph
      */
     CompileGraph(desc, flags, riid) {
         result := ComCall(17, this, "ptr", desc, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

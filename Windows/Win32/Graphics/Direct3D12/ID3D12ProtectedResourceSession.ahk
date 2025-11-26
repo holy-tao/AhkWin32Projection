@@ -31,9 +31,9 @@ class ID3D12ProtectedResourceSession extends ID3D12ProtectedSession{
     static VTableNames => ["GetDesc"]
 
     /**
-     * 
-     * @returns {D3D12_PROTECTED_RESOURCE_SESSION_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12protectedresourcesession-getdesc
+     * Retrieves a description of the protected resource session.
+     * @returns {D3D12_PROTECTED_RESOURCE_SESSION_DESC} A [D3D12_PROTECTED_RESOURCE_SESSION_DESC](./ns-d3d12-d3d12_protected_resource_session_desc.md) that describes the protected resource session.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12protectedresourcesession-getdesc
      */
     GetDesc() {
         result := ComCall(10, this, "ptr")

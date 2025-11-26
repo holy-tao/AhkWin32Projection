@@ -37,11 +37,17 @@ class ICommDlgBrowser3 extends ICommDlgBrowser2{
     static VTableNames => ["OnColumnClicked", "GetCurrentFilter", "OnPreViewCreated"]
 
     /**
+     * Called after a specified column is clicked in the IShellView interface.
+     * @param {IShellView} ppshv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} ppshv 
-     * @param {Integer} iColumn 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icommdlgbrowser3-oncolumnclicked
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface of the hosted view.
+     * @param {Integer} iColumn Type: <b>int</b>
+     * 
+     * The index of the column clicked.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icommdlgbrowser3-oncolumnclicked
      */
     OnColumnClicked(ppshv, iColumn) {
         result := ComCall(9, this, "ptr", ppshv, "int", iColumn, "HRESULT")
@@ -49,11 +55,17 @@ class ICommDlgBrowser3 extends ICommDlgBrowser2{
     }
 
     /**
+     * Gets the current filter as a Unicode string.
+     * @param {PWSTR} pszFileSpec Type: <b>LPWSTR</b>
      * 
-     * @param {PWSTR} pszFileSpec 
-     * @param {Integer} cchFileSpec 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icommdlgbrowser3-getcurrentfilter
+     * Contains a pointer to the current filter path/file as a Unicode string.
+     * @param {Integer} cchFileSpec Type: <b>int</b>
+     * 
+     * Specifies the path/file length, in characters.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icommdlgbrowser3-getcurrentfilter
      */
     GetCurrentFilter(pszFileSpec, cchFileSpec) {
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
@@ -63,10 +75,14 @@ class ICommDlgBrowser3 extends ICommDlgBrowser2{
     }
 
     /**
+     * Called after a specified preview is created in the IShellView interface.
+     * @param {IShellView} ppshv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} ppshv 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icommdlgbrowser3-onpreviewcreated
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface of the hosted view.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icommdlgbrowser3-onpreviewcreated
      */
     OnPreViewCreated(ppshv) {
         result := ComCall(11, this, "ptr", ppshv, "HRESULT")

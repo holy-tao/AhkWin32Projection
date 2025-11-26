@@ -42,9 +42,9 @@ class IWbemBackupRestoreEx extends IWbemBackupRestore{
     static VTableNames => ["Pause", "Resume"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbembackuprestoreex-pause
+     * The IWbemBackupRestoreEx::Pause method locks out write operations from the Windows Management Instrumentation (WMI) repository, and may cause read operations to be blocked.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of a method call. The following list lists the values contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbembackuprestoreex-pause
      */
     Pause() {
         result := ComCall(5, this, "HRESULT")
@@ -52,9 +52,9 @@ class IWbemBackupRestoreEx extends IWbemBackupRestore{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbembackuprestoreex-resume
+     * The IWbemBackUpRestoreEx::Resume method releases a lock on the Windows Management Instrumentation (WMI) repository so operations can continue.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of a method call. The following list lists the values contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbembackuprestoreex-resume
      */
     Resume() {
         result := ComCall(6, this, "HRESULT")

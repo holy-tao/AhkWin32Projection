@@ -43,9 +43,11 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the starting point for this ink object.
+     * @returns {D2D1_INK_POINT} Type: <b><a href="/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_point">D2D1_INK_POINT</a></b>
      * 
-     * @returns {D2D1_INK_POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getstartpoint
+     * The starting point for this ink object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-getstartpoint
      */
     GetStartPoint() {
         result := ComCall(5, this, "ptr")
@@ -53,11 +55,17 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Adds the given segments to the end of this ink object.
+     * @param {Pointer<D2D1_INK_BEZIER_SEGMENT>} segments Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_bezier_segment">D2D1_INK_BEZIER_SEGMENT</a>*</b>
      * 
-     * @param {Pointer<D2D1_INK_BEZIER_SEGMENT>} segments 
-     * @param {Integer} segmentsCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-addsegments
+     * A pointer to an array of segments to be added to this ink object.
+     * @param {Integer} segmentsCount Type: <b>UINT32</b>
+     * 
+     * The number of segments to be added to this ink object.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-addsegments
      */
     AddSegments(segments, segmentsCount) {
         result := ComCall(6, this, "ptr", segments, "uint", segmentsCount, "HRESULT")
@@ -65,10 +73,14 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Removes the given number of segments from the end of this ink object.
+     * @param {Integer} segmentsCount Type: <b>UINT32</b>
      * 
-     * @param {Integer} segmentsCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-removesegmentsatend
+     * The number of segments to be removed from the end of this ink object. Note that segmentsCount must be less or equal to the number of segments in the ink object.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-removesegmentsatend
      */
     RemoveSegmentsAtEnd(segmentsCount) {
         result := ComCall(7, this, "uint", segmentsCount, "HRESULT")
@@ -76,12 +88,20 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Updates the specified segments in this ink object with new control points.
+     * @param {Integer} startSegment Type: <b>UINT32</b>
      * 
-     * @param {Integer} startSegment 
-     * @param {Pointer<D2D1_INK_BEZIER_SEGMENT>} segments 
-     * @param {Integer} segmentsCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-setsegments
+     * The index of the first segment in this ink object to update.
+     * @param {Pointer<D2D1_INK_BEZIER_SEGMENT>} segments Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_bezier_segment">D2D1_INK_BEZIER_SEGMENT</a>*</b>
+     * 
+     * A pointer to the array of segment data to be used in the update.
+     * @param {Integer} segmentsCount Type: <b>UINT32</b>
+     * 
+     * The number of segments in this ink object that will be updated with new data. Note that segmentsCount must be less than or equal to the number of segments in the ink object minus startSegment.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-setsegments
      */
     SetSegments(startSegment, segments, segmentsCount) {
         result := ComCall(8, this, "uint", startSegment, "ptr", segments, "uint", segmentsCount, "HRESULT")
@@ -100,9 +120,12 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Returns the number of segments in this ink object.
+     * @returns {Integer} Type: <b>UINT32
+     *           </b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getsegmentcount
+     * Returns the number of segments in this ink object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-getsegmentcount
      */
     GetSegmentCount() {
         result := ComCall(10, this, "uint")
@@ -110,11 +133,17 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the specified subset of segments stored in this ink object.
+     * @param {Integer} startSegment Type: <b>UINT32</b>
      * 
-     * @param {Integer} startSegment 
-     * @param {Integer} segmentsCount 
-     * @returns {D2D1_INK_BEZIER_SEGMENT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getsegments
+     * The index of the first segment in this ink object to retrieve.
+     * @param {Integer} segmentsCount Type: <b>UINT32</b>
+     * 
+     * The number of segments to retrieve. Note that segmentsCount must be less than or equal to the number of segments in the ink object minus startSegment.
+     * @returns {D2D1_INK_BEZIER_SEGMENT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_bezier_segment">D2D1_INK_BEZIER_SEGMENT</a>*</b>
+     * 
+     * When this method returns, contains a pointer to an array of retrieved segments.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-getsegments
      */
     GetSegments(startSegment, segmentsCount) {
         segments := D2D1_INK_BEZIER_SEGMENT()
@@ -137,11 +166,17 @@ class ID2D1Ink extends ID2D1Resource{
     }
 
     /**
+     * Retrieve the bounds of the geometry, with an optional applied transform.
+     * @param {ID2D1InkStyle} inkStyle Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1inkstyle">ID2D1InkStyle</a>*</b>
      * 
-     * @param {ID2D1InkStyle} inkStyle 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
-     * @returns {D2D_RECT_F} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getbounds
+     * The ink style to be used in determining the bounds of this ink object.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * The world transform to be used in determining the bounds of this ink object.
+     * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * When this method returns, contains the bounds of this ink object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1ink-getbounds
      */
     GetBounds(inkStyle, worldTransform) {
         bounds := D2D_RECT_F()

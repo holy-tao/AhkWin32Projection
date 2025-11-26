@@ -31,10 +31,10 @@ class IServiceTransactionConfigBase extends IUnknown{
     static VTableNames => ["ConfigureTransaction", "IsolationLevel", "TransactionTimeout", "BringYourOwnTransaction", "NewTransactionDescription"]
 
     /**
-     * 
-     * @param {Integer} transactionConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-configuretransaction
+     * Configures how transactions are used in the enclosed work.
+     * @param {Integer} transactionConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_transactionconfig">CSC_TransactionConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetransactionconfigbase-configuretransaction
      */
     ConfigureTransaction(transactionConfig) {
         result := ComCall(3, this, "int", transactionConfig, "HRESULT")
@@ -42,10 +42,10 @@ class IServiceTransactionConfigBase extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} option 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-isolationlevel
+     * Sets the isolation level of the transactions.
+     * @param {Integer} option A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/ne-comadmin-comadmintxisolationleveloptions">COMAdminTxIsolationLevelOptions</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetransactionconfigbase-isolationlevel
      */
     IsolationLevel(option) {
         result := ComCall(4, this, "int", option, "HRESULT")
@@ -53,10 +53,10 @@ class IServiceTransactionConfigBase extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulTimeoutSec 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-transactiontimeout
+     * Sets the transaction time-out for a new transaction.
+     * @param {Integer} ulTimeoutSec The transaction time-out, in seconds.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetransactionconfigbase-transactiontimeout
      */
     TransactionTimeout(ulTimeoutSec) {
         result := ComCall(5, this, "uint", ulTimeoutSec, "HRESULT")
@@ -64,10 +64,10 @@ class IServiceTransactionConfigBase extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szTipURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-bringyourowntransaction
+     * Enables you to run the enclosed code in an existing transaction that you provide.
+     * @param {PWSTR} szTipURL The Transaction Internet Protocol (TIP) URL of the existing transaction in which you want to run the enclosed code.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetransactionconfigbase-bringyourowntransaction
      */
     BringYourOwnTransaction(szTipURL) {
         szTipURL := szTipURL is String ? StrPtr(szTipURL) : szTipURL
@@ -77,10 +77,10 @@ class IServiceTransactionConfigBase extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szTxDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-newtransactiondescription
+     * Sets the name that is used when transaction statistics are displayed.
+     * @param {PWSTR} szTxDesc The description of the transaction.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetransactionconfigbase-newtransactiondescription
      */
     NewTransactionDescription(szTxDesc) {
         szTxDesc := szTxDesc is String ? StrPtr(szTxDesc) : szTxDesc

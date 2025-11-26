@@ -47,9 +47,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
     static VTableNames => ["GetSourceUri", "GetDigestMethod", "GetDigestValue", "GetTransformMethod", "GetRelationshipSigningOption", "GetRelationshipSelectorEnumerator"]
 
     /**
-     * 
-     * @returns {IOpcUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getsourceuri
+     * Gets the source URI of the relationships that are stored in the referenced�Relationships part.
+     * @returns {IOpcUri} A pointer to the source URI of the relationships that are stored in the referenced Relationships part.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreference-getsourceuri
      */
     GetSourceUri() {
         result := ComCall(3, this, "ptr*", &sourceUri := 0, "HRESULT")
@@ -57,9 +57,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestmethod
+     * Gets the digest method to use on relationship markup of the selected relationships.
+     * @returns {PWSTR} The digest method to use on relationship markup of the selected relationships when they  are signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestmethod
      */
     GetDigestMethod() {
         result := ComCall(4, this, "ptr*", &digestMethod := 0, "HRESULT")
@@ -67,11 +67,42 @@ class IOpcSignatureRelationshipReference extends IUnknown{
     }
 
     /**
+     * Gets the digest value calculated for the selected relationships when they are signed.
+     * @param {Pointer<Pointer<Integer>>} digestValue A pointer to a buffer that contains the digest value calculated using the specified digest method; the method is applied to the relationship markup of the selected relationships when they are signed.
+     * @param {Pointer<Integer>} count The size of the <i>digestValue</i> buffer.
      * 
-     * @param {Pointer<Pointer<Integer>>} digestValue 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestvalue
+     * If the selected relationships have not been signed yet, <i>count</i> is 0.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  At least one of the <i>digestValue</i>, and <i>count</i> parameters is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
         digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"
@@ -82,9 +113,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-gettransformmethod
+     * Gets the canonicalization method to use on the relationship markup of the selected relationships when they are signed.
+     * @returns {Integer} The canonicalization method to use on the relationship markup of the selected  relationships when they  are signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreference-gettransformmethod
      */
     GetTransformMethod() {
         result := ComCall(6, this, "int*", &transformMethod := 0, "HRESULT")
@@ -92,9 +123,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipsigningoption
+     * Gets a value that describes whether all or a subset of relationships that are stored in the referenced�Relationships part are selected.
+     * @returns {Integer} A value that describes whether all or a subset of relationships are selected.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipsigningoption
      */
     GetRelationshipSigningOption() {
         result := ComCall(7, this, "int*", &relationshipSigningOption := 0, "HRESULT")
@@ -102,9 +133,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcRelationshipSelectorEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipselectorenumerator
+     * Gets an enumerator of IOpcRelationshipSelector interface pointers that represent the techniques used to select the subset of relationships in the referenced�Relationships part.
+     * @returns {IOpcRelationshipSelectorEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipselectorenumerator
      */
     GetRelationshipSelectorEnumerator() {
         result := ComCall(8, this, "ptr*", &selectorEnumerator := 0, "HRESULT")

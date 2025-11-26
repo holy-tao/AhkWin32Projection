@@ -37,9 +37,9 @@ class IXpsOMDashCollection extends IUnknown{
     static VTableNames => ["GetCount", "GetAt", "InsertAt", "RemoveAt", "SetAt", "Append"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-getcount
+     * Gets the number of XPS_DASH structures in the collection.
+     * @returns {Integer} The number of <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structures in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -47,10 +47,10 @@ class IXpsOMDashCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {XPS_DASH} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-getat
+     * Gets an XPS_DASH structure from a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure is to  be obtained.
+     * @returns {XPS_DASH} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure that is found at the location specified by <i>index</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-getat
      */
     GetAt(index) {
         dash := XPS_DASH()
@@ -59,11 +59,11 @@ class IXpsOMDashCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {Pointer<XPS_DASH>} dash 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-insertat
+     * Inserts an XPS_DASH structure at a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where the structure that is referenced by  <i>dash</i>  is to be inserted.
+     * @param {Pointer<XPS_DASH>} dash A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure that is to be inserted at the location specified by <i>index</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-insertat
      */
     InsertAt(index, dash) {
         result := ComCall(5, this, "uint", index, "ptr", dash, "HRESULT")
@@ -71,10 +71,10 @@ class IXpsOMDashCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-removeat
+     * Removes and frees an XPS_DASH structure from a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure is to be removed and freed.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(6, this, "uint", index, "HRESULT")
@@ -82,11 +82,11 @@ class IXpsOMDashCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {Pointer<XPS_DASH>} dash 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-setat
+     * Replaces an XPS_DASH structure at a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure is to be replaced.
+     * @param {Pointer<XPS_DASH>} dash A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure that will replace the current contents at the location specified by <i>index</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-setat
      */
     SetAt(index, dash) {
         result := ComCall(7, this, "uint", index, "ptr", dash, "HRESULT")
@@ -94,10 +94,10 @@ class IXpsOMDashCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<XPS_DASH>} dash 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-append
+     * Appends an XPS_DASH structure to the end of the collection.
+     * @param {Pointer<XPS_DASH>} dash A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structure that is to be appended  to the collection.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-append
      */
     Append(dash) {
         result := ComCall(8, this, "ptr", dash, "HRESULT")

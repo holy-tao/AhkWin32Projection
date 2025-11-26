@@ -46,9 +46,11 @@ class IDirect3DStateBlock9 extends IUnknown{
     static VTableNames => ["GetDevice", "Capture", "Apply"]
 
     /**
+     * Gets the device.
+     * @returns {IDirect3DDevice9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>**</b>
      * 
-     * @returns {IDirect3DDevice9} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dstateblock9-getdevice
+     * Pointer to the IDirect3DDevice9 interface that is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dstateblock9-getdevice
      */
     GetDevice() {
         result := ComCall(3, this, "ptr*", &ppDevice := 0, "HRESULT")
@@ -56,9 +58,11 @@ class IDirect3DStateBlock9 extends IUnknown{
     }
 
     /**
+     * Capture the current value of states that are included in a stateblock.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dstateblock9-capture
+     * If the method succeeds, the return value is D3D_OK. If the method fails because capture cannot be done while in record mode, the return value is D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dstateblock9-capture
      */
     Capture() {
         result := ComCall(4, this, "HRESULT")
@@ -66,9 +70,11 @@ class IDirect3DStateBlock9 extends IUnknown{
     }
 
     /**
+     * Apply the state block to the current device state.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dstateblock9-apply
+     * If the method succeeds, the return value is D3D_OK. If the method fails while in record mode, the return value is D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dstateblock9-apply
      */
     Apply() {
         result := ComCall(5, this, "HRESULT")

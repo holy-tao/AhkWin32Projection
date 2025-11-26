@@ -43,9 +43,11 @@ class IToggleProvider extends IUnknown{
     }
 
     /**
+     * Cycles through the toggle states of a control.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-toggle
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itoggleprovider-toggle
      */
     Toggle() {
         result := ComCall(3, this, "HRESULT")
@@ -53,9 +55,16 @@ class IToggleProvider extends IUnknown{
     }
 
     /**
+     * Specifies the toggle state of the control.
+     * @remarks
+     * 
+     * A control must cycle through its <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-togglestate">ToggleState</a> in this order:  
+     * <b>ToggleState_On</b>, <b>ToggleState_Off</b> 
+     * and, if supported, <b>ToggleState_Indeterminate</b>.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-get_togglestate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itoggleprovider-get_togglestate
      */
     get_ToggleState() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")

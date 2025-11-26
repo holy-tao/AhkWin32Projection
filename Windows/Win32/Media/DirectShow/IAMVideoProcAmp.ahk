@@ -36,15 +36,66 @@ class IAMVideoProcAmp extends IUnknown{
     static VTableNames => ["GetRange", "Set", "Get"]
 
     /**
+     * The GetRange method gets the range and default value of a specified video property.
+     * @param {Integer} Property Specifies the property to query, as a value from the [VideoProcAmpProperty](/windows/desktop/api/strmif/ne-strmif-videoprocampproperty) enumeration.
+     * @param {Pointer<Integer>} pMin Receives the minimum value of the property.
+     * @param {Pointer<Integer>} pMax Receives the maximum value of the property.
+     * @param {Pointer<Integer>} pSteppingDelta Receives the step size for the property. The step size is the smallest increment by which the property can change.
+     * @param {Pointer<Integer>} pDefault Receives the default value of the property.
+     * @param {Pointer<Integer>} pCapsFlags Receives a member of the [VideoProcAmpFlags](/windows/desktop/api/strmif/ne-strmif-videoprocampflags) enumeration, indicating whether the property is controlled automatically or manually.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} Property 
-     * @param {Pointer<Integer>} pMin 
-     * @param {Pointer<Integer>} pMax 
-     * @param {Pointer<Integer>} pSteppingDelta 
-     * @param {Pointer<Integer>} pDefault 
-     * @param {Pointer<Integer>} pCapsFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-getrange
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PROP_ID_UNSUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device does not support this property.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideoprocamp-getrange
      */
     GetRange(Property, pMin, pMax, pSteppingDelta, pDefault, pCapsFlags) {
         pMinMarshal := pMin is VarRef ? "int*" : "ptr"
@@ -58,12 +109,13 @@ class IAMVideoProcAmp extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Property 
-     * @param {Integer} lValue 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-set
+     * The Set method sets video quality for a specified property.
+     * @param {Integer} Property The property to set, specified as a [VideoProcAmpProperty](/windows/desktop/api/strmif/ne-strmif-videoprocampproperty) enumeration value.
+     * @param {Integer} lValue The new value of the property.
+     * @param {Integer} Flags The desired control setting, specified as a [VideoProcAmpFlags](/windows/desktop/api/strmif/ne-strmif-videoprocampflags) enumeration
+     *           value.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideoprocamp-set
      */
     Set(Property, lValue, Flags) {
         result := ComCall(4, this, "int", Property, "int", lValue, "int", Flags, "HRESULT")
@@ -71,12 +123,12 @@ class IAMVideoProcAmp extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Property 
-     * @param {Pointer<Integer>} lValue 
-     * @param {Pointer<Integer>} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-get
+     * The Get method gets the current setting of a video property.
+     * @param {Integer} Property Specifies the property to retrieve, as a value from the [VideoProcAmpProperty](/windows/desktop/api/strmif/ne-strmif-videoprocampproperty) enumeration.
+     * @param {Pointer<Integer>} lValue Receives the value of the property.
+     * @param {Pointer<Integer>} Flags Receives a member of the [VideoProcAmpFlags](/windows/desktop/api/strmif/ne-strmif-videoprocampflags) enumeration. The returned value indicates whether the setting is controlled manually or automatically.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideoprocamp-get
      */
     Get(Property, lValue, Flags) {
         lValueMarshal := lValue is VarRef ? "int*" : "ptr"

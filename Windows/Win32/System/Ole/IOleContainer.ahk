@@ -32,10 +32,10 @@ class IOleContainer extends IParseDisplayName{
     static VTableNames => ["EnumObjects", "LockContainer"]
 
     /**
-     * The EnumObjects function enumerates the pens or brushes available for the specified device context (DC).
-     * @param {Integer} grfFlags 
-     * @returns {IEnumUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
+     * Enumerates the objects in the current container.
+     * @param {Integer} grfFlags Specifies which objects in a container are to be enumerated, as defined in the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olecontf">OLECONTF</a>.
+     * @returns {IEnumUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a> pointer variable that receives the interface pointer to the enumerator object. Each time a container receives a successful call to <b>EnumObjects</b>, it must increase the reference count on the <i>ppenum</i> pointer the method returns. It is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when it is done with the pointer. If an error is returned, the implementation must set <i>ppenum</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolecontainer-enumobjects
      */
     EnumObjects(grfFlags) {
         result := ComCall(4, this, "uint", grfFlags, "ptr*", &ppenum := 0, "HRESULT")
@@ -43,10 +43,39 @@ class IOleContainer extends IParseDisplayName{
     }
 
     /**
+     * Keeps the container for embedded objects running until explicitly released.
+     * @param {BOOL} fLock Indicates whether to lock (<b>TRUE</b>) or unlock (<b>FALSE</b>) a container.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @param {BOOL} fLock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecontainer-lockcontainer
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory available for the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolecontainer-lockcontainer
      */
     LockContainer(fLock) {
         result := ComCall(5, this, "int", fLock, "HRESULT")

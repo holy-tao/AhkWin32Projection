@@ -74,9 +74,9 @@ class ITRequestEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_registrationinstance
+     * The get_RegistrationInstance method gets the registration instance.
+     * @returns {Integer} Pointer to the registration instance.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequestevent-get_registrationinstance
      */
     get_RegistrationInstance() {
         result := ComCall(7, this, "int*", &plRegistrationInstance := 0, "HRESULT")
@@ -84,9 +84,9 @@ class ITRequestEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_requestmode
+     * The get_RequestMode method gets the mode of the request.
+     * @returns {Integer} Pointer to the request mode.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequestevent-get_requestmode
      */
     get_RequestMode() {
         result := ComCall(8, this, "int*", &plRequestMode := 0, "HRESULT")
@@ -94,9 +94,9 @@ class ITRequestEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_destaddress
+     * The get_DestAddress method gets the destination address.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> containing the destination address.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequestevent-get_destaddress
      */
     get_DestAddress() {
         ppDestAddress := BSTR()
@@ -105,9 +105,9 @@ class ITRequestEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_appname
+     * The get_AppName method gets the name of the application.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> containing the application name.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequestevent-get_appname
      */
     get_AppName() {
         ppAppName := BSTR()
@@ -116,9 +116,9 @@ class ITRequestEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_calledparty
+     * The get_CalledParty method gets the called party.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> containing the called party identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequestevent-get_calledparty
      */
     get_CalledParty() {
         ppCalledParty := BSTR()
@@ -127,9 +127,9 @@ class ITRequestEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_comment
+     * The get_Comment method gets the comment.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> containing the comment.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequestevent-get_comment
      */
     get_Comment() {
         ppComment := BSTR()

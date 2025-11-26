@@ -31,10 +31,10 @@ class IDCompositionVisualDebug extends IDCompositionVisual2{
     static VTableNames => ["EnableHeatMap", "DisableHeatMap", "EnableRedrawRegions", "DisableRedrawRegions"]
 
     /**
-     * 
+     * Enables a visual heatmap that represents overdraw regions.
      * @param {Pointer<D2D1_COLOR_F>} color 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisualdebug-enableheatmap
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisualdebug-enableheatmap
      */
     EnableHeatMap(color) {
         result := ComCall(22, this, "ptr", color, "HRESULT")
@@ -42,9 +42,9 @@ class IDCompositionVisualDebug extends IDCompositionVisual2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisualdebug-disableheatmap
+     * Disables visual heatmaps.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisualdebug-disableheatmap
      */
     DisableHeatMap() {
         result := ComCall(23, this, "HRESULT")
@@ -52,9 +52,9 @@ class IDCompositionVisualDebug extends IDCompositionVisual2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisualdebug-enableredrawregions
+     * Enables highlighting visuals when content is being redrawn.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisualdebug-enableredrawregions
      */
     EnableRedrawRegions() {
         result := ComCall(24, this, "HRESULT")
@@ -62,9 +62,9 @@ class IDCompositionVisualDebug extends IDCompositionVisual2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisualdebug-disableredrawregions
+     * Disables visual redraw regions.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisualdebug-disableredrawregions
      */
     DisableRedrawRegions() {
         result := ComCall(25, this, "HRESULT")

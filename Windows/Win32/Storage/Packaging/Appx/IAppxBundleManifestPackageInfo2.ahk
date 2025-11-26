@@ -31,9 +31,9 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown{
     static VTableNames => ["GetIsPackageReference", "GetIsNonQualifiedResourcePackage", "GetIsDefaultApplicablePackage"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getispackagereference
+     * Determines whether a package is stored inside an app bundle, or if it's a reference to a package.
+     * @returns {BOOL} True if the package in the bundle is a reference to a package; False if the package in the bundle is stored inside the app bundle.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getispackagereference
      */
     GetIsPackageReference() {
         result := ComCall(3, this, "int*", &isPackageReference := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisnonqualifiedresourcepackage
+     * Determines whether the app package is a non-qualified resource package.
+     * @returns {BOOL} True if the package is a non-qualified resource package, False otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisnonqualifiedresourcepackage
      */
     GetIsNonQualifiedResourcePackage() {
         result := ComCall(4, this, "int*", &isNonQualifiedResourcePackage := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisdefaultapplicablepackage
+     * Determines whether the app package is a default applicable package.
+     * @returns {BOOL} True if the package is a default applicable package, False otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisdefaultapplicablepackage
      */
     GetIsDefaultApplicablePackage() {
         result := ComCall(5, this, "int*", &isDefaultApplicablePackage := 0, "HRESULT")

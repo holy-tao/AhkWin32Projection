@@ -31,9 +31,11 @@ class IAssocHandlerInvoker extends IUnknown{
     static VTableNames => ["SupportsSelection", "Invoke"]
 
     /**
+     * Determines whether an invoker supports its selection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandlerinvoker-supportsselection
+     * Returns <b>S_OK</b> if this instance supports its selection, or <b>S_FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iassochandlerinvoker-supportsselection
      */
     SupportsSelection() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +43,11 @@ class IAssocHandlerInvoker extends IUnknown{
     }
 
     /**
+     * Invokes an associated application handler.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandlerinvoker-invoke
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iassochandlerinvoker-invoke
      */
     Invoke() {
         result := ComCall(4, this, "HRESULT")

@@ -39,20 +39,43 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IX509PrivateKey} pValue 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the object from a private key.
+     * @param {IX509PrivateKey} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface that represents the private key.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
+     * 
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>CERTSRV_E_PROPERTY_EMPTY</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> pointer is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>ERROR_ARITHMETIC_OVERFLOW</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The unique container name and the provider name are too long.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize
      */
     Initialize(pValue) {
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
@@ -60,9 +83,14 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
     }
 
     /**
+     * Retrieves the private key associated with the certificate.
+     * @remarks
+     * 
+     *  Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize">Initialize</a> method to create a description.
+     * 
      * 
      * @returns {IX509PrivateKey} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-get_privatekey
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertykeyprovinfo-get_privatekey
      */
     get_PrivateKey() {
         result := ComCall(15, this, "ptr*", &ppValue := 0, "HRESULT")

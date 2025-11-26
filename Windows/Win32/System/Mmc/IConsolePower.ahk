@@ -37,11 +37,15 @@ class IConsolePower extends IUnknown{
     static VTableNames => ["SetExecutionState", "ResetIdleTimer"]
 
     /**
+     * The SetExecutionState method sets the execution state for the current thread.
+     * @param {Integer} dwAdd Flags to add to the snap-in execution state. This can be a combination of 0 or more of the following flags.
+     * @param {Integer} dwRemove Flags to remove from the snap-in's execution-state. This can be a combination of 0 or more of the preceding flags. Specifying one or more of the flags enables a snap-in to turn off a power management requirement established by an earlier call to 
+     * <b>SetExecutionState</b>.
      * 
-     * @param {Integer} dwAdd 
-     * @param {Integer} dwRemove 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolepower-setexecutionstate
+     * <div class="alert"><b>Note</b>  A power management requirement must be turned off before it can be turned on. An attempt to turn on a power management requirement without first turning it off returns an error <b>E_INVALIDARG</b>.</div>
+     * <div> </div>
+     * @returns {HRESULT} If successful, the return value is <b>S_OK</b>. This method will return <b>S_FALSE</b> when invoked on a system that does not support power management. Other return values indicate an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolepower-setexecutionstate
      */
     SetExecutionState(dwAdd, dwRemove) {
         result := ComCall(3, this, "uint", dwAdd, "uint", dwRemove, "HRESULT")
@@ -49,10 +53,11 @@ class IConsolePower extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolepower-resetidletimer
+     * The ResetIdleTimer method resets the specified power management idle timers.
+     * @param {Integer} dwFlags The flags used to reset idle timers. One or more of the following flags can be used. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setthreadexecutionstate">SetThreadExecutionState</a>.
+     * @returns {HRESULT} If successful, the return value is S_OK. This method will return S_FALSE when invoked on a system that does not support power management. Other return values indicate an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsolepower-resetidletimer
      */
     ResetIdleTimer(dwFlags) {
         result := ComCall(4, this, "uint", dwFlags, "HRESULT")

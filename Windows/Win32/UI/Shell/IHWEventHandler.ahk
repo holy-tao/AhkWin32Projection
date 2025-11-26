@@ -37,20 +37,27 @@ class IHWEventHandler extends IUnknown{
     static VTableNames => ["Initialize", "HandleEvent", "HandleEventWithContent"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {PWSTR} pszParams 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes an object that contains an implementation of the IHWEventHandler interface.
+     * @param {PWSTR} pszParams Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string buffer that contains the string from the following registry value.
+     *           
+     * 
+     * 
+     * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+     *    <b>Software</b>
+     *       <b>Microsoft</b>
+     *          <b>Windows</b>
+     *             <b>CurrentVersion</b>
+     *                <b>Explorer</b>
+     *                   <b>AutoPlayHandlers</b>
+     *                      <b>Handlers</b>
+     *                         <i>HandlerName</i>
+     *                            <b>InitCmdLine</b> = string</pre>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler-initialize
      */
     Initialize(pszParams) {
         pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
@@ -60,12 +67,20 @@ class IHWEventHandler extends IUnknown{
     }
 
     /**
+     * Handles AutoPlay device events for which there is no content of the type the application is registered to handle.
+     * @param {PWSTR} pszDeviceID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszDeviceID 
-     * @param {PWSTR} pszAltDeviceID 
-     * @param {PWSTR} pszEventType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-handleevent
+     * A pointer to a string buffer that contains the device ID.
+     * @param {PWSTR} pszAltDeviceID Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string buffer that contains the alternate device ID. The alternate device ID is more human-readable than the primary device ID.
+     * @param {PWSTR} pszEventType Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string buffer that contains the event type. The event types include DeviceArrival, DeviceRemoval, MediaArrival, and MediaRemoval.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler-handleevent
      */
     HandleEvent(pszDeviceID, pszAltDeviceID, pszEventType) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID
@@ -77,14 +92,14 @@ class IHWEventHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszDeviceID 
-     * @param {PWSTR} pszAltDeviceID 
-     * @param {PWSTR} pszEventType 
-     * @param {PWSTR} pszContentTypeHandler 
-     * @param {IDataObject} pdataobject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-handleeventwithcontent
+     * Not implemented.
+     * @param {PWSTR} pszDeviceID This parameter is unused.
+     * @param {PWSTR} pszAltDeviceID This parameter is unused.
+     * @param {PWSTR} pszEventType This parameter is unused.
+     * @param {PWSTR} pszContentTypeHandler This parameter is unused.
+     * @param {IDataObject} pdataobject This parameter is unused.
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler-handleeventwithcontent
      */
     HandleEventWithContent(pszDeviceID, pszAltDeviceID, pszEventType, pszContentTypeHandler, pdataobject) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID

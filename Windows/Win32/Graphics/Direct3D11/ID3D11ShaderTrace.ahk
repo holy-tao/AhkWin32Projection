@@ -47,9 +47,10 @@ class ID3D11ShaderTrace extends IUnknown{
     static VTableNames => ["TraceReady", "ResetTrace", "GetTraceStats", "PSSelectStamp", "GetInitialRegisterContents", "GetStep", "GetWrittenRegister", "GetReadRegister"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-traceready
+     * Specifies that the shader trace recorded and is ready to use.
+     * @returns {Integer} An optional pointer to a variable that receives the number of times that a matching invocation for the trace occurred. If not used, set to NULL.
+     * For more information about this number, see Remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-traceready
      */
     TraceReady() {
         result := ComCall(3, this, "uint*", &pTestCount := 0, "HRESULT")
@@ -57,18 +58,26 @@ class ID3D11ShaderTrace extends IUnknown{
     }
 
     /**
+     * Resets the shader-trace object.
+     * @remarks
+     * 
+     * After you call <b>ResetTrace</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertrace">ID3D11ShaderTrace</a> object behaves as if it had just been created. Thereafter, shader invocations for the trace start from 0 again; calls to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-traceready">ID3D11ShaderTrace::TraceReady</a> return <b>S_FALSE</b> until the selected shader invocation number is reached, and <b>TraceReady</b> records a new trace.
+     * 
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
+     * 
      * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-resettrace
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-resettrace
      */
     ResetTrace() {
         ComCall(4, this)
     }
 
     /**
-     * 
-     * @returns {D3D11_TRACE_STATS} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-gettracestats
+     * Returns statistics about the trace.
+     * @returns {D3D11_TRACE_STATS} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_stats">D3D11_TRACE_STATS</a> structure. <b>GetTraceStats</b> fills the members of this structure with statistics about the trace.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-gettracestats
      */
     GetTraceStats() {
         pTraceStats := D3D11_TRACE_STATS()
@@ -77,10 +86,17 @@ class ID3D11ShaderTrace extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} stampIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-psselectstamp
+     * Sets the specified pixel-shader stamp.
+     * @param {Integer} stampIndex The index of the stamp to select.
+     * @returns {HRESULT} <b>PSSelectStamp</b> returns:
+     *         <ul>
+     * <li><b>S_OK</b> if the method set the pixel-shader stamp, and if the primitive covers the pixel and sample for the stamp.</li>
+     * <li><b>S_FALSE</b> if the method set the pixel-shader stamp, and if the invocation for the selected stamp falls off the primitive.</li>
+     * <li><b>E_FAIL</b> if you called the method for a vertex shader or geometry shader;   <b>PSSelectStamp</b> is meaningful only for pixel shaders.</li>
+     * <li><b>E_INVALIDARG</b> if <i>stampIndex</i> is out of range [0..3].</li>
+     * <li>Possibly other error codes that are described in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-psselectstamp
      */
     PSSelectStamp(stampIndex) {
         result := ComCall(6, this, "uint", stampIndex, "HRESULT")
@@ -88,10 +104,10 @@ class ID3D11ShaderTrace extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the initial contents of the specified input register.
      * @param {Pointer<D3D11_TRACE_REGISTER>} pRegister 
-     * @returns {D3D11_TRACE_VALUE} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getinitialregistercontents
+     * @returns {D3D11_TRACE_VALUE} A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value">D3D11_TRACE_VALUE</a> structure. <b>GetInitialRegisterContents</b> fills the members of this structure with information about the initial contents.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getinitialregistercontents
      */
     GetInitialRegisterContents(pRegister) {
         pValue := D3D11_TRACE_VALUE()
@@ -100,10 +116,10 @@ class ID3D11ShaderTrace extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} stepIndex 
-     * @returns {D3D11_TRACE_STEP} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getstep
+     * Retrieves information about the specified step in the trace.
+     * @param {Integer} stepIndex The index of the step within the trace. The range of the index is [0...NumTraceSteps-1], where <b>NumTraceSteps</b> is a member of the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_stats">D3D11_TRACE_STATS</a> structure. You can retrieve information about a step in any step order.
+     * @returns {D3D11_TRACE_STEP} A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_step">D3D11_TRACE_STEP</a> structure. <b>GetStep</b> fills the members of this structure with information about the trace step that is specified by the <i>stepIndex</i>  parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getstep
      */
     GetStep(stepIndex) {
         pTraceStep := D3D11_TRACE_STEP()
@@ -112,13 +128,19 @@ class ID3D11ShaderTrace extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} stepIndex 
-     * @param {Integer} writtenRegisterIndex 
-     * @param {Pointer<D3D11_TRACE_REGISTER>} pRegister 
-     * @param {Pointer<D3D11_TRACE_VALUE>} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getwrittenregister
+     * Retrieves information about a register that was written by a step in the trace.
+     * @param {Integer} stepIndex The index of the step within the trace. The range of the index is [0...NumTraceSteps-1], where <b>NumTraceSteps</b> is a member of the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_stats">D3D11_TRACE_STATS</a> structure. You can retrieve information in any step order.
+     * @param {Integer} writtenRegisterIndex The index of the register within  the trace step. The range of the index is [0...NumRegistersWritten-1], where <b>NumRegistersWritten</b> is a member of the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_step">D3D11_TRACE_STEP</a> structure.
+     * @param {Pointer<D3D11_TRACE_REGISTER>} pRegister A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_register">D3D11_TRACE_REGISTER</a> structure. <b>GetWrittenRegister</b> fills the members of this structure with information about the register that was written by the step in the trace.
+     * @param {Pointer<D3D11_TRACE_VALUE>} pValue A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value">D3D11_TRACE_VALUE</a> structure. <b>GetWrittenRegister</b> fills the members of this structure with information about the value that was written to the register.
+     * @returns {HRESULT} <b>GetWrittenRegister</b> returns:
+     *         <ul>
+     * <li><b>S_OK</b> if the method retrieves the register information.</li>
+     * <li><b>E_FAIL</b> if a trace is not available or if the trace was not created with the D3D11_SHADER_TRACE_FLAG_RECORD_REGISTER_WRITES flag.</li>
+     * <li><b>E_INVALIDARG</b> if <i>stepIndex</i> or <i>writtenRegisterIndex</i> is out of range or if <i>pRegister</i> or <i>pValue</i> is NULL.</li>
+     * <li>Possibly other error codes that are described in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getwrittenregister
      */
     GetWrittenRegister(stepIndex, writtenRegisterIndex, pRegister, pValue) {
         result := ComCall(9, this, "uint", stepIndex, "uint", writtenRegisterIndex, "ptr", pRegister, "ptr", pValue, "HRESULT")
@@ -126,13 +148,19 @@ class ID3D11ShaderTrace extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} stepIndex 
-     * @param {Integer} readRegisterIndex 
-     * @param {Pointer<D3D11_TRACE_REGISTER>} pRegister 
-     * @param {Pointer<D3D11_TRACE_VALUE>} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getreadregister
+     * Retrieves information about a register that was read by a step in the trace.
+     * @param {Integer} stepIndex The index of the step within the trace. The range of the index is [0...NumTraceSteps-1], where <b>NumTraceSteps</b> is a member of the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_stats">D3D11_TRACE_STATS</a> structure. You can retrieve information in any step order.
+     * @param {Integer} readRegisterIndex The index of the register within  the trace step. The range of the index is [0...NumRegistersRead-1], where <b>NumRegistersRead</b> is a member of the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_step">D3D11_TRACE_STEP</a> structure.
+     * @param {Pointer<D3D11_TRACE_REGISTER>} pRegister A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_register">D3D11_TRACE_REGISTER</a> structure. <b>GetReadRegister</b> fills the members of this structure with information about the register that was read by the step in the trace.
+     * @param {Pointer<D3D11_TRACE_VALUE>} pValue A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value">D3D11_TRACE_VALUE</a> structure. <b>GetReadRegister</b> fills the members of this structure with information about the value that was read from the register.
+     * @returns {HRESULT} <b>GetReadRegister</b> returns:
+     *         <ul>
+     * <li><b>S_OK</b> if the method retrieves the register information.</li>
+     * <li><b>E_FAIL</b> if a trace is not available or if the trace was not created with the D3D11_SHADER_TRACE_FLAG_RECORD_REGISTER_READS flag.</li>
+     * <li><b>E_INVALIDARG</b> if <i>stepIndex</i> or <i>readRegisterIndex</i> is out of range or if <i>pRegister</i> or <i>pValue</i> is NULL.</li>
+     * <li>Possibly other error codes that are described in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getreadregister
      */
     GetReadRegister(stepIndex, readRegisterIndex, pRegister, pValue) {
         result := ComCall(10, this, "uint", stepIndex, "uint", readRegisterIndex, "ptr", pRegister, "ptr", pValue, "HRESULT")

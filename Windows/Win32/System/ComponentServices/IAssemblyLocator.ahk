@@ -32,12 +32,12 @@ class IAssemblyLocator extends IDispatch{
     static VTableNames => ["GetModules"]
 
     /**
-     * 
-     * @param {BSTR} applicationDir 
-     * @param {BSTR} applicationName 
-     * @param {BSTR} assemblyName 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iassemblylocator-getmodules
+     * Used to get the names of the modules that are contained in an assembly.
+     * @param {BSTR} applicationDir The directory containing the application.
+     * @param {BSTR} applicationName The name of the application domain.
+     * @param {BSTR} assemblyName The name of the assembly.
+     * @returns {Pointer<SAFEARRAY>} An array listing the names of the modules in the assembly.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iassemblylocator-getmodules
      */
     GetModules(applicationDir, applicationName, assemblyName) {
         applicationDir := applicationDir is String ? BSTR.Alloc(applicationDir).Value : applicationDir

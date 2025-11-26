@@ -47,9 +47,9 @@ class ITCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_count
+     * The get_Count method gets the number of items in the collection.
+     * @returns {Integer} Number of items.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
@@ -57,10 +57,10 @@ class ITCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_item
+     * The get_Item method, given an index, returns an item in the collection.
+     * @param {Integer} Index Index of item to be retrieved.
+     * @returns {VARIANT} Pointer to item returned.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection-get_item
      */
     get_Item(Index) {
         pVariant := VARIANT()
@@ -69,9 +69,19 @@ class ITCollection extends IDispatch{
     }
 
     /**
+     * The get__NewEnum method gets an enumerator for the collection.
+     * @returns {IUnknown} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on an enumerator object for the collection. 
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get__newenum
+     * 
+     * 
+     * 
+     * Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method on the returned <b>IUnknown</b> interface to obtain a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> enumeration interface on the collection. <b>IEnumVARIANT</b> provides a number of methods that you can use to iterate through the collection.
+     * 
+     * For more information, see the following Remarks section.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")

@@ -32,9 +32,9 @@ class IAudioMediaType extends IUnknown{
     static VTableNames => ["IsCompressedFormat", "IsEqual", "GetAudioFormat", "GetUncompressedAudioFormat"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-iscompressedformat
+     * The IsCompressedFormat method determines whether the audio data format is a compressed format.
+     * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the format is compressed or <b>FALSE</b> if the format is uncompressed.
+     * @see https://docs.microsoft.com/windows/win32/api//audiomediatype/nf-audiomediatype-iaudiomediatype-iscompressedformat
      */
     IsCompressedFormat() {
         result := ComCall(3, this, "int*", &pfCompressed := 0, "HRESULT")
@@ -42,10 +42,47 @@ class IAudioMediaType extends IUnknown{
     }
 
     /**
+     * The IsEqual method compares two media types and determines whether they are identical.
+     * @param {IAudioMediaType} pIAudioType Specifies a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audiomediatype/nn-audiomediatype-iaudiomediatype">IAudioMediaType</a> interface of the media type to compare.
+     * @returns {Integer} Specifies a pointer to a DWORD variable that contains the bitwise OR result of zero or more flags. These flags indicate the degree of similarity between the two media types. The following table shows the supported flags.
      * 
-     * @param {IAudioMediaType} pIAudioType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-isequal
+     * <table>
+     * <tr>
+     * <th>Flag</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES
+     * 
+     * </td>
+     * <td>
+     * The audio format types are the same.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * AUDIOMEDIATYPE_EQUAL_FORMAT_DATA
+     * 
+     * </td>
+     * <td>
+     * The format information matches, not including extra data beyond the base <a href="https://docs.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatex">WAVEFORMATEX</a> structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * AUDIOMEDIATYPE_EQUAL_FORMAT_USER_DATA
+     * 
+     * </td>
+     * <td>
+     * The extra data is identical, or neither media type contains extra data.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiomediatype/nf-audiomediatype-iaudiomediatype-isequal
      */
     IsEqual(pIAudioType) {
         result := ComCall(4, this, "ptr", pIAudioType, "uint*", &pdwFlags := 0, "HRESULT")
@@ -53,9 +90,9 @@ class IAudioMediaType extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<WAVEFORMATEX>} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-getaudioformat
+     * The GetAudioFormat method returns the WAVEFORMATEX structure for the audio data format.
+     * @returns {Pointer<WAVEFORMATEX>} The <code>GetAudioFormat</code> method returns a pointer to a <a href="/windows/win32/api/mmreg/ns-mmreg-waveformatex">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//audiomediatype/nf-audiomediatype-iaudiomediatype-getaudioformat
      */
     GetAudioFormat() {
         result := ComCall(5, this, "ptr")
@@ -63,9 +100,9 @@ class IAudioMediaType extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {UNCOMPRESSEDAUDIOFORMAT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-getuncompressedaudioformat
+     * The IAudioMediaType::GetUncompressedAudioFormat returns information about the audio data format.
+     * @returns {UNCOMPRESSEDAUDIOFORMAT} Specifies a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audiomediatype/ns-audiomediatype-uncompressedaudioformat">UNCOMPRESSEDAUDIOFORMAT</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//audiomediatype/nf-audiomediatype-iaudiomediatype-getuncompressedaudioformat
      */
     GetUncompressedAudioFormat() {
         pUncompressedAudioFormat := UNCOMPRESSEDAUDIOFORMAT()

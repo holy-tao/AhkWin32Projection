@@ -31,9 +31,9 @@ class ICDBurnExt extends IUnknown{
     static VTableNames => ["GetSupportedActionTypes"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburnext-getsupportedactiontypes
+     * Determines the supported data type for a CD writing extension.
+     * @returns {Integer} Type: <b>CDBE_ACTIONS*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburnext-getsupportedactiontypes
      */
     GetSupportedActionTypes() {
         result := ComCall(3, this, "uint*", &pdwActions := 0, "HRESULT")

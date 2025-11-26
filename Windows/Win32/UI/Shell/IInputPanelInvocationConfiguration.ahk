@@ -36,9 +36,9 @@ class IInputPanelInvocationConfiguration extends IUnknown{
     static VTableNames => ["RequireTouchInEditControl"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nf-inputpanelconfiguration-iinputpanelinvocationconfiguration-requiretouchineditcontrol
+     * Requires an explicit user tap in an edit field before the touch keyboard invokes.
+     * @returns {HRESULT} The <b>RequireTouchInEditControl</b> method always returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nf-inputpanelconfiguration-iinputpanelinvocationconfiguration-requiretouchineditcontrol
      */
     RequireTouchInEditControl() {
         result := ComCall(3, this, "HRESULT")

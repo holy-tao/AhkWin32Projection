@@ -31,9 +31,9 @@ class INSSBuffer4 extends INSSBuffer3{
     static VTableNames => ["GetPropertyCount", "GetPropertyByIndex"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertycount
+     * The GetPropertyCount method retrieves the total number of buffer properties, also called data unit extensions, associated with the sample contained in the buffer object.
+     * @returns {Integer} Pointer to the size of buffer properties.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertycount
      */
     GetPropertyCount() {
         result := ComCall(12, this, "uint*", &pcBufferProperties := 0, "HRESULT")
@@ -41,13 +41,13 @@ class INSSBuffer4 extends INSSBuffer3{
     }
 
     /**
-     * 
-     * @param {Integer} dwBufferPropertyIndex 
-     * @param {Pointer<Guid>} pguidBufferProperty 
-     * @param {Pointer<Void>} pvBufferProperty 
-     * @param {Pointer<Integer>} pdwBufferPropertySize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertybyindex
+     * The GetPropertyByIndex method retrieves a buffer property, also called a data unit extension, that was set using INSSBuffer3::SetProperty.
+     * @param {Integer} dwBufferPropertyIndex <b>DWORD</b> containing the buffer property index. This value will be between zero and one less than the total number of properties associated with the sample. You can retrieve the total number of properties by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertycount">INSSBuffer4::GetPropertyCount</a>.
+     * @param {Pointer<Guid>} pguidBufferProperty Pointer to a GUID specifying the type of buffer property.
+     * @param {Pointer<Void>} pvBufferProperty Void pointer containing the value of the buffer property.
+     * @param {Pointer<Integer>} pdwBufferPropertySize Pointer to a <b>DWORD</b> containing the size of the value pointed to by <i>pvBufferProperty</i>. If you set <i>pvBufferProperty</i> to <b>NULL</b>, this value will be set to the required size in bytes of the buffer needed to store the property value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertybyindex
      */
     GetPropertyByIndex(dwBufferPropertyIndex, pguidBufferProperty, pvBufferProperty, pdwBufferPropertySize) {
         pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"

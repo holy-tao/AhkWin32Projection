@@ -31,9 +31,9 @@ class IOfflineFilesTransparentCacheInfo extends IUnknown{
     static VTableNames => ["IsTransparentlyCached"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilestransparentcacheinfo-istransparentlycached
+     * Determines whether the item is transparently cached.
+     * @returns {BOOL} A pointer to a variable that receives <b>TRUE</b> if the item is transparently cached, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilestransparentcacheinfo-istransparentlycached
      */
     IsTransparentlyCached() {
         result := ComCall(3, this, "int*", &pbTransparentlyCached := 0, "HRESULT")

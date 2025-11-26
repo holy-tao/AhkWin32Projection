@@ -42,9 +42,11 @@ class ISyncMgrEventStore extends IUnknown{
     static VTableNames => ["GetEventEnumerator", "GetEventCount", "GetEvent", "RemoveEvent"]
 
     /**
+     * Gets an enumerator for a handler's events.
+     * @returns {IEnumSyncMgrEvents} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrevents">IEnumSyncMgrEvents</a>**</b>
      * 
-     * @returns {IEnumSyncMgrEvents} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-geteventenumerator
+     * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrevents">IEnumSyncMgrEvents</a> instance that can be used to access the handler's events.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgreventstore-geteventenumerator
      */
     GetEventEnumerator() {
         result := ComCall(3, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -52,9 +54,11 @@ class ISyncMgrEventStore extends IUnknown{
     }
 
     /**
+     * Gets the event count.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-geteventcount
+     * A pointer to event count value.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgreventstore-geteventcount
      */
     GetEventCount() {
         result := ComCall(4, this, "uint*", &pcEvents := 0, "HRESULT")
@@ -62,10 +66,14 @@ class ISyncMgrEventStore extends IUnknown{
     }
 
     /**
+     * Gets a specified event object.
+     * @param {Pointer<Guid>} rguidEventID Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} rguidEventID 
-     * @returns {ISyncMgrEvent} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-getevent
+     * A reference to event <b>GUID</b>.
+     * @returns {ISyncMgrEvent} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrevent">ISyncMgrEvent</a>**</b>
+     * 
+     * The address of <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrevent">ISyncMgrEvent</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgreventstore-getevent
      */
     GetEvent(rguidEventID) {
         result := ComCall(5, this, "ptr", rguidEventID, "ptr*", &ppEvent := 0, "HRESULT")
@@ -73,11 +81,17 @@ class ISyncMgrEventStore extends IUnknown{
     }
 
     /**
+     * Removes events, as specified.
+     * @param {Pointer<Guid>} pguidEventIDs Type: <b>GUID*</b>
      * 
-     * @param {Pointer<Guid>} pguidEventIDs 
-     * @param {Integer} cEvents 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-removeevent
+     * A pointer to event <b>GUID</b>.
+     * @param {Integer} cEvents Type: <b>ULONG</b>
+     * 
+     * The count of events to remove.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgreventstore-removeevent
      */
     RemoveEvent(pguidEventIDs, cEvents) {
         result := ComCall(6, this, "ptr", pguidEventIDs, "uint", cEvents, "HRESULT")

@@ -31,9 +31,10 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
     static VTableNames => ["GetTemporaryName", "SetValidationState", "GetValidationState", "IsDownloadedFromPeer"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-gettemporaryname
+     * Gets the full path of the temporary file that contains the content of the download.
+     * @returns {PWSTR} Null-terminated string that contains the full path of the temporary file. Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppFileName</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyfile3-gettemporaryname
      */
     GetTemporaryName() {
         result := ComCall(8, this, "ptr*", &pFilename := 0, "HRESULT")
@@ -41,10 +42,50 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
     }
 
     /**
+     * Sets the validation state of this file.
+     * @param {BOOL} state Set to <b>TRUE</b> if the file content is valid, otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} The method returns the following return values.
      * 
-     * @param {BOOL} state 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-setvalidationstate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * You cannot validate the file until the download is complete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>BG_E_RECORD_DELETED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cached record associated with this file has been deleted.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyfile3-setvalidationstate
      */
     SetValidationState(state) {
         result := ComCall(9, this, "int", state, "HRESULT")
@@ -52,9 +93,9 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-getvalidationstate
+     * Gets the current validation state of this file.
+     * @returns {BOOL} <b>TRUE</b> if the contents of the file is valid, otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyfile3-getvalidationstate
      */
     GetValidationState() {
         result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
@@ -62,9 +103,9 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-isdownloadedfrompeer
+     * Gets a value that determines if any part of the file was downloaded from a peer.
+     * @returns {BOOL} Is <b>TRUE</b> if any part of the file was downloaded from a peer; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopyfile3-isdownloadedfrompeer
      */
     IsDownloadedFromPeer() {
         result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")

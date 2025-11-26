@@ -47,10 +47,11 @@ class IBITSExtensionSetupFactory extends IDispatch{
     static VTableNames => ["GetObject"]
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {BSTR} Path 
-     * @returns {IBITSExtensionSetup} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Use the GetObject method to retrieve a pointer to the IBITSExtensionSetup interface. This method performs the same binding that the ADsGetObject ADSI function performs.
+     * @param {BSTR} Path Null-terminated string containing the path to the directory service. For example, "IIS://&lt;machine name&gt;/w3svc/1/<i>virtual directory</i>".
+     * @returns {IBITSExtensionSetup} Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bitscfg/nn-bitscfg-ibitsextensionsetup">IBITSExtensionSetup</a> interface to enable and disable BITS upload for the given virtual directory.
+     * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nf-bitscfg-ibitsextensionsetupfactory-getobject
      */
     GetObject(Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path

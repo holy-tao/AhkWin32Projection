@@ -39,11 +39,11 @@ class IWbemEventSink extends IWbemObjectSink{
     static VTableNames => ["SetSinkSecurity", "IsActive", "GetRestrictedSink", "SetBatchingParameters"]
 
     /**
-     * 
-     * @param {Integer} lSDLength 
-     * @param {Pointer<Integer>} pSD 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity
+     * Used to set a security descriptor (SD) on a sink for all the events passing through.
+     * @param {Integer} lSDLength Length of security descriptor.
+     * @param {Pointer<Integer>} pSD Security descriptor, DACL.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity
      */
     SetSinkSecurity(lSDLength, pSD) {
         pSDMarshal := pSD is VarRef ? "char*" : "ptr"
@@ -53,9 +53,9 @@ class IWbemEventSink extends IWbemObjectSink{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-isactive
+     * The IWbemEventSink::IsActive method is used by the provider to determine if there is interest in the events that the sink is filtering.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-isactive
      */
     IsActive() {
         result := ComCall(6, this, "HRESULT")
@@ -63,12 +63,13 @@ class IWbemEventSink extends IWbemObjectSink{
     }
 
     /**
-     * 
-     * @param {Integer} lNumQueries 
-     * @param {Pointer<PWSTR>} awszQueries 
-     * @param {IUnknown} pCallback 
-     * @returns {IWbemEventSink} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-getrestrictedsink
+     * The IWbemEventSink::GetRestrictedSink method retrieves a restricted event sink. A restricted event sink is one which filters a subset of the events defined in the event provider's registration.
+     * @param {Integer} lNumQueries Number of queries in array.
+     * @param {Pointer<PWSTR>} awszQueries Array of event queries.
+     * @param {IUnknown} pCallback Pointer to callback for event provider.
+     * @returns {IWbemEventSink} Pointer to created 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemeventsink">IWbemEventSink</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-getrestrictedsink
      */
     GetRestrictedSink(lNumQueries, awszQueries, pCallback) {
         awszQueriesMarshal := awszQueries is VarRef ? "ptr*" : "ptr"
@@ -78,12 +79,12 @@ class IWbemEventSink extends IWbemObjectSink{
     }
 
     /**
-     * 
-     * @param {Integer} lFlags 
-     * @param {Integer} dwMaxBufferSize 
-     * @param {Integer} dwMaxSendLatency 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setbatchingparameters
+     * The IWbemEventSink::SetBatchingParameters method is used to set the maximum event buffer size and its associated processing latency value.
+     * @param {Integer} lFlags Determines batching behavior.
+     * @param {Integer} dwMaxBufferSize Maximum batch buffer size. To specify maximum batch size, use MAX_INT.
+     * @param {Integer} dwMaxSendLatency Maximum batch send latency. To specify infinite timeout, use <b>WBEM_INFINITE</b>.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-setbatchingparameters
      */
     SetBatchingParameters(lFlags, dwMaxBufferSize, dwMaxSendLatency) {
         result := ComCall(8, this, "int", lFlags, "uint", dwMaxBufferSize, "uint", dwMaxSendLatency, "HRESULT")

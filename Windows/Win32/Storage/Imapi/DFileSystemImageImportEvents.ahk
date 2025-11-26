@@ -43,16 +43,16 @@ class DFileSystemImageImportEvents extends IDispatch{
     static VTableNames => ["UpdateImport"]
 
     /**
-     * 
-     * @param {IDispatch} object 
-     * @param {Integer} fileSystem 
-     * @param {BSTR} currentItem 
-     * @param {Integer} importedDirectoryItems 
-     * @param {Integer} totalDirectoryItems 
-     * @param {Integer} importedFileItems 
-     * @param {Integer} totalFileItems 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-dfilesystemimageimportevents-updateimport
+     * Receives import notification for every file and directory item imported from an optical medium.
+     * @param {IDispatch} object Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage3">IFilesystemImage3</a> interface of a file system image object to which data is being imported.
+     * @param {Integer} fileSystem Type of the file system currently being imported. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @param {BSTR} currentItem A string containing the name of the file or directory being imported at the moment.
+     * @param {Integer} importedDirectoryItems The number of directories imported so far.
+     * @param {Integer} totalDirectoryItems The total number of directories to be imported from the optical medium.
+     * @param {Integer} importedFileItems The number of files imported so far.
+     * @param {Integer} totalFileItems The total number of files to be imported from the optical medium.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-dfilesystemimageimportevents-updateimport
      */
     UpdateImport(object, fileSystem, currentItem, importedDirectoryItems, totalDirectoryItems, importedFileItems, totalFileItems) {
         currentItem := currentItem is String ? BSTR.Alloc(currentItem).Value : currentItem

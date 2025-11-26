@@ -62,10 +62,20 @@ class IGetClusterNetInterfaceInfo extends IUnknown{
     static VTableNames => ["GetNetInterfaceHandle"]
 
     /**
+     * Retrieves a handle to a node.
+     * @param {Integer} lObjIndex A number representing the zero-based index of the target network interface. 
+     *        <i>lObjIndex</i> is restricted to the number that can be retrieved by calling 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
+     * @returns {HNETINTERFACE} If 
+     *        <b>GetNetInterfaceHandle</b> 
+     *        is successful, it returns a handle for the network interface represented by 
+     *        <i>lObjIndex</i>.
      * 
-     * @param {Integer} lObjIndex 
-     * @returns {HNETINTERFACE} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusternetinterfaceinfo-getnetinterfacehandle
+     * If 
+     *        <b>GetNetInterfaceHandle</b> 
+     *        is not successful, it returns <b>NULL</b>. For more information about the error, call the 
+     *        function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusternetinterfaceinfo-getnetinterfacehandle
      */
     GetNetInterfaceHandle(lObjIndex) {
         result := ComCall(3, this, "int", lObjIndex, "ptr")

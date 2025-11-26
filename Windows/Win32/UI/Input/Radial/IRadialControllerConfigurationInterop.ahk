@@ -31,11 +31,11 @@ class IRadialControllerConfigurationInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerconfigurationinterop-getforwindow
+     * Retrieves a RadialControllerConfiguration object bound to the active application.
+     * @param {HWND} hwnd Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid The GUID of the <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontrollerconfiguration">RadialControllerConfiguration</a> object.
+     * @returns {Pointer<Void>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontrollerconfiguration">RadialControllerConfiguration</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerconfigurationinterop-getforwindow
      */
     GetForWindow(hwnd, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

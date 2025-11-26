@@ -31,10 +31,50 @@ class IAMClockSlave extends IUnknown{
     static VTableNames => ["SetErrorTolerance", "GetErrorTolerance"]
 
     /**
+     * The SetErrorTolerance method sets the audio renderer's rate-matching tolerance.
+     * @param {Integer} dwTolerance Specifies the maximum tolerance, in milliseconds. The value must be from 1 to 1000, inclusive.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} dwTolerance 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamclockslave-seterrortolerance
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_STOPPED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The filter graph is not stopped.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamclockslave-seterrortolerance
      */
     SetErrorTolerance(dwTolerance) {
         result := ComCall(3, this, "uint", dwTolerance, "HRESULT")
@@ -42,9 +82,9 @@ class IAMClockSlave extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamclockslave-geterrortolerance
+     * The GetErrorTolerance method retrieves the audio renderer's rate-matching tolerance.
+     * @returns {Integer} Pointer to a variable that receives the maximum tolerance, in milliseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamclockslave-geterrortolerance
      */
     GetErrorTolerance() {
         result := ComCall(4, this, "uint*", &pdwTolerance := 0, "HRESULT")

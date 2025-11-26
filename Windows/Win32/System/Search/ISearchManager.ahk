@@ -79,9 +79,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves the version of the current indexer as a single string.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversionstr
+     * Receives the version of the current indexer.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-getindexerversionstr
      */
     GetIndexerVersionStr() {
         result := ComCall(3, this, "ptr*", &ppszVersionString := 0, "HRESULT")
@@ -89,11 +91,17 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves the version of the current indexer in two chunks:\_the major version signifier and the minor version signifier.
+     * @param {Pointer<Integer>} pdwMajor Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} pdwMajor 
-     * @param {Pointer<Integer>} pdwMinor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversion
+     * Receives the major version signifier (the number to the left of the dot).
+     * @param {Pointer<Integer>} pdwMinor Type: <b>DWORD*</b>
+     * 
+     * Receives the minor version signifier (the number to the right of the dot).
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-getindexerversion
      */
     GetIndexerVersion(pdwMajor, pdwMinor) {
         pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
@@ -104,10 +112,14 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Not supported.This method returns E_INVALIDARG when called.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszName 
-     * @returns {Pointer<PROPVARIANT>} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getparameter
+     * There are currently no valid parameters in this version of search (WDS 3.0).
+     * @returns {Pointer<PROPVARIANT>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>**</b>
+     * 
+     * Returns a value in an undefined state as there are no properties currently defined to retrieve values from.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-getparameter
      */
     GetParameter(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -117,11 +129,17 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Not supported.This method returns E_INVALIDARG when called.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszName 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-setparameter
+     * There are currently no valid parameters to pass or retrieve.
+     * @param {Pointer<PROPVARIANT>} pValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * As there are no valid parameters currently configured, there are no valid parameters to pass to this method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method returns E_InvalidArg as an error code when called.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-setparameter
      */
     SetParameter(pszName, pValue) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -131,9 +149,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves the proxy name to be used by the protocol handler.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_proxyname
+     * Receives a pointer to a Unicode string that contains the proxy name.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-get_proxyname
      */
     get_ProxyName() {
         result := ComCall(7, this, "ptr*", &ppszProxyName := 0, "HRESULT")
@@ -141,9 +161,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Gets a proxy bypass list from the indexer. This list is used to determine which items or URLs are local and do not need to go through the proxy server. This list is set by calling ISearchManager::SetProxy.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_bypasslist
+     * Receives a pointer to the proxy bypass list that is stored in the indexer.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-get_bypasslist
      */
     get_BypassList() {
         result := ComCall(8, this, "ptr*", &ppszBypassList := 0, "HRESULT")
@@ -151,14 +173,26 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Stores information in the indexer that determines how the indexer will work and communicate with a proxy server.
+     * @param {Integer} sUseProxy Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a></b>
      * 
-     * @param {Integer} sUseProxy 
-     * @param {BOOL} fLocalByPassProxy 
-     * @param {Integer} dwPortNumber 
-     * @param {PWSTR} pszProxyName 
-     * @param {PWSTR} pszByPassList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-setproxy
+     * Sets whether and how to use a proxy, using one of the values enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a>.
+     * @param {BOOL} fLocalByPassProxy Type: <b>BOOL</b>
+     * 
+     * Sets whether the proxy server should be bypassed for local items and URLs.
+     * @param {Integer} dwPortNumber Type: <b>DWORD</b>
+     * 
+     * Sets the port number that the index will use to talk to the proxy server.
+     * @param {PWSTR} pszProxyName Type: <b>LPCWSTR</b>
+     * 
+     * A null-terminated Unicode string containing the name of the proxy server to use.
+     * @param {PWSTR} pszByPassList Type: <b>LPCWSTR</b>
+     * 
+     * A null-terminated Unicode string containing a comma-delimited list of items that are considered local by the indexer and are not to be accessed through a proxy server.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-setproxy
      */
     SetProxy(sUseProxy, fLocalByPassProxy, dwPortNumber, pszProxyName, pszByPassList) {
         pszProxyName := pszProxyName is String ? StrPtr(pszProxyName) : pszProxyName
@@ -169,10 +203,14 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves a catalog by name and creates a new ISearchCatalogManager object for that catalog.
+     * @param {PWSTR} pszCatalog Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszCatalog 
-     * @returns {ISearchCatalogManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getcatalog
+     * The name of the catalog to be retrieved.
+     * @returns {ISearchCatalogManager} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalogManager</a>**</b>
+     * 
+     * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalogManager</a> object that is named in <i>pszCatalog</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-getcatalog
      */
     GetCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
@@ -182,9 +220,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves the user agent string.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useragent
+     * Receives the address of a pointer to the user agent string.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-get_useragent
      */
     get_UserAgent() {
         result := ComCall(11, this, "ptr*", &ppszUserAgent := 0, "HRESULT")
@@ -192,10 +232,14 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Sets the user agent string that a user agent passes to website and services to identify itself.
+     * @param {PWSTR} pszUserAgent Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszUserAgent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-put_useragent
+     * The user agent string identifying the user agent.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-put_useragent
      */
     put_UserAgent(pszUserAgent) {
         pszUserAgent := pszUserAgent is String ? StrPtr(pszUserAgent) : pszUserAgent
@@ -205,9 +249,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves the proxy server to be used.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useproxy
+     * Receives a pointer to the proxy server to be used.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-get_useproxy
      */
     get_UseProxy() {
         result := ComCall(13, this, "int*", &pUseProxy := 0, "HRESULT")
@@ -215,9 +261,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves a value that determines whether the proxy server should be bypassed to find the item or URL.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_localbypass
+     * Receives a pointer to a <b>BOOL</b> value that indicates whether to bypass the proxy server to find an item or URL. <b>TRUE</b> to bypass the proxy (for local items); otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-get_localbypass
      */
     get_LocalBypass() {
         result := ComCall(14, this, "int*", &pfLocalBypass := 0, "HRESULT")
@@ -225,9 +273,11 @@ class ISearchManager extends IUnknown{
     }
 
     /**
+     * Retrieves the port number used to communicate with the proxy server. This port number is stored in the indexer and is set by the ISearchManager::SetProxy method.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_portnumber
+     * Receives a pointer to the port number.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager-get_portnumber
      */
     get_PortNumber() {
         result := ComCall(15, this, "uint*", &pdwPortNumber := 0, "HRESULT")

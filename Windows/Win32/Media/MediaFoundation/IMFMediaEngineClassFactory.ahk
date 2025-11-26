@@ -41,11 +41,13 @@ class IMFMediaEngineClassFactory extends IUnknown{
     static VTableNames => ["CreateInstance", "CreateTimeRange", "CreateError"]
 
     /**
+     * Creates a new instance of the Media Engine.
+     * @param {Integer} dwFlags A bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_createflags">MF_MEDIA_ENGINE_CREATEFLAGS</a> enumeration.
+     * @param {IMFAttributes} pAttr A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of an attribute store. 
      * 
-     * @param {Integer} dwFlags 
-     * @param {IMFAttributes} pAttr 
-     * @returns {IMFMediaEngine} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createinstance
+     * This parameter  specifies configuration attributes for the Media Engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateattributes">MFCreateAttributes</a> to create the attribute store. Then, set one or more attributes from the list of <a href="https://docs.microsoft.com/windows/desktop/medfound/media-engine-attributes">Media Engine Attributes</a>. For details, see Remarks.
+     * @returns {IMFMediaEngine} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengine">IMFMediaEngine</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createinstance
      */
     CreateInstance(dwFlags, pAttr) {
         result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppPlayer := 0, "HRESULT")
@@ -53,9 +55,9 @@ class IMFMediaEngineClassFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMFMediaTimeRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createtimerange
+     * Creates a time range object.
+     * @returns {IMFMediaTimeRange} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediatimerange">IMFMediaTimeRange</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createtimerange
      */
     CreateTimeRange() {
         result := ComCall(4, this, "ptr*", &ppTimeRange := 0, "HRESULT")
@@ -63,9 +65,9 @@ class IMFMediaEngineClassFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMFMediaError} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createerror
+     * Creates a media error object.
+     * @returns {IMFMediaError} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaerror">IMFMediaError</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createerror
      */
     CreateError() {
         result := ComCall(5, this, "ptr*", &ppError := 0, "HRESULT")

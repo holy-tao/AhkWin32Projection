@@ -36,10 +36,14 @@ class INamespaceWalkCB2 extends INamespaceWalkCB{
     static VTableNames => ["WalkComplete"]
 
     /**
+     * Removes data collected during a namespace walk.
+     * @param {HRESULT} hr Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb2-walkcomplete
+     * The results of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-inamespacewalk-walk">Walk</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalkcb2-walkcomplete
      */
     WalkComplete(hr) {
         result := ComCall(7, this, "int", hr, "HRESULT")

@@ -33,20 +33,10 @@ class IPBDASiParser extends IUnknown{
     static VTableNames => ["Initialize", "GetEIT", "GetServices"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes a program and system information protocol (PSIP) parser for a Protected Broadcast Driver Architecture (PBDA) transport stream.
+     * @param {IUnknown} punk Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the new object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdasiparser-initialize
      */
     Initialize(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")
@@ -54,11 +44,11 @@ class IPBDASiParser extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pBuffer 
-     * @returns {IPBDA_EIT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
+     * Gets the event information table (EIT) from the program and system information protocol (PSIP) tables in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwSize Reserved. Set to zero.
+     * @param {Pointer<Integer>} pBuffer Reserved. Set to <b>NULL</b>.
+     * @returns {IPBDA_EIT} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-ipbda_eit">IPBDA_EIT</a> interface.  The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
      */
     GetEIT(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -68,11 +58,11 @@ class IPBDASiParser extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pBuffer 
-     * @returns {IPBDA_Services} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
+     * Retrieves a list of services from the program and system information protocol (PSIP) tables in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwSize Size of the buffer that receives the service list, in bytes.
+     * @param {Pointer<Integer>} pBuffer Receives the buffer for services.
+     * @returns {IPBDA_Services} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-ipbda_services">IPBDA_Services</a> interface pointer.  The caller must release this interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
      */
     GetServices(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"

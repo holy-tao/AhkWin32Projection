@@ -64,9 +64,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querysupportedcommands
+     * Gets the list of commands IDs supported by the Mobile Broadband device service.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-querysupportedcommands
      */
     QuerySupportedCommands() {
         result := ComCall(3, this, "uint*", &requestID := 0, "HRESULT")
@@ -74,9 +74,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-opencommandsession
+     * Opens a command session to a device service on a Mobile Broadband device.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-opencommandsession
      */
     OpenCommandSession() {
         result := ComCall(4, this, "uint*", &requestID := 0, "HRESULT")
@@ -84,9 +84,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-closecommandsession
+     * Closes a command session to a device service on a Mobile Broadband device.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-closecommandsession
      */
     CloseCommandSession() {
         result := ComCall(5, this, "uint*", &requestID := 0, "HRESULT")
@@ -94,11 +94,11 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} commandID 
-     * @param {Pointer<SAFEARRAY>} deviceServiceData 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-setcommand
+     * Sends a SET control command to the device service of a Mobile Broadband device.
+     * @param {Integer} commandID An identifier for the command.
+     * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array that is passed in to the device.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-setcommand
      */
     SetCommand(commandID, deviceServiceData) {
         result := ComCall(6, this, "uint", commandID, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
@@ -106,11 +106,11 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} commandID 
-     * @param {Pointer<SAFEARRAY>} deviceServiceData 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querycommand
+     * Sends a QUERY control command to the device service of a Mobile Broadband device.
+     * @param {Integer} commandID An identifier for the command.
+     * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array that is passed in to the device.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-querycommand
      */
     QueryCommand(commandID, deviceServiceData) {
         result := ComCall(7, this, "uint", commandID, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
@@ -118,9 +118,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-opendatasession
+     * Open a data session to the device service on a Mobile Broadband device.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-opendatasession
      */
     OpenDataSession() {
         result := ComCall(8, this, "uint*", &requestID := 0, "HRESULT")
@@ -128,9 +128,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-closedatasession
+     * Closes the data session to a device service on a Mobile Broadband device.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-closedatasession
      */
     CloseDataSession() {
         result := ComCall(9, this, "uint*", &requestID := 0, "HRESULT")
@@ -138,10 +138,10 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<SAFEARRAY>} deviceServiceData 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-writedata
+     * Write data to a device service data session.
+     * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array that is passed in to the device to write.
+     * @returns {Integer} A unique request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-writedata
      */
     WriteData(deviceServiceData) {
         result := ComCall(10, this, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
@@ -149,9 +149,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
+     * The interface ID of the Mobile Broadband device to which this object is associated.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_interfaceid
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-get_interfaceid
      */
     get_InterfaceID() {
         InterfaceID := BSTR()
@@ -160,9 +160,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
+     * The ID of the device service to which this object is associated.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_deviceserviceid
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-get_deviceserviceid
      */
     get_DeviceServiceID() {
         DeviceServiceID := BSTR()
@@ -171,9 +171,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
+     * Reports if the device service command session is open.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_iscommandsessionopen
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-get_iscommandsessionopen
      */
     get_IsCommandSessionOpen() {
         result := ComCall(13, this, "int*", &value := 0, "HRESULT")
@@ -181,9 +181,9 @@ class IMbnDeviceService extends IUnknown{
     }
 
     /**
-     * 
+     * Reports if the device service data session is open.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_isdatasessionopen
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservice-get_isdatasessionopen
      */
     get_IsDataSessionOpen() {
         result := ComCall(14, this, "int*", &value := 0, "HRESULT")

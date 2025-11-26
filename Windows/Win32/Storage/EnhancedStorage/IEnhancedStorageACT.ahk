@@ -38,11 +38,40 @@ class IEnhancedStorageACT extends IUnknown{
     static VTableNames => ["Authorize", "Unauthorize", "GetAuthorizationState", "GetMatchingVolume", "GetUniqueIdentity", "GetSilos"]
 
     /**
+     * Associates the Addressable Command Target (ACT) with the Authorized state defined by ACT_AUTHORIZATION_STATE, and ensures the authentication of each individual silo according to the required sequence and logical combination necessary to authorize access to the ACT.
+     * @param {Integer} hwndParent Not used.
+     * @param {Integer} dwFlags Not used.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} hwndParent 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-authorize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Authorization completed successfully. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The authorization operation has failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact-authorize
      */
     Authorize(hwndParent, dwFlags) {
         result := ComCall(3, this, "uint", hwndParent, "uint", dwFlags, "HRESULT")
@@ -50,9 +79,27 @@ class IEnhancedStorageACT extends IUnknown{
     }
 
     /**
+     * Associates the Addressable Command Target (ACT) with the Unauthorized state defined by ACT_AUTHORIZATION_STATE, and ensures the deauthentication of each individual silo according to the required sequence and logical combination necessary to restrict access to the ACT.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-unauthorize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unauthorization completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact-unauthorize
      */
     Unauthorize() {
         result := ComCall(4, this, "HRESULT")
@@ -60,9 +107,9 @@ class IEnhancedStorageACT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ACT_AUTHORIZATION_STATE} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getauthorizationstate
+     * Returns the current authorization state of the ACT.
+     * @returns {ACT_AUTHORIZATION_STATE} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ehstorapi/ns-ehstorapi-act_authorization_state">ACT_AUTHORIZATION_STATE</a> that specifies the current authorization state of the ACT.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact-getauthorizationstate
      */
     GetAuthorizationState() {
         pState := ACT_AUTHORIZATION_STATE()
@@ -71,9 +118,9 @@ class IEnhancedStorageACT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getmatchingvolume
+     * Returns the volume associated with the Addressable Command Target (ACT).
+     * @returns {PWSTR} Pointer to a string that represents the volume associated with the ACT.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact-getmatchingvolume
      */
     GetMatchingVolume() {
         result := ComCall(6, this, "ptr*", &ppwszVolume := 0, "HRESULT")
@@ -81,9 +128,9 @@ class IEnhancedStorageACT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getuniqueidentity
+     * Retrieves the unique identity of the Addressable Command Targer (ACT).
+     * @returns {PWSTR} Pointer to a string that represents the unique identity of the ACT.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact-getuniqueidentity
      */
     GetUniqueIdentity() {
         result := ComCall(7, this, "ptr*", &ppwszIdentity := 0, "HRESULT")
@@ -91,11 +138,51 @@ class IEnhancedStorageACT extends IUnknown{
     }
 
     /**
+     * Returns an enumeration of all silos associated with the Addressable Command Target (ACT).
+     * @param {Pointer<Pointer<IEnhancedStorageSilo>>} pppIEnhancedStorageSilos Returns an array of one or more <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstoragesilo">IEnhancedStorageSilo</a> interface pointers associated with  the ACT.
+     * @param {Pointer<Integer>} pcEnhancedStorageSilos Count of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstoragesilo">IEnhancedStorageSilo</a> pointers returned. This value indicates the dimension of the  array represented by <i>pppIEnhancedStorageSilos</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Pointer<IEnhancedStorageSilo>>} pppIEnhancedStorageSilos 
-     * @param {Pointer<Integer>} pcEnhancedStorageSilos 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getsilos
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Command was sent successfully and all associated silos have been enumerated. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Command failed due to insufficient memory allocation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pppIEnhancedStorageSilos</i> or <i>pcEnhancedStorageSilos</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstorageact-getsilos
      */
     GetSilos(pppIEnhancedStorageSilos, pcEnhancedStorageSilos) {
         pppIEnhancedStorageSilosMarshal := pppIEnhancedStorageSilos is VarRef ? "ptr*" : "ptr"

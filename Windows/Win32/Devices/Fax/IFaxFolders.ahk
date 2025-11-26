@@ -73,9 +73,9 @@ class IFaxFolders extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxFolders::get_OutgoingQueue property represents the queue of outgoing faxes.
      * @returns {IFaxOutgoingQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingqueue
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_outgoingqueue
      */
     get_OutgoingQueue() {
         result := ComCall(7, this, "ptr*", &pFaxOutgoingQueue := 0, "HRESULT")
@@ -83,9 +83,9 @@ class IFaxFolders extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxFolders::get_IncomingQueue property represents the queue of incoming faxes.
      * @returns {IFaxIncomingQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_incomingqueue
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_incomingqueue
      */
     get_IncomingQueue() {
         result := ComCall(8, this, "ptr*", &pFaxIncomingQueue := 0, "HRESULT")
@@ -93,9 +93,9 @@ class IFaxFolders extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxFolders::get_IncomingArchive property represents the archive of incoming faxes.
      * @returns {IFaxIncomingArchive} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_incomingarchive
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_incomingarchive
      */
     get_IncomingArchive() {
         result := ComCall(9, this, "ptr*", &pFaxIncomingArchive := 0, "HRESULT")
@@ -103,9 +103,9 @@ class IFaxFolders extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxFolders::get_OutgoingArchive property represents the archive of outgoing faxes.
      * @returns {IFaxOutgoingArchive} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingarchive
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxfolders-get_outgoingarchive
      */
     get_OutgoingArchive() {
         result := ComCall(10, this, "ptr*", &pFaxOutgoingArchive := 0, "HRESULT")

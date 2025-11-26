@@ -36,11 +36,40 @@ class IMFTrackedSample extends IUnknown{
     static VTableNames => ["SetAllocator"]
 
     /**
+     * Sets the owner for the sample.
+     * @param {IMFAsyncCallback} pSampleAllocator Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} pUnkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFAsyncCallback} pSampleAllocator 
-     * @param {IUnknown} pUnkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrackedsample-setallocator
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOTACCEPTING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The owner was already set. This method cannot be called twice on the sample.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrackedsample-setallocator
      */
     SetAllocator(pSampleAllocator, pUnkState) {
         result := ComCall(3, this, "ptr", pSampleAllocator, "ptr", pUnkState, "HRESULT")

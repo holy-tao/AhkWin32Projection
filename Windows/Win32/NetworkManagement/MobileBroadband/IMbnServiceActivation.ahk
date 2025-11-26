@@ -35,10 +35,10 @@ class IMbnServiceActivation extends IUnknown{
     static VTableNames => ["Activate"]
 
     /**
-     * 
-     * @param {Pointer<SAFEARRAY>} vendorSpecificData 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnserviceactivation-activate
+     * Send the service activation request to the network.
+     * @param {Pointer<SAFEARRAY>} vendorSpecificData A vendor-specific array of bytes passed in a service activation operation. This data will be passed by the Mobile Broadband service in a SET OID_WWAN_SERVICE_ACTIVATION  OID request to the miniport driver.
+     * @returns {Integer} The request ID for this operation.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnserviceactivation-activate
      */
     Activate(vendorSpecificData) {
         result := ComCall(3, this, "ptr", vendorSpecificData, "uint*", &requestID := 0, "HRESULT")

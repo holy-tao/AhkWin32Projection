@@ -31,10 +31,10 @@ class IDCompositionVisual2 extends IDCompositionVisual{
     static VTableNames => ["SetOpacityMode", "SetBackFaceVisibility"]
 
     /**
-     * 
-     * @param {Integer} mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual2-setopacitymode
+     * Sets the opacity mode for this visual.
+     * @param {Integer} mode The opacity mode to use when composing the visual to the screen.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual2-setopacitymode
      */
     SetOpacityMode(mode) {
         result := ComCall(20, this, "int", mode, "HRESULT")
@@ -42,10 +42,12 @@ class IDCompositionVisual2 extends IDCompositionVisual{
     }
 
     /**
+     * Specifies whether or not surfaces that have 3D transformations applied to them should be displayed when facing away from the observer.
+     * @param {Integer} visibility [in]
      * 
-     * @param {Integer} visibility 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual2-setbackfacevisibility
+     * The back face visibility to use when composing surfaces in this visual’s sub-tree to the screen.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual2-setbackfacevisibility
      */
     SetBackFaceVisibility(visibility) {
         result := ComCall(21, this, "int", visibility, "HRESULT")

@@ -33,9 +33,9 @@ class IAMDirectSound extends IUnknown{
     static VTableNames => ["GetDirectSoundInterface", "GetPrimaryBufferInterface", "GetSecondaryBufferInterface", "ReleaseDirectSoundInterface", "ReleasePrimaryBufferInterface", "ReleaseSecondaryBufferInterface", "SetFocusWindow", "GetFocusWindow"]
 
     /**
-     * 
+     * The GetDirectSoundInterface method is not implemented.
      * @returns {IDirectSound} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getdirectsoundinterface
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-getdirectsoundinterface
      */
     GetDirectSoundInterface() {
         result := ComCall(3, this, "ptr*", &lplpds := 0, "HRESULT")
@@ -43,9 +43,9 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The GetPrimaryBufferInterface method is not implemented.
      * @returns {IDirectSoundBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getprimarybufferinterface
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-getprimarybufferinterface
      */
     GetPrimaryBufferInterface() {
         result := ComCall(4, this, "ptr*", &lplpdsb := 0, "HRESULT")
@@ -53,9 +53,9 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The GetSecondaryBufferInterface method is not implemented.
      * @returns {IDirectSoundBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getsecondarybufferinterface
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-getsecondarybufferinterface
      */
     GetSecondaryBufferInterface() {
         result := ComCall(5, this, "ptr*", &lplpdsb := 0, "HRESULT")
@@ -63,10 +63,10 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The ReleaseDirectSoundInterface method is not implemented.
      * @param {IDirectSound} lpds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-releasedirectsoundinterface
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-releasedirectsoundinterface
      */
     ReleaseDirectSoundInterface(lpds) {
         result := ComCall(6, this, "ptr", lpds, "HRESULT")
@@ -74,10 +74,10 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The ReleasePrimaryBufferInterface method is not implemented.
      * @param {IDirectSoundBuffer} lpdsb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-releaseprimarybufferinterface
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-releaseprimarybufferinterface
      */
     ReleasePrimaryBufferInterface(lpdsb) {
         result := ComCall(7, this, "ptr", lpdsb, "HRESULT")
@@ -85,10 +85,10 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The ReleaseSecondaryBufferInterface method is not implemented.
      * @param {IDirectSoundBuffer} lpdsb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-releasesecondarybufferinterface
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-releasesecondarybufferinterface
      */
     ReleaseSecondaryBufferInterface(lpdsb) {
         result := ComCall(8, this, "ptr", lpdsb, "HRESULT")
@@ -96,11 +96,11 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The SetFocusWindow method specifies a window to handle sound playback.
      * @param {HWND} param0 
      * @param {BOOL} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-setfocuswindow
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-setfocuswindow
      */
     SetFocusWindow(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -110,11 +110,51 @@ class IAMDirectSound extends IUnknown{
     }
 
     /**
-     * 
+     * The GetFocusWindow method retrieves the window that is handling sound playback.
      * @param {Pointer<HWND>} param0 
      * @param {Pointer<BOOL>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getfocuswindow
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//amaudio/nf-amaudio-iamdirectsound-getfocuswindow
      */
     GetFocusWindow(param0, param1) {
         param1Marshal := param1 is VarRef ? "int*" : "ptr"

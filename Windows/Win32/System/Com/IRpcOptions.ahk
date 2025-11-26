@@ -63,12 +63,12 @@ class IRpcOptions extends IUnknown{
     static VTableNames => ["Set", "Query"]
 
     /**
-     * 
-     * @param {IUnknown} pPrx 
-     * @param {Integer} dwProperty 
-     * @param {Pointer} dwValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-set
+     * Sets the value of an RPC binding option property.
+     * @param {IUnknown} pPrx A pointer to the proxy whose property is being set.
+     * @param {Integer} dwProperty An identifier of the property to be set, which must be COMBND_RPCTIMEOUT.
+     * @param {Pointer} dwValue The new value of the property.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcoptions-set
      */
     Set(pPrx, dwProperty, dwValue) {
         result := ComCall(3, this, "ptr", pPrx, "int", dwProperty, "ptr", dwValue, "HRESULT")
@@ -76,11 +76,11 @@ class IRpcOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pPrx 
-     * @param {Integer} dwProperty 
-     * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-query
+     * Retrieves the value of an RPC binding option property.
+     * @param {IUnknown} pPrx A pointer to the proxy whose property is being queried.
+     * @param {Integer} dwProperty An identifier of the property to be queried, which must be COMBND_RPCTIMEOUT or COMBND_SERVER_LOCALITY (this flag is available starting with Windows Server 2003.)
+     * @returns {Pointer} A pointer to the property value.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcoptions-query
      */
     Query(pPrx, dwProperty) {
         result := ComCall(4, this, "ptr", pPrx, "int", dwProperty, "ptr*", &pdwValue := 0, "HRESULT")

@@ -45,13 +45,14 @@ class IPropertySetStorage extends IUnknown{
     static VTableNames => ["Create", "Open", "Delete", "Enum"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rfmtid 
-     * @param {Pointer<Guid>} pclsid 
-     * @param {Integer} grfFlags 
-     * @param {Integer} grfMode 
-     * @returns {IPropertyStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-create
+     * Creates and opens a new property set in the property set storage object.
+     * @param {Pointer<Guid>} rfmtid The FMTID of the property set to be created. For information about FMTIDs that are well-known and predefined in the Platform SDK, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/predefined-property-set-format-identifiers">Predefined Property Set Format Identifiers</a>.
+     * @param {Pointer<Guid>} pclsid A pointer to the initial class identifier CLSID for this property set. May be <b>NULL</b>, in which case it is set to all zeroes. The CLSID is the CLSID of a class that displays and/or provides programmatic access to the property values. If there is no such class, it is recommended that the FMTID be used.
+     * @param {Integer} grfFlags The values from <a href="https://docs.microsoft.com/windows/desktop/Stg/propsetflag-constants">PROPSETFLAG Constants</a>.
+     * @param {Integer} grfMode An access mode in which the newly created property set is to be opened, taken from certain values of <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM_Constants</a>, as described in the following Remarks section.
+     * @returns {IPropertyStorage} A pointer to the output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-create
      */
     Create(rfmtid, pclsid, grfFlags, grfMode) {
         result := ComCall(3, this, "ptr", rfmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
@@ -59,11 +60,13 @@ class IPropertySetStorage extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} rfmtid 
-     * @param {Integer} grfMode 
-     * @returns {IPropertyStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-open
+     * Opens a property set contained in the property set storage object.
+     * @param {Pointer<Guid>} rfmtid The format identifier (FMTID) of the property set to be opened. For more information about well-known and predefined FMTIDs in the Platform SDK, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/predefined-property-set-format-identifiers">Predefined Property Set Format Identifiers</a>.
+     * @param {Integer} grfMode The access mode in which the newly created property set is to be opened. These flags are taken from <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. Flags that may be used and their meanings in the context of this method are described in the following Remarks section.
+     * @returns {IPropertyStorage} A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> pointer variable that receives the interface pointer to the requested property storage subobject.
+     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-open
      */
     Open(rfmtid, grfMode) {
         result := ComCall(4, this, "ptr", rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
@@ -71,10 +74,10 @@ class IPropertySetStorage extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} rfmtid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-delete
+     * The Delete method deletes one of the property sets contained in the property set storage object.
+     * @param {Pointer<Guid>} rfmtid FMTID of the property set to be deleted.
+     * @returns {HRESULT} This method supports the standard return value E_UNEXPECTED, in addition to the following:
+     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-delete
      */
     Delete(rfmtid) {
         result := ComCall(5, this, "ptr", rfmtid, "HRESULT")
@@ -82,9 +85,10 @@ class IPropertySetStorage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumSTATPROPSETSTG} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-enum
+     * The Enum method creates an enumerator object which contains information on the property sets stored in this property set storage. On return, this method supplies a pointer to the IEnumSTATPROPSETSTG pointer on the enumerator object.
+     * @returns {IEnumSTATPROPSETSTG} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ienumstatpropsetstg">IEnumSTATPROPSETSTG</a> pointer variable that receives the interface pointer to the newly created enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-enum
      */
     Enum() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

@@ -31,11 +31,12 @@ class ITCallInfo2 extends ITCallInfo{
     static VTableNames => ["get_EventFilter", "put_EventFilter"]
 
     /**
-     * 
-     * @param {Integer} TapiEvent 
-     * @param {Integer} lSubEvent 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo2-get_eventfilter
+     * The get_EventFilter method gets the event filter information applicable to this call.
+     * @param {Integer} TapiEvent The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of event type information being checked.
+     * @param {Integer} lSubEvent Subevent descriptor.
+     * @returns {VARIANT_BOOL} VARIANT_TRUE if notifications are being sent on this event type for this call.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo2-get_eventfilter
      */
     get_EventFilter(TapiEvent, lSubEvent) {
         result := ComCall(20, this, "int", TapiEvent, "int", lSubEvent, "short*", &pEnable := 0, "HRESULT")
@@ -43,12 +44,13 @@ class ITCallInfo2 extends ITCallInfo{
     }
 
     /**
-     * 
-     * @param {Integer} TapiEvent 
-     * @param {Integer} lSubEvent 
-     * @param {VARIANT_BOOL} bEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo2-put_eventfilter
+     * The put_EventFilter method sets an event filter for the current call.
+     * @param {Integer} TapiEvent The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of the event type.
+     * @param {Integer} lSubEvent Subevent descriptor.
+     * @param {VARIANT_BOOL} bEnable VARIANT_TRUE if application requires notification of this event type. VARIANT_FALSE indicates the application does not require notifications for this event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo2-put_eventfilter
      */
     put_EventFilter(TapiEvent, lSubEvent, bEnable) {
         result := ComCall(21, this, "int", TapiEvent, "int", lSubEvent, "short", bEnable, "HRESULT")

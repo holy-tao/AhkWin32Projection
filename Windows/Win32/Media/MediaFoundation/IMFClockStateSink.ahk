@@ -50,11 +50,11 @@ class IMFClockStateSink extends IUnknown{
     static VTableNames => ["OnClockStart", "OnClockStop", "OnClockPause", "OnClockRestart", "OnClockSetRate"]
 
     /**
-     * 
-     * @param {Integer} hnsSystemTime 
-     * @param {Integer} llClockStartOffset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockstart
+     * Called when the presentation clock starts.
+     * @param {Integer} hnsSystemTime The system time when the clock started, in 100-nanosecond units.
+     * @param {Integer} llClockStartOffset The new starting time for the clock, in 100-nanosecond units. This parameter can also equal <b>PRESENTATION_CURRENT_POSITION</b>, indicating the clock has started or restarted from its current position.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockstatesink-onclockstart
      */
     OnClockStart(hnsSystemTime, llClockStartOffset) {
         result := ComCall(3, this, "int64", hnsSystemTime, "int64", llClockStartOffset, "HRESULT")
@@ -62,10 +62,41 @@ class IMFClockStateSink extends IUnknown{
     }
 
     /**
+     * Called when the presentation clock stops.
+     * @param {Integer} hnsSystemTime The system time when the clock stopped, in 100-nanosecond units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *           
      * 
-     * @param {Integer} hnsSystemTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockstop
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SINK_ALREADYSTOPPED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Deprecated. Do not use this error code.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockstatesink-onclockstop
      */
     OnClockStop(hnsSystemTime) {
         result := ComCall(4, this, "int64", hnsSystemTime, "HRESULT")
@@ -73,10 +104,10 @@ class IMFClockStateSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} hnsSystemTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockpause
+     * Called when the presentation clock pauses.
+     * @param {Integer} hnsSystemTime The system time when the clock was paused, in 100-nanosecond units.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockstatesink-onclockpause
      */
     OnClockPause(hnsSystemTime) {
         result := ComCall(5, this, "int64", hnsSystemTime, "HRESULT")
@@ -84,10 +115,10 @@ class IMFClockStateSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} hnsSystemTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockrestart
+     * Called when the presentation clock restarts from the same position while paused.
+     * @param {Integer} hnsSystemTime The system time when the clock restarted, in 100-nanosecond units.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockstatesink-onclockrestart
      */
     OnClockRestart(hnsSystemTime) {
         result := ComCall(6, this, "int64", hnsSystemTime, "HRESULT")
@@ -95,11 +126,11 @@ class IMFClockStateSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} hnsSystemTime 
-     * @param {Float} flRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclocksetrate
+     * Called when the rate changes on the presentation clock.
+     * @param {Integer} hnsSystemTime The system time when the rate was set, in 100-nanosecond units.
+     * @param {Float} flRate The new rate, as a multiplier of the normal playback rate.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockstatesink-onclocksetrate
      */
     OnClockSetRate(hnsSystemTime, flRate) {
         result := ComCall(7, this, "int64", hnsSystemTime, "float", flRate, "HRESULT")

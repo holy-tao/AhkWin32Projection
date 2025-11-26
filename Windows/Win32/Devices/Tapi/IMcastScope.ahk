@@ -67,9 +67,9 @@ class IMcastScope extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopeid
+     * The get_ScopeID method obtains an identifier for the scope of multicast addresses.
+     * @returns {Integer} Pointer to a <b>LONG</b> that will receive the scope ID of this scope, which is the ID that was assigned to this scope when it was configured on the multicast server.
+     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastscope-get_scopeid
      */
     get_ScopeID() {
         result := ComCall(7, this, "int*", &pID := 0, "HRESULT")
@@ -77,9 +77,9 @@ class IMcastScope extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_serverid
+     * The get_ServerID method obtains the server ID associated with this scope.
+     * @returns {Integer} Pointer to a <b>LONG</b> that will receive the server ID of this scope, which is the ID that was assigned to the multicast address allocation server that published this scope at the time that the server was configured.
+     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastscope-get_serverid
      */
     get_ServerID() {
         result := ComCall(8, this, "int*", &pID := 0, "HRESULT")
@@ -87,9 +87,9 @@ class IMcastScope extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_interfaceid
+     * The get_InterfaceID method obtains an interface identifier of this scope, which identifies the interface on which the server that published this scope resides. This is normally the network address of the interface.
+     * @returns {Integer} Pointer to a <b>LONG</b> that will receive the server ID of this scope, which is the ID that was assigned to the multicast address allocation server that published this scope at the time that the server was configured.
+     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastscope-get_interfaceid
      */
     get_InterfaceID() {
         result := ComCall(9, this, "int*", &pID := 0, "HRESULT")
@@ -97,9 +97,9 @@ class IMcastScope extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopedescription
+     * The get_ScopeDescription method obtains a textual description associated with this scope. The description is used only for clarifying the purpose or meaning of a scope and is not needed for any subsequent calls.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> that will receive a description of this scope. The description was established when this scope was configured on the multicast server.
+     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastscope-get_scopedescription
      */
     get_ScopeDescription() {
         ppDescription := BSTR()
@@ -108,9 +108,9 @@ class IMcastScope extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_ttl
+     * The get_TTL method obtains the time to live value for the multicast scope.
+     * @returns {Integer} Pointer to a time to live value for multicast scope.
+     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastscope-get_ttl
      */
     get_TTL() {
         result := ComCall(11, this, "int*", &pTTL := 0, "HRESULT")

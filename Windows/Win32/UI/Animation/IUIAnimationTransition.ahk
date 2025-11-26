@@ -43,10 +43,10 @@ class IUIAnimationTransition extends IUnknown{
     static VTableNames => ["SetInitialValue", "SetInitialVelocity", "IsDurationKnown", "GetDuration"]
 
     /**
-     * 
-     * @param {Float} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-setinitialvalue
+     * Sets the initial value for the transition.
+     * @param {Float} value The initial value for the transition.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-setinitialvalue
      */
     SetInitialValue(value) {
         result := ComCall(3, this, "double", value, "HRESULT")
@@ -54,10 +54,10 @@ class IUIAnimationTransition extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} velocity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-setinitialvelocity
+     * Sets the initial velocity for the transition.
+     * @param {Float} velocity The initial velocity for the transition.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-setinitialvelocity
      */
     SetInitialVelocity(velocity) {
         result := ComCall(4, this, "double", velocity, "HRESULT")
@@ -65,9 +65,27 @@ class IUIAnimationTransition extends IUnknown{
     }
 
     /**
+     * Determines whether a transition's duration is currently known.
+     * @returns {HRESULT} Returns S_OK if the duration is known, S_FALSE if the duration is not known, or an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-isdurationknown
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>UI_E_STORYBOARD_ACTIVE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The storyboard for this transition is currently in schedule.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-isdurationknown
      */
     IsDurationKnown() {
         result := ComCall(5, this, "HRESULT")
@@ -75,9 +93,9 @@ class IUIAnimationTransition extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-getduration
+     * Gets the duration of the transition.
+     * @returns {Float} The duration of the transition, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-getduration
      */
     GetDuration() {
         result := ComCall(6, this, "double*", &duration := 0, "HRESULT")

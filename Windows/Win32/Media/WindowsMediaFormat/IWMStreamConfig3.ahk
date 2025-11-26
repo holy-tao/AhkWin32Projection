@@ -31,11 +31,11 @@ class IWMStreamConfig3 extends IWMStreamConfig2{
     static VTableNames => ["GetLanguage", "SetLanguage"]
 
     /**
-     * 
-     * @param {PWSTR} pwszLanguageString 
-     * @param {Pointer<Integer>} pcchLanguageStringLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig3-getlanguage
+     * The GetLanguage method retrieves the RFC1766-compliant language string for the stream.
+     * @param {PWSTR} pwszLanguageString Pointer to a wide-character <b>null</b>-terminated string containing the language string. Pass <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcchLanguageStringLength</i>.
+     * @param {Pointer<Integer>} pcchLanguageStringLength Pointer to a <b>WORD</b> containing the size of the language string in wide characters. This size includes the terminating <b>null</b> character.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig3-getlanguage
      */
     GetLanguage(pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
@@ -47,10 +47,10 @@ class IWMStreamConfig3 extends IWMStreamConfig2{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszLanguageString 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig3-setlanguage
+     * The SetLanguage method sets the language for a stream using an RFC1766-compliant string.
+     * @param {PWSTR} pwszLanguageString Pointer to a wide-character null-terminated string containing the language string.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig3-setlanguage
      */
     SetLanguage(pwszLanguageString) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString

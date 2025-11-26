@@ -31,10 +31,14 @@ class IDMLDeviceChild extends IDMLObject{
     static VTableNames => ["GetDevice"]
 
     /**
+     * Retrieves the DirectML device that was used to create this object.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevicechild-getdevice
+     * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>ppv</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the DirectML device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device.
+     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevicechild-getdevice
      */
     GetDevice(riid) {
         result := ComCall(7, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

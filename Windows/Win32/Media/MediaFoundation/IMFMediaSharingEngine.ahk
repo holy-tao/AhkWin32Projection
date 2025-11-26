@@ -32,9 +32,9 @@ class IMFMediaSharingEngine extends IMFMediaEngine{
     static VTableNames => ["GetDevice"]
 
     /**
-     * 
-     * @returns {DEVICE_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfmediasharingengine-getdevice
+     * Gets information about the media sharing device.
+     * @returns {DEVICE_INFO} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/ns-mfsharingengine-device_info">DEVICE_INFO</a> structure. The method fills in this structure with the device information.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-imfmediasharingengine-getdevice
      */
     GetDevice() {
         pDevice := DEVICE_INFO()

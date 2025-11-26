@@ -32,11 +32,14 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
     static VTableNames => ["IsAffectedByQuota"]
 
     /**
-     * 
-     * @param {BSTR} path 
-     * @param {Integer} options 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
+     * Retrieves a value that determines whether a specified path is subject to a quota.
+     * @param {BSTR} path The local directory path to determine whether a quota applies.
+     * @param {Integer} options The options to use when checking for a quota. For possible values, see the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the path referred to by the 
+     *      <i>path</i> parameter is subject to a quota, otherwise it is 
+     *      <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
      */
     IsAffectedByQuota(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path

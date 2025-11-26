@@ -50,9 +50,9 @@ class IFileSystemImage3 extends IFileSystemImage2{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-get_createredundantudfmetadatafiles
+     * Retrieves a property value that specifies if the UDF Metadata will be redundant in the file system image.
+     * @returns {VARIANT_BOOL} Pointer to a value that specifies if the UDF metadata is redundant in the resultant file system image. A value of <b>VARIANT_TRUE</b> indicates that UDF metadata will be redundant; otherwise, <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimage3-get_createredundantudfmetadatafiles
      */
     get_CreateRedundantUdfMetadataFiles() {
         result := ComCall(59, this, "short*", &pVal := 0, "HRESULT")
@@ -60,10 +60,29 @@ class IFileSystemImage3 extends IFileSystemImage2{
     }
 
     /**
+     * Sets the property that specifies if the UDF Metadata will be redundant in the file system image.
+     * @param {VARIANT_BOOL} newVal Specifies if the UDF metadata is redundant in the resultant file system image or not. A value of <b>VARIANT_TRUE</b> indicates that UDF metadata will be redundant; otherwise, <b>VARIANT_FALSE</b>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {VARIANT_BOOL} newVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-put_createredundantudfmetadatafiles
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IMAPI_S_IMAGE_FEATURE_NOT_SUPPORTED</b></dt>
+     * <dt>Value: 0x00AAB15FL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Option changed, but the feature is not supported for the implemented file system revision, and the image will be created without this feature.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimage3-put_createredundantudfmetadatafiles
      */
     put_CreateRedundantUdfMetadataFiles(newVal) {
         result := ComCall(60, this, "short", newVal, "HRESULT")
@@ -71,10 +90,10 @@ class IFileSystemImage3 extends IFileSystemImage2{
     }
 
     /**
-     * 
-     * @param {Integer} fileSystemToProbe 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-probespecificfilesystem
+     * Determines if a specific file system on the current media is appendable through the IMAPI.
+     * @param {Integer} fileSystemToProbe The file system on the current media to probe.
+     * @returns {VARIANT_BOOL} A <b>VARIANT_BOOL</b> value specifying if the specified file system is appendable.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimage3-probespecificfilesystem
      */
     ProbeSpecificFileSystem(fileSystemToProbe) {
         result := ComCall(61, this, "int", fileSystemToProbe, "short*", &isAppendable := 0, "HRESULT")

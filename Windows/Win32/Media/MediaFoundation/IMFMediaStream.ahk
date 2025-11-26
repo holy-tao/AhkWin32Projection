@@ -38,9 +38,9 @@ class IMFMediaStream extends IMFMediaEventGenerator{
     static VTableNames => ["GetMediaSource", "GetStreamDescriptor", "RequestSample"]
 
     /**
-     * 
-     * @returns {IMFMediaSource} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediastream-getmediasource
+     * Retrieves a pointer to the media source that created this media stream.
+     * @returns {IMFMediaSource} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> interface of the media source. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediastream-getmediasource
      */
     GetMediaSource() {
         result := ComCall(7, this, "ptr*", &ppMediaSource := 0, "HRESULT")
@@ -48,9 +48,9 @@ class IMFMediaStream extends IMFMediaEventGenerator{
     }
 
     /**
-     * 
-     * @returns {IMFStreamDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediastream-getstreamdescriptor
+     * Retrieves a stream descriptor for this media stream.
+     * @returns {IMFStreamDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfstreamdescriptor">IMFStreamDescriptor</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediastream-getstreamdescriptor
      */
     GetStreamDescriptor() {
         result := ComCall(8, this, "ptr*", &ppStreamDescriptor := 0, "HRESULT")
@@ -58,10 +58,63 @@ class IMFMediaStream extends IMFMediaEventGenerator{
     }
 
     /**
+     * Requests a sample from the media source.
+     * @param {IUnknown} pToken Pointer to the <b>IUnknown</b> interface to an object that is used as a token for the request. The caller must implement this object. This parameter can be <b>NULL</b>. See Remarks.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IUnknown} pToken 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediastream-requestsample
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_END_OF_STREAM</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The end of the stream was reached.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_MEDIA_SOURCE_WRONGSTATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The media source is stopped.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The source's <a href="/windows/desktop/api/mfidl/nf-mfidl-imfmediasource-shutdown">Shutdown</a> method has been called.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediastream-requestsample
      */
     RequestSample(pToken) {
         result := ComCall(9, this, "ptr", pToken, "HRESULT")

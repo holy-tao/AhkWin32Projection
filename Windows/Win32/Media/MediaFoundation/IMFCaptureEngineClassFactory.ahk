@@ -38,11 +38,13 @@ class IMFCaptureEngineClassFactory extends IUnknown{
     static VTableNames => ["CreateInstance"]
 
     /**
+     * Creates an instance of the capture engine.
+     * @param {Pointer<Guid>} clsid The CLSID of the object to create.
      * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineclassfactory-createinstance
+     * Currently, this parameter must equal <b>CLSID_MFCaptureEngine</b>.
+     * @param {Pointer<Guid>} riid The IID of the requested interface. The capture engine supports the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengine">IMFCaptureEngine</a> interface.
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcaptureengineclassfactory-createinstance
      */
     CreateInstance(clsid, riid) {
         result := ComCall(3, this, "ptr", clsid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")

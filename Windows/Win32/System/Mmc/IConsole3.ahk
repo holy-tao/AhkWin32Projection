@@ -31,10 +31,10 @@ class IConsole3 extends IConsole2{
     static VTableNames => ["RenameScopeItem"]
 
     /**
-     * 
-     * @param {Pointer} hScopeItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole3-renamescopeitem
+     * The RenameScopeItem method programmatically puts the specified scope item in rename mode. Subsequently, the user can manually enter the new name.
+     * @param {Pointer} hScopeItem The scope item put in rename mode.
+     * @returns {HRESULT} If successful, the return value is <b>S_OK</b>. If unsuccessful, the method returns <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsole3-renamescopeitem
      */
     RenameScopeItem(hScopeItem) {
         result := ComCall(17, this, "ptr", hScopeItem, "HRESULT")

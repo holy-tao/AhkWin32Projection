@@ -31,10 +31,28 @@ class IWMProfileManagerLanguage extends IUnknown{
     static VTableNames => ["GetUserLanguageID", "SetUserLanguageID"]
 
     /**
+     * The GetUserLanguageID method retrieves the language identifier for the system profiles loaded by the profile manager object.
+     * @param {Pointer<Integer>} wLangID Pointer to a <b>WORD</b> that receives the language identifier (LANGID) of the language set in the profile manager.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} wLangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-getuserlanguageid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-getuserlanguageid
      */
     GetUserLanguageID(wLangID) {
         wLangIDMarshal := wLangID is VarRef ? "ushort*" : "ptr"
@@ -44,10 +62,39 @@ class IWMProfileManagerLanguage extends IUnknown{
     }
 
     /**
+     * The SetUserLanguageID method sets the language of the system profiles that will be parsed by the profile manager object.
+     * @param {Integer} wLangID <b>WORD</b> containing the language identifier (LANGID) of the language you want to use.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} wLangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-setuserlanguageid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_NOMATCHING_ELEMENT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified LANGID represents a locality not supported by a localized set of system profiles.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-setuserlanguageid
      */
     SetUserLanguageID(wLangID) {
         result := ComCall(4, this, "ushort", wLangID, "HRESULT")

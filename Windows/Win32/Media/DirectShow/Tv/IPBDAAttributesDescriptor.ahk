@@ -31,9 +31,9 @@ class IPBDAAttributesDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetAttributePayload"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-gettag
+     * Gets the tag that uniquely identifies an attributes descriptor in a Protected Broadcast Driver Architecture (PBDA) transport stream.
+     * @returns {Integer} Gets the tag value. For PBDA attributes descriptors, this value is 0x81.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IPBDAAttributesDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getlength
+     * Gets the length of a Protected Broadcast Driver Architecture (PBDA) attributes descriptor from a Protected Broadcast Device Architecture (PBDA) transport stream, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -51,11 +51,11 @@ class IPBDAAttributesDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Integer>>} ppbAttributeBuffer 
-     * @param {Pointer<Integer>} pdwAttributeLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getattributepayload
+     * Gets the descriptor body from an attributes descriptor in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Pointer<Pointer<Integer>>} ppbAttributeBuffer Pointer to a buffer that receives the descriptor body. The caller must free this memory after use.
+     * @param {Pointer<Integer>} pdwAttributeLength Receives the descriptor body length.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getattributepayload
      */
     GetAttributePayload(ppbAttributeBuffer, pdwAttributeLength) {
         ppbAttributeBufferMarshal := ppbAttributeBuffer is VarRef ? "ptr*" : "ptr"

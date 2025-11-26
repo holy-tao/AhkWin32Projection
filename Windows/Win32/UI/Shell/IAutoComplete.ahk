@@ -63,13 +63,23 @@ class IAutoComplete extends IUnknown{
     static VTableNames => ["Init", "Enable"]
 
     /**
+     * Initializes the autocomplete object.
+     * @param {HWND} hwndEdit Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndEdit 
-     * @param {IUnknown} punkACL 
-     * @param {PWSTR} pwszRegKeyPath 
-     * @param {PWSTR} pwszQuickComplete 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete-init
+     * A handle to the window for the system edit control for which autocompletion will be enabled.
+     * @param {IUnknown} punkACL Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the string list object that generates candidates for the completed string. The object must expose an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> interface.
+     * @param {PWSTR} pwszRegKeyPath Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to an optional, null-terminated Unicode string that gives the registry path, including the value name, where the format string is stored as a <b>REG_SZ</b> value. The autocomplete object first looks for the path under <b>HKEY_CURRENT_USER</b>. If it fails, it tries <b>HKEY_LOCAL_MACHINE</b>. For a discussion of the format string, see the definition of <i>pwszQuickComplete</i>.
+     * @param {PWSTR} pwszQuickComplete Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to an optional null-terminated Unicode string that specifies the format to be used if the user enters text and presses CTRL+ENTER. Set this parameter to <b>NULL</b> to disable quick completion. Otherwise, the autocomplete object treats <i>pwszQuickComplete</i> as a <a href="https://docs.microsoft.com/windows/desktop/api/strsafe/nf-strsafe-stringcchprintfa">StringCchPrintf</a> format string and the text in the edit box as its associated argument, to produce a new string. For example, set <i>pwszQuickComplete</i> to "http://www.%s.com/". When a user enters "MyURL" into the edit box and presses CTRL+ENTER, the text in the edit box is updated to "http://www.MyURL.com/".
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-iautocomplete-init
      */
     Init(hwndEdit, punkACL, pwszRegKeyPath, pwszQuickComplete) {
         hwndEdit := hwndEdit is Win32Handle ? NumGet(hwndEdit, "ptr") : hwndEdit
@@ -81,10 +91,14 @@ class IAutoComplete extends IUnknown{
     }
 
     /**
+     * Enables or disables autocompletion.
+     * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete-enable
+     * A value that is set to <b>TRUE</b> to enable autocompletion, or <b>FALSE</b> to disable it.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-iautocomplete-enable
      */
     Enable(fEnable) {
         result := ComCall(4, this, "int", fEnable, "HRESULT")

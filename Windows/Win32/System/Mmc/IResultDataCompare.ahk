@@ -31,13 +31,20 @@ class IResultDataCompare extends IUnknown{
     static VTableNames => ["Compare"]
 
     /**
+     * Provides a way for a primary snap-in to compare cookies for the purpose of sorting the result items that it inserts in the result pane.
+     * @param {LPARAM} lUserParam A value that specifies user-provided information that is passed into 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdata-sort">IResultData::Sort</a>. MMC does not interpret this parameter.
+     * @param {Pointer} cookieA The unique identifier of the first result item object to be compared as part of the sorting operation.
+     * @param {Pointer} cookieB The unique identifier of the second result item object to be compared as part of the sorting operation.
+     * @param {Pointer<Integer>} pnResult As an in parameter, the argument contains the column that is sorted. As an out parameter, the value of the argument should be:
      * 
-     * @param {LPARAM} lUserParam 
-     * @param {Pointer} cookieA 
-     * @param {Pointer} cookieB 
-     * @param {Pointer<Integer>} pnResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdatacompare-compare
+     * <ul>
+     * <li>-1 if item 1 &lt; item 2</li>
+     * <li>zero (0) if item 1 == item 2</li>
+     * <li>1 if item 1 &gt; item 2</li>
+     * </ul>
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iresultdatacompare-compare
      */
     Compare(lUserParam, cookieA, cookieB, pnResult) {
         pnResultMarshal := pnResult is VarRef ? "int*" : "ptr"

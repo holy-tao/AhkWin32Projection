@@ -31,10 +31,14 @@ class ID3D11SwitchToRef extends IUnknown{
     static VTableNames => ["SetUseRef", "GetUseRef"]
 
     /**
+     * ID3D11SwitchToRef::SetUseRef method
+     * @param {BOOL} UseRef Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @param {BOOL} UseRef 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11switchtoref-setuseref
+     * Reserved.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11switchtoref-setuseref
      */
     SetUseRef(UseRef) {
         result := ComCall(3, this, "int", UseRef, "int")
@@ -42,9 +46,11 @@ class ID3D11SwitchToRef extends IUnknown{
     }
 
     /**
+     * ID3D11SwitchToRef::GetUseRef method
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11switchtoref-getuseref
+     * Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11switchtoref-getuseref
      */
     GetUseRef() {
         result := ComCall(4, this, "int")

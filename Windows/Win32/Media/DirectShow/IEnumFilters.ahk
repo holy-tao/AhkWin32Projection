@@ -32,12 +32,39 @@ class IEnumFilters extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cFilters 
-     * @param {Pointer<IBaseFilter>} ppFilter 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-next
+     * The Next method retrieves the specified number of filters in the enumeration sequence.
+     * @param {Integer} cFilters Number of filters to retrieve.
+     * @param {Pointer<IBaseFilter>} ppFilter Array of size <i>cFilters</i> that is filled with <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface pointers. The caller must release the interfaces.
+     * @param {Pointer<Integer>} pcFetched Receives the number of filters retrieved. Can be <b>NULL</b> if <i>cFilters</i> is 1.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td>Did not retrieve as many filters as requested.</td>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>Success.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>Invalid argument.</td>
+     * </tr>
+     * <tr>
+     * <td>E_POINTER</td>
+     * <td><b>NULL</b> pointer argument.</td>
+     * </tr>
+     * <tr>
+     * <td>VFW_E_ENUM_OUT_OF_SYNC</td>
+     * <td>The graph has changed and is now inconsistent with the enumerator.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-next
      */
     Next(cFilters, ppFilter, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +74,29 @@ class IEnumFilters extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cFilters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-skip
+     * The Skip method skips over a specified number of filters.
+     * @param {Integer} cFilters Number of filters to skip.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td>Skipped past the end of the sequence.</td>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>Success.</td>
+     * </tr>
+     * <tr>
+     * <td>VFW_E_ENUM_OUT_OF_SYNC</td>
+     * <td>The graph has changed and is now inconsistent with the enumerator.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-skip
      */
     Skip(cFilters) {
         result := ComCall(4, this, "uint", cFilters, "HRESULT")
@@ -58,9 +104,9 @@ class IEnumFilters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-reset
+     * The Reset method resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} Returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +114,9 @@ class IEnumFilters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumFilters} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-clone
+     * The Clone method makes a copy of the enumerator object. The returned object starts with the same enumeration state as the original.
+     * @returns {IEnumFilters} Receives a pointer to the <b>IEnumFilters</b> interface of the new enumerator. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ienumfilters-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

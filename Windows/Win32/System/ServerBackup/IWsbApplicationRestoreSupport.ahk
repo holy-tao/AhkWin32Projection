@@ -31,13 +31,13 @@ class IWsbApplicationRestoreSupport extends IUnknown{
     static VTableNames => ["PreRestore", "PostRestore", "OrderComponents", "IsRollForwardSupported"]
 
     /**
-     * 
-     * @param {PWSTR} wszWriterMetadata 
-     * @param {PWSTR} wszComponentName 
-     * @param {PWSTR} wszComponentLogicalPath 
-     * @param {BOOLEAN} bNoRollForward 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-prerestore
+     * Performs application-specific PreRestore operations.
+     * @param {PWSTR} wszWriterMetadata A string that contains the VSS writer's metadata.
+     * @param {PWSTR} wszComponentName The name of the component or component set. This should match the name in the metadata that the <i>wszWriterMetadata</i> parameter points to.
+     * @param {PWSTR} wszComponentLogicalPath The <a href="https://docs.microsoft.com/windows/desktop/VSS/logical-pathing-of-components">logical path</a> of the component or component set. This should match the logical path in the metadata that the <i>wszWriterMetadata</i> parameter points to.
+     * @param {BOOLEAN} bNoRollForward Set to <b>TRUE</b> if a previous point-in-time recovery operation is in progress and no application rollforward should be performed. The previous logs for the application will be deleted before the application restore operation is performed.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise. Possible return values include the following.
+     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-prerestore
      */
     PreRestore(wszWriterMetadata, wszComponentName, wszComponentLogicalPath, bNoRollForward) {
         wszWriterMetadata := wszWriterMetadata is String ? StrPtr(wszWriterMetadata) : wszWriterMetadata
@@ -49,13 +49,13 @@ class IWsbApplicationRestoreSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} wszWriterMetadata 
-     * @param {PWSTR} wszComponentName 
-     * @param {PWSTR} wszComponentLogicalPath 
-     * @param {BOOLEAN} bNoRollForward 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-postrestore
+     * Performs application-specific PostRestore operations.
+     * @param {PWSTR} wszWriterMetadata A string that contains the VSS writer's metadata.
+     * @param {PWSTR} wszComponentName The name of the component or component set. This should match the name in the metadata that the <i>wszWriterMetadata</i> parameter points to.
+     * @param {PWSTR} wszComponentLogicalPath The <a href="https://docs.microsoft.com/windows/desktop/VSS/logical-pathing-of-components">logical path</a> of the component or component set. This should match the logical path in the metadata that the <i>wszWriterMetadata</i> parameter points to.
+     * @param {BOOLEAN} bNoRollForward Set to <b>TRUE</b> if a previous point-in-time recovery operation is in progress and no application rollforward should be performed. The previous logs for the application will be deleted before the application restore operation is performed.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise. Possible return values include the following.
+     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-postrestore
      */
     PostRestore(wszWriterMetadata, wszComponentName, wszComponentLogicalPath, bNoRollForward) {
         wszWriterMetadata := wszWriterMetadata is String ? StrPtr(wszWriterMetadata) : wszWriterMetadata
@@ -67,14 +67,14 @@ class IWsbApplicationRestoreSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cComponents 
-     * @param {Pointer<PWSTR>} rgComponentName 
-     * @param {Pointer<PWSTR>} rgComponentLogicalPaths 
-     * @param {Pointer<Pointer<PWSTR>>} prgComponentName 
-     * @param {Pointer<Pointer<PWSTR>>} prgComponentLogicalPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-ordercomponents
+     * Specifies the order in which application components are to be restored.
+     * @param {Integer} cComponents The number of components to be restored. The value of this parameter can range from 0 to MAX_COMPONENTS.
+     * @param {Pointer<PWSTR>} rgComponentName An array of <i>cComponents</i> names of components to be restored.
+     * @param {Pointer<PWSTR>} rgComponentLogicalPaths An array of <i>cComponents</i> logical paths of components to be restored.
+     * @param {Pointer<Pointer<PWSTR>>} prgComponentName An array of <i>cComponents</i> names of components to be restored,  in the order in which they are to be restored. This parameter receives <b>NULL</b> if no specific restore order is required.
+     * @param {Pointer<Pointer<PWSTR>>} prgComponentLogicalPath An array of <i>cComponents</i> logical paths of components to be restored, in the order in which they are to be restored. This parameter receives <b>NULL</b> if no specific restore order is required.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise. Possible return values include the following.
+     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-ordercomponents
      */
     OrderComponents(cComponents, rgComponentName, rgComponentLogicalPaths, prgComponentName, prgComponentLogicalPath) {
         rgComponentNameMarshal := rgComponentName is VarRef ? "ptr*" : "ptr"
@@ -87,9 +87,10 @@ class IWsbApplicationRestoreSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-isrollforwardsupported
+     * Reports whether the application supports roll-forward restore.
+     * @returns {Integer} Receives <b>TRUE</b> if roll-forward restore is supported, or 
+     *       <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-isrollforwardsupported
      */
     IsRollForwardSupported() {
         result := ComCall(6, this, "char*", &pbRollForwardSupported := 0, "HRESULT")

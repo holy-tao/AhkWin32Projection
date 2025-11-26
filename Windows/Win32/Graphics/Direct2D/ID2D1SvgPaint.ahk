@@ -31,10 +31,14 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
     static VTableNames => ["SetPaintType", "GetPaintType", "SetColor", "GetColor", "SetId", "GetId", "GetIdLength"]
 
     /**
+     * Sets the paint type.
+     * @param {Integer} paintType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type">D2D1_SVG_PAINT_TYPE</a></b>
      * 
-     * @param {Integer} paintType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-setpainttype
+     * The new paint type.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpaint-setpainttype
      */
     SetPaintType(paintType) {
         result := ComCall(6, this, "int", paintType, "HRESULT")
@@ -42,9 +46,11 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
     }
 
     /**
+     * Gets the paint type.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type">D2D1_SVG_PAINT_TYPE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getpainttype
+     * Returns the paint type.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpaint-getpainttype
      */
     GetPaintType() {
         result := ComCall(7, this, "int")
@@ -63,20 +69,26 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
     }
 
     /**
+     * Gets the paint color that is used if the paint type is D2D1_SVG_PAINT_TYPE_COLOR.
+     * @param {Pointer<D2D1_COLOR_F>} color Type: <b>D2D1_COLOR_F*</b>
      * 
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * The paint color that is used if the paint type is D2D1_SVG_PAINT_TYPE_COLOR.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getcolor
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpaint-getcolor
      */
     GetColor(color) {
         ComCall(9, this, "ptr", color)
     }
 
     /**
+     * Sets the element id which acts as the paint server. This id is used if the paint type is D2D1_SVG_PAINT_TYPE_URI.
+     * @param {PWSTR} id Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} id 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-setid
+     * The element id which acts as the paint server. This id is used if the paint type is D2D1_SVG_PAINT_TYPE_URI.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpaint-setid
      */
     SetId(id) {
         id := id is String ? StrPtr(id) : id
@@ -86,11 +98,15 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
     }
 
     /**
+     * Gets the element id which acts as the paint server. This id is used if the paint type is D2D1_SVG_PAINT_TYPE_URI.
+     * @param {PWSTR} id Type: <b>PWSTR</b>
      * 
-     * @param {PWSTR} id 
-     * @param {Integer} idCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getid
+     * The element id which acts as the paint server.
+     * @param {Integer} idCount Type: <b>UINT32</b>
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpaint-getid
      */
     GetId(id, idCount) {
         id := id is String ? StrPtr(id) : id
@@ -100,9 +116,11 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
     }
 
     /**
+     * Gets the string length of the element id which acts as the paint server. This id is used if the paint type is D2D1_SVG_PAINT_TYPE_URI.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getidlength
+     * the string length of the element id which acts as the paint server. The returned string length does not include room for the null terminator.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpaint-getidlength
      */
     GetIdLength() {
         result := ComCall(12, this, "uint")

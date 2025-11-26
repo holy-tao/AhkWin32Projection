@@ -31,9 +31,9 @@ class ITfThreadFocusSink extends IUnknown{
     static VTableNames => ["OnSetThreadFocus", "OnKillThreadFocus"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadfocussink-onsetthreadfocus
+     * ITfThreadFocusSink::OnSetThreadFocus method
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadfocussink-onsetthreadfocus
      */
     OnSetThreadFocus() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class ITfThreadFocusSink extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadfocussink-onkillthreadfocus
+     * ITfThreadFocusSink::OnKillThreadFocus method
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadfocussink-onkillthreadfocus
      */
     OnKillThreadFocus() {
         result := ComCall(4, this, "HRESULT")

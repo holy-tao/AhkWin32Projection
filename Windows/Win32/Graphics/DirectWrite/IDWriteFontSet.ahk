@@ -34,9 +34,11 @@ class IDWriteFontSet extends IUnknown{
     static VTableNames => ["GetFontCount", "GetFontFaceReference", "FindFontFaceReference", "FindFontFace", "GetPropertyValues", "GetPropertyValues1", "GetPropertyValues2", "GetPropertyOccurrenceCount", "GetMatchingFonts", "GetMatchingFonts1"]
 
     /**
+     * Get the number of total fonts in the set.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
+     * Returns the number of total fonts in the set.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
      */
     GetFontCount() {
         result := ComCall(3, this, "uint")
@@ -44,10 +46,14 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Gets a reference to the font at the specified index, which may be local or remote.
+     * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} listIndex 
-     * @returns {IDWriteFontFaceReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
+     * Zero-based index of the font.
+     * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
+     * 
+     * Receives a pointer the font face reference object, or nullptr on failure.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
         result := ComCall(4, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
@@ -55,12 +61,20 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations.
+     * @param {IDWriteFontFaceReference} fontFaceReference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>*</b>
      * 
-     * @param {IDWriteFontFaceReference} fontFaceReference 
-     * @param {Pointer<Integer>} listIndex 
-     * @param {Pointer<BOOL>} exists 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
+     * Font face object that specifies the physical font.
+     * @param {Pointer<Integer>} listIndex Type: <b>UINT32*</b>
+     * 
+     * Receives the zero-based index of the matching font if the font was found, or UINT_MAX otherwise.
+     * @param {Pointer<BOOL>} exists Type: <b>BOOL*</b>
+     * 
+     * Receives TRUE if the font exists or FALSE otherwise.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
      */
     FindFontFaceReference(fontFaceReference, listIndex, exists) {
         listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
@@ -71,12 +85,20 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations.
+     * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
-     * @param {IDWriteFontFace} fontFace 
-     * @param {Pointer<Integer>} listIndex 
-     * @param {Pointer<BOOL>} exists 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontface
+     * Font face object that specifies the physical font.
+     * @param {Pointer<Integer>} listIndex Type: <b>UINT32*</b>
+     * 
+     * Receives the zero-based index of the matching font if the font was found, or UINT_MAX otherwise.
+     * @param {Pointer<BOOL>} exists Type: <b>BOOL*</b>
+     * 
+     * Receives TRUE if the font exists or FALSE otherwise.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-findfontface
      */
     FindFontFace(fontFace, listIndex, exists) {
         listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
@@ -128,10 +150,14 @@ class IDWriteFontSet extends IUnknown{
     }
 
     /**
+     * Returns how many times a given property value occurs in the set.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} property Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property">DWRITE_FONT_PROPERTY</a>*</b>
      * 
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} property 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
+     * Font property of interest.
+     * @returns {Integer} Type: <b>UINT32*</b>
+     * 
+     * Receives how many times the property occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
      */
     GetPropertyOccurrenceCount(property) {
         result := ComCall(10, this, "ptr", property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")

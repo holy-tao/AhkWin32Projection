@@ -31,12 +31,12 @@ class ISpatialAudioObjectRenderStreamNotify extends IUnknown{
     static VTableNames => ["OnAvailableDynamicObjectCountChange"]
 
     /**
-     * 
-     * @param {ISpatialAudioObjectRenderStreamBase} sender 
-     * @param {Integer} hnsComplianceDeadlineTime 
-     * @param {Integer} availableDynamicObjectCountChange 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreamnotify-onavailabledynamicobjectcountchange
+     * Notifies the spatial audio client when the rendering capacity for an ISpatialAudioObjectRenderStream is about to change, specifies the time after which the change will occur, and specifies the number of dynamic audio objects that will be available after the change.
+     * @param {ISpatialAudioObjectRenderStreamBase} sender The spatial audio render stream for which the available dynamic object count is changing.
+     * @param {Integer} hnsComplianceDeadlineTime The time after which the spatial resource limit will change, in 100-nanosecond units. A value of  0 means that the change will occur immediately.
+     * @param {Integer} availableDynamicObjectCountChange The number of dynamic spatial audio objects that will be available to the stream after <i>hnsComplianceDeadlineTime</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreamnotify-onavailabledynamicobjectcountchange
      */
     OnAvailableDynamicObjectCountChange(sender, hnsComplianceDeadlineTime, availableDynamicObjectCountChange) {
         result := ComCall(3, this, "ptr", sender, "int64", hnsComplianceDeadlineTime, "uint", availableDynamicObjectCountChange, "HRESULT")

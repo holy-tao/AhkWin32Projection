@@ -37,9 +37,9 @@ class IStreamBufferDataCounters extends IUnknown{
     static VTableNames => ["GetData", "ResetData"]
 
     /**
-     * 
-     * @returns {SBE_PIN_DATA} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferdatacounters-getdata
+     * The GetData method returns performance data for the Stream Buffer Engine.
+     * @returns {SBE_PIN_DATA} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/ns-sbe-sbe_pin_data">SBE_PIN_DATA</a> structure. The method fills the structure with the current performance data.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferdatacounters-getdata
      */
     GetData() {
         pPinData := SBE_PIN_DATA()
@@ -48,9 +48,27 @@ class IStreamBufferDataCounters extends IUnknown{
     }
 
     /**
+     * The ResetData method resets the Stream Buffer Engine's performance counters to zero.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferdatacounters-resetdata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferdatacounters-resetdata
      */
     ResetData() {
         result := ComCall(4, this, "HRESULT")

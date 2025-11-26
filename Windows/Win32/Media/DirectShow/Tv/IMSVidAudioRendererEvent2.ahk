@@ -35,9 +35,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     static VTableNames => ["AVDecAudioDualMono", "AVAudioSampleRate", "AVAudioChannelConfig", "AVAudioChannelCount", "AVDecCommonMeanBitRate", "AVDDSurroundMode", "AVDecCommonInputFormat", "AVDecCommonOutputFormat"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avdecaudiodualmono
+     * Indicates a change in the AVDecAudioDualMono codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avdecaudiodualmono
      */
     AVDecAudioDualMono() {
         result := ComCall(8, this, "HRESULT")
@@ -45,9 +45,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avaudiosamplerate
+     * Indicates a change in the AVAudioSampleRate codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avaudiosamplerate
      */
     AVAudioSampleRate() {
         result := ComCall(9, this, "HRESULT")
@@ -55,9 +55,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avaudiochannelconfig
+     * Indicates a change in the AVDecAudioDualMono codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avaudiochannelconfig
      */
     AVAudioChannelConfig() {
         result := ComCall(10, this, "HRESULT")
@@ -65,9 +65,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avaudiochannelcount
+     * Indicates a change in the AVAudioChannelCount codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avaudiochannelcount
      */
     AVAudioChannelCount() {
         result := ComCall(11, this, "HRESULT")
@@ -75,9 +75,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avdeccommonmeanbitrate
+     * Indicates a change in the AVDecCommonMeanBitRate codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avdeccommonmeanbitrate
      */
     AVDecCommonMeanBitRate() {
         result := ComCall(12, this, "HRESULT")
@@ -85,9 +85,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avddsurroundmode
+     * Indicates a change in the AVDDSurroundMode codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avddsurroundmode
      */
     AVDDSurroundMode() {
         result := ComCall(13, this, "HRESULT")
@@ -95,9 +95,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avdeccommoninputformat
+     * Indicates a change in the AVDecCommonInputFormat codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avdeccommoninputformat
      */
     AVDecCommonInputFormat() {
         result := ComCall(14, this, "HRESULT")
@@ -105,9 +105,9 @@ class IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorendererevent2-avdeccommonoutputformat
+     * Indicates a change in the AVDecCommonOutput codec property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorendererevent2-avdeccommonoutputformat
      */
     AVDecCommonOutputFormat() {
         result := ComCall(15, this, "HRESULT")

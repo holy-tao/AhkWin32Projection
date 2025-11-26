@@ -36,10 +36,10 @@ class IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSinkEvent2{
     static VTableNames => ["LicenseChange"]
 
     /**
-     * 
-     * @param {Integer} dwProt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersinkevent3-licensechange
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Integer} dwProt Specifies the new license as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/encdec/ne-encdec-prottype">ProtType</a> enumeration.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent3-licensechange
      */
     LicenseChange(dwProt) {
         result := ComCall(13, this, "int", dwProt, "HRESULT")

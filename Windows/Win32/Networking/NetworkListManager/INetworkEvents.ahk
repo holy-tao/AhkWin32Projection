@@ -31,10 +31,10 @@ class INetworkEvents extends IUnknown{
     static VTableNames => ["NetworkAdded", "NetworkDeleted", "NetworkConnectivityChanged", "NetworkPropertyChanged"]
 
     /**
-     * 
-     * @param {Guid} networkId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkadded
+     * The NetworkAdded method is called when a new network is added. The GUID of the new network is provided.
+     * @param {Guid} networkId A <b>GUID</b> that specifies the new network that was added.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkadded
      */
     NetworkAdded(networkId) {
         result := ComCall(3, this, "ptr", networkId, "HRESULT")
@@ -42,10 +42,10 @@ class INetworkEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} networkId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkdeleted
+     * The NetworkDeleted method is called when a network is deleted.
+     * @param {Guid} networkId GUID that contains the network ID of the network that was deleted.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkdeleted
      */
     NetworkDeleted(networkId) {
         result := ComCall(4, this, "ptr", networkId, "HRESULT")
@@ -53,11 +53,11 @@ class INetworkEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} networkId 
-     * @param {Integer} newConnectivity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkconnectivitychanged
+     * The NetworkConnectivityChanged method is called when network connectivity related changes occur.
+     * @param {Guid} networkId A <b>GUID</b> that specifies the new network that was added.
+     * @param {Integer} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains the new connectivity of this network.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkconnectivitychanged
      */
     NetworkConnectivityChanged(networkId, newConnectivity) {
         result := ComCall(5, this, "ptr", networkId, "int", newConnectivity, "HRESULT")
@@ -65,11 +65,11 @@ class INetworkEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} networkId 
-     * @param {Integer} flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkpropertychanged
+     * The NetworkPropertyChanged method is called when a network property change is detected.
+     * @param {Guid} networkId GUID that specifies the network on which this event occurred.
+     * @param {Integer} flags <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_property_change">NLM_NETWORK_PROPERTY_CHANGE</a> enumeration value that specifies the network property that changed.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkpropertychanged
      */
     NetworkPropertyChanged(networkId, flags) {
         result := ComCall(6, this, "ptr", networkId, "int", flags, "HRESULT")

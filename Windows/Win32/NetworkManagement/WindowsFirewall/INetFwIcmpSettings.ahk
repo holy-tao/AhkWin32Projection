@@ -122,9 +122,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutbounddestinationunreachable
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowoutbounddestinationunreachable
      */
     get_AllowOutboundDestinationUnreachable() {
         result := ComCall(7, this, "short*", &allow := 0, "HRESULT")
@@ -132,10 +137,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutbounddestinationunreachable
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowoutbounddestinationunreachable
      */
     put_AllowOutboundDestinationUnreachable(allow) {
         result := ComCall(8, this, "short", allow, "HRESULT")
@@ -143,9 +153,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether redirect is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowredirect
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowredirect
      */
     get_AllowRedirect() {
         result := ComCall(9, this, "short*", &allow := 0, "HRESULT")
@@ -153,10 +168,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether redirect is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowredirect
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowredirect
      */
     put_AllowRedirect(allow) {
         result := ComCall(10, this, "short", allow, "HRESULT")
@@ -164,9 +184,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundechorequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowinboundechorequest
      */
     get_AllowInboundEchoRequest() {
         result := ComCall(11, this, "short*", &allow := 0, "HRESULT")
@@ -174,10 +199,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundechorequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowinboundechorequest
      */
     put_AllowInboundEchoRequest(allow) {
         result := ComCall(12, this, "short", allow, "HRESULT")
@@ -185,9 +215,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether exceeding the outbound time is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundtimeexceeded
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundtimeexceeded
      */
     get_AllowOutboundTimeExceeded() {
         result := ComCall(13, this, "short*", &allow := 0, "HRESULT")
@@ -195,10 +230,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether exceeding the outbound time is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundtimeexceeded
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundtimeexceeded
      */
     put_AllowOutboundTimeExceeded(allow) {
         result := ComCall(14, this, "short", allow, "HRESULT")
@@ -206,9 +246,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundparameterproblem
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundparameterproblem
      */
     get_AllowOutboundParameterProblem() {
         result := ComCall(15, this, "short*", &allow := 0, "HRESULT")
@@ -216,10 +261,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is common to IPv4 and IPv6.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundparameterproblem
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundparameterproblem
      */
     put_AllowOutboundParameterProblem(allow) {
         result := ComCall(16, this, "short", allow, "HRESULT")
@@ -227,9 +277,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether outbound source quench is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundsourcequench
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundsourcequench
      */
     get_AllowOutboundSourceQuench() {
         result := ComCall(17, this, "short*", &allow := 0, "HRESULT")
@@ -237,10 +292,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether outbound source quench is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundsourcequench
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundsourcequench
      */
     put_AllowOutboundSourceQuench(allow) {
         result := ComCall(18, this, "short", allow, "HRESULT")
@@ -248,9 +308,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundrouterrequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowinboundrouterrequest
      */
     get_AllowInboundRouterRequest() {
         result := ComCall(19, this, "short*", &allow := 0, "HRESULT")
@@ -258,10 +323,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundrouterrequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowinboundrouterrequest
      */
     put_AllowInboundRouterRequest(allow) {
         result := ComCall(20, this, "short", allow, "HRESULT")
@@ -269,9 +339,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundtimestamprequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowinboundtimestamprequest
      */
     get_AllowInboundTimestampRequest() {
         result := ComCall(21, this, "short*", &allow := 0, "HRESULT")
@@ -279,10 +354,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundtimestamprequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowinboundtimestamprequest
      */
     put_AllowInboundTimestampRequest(allow) {
         result := ComCall(22, this, "short", allow, "HRESULT")
@@ -290,9 +370,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundmaskrequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowinboundmaskrequest
      */
     get_AllowInboundMaskRequest() {
         result := ComCall(23, this, "short*", &allow := 0, "HRESULT")
@@ -300,10 +385,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv4 only.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowinboundmaskrequest
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowinboundmaskrequest
      */
     put_AllowInboundMaskRequest(allow) {
         result := ComCall(24, this, "short", allow, "HRESULT")
@@ -311,9 +401,14 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv6 only.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundpackettoobig
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundpackettoobig
      */
     get_AllowOutboundPacketTooBig() {
         result := ComCall(25, this, "short*", &allow := 0, "HRESULT")
@@ -321,10 +416,15 @@ class INetFwIcmpSettings extends IDispatch{
     }
 
     /**
+     * Indicates whether this is allowed.
+     * @remarks
+     * 
+     * This setting is  for IPv6 only.
+     * 
      * 
      * @param {VARIANT_BOOL} allow 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundpackettoobig
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwicmpsettings-put_allowoutboundpackettoobig
      */
     put_AllowOutboundPacketTooBig(allow) {
         result := ComCall(26, this, "short", allow, "HRESULT")

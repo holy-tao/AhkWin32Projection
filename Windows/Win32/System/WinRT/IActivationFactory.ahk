@@ -40,9 +40,11 @@ class IActivationFactory extends IInspectable{
     static VTableNames => ["ActivateInstance"]
 
     /**
+     * Creates a new instance of the Windows Runtime class that is associated with the current activation factory.
+     * @returns {IInspectable} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>**</b>
      * 
-     * @returns {IInspectable} 
-     * @see https://learn.microsoft.com/windows/win32/api/activation/nf-activation-iactivationfactory-activateinstance
+     * A pointer to a new instance of the class that is associated with the current activation factory.
+     * @see https://docs.microsoft.com/windows/win32/api//activation/nf-activation-iactivationfactory-activateinstance
      */
     ActivateInstance() {
         result := ComCall(6, this, "ptr*", &instance := 0, "HRESULT")

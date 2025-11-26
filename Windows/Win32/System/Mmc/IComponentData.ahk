@@ -33,20 +33,12 @@ class IComponentData extends IUnknown{
     static VTableNames => ["Initialize", "CreateComponent", "Notify", "Destroy", "QueryDataObject", "GetDisplayInfo", "CompareObjects"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IUnknown} pUnknown 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The IComponentData::Initialize method provides an entry point to the console.
+     * @param {IUnknown} pUnknown A pointer to the console IUnknown interface. This interface pointer can be used to call QueryInterface for 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iconsole2">IConsole2</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iconsolenamespace2">IConsoleNameSpace2</a>.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-initialize
      */
     Initialize(pUnknown) {
         result := ComCall(3, this, "ptr", pUnknown, "HRESULT")
@@ -54,9 +46,10 @@ class IComponentData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IComponent} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-createcomponent
+     * The IComponentData::CreateComponent method creates an instance of the IComponent that will be associated with this IComponentData interface.
+     * @returns {IComponent} A pointer to the location that stores the newly created pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-icomponent">IComponent</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-createcomponent
      */
     CreateComponent() {
         result := ComCall(4, this, "ptr*", &ppComponent := 0, "HRESULT")
@@ -64,13 +57,44 @@ class IComponentData extends IUnknown{
     }
 
     /**
+     * The IComponentData::Notify method notifies the snap-in of actions performed by the user.
+     * @param {IDataObject} lpDataObject A pointer to the data object of the currently selected item.
+     * @param {Integer} event Identifies an action taken by a user. <b>IComponentData::Notify</b> can receive the following notifications:
      * 
-     * @param {IDataObject} lpDataObject 
-     * @param {Integer} event 
-     * @param {LPARAM} arg 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-btn-click">MMCN_BTN_CLICK</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-delete">MMCN_DELETE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-expand">MMCN_EXPAND</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-expandsync">MMCN_EXPANDSYNC</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-preload">MMCN_PRELOAD</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-property-change">MMCN_PROPERTY_CHANGE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-remove-children">MMCN_REMOVE_CHILDREN</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-rename">MMCN_RENAME</a>
+     * @param {LPARAM} arg Depends on the notification type.
      * @param {LPARAM} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-notify
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-notify
      */
     Notify(lpDataObject, event, arg, param3) {
         result := ComCall(5, this, "ptr", lpDataObject, "int", event, "ptr", arg, "ptr", param3, "HRESULT")
@@ -78,9 +102,9 @@ class IComponentData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-destroy
+     * The IComponentData::Destroy method releases all references to the console.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-destroy
      */
     Destroy() {
         result := ComCall(6, this, "HRESULT")
@@ -88,11 +112,11 @@ class IComponentData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} cookie 
-     * @param {Integer} type 
-     * @returns {IDataObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-querydataobject
+     * The IComponentData::QueryDataObject method returns a data object that can be used to retrieve the context information for the specified cookie.
+     * @param {Pointer} cookie A value that specifies the unique identifier for which the data object is required.
+     * @param {Integer} type A value that specifies the data object as one of the following:
+     * @returns {IDataObject} A pointer to the address of the returned data object.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-querydataobject
      */
     QueryDataObject(cookie, type) {
         result := ComCall(7, this, "ptr", cookie, "int", type, "ptr*", &ppDataObject := 0, "HRESULT")
@@ -100,10 +124,11 @@ class IComponentData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<SCOPEDATAITEM>} pScopeDataItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-getdisplayinfo
+     * The IComponentData::GetDisplayInfo method retrieves display information for a scope item.
+     * @param {Pointer<SCOPEDATAITEM>} pScopeDataItem A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-scopedataitem">SCOPEDATAITEM</a> structure. On input, the structure mask member specifies the type of information required and the lParam member identifies the item of interest.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-getdisplayinfo
      */
     GetDisplayInfo(pScopeDataItem) {
         result := ComCall(8, this, "ptr", pScopeDataItem, "HRESULT")
@@ -111,11 +136,12 @@ class IComponentData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDataObject} lpDataObjectA 
-     * @param {IDataObject} lpDataObjectB 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-compareobjects
+     * The IComponentData::CompareObjects method enables a snap-in to compare two data objects acquired through QueryDataObject. Be aware that the data objects can be acquired from two different instances of IComponentData.
+     * @param {IDataObject} lpDataObjectA A pointer to the first data object exposing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface that is to be compared.
+     * @param {IDataObject} lpDataObjectB A pointer to the second data object exposing an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface that is to be compared.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponentdata-compareobjects
      */
     CompareObjects(lpDataObjectA, lpDataObjectB) {
         result := ComCall(9, this, "ptr", lpDataObjectA, "ptr", lpDataObjectB, "HRESULT")

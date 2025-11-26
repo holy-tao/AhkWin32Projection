@@ -32,9 +32,9 @@ class ISCPSecureAuthenticate extends IUnknown{
     static VTableNames => ["GetSecureQuery"]
 
     /**
-     * 
-     * @returns {ISCPSecureQuery} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureauthenticate-getsecurequery
+     * The GetSecureQuery method is used to obtain a pointer to the ISCPSecureQuery interface.
+     * @returns {ISCPSecureQuery} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iscpsecurequery">ISCPSecureQuery</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecureauthenticate-getsecurequery
      */
     GetSecureQuery() {
         result := ComCall(3, this, "ptr*", &ppSecureQuery := 0, "HRESULT")

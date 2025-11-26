@@ -36,12 +36,12 @@ class IServiceTrackerConfig extends IUnknown{
     static VTableNames => ["TrackerConfig"]
 
     /**
-     * 
-     * @param {Integer} trackerConfig 
-     * @param {PWSTR} szTrackerAppName 
-     * @param {PWSTR} szTrackerCtxName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetrackerconfig-trackerconfig
+     * Configures the tracker property for the enclosed work.
+     * @param {Integer} trackerConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_trackerconfig">CSC_TrackerConfig</a> enumeration.
+     * @param {PWSTR} szTrackerAppName The application identifier under which tracker information is reported.
+     * @param {PWSTR} szTrackerCtxName The context name under which tracker information is reported.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetrackerconfig-trackerconfig
      */
     TrackerConfig(trackerConfig, szTrackerAppName, szTrackerCtxName) {
         szTrackerAppName := szTrackerAppName is String ? StrPtr(szTrackerAppName) : szTrackerAppName

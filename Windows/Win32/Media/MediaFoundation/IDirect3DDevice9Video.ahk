@@ -33,12 +33,21 @@ class IDirect3DDevice9Video extends IUnknown{
     static VTableNames => ["GetContentProtectionCaps", "CreateAuthenticatedChannel", "CreateCryptoSession"]
 
     /**
+     * Queries the display driver for its content protection capabilities.
+     * @param {Pointer<Guid>} pCryptoType A pointer to a GUID that specifies the type of encryption to use. The following GUIDs are defined.
      * 
-     * @param {Pointer<Guid>} pCryptoType 
-     * @param {Pointer<Guid>} pDecodeProfile 
-     * @param {Pointer<D3DCONTENTPROTECTIONCAPS>} pCaps 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-getcontentprotectioncaps
+     * 
+     * **D3DCRYPTOTYPE_AES128_CTR**
+     * 
+     * 128-bit Advanced Encryption Standard CTR mode (AES-CTR) block cipher.
+     * 
+     * **D3DCRYPTOTYPE_PROPRIETARY**
+     * 
+     * Proprietary encryption algorithm.
+     * @param {Pointer<Guid>} pDecodeProfile A pointer to a GUID that specifies the DirectX Video Acceleration 2 (DXVA-2) decoding profile. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-getdecoderdeviceguids">IDirectXVideoDecoderService::GetDecoderDeviceGuids</a>. If DXVA-2 decoding will not be used, set this parameter to <b>NULL</b>.
+     * @param {Pointer<D3DCONTENTPROTECTIONCAPS>} pCaps A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dcontentprotectioncaps">D3DCONTENTPROTECTIONCAPS</a> structure. The method fills in this structure with the driver's content protection capabilities.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3ddevice9video-getcontentprotectioncaps
      */
     GetContentProtectionCaps(pCryptoType, pDecodeProfile, pCaps) {
         result := ComCall(3, this, "ptr", pCryptoType, "ptr", pDecodeProfile, "ptr", pCaps, "HRESULT")
@@ -46,11 +55,11 @@ class IDirect3DDevice9Video extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ChannelType 
-     * @param {Pointer<HANDLE>} pChannelHandle 
-     * @returns {IDirect3DAuthenticatedChannel9} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel
+     * Creates a channel to communicate with the Direct3D device or the graphics driver.
+     * @param {Integer} ChannelType Specifies the type of channel, as a member of the <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchanneltype">D3DAUTHENTICATEDCHANNELTYPE</a> enumeration.
+     * @param {Pointer<HANDLE>} pChannelHandle Receives a pointer to a handle for the channel.
+     * @returns {IDirect3DAuthenticatedChannel9} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dauthenticatedchannel9">IDirect3DAuthenticatedChannel9</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel
      */
     CreateAuthenticatedChannel(ChannelType, pChannelHandle) {
         result := ComCall(4, this, "int", ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "ptr", pChannelHandle, "HRESULT")
@@ -58,12 +67,24 @@ class IDirect3DDevice9Video extends IUnknown{
     }
 
     /**
+     * Creates a cryptographic session to encrypt video content that is sent to the display driver.
+     * @param {Pointer<Guid>} pCryptoType Pointer to a GUID that specifies the type of encryption to use. The following GUIDs are defined.
      * 
-     * @param {Pointer<Guid>} pCryptoType 
-     * @param {Pointer<Guid>} pDecodeProfile 
-     * @param {Pointer<HANDLE>} pCryptoHandle 
-     * @returns {IDirect3DCryptoSession9} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-createcryptosession
+     * **pDecodeProfile**
+     * 
+     * Type: **GUID** 
+     * 
+     * A pointer to a GUID that specifies the DirectX Video Acceleration 2 (DXVA-2) decoding profile. For a list of possible values, see IDirectXVideoDecoderService::GetDecoderDeviceGuids. If DXVA-2 decoding will not be used, set this parameter to NULL. 
+     * 
+     * **pCaps** 
+     * 
+     * Type: **D3DCONTENTPROTECTIONCAPS**
+     * 
+     *  A pointer to a D3DCONTENTPROTECTIONCAPS structure. The method fills in this structure with the driver's content protection capabilities.
+     * @param {Pointer<Guid>} pDecodeProfile Pointer to a GUID that specifies the DirectX Video Acceleration 2 (DXVA-2) decoding profile. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-getdecoderdeviceguids">IDirectXVideoDecoderService::GetDecoderDeviceGuids</a>. If DXVA-2 decoding will not be used, set this parameter to <b>NULL</b>.
+     * @param {Pointer<HANDLE>} pCryptoHandle Receives a handle for the session.
+     * @returns {IDirect3DCryptoSession9} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dcryptosession9">IDirect3DCryptoSession9</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3ddevice9video-createcryptosession
      */
     CreateCryptoSession(pCryptoType, pDecodeProfile, pCryptoHandle) {
         result := ComCall(5, this, "ptr", pCryptoType, "ptr", pDecodeProfile, "ptr*", &ppCryptoSession := 0, "ptr", pCryptoHandle, "HRESULT")

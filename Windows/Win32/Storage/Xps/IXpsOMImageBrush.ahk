@@ -85,9 +85,9 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
     static VTableNames => ["GetImageResource", "SetImageResource", "GetColorProfileResource", "SetColorProfileResource", "Clone"]
 
     /**
-     * 
-     * @returns {IXpsOMImageResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-getimageresource
+     * Gets a pointer to the IXpsOMImageResource interface, which contains the image resource to be used as the source for the brush.
+     * @returns {IXpsOMImageResource} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the image resource to be used as the source for the brush.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-getimageresource
      */
     GetImageResource() {
         result := ComCall(18, this, "ptr*", &imageResource := 0, "HRESULT")
@@ -95,10 +95,50 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
     }
 
     /**
+     * Sets a pointer to the IXpsOMImageResource interface that contains the image resource to be used as the source for the brush.
+     * @param {IXpsOMImageResource} imageResource The image resource to be used as the source for the brush. This parameter must not be a <b>NULL</b> pointer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IXpsOMImageResource} imageResource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-setimageresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>imageResource</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>imageResource</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-setimageresource
      */
     SetImageResource(imageResource) {
         result := ComCall(19, this, "ptr", imageResource, "HRESULT")
@@ -106,9 +146,9 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
     }
 
     /**
-     * 
-     * @returns {IXpsOMColorProfileResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-getcolorprofileresource
+     * Gets a pointer to the IXpsOMColorProfileResource interface, which contains the color profile resource that is associated with the image.
+     * @returns {IXpsOMColorProfileResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface that contains the color profile resource that is associated with the image. If no color profile resource has been set, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-getcolorprofileresource
      */
     GetColorProfileResource() {
         result := ComCall(20, this, "ptr*", &colorProfileResource := 0, "HRESULT")
@@ -116,10 +156,39 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
     }
 
     /**
+     * Sets a pointer to the IXpsOMColorProfileResource interface, which contains the color profile resource that is associated with the image.
+     * @param {IXpsOMColorProfileResource} colorProfileResource The color profile resource that is associated with the image. A <b>NULL</b> pointer will release any previously set color profile resources.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IXpsOMColorProfileResource} colorProfileResource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-setcolorprofileresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>colorProfileResource</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-setcolorprofileresource
      */
     SetColorProfileResource(colorProfileResource) {
         result := ComCall(21, this, "ptr", colorProfileResource, "HRESULT")
@@ -127,9 +196,9 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
     }
 
     /**
-     * 
-     * @returns {IXpsOMImageBrush} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-clone
+     * Makes a deep copy of the interface.
+     * @returns {IXpsOMImageBrush} A pointer to the copy of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-clone
      */
     Clone() {
         result := ComCall(22, this, "ptr*", &imageBrush := 0, "HRESULT")

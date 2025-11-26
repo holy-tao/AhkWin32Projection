@@ -45,13 +45,22 @@ class IDirectManipulationCompositor extends IUnknown{
     static VTableNames => ["AddContent", "RemoveContent", "SetUpdateManager", "Flush"]
 
     /**
+     * Associates content (owned by the caller) with the compositor, assigns a composition device to the content, and specifies the position of the content in the composition tree relative to other composition visuals.
+     * @param {IDirectManipulationContent} content The content to add to the composition tree.
      * 
-     * @param {IDirectManipulationContent} content 
-     * @param {IUnknown} device 
-     * @param {IUnknown} parentVisual 
-     * @param {IUnknown} childVisual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-addcontent
+     * <i>content</i> is placed  between <i>parentVisual</i> and <i>childVisual</i> in the composition tree.
+     * @param {IUnknown} device The device used to compose the content. 
+     * 
+     * <div class="alert"><b>Note</b>  <i>device</i> is created by the application.</div>
+     * <div> </div>
+     * @param {IUnknown} parentVisual The parent visuals in the composition tree of the content being added.
+     * 
+     * <i>parentVisual</i> must also be a parent of <i>childVisual</i> in the composition tree.
+     * @param {IUnknown} childVisual The child visuals in the composition tree of the content being added.
+     * 
+     * <i>parentVisual</i> must also be a parent of <i>childVisual</i> in the composition tree.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-addcontent
      */
     AddContent(content, device, parentVisual, childVisual) {
         result := ComCall(3, this, "ptr", content, "ptr", device, "ptr", parentVisual, "ptr", childVisual, "HRESULT")
@@ -59,10 +68,10 @@ class IDirectManipulationCompositor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDirectManipulationContent} content 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-removecontent
+     * Removes content from the compositor.
+     * @param {IDirectManipulationContent} content The content to remove from the composition tree.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-removecontent
      */
     RemoveContent(content) {
         result := ComCall(4, this, "ptr", content, "HRESULT")
@@ -70,10 +79,10 @@ class IDirectManipulationCompositor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDirectManipulationUpdateManager} updateManager 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-setupdatemanager
+     * Sets the update manager used to send compositor updates to Direct Manipulation.
+     * @param {IDirectManipulationUpdateManager} updateManager The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationupdatemanager">update manager</a>.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-setupdatemanager
      */
     SetUpdateManager(updateManager) {
         result := ComCall(5, this, "ptr", updateManager, "HRESULT")
@@ -81,9 +90,9 @@ class IDirectManipulationCompositor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-flush
+     * Commits all pending updates in the compositor to the system for rendering.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-flush
      */
     Flush() {
         result := ComCall(6, this, "HRESULT")

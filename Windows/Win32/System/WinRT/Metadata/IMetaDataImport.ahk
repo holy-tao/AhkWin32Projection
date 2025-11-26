@@ -31,10 +31,15 @@ class IMetaDataImport extends IUnknown{
     static VTableNames => ["CloseEnum", "CountEnum", "ResetEnum", "EnumTypeDefs", "EnumInterfaceImpls", "EnumTypeRefs", "FindTypeDefByName", "GetScopeProps", "GetModuleFromScope", "GetTypeDefProps", "GetInterfaceImplProps", "GetTypeRefProps", "ResolveTypeRef", "EnumMembers", "EnumMembersWithName", "EnumMethods", "EnumMethodsWithName", "EnumFields", "EnumFieldsWithName", "EnumParams", "EnumMemberRefs", "EnumMethodImpls", "EnumPermissionSets", "FindMember", "FindMethod", "FindField", "FindMemberRef", "GetMethodProps", "GetMemberRefProps", "EnumProperties", "EnumEvents", "GetEventProps", "EnumMethodSemantics", "GetMethodSemantics", "GetClassLayout", "GetFieldMarshal", "GetRVA", "GetPermissionSetProps", "GetSigFromToken", "GetModuleRefProps", "EnumModuleRefs", "GetTypeSpecFromToken", "GetNameFromToken", "EnumUnresolvedMethods", "GetUserString", "GetPinvokeMap", "EnumSignatures", "EnumTypeSpecs", "EnumUserStrings", "GetParamForMethodIndex", "EnumCustomAttributes", "GetCustomAttributeProps", "FindTypeRef", "GetMemberProps", "GetFieldProps", "GetPropertyProps", "GetParamProps", "GetCustomAttributeByName", "IsValidToken", "GetNestedClassProps", "GetNativeCallConvFromSig", "IsGlobal"]
 
     /**
+     * Closes the enumerator that is identified by the specified handle.
+     * @remarks
      * 
-     * @param {Pointer<Void>} hEnum 
+     * The handle specified by <i>hEnum</i> is obtained from a previous <b>Enum</b><i>Name</i> call (for example, <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs">IMetaDataImport::EnumTypeDefs</a>).
+     * 
+     * 
+     * @param {Pointer<Void>} hEnum The handle of the enumerator to close.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-closeenum
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-closeenum
      */
     CloseEnum(hEnum) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
@@ -43,11 +48,11 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} hEnum 
-     * @param {Pointer<Integer>} pulCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-countenum
+     * Gets the number of elements in the enumeration that was retrieved by the specified enumerator.
+     * @param {Pointer<Void>} hEnum The handle for the enumerator.
+     * @param {Pointer<Integer>} pulCount The number of elements enumerated.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-countenum
      */
     CountEnum(hEnum, pulCount) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
@@ -58,11 +63,11 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} hEnum 
-     * @param {Integer} ulPos 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-resetenum
+     * Resets the specified enumerator to the specified position.
+     * @param {Pointer<Void>} hEnum The enumerator to reset.
+     * @param {Integer} ulPos The new position at which to place the enumerator.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-resetenum
      */
     ResetEnum(hEnum, ulPos) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
@@ -72,13 +77,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates TypeDef tokens representing all types within the current scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the new enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rTypeDefs 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTypeDefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs
+     * @param {Integer} cMax The maximum size of the <i>rgTypeDefs</i> array.
+     * @param {Pointer<Integer>} pcTypeDefs The number of TypeDef tokens returned in <i>rgTypeDefs</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumTypeDefs</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTypeDefs</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs
      */
     EnumTypeDefs(phEnum, rTypeDefs, cMax, pcTypeDefs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -90,14 +111,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
+     * Enumerates MethodDef tokens representing interface implementations.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
+     * @param {Integer} td The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.
+     * @param {Pointer<Integer>} rImpls The array used to store the MethodDef tokens.
+     * @param {Integer} cMax The maximum size of the <i>rImpls</i> array.
+     * @param {Pointer<Integer>} pcImpls The actual number of tokens returned in <i>rImpls</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumInterfaceImpls</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no MethodDef tokens to enumerate. In this case, <i>pcImpls</i> is 0 (zero).
+     *  
      * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} td 
-     * @param {Pointer<Integer>} rImpls 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcImpls 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enuminterfaceimpls
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enuminterfaceimpls
      */
     EnumInterfaceImpls(phEnum, td, rImpls, cMax, pcImpls) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -109,13 +146,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates TypeRef tokens defined in the current metadata scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rTypeRefs 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTypeRefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtyperefs
+     * @param {Integer} cMax The maximum size of the <i>rgTypeRefs</i> array.
+     * @param {Pointer<Integer>} pcTypeRefs A pointer to the number of TypeRef tokens returned in <i>rgTypeRefs</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumTypeRefs </b>returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTypeRefs</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumtyperefs
      */
     EnumTypeRefs(phEnum, rTypeRefs, cMax, pcTypeRefs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -127,12 +180,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szTypeDef 
-     * @param {Integer} tkEnclosingClass 
+     * Gets a pointer to the TypeDef metadata token for the Type with the specified name.
+     * @param {PWSTR} szTypeDef The name of the type for which to get the TypeDef token.
+     * @param {Integer} tkEnclosingClass A TypeDef or TypeRef token representing the enclosing class. If the type to find is not a nested class, set this value to NULL.
      * @param {Pointer<Integer>} ptd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-findtypedefbyname
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-findtypedefbyname
      */
     FindTypeDefByName(szTypeDef, tkEnclosingClass, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
@@ -144,13 +197,13 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szName 
-     * @param {Integer} cchName 
-     * @param {Pointer<Integer>} pchName 
-     * @param {Pointer<Guid>} pmvid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getscopeprops
+     * Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
+     * @param {PWSTR} szName A buffer for the assembly or module name.
+     * @param {Integer} cchName The size in wide characters of <i>szName</i>.
+     * @param {Pointer<Integer>} pchName The number of wide characters returned in <i>szName</i>.
+     * @param {Pointer<Guid>} pmvid A pointer to a GUID that uniquely identifies the version of the assembly or module.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getscopeprops
      */
     GetScopeProps(szName, cchName, pchName, pmvid) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -162,10 +215,10 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a metadata token for the module referenced in the current metadata scope.
      * @param {Pointer<Integer>} pmd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmodulefromscope
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmodulefromscope
      */
     GetModuleFromScope(pmd) {
         pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
@@ -175,15 +228,15 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Returns metadata information for the Type represented by the specified TypeDef token.
      * @param {Integer} td 
-     * @param {PWSTR} szTypeDef 
-     * @param {Integer} cchTypeDef 
-     * @param {Pointer<Integer>} pchTypeDef 
-     * @param {Pointer<Integer>} pdwTypeDefFlags 
-     * @param {Pointer<Integer>} ptkExtends 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-gettypedefprops
+     * @param {PWSTR} szTypeDef A buffer containing the type name.
+     * @param {Integer} cchTypeDef The size in wide characters of <i>szTypeDef</i>.
+     * @param {Pointer<Integer>} pchTypeDef The number of wide characters returned in <i>szTypeDef</i>.
+     * @param {Pointer<Integer>} pdwTypeDefFlags A pointer to any flags that modify the type definition. This value is a bitmask from the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/cortypeattr-enumeration">CorTypeAttr</a> enumeration.
+     * @param {Pointer<Integer>} ptkExtends A TypeDef or TypeRef metadata token that represents the base type of the requested type.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-gettypedefprops
      */
     GetTypeDefProps(td, szTypeDef, cchTypeDef, pchTypeDef, pdwTypeDefFlags, ptkExtends) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
@@ -197,12 +250,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a pointer to the metadata tokens for the Type that implements the specified method, and for the interface that declares that method.
      * @param {Integer} iiImpl 
      * @param {Pointer<Integer>} pClass 
-     * @param {Pointer<Integer>} ptkIface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getinterfaceimplprops
+     * @param {Pointer<Integer>} ptkIface The metadata token representing the interface that defines the implemented method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getinterfaceimplprops
      */
     GetInterfaceImplProps(iiImpl, pClass, ptkIface) {
         pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
@@ -213,14 +266,14 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the metadata associated with the Type referenced by the specified TypeRef token.
      * @param {Integer} tr 
-     * @param {Pointer<Integer>} ptkResolutionScope 
-     * @param {PWSTR} szName 
-     * @param {Integer} cchName 
-     * @param {Pointer<Integer>} pchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-gettyperefprops
+     * @param {Pointer<Integer>} ptkResolutionScope A pointer to the scope in which the reference is made. This value is an AssemblyRef or ModuleRef token.
+     * @param {PWSTR} szName A buffer containing the type name.
+     * @param {Integer} cchName The requested size in wide characters of <i>szName</i>.
+     * @param {Pointer<Integer>} pchName The returned size in wide characters of <i>szName</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-gettyperefprops
      */
     GetTypeRefProps(tr, ptkResolutionScope, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -233,12 +286,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Resolves a Type reference represented by the specified TypeRef token.
      * @param {Integer} tr 
-     * @param {Pointer<Guid>} riid 
+     * @param {Pointer<Guid>} riid The IID of the interface to return in ppIScope. Typically, this would be IID_IMetaDataImport.
      * @param {Pointer<Integer>} ptd 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-resolvetyperef
+     * @returns {IUnknown} An interface to the module scope in which the referenced type is defined.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-resolvetyperef
      */
     ResolveTypeRef(tr, riid, ptd) {
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
@@ -248,14 +301,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates MemberDef tokens representing members of the specified type.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
      * @param {Pointer<Integer>} rMembers 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummembers
+     * @param {Integer} cMax The maximum size of the <i>rgMembers</i> array.
+     * @param {Pointer<Integer>} pcTokens The actual number of MemberDef tokens returned in <i>rgMembers</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMembers</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no MemberRef tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummembers
      */
     EnumMembers(phEnum, cl, rMembers, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -267,15 +336,31 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates MemberDef tokens representing members of the specified type with the specified name.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
-     * @param {PWSTR} szName 
+     * @param {PWSTR} szName The member name that limits the scope of the enumerator.
      * @param {Pointer<Integer>} rMembers 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummemberswithname
+     * @param {Integer} cMax The maximum size of the <i>rgMembers</i> array.
+     * @param {Pointer<Integer>} pcTokens The actual number of MemberDef tokens returned in <i>rgMembers</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMembersWithName</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no MemberRef tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummemberswithname
      */
     EnumMembersWithName(phEnum, cl, szName, rMembers, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -289,14 +374,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates MethodDef tokens representing methods of the specified type.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} cl 
      * @param {Pointer<Integer>} rMethods 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethods
+     * @param {Integer} cMax The maximum size of the MethodDef <i>rgMethods</i> array.
+     * @param {Pointer<Integer>} pcTokens The number of MethodDef tokens returned in <i>rgMethods</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMethods</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no MethodDef tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethods
      */
     EnumMethods(phEnum, cl, rMethods, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -308,15 +409,31 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} cl 
-     * @param {PWSTR} szName 
+     * @param {PWSTR} szName The name that limits the scope of the enumeration.
      * @param {Pointer<Integer>} rMethods 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethodswithname
+     * @param {Integer} cMax The maximum size of the <i>rgMethods</i> array.
+     * @param {Pointer<Integer>} pcTokens The number of MethodDef tokens returned in <i>rgMethods</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMethodsWithName</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethodswithname
      */
     EnumMethodsWithName(phEnum, cl, szName, rMethods, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -330,14 +447,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates FieldDef tokens for the type referenced by the specified TypeDef token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
      * @param {Pointer<Integer>} rFields 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumfields
+     * @param {Integer} cMax The maximum size of the <i>rgFields</i> array.
+     * @param {Pointer<Integer>} pcTokens The actual number of FieldDef tokens returned in <i>rgFields</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumFields</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no fields to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumfields
      */
     EnumFields(phEnum, cl, rFields, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -349,15 +482,31 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates FieldDef tokens of the specified type with the specified name.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
-     * @param {PWSTR} szName 
-     * @param {Pointer<Integer>} rFields 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumfieldswithname
+     * @param {PWSTR} szName The field name that limits the scope of the enumeration.
+     * @param {Pointer<Integer>} rFields Array used to store the FieldDef tokens.
+     * @param {Integer} cMax The maximum size of the <i>rFields</i> array.
+     * @param {Pointer<Integer>} pcTokens The actual number of FieldDef tokens returned in <i>rFields</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumFieldsWithName</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no fields to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumfieldswithname
      */
     EnumFieldsWithName(phEnum, cl, szName, rFields, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -371,14 +520,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates ParamDef tokens representing the parameters of the method referenced by the specified MethodDef token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} mb 
-     * @param {Pointer<Integer>} rParams 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumparams
+     * @param {Pointer<Integer>} rParams The array used to store the ParamDef tokens.
+     * @param {Integer} cMax The maximum size of the <i>rParams array</i>.
+     * @param {Pointer<Integer>} pcTokens The number of ParamDef tokens returned in <i>rParams</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumParams</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumparams
      */
     EnumParams(phEnum, mb, rParams, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -390,14 +555,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} tkParent 
+     * Enumerates MemberRef tokens representing members of the specified type.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
+     * @param {Integer} tkParent A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.
      * @param {Pointer<Integer>} rMemberRefs 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummemberrefs
+     * @param {Integer} cMax The maximum size of the <i>rgMemberRefs</i> array.
+     * @param {Pointer<Integer>} pcTokens The actual number of MemberRef tokens returned in <i>rgMemberRefs</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMemberRefs</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no MemberRef tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummemberrefs
      */
     EnumMemberRefs(phEnum, tkParent, rMemberRefs, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -409,15 +590,31 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates MethodBody and MethodDeclaration tokens representing methods of the specified type.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} td 
-     * @param {Pointer<Integer>} rMethodBody 
-     * @param {Pointer<Integer>} rMethodDecl 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethodimpls
+     * @param {Pointer<Integer>} rMethodBody The array to store the MethodBody tokens.
+     * @param {Pointer<Integer>} rMethodDecl The array to store the MethodDeclaration tokens.
+     * @param {Integer} cMax The maximum size of the <i>rMethodBody</i> and <i>rMethodDecl</i> arrays.
+     * @param {Pointer<Integer>} pcTokens The actual number of methods returned in <i>rMethodBody</i> and <i>rMethodDecl</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMethodImpls</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no method tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethodimpls
      */
     EnumMethodImpls(phEnum, td, rMethodBody, rMethodDecl, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -430,15 +627,31 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
+     * Enumerates permissions for the objects in a specified metadata scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
+     * @param {Integer} tk A metadata token that limits the scope of the search, or NULL to search the widest scope possible.
+     * @param {Integer} dwActions Flags representing the <a href="https://docs.microsoft.com/dotnet/api/system.security.permissions.securityaction">SecurityAction</a> values to include in <i>rPermission</i>, or zero to return all actions.
+     * @param {Pointer<Integer>} rPermission The array used to store the Permission tokens.
+     * @param {Integer} cMax The maximum size of the <i>rPermission</i> array.
+     * @param {Pointer<Integer>} pcTokens The number of Permission tokens returned in <i>rPermission</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumPermissionSets</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
      * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} tk 
-     * @param {Integer} dwActions 
-     * @param {Pointer<Integer>} rPermission 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumpermissionsets
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumpermissionsets
      */
     EnumPermissionSets(phEnum, tk, dwActions, rPermission, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -507,14 +720,14 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified Type and that has the specified name and metadata signature.
      * @param {Integer} td 
-     * @param {PWSTR} szName 
-     * @param {Pointer<Integer>} pvSigBlob 
-     * @param {Integer} cbSigBlob 
+     * @param {PWSTR} szName The name of the member reference to search for.
+     * @param {Pointer<Integer>} pvSigBlob A pointer to the binary metadata signature of the member reference.
+     * @param {Integer} cbSigBlob The size in bytes of <i>pvSigBlob</i>.
      * @param {Pointer<Integer>} pmr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
      */
     FindMemberRef(td, szName, pvSigBlob, cbSigBlob, pmr) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -527,19 +740,19 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the metadata associated with the method referenced by the specified MethodDef token.
      * @param {Integer} mb 
      * @param {Pointer<Integer>} pClass 
-     * @param {PWSTR} szMethod 
-     * @param {Integer} cchMethod 
-     * @param {Pointer<Integer>} pchMethod 
-     * @param {Pointer<Integer>} pdwAttr 
-     * @param {Pointer<Pointer<Integer>>} ppvSigBlob 
-     * @param {Pointer<Integer>} pcbSigBlob 
-     * @param {Pointer<Integer>} pulCodeRVA 
-     * @param {Pointer<Integer>} pdwImplFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmethodprops
+     * @param {PWSTR} szMethod A Pointer to a buffer that has the method's name.
+     * @param {Integer} cchMethod The requested size of <i>szMethod</i>.
+     * @param {Pointer<Integer>} pchMethod A pointer to the size in wide characters of <i>szMethod</i>, or in the case of truncation, the actual number of wide characters in the method name.
+     * @param {Pointer<Integer>} pdwAttr A pointer to any flags associated with the method.
+     * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata signature of the method.
+     * @param {Pointer<Integer>} pcbSigBlob A pointer to the size in bytes of <i>ppvSigBlob</i>.
+     * @param {Pointer<Integer>} pulCodeRVA A pointer to the relative virtual address of the method.
+     * @param {Pointer<Integer>} pdwImplFlags A pointer to any implementation flags for the method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmethodprops
      */
     GetMethodProps(mb, pClass, szMethod, cchMethod, pchMethod, pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags) {
         szMethod := szMethod is String ? StrPtr(szMethod) : szMethod
@@ -557,16 +770,16 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets metadata associated with the member referenced by the specified token.
      * @param {Integer} mr 
-     * @param {Pointer<Integer>} ptk 
-     * @param {PWSTR} szMember 
-     * @param {Integer} cchMember 
-     * @param {Pointer<Integer>} pchMember 
-     * @param {Pointer<Pointer<Integer>>} ppvSigBlob 
+     * @param {Pointer<Integer>} ptk A TypeDef or TypeRef, or TypeSpec token that represents the class that declares the member, or a ModuleRef token that represents the module class that declares the member, or a MethodDef that represents the member.
+     * @param {PWSTR} szMember A string buffer for the member's name.
+     * @param {Integer} cchMember The requested size in wide characters of <i>szMember</i>.
+     * @param {Pointer<Integer>} pchMember The returned size in wide characters of <i>szMember</i>.
+     * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata signature for the member.
      * @param {Pointer<Integer>} pbSig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmemberrefprops
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmemberrefprops
      */
     GetMemberRefProps(mr, ptk, szMember, cchMember, pchMember, ppvSigBlob, pbSig) {
         szMember := szMember is String ? StrPtr(szMember) : szMember
@@ -581,14 +794,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates PropertyDef tokens representing the properties of the type referenced by the specified TypeDef token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} td 
      * @param {Pointer<Integer>} rProperties 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcProperties 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumproperties
+     * @param {Integer} cMax The maximum size of the <i>rgProperties</i> array.
+     * @param {Pointer<Integer>} pcProperties The number of PropertyDef tokens returned in <i>rgProperties</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumProperties</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcProperties</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumproperties
      */
     EnumProperties(phEnum, td, rProperties, cMax, pcProperties) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -600,14 +829,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates event definition tokens for the specified TypeDef token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} td 
      * @param {Pointer<Integer>} rEvents 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcEvents 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumevents
+     * @param {Integer} cMax The maximum size of the <i>rgEvents</i> array.
+     * @param {Pointer<Integer>} pcEvents The actual number of events returned in <i>rgEvents</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumEvents</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no events to enumerate. In this case, <i>pcEvents</i> is zero.
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumevents
      */
     EnumEvents(phEnum, td, rEvents, cMax, pcEvents) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -653,14 +898,30 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates the properties and the property-change events to which the specified method is related.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} mb 
      * @param {Pointer<Integer>} rEventProp 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcEventProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethodsemantics
+     * @param {Integer} cMax The maximum size of the <i>rgEventProp</i> array.
+     * @param {Pointer<Integer>} pcEventProp The number of events or properties returned in <i>rgEventProp</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMethodSemantics</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no events or properties to enumerate. In this case, <i>pcEventProp</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethodsemantics
      */
     EnumMethodSemantics(phEnum, mb, rEventProp, cMax, pcEventProp) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -672,12 +933,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets flags indicating the relationship between the method referenced by the specified MethodDef token and the paired property and event referenced by the specified EventProp token.
      * @param {Integer} mb 
-     * @param {Integer} tkEventProp 
-     * @param {Pointer<Integer>} pdwSemanticsFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmethodsemantics
+     * @param {Integer} tkEventProp A token representing the paired property and event for which to get the method's role.
+     * @param {Pointer<Integer>} pdwSemanticsFlags A pointer to the associated semantics flags. This value is a bitmask from the CorMethodSemanticsAttr enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmethodsemantics
      */
     GetMethodSemantics(mb, tkEventProp, pdwSemanticsFlags) {
         pdwSemanticsFlagsMarshal := pdwSemanticsFlags is VarRef ? "uint*" : "ptr"
@@ -706,12 +967,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tk 
-     * @param {Pointer<Pointer<Integer>>} ppvNativeType 
-     * @param {Pointer<Integer>} pcbNativeType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getfieldmarshal
+     * Gets a pointer to the native, unmanaged type of the field represented by the specified field metadata token.
+     * @param {Integer} tk The metadata token that represents the field to get interop marshaling information for.
+     * @param {Pointer<Pointer<Integer>>} ppvNativeType A pointer to the metadata signature of the field's native type.
+     * @param {Pointer<Integer>} pcbNativeType The size in bytes of <i>ppvNativeType</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getfieldmarshal
      */
     GetFieldMarshal(tk, ppvNativeType, pcbNativeType) {
         ppvNativeTypeMarshal := ppvNativeType is VarRef ? "ptr*" : "ptr"
@@ -722,12 +983,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tk 
-     * @param {Pointer<Integer>} pulCodeRVA 
-     * @param {Pointer<Integer>} pdwImplFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getrva
+     * Gets the relative virtual address (RVA) and the implementation flags of the method or field represented by the specified token.
+     * @param {Integer} tk A MethodDef or FieldDef metadata token that represents the code object to return the RVA for. If the token is a FieldDef, the field must be a global variable.
+     * @param {Pointer<Integer>} pulCodeRVA A pointer to the relative virtual address of the code object represented by the token.
+     * @param {Pointer<Integer>} pdwImplFlags A pointer to the implementation flags for the method. This value is a bitmask from the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/cormethodimpl-enumeration">CorMethodImpl</a> enumeration. The value of <i>pdwImplFlags</i> is valid only if <i>tk</i> is a MethodDef token.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getrva
      */
     GetRVA(tk, pulCodeRVA, pdwImplFlags) {
         pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
@@ -738,13 +999,13 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the metadata associated with the System.Security.PermissionSet represented by the specified Permission token.
      * @param {Integer} pm 
-     * @param {Pointer<Integer>} pdwAction 
-     * @param {Pointer<Pointer<Void>>} ppvPermission 
-     * @param {Pointer<Integer>} pcbPermission 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getpermissionsetprops
+     * @param {Pointer<Integer>} pdwAction A pointer to the permission set.
+     * @param {Pointer<Pointer<Void>>} ppvPermission A pointer to the binary metadata signature of the permission set.
+     * @param {Pointer<Integer>} pcbPermission The size in bytes of <i>const</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getpermissionsetprops
      */
     GetPermissionSetProps(pm, pdwAction, ppvPermission, pcbPermission) {
         pdwActionMarshal := pdwAction is VarRef ? "uint*" : "ptr"
@@ -756,12 +1017,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the binary metadata signature associated with the specified token.
      * @param {Integer} mdSig 
-     * @param {Pointer<Pointer<Integer>>} ppvSig 
-     * @param {Pointer<Integer>} pcbSig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getsigfromtoken
+     * @param {Pointer<Pointer<Integer>>} ppvSig A pointer to the returned metadata signature.
+     * @param {Pointer<Integer>} pcbSig The size in bytes of the binary metadata signature.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getsigfromtoken
      */
     GetSigFromToken(mdSig, ppvSig, pcbSig) {
         ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
@@ -772,13 +1033,13 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the name of the module referenced by the specified metadata token.
      * @param {Integer} mur 
-     * @param {PWSTR} szName 
-     * @param {Integer} cchName 
-     * @param {Pointer<Integer>} pchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmodulerefprops
+     * @param {PWSTR} szName A buffer to hold the module name.
+     * @param {Integer} cchName The requested size of <i>szName</i> in wide characters.
+     * @param {Pointer<Integer>} pchName The returned size of <i>szName</i> in wide characters.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmodulerefprops
      */
     GetModuleRefProps(mur, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -790,13 +1051,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates ModuleRef tokens that represent imported modules.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rModuleRefs 
      * @param {Integer} cmax 
-     * @param {Pointer<Integer>} pcModuleRefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummodulerefs
+     * @param {Pointer<Integer>} pcModuleRefs The number of ModuleRef tokens returned in <i>rgModuleRefs</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumModuleRefs</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcModuleRefs</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummodulerefs
      */
     EnumModuleRefs(phEnum, rModuleRefs, cmax, pcModuleRefs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -808,12 +1085,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the binary metadata signature of the type specification represented by the specified token.
      * @param {Integer} typespec 
-     * @param {Pointer<Pointer<Integer>>} ppvSig 
-     * @param {Pointer<Integer>} pcbSig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-gettypespecfromtoken
+     * @param {Pointer<Pointer<Integer>>} ppvSig A pointer to the binary metadata signature.
+     * @param {Pointer<Integer>} pcbSig The size, in bytes, of the metadata signature.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-gettypespecfromtoken
      */
     GetTypeSpecFromToken(typespec, ppvSig, pcbSig) {
         ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
@@ -824,11 +1101,11 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tk 
-     * @param {Pointer<Pointer<Integer>>} pszUtf8NamePtr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getnamefromtoken
+     * Gets the UTF-8 name of the object referenced by the specified metadata token. This method is obsolete.
+     * @param {Integer} tk The token representing the object to return the name for.
+     * @param {Pointer<Pointer<Integer>>} pszUtf8NamePtr A pointer to the UTF-8 object name in the heap.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getnamefromtoken
      */
     GetNameFromToken(tk, pszUtf8NamePtr) {
         pszUtf8NamePtrMarshal := pszUtf8NamePtr is VarRef ? "ptr*" : "ptr"
@@ -838,13 +1115,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rMethods 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcTokens 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumunresolvedmethods
+     * @param {Integer} cMax The maximum size of the <i>rgMethods</i> array.
+     * @param {Pointer<Integer>} pcTokens The number of MemberDef tokens returned in <i>rgMethods</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumUnresolvedMethods</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTokens</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumunresolvedmethods
      */
     EnumUnresolvedMethods(phEnum, rMethods, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -856,13 +1149,13 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the literal string represented by the specified metadata token.
      * @param {Integer} stk 
-     * @param {PWSTR} szString 
-     * @param {Integer} cchString 
-     * @param {Pointer<Integer>} pchString 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getuserstring
+     * @param {PWSTR} szString A copy of the requested string.
+     * @param {Integer} cchString The maximum size in wide characters of the requested <i>szString</i>.
+     * @param {Pointer<Integer>} pchString The size in wide characters of the returned <i>szString</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getuserstring
      */
     GetUserString(stk, szString, cchString, pchString) {
         szString := szString is String ? StrPtr(szString) : szString
@@ -874,15 +1167,15 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tk 
-     * @param {Pointer<Integer>} pdwMappingFlags 
-     * @param {PWSTR} szImportName 
-     * @param {Integer} cchImportName 
-     * @param {Pointer<Integer>} pchImportName 
+     * Gets a ModuleRef token to represent the target assembly of a PInvoke call.
+     * @param {Integer} tk A FieldDef or MethodDef token to get the PInvoke mapping metadata for.
+     * @param {Pointer<Integer>} pdwMappingFlags A pointer to flags used for mapping. This value is a bitmask from the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corpinvokemap-enumeration">CorPinvokeMap</a> enumeration.
+     * @param {PWSTR} szImportName The name of the unmanaged target DLL.
+     * @param {Integer} cchImportName The size in wide characters of <i>szImportName</i>.
+     * @param {Pointer<Integer>} pchImportName The number of wide characters returned in <i>szImportName</i>.
      * @param {Pointer<Integer>} pmrImportDLL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getpinvokemap
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getpinvokemap
      */
     GetPinvokeMap(tk, pdwMappingFlags, szImportName, cchImportName, pchImportName, pmrImportDLL) {
         szImportName := szImportName is String ? StrPtr(szImportName) : szImportName
@@ -896,13 +1189,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates Signature tokens representing stand-alone signatures in the current scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rSignatures 
      * @param {Integer} cmax 
-     * @param {Pointer<Integer>} pcSignatures 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumsignatures
+     * @param {Pointer<Integer>} pcSignatures The number of Signature tokens returned in <i>rgSignatures</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumSignatures</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcSignatures</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumsignatures
      */
     EnumSignatures(phEnum, rSignatures, cmax, pcSignatures) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -914,13 +1223,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates TypeSpec tokens defined in the current metadata scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This value must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rTypeSpecs 
      * @param {Integer} cmax 
-     * @param {Pointer<Integer>} pcTypeSpecs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypespecs
+     * @param {Pointer<Integer>} pcTypeSpecs The number of TypeSpec tokens returned in <i>rgTypeSpecs</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumTypeSpecs</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcTypeSpecs</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumtypespecs
      */
     EnumTypeSpecs(phEnum, rTypeSpecs, cmax, pcTypeSpecs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -932,13 +1257,29 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
+     * Enumerates String tokens representing hard-coded strings in the current metadata scope.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rStrings 
      * @param {Integer} cmax 
-     * @param {Pointer<Integer>} pcStrings 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumuserstrings
+     * @param {Pointer<Integer>} pcStrings The number of String tokens returned in <i>rgStrings</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumUserStrings</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no tokens to enumerate. In this case, <i>pcStrings</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumuserstrings
      */
     EnumUserStrings(phEnum, rStrings, cmax, pcStrings) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -950,12 +1291,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the token that represents a specified parameter of the method represented by the specified MethodDef token.
      * @param {Integer} md 
-     * @param {Integer} ulParamSeq 
+     * @param {Integer} ulParamSeq The ordinal position in the parameter list where the requested parameter occurs. Parameters are numbered starting from one, with the method's return value in position zero.
      * @param {Pointer<Integer>} ppd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getparamformethodindex
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getparamformethodindex
      */
     GetParamForMethodIndex(md, ulParamSeq, ppd) {
         ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
@@ -965,15 +1306,31 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} tk 
-     * @param {Integer} tkType 
+     * Enumerates custom attribute-definition tokens associated with the specified type or member.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the returned enumerator.
+     * @param {Integer} tk A token for the scope of the enumeration, or zero for all custom attributes.
+     * @param {Integer} tkType A token for the type of the attributes to be enumerated, or zero for all types.
      * @param {Pointer<Integer>} rCustomAttributes 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcCustomAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumcustomattributes
+     * @param {Integer} cMax The maximum size of the <i>rgCustomAttributes</i> array.
+     * @param {Pointer<Integer>} pcCustomAttributes The actual number of token values returned in <i>rgCustomAttributes</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumCustomAttributes</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td>There are no custom attributes to enumerate. In this case, <i>pcCustomAttributes</i> is 0 (zero).
+     *  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumcustomattributes
      */
     EnumCustomAttributes(phEnum, tk, tkType, rCustomAttributes, cMax, pcCustomAttributes) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -985,14 +1342,14 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cv 
-     * @param {Pointer<Integer>} ptkObj 
-     * @param {Pointer<Integer>} ptkType 
-     * @param {Pointer<Pointer<Void>>} ppBlob 
+     * Gets the value of the custom attribute, given its metadata token.
+     * @param {Integer} cv A metadata token that represents the custom attribute to be retrieved.
+     * @param {Pointer<Integer>} ptkObj A metadata token representing the object that the custom attribute modifies. This value can be any type of metadata token except <b>mdCustomAttribute</b>. See <a href="https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms404456(v=vs.100)">Metadata Tokens</a> for more information about the token types.
+     * @param {Pointer<Integer>} ptkType An <b>mdMethodDef</b> or <b>mdMemberRef</b> metadata token representing the Type of the returned custom attribute.
+     * @param {Pointer<Pointer<Void>>} ppBlob A pointer to an array of data that is the value of the custom attribute.
      * @param {Pointer<Integer>} pcbSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributeprops
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributeprops
      */
     GetCustomAttributeProps(cv, ptkObj, ptkType, ppBlob, pcbSize) {
         ptkObjMarshal := ptkObj is VarRef ? "uint*" : "ptr"
@@ -1005,12 +1362,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tkResolutionScope 
-     * @param {PWSTR} szName 
+     * Gets a pointer to the TypeRef token for the Type reference that is in the specified scope and that has the specified name.
+     * @param {Integer} tkResolutionScope A ModuleRef, AssemblyRef, or TypeRef token that specifies the module, assembly, or type, respectively, in which the type reference is defined.
+     * @param {PWSTR} szName The name of the type reference to search for.
      * @param {Pointer<Integer>} ptr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-findtyperef
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-findtyperef
      */
     FindTypeRef(tkResolutionScope, szName, ptr) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -1022,22 +1379,22 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets metadata information, including the name, binary signature, and relative virtual address, of the Type member referenced by the specified metadata token.
      * @param {Integer} mb 
      * @param {Pointer<Integer>} pClass 
-     * @param {PWSTR} szMember 
-     * @param {Integer} cchMember 
-     * @param {Pointer<Integer>} pchMember 
-     * @param {Pointer<Integer>} pdwAttr 
-     * @param {Pointer<Pointer<Integer>>} ppvSigBlob 
-     * @param {Pointer<Integer>} pcbSigBlob 
-     * @param {Pointer<Integer>} pulCodeRVA 
-     * @param {Pointer<Integer>} pdwImplFlags 
-     * @param {Pointer<Integer>} pdwCPlusTypeFlag 
-     * @param {Pointer<Pointer<Void>>} ppValue 
-     * @param {Pointer<Integer>} pcchValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmemberprops
+     * @param {PWSTR} szMember The name of the member.
+     * @param {Integer} cchMember The size in wide characters of the szMember buffer.
+     * @param {Pointer<Integer>} pchMember The size in wide characters of the returned name.
+     * @param {Pointer<Integer>} pdwAttr Any flag values applied to the member.
+     * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata signature of the member.
+     * @param {Pointer<Integer>} pcbSigBlob The size in bytes of <i>ppvSigBlob</i>.
+     * @param {Pointer<Integer>} pulCodeRVA A pointer to the relative virtual address of the member.
+     * @param {Pointer<Integer>} pdwImplFlags Any method implementation flags associated with the member.
+     * @param {Pointer<Integer>} pdwCPlusTypeFlag A flag that marks a ValueType.
+     * @param {Pointer<Pointer<Void>>} ppValue A constant string value returned by this member.
+     * @param {Pointer<Integer>} pcchValue The size in characters of <i>ppValue</i>, or zero if <i>ppValue</i> does not hold a string.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmemberprops
      */
     GetMemberProps(mb, pClass, szMember, cchMember, pchMember, pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szMember := szMember is String ? StrPtr(szMember) : szMember
@@ -1058,20 +1415,20 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets metadata associated with the field referenced by the specified FieldDef token.
      * @param {Integer} mb 
      * @param {Pointer<Integer>} pClass 
-     * @param {PWSTR} szField 
-     * @param {Integer} cchField 
-     * @param {Pointer<Integer>} pchField 
-     * @param {Pointer<Integer>} pdwAttr 
-     * @param {Pointer<Pointer<Integer>>} ppvSigBlob 
-     * @param {Pointer<Integer>} pcbSigBlob 
-     * @param {Pointer<Integer>} pdwCPlusTypeFlag 
-     * @param {Pointer<Pointer<Void>>} ppValue 
-     * @param {Pointer<Integer>} pcchValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getfieldprops
+     * @param {PWSTR} szField The name of the field.
+     * @param {Integer} cchField The size in wide characters of the buffer for <i>szField</i>.
+     * @param {Pointer<Integer>} pchField The actual size of the returned buffer.
+     * @param {Pointer<Integer>} pdwAttr Flags associated with the field's metadata.
+     * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata value that describes the field.
+     * @param {Pointer<Integer>} pcbSigBlob The size in bytes of <i>ppvSigBlob</i>.
+     * @param {Pointer<Integer>} pdwCPlusTypeFlag A flag that specifies the value type of the field.
+     * @param {Pointer<Pointer<Void>>} ppValue A constant value for the field.
+     * @param {Pointer<Integer>} pcchValue The size in chars of <i>ppValue</i>, or zero if no string exists.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getfieldprops
      */
     GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szField := szField is String ? StrPtr(szField) : szField
@@ -1130,19 +1487,19 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets metadata values for the parameter referenced by the specified ParamDef token.
      * @param {Integer} tk 
      * @param {Pointer<Integer>} pmd 
-     * @param {Pointer<Integer>} pulSequence 
-     * @param {PWSTR} szName 
-     * @param {Integer} cchName 
-     * @param {Pointer<Integer>} pchName 
-     * @param {Pointer<Integer>} pdwAttr 
-     * @param {Pointer<Integer>} pdwCPlusTypeFlag 
-     * @param {Pointer<Pointer<Void>>} ppValue 
-     * @param {Pointer<Integer>} pcchValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getparamprops
+     * @param {Pointer<Integer>} pulSequence The ordinal position of the parameter in the method argument list.
+     * @param {PWSTR} szName A buffer to hold the name of the parameter.
+     * @param {Integer} cchName The requested size in wide characters of <i>szName</i>.
+     * @param {Pointer<Integer>} pchName The returned size in wide characters of <i>szName</i>.
+     * @param {Pointer<Integer>} pdwAttr A pointer to any attribute flags associated with the parameter.
+     * @param {Pointer<Integer>} pdwCPlusTypeFlag A pointer to a flag specifying that the parameter is a ValueType.
+     * @param {Pointer<Pointer<Void>>} ppValue A pointer to a constant string returned by the parameter.
+     * @param {Pointer<Integer>} pcchValue The size of <i>ppValue</i> in wide characters, or zero if <i>ppValue</i> does not hold a string.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getparamprops
      */
     GetParamProps(tk, pmd, pulSequence, szName, cchName, pchName, pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -1160,13 +1517,13 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tkObj 
-     * @param {PWSTR} szName 
-     * @param {Pointer<Pointer<Void>>} ppData 
-     * @param {Pointer<Integer>} pcbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributebyname
+     * Gets the custom attribute, given its name and owner.
+     * @param {Integer} tkObj A metadata token representing the object that owns the custom attribute.
+     * @param {PWSTR} szName The name of the custom attribute.
+     * @param {Pointer<Pointer<Void>>} ppData A pointer to an array of data that is the value of the custom attribute.
+     * @param {Pointer<Integer>} pcbData The size in bytes of the data returned in <i>const</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributebyname
      */
     GetCustomAttributeByName(tkObj, szName, ppData, pcbData) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -1179,10 +1536,10 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tk 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-isvalidtoken
+     * Gets a value indicating whether the specified token holds a valid reference to a code object.
+     * @param {Integer} tk The token to check the reference validity for.
+     * @returns {BOOL} <b>true</b> if <i>tk</i> is a valid metadata token within the current scope. Otherwise, <b>false</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-isvalidtoken
      */
     IsValidToken(tk) {
         result := ComCall(61, this, "uint", tk, "int")
@@ -1190,11 +1547,11 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tdNestedClass 
-     * @param {Pointer<Integer>} ptdEnclosingClass 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getnestedclassprops
+     * Gets the TypeDef token for the parent Type of the specified nested type.
+     * @param {Integer} tdNestedClass A TypeDef token representing the Type to return the parent class token for.
+     * @param {Pointer<Integer>} ptdEnclosingClass A pointer to the TypeDef token for the Type that <i>tdNestedClass</i> is nested in.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getnestedclassprops
      */
     GetNestedClassProps(tdNestedClass, ptdEnclosingClass) {
         ptdEnclosingClassMarshal := ptdEnclosingClass is VarRef ? "uint*" : "ptr"
@@ -1204,12 +1561,12 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pvSig 
-     * @param {Integer} cbSig 
-     * @param {Pointer<Integer>} pCallConv 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getnativecallconvfromsig
+     * Gets the native calling convention for the method that is represented by the specified signature pointer.
+     * @param {Pointer<Void>} pvSig A pointer to the metadata signature of the method to return the calling convention for.
+     * @param {Integer} cbSig The size in bytes of <i>const</i>.
+     * @param {Pointer<Integer>} pCallConv A pointer to the native calling convention.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getnativecallconvfromsig
      */
     GetNativeCallConvFromSig(pvSig, cbSig, pCallConv) {
         pvSigMarshal := pvSig is VarRef ? "ptr" : "ptr"
@@ -1220,11 +1577,11 @@ class IMetaDataImport extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a value indicating whether the field, method, or type represented by the specified metadata token has global scope.
      * @param {Integer} pd 
      * @param {Pointer<Integer>} pbGlobal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-isglobal
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-isglobal
      */
     IsGlobal(pd, pbGlobal) {
         pbGlobalMarshal := pbGlobal is VarRef ? "int*" : "ptr"

@@ -38,10 +38,43 @@ class IPropertyStoreCapabilities extends IUnknown{
     static VTableNames => ["IsPropertyWritable"]
 
     /**
+     * Queries whether the property handler allows a specific property to be edited in the UI by the user.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecapabilities-ispropertywritable
+     * A reference to <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that represents the property being queried.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property can be edited and stored by the handler.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property cannot be edited.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorecapabilities-ispropertywritable
      */
     IsPropertyWritable(key) {
         result := ComCall(3, this, "ptr", key, "int")

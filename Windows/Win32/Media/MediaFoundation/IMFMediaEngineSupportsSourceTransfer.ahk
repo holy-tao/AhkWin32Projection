@@ -31,9 +31,9 @@ class IMFMediaEngineSupportsSourceTransfer extends IUnknown{
     static VTableNames => ["ShouldTransferSource", "DetachMediaSource", "AttachMediaSource"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-shouldtransfersource
+     * Specifies wether or not the source should be transferred.
+     * @returns {BOOL} <b>true</b> if the source should be transferred; otherwise, <b>false</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-shouldtransfersource
      */
     ShouldTransferSource() {
         result := ComCall(3, this, "int*", &pfShouldTransfer := 0, "HRESULT")
@@ -41,12 +41,12 @@ class IMFMediaEngineSupportsSourceTransfer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<IMFByteStream>} ppByteStream 
-     * @param {Pointer<IMFMediaSource>} ppMediaSource 
-     * @param {Pointer<IMFMediaSourceExtension>} ppMSE 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-detachmediasource
+     * Detaches the media source.
+     * @param {Pointer<IMFByteStream>} ppByteStream Receives the byte stream.
+     * @param {Pointer<IMFMediaSource>} ppMediaSource Receives the media source.
+     * @param {Pointer<IMFMediaSourceExtension>} ppMSE Receives the media source extension.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-detachmediasource
      */
     DetachMediaSource(ppByteStream, ppMediaSource, ppMSE) {
         result := ComCall(4, this, "ptr*", ppByteStream, "ptr*", ppMediaSource, "ptr*", ppMSE, "HRESULT")
@@ -54,12 +54,12 @@ class IMFMediaEngineSupportsSourceTransfer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFByteStream} pByteStream 
-     * @param {IMFMediaSource} pMediaSource 
-     * @param {IMFMediaSourceExtension} pMSE 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-attachmediasource
+     * Attaches the media source.
+     * @param {IMFByteStream} pByteStream Specifies the byte stream.
+     * @param {IMFMediaSource} pMediaSource Specifies the media source.
+     * @param {IMFMediaSourceExtension} pMSE Specifies the media source extension.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-attachmediasource
      */
     AttachMediaSource(pByteStream, pMediaSource, pMSE) {
         result := ComCall(5, this, "ptr", pByteStream, "ptr", pMediaSource, "ptr", pMSE, "HRESULT")

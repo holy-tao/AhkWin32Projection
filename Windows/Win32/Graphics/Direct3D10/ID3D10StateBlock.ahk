@@ -39,9 +39,11 @@ class ID3D10StateBlock extends IUnknown{
     static VTableNames => ["Capture", "Apply", "ReleaseAllDeviceObjects", "GetDevice"]
 
     /**
+     * Capture the current value of states that are included in a stateblock.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10stateblock-capture
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10stateblock-capture
      */
     Capture() {
         result := ComCall(3, this, "HRESULT")
@@ -49,9 +51,11 @@ class ID3D10StateBlock extends IUnknown{
     }
 
     /**
+     * Apply the state block to the current device state.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10stateblock-apply
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10stateblock-apply
      */
     Apply() {
         result := ComCall(4, this, "HRESULT")
@@ -59,9 +63,11 @@ class ID3D10StateBlock extends IUnknown{
     }
 
     /**
+     * Release all references to device objects.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10stateblock-releasealldeviceobjects
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10stateblock-releasealldeviceobjects
      */
     ReleaseAllDeviceObjects() {
         result := ComCall(5, this, "HRESULT")
@@ -69,9 +75,11 @@ class ID3D10StateBlock extends IUnknown{
     }
 
     /**
+     * Get the device.
+     * @returns {ID3D10Device} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>**</b>
      * 
-     * @returns {ID3D10Device} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10stateblock-getdevice
+     * Pointer to the ID3D10Device interface that is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10stateblock-getdevice
      */
     GetDevice() {
         result := ComCall(6, this, "ptr*", &ppDevice := 0, "HRESULT")

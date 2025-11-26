@@ -44,10 +44,10 @@ class IMbnInterfaceManagerEvents extends IUnknown{
     static VTableNames => ["OnInterfaceArrival", "OnInterfaceRemoval"]
 
     /**
-     * 
-     * @param {IMbnInterface} newInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanagerevents-oninterfacearrival
+     * Notification method that signals that a device has been added to the system.
+     * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the new device.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfacemanagerevents-oninterfacearrival
      */
     OnInterfaceArrival(newInterface) {
         result := ComCall(3, this, "ptr", newInterface, "HRESULT")
@@ -55,10 +55,10 @@ class IMbnInterfaceManagerEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnInterface} oldInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanagerevents-oninterfaceremoval
+     * Notification method that signals that a device has been removed from the system.
+     * @param {IMbnInterface} oldInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents the device that was removed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbninterfacemanagerevents-oninterfaceremoval
      */
     OnInterfaceRemoval(oldInterface) {
         result := ComCall(4, this, "ptr", oldInterface, "HRESULT")

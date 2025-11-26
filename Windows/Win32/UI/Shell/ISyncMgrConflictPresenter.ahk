@@ -31,11 +31,15 @@ class ISyncMgrConflictPresenter extends IUnknown{
     static VTableNames => ["PresentConflict"]
 
     /**
+     * Presents the conflict to the user.
+     * @param {ISyncMgrConflict} pConflict Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflict">ISyncMgrConflict</a>*</b>
      * 
-     * @param {ISyncMgrConflict} pConflict 
-     * @param {ISyncMgrConflictResolveInfo} pResolveInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictpresenter-presentconflict
+     * Specifies the conflict. See <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflict">ISyncMgrConflict</a>.
+     * @param {ISyncMgrConflictResolveInfo} pResolveInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflictresolveinfo">ISyncMgrConflictResolveInfo</a>*</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictpresenter-presentconflict
      */
     PresentConflict(pConflict, pResolveInfo) {
         result := ComCall(3, this, "ptr", pConflict, "ptr", pResolveInfo, "HRESULT")

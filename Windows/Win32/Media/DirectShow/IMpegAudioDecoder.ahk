@@ -86,9 +86,9 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_frequencydivider
+     * Returns the frequency divider as a quality setting equal to CD Audio, FM Radio, or AM Radio.
+     * @returns {Integer} Receives the frequency divider.
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_frequencydivider
      */
     get_FrequencyDivider() {
         result := ComCall(3, this, "uint*", &pDivider := 0, "HRESULT")
@@ -96,10 +96,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Specifies the frequency divider as a three-level setting corresponding to the quality of CD Audio, FM Radio, or AM Radio.
+     * @param {Integer} Divider Specifies the divider. 1 = "CD Audio"; 2 = "FM Radio"; 4 = "AM Radio".
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} Divider 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_frequencydivider
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-put_frequencydivider
      */
     put_FrequencyDivider(Divider) {
         result := ComCall(4, this, "uint", Divider, "HRESULT")
@@ -107,9 +125,9 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderaccuracy
+     * Returns the decoder accuracy as a three-level quality setting.
+     * @returns {Integer} Indicates the quality setting. 0 = best, 0x4000 = high, and 0x8000 = full.
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderaccuracy
      */
     get_DecoderAccuracy() {
         result := ComCall(5, this, "uint*", &pAccuracy := 0, "HRESULT")
@@ -117,10 +135,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Specifies the decoder accuracy as a three-level quality setting.
+     * @param {Integer} Accuracy Indicates the quality setting. 0 = best, 0x4000 = high, 0x8000 = full.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} Accuracy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_decoderaccuracy
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-put_decoderaccuracy
      */
     put_DecoderAccuracy(Accuracy) {
         result := ComCall(6, this, "uint", Accuracy, "HRESULT")
@@ -128,9 +164,9 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_stereo
+     * Returns whether the decoder is decoding the encoded stream into stereo or mono PCM.
+     * @returns {Integer} Indicates whether the decoder is outputting to PCM mono or stereo.
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_stereo
      */
     get_Stereo() {
         result := ComCall(7, this, "uint*", &pStereo := 0, "HRESULT")
@@ -138,10 +174,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Specifies whether the decoder will decode the encoded stream into stereo or mono PCM.
+     * @param {Integer} Stereo Specifies the decoded output type. 1 = mono and 2 = stereo.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} Stereo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_stereo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-put_stereo
      */
     put_Stereo(Stereo) {
         result := ComCall(8, this, "uint", Stereo, "HRESULT")
@@ -149,9 +203,9 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderwordsize
+     * Returns the word size used to decode, either eight or 16 bit.
+     * @returns {Integer} Indicates the word size; the value is either 8 or 16.
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderwordsize
      */
     get_DecoderWordSize() {
         result := ComCall(9, this, "uint*", &pWordSize := 0, "HRESULT")
@@ -159,10 +213,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Specifies the word size used by the decoder.
+     * @param {Integer} WordSize Specifies the word size; value must be 8 or 16.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} WordSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_decoderwordsize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-put_decoderwordsize
      */
     put_DecoderWordSize(WordSize) {
         result := ComCall(10, this, "uint", WordSize, "HRESULT")
@@ -170,9 +242,9 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_integerdecode
+     * Returns whether the decoder is currently using integer-based decoding as opposed to floating point decoding.
+     * @returns {Integer} Indicates whether the decoder is using integer-based decoding. Zero means it is using floating point-based decoding and one means it is using integer-based decoding.
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_integerdecode
      */
     get_IntegerDecode() {
         result := ComCall(11, this, "uint*", &pIntDecode := 0, "HRESULT")
@@ -180,10 +252,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Specifies whether the decoder will use integer-based decoding.
+     * @param {Integer} IntDecode Specifies the decoding mode. 0 = floating point mode and 1 = integer mode.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} IntDecode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_integerdecode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-put_integerdecode
      */
     put_IntegerDecode(IntDecode) {
         result := ComCall(12, this, "uint", IntDecode, "HRESULT")
@@ -191,10 +281,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Returns which channel is currently being decoded.
+     * @param {Pointer<Integer>} pIntDecode Indicates the channel(s) to be decoded.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pIntDecode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_dualmode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_dualmode
      */
     get_DualMode(pIntDecode) {
         pIntDecodeMarshal := pIntDecode is VarRef ? "uint*" : "ptr"
@@ -204,10 +312,28 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * Specifies the channel to be decoded.
+     * @param {Integer} IntDecode Specifies the channel(s) to be decoded. See remarks for valid values.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} IntDecode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_dualmode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-put_dualmode
      */
     put_DualMode(IntDecode) {
         result := ComCall(14, this, "uint", IntDecode, "HRESULT")
@@ -215,9 +341,9 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {MPEG1WAVEFORMAT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_audioformat
+     * Returns the audio format of the connected input pin.
+     * @returns {MPEG1WAVEFORMAT} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmreg/ns-mmreg-mpeg1waveformat">MPEG1WAVEFORMAT</a> structure. The method copies the format data into the structure.
+     * @see https://docs.microsoft.com/windows/win32/api//mpegtype/nf-mpegtype-impegaudiodecoder-get_audioformat
      */
     get_AudioFormat() {
         lpFmt := MPEG1WAVEFORMAT()

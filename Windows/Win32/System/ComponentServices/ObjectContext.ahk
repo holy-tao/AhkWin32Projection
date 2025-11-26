@@ -70,10 +70,10 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrProgID 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-createinstance
+     * Creates an object using current object's context.
+     * @param {BSTR} bstrProgID The ProgID of the type of object to be instantiated.
+     * @returns {VARIANT} A reference to the new object.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-createinstance
      */
     CreateInstance(bstrProgID) {
         bstrProgID := bstrProgID is String ? BSTR.Alloc(bstrProgID).Value : bstrProgID
@@ -84,9 +84,38 @@ class ObjectContext extends IDispatch{
     }
 
     /**
+     * Declares that the transaction in which the object is executing can be committed and that the object should be deactivated on return.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-setcomplete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred. This can happen if one object passes its <a href="/windows/desktop/api/comsvcs/nn-comsvcs-objectcontext">ObjectContext</a> pointer to another object and the other object calls <a href="/windows/desktop/api/comsvcs/nf-comsvcs-objectcontext-setcomplete">SetComplete</a> using this pointer. An <b>ObjectContext</b> pointer is not valid outside the context of the object that originally obtained it.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-setcomplete
      */
     SetComplete() {
         result := ComCall(8, this, "HRESULT")
@@ -94,9 +123,38 @@ class ObjectContext extends IDispatch{
     }
 
     /**
+     * Declares that the transaction in which the object is executing must be aborted and that the object should be deactivated on return.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-setabort
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred. This can happen if one object passes its <a href="/windows/desktop/api/comsvcs/nn-comsvcs-objectcontext">ObjectContext</a> pointer to another object and the other object calls <a href="/windows/desktop/api/comsvcs/nf-comsvcs-objectcontext-setabort">SetAbort</a> using this pointer. An <b>ObjectContext</b> pointer is not valid outside the context of the object that originally obtained it.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-setabort
      */
     SetAbort() {
         result := ComCall(9, this, "HRESULT")
@@ -104,9 +162,38 @@ class ObjectContext extends IDispatch{
     }
 
     /**
+     * Declares that the current object's work is not necessarily finished but that its transactional updates are consistent and could be committed in their present form.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-enablecommit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed succesfully and the object's transactional updates can now be committed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred. This can happen if one object passes its <a href="/windows/desktop/api/comsvcs/nn-comsvcs-objectcontext">ObjectContext</a> pointer to another object and the other object calls <a href="/windows/desktop/api/comsvcs/nf-comsvcs-objectcontext-enablecommit">EnableCommit</a> using this pointer. An <b>ObjectContext</b> pointer is not valid outside the context of the object that originally obtained it.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-enablecommit
      */
     EnableCommit() {
         result := ComCall(10, this, "HRESULT")
@@ -114,9 +201,49 @@ class ObjectContext extends IDispatch{
     }
 
     /**
+     * Declares that the object's transactional updates are inconsistent and cannot be committed in their present state.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-disablecommit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed succesfully. The object's transactional updates cannot be committed until the object calls either <a href="/windows/desktop/api/comsvcs/nf-comsvcs-objectcontext-enablecommit">EnableCommit</a> or <a href="/windows/desktop/api/comsvcs/nf-comsvcs-objectcontext-setcomplete">SetComplete</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred. This can happen if one object passes its <a href="/windows/desktop/api/comsvcs/nn-comsvcs-objectcontext">ObjectContext</a> pointer to another object and the other object calls <a href="/windows/desktop/api/comsvcs/nf-comsvcs-objectcontext-disablecommit">DisableCommit</a> using this pointer. An <b>ObjectContext</b> pointer is not valid outside the context of the object that originally obtained it.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_NOCONTEXT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current object doesn't have a context associated with it. This is probably because it was not created with one of the COM+ <b>CreateInstance</b> methods.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-disablecommit
      */
     DisableCommit() {
         result := ComCall(11, this, "HRESULT")
@@ -124,9 +251,9 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-isintransaction
+     * Indicates whether the current object is executing in a transaction.
+     * @returns {VARIANT_BOOL} <b>TRUE</b> if the current object is executing within a transaction; <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-isintransaction
      */
     IsInTransaction() {
         result := ComCall(12, this, "short*", &pbIsInTx := 0, "HRESULT")
@@ -134,9 +261,9 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-issecurityenabled
+     * Indicates whether security is enabled for the current object.
+     * @returns {VARIANT_BOOL} <b>TRUE</b> if security is enabled for this object; <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-issecurityenabled
      */
     IsSecurityEnabled() {
         result := ComCall(13, this, "short*", &pbIsEnabled := 0, "HRESULT")
@@ -144,10 +271,10 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrRole 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-iscallerinrole
+     * Indicates whether the object's direct caller is in a specified role (either directly or as part of a group).
+     * @param {BSTR} bstrRole The name of the role.
+     * @returns {VARIANT_BOOL} <b>TRUE</b> if the caller is in the specified role; <b>FALSE</b> otherwise. This parameter is also set to <b>TRUE</b> if security is not enabled.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-iscallerinrole
      */
     IsCallerInRole(bstrRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
@@ -157,9 +284,9 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_count
+     * Retrieves the number of named context object properties.
+     * @returns {Integer} The number of named context object properties.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-get_count
      */
     get_Count() {
         result := ComCall(15, this, "int*", &plCount := 0, "HRESULT")
@@ -167,10 +294,10 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_item
+     * Retrieves a named property.
+     * @param {BSTR} name The name of the property to be retrieved.
+     * @returns {VARIANT} A reference to the retrieved property.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-get_item
      */
     get_Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -181,9 +308,9 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get__newenum
+     * Retrieves an enumerator for the named context object properties.
+     * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-get__newenum
      */
     get__NewEnum() {
         result := ComCall(17, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -191,9 +318,9 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {SecurityProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_security
+     * Retrieves the security object of the current object's context.
+     * @returns {SecurityProperty} A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-securityproperty">SecurityProperty</a> interface that contains the security property of the current object's context.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-get_security
      */
     get_Security() {
         result := ComCall(18, this, "ptr*", &ppSecurityProperty := 0, "HRESULT")
@@ -201,9 +328,9 @@ class ObjectContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ContextInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_contextinfo
+     * Retrieves the context information object of the current object's context.
+     * @returns {ContextInfo} A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-contextinfo">ContextInfo</a> interface that contains the context information.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-objectcontext-get_contextinfo
      */
     get_ContextInfo() {
         result := ComCall(19, this, "ptr*", &ppContextInfo := 0, "HRESULT")

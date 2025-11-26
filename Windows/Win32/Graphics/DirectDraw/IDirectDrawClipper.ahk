@@ -72,12 +72,25 @@ class IDirectDrawClipper extends IUnknown{
     static VTableNames => ["GetClipList", "GetHWnd", "Initialize", "IsClipListChanged", "SetClipList", "SetHWnd"]
 
     /**
-     * 
+     * Retrieves a copy of the clip list that is associated with a DirectDrawClipper object. To select a subset of the clip list, you can pass a rectangle that clips the clip list.
      * @param {Pointer<RECT>} param0 
      * @param {Pointer<RGNDATA>} param1 
      * @param {Pointer<Integer>} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-getcliplist
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDCLIPLIST</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOCLIPLIST</li>
+     * <li>DDERR_REGIONTOOSMALL</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-getcliplist
      */
     GetClipList(param0, param1, param2) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
@@ -87,10 +100,19 @@ class IDirectDrawClipper extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the window handle that was previously associated with this DirectDrawClipper object by the IDirectDrawClipper::SetHWnd method.
      * @param {Pointer<HWND>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-gethwnd
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-gethwnd
      */
     GetHWnd(param0) {
         result := ComCall(4, this, "ptr", param0, "HRESULT")
@@ -98,21 +120,20 @@ class IDirectDrawClipper extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
+     * Initializes a DirectDrawClipper object that was created by using the CoCreateInstance COM function.
      * @param {IDirectDraw} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_ALREADYINITIALIZED</li>
+     * <li>DDERR_INVALIDPARAMS</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-initialize
      */
     Initialize(param0, param1) {
         result := ComCall(5, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -120,10 +141,17 @@ class IDirectDrawClipper extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the status of the clip list if a window handle is associated with a DirectDrawClipper object.
      * @param {Pointer<BOOL>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged
      */
     IsClipListChanged(param0) {
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
@@ -133,11 +161,23 @@ class IDirectDrawClipper extends IUnknown{
     }
 
     /**
-     * 
+     * Sets or deletes the clip list that is used by the IDirectDrawSurface7::Blt, IDirectDrawSurface7::BltBatch, and IDirectDrawSurface7::UpdateOverlay methods on surfaces to which the parent DirectDrawClipper object is attached.
      * @param {Pointer<RGNDATA>} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-setcliplist
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_CLIPPERISUSINGHWND</li>
+     * <li>DDERR_INVALIDCLIPLIST</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-setcliplist
      */
     SetClipList(param0, param1) {
         result := ComCall(7, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -145,11 +185,22 @@ class IDirectDrawClipper extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the window handle that the clipper object uses to obtain clipping information.
      * @param {Integer} param0 
      * @param {HWND} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-sethwnd
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDCLIPLIST</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-sethwnd
      */
     SetHWnd(param0, param1) {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1

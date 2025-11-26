@@ -64,9 +64,18 @@ class IFaxAccount extends IDispatch{
     }
 
     /**
+     * Retrieves the name of a particular fax account on the server.
+     * @remarks
+     * 
+     * If the account is not in the local domain, the format of name returned  is &lt;domain_name&gt;\&lt;user_name&gt;.
+     * 
+     * If the account is in the domain but not on the server, the format name returned is &lt;computer_name&gt;\&lt;user_name&gt; where &lt;computer_name&gt; is the name of the server that holds the account.
+     * 
+     * If the account is on the same server as the fax server, just the &lt;user_name&gt; of the account is returned.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_accountname
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-get_accountname
      */
     get_AccountName() {
         pbstrAccountName := BSTR()
@@ -75,9 +84,9 @@ class IFaxAccount extends IDispatch{
     }
 
     /**
-     * 
+     * Represents the folders of the account, including the incoming and outgoing archives and the incoming and outgoing queues.
      * @returns {IFaxAccountFolders} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_folders
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-get_folders
      */
     get_Folders() {
         result := ComCall(8, this, "ptr*", &ppFolders := 0, "HRESULT")
@@ -85,10 +94,14 @@ class IFaxAccount extends IDispatch{
     }
 
     /**
+     * Sets the flags of a FAX_ACCOUNT_EVENTS_TYPE_ENUM variable that represents the events for which the account is listening.
+     * @param {Integer} EventTypes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_account_events_type_enum">FAX_ACCOUNT_EVENTS_TYPE_ENUM</a></b>
      * 
-     * @param {Integer} EventTypes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-listentoaccountevents
+     * A variable that specifies the types of events for which the account is listening.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-listentoaccountevents
      */
     ListenToAccountEvents(EventTypes) {
         result := ComCall(9, this, "int", EventTypes, "HRESULT")
@@ -96,9 +109,9 @@ class IFaxAccount extends IDispatch{
     }
 
     /**
-     * 
+     * A set of flags indicating the type of events for which the account is listening.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
      */
     get_RegisteredEvents() {
         result := ComCall(10, this, "int*", &pRegisteredEvents := 0, "HRESULT")

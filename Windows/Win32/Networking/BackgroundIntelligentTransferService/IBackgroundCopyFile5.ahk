@@ -32,11 +32,11 @@ class IBackgroundCopyFile5 extends IBackgroundCopyFile4{
     static VTableNames => ["SetProperty", "GetProperty"]
 
     /**
-     * 
-     * @param {Integer} PropertyId 
-     * @param {BITS_FILE_PROPERTY_VALUE} PropertyValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyfile5-setproperty
+     * Sets a generic property of a BITS file transfer.
+     * @param {Integer} PropertyId Specifies the property to be set.
+     * @param {BITS_FILE_PROPERTY_VALUE} PropertyValue A pointer to a union that specifies the value to be set. The union member appropriate for the property ID is used.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bits5_0/nf-bits5_0-ibackgroundcopyfile5-setproperty
      */
     SetProperty(PropertyId, PropertyValue) {
         result := ComCall(13, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
@@ -44,10 +44,10 @@ class IBackgroundCopyFile5 extends IBackgroundCopyFile4{
     }
 
     /**
-     * 
-     * @param {Integer} PropertyId 
-     * @returns {BITS_FILE_PROPERTY_VALUE} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyfile5-getproperty
+     * Gets a generic property of a BITS file transfer.
+     * @param {Integer} PropertyId Specifies the file property whose value is to be retrieved.
+     * @returns {BITS_FILE_PROPERTY_VALUE} The property value, returned as a pointer to a BITS_FILE_PROPERTY_VALUE union. Use the union field appropriate for the property ID value passed in.
+     * @see https://docs.microsoft.com/windows/win32/api//bits5_0/nf-bits5_0-ibackgroundcopyfile5-getproperty
      */
     GetProperty(PropertyId) {
         PropertyValue := BITS_FILE_PROPERTY_VALUE()

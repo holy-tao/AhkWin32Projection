@@ -31,12 +31,12 @@ class IVisualTreeServiceCallback2 extends IVisualTreeServiceCallback{
     static VTableNames => ["OnElementStateChanged"]
 
     /**
-     * 
-     * @param {Integer} element 
-     * @param {Integer} elementState 
-     * @param {PWSTR} context 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservicecallback2-onelementstatechanged
+     * Communicates the state of an element in the visual tree when it changes.
+     * @param {Integer} element The XAML element in the visual tree.
+     * @param {Integer} elementState The state of the element.
+     * @param {PWSTR} context The path to the element.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservicecallback2-onelementstatechanged
      */
     OnElementStateChanged(element, elementState, context) {
         context := context is String ? StrPtr(context) : context

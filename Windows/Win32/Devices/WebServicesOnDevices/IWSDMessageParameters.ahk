@@ -39,9 +39,9 @@ class IWSDMessageParameters extends IUnknown{
     static VTableNames => ["GetLocalAddress", "SetLocalAddress", "GetRemoteAddress", "SetRemoteAddress", "GetLowerParameters"]
 
     /**
-     * 
-     * @returns {IWSDAddress} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-getlocaladdress
+     * Retrieves the generic address object representing the local address that received the message.
+     * @returns {IWSDAddress} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that represents the local address that received the message.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdmessageparameters-getlocaladdress
      */
     GetLocalAddress() {
         result := ComCall(3, this, "ptr*", &ppAddress := 0, "HRESULT")
@@ -49,10 +49,33 @@ class IWSDMessageParameters extends IUnknown{
     }
 
     /**
+     * Sets a generic address object representing the source address that should send the message.
+     * @param {IWSDAddress} pAddress An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that represents the source address that should send the message.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IWSDAddress} pAddress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-setlocaladdress
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdmessageparameters-setlocaladdress
      */
     SetLocalAddress(pAddress) {
         result := ComCall(4, this, "ptr", pAddress, "HRESULT")
@@ -60,9 +83,9 @@ class IWSDMessageParameters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IWSDAddress} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-getremoteaddress
+     * Retrieves the generic address object representing the remote address from which the message was sent.
+     * @returns {IWSDAddress} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that represents the remote address from which the message was sent.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdmessageparameters-getremoteaddress
      */
     GetRemoteAddress() {
         result := ComCall(5, this, "ptr*", &ppAddress := 0, "HRESULT")
@@ -70,10 +93,33 @@ class IWSDMessageParameters extends IUnknown{
     }
 
     /**
+     * Sets the generic address object representing the remote address to where the message is sent.
+     * @param {IWSDAddress} pAddress An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that represents the remote address to where the message is sent.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IWSDAddress} pAddress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-setremoteaddress
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdmessageparameters-setremoteaddress
      */
     SetRemoteAddress(pAddress) {
         result := ComCall(6, this, "ptr", pAddress, "HRESULT")
@@ -81,9 +127,9 @@ class IWSDMessageParameters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IWSDMessageParameters} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-getlowerparameters
+     * Retrieves message parameters from the layer below this layer in the protocol stack.
+     * @returns {IWSDMessageParameters} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> interface that you use to communicate message specific information up and down the protocol stack.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdmessageparameters-getlowerparameters
      */
     GetLowerParameters() {
         result := ComCall(7, this, "ptr*", &ppTxParams := 0, "HRESULT")

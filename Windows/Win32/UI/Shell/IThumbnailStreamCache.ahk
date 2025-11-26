@@ -37,15 +37,15 @@ class IThumbnailStreamCache extends IUnknown{
     static VTableNames => ["GetThumbnailStream", "SetThumbnailStream"]
 
     /**
-     * 
-     * @param {PWSTR} path 
-     * @param {Integer} cacheId 
-     * @param {Integer} options 
-     * @param {Integer} requestedThumbnailSize 
-     * @param {Pointer<SIZE>} thumbnailSize 
-     * @param {Pointer<IStream>} thumbnailStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-getthumbnailstream
+     * Gets the thumbnail stream. This method is for internal use only and can only be called by the photos application.
+     * @param {PWSTR} path The path to the thumbnail.
+     * @param {Integer} cacheId The identifier of the thumbnail.
+     * @param {Integer} options The cache options for the thumbnail stream.
+     * @param {Integer} requestedThumbnailSize The requested size of the thumbnail.
+     * @param {Pointer<SIZE>} thumbnailSize The actual size of the returned thumbnail.
+     * @param {Pointer<IStream>} thumbnailStream The requested thumbnail.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-getthumbnailstream
      */
     GetThumbnailStream(path, cacheId, options, requestedThumbnailSize, thumbnailSize, thumbnailStream) {
         path := path is String ? StrPtr(path) : path
@@ -55,13 +55,13 @@ class IThumbnailStreamCache extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} path 
-     * @param {Integer} cacheId 
-     * @param {SIZE} thumbnailSize 
-     * @param {IStream} thumbnailStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-setthumbnailstream
+     * Sets the thumbnail stream. This method is for internal use only and can only be called by the photos application.
+     * @param {PWSTR} path The path to the thumbnail.
+     * @param {Integer} cacheId The identifier of the thumbnail.
+     * @param {SIZE} thumbnailSize The size of the thumbnail.
+     * @param {IStream} thumbnailStream The pointer to the thumbnail stream.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//thumbnailstreamcache/nf-thumbnailstreamcache-ithumbnailstreamcache-setthumbnailstream
      */
     SetThumbnailStream(path, cacheId, thumbnailSize, thumbnailStream) {
         path := path is String ? StrPtr(path) : path

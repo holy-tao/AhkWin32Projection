@@ -410,9 +410,9 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the list of data collectors in this set.
      * @returns {IDataCollectorCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_datacollectors
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_datacollectors
      */
     get_DataCollectors() {
         result := ComCall(7, this, "ptr*", &collectors := 0, "HRESULT")
@@ -420,9 +420,9 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves and sets the duration that the data collector set runs.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_duration
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_duration
      */
     get_Duration() {
         result := ComCall(8, this, "uint*", &seconds := 0, "HRESULT")
@@ -430,10 +430,10 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves and sets the duration that the data collector set runs.
      * @param {Integer} seconds 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_duration
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_duration
      */
     put_Duration(seconds) {
         result := ComCall(9, this, "uint", seconds, "HRESULT")
@@ -441,9 +441,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the description of the data collector set. The description will be added to all output files as metadata and inserted into Performance Data Helper logs as a comment.
+     * @remarks
+     * 
+     * To use a localized string from a binary, specify the description in the form @<i>binary</i>,#<i>id</i> where <i>binary</i> is the EXE or DLL that contains the localized resource string and <i>id</i> is the string resource identifier.
+     * 
+     * If you set the description to the @<i>binary</i>,#<i>id</i> form, when you retrieve  the description you will receive the localized string. To retrieve the description string that you set, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_descriptionunresolved">IDataCollectorSet::DescriptionUnresolved</a> property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_description
      */
     get_Description() {
         description := BSTR()
@@ -452,10 +459,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the description of the data collector set. The description will be added to all output files as metadata and inserted into Performance Data Helper logs as a comment.
+     * @remarks
+     * 
+     * To use a localized string from a binary, specify the description in the form @<i>binary</i>,#<i>id</i> where <i>binary</i> is the EXE or DLL that contains the localized resource string and <i>id</i> is the string resource identifier.
+     * 
+     * If you set the description to the @<i>binary</i>,#<i>id</i> form, when you retrieve  the description you will receive the localized string. To retrieve the description string that you set, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_descriptionunresolved">IDataCollectorSet::DescriptionUnresolved</a> property.
+     * 
      * 
      * @param {BSTR} description 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_description
      */
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
@@ -465,9 +479,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the description of the data collector set in its original form.
+     * @remarks
+     * 
+     * This property returns the description as you originally set it in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_description">IDataCollectorSet::Description</a> property. Typically, you would use this property if you set the description using the form @<i>binary</i>,#<i>id</i>.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_descriptionunresolved
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_descriptionunresolved
      */
     get_DescriptionUnresolved() {
         Descr := BSTR()
@@ -476,9 +495,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the display name of the data collector set.
+     * @remarks
+     * 
+     * To use a localized string from a binary, specify the display name in the form @<i>binary</i>,#<i>id</i> where <i>binary</i> is the EXE or DLL that contains the localized resource string and <i>id</i> is the string resource identifier.
+     * 
+     * If you set the display name to the @<i>binary</i>,#<i>id</i> form, when you retrieve  the display name you will receive the localized string. To retrieve the display name string that you set, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_displaynameunresolved">IDataCollectorSet::DisplayNameUnresolved</a> property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displayname
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_displayname
      */
     get_DisplayName() {
         DisplayName := BSTR()
@@ -487,10 +513,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the display name of the data collector set.
+     * @remarks
+     * 
+     * To use a localized string from a binary, specify the display name in the form @<i>binary</i>,#<i>id</i> where <i>binary</i> is the EXE or DLL that contains the localized resource string and <i>id</i> is the string resource identifier.
+     * 
+     * If you set the display name to the @<i>binary</i>,#<i>id</i> form, when you retrieve  the display name you will receive the localized string. To retrieve the display name string that you set, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_displaynameunresolved">IDataCollectorSet::DisplayNameUnresolved</a> property.
+     * 
      * 
      * @param {BSTR} DisplayName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_displayname
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_displayname
      */
     put_DisplayName(DisplayName) {
         DisplayName := DisplayName is String ? BSTR.Alloc(DisplayName).Value : DisplayName
@@ -500,9 +533,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the display name of the data collector set in its original form.
+     * @remarks
+     * 
+     * This property returns the display name as you originally set it in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_displayname">IDataCollectorSet::DisplayName</a> property. Typically, you would use this property if you set the display name using the form @<i>binary</i>,#<i>id</i>.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displaynameunresolved
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_displaynameunresolved
      */
     get_DisplayNameUnresolved() {
         name := BSTR()
@@ -511,9 +549,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets keywords that describe the data collector set. The list of keywords is added to the output files as metadata.
+     * @remarks
+     * 
+     * The keywords can be used when searching for files and are also displayed in Windows Explorer.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_keywords
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_keywords
      */
     get_Keywords() {
         result := ComCall(16, this, "ptr*", &keywords := 0, "HRESULT")
@@ -521,10 +564,15 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets keywords that describe the data collector set. The list of keywords is added to the output files as metadata.
+     * @remarks
+     * 
+     * The keywords can be used when searching for files and are also displayed in Windows Explorer.
+     * 
      * 
      * @param {Pointer<SAFEARRAY>} keywords 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_keywords
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_keywords
      */
     put_Keywords(keywords) {
         result := ComCall(17, this, "ptr", keywords, "HRESULT")
@@ -532,9 +580,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the fully decorated folder name that PLA used the last time logs were written.
+     * @remarks
+     * 
+     * Typically, you do not set this property. When the data collector starts, PLA sets this property using the value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_outputlocation">IDataCollectorSet::OutputLocation</a> property.
+     * 
+     * You can set this property to empty if the folder has been deleted.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
         path := BSTR()
@@ -543,10 +598,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the fully decorated folder name that PLA used the last time logs were written.
+     * @remarks
+     * 
+     * Typically, you do not set this property. When the data collector starts, PLA sets this property using the value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_outputlocation">IDataCollectorSet::OutputLocation</a> property.
+     * 
+     * You can set this property to empty if the folder has been deleted.
+     * 
      * 
      * @param {BSTR} path 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_latestoutputlocation
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_latestoutputlocation
      */
     put_LatestOutputLocation(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -556,9 +618,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the unique name used to identify the data collector set.
+     * @remarks
+     * 
+     * The name is set when you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-commit">IDataCollectorSet::Commit</a> method.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_name
      */
     get_Name() {
         name := BSTR()
@@ -567,9 +634,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the decorated folder name if PLA were to create it now.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation">IDataCollectorSet::LatestOutputLocation</a> property contains the decorated file name used the last time the collector ran.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_outputlocation
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_outputlocation
      */
     get_OutputLocation() {
         path := BSTR()
@@ -578,9 +650,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the base path where the subdirectories are created.
+     * @remarks
+     * 
+     * If this property is changed from the default value, the specified directory must exist before the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-start">IDataCollectorSet::Start</a> method is called.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_rootpath
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_rootpath
      */
     get_RootPath() {
         folder := BSTR()
@@ -589,10 +666,15 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the base path where the subdirectories are created.
+     * @remarks
+     * 
+     * If this property is changed from the default value, the specified directory must exist before the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-start">IDataCollectorSet::Start</a> method is called.
+     * 
      * 
      * @param {BSTR} folder 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_rootpath
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_rootpath
      */
     put_RootPath(folder) {
         folder := folder is String ? BSTR.Alloc(folder).Value : folder
@@ -602,9 +684,20 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether PLA creates new logs if the maximum size or segment duration is reached before the data collector set is stopped.
+     * @remarks
+     * 
+     * You would enable segmentation, for example, if you want to write to a new log file when the current log file reaches 100 MB. The name used for the new log is determined by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformat">IDataCollector::FileNameFormat</a> property. 
+     * 
+     * The task associated with the data collector set is launched each time a segment is created.
+     * 
+     * If VARIANT_TRUE, PLA uses both the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">IDataCollectorSet::SegmentMaxSize</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration">IDataCollectorSet::SegmentMaxDuration</a> properties, if set, to determine when to segment the log. When one of the limits is reached, PLA segments the log. After segmenting the log, PLA resets the counters for limits.
+     * 
+     * If VARIANT_FALSE, PLA ignores <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">SegmentMaxSize</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration">SegmentMaxDuration</a>.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segment
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_segment
      */
     get_Segment() {
         result := ComCall(24, this, "short*", &segment := 0, "HRESULT")
@@ -612,10 +705,21 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether PLA creates new logs if the maximum size or segment duration is reached before the data collector set is stopped.
+     * @remarks
+     * 
+     * You would enable segmentation, for example, if you want to write to a new log file when the current log file reaches 100 MB. The name used for the new log is determined by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformat">IDataCollector::FileNameFormat</a> property. 
+     * 
+     * The task associated with the data collector set is launched each time a segment is created.
+     * 
+     * If VARIANT_TRUE, PLA uses both the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">IDataCollectorSet::SegmentMaxSize</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration">IDataCollectorSet::SegmentMaxDuration</a> properties, if set, to determine when to segment the log. When one of the limits is reached, PLA segments the log. After segmenting the log, PLA resets the counters for limits.
+     * 
+     * If VARIANT_FALSE, PLA ignores <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">SegmentMaxSize</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration">SegmentMaxDuration</a>.
+     * 
      * 
      * @param {VARIANT_BOOL} segment 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segment
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_segment
      */
     put_Segment(segment) {
         result := ComCall(25, this, "short", segment, "HRESULT")
@@ -623,9 +727,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the duration that the data collector set can run before it begins writing to new log files.
+     * @remarks
+     * 
+     * You must enable the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property for this property to take effect.
+     * 
+     * This duration needs to be less than the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_duration">IDataCollectorSet::Duration</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ischedule-get_enddate">ISchedule::EndDate</a> property.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_segmentmaxduration
      */
     get_SegmentMaxDuration() {
         result := ComCall(26, this, "uint*", &seconds := 0, "HRESULT")
@@ -633,10 +744,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the duration that the data collector set can run before it begins writing to new log files.
+     * @remarks
+     * 
+     * You must enable the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property for this property to take effect.
+     * 
+     * This duration needs to be less than the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_duration">IDataCollectorSet::Duration</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ischedule-get_enddate">ISchedule::EndDate</a> property.
+     * 
      * 
      * @param {Integer} seconds 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segmentmaxduration
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_segmentmaxduration
      */
     put_SegmentMaxDuration(seconds) {
         result := ComCall(27, this, "uint", seconds, "HRESULT")
@@ -644,9 +762,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the maximum size of any log file in the data collector set.
+     * @remarks
+     * 
+     * When the maximum size is reached, PLA creates a new log file to write to if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property is enabled.
+     * 
+     * PLA tries to limit the log file size to this value; however, the actual size of the log file might grow slightly larger than this value.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_segmentmaxsize
      */
     get_SegmentMaxSize() {
         result := ComCall(28, this, "uint*", &size := 0, "HRESULT")
@@ -654,10 +779,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the maximum size of any log file in the data collector set.
+     * @remarks
+     * 
+     * When the maximum size is reached, PLA creates a new log file to write to if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property is enabled.
+     * 
+     * PLA tries to limit the log file size to this value; however, the actual size of the log file might grow slightly larger than this value.
+     * 
      * 
      * @param {Integer} size 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segmentmaxsize
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_segmentmaxsize
      */
     put_SegmentMaxSize(size) {
         result := ComCall(29, this, "uint", size, "HRESULT")
@@ -665,9 +797,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the number of times that this data collector set has been started, including segments.
+     * @remarks
+     * 
+     * Use this property if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat">IDataCollectorSet::SubdirectoryFormat</a> property is set to <b>plaSerialNumber</b>.
+     * 
+     * PLA increments the serial number after using it.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_serialnumber
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_serialnumber
      */
     get_SerialNumber() {
         result := ComCall(30, this, "uint*", &index := 0, "HRESULT")
@@ -675,10 +814,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the number of times that this data collector set has been started, including segments.
+     * @remarks
+     * 
+     * Use this property if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat">IDataCollectorSet::SubdirectoryFormat</a> property is set to <b>plaSerialNumber</b>.
+     * 
+     * PLA increments the serial number after using it.
+     * 
      * 
      * @param {Integer} index 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_serialnumber
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_serialnumber
      */
     put_SerialNumber(index) {
         result := ComCall(31, this, "uint", index, "HRESULT")
@@ -686,9 +832,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the name of the server where the data collector set is run.
+     * @remarks
+     * 
+     * The name is set when you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-commit">IDataCollectorSet::Commit</a> method.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_server
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_server
      */
     get_Server() {
         server := BSTR()
@@ -697,9 +848,9 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the status of the data collector set.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_status
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_status
      */
     get_Status() {
         result := ComCall(33, this, "int*", &status := 0, "HRESULT")
@@ -707,9 +858,18 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a base subdirectory of the root path where the next instance of the data collector set will write its logs.
+     * @remarks
+     * 
+     * The actual name of the subdirectory used can be different if you had previously specified formatting options in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat">IDataCollectorSet::SubdirectoryFormat</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation">IDataCollectorSet::LatestOutputLocation</a> property contains the actual folder name used. 
+     * 
+     * If a location is not specified, files are written to the path specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property.
+     * 
+     * PLA creates the folders in the subdirectory path if they do not exist. Note that the folders will not inherit the ACLs from the root path. The user specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_useraccount">IDataCollectorSet::UserAccount</a> property and those in the Administrators group will have read and write access to the folders. Users in the Performance Log Users group and Performance Monitor Users group have read-only access.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectory
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_subdirectory
      */
     get_Subdirectory() {
         folder := BSTR()
@@ -718,10 +878,19 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a base subdirectory of the root path where the next instance of the data collector set will write its logs.
+     * @remarks
+     * 
+     * The actual name of the subdirectory used can be different if you had previously specified formatting options in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat">IDataCollectorSet::SubdirectoryFormat</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation">IDataCollectorSet::LatestOutputLocation</a> property contains the actual folder name used. 
+     * 
+     * If a location is not specified, files are written to the path specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property.
+     * 
+     * PLA creates the folders in the subdirectory path if they do not exist. Note that the folders will not inherit the ACLs from the root path. The user specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_useraccount">IDataCollectorSet::UserAccount</a> property and those in the Administrators group will have read and write access to the folders. Users in the Performance Log Users group and Performance Monitor Users group have read-only access.
+     * 
      * 
      * @param {BSTR} folder 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_subdirectory
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_subdirectory
      */
     put_Subdirectory(folder) {
         folder := folder is String ? BSTR.Alloc(folder).Value : folder
@@ -731,9 +900,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets flags that describe how to decorate the subdirectory name.
+     * @remarks
+     * 
+     * PLA appends the decoration to the folder name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the folder name. If the folder name is MyFile, the result could be MyFile110816.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_subdirectoryformat
      */
     get_SubdirectoryFormat() {
         result := ComCall(36, this, "int*", &format := 0, "HRESULT")
@@ -741,10 +915,15 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets flags that describe how to decorate the subdirectory name.
+     * @remarks
+     * 
+     * PLA appends the decoration to the folder name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the folder name. If the folder name is MyFile, the result could be MyFile110816.
+     * 
      * 
      * @param {Integer} format 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_subdirectoryformat
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_subdirectoryformat
      */
     put_SubdirectoryFormat(format) {
         result := ComCall(37, this, "int", format, "HRESULT")
@@ -752,9 +931,131 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a format pattern to use when decorating the folder name.
+     * @remarks
+     * 
+     * PLA uses the pattern only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat">IDataCollectorSet::SubdirectoryFormat</a> property is set to <b>plaPattern</b>.
+     * 
+     * Use the following pattern characters to define your own pattern to append to the file name. For example, the pattern "MMMM d, yyyy \a\t h:mmTt" could yield "January 31, 2005 at 4:20AM". 
+     * 
+     * <table>
+     * <tr>
+     * <th>Pattern</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>D</td>
+     * <td>Day of the year.</td>
+     * </tr>
+     * <tr>
+     * <td>DDD</td>
+     * <td>Day of the year with leading zeros, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>d</td>
+     * <td>Day of the month.</td>
+     * </tr>
+     * <tr>
+     * <td>dd</td>
+     * <td>Day of the month with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>ddd</td>
+     * <td>The abbreviated name of the weekday, for example, Tue for Tuesday.</td>
+     * </tr>
+     * <tr>
+     * <td>dddd</td>
+     * <td>Full name of the weekday.</td>
+     * </tr>
+     * <tr>
+     * <td>M</td>
+     * <td>Month.</td>
+     * </tr>
+     * <tr>
+     * <td>MM</td>
+     * <td>Month with leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>MMM</td>
+     * <td>The abbreviated name of the month, for example, Jan for January.</td>
+     * </tr>
+     * <tr>
+     * <td>MMMM</td>
+     * <td>Full name of the month.</td>
+     * </tr>
+     * <tr>
+     * <td>y</td>
+     * <td>Year without the century.</td>
+     * </tr>
+     * <tr>
+     * <td>yy</td>
+     * <td>Year without the century but including a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>yyyy</td>
+     * <td>Year with the century.</td>
+     * </tr>
+     * <tr>
+     * <td>h</td>
+     * <td>Hour in a 12-hour clock.</td>
+     * </tr>
+     * <tr>
+     * <td>hh</td>
+     * <td>Hour in a 12-hour clock with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>H</td>
+     * <td>Hour in a 24-hour clock.</td>
+     * </tr>
+     * <tr>
+     * <td>HH</td>
+     * <td>Hour in a 24-hour clock with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>m</td>
+     * <td>Minute.</td>
+     * </tr>
+     * <tr>
+     * <td>mm</td>
+     * <td>Minute with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>S</td>
+     * <td>Second.</td>
+     * </tr>
+     * <tr>
+     * <td>Ss</td>
+     * <td>Second with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>T</td>
+     * <td>The first character of the A.M./P.M. designator.</td>
+     * </tr>
+     * <tr>
+     * <td>Tt</td>
+     * <td>The A.M./P.M. designator.</td>
+     * </tr>
+     * <tr>
+     * <td>Z</td>
+     * <td>Time zone offset.</td>
+     * </tr>
+     * <tr>
+     * <td>Zz</td>
+     * <td>Time zone offset with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>N</td>
+     * <td>Serial number. The number of leading zeros is defined by the number of characters. For example, if the serial number is 32 and the pattern is NNN, the serial number used is 032.</td>
+     * </tr>
+     * <tr>
+     * <td>\c</td>
+     * <td>Escaped character, where <i>c</i> is any character. Unrecognized characters, excluding white space, that are not escaped will result in an error.</td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformatpattern
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_subdirectoryformatpattern
      */
     get_SubdirectoryFormatPattern() {
         pattern := BSTR()
@@ -763,10 +1064,132 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a format pattern to use when decorating the folder name.
+     * @remarks
+     * 
+     * PLA uses the pattern only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat">IDataCollectorSet::SubdirectoryFormat</a> property is set to <b>plaPattern</b>.
+     * 
+     * Use the following pattern characters to define your own pattern to append to the file name. For example, the pattern "MMMM d, yyyy \a\t h:mmTt" could yield "January 31, 2005 at 4:20AM". 
+     * 
+     * <table>
+     * <tr>
+     * <th>Pattern</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>D</td>
+     * <td>Day of the year.</td>
+     * </tr>
+     * <tr>
+     * <td>DDD</td>
+     * <td>Day of the year with leading zeros, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>d</td>
+     * <td>Day of the month.</td>
+     * </tr>
+     * <tr>
+     * <td>dd</td>
+     * <td>Day of the month with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>ddd</td>
+     * <td>The abbreviated name of the weekday, for example, Tue for Tuesday.</td>
+     * </tr>
+     * <tr>
+     * <td>dddd</td>
+     * <td>Full name of the weekday.</td>
+     * </tr>
+     * <tr>
+     * <td>M</td>
+     * <td>Month.</td>
+     * </tr>
+     * <tr>
+     * <td>MM</td>
+     * <td>Month with leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>MMM</td>
+     * <td>The abbreviated name of the month, for example, Jan for January.</td>
+     * </tr>
+     * <tr>
+     * <td>MMMM</td>
+     * <td>Full name of the month.</td>
+     * </tr>
+     * <tr>
+     * <td>y</td>
+     * <td>Year without the century.</td>
+     * </tr>
+     * <tr>
+     * <td>yy</td>
+     * <td>Year without the century but including a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>yyyy</td>
+     * <td>Year with the century.</td>
+     * </tr>
+     * <tr>
+     * <td>h</td>
+     * <td>Hour in a 12-hour clock.</td>
+     * </tr>
+     * <tr>
+     * <td>hh</td>
+     * <td>Hour in a 12-hour clock with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>H</td>
+     * <td>Hour in a 24-hour clock.</td>
+     * </tr>
+     * <tr>
+     * <td>HH</td>
+     * <td>Hour in a 24-hour clock with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>m</td>
+     * <td>Minute.</td>
+     * </tr>
+     * <tr>
+     * <td>mm</td>
+     * <td>Minute with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>S</td>
+     * <td>Second.</td>
+     * </tr>
+     * <tr>
+     * <td>Ss</td>
+     * <td>Second with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>T</td>
+     * <td>The first character of the A.M./P.M. designator.</td>
+     * </tr>
+     * <tr>
+     * <td>Tt</td>
+     * <td>The A.M./P.M. designator.</td>
+     * </tr>
+     * <tr>
+     * <td>Z</td>
+     * <td>Time zone offset.</td>
+     * </tr>
+     * <tr>
+     * <td>Zz</td>
+     * <td>Time zone offset with a leading zero, if applicable.</td>
+     * </tr>
+     * <tr>
+     * <td>N</td>
+     * <td>Serial number. The number of leading zeros is defined by the number of characters. For example, if the serial number is 32 and the pattern is NNN, the serial number used is 032.</td>
+     * </tr>
+     * <tr>
+     * <td>\c</td>
+     * <td>Escaped character, where <i>c</i> is any character. Unrecognized characters, excluding white space, that are not escaped will result in an error.</td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @param {BSTR} pattern 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_subdirectoryformatpattern
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_subdirectoryformatpattern
      */
     put_SubdirectoryFormatPattern(pattern) {
         pattern := pattern is String ? BSTR.Alloc(pattern).Value : pattern
@@ -776,9 +1199,16 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of a Task Scheduler job to start each time the data collector set stops, including between segments.
+     * @remarks
+     * 
+     * To specify command-line arguments for the task, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskarguments">IDataCollectorSet::TaskArguments</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments">IDataCollectorSet::TaskUserTextArguments</a>. 
+     * 
+     * To start the task in the directory where PLA is collecting the data, set the task's <b>Start in</b> field to $(Arg1).
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_task
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_task
      */
     get_Task() {
         task := BSTR()
@@ -787,10 +1217,17 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of a Task Scheduler job to start each time the data collector set stops, including between segments.
+     * @remarks
+     * 
+     * To specify command-line arguments for the task, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskarguments">IDataCollectorSet::TaskArguments</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments">IDataCollectorSet::TaskUserTextArguments</a>. 
+     * 
+     * To start the task in the directory where PLA is collecting the data, set the task's <b>Start in</b> field to $(Arg1).
+     * 
      * 
      * @param {BSTR} task 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_task
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_task
      */
     put_Task(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
@@ -800,9 +1237,9 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that determines whether the task runs as the data collector set user or as the user specified in the task.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskrunasself
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_taskrunasself
      */
     get_TaskRunAsSelf() {
         result := ComCall(42, this, "short*", &RunAsSelf := 0, "HRESULT")
@@ -810,10 +1247,10 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that determines whether the task runs as the data collector set user or as the user specified in the task.
      * @param {VARIANT_BOOL} RunAsSelf 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_taskrunasself
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_taskrunasself
      */
     put_TaskRunAsSelf(RunAsSelf) {
         result := ComCall(43, this, "short", RunAsSelf, "HRESULT")
@@ -821,9 +1258,40 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IDataCollectorSet::Task property.
+     * @remarks
+     * 
+     * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the task is triggered. You must escape the braces, for example, \{name\}.
+     * 
+     * <table>
+     * <tr>
+     * <th>Variable</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>{key}</td>
+     * <td>Space-delimited list of key values that were specified using the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setvalue">IDataCollectorSet::SetValue</a> method.</td>
+     * </tr>
+     * <tr>
+     * <td>{logs}</td>
+     * <td>Space-delimited list of full paths to the current data collector files.</td>
+     * </tr>
+     * <tr>
+     * <td>{state}</td>
+     * <td>Indicates whether the set is running (1 for running, 0 for stopped).</td>
+     * </tr>
+     * <tr>
+     * <td>{usertext}</td>
+     * <td>String from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments">IDataCollectorSet::TaskUserTextArguments</a> property.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Typically, if you use the substitution variables, you specify them in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments">TaskUserTextArguments</a>, where you do not have to escape the braces and then specify {usertext} in this property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskarguments
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_taskarguments
      */
     get_TaskArguments() {
         task := BSTR()
@@ -832,10 +1300,41 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IDataCollectorSet::Task property.
+     * @remarks
+     * 
+     * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the task is triggered. You must escape the braces, for example, \{name\}.
+     * 
+     * <table>
+     * <tr>
+     * <th>Variable</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>{key}</td>
+     * <td>Space-delimited list of key values that were specified using the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setvalue">IDataCollectorSet::SetValue</a> method.</td>
+     * </tr>
+     * <tr>
+     * <td>{logs}</td>
+     * <td>Space-delimited list of full paths to the current data collector files.</td>
+     * </tr>
+     * <tr>
+     * <td>{state}</td>
+     * <td>Indicates whether the set is running (1 for running, 0 for stopped).</td>
+     * </tr>
+     * <tr>
+     * <td>{usertext}</td>
+     * <td>String from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments">IDataCollectorSet::TaskUserTextArguments</a> property.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Typically, if you use the substitution variables, you specify them in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments">TaskUserTextArguments</a>, where you do not have to escape the braces and then specify {usertext} in this property.
+     * 
      * 
      * @param {BSTR} task 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_taskarguments
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_taskarguments
      */
     put_TaskArguments(task) {
         task := task is String ? BSTR.Alloc(task).Value : task
@@ -845,9 +1344,35 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the command-line arguments that are substituted for the {usertext} substitution variable in the IDataCollectorSet::TaskArguments property.
+     * @remarks
+     * 
+     * These arguments are included in the command-line arguments passed to the Task Scheduler job only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskarguments">TaskArguments</a> property includes the  {usertext} substitution variable. 
+     * 
+     * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the task is triggered. You do not escape the braces.
+     * 
+     * <table>
+     * <tr>
+     * <th>Variable</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>{key}</td>
+     * <td>Space-delimited list of key values that were specified using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setvalue">IDataCollectorSet::SetValue</a> method.</td>
+     * </tr>
+     * <tr>
+     * <td>{logs}</td>
+     * <td>Space-delimited list of full paths to the current data collector files.</td>
+     * </tr>
+     * <tr>
+     * <td>{state}</td>
+     * <td> Indicates whether the set is running (1 for running, 0 for stopped).</td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_taskusertextarguments
      */
     get_TaskUserTextArguments() {
         UserText := BSTR()
@@ -856,10 +1381,36 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the command-line arguments that are substituted for the {usertext} substitution variable in the IDataCollectorSet::TaskArguments property.
+     * @remarks
+     * 
+     * These arguments are included in the command-line arguments passed to the Task Scheduler job only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_taskarguments">TaskArguments</a> property includes the  {usertext} substitution variable. 
+     * 
+     * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the task is triggered. You do not escape the braces.
+     * 
+     * <table>
+     * <tr>
+     * <th>Variable</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>{key}</td>
+     * <td>Space-delimited list of key values that were specified using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setvalue">IDataCollectorSet::SetValue</a> method.</td>
+     * </tr>
+     * <tr>
+     * <td>{logs}</td>
+     * <td>Space-delimited list of full paths to the current data collector files.</td>
+     * </tr>
+     * <tr>
+     * <td>{state}</td>
+     * <td> Indicates whether the set is running (1 for running, 0 for stopped).</td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @param {BSTR} UserText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_taskusertextarguments
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_taskusertextarguments
      */
     put_TaskUserTextArguments(UserText) {
         UserText := UserText is String ? BSTR.Alloc(UserText).Value : UserText
@@ -869,9 +1420,18 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the list of schedules that determine when the data collector set runs.
+     * @remarks
+     * 
+     * There can be only one instance of a data collector set running at a time; if one is already running and a second one tries to start, the second one will fail and the first one will continue.
+     * 
+     * To enable the schedules, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_schedulesenabled">IDataCollectorSet::SchedulesEnabled</a> property.
+     * 
+     * To manually start the data collector set, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-start">IDataCollectorSet::Start</a> method.
+     * 
      * 
      * @returns {IScheduleCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_schedules
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_schedules
      */
     get_Schedules() {
         result := ComCall(48, this, "ptr*", &ppSchedules := 0, "HRESULT")
@@ -879,9 +1439,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether the schedules are enabled.
+     * @remarks
+     * 
+     * You can use this property to temporarily suspend running the data collection set based on the schedules.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_schedulesenabled
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_schedulesenabled
      */
     get_SchedulesEnabled() {
         result := ComCall(49, this, "short*", &enabled := 0, "HRESULT")
@@ -889,10 +1454,15 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether the schedules are enabled.
+     * @remarks
+     * 
+     * You can use this property to temporarily suspend running the data collection set based on the schedules.
+     * 
      * 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_schedulesenabled
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_schedulesenabled
      */
     put_SchedulesEnabled(enabled) {
         result := ComCall(50, this, "short", enabled, "HRESULT")
@@ -900,9 +1470,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the user account under which the data collector set will run.
+     * @remarks
+     * 
+     * The user name is set using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setcredentials">IDataCollectorSet::SetCredentials</a> method.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_useraccount
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_useraccount
      */
     get_UserAccount() {
         user := BSTR()
@@ -911,9 +1486,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves an XML string that describes the values of the data collector set properties, including those of the data collectors contained in the set.
+     * @remarks
+     * 
+     * For details on the property elements contained in the XML string, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a> and the individual data collectors.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_xml
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_xml
      */
     get_Xml() {
         xml := BSTR()
@@ -922,9 +1502,14 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets access control information that determines who can access this data collector set.
+     * @remarks
+     * 
+     * By default, the user has full privileges, the Administrators group has read, write, and execute privileges, and the Performance Log Users group has read and execute privileges.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_security
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_security
      */
     get_Security() {
         pbstrSecurity := BSTR()
@@ -933,10 +1518,15 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets access control information that determines who can access this data collector set.
+     * @remarks
+     * 
+     * By default, the user has full privileges, the Administrators group has read, write, and execute privileges, and the Performance Log Users group has read and execute privileges.
+     * 
      * 
      * @param {BSTR} bstrSecurity 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_security
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_security
      */
     put_Security(bstrSecurity) {
         bstrSecurity := bstrSecurity is String ? BSTR.Alloc(bstrSecurity).Value : bstrSecurity
@@ -946,9 +1536,35 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that determines whether the data collector set stops when all the data collectors in the set are in a completed state.
+     * @remarks
+     * 
+     * A data collector set stops only after all the data collectors in the set are complete. The following table identifies when each data collector is complete.
+     * 
+     * <table>
+     * <tr>
+     * <th>Collector</th>
+     * <th>Is complete </th>
+     * </tr>
+     * <tr>
+     * <td>Configuration</td>
+     * <td>When all configuration information has been collected.</td>
+     * </tr>
+     * <tr>
+     * <td>Performance Counter and Event Tracing</td>
+     * <td>Immediately if both <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration">segment duration</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">segment size</a> are zero. Otherwise, if either segment duration or segment size is specified, then the set completes only after one of the segment conditions is met.For Performance Counter, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-iperformancecounterdatacollector-get_segmentmaxrecords">maximum number of records segment</a> is also considered.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>Alert and API Tracing</td>
+     * <td>Immediately. </td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_stoponcompletion
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_stoponcompletion
      */
     get_StopOnCompletion() {
         result := ComCall(55, this, "short*", &Stop := 0, "HRESULT")
@@ -956,10 +1572,36 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that determines whether the data collector set stops when all the data collectors in the set are in a completed state.
+     * @remarks
+     * 
+     * A data collector set stops only after all the data collectors in the set are complete. The following table identifies when each data collector is complete.
+     * 
+     * <table>
+     * <tr>
+     * <th>Collector</th>
+     * <th>Is complete </th>
+     * </tr>
+     * <tr>
+     * <td>Configuration</td>
+     * <td>When all configuration information has been collected.</td>
+     * </tr>
+     * <tr>
+     * <td>Performance Counter and Event Tracing</td>
+     * <td>Immediately if both <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration">segment duration</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">segment size</a> are zero. Otherwise, if either segment duration or segment size is specified, then the set completes only after one of the segment conditions is met.For Performance Counter, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-iperformancecounterdatacollector-get_segmentmaxrecords">maximum number of records segment</a> is also considered.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>Alert and API Tracing</td>
+     * <td>Immediately. </td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @param {VARIANT_BOOL} Stop 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_stoponcompletion
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-put_stoponcompletion
      */
     put_StopOnCompletion(Stop) {
         result := ComCall(56, this, "short", Stop, "HRESULT")
@@ -967,9 +1609,9 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the data manager associated with this data collector set.
      * @returns {IDataManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_datamanager
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-get_datamanager
      */
     get_DataManager() {
         result := ComCall(57, this, "ptr*", &DataManager := 0, "HRESULT")
@@ -977,11 +1619,11 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} user 
-     * @param {BSTR} password 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-setcredentials
+     * Specifies the user account under which the data collector set runs.
+     * @param {BSTR} user A user account under which the data collector set runs. Specify the user name in the form <i>domain</i>&#92;<i>user</i> or <i>user</i>@<i>domain</i>.
+     * @param {BSTR} password The password of the user account.
+     * @returns {HRESULT} The property returns S_OK if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-setcredentials
      */
     SetCredentials(user, password) {
         user := user is String ? BSTR.Alloc(user).Value : user
@@ -992,11 +1634,64 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Retrieves the specified data collector set.
+     * @param {BSTR} name The name of the data collector set to retrieve. The name is case-insensitive and is of the form <b>[</b><i>Namespace</i><b>\]</b><i>Name</i>. For details on the optional namespace, see Remarks.
+     * @param {BSTR} server The computer on which the set exists. You can specify a computer name, a fully qualified domain name, or an IP address (IPv4 or IPv6 format). If <b>NULL</b>, the set is retrieved from the local computer.
+     * @returns {HRESULT} Returns S_OK if successful. The following table shows possible error values.
      * 
-     * @param {BSTR} name 
-     * @param {BSTR} server 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-query
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>PLA_E_DCS_NOT_FOUND</b></dt>
+     * <dt>0x80300002</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified data collector set was not found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * <dt>0x80300002</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * You must retrieve a data collector set into an empty instance or into an instance that uses the same namespace.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(RPC_S_SERVER_UNAVAILABLE)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The RPC server is not available. The method is unable to query the data collector set remotely. To query the data collector set from a remote computer running Windows Vista, enable Performance Logs and Alerts in <b>Windows Firewall Settings</b> on the remote computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_BAD_NETPATH)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the remote computer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-query
      */
     Query(name, server) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -1007,12 +1702,12 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @param {BSTR} server 
-     * @param {Integer} mode 
-     * @returns {IValueMap} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-commit
+     * Saves, updates, or validates the data collector set. You can also use this method to flush a trace session.
+     * @param {BSTR} name A unique name used to save the data collector set. The name is of the form  <b>[</b><i>Namespace</i><b>\]</b><i>Name</i>. For details, see Remarks.
+     * @param {BSTR} server The computer on which you want to save the set. You can specify a computer name, a fully qualified domain name, or an IP address (IPv4 or IPv6 format). If <b>NULL</b>, the set is saved to the local computer.
+     * @param {Integer} mode Indicates whether you want to save, update, flush, or validate the data collector set. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-commitmode">CommitMode</a> enumeration.
+     * @returns {IValueMap} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve the validation error of each property whose value is not valid or is ignored. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors or warnings.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-commit
      */
     Commit(name, server, mode) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -1023,9 +1718,27 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Deletes the persisted copy of the data collector set if the set is not running.
+     * @returns {HRESULT} Returns S_OK if successful. The following table shows a possible error value.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(RPC_S_SERVER_UNAVAILABLE)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The RPC server is not available. The method is unable to delete the data collector set remotely. To delete the data collector set on a remote computer running  Windows Vista, enable Performance Logs and Alerts in <b>Windows Firewall Settings</b> on the remote computer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-delete
      */
     Delete() {
         result := ComCall(61, this, "HRESULT")
@@ -1033,10 +1746,54 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Manually starts the data collector set.
+     * @param {VARIANT_BOOL} Synchronous Data collection runs in a separate process. This value determines when the method returns. 
      * 
-     * @param {VARIANT_BOOL} Synchronous 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-start
+     * Set to VARIANT_TRUE to have the method return after the data collection process starts or fails to start. The return value indicates whether the set successfully started or failed to start.
+     * 
+     * Set to VARIANT_FALSE to return after the set is queued to run. The return value indicates whether the set was successfully queued. For more information, see Remarks.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. The following table shows possible error values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The set must be persisted (see the <a href="/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-commit">Commit</a> method) prior to starting collection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_PATH_NOT_FOUND)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system cannot find the path specified. This error occurs when the <a href="/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">RootPath</a> property specifies a directory that does not exist.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The subdirectory or log file already exists. Try using a format to uniquely identify the file.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-start
      */
     Start(Synchronous) {
         result := ComCall(62, this, "short", Synchronous, "HRESULT")
@@ -1044,10 +1801,33 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
+     * Manually stops the data collector set.
+     * @param {VARIANT_BOOL} Synchronous Data collection runs in a separate process. This value determines when the method returns. 
      * 
-     * @param {VARIANT_BOOL} Synchronous 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-stop
+     * Set to VARIANT_TRUE to have the method return after the data collector set is stopped or fails to stop. The return value indicates whether the set successfully stopped or failed to stop.
+     * 
+     * Set to VARIANT_FALSE to return after the method sends a request to the set to stop. The return value indicates whether the request was successfully sent to the set. An event is written to the event log if the set fails to stop.
+     * @returns {HRESULT} Returns S_OK if successful. The following table shows a possible error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>PLA_E_DCS_NOT_RUNNING</b></dt>
+     * <dt>0x80300104</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The data collector set is not running.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-stop
      */
     Stop(Synchronous) {
         result := ComCall(63, this, "short", Synchronous, "HRESULT")
@@ -1055,10 +1835,10 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} xml 
-     * @returns {IValueMap} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-setxml
+     * Sets the property values of those properties included in the XML.
+     * @param {BSTR} xml XML that contains the properties to set. For details on specifying the XML string, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a>.
+     * @returns {IValueMap} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve the validation error of each property whose value is not valid. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-setxml
      */
     SetXml(xml) {
         xml := xml is String ? BSTR.Alloc(xml).Value : xml
@@ -1068,11 +1848,11 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} key 
-     * @param {BSTR} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-setvalue
+     * Sets a user-defined value.
+     * @param {BSTR} key The name of the value.
+     * @param {BSTR} value The value associated with the key.
+     * @returns {HRESULT} Returns S_OK if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-setvalue
      */
     SetValue(key, value) {
         key := key is String ? BSTR.Alloc(key).Value : key
@@ -1083,10 +1863,10 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} key 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-getvalue
+     * Retrieves a user-defined value.
+     * @param {BSTR} key The key of the value to retrieve.
+     * @returns {BSTR} A value associated with the key.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorset-getvalue
      */
     GetValue(key) {
         key := key is String ? BSTR.Alloc(key).Value : key

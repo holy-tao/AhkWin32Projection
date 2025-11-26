@@ -31,10 +31,10 @@ class IUPnPAsyncResult extends IUnknown{
     static VTableNames => ["AsyncOperationComplete"]
 
     /**
-     * 
-     * @param {Integer} ullRequestID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpasyncresult-asyncoperationcomplete
+     * AsyncOperationComplete callback method provides notification of the completion of an asynchronous I/O operation.
+     * @param {Integer} ullRequestID The handle identifier corresponding to the completed asynchronous I/O operation.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpasyncresult-asyncoperationcomplete
      */
     AsyncOperationComplete(ullRequestID) {
         result := ComCall(3, this, "uint", ullRequestID, "HRESULT")

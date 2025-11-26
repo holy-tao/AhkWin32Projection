@@ -32,9 +32,9 @@ class ITfFunction extends IUnknown{
     static VTableNames => ["GetDisplayName"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunction-getdisplayname
+     * ITfFunction::GetDisplayName method
+     * @returns {BSTR} Pointer to a BSTR value that receives the display name. This value must be allocated using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must free this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunction-getdisplayname
      */
     GetDisplayName() {
         pbstrName := BSTR()

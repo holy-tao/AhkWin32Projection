@@ -60,9 +60,10 @@ class ITToneDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_call
+     * The get_Call method gets a pointer to the call information interface for the call object on which the tone detection event occurred.
+     * @returns {ITCallInfo} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittonedetectionevent-get_call
      */
     get_Call() {
         result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
@@ -70,9 +71,11 @@ class ITToneDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_appspecific
+     * The get_AppSpecific method gets the application-defined tag that identifies the tone associated with the tone detection event.
+     * @returns {Integer} Pointer to a value to receive the application-specific identifier for the tone, as defined in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itdetecttone">ITDetectTone</a> object or in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linemonitortone">LINEMONITORTONE</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittonedetectionevent-get_appspecific
      */
     get_AppSpecific() {
         result := ComCall(8, this, "int*", &plAppSpecific := 0, "HRESULT")
@@ -80,9 +83,9 @@ class ITToneDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_tickcount
+     * The get_TickCount method gets the &quot;tick count&quot; (the number of milliseconds since Windows started) at which the tone was detected.
+     * @returns {Integer} Pointer to a value to receive the tick count.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittonedetectionevent-get_tickcount
      */
     get_TickCount() {
         result := ComCall(9, this, "int*", &plTickCount := 0, "HRESULT")
@@ -90,9 +93,10 @@ class ITToneDetectionEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_callbackinstance
+     * The get_CallbackInstance method gets a pointer to the application's callback function that will process the event.
+     * @returns {Integer} Pointer to the callback instance returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittonedetectionevent-get_callbackinstance
      */
     get_CallbackInstance() {
         result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")

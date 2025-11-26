@@ -31,10 +31,23 @@ class IWMPTranscodePolicy extends IUnknown{
     static VTableNames => ["allowTranscode"]
 
     /**
+     * The allowTranscode method retrieves a value specifying whether Windows Media Player is permitted to change the format of the digital media content to the Windows Media format.
+     * @param {Pointer<VARIANT_BOOL>} pvbAllow Pointer to a <b>VARIANT_BOOL</b> that contains a value indicating whether transcoding is permitted.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbAllow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmptranscodepolicy-allowtranscode
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmptranscodepolicy-allowtranscode
      */
     allowTranscode(pvbAllow) {
         pvbAllowMarshal := pvbAllow is VarRef ? "short*" : "ptr"

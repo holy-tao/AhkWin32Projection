@@ -48,9 +48,12 @@ class ITableProvider extends IUnknown{
     }
 
     /**
+     * Gets a collection of Microsoft UI Automation providers that represents all the row headers in a table.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getrowheaders
+     * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces
+     * 				of the row headers. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableprovider-getrowheaders
      */
     GetRowHeaders() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -58,9 +61,12 @@ class ITableProvider extends IUnknown{
     }
 
     /**
+     * Gets a collection of Microsoft UI Automation providers that represents all the column headers in a table.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getcolumnheaders
+     * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces
+     * 				of the column headers. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableprovider-getcolumnheaders
      */
     GetColumnHeaders() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -68,9 +74,9 @@ class ITableProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the primary direction of traversal for the table.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-get_roworcolumnmajor
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableprovider-get_roworcolumnmajor
      */
     get_RowOrColumnMajor() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")

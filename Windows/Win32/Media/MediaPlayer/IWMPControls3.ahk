@@ -59,10 +59,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The get_audioLanguageCount method retrieves the count of supported audio languages.
+     * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_audiolanguagecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-get_audiolanguagecount
      */
     get_audioLanguageCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -72,11 +90,29 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The getAudioLanguageID method retrieves the locale identifier (LCID) for a specified audio language index.
+     * @param {Integer} lIndex <b>long</b> specifying the one-based index of the audio language.
+     * @param {Pointer<Integer>} plLangID Pointer to a <b>long</b> containing the LCID.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} plLangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getaudiolanguageid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-getaudiolanguageid
      */
     getAudioLanguageID(lIndex, plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
@@ -86,11 +122,29 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The getAudioLanguageDescription method retrieves the description for the audio language corresponding to the specified one-based index.
+     * @param {Integer} lIndex <b>long</b> specifying the one-based audio language index.
+     * @param {Pointer<BSTR>} pbstrLangDesc Pointer to a <b>BSTR</b> containing the description.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<BSTR>} pbstrLangDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getaudiolanguagedescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-getaudiolanguagedescription
      */
     getAudioLanguageDescription(lIndex, pbstrLangDesc) {
         result := ComCall(26, this, "int", lIndex, "ptr", pbstrLangDesc, "HRESULT")
@@ -98,10 +152,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The get_currentAudioLanguage method retrieves the locale identifier (LCID) of the audio language for playback.
+     * @param {Pointer<Integer>} plLangID Pointer to a <b>long</b> containing the LCID.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plLangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguage
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguage
      */
     get_currentAudioLanguage(plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
@@ -111,10 +183,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The put_currentAudioLanguage method specifies the locale identifier (LCID) of the audio language for playback.
+     * @param {Integer} lLangID <b>long</b> containing the LCID.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lLangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-put_currentaudiolanguage
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-put_currentaudiolanguage
      */
     put_currentAudioLanguage(lLangID) {
         result := ComCall(28, this, "int", lLangID, "HRESULT")
@@ -122,10 +212,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The get_currentAudioLanguageIndex method retrieves the one-based index that corresponds to the audio language for playback.
+     * @param {Pointer<Integer>} plIndex Pointer to a <b>long</b> containing the one-based index.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguageindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguageindex
      */
     get_currentAudioLanguageIndex(plIndex) {
         plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
@@ -135,10 +243,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The put_currentAudioLanguageIndex method specifies the one-based index that corresponds to the audio language for playback.
+     * @param {Integer} lIndex <b>long</b> containing the one-based index.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-put_currentaudiolanguageindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-put_currentaudiolanguageindex
      */
     put_currentAudioLanguageIndex(lIndex) {
         result := ComCall(30, this, "int", lIndex, "HRESULT")
@@ -146,11 +272,29 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The getLanguageName method retrieves the name of the audio language with the specified locale identifier (LCID).
+     * @param {Integer} lLangID <b>long</b> specifying the LCID.
+     * @param {Pointer<BSTR>} pbstrLangName Pointer to a <b>BSTR</b> containing the audio language name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lLangID 
-     * @param {Pointer<BSTR>} pbstrLangName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getlanguagename
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-getlanguagename
      */
     getLanguageName(lLangID, pbstrLangName) {
         result := ComCall(31, this, "int", lLangID, "ptr", pbstrLangName, "HRESULT")
@@ -158,10 +302,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The get_currentPositionTimecode method retrieves the current position in the current media item using a time code format. This method currently supports SMPTE time code.
+     * @param {Pointer<BSTR>} bstrTimecode Pointer to a <b>BSTR</b> containing the time code.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} bstrTimecode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentpositiontimecode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-get_currentpositiontimecode
      */
     get_currentPositionTimecode(bstrTimecode) {
         result := ComCall(32, this, "ptr", bstrTimecode, "HRESULT")
@@ -169,10 +331,28 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * The put_currentPositionTimecode method specifies the current position in the current media item using a time code format. This method currently supports SMPTE time code.
+     * @param {BSTR} bstrTimecode <b>BSTR</b> containing the time code.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrTimecode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-put_currentpositiontimecode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols3-put_currentpositiontimecode
      */
     put_currentPositionTimecode(bstrTimecode) {
         bstrTimecode := bstrTimecode is String ? BSTR.Alloc(bstrTimecode).Value : bstrTimecode

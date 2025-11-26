@@ -31,10 +31,10 @@ class IWMReaderTimecode extends IUnknown{
     static VTableNames => ["GetTimecodeRangeCount", "GetTimecodeRangeBounds"]
 
     /**
-     * 
-     * @param {Integer} wStreamNum 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
+     * The GetTimecodeRangeCount method retrieves the total number of SMTPE time code ranges in a specified stream.
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. This stream must be indexed by time code.
+     * @returns {Integer} Pointer to a <b>WORD</b> containing the number of ranges. If this parameter is 0 on method return, no SMPTE ranges exist in the stream.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
      */
     GetTimecodeRangeCount(wStreamNum) {
         result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pwRangeCount := 0, "HRESULT")
@@ -42,13 +42,31 @@ class IWMReaderTimecode extends IUnknown{
     }
 
     /**
+     * The GetTimecodeRangeBounds method retrieves the starting and ending time codes for a specified SMPTE time code range.
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
+     * @param {Integer} wRangeNum <b>WORD</b> containing the range number.
+     * @param {Pointer<Integer>} pStartTimecode Pointer to a <b>DWORD</b> containing the first time code in the range.
+     * @param {Pointer<Integer>} pEndTimecode Pointer to a <b>DWORD</b> containing the last time code in the range.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} wStreamNum 
-     * @param {Integer} wRangeNum 
-     * @param {Pointer<Integer>} pStartTimecode 
-     * @param {Pointer<Integer>} pEndTimecode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangebounds
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangebounds
      */
     GetTimecodeRangeBounds(wStreamNum, wRangeNum, pStartTimecode, pEndTimecode) {
         pStartTimecodeMarshal := pStartTimecode is VarRef ? "uint*" : "ptr"

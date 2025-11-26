@@ -32,9 +32,11 @@ class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo{
     static VTableNames => ["CreateInstance"]
 
     /**
+     * Creates a new IWICBitmapEncoder instance.
+     * @returns {IWICBitmapEncoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a>**</b>
      * 
-     * @returns {IWICBitmapEncoder} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoderinfo-createinstance
+     * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a> instance.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapencoderinfo-createinstance
      */
     CreateInstance() {
         result := ComCall(23, this, "ptr*", &ppIBitmapEncoder := 0, "HRESULT")

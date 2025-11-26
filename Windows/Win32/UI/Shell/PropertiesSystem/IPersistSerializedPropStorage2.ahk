@@ -41,9 +41,11 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
     static VTableNames => ["GetPropertyStorageSize", "GetPropertyStorageBuffer"]
 
     /**
+     * Gets the size of serialized property storage data from the property store instance.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragesize
+     * The count of bytes contained in the serialized property storage data.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragesize
      */
     GetPropertyStorageSize() {
         result := ComCall(6, this, "uint*", &pcb := 0, "HRESULT")
@@ -51,11 +53,17 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
     }
 
     /**
+     * Gets the serialized property storage buffer from the property store instance.
+     * @param {Pointer} psps Type: <b>SERIALIZEDPROPSTORAGE*</b>
      * 
-     * @param {Pointer} psps 
-     * @param {Integer} cb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragebuffer
+     * When this method returns successfully, contains the contents of the property storage buffer.
+     * @param {Integer} cb Type: <b>DWORD</b>
+     * 
+     * The initial size, in bytes, of the buffer pointed to by <i>psps</i>
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * The count of bytes contained in the serialized property storage buffer pointed to by <i>psps</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragebuffer
      */
     GetPropertyStorageBuffer(psps, cb) {
         result := ComCall(7, this, "ptr", psps, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")

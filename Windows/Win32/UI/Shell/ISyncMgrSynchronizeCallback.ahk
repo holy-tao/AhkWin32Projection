@@ -40,10 +40,32 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     static VTableNames => ["ShowPropertiesCompleted", "PrepareForSyncCompleted", "SynchronizeCompleted", "ShowErrorCompleted", "EnableModeless", "Progress", "LogError", "DeleteLogError", "EstablishConnection"]
 
     /**
+     * Called by the registered application's handler before or after its ShowProperties operation is completed.
+     * @param {HRESULT} hr Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-showpropertiescompleted
+     * Whether the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-showproperties">ShowProperties</a> was successful.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Call was completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-showpropertiescompleted
      */
     ShowPropertiesCompleted(hr) {
         result := ComCall(3, this, "int", hr, "HRESULT")
@@ -51,10 +73,32 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by a registered handler of an application after the PrepareForSync method is complete.
+     * @param {HRESULT} hr Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-prepareforsynccompleted
+     * The return value of the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync">PrepareForSync</a> method. If S_OK is returned, the synchronization manager calls <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-synchronize">Synchronize</a> for the item. If the <b>HRESULT</b> is set to anything other than S_OK, the synchronization manager releases the handler without calling the <b>Synchronize</b> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-prepareforsynccompleted
      */
     PrepareForSyncCompleted(hr) {
         result := ComCall(4, this, "int", hr, "HRESULT")
@@ -62,10 +106,32 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by an application when its Synchronize method is complete.
+     * @param {HRESULT} hr Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-synchronizecompleted
+     * The returned result from the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-synchronize">Synchronize</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-synchronizecompleted
      */
     SynchronizeCompleted(hr) {
         result := ComCall(5, this, "int", hr, "HRESULT")
@@ -73,12 +139,40 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by the registered application's handler before or after its PrepareForSync operation has been completed.
+     * @param {HRESULT} hr Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hr 
-     * @param {Integer} cItems 
-     * @param {Pointer<Guid>} pItemIDs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-showerrorcompleted
+     * Whether <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-showerror">ShowError</a> was successful. This value is S_SYNCMGR_RETRYSYNC if the registered application's handler requires SyncMgr to retry the synchronization. When this value is returned to SyncMgr both the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync">PrepareForSync</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-synchronize">Synchronize</a> methods are called again.
+     * @param {Integer} cItems Type: <b>ULONG</b>
+     * 
+     * The number of items in the array pointed to by the <i>pItemIDs</i> parameter. This parameter is ignored unless <i>hrResult</i> is S_SYNCMGR_RETRYSYNC.
+     * @param {Pointer<Guid>} pItemIDs Type: <b>const GUID*</b>
+     * 
+     * A pointer to the array of item IDs to pass to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync">PrepareForSync</a> in the event of a retry. This parameter is ignored unless <i>hrResult</i> is S_SYNCMGR_RETRYSYNC.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-showerrorcompleted
      */
     ShowErrorCompleted(hr, cItems, pItemIDs) {
         result := ComCall(6, this, "int", hr, "uint", cItems, "ptr", pItemIDs, "HRESULT")
@@ -86,10 +180,43 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by the registered application before and after any dialog boxes are displayed from within the PrepareForSync and Synchronize methods.
+     * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-enablemodeless
+     * <b>TRUE</b> if the registered application is requesting permission to display a dialog box or <b>FALSE</b> if the registered application has finished displaying a dialog box.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Continue the synchronization.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The dialog box should not be displayed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-enablemodeless
      */
     EnableModeless(fEnable) {
         result := ComCall(7, this, "int", fEnable, "HRESULT")
@@ -97,11 +224,57 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by a registered application to update the progress information and determine whether an operation should continue.
+     * @param {Pointer<Guid>} ItemID Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} ItemID 
-     * @param {Pointer<SYNCMGRPROGRESSITEM>} pSyncProgressItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-progress
+     * A reference to the item identifier for an item that is being updated.
+     * @param {Pointer<SYNCMGRPROGRESSITEM>} pSyncProgressItem Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgrprogressitem">SYNCMGRPROGRESSITEM</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgrprogressitem">SYNCMGRPROGRESSITEM</a> structure that contains the updated progress information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Continues the synchronization.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_SYNCMGR_CANCELITEM</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Cancels the synchronization on a specified item, as soon as possible.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_SYNCMGR_CANCELALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Cancels the synchronization on all items that are associated with this application, as soon as possible.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-progress
      */
     Progress(ItemID, pSyncProgressItem) {
         result := ComCall(8, this, "ptr", ItemID, "ptr", pSyncProgressItem, "HRESULT")
@@ -109,12 +282,38 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by a registered application to log information, warning, or an error message into the error tab on the synchronization manager status dialog box.
+     * @param {Integer} dwErrorLevel Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwErrorLevel 
-     * @param {PWSTR} pszErrorText 
-     * @param {Pointer<SYNCMGRLOGERRORINFO>} pSyncLogError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-logerror
+     * The error level. Values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgrloglevel">SYNCMGRLOGLEVEL</a> enumeration.
+     * @param {PWSTR} pszErrorText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to error text to be displayed in the error tab.
+     * @param {Pointer<SYNCMGRLOGERRORINFO>} pSyncLogError Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgrlogerrorinfo">SYNCMGRLOGERRORINFO</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgrlogerrorinfo">SYNCMGRLOGERRORINFO</a> structure that contains additional error information. Registered applications that do not provide this data can pass <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, and  the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The error information is logged successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-logerror
      */
     LogError(dwErrorLevel, pszErrorText, pSyncLogError) {
         pszErrorText := pszErrorText is String ? StrPtr(pszErrorText) : pszErrorText
@@ -124,11 +323,33 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by the registered application's handler to delete a previously logged ErrorInformation, warning, or error message in the error tab on the synchronization manager status dialog box.
+     * @param {Pointer<Guid>} ErrorID Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} ErrorID 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-deletelogerror
+     * The LogError to be deleted. If <i>ErrorID</i> is GUID_NULL all errors logged by the instance of the registered application's handler will be deleted.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, as well as the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The item was successfully deleted from the log.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-deletelogerror
      */
     DeleteLogError(ErrorID, dwReserved) {
         result := ComCall(10, this, "ptr", ErrorID, "uint", dwReserved, "HRESULT")
@@ -136,11 +357,33 @@ class ISyncMgrSynchronizeCallback extends IUnknown{
     }
 
     /**
+     * Called by the registered application's handler when a network connection is required.
+     * @param {PWSTR} pwszConnection Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pwszConnection 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-establishconnection
+     * The name of the connection to dial.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED, and E_OUTOFMEMORY, as well as the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection was successfully established.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizecallback-establishconnection
      */
     EstablishConnection(pwszConnection, dwReserved) {
         pwszConnection := pwszConnection is String ? StrPtr(pwszConnection) : pwszConnection

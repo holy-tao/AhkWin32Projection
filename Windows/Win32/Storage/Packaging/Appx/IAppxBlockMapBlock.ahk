@@ -40,10 +40,14 @@ class IAppxBlockMapBlock extends IUnknown{
     static VTableNames => ["GetHash", "GetCompressedSize"]
 
     /**
+     * Retrieves the hash value of the block.
+     * @param {Pointer<Integer>} bufferSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
      * 
-     * @param {Pointer<Integer>} bufferSize 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
+     * The length of  <i>buffer</i>.
+     * @returns {Pointer<Integer>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>**</b>
+     * 
+     * The byte sequence representing the hash value of the block.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
      */
     GetHash(bufferSize) {
         bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
@@ -53,9 +57,11 @@ class IAppxBlockMapBlock extends IUnknown{
     }
 
     /**
+     * Retrieves compressed size of the block.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
+     * The compressed size of the block, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
      */
     GetCompressedSize() {
         result := ComCall(4, this, "uint*", &size := 0, "HRESULT")

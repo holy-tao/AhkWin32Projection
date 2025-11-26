@@ -45,10 +45,10 @@ class IPrint extends IUnknown{
     static VTableNames => ["SetInitialPageNum", "GetPageInfo", "Print"]
 
     /**
-     * 
-     * @param {Integer} nFirstPage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-setinitialpagenum
+     * Sets the page number of the first page of a document.
+     * @param {Integer} nFirstPage The page number of the first page.
+     * @returns {HRESULT} This method can return the standard return values E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-iprint-setinitialpagenum
      */
     SetInitialPageNum(nFirstPage) {
         result := ComCall(3, this, "int", nFirstPage, "HRESULT")
@@ -56,11 +56,11 @@ class IPrint extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pnFirstPage 
-     * @param {Pointer<Integer>} pcPages 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-getpageinfo
+     * Retrieves the number of a document's first page and the total number of pages.
+     * @param {Pointer<Integer>} pnFirstPage A pointer to a variable that receives the page number of the first page. This parameter can be <b>NULL</b>, indicating that the caller is not interested in this number. If <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iprint-setinitialpagenum">IPrint::SetInitialPageNum</a> has been called, this parameter should contain the same value passed to that method. Otherwise, the value is the document's internal first page number.
+     * @param {Pointer<Integer>} pcPages A pointer to a variable that receives the total number of pages in this document. This parameter can be <b>NULL</b>, indicating that the caller is not interested in this number.
+     * @returns {HRESULT} This method can return the standard return values E_UNEXPECTED and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-iprint-getpageinfo
      */
     GetPageInfo(pnFirstPage, pcPages) {
         pnFirstPageMarshal := pnFirstPage is VarRef ? "int*" : "ptr"
@@ -71,17 +71,57 @@ class IPrint extends IUnknown{
     }
 
     /**
+     * Prints an object on the specified printer, using the specified job requirements.
+     * @param {Integer} grfFlags A bitfield specifying print options from the <b>PRINTFLAG</b> enumeration.
+     * @param {Pointer<Pointer<DVTARGETDEVICE>>} pptd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-dvtargetdevice">DVTARGETDEVICE</a> structure that describes the target print device.
+     * @param {Pointer<Pointer<PAGESET>>} ppPageSet A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/docobj/ns-docobj-pageset">PAGESET</a> pointer variable that receives a pointer to the structure that indicates which pages are to be printed.
+     * @param {Pointer<STGMEDIUM>} pstgmOptions A pointer to object-specific printing options in a serialized OLE property set. This parameter can be <b>NULL</b> on input or return.
+     * @param {IContinueCallback} pcallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-icontinuecallback">IContinueCallback</a> interface on the view site, which is to be periodically polled at human-response speeds to determine whether printing should be abandoned. This parameter can be <b>NULL</b>.
+     * @param {Integer} nFirstPage The page number of the first page to be printed. This value overrides any value previously passed to <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iprint-setinitialpagenum">IPrint::SetInitialPageNum</a>.
+     * @param {Pointer<Integer>} pcPagesPrinted A pointer to a variable that receives the actual number of pages that were successfully printed.
+     * @param {Pointer<Integer>} pnLastPage A pointer to a variable that receives the page number of the last page that was printed.
+     * @returns {HRESULT} This method can return the standard return value E_UNEXPECTED, as well as the following values.
      * 
-     * @param {Integer} grfFlags 
-     * @param {Pointer<Pointer<DVTARGETDEVICE>>} pptd 
-     * @param {Pointer<Pointer<PAGESET>>} ppPageSet 
-     * @param {Pointer<STGMEDIUM>} pstgmOptions 
-     * @param {IContinueCallback} pcallback 
-     * @param {Integer} nFirstPage 
-     * @param {Pointer<Integer>} pcPagesPrinted 
-     * @param {Pointer<Integer>} pnLastPage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-print
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>PRINT_E_CANCELED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The print process was canceled before completion. *<i>pcPagesPrinted</i> indicates the number of pages that were in fact successfully printed before this error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>PRINT_E_NOSUCHPAGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A page specified in **<i>ppPageSet</i> or <i>nFirstPage</i> does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-iprint-print
      */
     Print(grfFlags, pptd, ppPageSet, pstgmOptions, pcallback, nFirstPage, pcPagesPrinted, pnLastPage) {
         pptdMarshal := pptd is VarRef ? "ptr*" : "ptr"

@@ -41,9 +41,11 @@ class ID2D1Mesh extends ID2D1Resource{
     static VTableNames => ["Open"]
 
     /**
+     * Opens the mesh for population.
+     * @returns {ID2D1TessellationSink} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1tessellationsink">ID2D1TessellationSink</a>**</b>
      * 
-     * @returns {ID2D1TessellationSink} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1mesh-open
+     * When this method returns, contains a pointer to a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1tessellationsink">ID2D1TessellationSink</a> that is used to populate the mesh. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1mesh-open
      */
     Open() {
         result := ComCall(4, this, "ptr*", &tessellationSink := 0, "HRESULT")

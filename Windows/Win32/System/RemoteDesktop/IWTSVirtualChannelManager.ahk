@@ -32,12 +32,12 @@ class IWTSVirtualChannelManager extends IUnknown{
     static VTableNames => ["CreateListener"]
 
     /**
-     * 
-     * @param {PSTR} pszChannelName 
-     * @param {Integer} uFlags 
-     * @param {IWTSListenerCallback} pListenerCallback 
-     * @returns {IWTSListener} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelmanager-createlistener
+     * Returns an instance of a listener object that listens on a specific endpoint.
+     * @param {PSTR} pszChannelName The endpoint name on which the listener will listen. This is a string value, the length of which is limited to <b>MAX_PATH</b> number of characters.
+     * @param {Integer} uFlags This parameter is reserved and must be set to zero.
+     * @param {IWTSListenerCallback} pListenerCallback Returns a listener callback (<a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtslistenercallback">IWTSListenerCallback</a>)  that will receive notifications for incoming connections.
+     * @returns {IWTSListener} An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtslistener">IWTSListener</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelmanager-createlistener
      */
     CreateListener(pszChannelName, uFlags, pListenerCallback) {
         pszChannelName := pszChannelName is String ? StrPtr(pszChannelName) : pszChannelName

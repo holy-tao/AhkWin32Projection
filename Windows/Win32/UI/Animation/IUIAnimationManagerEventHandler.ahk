@@ -31,11 +31,11 @@ class IUIAnimationManagerEventHandler extends IUnknown{
     static VTableNames => ["OnManagerStatusChanged"]
 
     /**
-     * 
-     * @param {Integer} newStatus 
-     * @param {Integer} previousStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanagereventhandler-onmanagerstatuschanged
+     * Handles status changes to an animation manager.
+     * @param {Integer} newStatus The new status.
+     * @param {Integer} previousStatus The previous status.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationmanagereventhandler-onmanagerstatuschanged
      */
     OnManagerStatusChanged(newStatus, previousStatus) {
         result := ComCall(3, this, "int", newStatus, "int", previousStatus, "HRESULT")

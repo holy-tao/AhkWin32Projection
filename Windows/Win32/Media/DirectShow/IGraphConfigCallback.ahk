@@ -31,11 +31,11 @@ class IGraphConfigCallback extends IUnknown{
     static VTableNames => ["Reconfigure"]
 
     /**
-     * 
-     * @param {Pointer<Void>} pvContext 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfigcallback-reconfigure
+     * The Reconfigure method is a callback method passed to IGraphConfig::Reconfigure.
+     * @param {Pointer<Void>} pvContext Value passed in the <b>IGraphConfig::Reconfigure</b> method's <i>pvContext</i> parameter.
+     * @param {Integer} dwFlags Value passed in the <b>IGraphConfig::Reconfigure</b> method's <i>dwFlags</i> parameter.
+     * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns an <b>HRESULT</b> value indicating the cause of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphconfigcallback-reconfigure
      */
     Reconfigure(pvContext, dwFlags) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"

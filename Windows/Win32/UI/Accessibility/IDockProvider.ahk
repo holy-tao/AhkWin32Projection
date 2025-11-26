@@ -49,10 +49,14 @@ class IDockProvider extends IUnknown{
     }
 
     /**
+     * Sets the docking position of this element.
+     * @param {Integer} dockPosition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-dockposition">DockPosition</a></b>
      * 
-     * @param {Integer} dockPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idockprovider-setdockposition
+     * The new docking position.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-idockprovider-setdockposition
      */
     SetDockPosition(dockPosition) {
         result := ComCall(3, this, "int", dockPosition, "HRESULT")
@@ -60,9 +64,15 @@ class IDockProvider extends IUnknown{
     }
 
     /**
+     * Indicates the current docking position of this element.
+     * @remarks
+     * 
+     * A docking container is a control that allows the arrangement of child elements, both horizontally and vertically, relative to the boundaries of the docking container and other elements in the container.
+     * 
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idockprovider-get_dockposition
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-idockprovider-get_dockposition
      */
     get_DockPosition() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")

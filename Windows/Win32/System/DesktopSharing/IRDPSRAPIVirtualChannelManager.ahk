@@ -41,9 +41,9 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
     }
 
     /**
-     * 
+     * An enumerator interface for the virtual channel collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -51,10 +51,10 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
     }
 
     /**
-     * 
+     * An item in the virtual channel collection.
      * @param {VARIANT} item 
      * @returns {IRDPSRAPIVirtualChannel} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get_item
      */
     get_Item(item) {
         result := ComCall(8, this, "ptr", item, "ptr*", &pChannel := 0, "HRESULT")
@@ -62,12 +62,18 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
     }
 
     /**
+     * Creates a virtual channel.
+     * @param {BSTR} bstrChannelName Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrChannelName 
-     * @param {Integer} Priority 
-     * @param {Integer} ChannelFlags 
-     * @returns {IRDPSRAPIVirtualChannel} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-createvirtualchannel
+     * The name of the channel. The maximum length is 8 characters, including the null-terminating character. Legacy channel names are limited to 32 characters.
+     * @param {Integer} Priority Type: <b>CHANNEL_PRIORITY</b>
+     * @param {Integer} ChannelFlags Type: <b>unsigned long</b>
+     * 
+     * Flags that determine how data is sent on the channel. This parameter can be 0 or <a href="https://docs.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_flags">CHANNEL_FLAGS_UNCOMPRESSED</a>.
+     * @returns {IRDPSRAPIVirtualChannel} Type: <b>IRDPSRAPIVirtualChannel**</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannel">IRDPSRAPIVirtualChannel</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-createvirtualchannel
      */
     CreateVirtualChannel(bstrChannelName, Priority, ChannelFlags) {
         bstrChannelName := bstrChannelName is String ? BSTR.Alloc(bstrChannelName).Value : bstrChannelName

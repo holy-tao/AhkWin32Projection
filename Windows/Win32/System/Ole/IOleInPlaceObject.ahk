@@ -31,9 +31,27 @@ class IOleInPlaceObject extends IOleWindow{
     static VTableNames => ["InPlaceDeactivate", "UIDeactivate", "SetObjectRects", "ReactivateAndUndo"]
 
     /**
+     * Deactivates an active in-place object and discards the object's undo state.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceobject-inplacedeactivate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ioleinplaceobject-inplacedeactivate
      */
     InPlaceDeactivate() {
         result := ComCall(5, this, "HRESULT")
@@ -41,9 +59,27 @@ class IOleInPlaceObject extends IOleWindow{
     }
 
     /**
+     * Deactivates and removes the user interface of an active in-place object.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceobject-uideactivate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ioleinplaceobject-uideactivate
      */
     UIDeactivate() {
         result := ComCall(6, this, "HRESULT")
@@ -51,11 +87,51 @@ class IOleInPlaceObject extends IOleWindow{
     }
 
     /**
+     * Specifies how much of the in-place object is to be visible.
+     * @param {Pointer<RECT>} lprcPosRect A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the position of the in-place object using the client coordinates of its parent window.
+     * @param {Pointer<RECT>} lprcClipRect A pointer to the outer rectangle containing the in-place object's position rectangle (<i>lprcPosRect</i>). This rectangle is relative to the client area of the object's parent window.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @param {Pointer<RECT>} lprcPosRect 
-     * @param {Pointer<RECT>} lprcClipRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceobject-setobjectrects
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified pointer is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is insufficient memory available for the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ioleinplaceobject-setobjectrects
      */
     SetObjectRects(lprcPosRect, lprcClipRect) {
         result := ComCall(7, this, "ptr", lprcPosRect, "ptr", lprcClipRect, "HRESULT")
@@ -63,9 +139,49 @@ class IOleInPlaceObject extends IOleWindow{
     }
 
     /**
+     * Reactivates a previously deactivated object, undoing the last state of the object.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceobject-reactivateandundo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTUNDOABLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The undo state is not available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is insufficient memory available for the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ioleinplaceobject-reactivateandundo
      */
     ReactivateAndUndo() {
         result := ComCall(8, this, "HRESULT")

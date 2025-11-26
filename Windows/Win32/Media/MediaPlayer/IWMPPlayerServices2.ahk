@@ -32,10 +32,23 @@ class IWMPPlayerServices2 extends IWMPPlayerServices{
     static VTableNames => ["setBackgroundProcessingPriority"]
 
     /**
-     * 
+     * The setBackgroundProcessingPriority method specifies a priority level for general background processing tasks.
      * @param {BSTR} bstrPriority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerservices2-setbackgroundprocessingpriority
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerservices2-setbackgroundprocessingpriority
      */
     setBackgroundProcessingPriority(bstrPriority) {
         bstrPriority := bstrPriority is String ? BSTR.Alloc(bstrPriority).Value : bstrPriority

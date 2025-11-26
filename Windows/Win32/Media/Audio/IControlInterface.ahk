@@ -31,9 +31,9 @@ class IControlInterface extends IUnknown{
     static VTableNames => ["GetName", "GetIID"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolinterface-getname
+     * The GetName method gets the friendly name for the audio function that the control interface encapsulates.
+     * @returns {PWSTR} Pointer to a string pointer into which the method writes the address of a null-terminated, wide-character string that contains the friendly name. The method allocates the storage for the string. The caller is responsible for freeing the storage, when it is no longer needed, by calling the <b>CoTaskMemFree</b> function. If the <b>GetName</b> call fails,  <i>*ppwstrName</i> is <b>NULL</b>. For information about <b>CoTaskMemFree</b>, see the Windows SDK documentation.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-icontrolinterface-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &ppwstrName := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IControlInterface extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolinterface-getiid
+     * The GetIID method gets the interface ID of the function-specific control interface of the part.
+     * @returns {Guid} Pointer to a GUID variable into which the method writes the interface ID of the function-specific control interface of the part. For more information, see Remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-icontrolinterface-getiid
      */
     GetIID() {
         pIID := Guid()

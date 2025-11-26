@@ -31,15 +31,58 @@ class ITypeComp extends IUnknown{
     static VTableNames => ["Bind", "BindType"]
 
     /**
+     * Maps a name to a member of a type, or binds global variables and functions contained in a type library.
+     * @param {PWSTR} szName The name to be bound.
+     * @param {Integer} lHashVal The hash value for the name computed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-lhashvalofnamesys">LHashValOfNameSys</a>.
+     * @param {Integer} wFlags One or more of the flags defined in the INVOKEKIND enumeration. Specifies whether the name was referenced as a method or a property. When binding to a variable, specify the flag INVOKE_PROPERTYGET. Specify zero to bind to any type of member.
+     * @param {Pointer<ITypeInfo>} ppTInfo If a FUNCDESC or VARDESC was returned, then <i>ppTInfo</i> points to a pointer to the type description that contains the item to which it is bound.
+     * @param {Pointer<Integer>} pDescKind Indicates whether the name bound to is a VARDESC, FUNCDESC, or TYPECOMP. If there was no match, DESCKIND_NONE.
+     * @param {Pointer<BINDPTR>} pBindPtr The bound-to VARDESC, FUNCDESC, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypecomp">ITypeComp</a> interface.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szName 
-     * @param {Integer} lHashVal 
-     * @param {Integer} wFlags 
-     * @param {Pointer<ITypeInfo>} ppTInfo 
-     * @param {Pointer<Integer>} pDescKind 
-     * @param {Pointer<BINDPTR>} pBindPtr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypecomp-bind
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypecomp-bind
      */
     Bind(szName, lHashVal, wFlags, ppTInfo, pDescKind, pBindPtr) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -51,13 +94,56 @@ class ITypeComp extends IUnknown{
     }
 
     /**
+     * Binds to the type descriptions contained within a type library.
+     * @param {PWSTR} szName The name to be bound.
+     * @param {Integer} lHashVal The hash value for the name computed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-lhashvalofname">LHashValOfName</a>.
+     * @param {Pointer<ITypeInfo>} ppTInfo An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a> of the type to which the name was bound.
+     * @param {Pointer<ITypeComp>} ppTComp Passes a valid pointer, such as the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypecomp">ITypeComp</a> variable.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} szName 
-     * @param {Integer} lHashVal 
-     * @param {Pointer<ITypeInfo>} ppTInfo 
-     * @param {Pointer<ITypeComp>} ppTComp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypecomp-bindtype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypecomp-bindtype
      */
     BindType(szName, lHashVal, ppTInfo, ppTComp) {
         szName := szName is String ? StrPtr(szName) : szName

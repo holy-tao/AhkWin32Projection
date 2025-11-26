@@ -31,10 +31,10 @@ class IDXGIFactory7 extends IDXGIFactory6{
     static VTableNames => ["RegisterAdaptersChangedEvent", "UnregisterAdaptersChangedEvent"]
 
     /**
-     * 
-     * @param {HANDLE} hEvent 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-registeradapterschangedevent
+     * Registers to receive notification of changes whenever the adapter enumeration state changes.
+     * @param {HANDLE} hEvent A handle to the event object.
+     * @returns {Integer} A key value for the registered event.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nf-dxgi1_6-idxgifactory7-registeradapterschangedevent
      */
     RegisterAdaptersChangedEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -44,10 +44,10 @@ class IDXGIFactory7 extends IDXGIFactory6{
     }
 
     /**
-     * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-unregisteradapterschangedevent
+     * Unregisters an event to stop receiving notifications when the adapter enumeration state changes.
+     * @param {Integer} dwCookie A key value for the event to unregister.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nf-dxgi1_6-idxgifactory7-unregisteradapterschangedevent
      */
     UnregisterAdaptersChangedEvent(dwCookie) {
         result := ComCall(31, this, "uint", dwCookie, "HRESULT")

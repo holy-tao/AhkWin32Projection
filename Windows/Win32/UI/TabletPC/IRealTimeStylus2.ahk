@@ -44,9 +44,9 @@ class IRealTimeStylus2 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus2-get_flicksenabled
+     * Returns a value indicating whether flick gestures are enabled for the RTS.
+     * @returns {BOOL} <b>TRUE</b> if flick gestures have been enabled; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylus2-get_flicksenabled
      */
     get_FlicksEnabled() {
         result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
@@ -54,10 +54,10 @@ class IRealTimeStylus2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus2-put_flicksenabled
+     * Indicates if flick gesture recognition is enabled.
+     * @param {BOOL} fEnable <b>TRUE</b> to enable flicks gesture recognition; <b>FALSE</b> to disable flicks.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylus2-put_flicksenabled
      */
     put_FlicksEnabled(fEnable) {
         result := ComCall(4, this, "int", fEnable, "HRESULT")

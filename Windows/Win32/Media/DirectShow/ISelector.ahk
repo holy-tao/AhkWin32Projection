@@ -61,9 +61,9 @@ class ISelector extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_numsources
+     * The get_NumSources method returns the number of source nodes connected to the selector node.
+     * @returns {Integer} Receives the number of source nodes.
+     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iselector-get_numsources
      */
     get_NumSources() {
         result := ComCall(3, this, "uint*", &pdwNumSources := 0, "HRESULT")
@@ -71,9 +71,9 @@ class ISelector extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_sourcenodeid
+     * The get_SourceNodeId method returns the index of the active source node.
+     * @returns {Integer} Receives the index of the source node that is currently active.
+     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iselector-get_sourcenodeid
      */
     get_SourceNodeId() {
         result := ComCall(4, this, "uint*", &pdwPinId := 0, "HRESULT")
@@ -81,10 +81,28 @@ class ISelector extends IUnknown{
     }
 
     /**
+     * The put_SourceNodeId method activates a source node.
+     * @param {Integer} dwPinId Index of the source node to activate.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwPinId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-put_sourcenodeid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iselector-put_sourcenodeid
      */
     put_SourceNodeId(dwPinId) {
         result := ComCall(5, this, "uint", dwPinId, "HRESULT")

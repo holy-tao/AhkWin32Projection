@@ -36,9 +36,11 @@ class ICondition2 extends ICondition{
     static VTableNames => ["GetLocale", "GetLeafConditionInfo"]
 
     /**
+     * Retrieves the property name, operation, and value from a leaf search condition node.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getlocale
+     * Receives the name of the locale of the leaf condition as a Unicode string. This parameter can be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nf-structuredquerycondition-icondition2-getlocale
      */
     GetLocale() {
         result := ComCall(15, this, "ptr*", &ppszLocaleName := 0, "HRESULT")
@@ -46,12 +48,20 @@ class ICondition2 extends ICondition{
     }
 
     /**
+     * Retrieves the property name, operation, and value from a leaf search condition node.
+     * @param {Pointer<PROPERTYKEY>} ppropkey Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} ppropkey 
-     * @param {Pointer<Integer>} pcop 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo
+     * Receives the name of the property of the leaf condition as a PROPERTYKEY.
+     * @param {Pointer<Integer>} pcop Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a>*</b>
+     * 
+     * Receives the operation of the leaf condition as a <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a> enumeration.
+     * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Receives the property value of the leaf condition as a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, E_FAIL if this is not a leaf node, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo
      */
     GetLeafConditionInfo(ppropkey, pcop, ppropvar) {
         pcopMarshal := pcop is VarRef ? "int*" : "ptr"

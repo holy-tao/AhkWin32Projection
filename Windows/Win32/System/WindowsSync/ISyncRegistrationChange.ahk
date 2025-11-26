@@ -31,9 +31,9 @@ class ISyncRegistrationChange extends IUnknown{
     static VTableNames => ["GetEvent", "GetInstanceId"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncregistrationchange-getevent
+     * Gets the next pending registration event.
+     * @returns {Integer} The registration event.
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncregistrationchange-getevent
      */
     GetEvent() {
         result := ComCall(3, this, "int*", &psreEvent := 0, "HRESULT")
@@ -41,9 +41,9 @@ class ISyncRegistrationChange extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncregistrationchange-getinstanceid
+     * Gets the instance ID of the synchronization provider or synchronization provider configuration UI associated with the event.
+     * @returns {Guid} The instance ID.
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncregistrationchange-getinstanceid
      */
     GetInstanceId() {
         pguidInstanceId := Guid()

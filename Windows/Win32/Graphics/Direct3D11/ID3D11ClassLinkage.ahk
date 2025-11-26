@@ -39,11 +39,17 @@ class ID3D11ClassLinkage extends ID3D11DeviceChild{
     static VTableNames => ["GetClassInstance", "CreateClassInstance"]
 
     /**
+     * Gets the class-instance object that represents the specified HLSL class.
+     * @param {PSTR} pClassInstanceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} pClassInstanceName 
-     * @param {Integer} InstanceIndex 
-     * @returns {ID3D11ClassInstance} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11classlinkage-getclassinstance
+     * The name of a class for which to get the class instance.
+     * @param {Integer} InstanceIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The index of the class instance.
+     * @returns {ID3D11ClassInstance} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11classinstance">ID3D11ClassInstance</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11classinstance">ID3D11ClassInstance</a> interface to initialize.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11classlinkage-getclassinstance
      */
     GetClassInstance(pClassInstanceName, InstanceIndex) {
         pClassInstanceName := pClassInstanceName is String ? StrPtr(pClassInstanceName) : pClassInstanceName
@@ -53,14 +59,26 @@ class ID3D11ClassLinkage extends ID3D11DeviceChild{
     }
 
     /**
+     * Initializes a class-instance object that represents an HLSL class instance.
+     * @param {PSTR} pClassTypeName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} pClassTypeName 
-     * @param {Integer} ConstantBufferOffset 
-     * @param {Integer} ConstantVectorOffset 
-     * @param {Integer} TextureOffset 
-     * @param {Integer} SamplerOffset 
-     * @returns {ID3D11ClassInstance} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11classlinkage-createclassinstance
+     * The type name of a class to initialize.
+     * @param {Integer} ConstantBufferOffset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Identifies the constant buffer that contains the class data.
+     * @param {Integer} ConstantVectorOffset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The four-component vector offset from the start of the constant buffer where the class data will begin. Consequently, this is not a byte offset.
+     * @param {Integer} TextureOffset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The texture slot for the first texture; there may be multiple textures following the offset.
+     * @param {Integer} SamplerOffset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The sampler slot for the first sampler; there may be multiple samplers following the offset.
+     * @returns {ID3D11ClassInstance} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11classinstance">ID3D11ClassInstance</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11classinstance">ID3D11ClassInstance</a> interface to initialize.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11classlinkage-createclassinstance
      */
     CreateClassInstance(pClassTypeName, ConstantBufferOffset, ConstantVectorOffset, TextureOffset, SamplerOffset) {
         pClassTypeName := pClassTypeName is String ? StrPtr(pClassTypeName) : pClassTypeName

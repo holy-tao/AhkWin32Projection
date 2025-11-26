@@ -31,9 +31,12 @@ class IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphRunEnumerator{
     static VTableNames => ["GetCurrentRun"]
 
     /**
+     * Gets the current color glyph run.
+     * @returns {Pointer<DWRITE_COLOR_GLYPH_RUN1>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_color_glyph_run1">DWRITE_COLOR_GLYPH_RUN1</a></b>
      * 
-     * @returns {Pointer<DWRITE_COLOR_GLYPH_RUN1>} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritecolorglyphrunenumerator1-getcurrentrun
+     * Receives a pointer to the color glyph run. The pointer remains valid until the next call to
+     *           MoveNext or until the interface is released.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritecolorglyphrunenumerator1-getcurrentrun
      */
     GetCurrentRun() {
         result := ComCall(5, this, "ptr*", &colorGlyphRun := 0, "HRESULT")

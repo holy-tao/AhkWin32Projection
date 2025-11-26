@@ -32,9 +32,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetParameterVersion", "GetUpdateTime", "GetRecordNumberOfTable", "GetTableId", "GetTableDescriptionLength", "GetTableDescriptionBytes"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettag
+     * Gets the tag that identifies a service information (SI) parameter descriptor.
+     * @returns {Integer} Receives the tag value. For SI parameter descriptors, this value is 0xD7.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getlength
+     * Gets the body length of a service information (SI) parameter descriptor, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getparameterversion
+     * Gets the version number of a parameter from a service information (SI) parameter descriptor. This version number is incremented by one each time the parameter is updated.
+     * @returns {Integer} Receives the version number.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getparameterversion
      */
     GetParameterVersion() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -62,9 +62,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {MPEG_DATE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getupdatetime
+     * Gets the time at which a parameter becomes valid from a service information (SI) parameter descriptor.
+     * @returns {MPEG_DATE} Receives the date/time value that indicates when the parameter becomes valid.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getupdatetime
      */
     GetUpdateTime() {
         pVal := MPEG_DATE()
@@ -73,9 +73,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getrecordnumberoftable
+     * Gets the number of table descriptors in a service information (SI) parameter descriptor.
+     * @returns {Integer} Receives the number of table descriptors.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getrecordnumberoftable
      */
     GetRecordNumberOfTable() {
         result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
@@ -83,10 +83,10 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettableid
+     * Gets an identifier for a table descriptor in a service information (SI) parameter descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the SI table descriptor. To get the number of table descriptors, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getrecordnumberoftable">IIsdbSIParameterDescriptor::GetRecordNumberOfTable</a> method.
+     * @returns {Integer} Receives the table descriptor identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettableid
      */
     GetTableId(bRecordIndex) {
         result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -94,10 +94,10 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionlength
+     * Gets the body length of a table descriptor in a service information (SI) parameter descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the SI table descriptor. To get the number of table descriptors, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getrecordnumberoftable">IIsdbSIParameterDescriptor::GetRecordNumberOfTable</a> method.
+     * @returns {Integer} Receives the length of the table descriptor, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionlength
      */
     GetTableDescriptionLength(bRecordIndex) {
         result := ComCall(9, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -105,11 +105,11 @@ class IIsdbSIParameterDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pbBufferLength 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionbytes
+     * Gets description data from a table descriptor in a service information (SI) parameter descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the SI table descriptor. To get the number of table descriptors, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getrecordnumberoftable">IIsdbSIParameterDescriptor::GetRecordNumberOfTable</a> method.
+     * @param {Pointer<Integer>} pbBufferLength On input specifies the length of the table descriptor data that is retrieved, in bytes. On output returns the actual data length.
+     * @returns {Integer} Receives the table descriptor data.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionbytes
      */
     GetTableDescriptionBytes(bRecordIndex, pbBufferLength) {
         pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"

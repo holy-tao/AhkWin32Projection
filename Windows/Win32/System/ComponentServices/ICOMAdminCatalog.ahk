@@ -52,10 +52,10 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrCollName 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-getcollection
+     * Retrieves a top-level collection on the COM+ catalog.
+     * @param {BSTR} bstrCollName The name of the collection to be retrieved.
+     * @returns {IDispatch} The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-getcollection
      */
     GetCollection(bstrCollName) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
@@ -65,10 +65,10 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrCatalogServerName 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-connect
+     * Connects to the COM+ catalog on a specified remote computer.
+     * @param {BSTR} bstrCatalogServerName The name of the remote computer. To connect to the local computer, use an empty string.
+     * @returns {IDispatch} The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface for the root collection on the remote computer.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-connect
      */
     Connect(bstrCatalogServerName) {
         bstrCatalogServerName := bstrCatalogServerName is String ? BSTR.Alloc(bstrCatalogServerName).Value : bstrCatalogServerName
@@ -78,9 +78,9 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the major version number of the COMAdmin library.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-get_majorversion
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-get_majorversion
      */
     get_MajorVersion() {
         result := ComCall(9, this, "int*", &plMajorVersion := 0, "HRESULT")
@@ -88,9 +88,9 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the minor version number of the COMAdmin library.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-get_minorversion
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-get_minorversion
      */
     get_MinorVersion() {
         result := ComCall(10, this, "int*", &plMinorVersion := 0, "HRESULT")
@@ -98,11 +98,11 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrCollName 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarQuery 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-getcollectionbyquery
+     * Retrieves a collection on the COM+ catalog given the key property values for all of its parent items.
+     * @param {BSTR} bstrCollName The name of the collection to be retrieved.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarQuery A reference to an array consisting of key property values for all parent items of the collection to be retrieved.
+     * @returns {IDispatch} The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-getcollectionbyquery
      */
     GetCollectionByQuery(bstrCollName, ppsaVarQuery) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
@@ -114,11 +114,11 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplIDOrName 
-     * @param {BSTR} bstrCLSIDOrProgID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-importcomponent
+     * Imports a component already registered as an in-process server into a COM+ application.
+     * @param {BSTR} bstrApplIDOrName The GUID or name of the application.
+     * @param {BSTR} bstrCLSIDOrProgID The CLSID or ProgID for the component to import.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-importcomponent
      */
     ImportComponent(bstrApplIDOrName, bstrCLSIDOrProgID) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
@@ -129,13 +129,13 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplIDOrName 
-     * @param {BSTR} bstrDLL 
-     * @param {BSTR} bstrTLB 
-     * @param {BSTR} bstrPSDLL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-installcomponent
+     * Installs all components (COM classes) from a DLL file into a COM+ application and registers the components in the COM+ class registration database.
+     * @param {BSTR} bstrApplIDOrName The GUID or name of the application.
+     * @param {BSTR} bstrDLL The name of the DLL file containing the component to be installed.
+     * @param {BSTR} bstrTLB The name of the external type library file. If the type library file is embedded in the DLL, pass in an empty string for this parameter.
+     * @param {BSTR} bstrPSDLL The name of the proxy-stub DLL file. If there is no proxy-stub DLL associated with the component, pass in an empty string for this parameter.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installcomponent
      */
     InstallComponent(bstrApplIDOrName, bstrDLL, bstrTLB, bstrPSDLL) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
@@ -148,10 +148,39 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Initiates shutdown of a COM+ server application process.
+     * @param {BSTR} bstrApplIDOrName The GUID or name of the application.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrApplIDOrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-shutdownapplication
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-shutdownapplication
      */
     ShutdownApplication(bstrApplIDOrName) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
@@ -161,12 +190,43 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplIDOrName 
-     * @param {BSTR} bstrApplicationFile 
+     * Exports a COM+ application or application proxy to a file, ready for installation on different computers.
+     * @param {BSTR} bstrApplIDOrName The GUID or application name of the application to be exported.
+     * @param {BSTR} bstrApplicationFile The name of the file to export the application to, including the file path. If this parameter is <b>NULL</b> or an empty string, the <b>ExportApplication</b> method returns E_INVALIDARG.
+     * If the path is not specified, the current directory is used.
+     * If a relative path is entered, the path is relative to the current directory.
      * @param {Integer} lOptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-exportapplication
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-exportapplication
      */
     ExportApplication(bstrApplIDOrName, bstrApplicationFile, lOptions) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
@@ -177,16 +237,66 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * The InstallApplication function can install applications that have been deployed to target users that belong to a domain.
-     * @param {BSTR} bstrApplicationFile 
-     * @param {BSTR} bstrDestinationDirectory 
+     * Installs a COM+ application or application proxy from the specified file.
+     * @param {BSTR} bstrApplicationFile The name of the file containing the application to be installed.
+     * @param {BSTR} bstrDestinationDirectory Where to install the components. If this parameter is blank, the default directory is used.
      * @param {Integer} lOptions 
-     * @param {BSTR} bstrUserId 
-     * @param {BSTR} bstrPassword 
-     * @param {BSTR} bstrRSN 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-installapplication
+     * @param {BSTR} bstrUserId The user ID under which to run the application.
+     * @param {BSTR} bstrPassword The password under which to run the application.
+     * @param {BSTR} bstrRSN A remote server name to use for an application proxy.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSTALL_FAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A fatal error occurred during installation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application does not exist.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECTERRORS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred accessing one or more objects.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installapplication
      */
     InstallApplication(bstrApplicationFile, bstrDestinationDirectory, lOptions, bstrUserId, bstrPassword, bstrRSN) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
@@ -200,9 +310,49 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Stops the component load balancing service if the service is currently installed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-stoprouter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_SERVICENOTINSTALLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The component load balancing service is not currently installed on the computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECTERRORS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors occurred while accessing one or more objects.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-stoprouter
      */
     StopRouter() {
         result := ComCall(17, this, "HRESULT")
@@ -210,9 +360,9 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-refreshrouter
+     * This method is obsolete.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-refreshrouter
      */
     RefreshRouter() {
         result := ComCall(18, this, "HRESULT")
@@ -220,9 +370,49 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Starts the component load balancing service if the service is currently installed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-startrouter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_SERVICENOTINSTALLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The component load balancing service is not currently installed on the computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECTERRORS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors occurred while accessing one or more objects.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-startrouter
      */
     StartRouter() {
         result := ComCall(19, this, "HRESULT")
@@ -250,12 +440,41 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Installs components from multiple files into a COM+ application.
+     * @param {BSTR} bstrApplIDOrName The GUID or name of the application.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames An array of the names of the DLL files that contains the components to be installed.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDs An array of CLSIDs for the components to be installed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrApplIDOrName 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-installmultiplecomponents
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECTERRORS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors occurred while accessing one or more objects.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installmultiplecomponents
      */
     InstallMultipleComponents(bstrApplIDOrName, ppsaVarFileNames, ppsaVarCLSIDs) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
@@ -268,15 +487,44 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Retrieves information about the components found in the specified files.
+     * @param {BSTR} bstrApplIdOrName The GUID or application name representing the application.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames An array of names of files containing the components.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDs An array of component CLSIDs.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarClassNames An array of component class names.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileFlags An array for file flags containing information about the files.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarComponentFlags An array for the component flags used to represent information about components in files.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrApplIdOrName 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDs 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarClassNames 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileFlags 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarComponentFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-getmultiplecomponentsinfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECTERRORS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors occurred while accessing one or more objects.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-getmultiplecomponentsinfo
      */
     GetMultipleComponentsInfo(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDs, ppsaVarClassNames, ppsaVarFileFlags, ppsaVarComponentFlags) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
@@ -292,9 +540,9 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-refreshcomponents
+     * Updates component registration information from the registry.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-refreshcomponents
      */
     RefreshComponents() {
         result := ComCall(24, this, "HRESULT")
@@ -302,10 +550,10 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrBackupFilePath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-backupregdb
+     * Backs up the COM+ class registration database to a specified file.
+     * @param {BSTR} bstrBackupFilePath The path for the file in which the registration database is to be backed up.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-backupregdb
      */
     BackupREGDB(bstrBackupFilePath) {
         bstrBackupFilePath := bstrBackupFilePath is String ? BSTR.Alloc(bstrBackupFilePath).Value : bstrBackupFilePath
@@ -315,10 +563,50 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Restores the COM+ class registration database (RegDB) from the specified file. For this to take effect, a system reboot is required.
+     * @param {BSTR} bstrBackupFilePath The name of the file to which the database was backed up.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrBackupFilePath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-restoreregdb
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECTERRORS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors occurred while accessing one or more objects.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-restoreregdb
      */
     RestoreREGDB(bstrBackupFilePath) {
         bstrBackupFilePath := bstrBackupFilePath is String ? BSTR.Alloc(bstrBackupFilePath).Value : bstrBackupFilePath
@@ -328,15 +616,15 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationFile 
-     * @param {Pointer<BSTR>} pbstrApplicationName 
-     * @param {Pointer<BSTR>} pbstrApplicationDescription 
-     * @param {Pointer<VARIANT_BOOL>} pbHasUsers 
-     * @param {Pointer<VARIANT_BOOL>} pbIsProxy 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-queryapplicationfile
+     * Retrieves information about a COM+ application from an application file.
+     * @param {BSTR} bstrApplicationFile The application file from which information is to be retrieved.
+     * @param {Pointer<BSTR>} pbstrApplicationName The application name in the specified file.
+     * @param {Pointer<BSTR>} pbstrApplicationDescription The application description.
+     * @param {Pointer<VARIANT_BOOL>} pbHasUsers Indicates whether the application has user information associated with its roles.
+     * @param {Pointer<VARIANT_BOOL>} pbIsProxy Indicates whether the file contains an application proxy.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames An array of names of the DLL files for the components installed in the application.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-queryapplicationfile
      */
     QueryApplicationFile(bstrApplicationFile, pbstrApplicationName, pbstrApplicationDescription, pbHasUsers, pbIsProxy, ppsaVarFileNames) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
@@ -350,10 +638,10 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplIdOrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-startapplication
+     * Starts the specified COM+ server application. The application components are launched in a dedicated server process.
+     * @param {BSTR} bstrApplIdOrName The GUID or name of the application. If a GUID is used, it must be surrounded by braces.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-startapplication
      */
     StartApplication(bstrApplIdOrName) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
@@ -363,10 +651,106 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
+     * Retrieves the current status of the specified COM+ service.
+     * @param {Integer} lService The service for which status is to be checked. This parameter can be COMAdminServiceLoadBalanceRouter
+     * (1) to check the component load balancing service.
+     * @returns {Integer} The status for the specified service.
      * 
-     * @param {Integer} lService 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-servicecheck
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServiceStopped"></a><a id="comadminservicestopped"></a><a id="COMADMINSERVICESTOPPED"></a><dl>
+     * <dt><b>COMAdminServiceStopped</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is stopped.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServiceStartPending"></a><a id="comadminservicestartpending"></a><a id="COMADMINSERVICESTARTPENDING"></a><dl>
+     * <dt><b>COMAdminServiceStartPending</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is due to start.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServiceStopPending"></a><a id="comadminservicestoppending"></a><a id="COMADMINSERVICESTOPPENDING"></a><dl>
+     * <dt><b>COMAdminServiceStopPending</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is due to stop.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServiceRunning"></a><a id="comadminservicerunning"></a><a id="COMADMINSERVICERUNNING"></a><dl>
+     * <dt><b>COMAdminServiceRunning</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is running.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServiceContinuePending"></a><a id="comadminservicecontinuepending"></a><a id="COMADMINSERVICECONTINUEPENDING"></a><dl>
+     * <dt><b>COMAdminServiceContinuePending</b></dt>
+     * <dt>4</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is due to continue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServicePausePending"></a><a id="comadminservicepausepending"></a><a id="COMADMINSERVICEPAUSEPENDING"></a><dl>
+     * <dt><b>COMAdminServicePausePending</b></dt>
+     * <dt>5</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is due to pause.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServicePaused"></a><a id="comadminservicepaused"></a><a id="COMADMINSERVICEPAUSED"></a><dl>
+     * <dt><b>COMAdminServicePaused</b></dt>
+     * <dt>6</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is paused.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="COMAdminServiceUnknownState"></a><a id="comadminserviceunknownstate"></a><a id="COMADMINSERVICEUNKNOWNSTATE"></a><dl>
+     * <dt><b>COMAdminServiceUnknownState</b></dt>
+     * <dt>7</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service status is unknown.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-servicecheck
      */
     ServiceCheck(lService) {
         result := ComCall(29, this, "int", lService, "int*", &plStatus := 0, "HRESULT")
@@ -374,12 +758,12 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplIdOrName 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDS 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-installmultipleeventclasses
+     * Installs event classes from multiple files into a COM+ application.
+     * @param {BSTR} bstrApplIdOrName The GUID or name of the application.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames An array of the names of the DLL files that contains the event classes to be installed.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDS An array of CLSIDs for the event classes to be installed.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installmultipleeventclasses
      */
     InstallMultipleEventClasses(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDS) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
@@ -392,13 +776,13 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplIdOrName 
-     * @param {BSTR} bstrDLL 
-     * @param {BSTR} bstrTLB 
-     * @param {BSTR} bstrPSDLL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-installeventclass
+     * Installs event classes from a file into a COM+ application.
+     * @param {BSTR} bstrApplIdOrName The GUID or name of the application.
+     * @param {BSTR} bstrDLL The file name of the DLL containing the event classes to be installed.
+     * @param {BSTR} bstrTLB The name of an external type library file. If the type library file is embedded in the DLL, pass in an empty string for this parameter.
+     * @param {BSTR} bstrPSDLL The name of the proxy-stub DLL file. If there is no proxy-stub DLL associated with the event class, pass in an empty string for this parameter.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installeventclass
      */
     InstallEventClass(bstrApplIdOrName, bstrDLL, bstrTLB, bstrPSDLL) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
@@ -411,13 +795,13 @@ class ICOMAdminCatalog extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrIID 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDs 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarProgIDs 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarDescriptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-geteventclassesforiid
+     * Retrieves a list of the event classes registered on the computer that implement a specified interface.
+     * @param {BSTR} bstrIID A GUID representing the interface for which event classes should be found. If this parameter is <b>NULL</b>, the method retrieves all event classes registered on the computer.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDs An array of CLSIDs for the event classes implementing the interface specified in <i>bstrIID</i>.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarProgIDs An array of ProgIDs for the event classes implementing the interface specified in <i>bstrIID</i>.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarDescriptions An array of descriptions for the event classes implementing the interface specified in <i>bstrIID</i>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-geteventclassesforiid
      */
     GetEventClassesForIID(bstrIID, ppsaVarCLSIDs, ppsaVarProgIDs, ppsaVarDescriptions) {
         bstrIID := bstrIID is String ? BSTR.Alloc(bstrIID).Value : bstrIID

@@ -78,9 +78,9 @@ class IXpsOMPackage extends IUnknown{
     static VTableNames => ["GetDocumentSequence", "SetDocumentSequence", "GetCoreProperties", "SetCoreProperties", "GetDiscardControlPartName", "SetDiscardControlPartName", "GetThumbnailResource", "SetThumbnailResource", "WriteToFile", "WriteToStream"]
 
     /**
-     * 
-     * @returns {IXpsOMDocumentSequence} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getdocumentsequence
+     * Gets a pointer to the IXpsOMDocumentSequence interface that contains the document sequence of the XPS package.
+     * @returns {IXpsOMDocumentSequence} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence">IXpsOMDocumentSequence</a> interface that contains the document sequence of the  XPS package. If an <b>IXpsOMDocumentSequence</b> interface has not been set, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getdocumentsequence
      */
     GetDocumentSequence() {
         result := ComCall(3, this, "ptr*", &documentSequence := 0, "HRESULT")
@@ -88,10 +88,50 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
+     * Sets the IXpsOMDocumentSequence interface of the XPS package.
+     * @param {IXpsOMDocumentSequence} documentSequence The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence">IXpsOMDocumentSequence</a> interface pointer to be assigned to the package. This parameter must not be <b>NULL</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IXpsOMDocumentSequence} documentSequence 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setdocumentsequence
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>documentSequence</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>documentSequence</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setdocumentsequence
      */
     SetDocumentSequence(documentSequence) {
         result := ComCall(4, this, "ptr", documentSequence, "HRESULT")
@@ -99,9 +139,9 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsOMCoreProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getcoreproperties
+     * Gets a pointer to the IXpsOMCoreProperties interface of the XPS package.
+     * @returns {IXpsOMCoreProperties} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties">IXpsOMCoreProperties</a> interface of the XPS package. If an <b>IXpsOMCoreProperties</b> interface has not been set, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getcoreproperties
      */
     GetCoreProperties() {
         result := ComCall(5, this, "ptr*", &coreProperties := 0, "HRESULT")
@@ -109,10 +149,40 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
+     * Sets the IXpsOMCoreProperties interface of the XPS package.
+     * @param {IXpsOMCoreProperties} coreProperties The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties">IXpsOMCoreProperties</a> interface pointer to be assigned to the package.
+     *           A <b>NULL</b> pointer releases any previously assigned core properties interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IXpsOMCoreProperties} coreProperties 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setcoreproperties
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>coreProperties</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setcoreproperties
      */
     SetCoreProperties(coreProperties) {
         result := ComCall(6, this, "ptr", coreProperties, "HRESULT")
@@ -120,9 +190,9 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getdiscardcontrolpartname
+     * Gets the name of the discard control part in the XPS package.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part in the XPS package. If a discard control part has not been set, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getdiscardcontrolpartname
      */
     GetDiscardControlPartName() {
         result := ComCall(7, this, "ptr*", &discardControlPartUri := 0, "HRESULT")
@@ -130,10 +200,10 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IOpcPartUri} discardControlPartUri 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setdiscardcontrolpartname
+     * Sets the name of the discard control part in the XPS package.
+     * @param {IOpcPartUri} discardControlPartUri The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part to be assigned to the XPS package. A <b>NULL</b> pointer releases any previously assigned discard control part.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setdiscardcontrolpartname
      */
     SetDiscardControlPartName(discardControlPartUri) {
         result := ComCall(8, this, "ptr", discardControlPartUri, "HRESULT")
@@ -141,9 +211,9 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsOMImageResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getthumbnailresource
+     * Gets a pointer to the IXpsOMImageResource interface of the thumbnail resource that is associated with the XPS package.
+     * @returns {IXpsOMImageResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface of the thumbnail resource that is associated with the XPS package. If the package does not have a thumbnail resource, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getthumbnailresource
      */
     GetThumbnailResource() {
         result := ComCall(9, this, "ptr*", &imageResource := 0, "HRESULT")
@@ -151,10 +221,50 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
+     * Sets the thumbnail image of the XPS document.
+     * @param {IXpsOMImageResource} imageResource The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image that will be assigned to the package. A <b>NULL</b> pointer releases any previously assigned thumbnail image resources.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IXpsOMImageResource} imageResource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setthumbnailresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_INVALID_THUMBNAIL_IMAGE_TYPE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The image in  <i>imageResource</i> is not a supported image type.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>imageResource</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-setthumbnailresource
      */
     SetThumbnailResource(imageResource) {
         result := ComCall(10, this, "ptr", imageResource, "HRESULT")
@@ -162,13 +272,83 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
+     * Writes the XPS package to a specified file.
+     * @param {PWSTR} fileName The name of the file to be created. This parameter must not be <b>NULL</b>.
+     * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure, which contains two distinct but related data members:
      * 
-     * @param {PWSTR} fileName 
-     * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes 
-     * @param {Integer} flagsAndAttributes 
-     * @param {BOOL} optimizeMarkupSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-writetofile
+     * <ul>
+     * <li><b>lpSecurityDescriptor</b>: an optional security descriptor</li>
+     * <li><b>bInheritHandle</b>:  a Boolean value that determines whether the returned handle can be inherited by child processes</li>
+     * </ul>
+     * If  <b>lpSecurityDescriptor</b> is <b>NULL</b>, the file or device that is associated with the returned handle will be assigned a default security descriptor. 
+     * 
+     * For more information about the <i>securityAttributes</i> parameter, refer to <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
+     * @param {Integer} flagsAndAttributes Specifies the settings and attributes of the file to be  created. For most files, a value of <b>FILE_ATTRIBUTE_NORMAL</b> can be used. 
+     * 
+     * 
+     * For more information about the <i>flagsAndAttributes</i> parameter, refer to <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
+     * @param {BOOL} optimizeMarkupSize A Boolean value that  indicates whether the document markup is to be optimized for size when it is written to the file.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TRUE"></a><a id="true"></a><dl>
+     * <dt><b><b>TRUE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The package writer will attempt to optimize the markup for minimum size.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FALSE"></a><a id="false"></a><dl>
+     * <dt><b><b>FALSE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The package writer will not attempt any optimization.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>fileName</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method calls the <a href="/previous-versions/windows/desktop/opc/packaging">Packaging</a> API. For information about the Packaging API return values, see <a href="/previous-versions/windows/desktop/opc/packaging-errors">Packaging Errors</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-writetofile
      */
     WriteToFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -178,11 +358,70 @@ class IXpsOMPackage extends IUnknown{
     }
 
     /**
+     * Writes the XPS package to a specified stream.
+     * @param {ISequentialStream} stream The stream that receives the serialized contents of the package. This parameter must not be <b>NULL</b>.
+     * @param {BOOL} optimizeMarkupSize A Boolean value that  indicates whether the document markup is to be optimized for size when it is written to the stream.
      * 
-     * @param {ISequentialStream} stream 
-     * @param {BOOL} optimizeMarkupSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-writetostream
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TRUE"></a><a id="true"></a><dl>
+     * <dt><b><b>TRUE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The package writer will attempt to optimize the markup for minimum size.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FALSE"></a><a id="false"></a><dl>
+     * <dt><b><b>FALSE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The package writer will not attempt any optimization.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>stream</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method calls the <a href="/previous-versions/windows/desktop/opc/packaging">Packaging</a> API. For information about the Packaging API return values, see <a href="/previous-versions/windows/desktop/opc/packaging-errors">Packaging Errors</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-writetostream
      */
     WriteToStream(stream, optimizeMarkupSize) {
         result := ComCall(12, this, "ptr", stream, "int", optimizeMarkupSize, "HRESULT")

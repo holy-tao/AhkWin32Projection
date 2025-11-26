@@ -33,10 +33,10 @@ class IContextProperties extends IUnknown{
     static VTableNames => ["Count", "GetProperty", "EnumNames", "SetProperty", "RemoveProperty"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-count
+     * Retrieves the number of context object properties.
+     * @param {Pointer<Integer>} plCount The number of context object properties.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextproperties-count
      */
     Count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -46,11 +46,26 @@ class IContextProperties extends IUnknown{
     }
 
     /**
+     * Retrieves a context object property.
+     * @param {BSTR} name The name of the context object property to be retrieved.
      * 
-     * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-getproperty
+     * The following are IIS intrinsic properties.
+     * 
+     * <ul>
+     * <li>Application</li>
+     * <li>Request</li>
+     * <li>Response</li>
+     * <li>Server</li>
+     * <li>Session</li>
+     * </ul>
+     * The following is the COMTI instrinsic property:
+     * 
+     * <ul>
+     * <li>host-security-callback.cedar.microsoft.com</li>
+     * </ul>
+     * @param {Pointer<VARIANT>} pProperty A pointer to the property.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextproperties-getproperty
      */
     GetProperty(name, pProperty) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -60,9 +75,9 @@ class IContextProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumNames} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-enumnames
+     * Retrieves a reference to an enumerator for the context object properties.
+     * @returns {IEnumNames} A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-ienumnames">IEnumNames</a> interface on a new enumerator object that you can use to iterate through all the context object properties.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextproperties-enumnames
      */
     EnumNames() {
         result := ComCall(5, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -70,11 +85,11 @@ class IContextProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @param {VARIANT} property 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-setproperty
+     * Sets a context object property.
+     * @param {BSTR} name The name of the context object property to be set. See <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icontextproperties-getproperty">GetProperty</a> for a list of valid property names.
+     * @param {VARIANT} property The context object property value.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextproperties-setproperty
      */
     SetProperty(name, property) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -84,10 +99,10 @@ class IContextProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-removeproperty
+     * Removes a context object property.
+     * @param {BSTR} name The name of the context object property to be removed. See <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icontextproperties-getproperty">GetProperty</a> for a list of valid property names.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextproperties-removeproperty
      */
     RemoveProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name

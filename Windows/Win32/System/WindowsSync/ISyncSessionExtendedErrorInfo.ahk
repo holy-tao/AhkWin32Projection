@@ -32,9 +32,9 @@ class ISyncSessionExtendedErrorInfo extends IUnknown{
     static VTableNames => ["GetSyncProviderWithError"]
 
     /**
-     * 
-     * @returns {ISyncProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionextendederrorinfo-getsyncproviderwitherror
+     * Gets the ISyncProvider interface of the provider that caused synchronization to fail.
+     * @returns {ISyncProvider} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncprovider">ISyncProvider</a> interface of the provider that caused synchronization to fail.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionextendederrorinfo-getsyncproviderwitherror
      */
     GetSyncProviderWithError() {
         result := ComCall(3, this, "ptr*", &ppProviderWithError := 0, "HRESULT")

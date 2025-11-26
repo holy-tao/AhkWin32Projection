@@ -93,9 +93,15 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets the address and the decimal port number of the proxy server.
+     * @remarks
+     * 
+     * The value of the <b>Address</b> property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_autodetect">AutoDetect</a> property is set to <b>VARIANT_TRUE</b>.
+     * When <b>Address</b> is a null reference (for example, if you specified Nothing in Visual Basic), all the requests bypass the proxy. The requests connect directly to the destination host.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_address
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-get_address
      */
     get_Address() {
         retval := BSTR()
@@ -104,10 +110,16 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets the address and the decimal port number of the proxy server.
+     * @remarks
+     * 
+     * The value of the <b>Address</b> property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_autodetect">AutoDetect</a> property is set to <b>VARIANT_TRUE</b>.
+     * When <b>Address</b> is a null reference (for example, if you specified Nothing in Visual Basic), all the requests bypass the proxy. The requests connect directly to the destination host.
+     * 
      * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_address
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-put_address
      */
     put_Address(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -117,9 +129,14 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets a collection of addresses that do not use the proxy server.
+     * @remarks
+     * 
+     * The value of the <b>BypassList</b> property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_autodetect">AutoDetect</a> property is set to <b>VARIANT_TRUE</b>.
+     * 
      * 
      * @returns {IStringCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_bypasslist
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-get_bypasslist
      */
     get_BypassList() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
@@ -127,10 +144,15 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets a collection of addresses that do not use the proxy server.
+     * @remarks
+     * 
+     * The value of the <b>BypassList</b> property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_autodetect">AutoDetect</a> property is set to <b>VARIANT_TRUE</b>.
+     * 
      * 
      * @param {IStringCollection} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_bypasslist
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-put_bypasslist
      */
     put_BypassList(value) {
         result := ComCall(10, this, "ptr", value, "HRESULT")
@@ -138,9 +160,14 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether local addresses bypass the proxy server.
+     * @remarks
+     * 
+     * The value of the <b>BypassProxyOnLocal</b> property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_autodetect">AutoDetect</a> property is set to <b>VARIANT_TRUE</b>.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_bypassproxyonlocal
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-get_bypassproxyonlocal
      */
     get_BypassProxyOnLocal() {
         result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
@@ -148,10 +175,15 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether local addresses bypass the proxy server.
+     * @remarks
+     * 
+     * The value of the <b>BypassProxyOnLocal</b> property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_autodetect">AutoDetect</a> property is set to <b>VARIANT_TRUE</b>.
+     * 
      * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_bypassproxyonlocal
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-put_bypassproxyonlocal
      */
     put_BypassProxyOnLocal(value) {
         result := ComCall(12, this, "short", value, "HRESULT")
@@ -159,9 +191,9 @@ class IWebProxy extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the WebProxy object is read-only.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_readonly
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-get_readonly
      */
     get_ReadOnly() {
         result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
@@ -169,9 +201,9 @@ class IWebProxy extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets the user name to submit to the proxy server for authentication.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_username
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-get_username
      */
     get_UserName() {
         retval := BSTR()
@@ -180,10 +212,10 @@ class IWebProxy extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets the user name to submit to the proxy server for authentication.
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_username
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-put_username
      */
     put_UserName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -193,10 +225,10 @@ class IWebProxy extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-setpassword
+     * Sets the password to submit to the proxy server for authentication.
+     * @param {BSTR} value The password to submit to the proxy server for authentication.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-setpassword
      */
     SetPassword(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -206,11 +238,11 @@ class IWebProxy extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IUnknown} parentWindow 
-     * @param {BSTR} title 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-promptforcredentials
+     * Prompts the user for the password to use for proxy authentication.
+     * @param {IUnknown} parentWindow The parent window of the dialog box in which the user enters the credentials.
+     * @param {BSTR} title The title to use for the dialog box in which the user enters the credentials.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-promptforcredentials
      */
     PromptForCredentials(parentWindow, title) {
         title := title is String ? BSTR.Alloc(title).Value : title
@@ -220,11 +252,11 @@ class IWebProxy extends IDispatch{
     }
 
     /**
-     * 
-     * @param {HWND} parentWindow 
-     * @param {BSTR} title 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-promptforcredentialsfromhwnd
+     * Prompts the user for a password to use for proxy authentication using the hWnd property of the parent window.
+     * @param {HWND} parentWindow The parent window of the dialog box in which the user enters the credentials.
+     * @param {BSTR} title The title to use for the dialog box in which the user enters the credentials.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-promptforcredentialsfromhwnd
      */
     PromptForCredentialsFromHwnd(parentWindow, title) {
         parentWindow := parentWindow is Win32Handle ? NumGet(parentWindow, "ptr") : parentWindow
@@ -235,9 +267,14 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether IWebProxy automatically detects proxy settings.
+     * @remarks
+     * 
+     * The values of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_address">Address</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_bypasslist">BypassList</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_bypassproxyonlocal">BypassProxyOnLocal</a> properties are ignored if the value of the <b>AutoDetect</b> property is set to <b>VARIANT_TRUE</b>.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_autodetect
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-get_autodetect
      */
     get_AutoDetect() {
         result := ComCall(19, this, "short*", &retval := 0, "HRESULT")
@@ -245,10 +282,15 @@ class IWebProxy extends IDispatch{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether IWebProxy automatically detects proxy settings.
+     * @remarks
+     * 
+     * The values of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_address">Address</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_bypasslist">BypassList</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iwebproxy-get_bypassproxyonlocal">BypassProxyOnLocal</a> properties are ignored if the value of the <b>AutoDetect</b> property is set to <b>VARIANT_TRUE</b>.
+     * 
      * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-put_autodetect
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwebproxy-put_autodetect
      */
     put_AutoDetect(value) {
         result := ComCall(20, this, "short", value, "HRESULT")

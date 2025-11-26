@@ -42,10 +42,11 @@ class IPersistTuneXmlUtility extends IUnknown{
     static VTableNames => ["Deserialize"]
 
     /**
-     * 
-     * @param {VARIANT} varValue 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ipersisttunexmlutility-deserialize
+     * Constructs and returns an object that initializes itself by using the XML node passed as a VARIANT parameter to the method. The returned object exposes its IUnknown interface so that other objects can query it.
+     * @param {VARIANT} varValue XML node used to construct and initialize the object. This parameter can be either a <b>BSTR</b> object or an <b>IXMLDOMNode</b> object.
+     * @returns {IUnknown} Pointer to the <b>IUnknown</b> interface of the object being deserialized.
+     *           This method allocates memory to hold the deserialized object and returns the pointer in this parameter. The caller is responsible for freeing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ipersisttunexmlutility-deserialize
      */
     Deserialize(varValue) {
         result := ComCall(3, this, "ptr", varValue, "ptr*", &ppObject := 0, "HRESULT")

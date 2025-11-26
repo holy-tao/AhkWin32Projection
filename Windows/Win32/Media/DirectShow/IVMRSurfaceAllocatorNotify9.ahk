@@ -39,11 +39,29 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
     static VTableNames => ["AdviseSurfaceAllocator", "SetD3DDevice", "ChangeD3DDevice", "AllocateSurfaceHelper", "NotifyEvent"]
 
     /**
+     * The AdviseSurfaceAllocator method is called by an application to instruct the VMR-9 to use a custom allocator-presenter.
+     * @param {Pointer} dwUserID Application-defined value that identifies this instance of the VMR-9.
+     * @param {IVMRSurfaceAllocator9} lpIVRMSurfaceAllocator Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/nn-vmr9-ivmrsurfaceallocator9">IVMRSurfaceAllocator9</a> interface on the custom surface allocator object.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer} dwUserID 
-     * @param {IVMRSurfaceAllocator9} lpIVRMSurfaceAllocator 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator
      */
     AdviseSurfaceAllocator(dwUserID, lpIVRMSurfaceAllocator) {
         result := ComCall(3, this, "ptr", dwUserID, "ptr", lpIVRMSurfaceAllocator, "HRESULT")
@@ -51,11 +69,29 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
     }
 
     /**
+     * The SetD3DDevice method sets the Direct3D device.
+     * @param {IDirect3DDevice9} lpD3DDevice Pointer to the <b>IDirect3DDevice9</b> interface of the device.
+     * @param {HMONITOR} hMonitor Handle to a monitor.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {IDirect3DDevice9} lpD3DDevice 
-     * @param {HMONITOR} hMonitor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-setd3ddevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-setd3ddevice
      */
     SetD3DDevice(lpD3DDevice, hMonitor) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
@@ -65,11 +101,29 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
     }
 
     /**
+     * The ChangeD3DDevice method notifies the VMR that the Direct3D device has changed.
+     * @param {IDirect3DDevice9} lpD3DDevice Pointer to the <b>IDirect3DDevice9</b> interface of the new device.
+     * @param {HMONITOR} hMonitor Handle to the monitor associated with the new device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {IDirect3DDevice9} lpD3DDevice 
-     * @param {HMONITOR} hMonitor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-changed3ddevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-changed3ddevice
      */
     ChangeD3DDevice(lpD3DDevice, hMonitor) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
@@ -79,11 +133,11 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<VMR9AllocationInfo>} lpAllocInfo 
-     * @param {Pointer<Integer>} lpNumBuffers 
-     * @returns {IDirect3DSurface9} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-allocatesurfacehelper
+     * The AllocateSurfaceHelper method allocates a Direct3D surface based on application-specified parameters.
+     * @param {Pointer<VMR9AllocationInfo>} lpAllocInfo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9allocationinfo">VMR9AllocationInfo</a> structure that describes the surfaces to create.
+     * @param {Pointer<Integer>} lpNumBuffers On input, this parameter specifies the number of surfaces to create. On output, this parameter contains the number of surfaces that the method created.
+     * @returns {IDirect3DSurface9} Address of an array of <b>IDirect3DSurface9</b> interface pointers. The size of the array must equal the value in <i>lpNumBuffers</i>. The method fills the array with valid <b>IDirect3DSurface9</b> pointers for each Direct3D surface that it creates. The caller must release the interface pointers. (Do not put any valid pointers into the array before you call this method, because the method will overwrite them, causing a memory leak.)
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-allocatesurfacehelper
      */
     AllocateSurfaceHelper(lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
@@ -93,12 +147,30 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
     }
 
     /**
+     * The NotifyEvent method is called by the allocator-presenter to inform the VMR of any significant DirectShow events that it (the allocator presenter) generates during the allocation or presentation processes.
+     * @param {Integer} EventCode Specifies the DirectShow event code.
+     * @param {Pointer} Param1 Specifies the first event parameter. The meaning depends on the event code. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/event-notification-codes">Event Notification Codes</a>.
+     * @param {Pointer} Param2 Specifies the second event parameter. The meaning depends on the event code.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} EventCode 
-     * @param {Pointer} Param1 
-     * @param {Pointer} Param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-notifyevent
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-notifyevent
      */
     NotifyEvent(EventCode, Param1, Param2) {
         result := ComCall(7, this, "int", EventCode, "ptr", Param1, "ptr", Param2, "HRESULT")

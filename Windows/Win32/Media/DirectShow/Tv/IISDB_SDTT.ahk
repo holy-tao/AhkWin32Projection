@@ -34,21 +34,12 @@ class IISDB_SDTT extends IUnknown{
     static VTableNames => ["Initialize", "GetVersionNumber", "GetTableIdExt", "GetTransportStreamId", "GetOriginalNetworkId", "GetServiceId", "GetCountOfRecords", "GetRecordGroup", "GetRecordTargetVersion", "GetRecordNewVersion", "GetRecordDownloadLevel", "GetRecordVersionIndicator", "GetRecordScheduleTimeShiftInformation", "GetRecordCountOfSchedules", "GetRecordStartTimeByIndex", "GetRecordDurationByIndex", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "GetVersionHash"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {ISectionList} pSectionList 
-     * @param {IMpeg2Data} pMPEGData 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the object by using captured table section data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {ISectionList} pSectionList Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-isectionlist">ISectionList</a> interface
+     *   of the object that contains the section data.
+     * @param {IMpeg2Data} pMPEGData Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-impeg2data">IMpeg2Data</a> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg-2-sections-and-tables-filter">MPEG-2 Sections and Tables</a> filter.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-initialize
      */
     Initialize(pSectionList, pMPEGData) {
         result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
@@ -56,9 +47,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getversionnumber
+     * Gets the version number for an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @returns {Integer} Receives the version number.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -66,9 +57,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-gettableidext
+     * Gets the table_id_extension field value from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT). This field value identifies a specific instance of an SDTT.
+     * @returns {Integer} Receives the table_id_extension field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-gettableidext
      */
     GetTableIdExt() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -76,9 +67,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-gettransportstreamid
+     * Returns the transport stream identifier (TSID) for an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @returns {Integer} Receives the transport_stream_id field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-gettransportstreamid
      */
     GetTransportStreamId() {
         result := ComCall(6, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -86,9 +77,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getoriginalnetworkid
+     * Gets an identifier that identifies the broadcaster that originated the MPEG-2 transport stream from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @returns {Integer} Receives the original network ID.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getoriginalnetworkid
      */
     GetOriginalNetworkId() {
         result := ComCall(7, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -96,9 +87,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getserviceid
+     * Receives the service_id field that uniquely identifies a service from an Integrated Services Digital Broadcasting System (ISDB) software download trigger table (SDTT).
+     * @returns {Integer} Receives the service_id value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getserviceid
      */
     GetServiceId() {
         result := ComCall(8, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -106,9 +97,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords
+     * Gets the number of records in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @returns {Integer} Receives the number of records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(9, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -116,10 +107,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordgroup
+     * Receives the recording download level from a record in an Integrated services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the recording download level.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordgroup
      */
     GetRecordGroup(dwRecordIndex) {
         result := ComCall(10, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -127,10 +119,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordtargetversion
+     * Receives the target version from a record in an Integrated Services Digital Broadcasting (ISDB) Software Download Trigger Table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a> method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the target version.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordtargetversion
      */
     GetRecordTargetVersion(dwRecordIndex) {
         result := ComCall(11, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
@@ -138,10 +131,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordnewversion
+     * Returns a new version_number field value from a subtable within an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the new version_number field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordnewversion
      */
     GetRecordNewVersion(dwRecordIndex) {
         result := ComCall(12, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
@@ -149,10 +143,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddownloadlevel
+     * Gets the download level from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the download level.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddownloadlevel
      */
     GetRecordDownloadLevel(dwRecordIndex) {
         result := ComCall(13, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -160,10 +155,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordversionindicator
+     * Receives the version indicator from a record in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a> method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the version indicator.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordversionindicator
      */
     GetRecordVersionIndicator(dwRecordIndex) {
         result := ComCall(14, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -171,10 +167,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordscheduletimeshiftinformation
+     * Receives event time shift information from a schedule record in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the event time shift data.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordscheduletimeshiftinformation
      */
     GetRecordScheduleTimeShiftInformation(dwRecordIndex) {
         result := ComCall(15, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -182,10 +179,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofschedules
+     * Returns the number of schedules from a record in an Information for Digital Broadcasting System (IDBS) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a> method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the number of schedules.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofschedules
      */
     GetRecordCountOfSchedules(dwRecordIndex) {
         result := ComCall(16, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
@@ -193,11 +191,12 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @param {Integer} dwIndex 
-     * @returns {MPEG_DATE_AND_TIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordstarttimebyindex
+     * Gets an event start time from a schedule record in in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @param {Integer} dwIndex Index to the schedules for the selected content.
+     * @returns {MPEG_DATE_AND_TIME} Receives the event start time.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordstarttimebyindex
      */
     GetRecordStartTimeByIndex(dwRecordIndex, dwIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
@@ -206,11 +205,14 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @param {Integer} dwIndex 
-     * @returns {MPEG_TIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddurationbyindex
+     * Receives the event duration from a schedule record in an Integrated Services Digital Broadcasting (ISDB) Software Download Trigger Table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofdescriptors">IISDB_SDTT::GetRecordCountOfDescriptors</a> method to get the number
+     *   of descriptors for a particular record.
+     * @returns {MPEG_TIME} Receives the record duration.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddurationbyindex
      */
     GetRecordDurationByIndex(dwRecordIndex, dwIndex) {
         pmdVal := MPEG_TIME()
@@ -219,10 +221,11 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofdescriptors
+     * Returns the number of descriptors for a record in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number,
+     *       indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a>method to get the number of records in the SDTT.
+     * @returns {Integer} Receives the number of descriptors.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
         result := ComCall(19, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
@@ -230,11 +233,15 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @param {Integer} dwIndex 
-     * @returns {IGenericDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbyindex
+     * Returns a descriptor for a specified record in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a> method to get the number
+     *   of records in the SDTT.
+     * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofdescriptors">IISDB_SDTT::GetRecordCountOfDescriptors</a> method to get the number
+     *   of descriptors for a particular record.
+     * @returns {IGenericDescriptor} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface for the descriptor being retrieved. The caller is responsible for freeing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
         result := ComCall(20, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
@@ -242,12 +249,20 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @param {Integer} bTag 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {IGenericDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbytag
+     * Searches a record in an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords">IISDB_SDTT::GetCountOfRecords</a> method to get the number of records in the SDTT.
+     * @param {Integer} bTag Specifies the descriptor tag for which to search.
+     * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position
+     *   in the descriptor list. This parameter is optional.
+     *   If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the
+     *   first descriptor in the list. Otherwise, the search starts from
+     *   the position given in <i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i>parameter contains the position of the next matching descriptor,
+     *   if any. You can use this parameter to iterate through the descriptor list,
+     *   looking for every instance of a particular descriptor tag.
+     * @returns {IGenericDescriptor} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a>interface pointer. Use this interface to retrieve the information
+     *   in the descriptor. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
@@ -257,9 +272,9 @@ class IISDB_SDTT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getversionhash
+     * Returns a hash value for this instance of an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT).
+     * @returns {Integer} Receives the hash value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getversionhash
      */
     GetVersionHash() {
         result := ComCall(22, this, "uint*", &pdwVersionHash := 0, "HRESULT")

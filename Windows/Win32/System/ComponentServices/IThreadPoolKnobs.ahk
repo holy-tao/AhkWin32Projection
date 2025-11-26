@@ -31,10 +31,10 @@ class IThreadPoolKnobs extends IUnknown{
     static VTableNames => ["GetMaxThreads", "GetCurrentThreads", "SetMaxThreads", "GetDeleteDelay", "SetDeleteDelay", "GetMaxQueuedRequests", "GetCurrentQueuedRequests", "SetMaxQueuedRequests", "SetMinThreads", "SetQueueDepth"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} plcMaxThreads 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxthreads
+     * Retrieves the maximum number of threads that are allowed in the pool.
+     * @param {Pointer<Integer>} plcMaxThreads The maximum number of threads allowed in the pool. A zero value indicates that the pool can grow without limit.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxthreads
      */
     GetMaxThreads(plcMaxThreads) {
         plcMaxThreadsMarshal := plcMaxThreads is VarRef ? "int*" : "ptr"
@@ -44,10 +44,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} plcCurrentThreads 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentthreads
+     * Retrieves the number of threads currently in the pool.
+     * @param {Pointer<Integer>} plcCurrentThreads The number of threads currently in the pool.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentthreads
      */
     GetCurrentThreads(plcCurrentThreads) {
         plcCurrentThreadsMarshal := plcCurrentThreads is VarRef ? "int*" : "ptr"
@@ -57,10 +57,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lcMaxThreads 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setmaxthreads
+     * Sets the maximum number of threads to be allowed in the pool.
+     * @param {Integer} lcMaxThreads The maximum number of threads allowed in the pool. A zero value indicates that the pool can grow without limit.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-setmaxthreads
      */
     SetMaxThreads(lcMaxThreads) {
         result := ComCall(5, this, "int", lcMaxThreads, "HRESULT")
@@ -68,10 +68,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pmsecDeleteDelay 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getdeletedelay
+     * Retrieves the number of milliseconds a pooled thread can idle before being destroyed.
+     * @param {Pointer<Integer>} pmsecDeleteDelay The number of milliseconds a pooled thread can idle before being destroyed. A zero value indicates that threads are never automatically deleted.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-getdeletedelay
      */
     GetDeleteDelay(pmsecDeleteDelay) {
         pmsecDeleteDelayMarshal := pmsecDeleteDelay is VarRef ? "int*" : "ptr"
@@ -81,10 +81,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} msecDeleteDelay 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setdeletedelay
+     * Sets the number of milliseconds a pooled thread can idle before being destroyed.
+     * @param {Integer} msecDeleteDelay The number of milliseconds a pooled thread can idle before being destroyed. A zero value indicates that threads are never automatically deleted.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-setdeletedelay
      */
     SetDeleteDelay(msecDeleteDelay) {
         result := ComCall(7, this, "int", msecDeleteDelay, "HRESULT")
@@ -92,10 +92,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} plcMaxQueuedRequests 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxqueuedrequests
+     * Retrieves the maximum number of asynchronous execution requests that can be simultaneously queued.
+     * @param {Pointer<Integer>} plcMaxQueuedRequests The maximum number of asynchronous execution requests that can be simultaneously queued. A zero value indicates that the queue can grow without limit.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxqueuedrequests
      */
     GetMaxQueuedRequests(plcMaxQueuedRequests) {
         plcMaxQueuedRequestsMarshal := plcMaxQueuedRequests is VarRef ? "int*" : "ptr"
@@ -105,10 +105,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} plcCurrentQueuedRequests 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentqueuedrequests
+     * Retrieves the number of asynchronous execution requests that are currently queued.
+     * @param {Pointer<Integer>} plcCurrentQueuedRequests The number of asynchronous execution requests currently queued.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentqueuedrequests
      */
     GetCurrentQueuedRequests(plcCurrentQueuedRequests) {
         plcCurrentQueuedRequestsMarshal := plcCurrentQueuedRequests is VarRef ? "int*" : "ptr"
@@ -118,10 +118,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lcMaxQueuedRequests 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setmaxqueuedrequests
+     * Sets the maximum number of asynchronous execution requests that can be simultaneously queued.
+     * @param {Integer} lcMaxQueuedRequests The maximum number of asynchronous execution requests that can be simultaneously queued. A zero value indicates that the queue can grow without limit.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-setmaxqueuedrequests
      */
     SetMaxQueuedRequests(lcMaxQueuedRequests) {
         result := ComCall(10, this, "int", lcMaxQueuedRequests, "HRESULT")
@@ -129,10 +129,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lcMinThreads 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setminthreads
+     * Sets the minimum number of threads to be maintained in the pool.
+     * @param {Integer} lcMinThreads The minimum number of threads to be maintained in the pool.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-setminthreads
      */
     SetMinThreads(lcMinThreads) {
         result := ComCall(11, this, "int", lcMinThreads, "HRESULT")
@@ -140,10 +140,10 @@ class IThreadPoolKnobs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lcQueueDepth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setqueuedepth
+     * Sets the threshold number of execution requests above which a new thread is added to the pool.
+     * @param {Integer} lcQueueDepth The threshold number of execution requests above which a new thread is added to the pool.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ithreadpoolknobs-setqueuedepth
      */
     SetQueueDepth(lcQueueDepth) {
         result := ComCall(12, this, "int", lcQueueDepth, "HRESULT")

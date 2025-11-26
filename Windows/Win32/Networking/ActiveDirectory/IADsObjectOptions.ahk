@@ -32,10 +32,10 @@ class IADsObjectOptions extends IDispatch{
     static VTableNames => ["GetOption", "SetOption"]
 
     /**
-     * 
-     * @param {Integer} lnOption 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsobjectoptions-getoption
+     * Gets a provider-specific option for a directory object.
+     * @param {Integer} lnOption Indicates the provider-specific option to get. This parameter can be any value in the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_option_enum">ADS_OPTION_ENUM</a> enumeration.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> variable that receives the current value for the option specified in the <i>lnOption</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsobjectoptions-getoption
      */
     GetOption(lnOption) {
         pvValue := VARIANT()
@@ -44,11 +44,11 @@ class IADsObjectOptions extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} lnOption 
-     * @param {VARIANT} vValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsobjectoptions-setoption
+     * Sets a provider-specific option for manipulating a directory object.
+     * @param {Integer} lnOption Indicates the provider-specific option to set. This parameter can be any value in the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_option_enum">ADS_OPTION_ENUM</a> enumeration except <b>ADS_OPTION_SERVERNAME</b> or <b>ADS_OPTION_MUTUAL_AUTH_STATUS</b>.
+     * @param {VARIANT} vValue Specifies the value to set for the option specified in the <i>lnOption</i> parameter.
+     * @returns {HRESULT} The method supports the standard return values, including <b>S_OK</b> for a successful operation and <b>E_ADS_BAD_PARAMETER</b> when the user has supplied an invalid <i>pValue</i> parameter. For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsobjectoptions-setoption
      */
     SetOption(lnOption, vValue) {
         result := ComCall(8, this, "int", lnOption, "ptr", vValue, "HRESULT")

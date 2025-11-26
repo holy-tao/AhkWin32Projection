@@ -44,10 +44,10 @@ class IAMNetShowPreroll extends IDispatch{
     }
 
     /**
-     * 
+     * The put_Preroll method specifies whether the filter should start prerolling.
      * @param {VARIANT_BOOL} fPreroll 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowpreroll-put_preroll
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowpreroll-put_preroll
      */
     put_Preroll(fPreroll) {
         result := ComCall(7, this, "short", fPreroll, "HRESULT")
@@ -55,10 +55,10 @@ class IAMNetShowPreroll extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pfPreroll 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowpreroll-get_preroll
+     * The get_Preroll method queries whether the filter is currently prerolling.
+     * @param {Pointer<VARIANT_BOOL>} pfPreroll Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowpreroll-get_preroll
      */
     get_Preroll(pfPreroll) {
         pfPrerollMarshal := pfPreroll is VarRef ? "short*" : "ptr"

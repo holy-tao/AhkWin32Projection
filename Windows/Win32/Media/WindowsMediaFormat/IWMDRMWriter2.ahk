@@ -31,12 +31,30 @@ class IWMDRMWriter2 extends IWMDRMWriter{
     static VTableNames => ["SetWMDRMNetEncryption"]
 
     /**
+     * The SetWMDRMNetEncryption method configures the writer to receive input samples encoded with Windows Media DRM 10 for Network Devices.
+     * @param {BOOL} fSamplesEncrypted Flag that specifies whether the samples sent to the writer will be encoded for Windows Media DRM 10 for Network Devices protocol.
+     * @param {Pointer<Integer>} pbKeyID Address of the key identification in memory.
+     * @param {Integer} cbKeyID The size of the key identification in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} fSamplesEncrypted 
-     * @param {Pointer<Integer>} pbKeyID 
-     * @param {Integer} cbKeyID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter2-setwmdrmnetencryption
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmwriter2-setwmdrmnetencryption
      */
     SetWMDRMNetEncryption(fSamplesEncrypted, pbKeyID, cbKeyID) {
         pbKeyIDMarshal := pbKeyID is VarRef ? "char*" : "ptr"

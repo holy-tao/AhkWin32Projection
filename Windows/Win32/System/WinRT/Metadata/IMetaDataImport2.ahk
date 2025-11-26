@@ -31,14 +31,30 @@ class IMetaDataImport2 extends IMetaDataImport{
     static VTableNames => ["EnumGenericParams", "GetGenericParamProps", "GetMethodSpecProps", "EnumGenericParamConstraints", "GetGenericParamConstraintProps", "GetPEKind", "GetVersionString", "EnumMethodSpecs"]
 
     /**
+     * Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
+     * @param {Integer} tk The <b>TypeDef</b> or <b>MethodDef</b> token whose generic parameters are to be enumerated.
+     * @param {Pointer<Integer>} rGenericParams The array of generic parameters to enumerate.
+     * @param {Integer} cMax The requested maximum number of tokens to place in <i>rGenericParams</i>.
+     * @param {Pointer<Integer>} pcGenericParams The returned number of tokens placed in <i>rGenericParams</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumGenericParams</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td><i>phEnum</i> has no member elements. In this case, <i>pcGenericParams</i> is set to 0 (zero).
+     *  
      * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} tk 
-     * @param {Pointer<Integer>} rGenericParams 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcGenericParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparams
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparams
      */
     EnumGenericParams(phEnum, tk, rGenericParams, cMax, pcGenericParams) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -50,17 +66,17 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
-     * 
-     * @param {Integer} gp 
-     * @param {Pointer<Integer>} pulParamSeq 
-     * @param {Pointer<Integer>} pdwParamFlags 
-     * @param {Pointer<Integer>} ptOwner 
-     * @param {Pointer<Integer>} reserved 
-     * @param {PWSTR} wzname 
-     * @param {Integer} cchName 
-     * @param {Pointer<Integer>} pchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamprops
+     * Gets the metadata associated with the generic parameter represented by the specified token.
+     * @param {Integer} gp The token that represents the generic parameter for which to return metadata.
+     * @param {Pointer<Integer>} pulParamSeq The ordinal position of the Type parameter in the parent constructor or method.
+     * @param {Pointer<Integer>} pdwParamFlags A value of the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corgenericparamattr-enumeration">CorGenericParamAttr</a> enumeration that describes the Type for the generic parameter.
+     * @param {Pointer<Integer>} ptOwner A  <b>TypeDef</b> or <b>MethodDef</b> token that represents the owner of the parameter.
+     * @param {Pointer<Integer>} reserved Reserved for future extensibility.
+     * @param {PWSTR} wzname The name of the generic parameter.
+     * @param {Integer} cchName The size of the <i>wzName</i> buffer.
+     * @param {Pointer<Integer>} pchName The returned size of the name, in wide characters.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamprops
      */
     GetGenericParamProps(gp, pulParamSeq, pdwParamFlags, ptOwner, reserved, wzname, cchName, pchName) {
         wzname := wzname is String ? StrPtr(wzname) : wzname
@@ -76,13 +92,13 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
-     * 
-     * @param {Integer} mi 
-     * @param {Pointer<Integer>} tkParent 
-     * @param {Pointer<Pointer<Integer>>} ppvSigBlob 
-     * @param {Pointer<Integer>} pcbSigBlob 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getmethodspecprops
+     * Gets the metadata signature of the method referenced by the specified MethodSpec token.
+     * @param {Integer} mi A <b>MethodSpec</b> token that represents the instantiation of the method.
+     * @param {Pointer<Integer>} tkParent A pointer to the <b>MethodDef</b> or <b>MethodRef</b> token that represents the method definition.
+     * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata signature of the method.
+     * @param {Pointer<Integer>} pcbSigBlob The size, in bytes, of <i>ppvSigBlob</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getmethodspecprops
      */
     GetMethodSpecProps(mi, tkParent, ppvSigBlob, pcbSigBlob) {
         tkParentMarshal := tkParent is VarRef ? "uint*" : "ptr"
@@ -94,14 +110,30 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
+     * Gets an enumerator for an array of generic parameter constraints associated with the generic parameter represented by the specified token.
+     * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
+     * @param {Integer} tk A token that represents the generic parameter whose constraints are to be enumerated.
+     * @param {Pointer<Integer>} rGenericParamConstraints The array of generic parameter constraints to enumerate.
+     * @param {Integer} cMax The requested maximum number of tokens to place in <i>rGenericParamConstraints</i>.
+     * @param {Pointer<Integer>} pcGenericParamConstraints A pointer to the number of tokens placed in <i>rGenericParamConstraints</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumGenericParamConstraints</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td><i>phEnum</i> has no member elements. In this case, <i>pcGenericParameterConstraints</i> is set to 0 (zero).
+     *  
      * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} tk 
-     * @param {Pointer<Integer>} rGenericParamConstraints 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcGenericParamConstraints 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparamconstraints
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-enumgenericparamconstraints
      */
     EnumGenericParamConstraints(phEnum, tk, rGenericParamConstraints, cMax, pcGenericParamConstraints) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -113,12 +145,12 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
-     * 
-     * @param {Integer} gpc 
-     * @param {Pointer<Integer>} ptGenericParam 
-     * @param {Pointer<Integer>} ptkConstraintType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamconstraintprops
+     * Gets the metadata associated with the generic parameter constraint represented by the specified constraint token.
+     * @param {Integer} gpc The token to the generic parameter constraint for which to return the metadata.
+     * @param {Pointer<Integer>} ptGenericParam A pointer to the token that represents the generic parameter that is constrained.
+     * @param {Pointer<Integer>} ptkConstraintType A pointer to a <b>TypeDef</b>, <b>TypeRef</b>, or <b>TypeSpec</b> token that represents a constraint on ptGenericParam.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getgenericparamconstraintprops
      */
     GetGenericParamConstraintProps(gpc, ptGenericParam, ptkConstraintType) {
         ptGenericParamMarshal := ptGenericParam is VarRef ? "uint*" : "ptr"
@@ -129,11 +161,11 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwPEKind 
-     * @param {Pointer<Integer>} pdwMAchine 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getpekind
+     * Gets a value identifying the nature of the code in the portable executable (PE) file, typically a DLL or EXE file, that is defined in the current metadata scope.
+     * @param {Pointer<Integer>} pdwPEKind A pointer to a value of the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corpekind-enumeration">CorPEKind</a> enumeration that describes the PE file.
+     * @param {Pointer<Integer>} pdwMAchine A pointer to a value that identifies the architecture of the machine. See the next section for possible values.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getpekind
      */
     GetPEKind(pdwPEKind, pdwMAchine) {
         pdwPEKindMarshal := pdwPEKind is VarRef ? "uint*" : "ptr"
@@ -144,12 +176,12 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwzBuf 
-     * @param {Integer} ccBufSize 
-     * @param {Pointer<Integer>} pccBufSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-getversionstring
+     * Gets the version number of the runtime that was used to build the assembly.
+     * @param {PWSTR} pwzBuf An array to store the string that specifies the version.
+     * @param {Integer} ccBufSize The size, in wide characters, of the <i>pwzBuf</i> array.
+     * @param {Pointer<Integer>} pccBufSize The number of wide characters, including a null terminator, returned in the <i>pwzBuf</i> array.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-getversionstring
      */
     GetVersionString(pwzBuf, ccBufSize, pccBufSize) {
         pwzBuf := pwzBuf is String ? StrPtr(pwzBuf) : pwzBuf
@@ -161,14 +193,30 @@ class IMetaDataImport2 extends IMetaDataImport{
     }
 
     /**
+     * Gets an enumerator for an array of MethodSpec tokens associated with the specified MethodDef or MemberRef token.
+     * @param {Pointer<Pointer<Void>>} phEnum pointer to the enumerator for <i>rMethodSpecs</i>.
+     * @param {Integer} tk The <b>MemberRef</b> or <b>MethodDef</b> token that represents the method whose <b>MethodSpec</b> tokens are to be enumerated. If the value of <i>tk</i> is 0 (zero), all <b>MethodSpec</b> tokens in the scope will be enumerated.
+     * @param {Pointer<Integer>} rMethodSpecs The array of <b>MethodSpec</b> tokens to enumerate.
+     * @param {Integer} cMax The requested maximum number of tokens to place in <i>rMethodSpecs</i>.
+     * @param {Pointer<Integer>} pcMethodSpecs The returned number of tokens placed in <i>rMethodSpecs</i>.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>S_OK</b></td>
+     * <td><b>EnumMethodSpecs</b> returned successfully.</td>
+     * </tr>
+     * <tr>
+     * <td><b>S_FALSE</b></td>
+     * <td><i>phEnum</i> has no member elements. In this case, <i>pcMethodSpecs</i> is set to 0 (zero).
+     *  
      * 
-     * @param {Pointer<Pointer<Void>>} phEnum 
-     * @param {Integer} tk 
-     * @param {Pointer<Integer>} rMethodSpecs 
-     * @param {Integer} cMax 
-     * @param {Pointer<Integer>} pcMethodSpecs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport2-enummethodspecs
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport2-enummethodspecs
      */
     EnumMethodSpecs(phEnum, tk, rMethodSpecs, cMax, pcMethodSpecs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"

@@ -31,9 +31,9 @@ class IWPCProviderSupport extends IUnknown{
     static VTableNames => ["GetCurrent"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcprovidersupport-getcurrent
+     * Retrieves the GUID of the current provider.
+     * @returns {Guid} The GUID of the current provider.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcprovidersupport-getcurrent
      */
     GetCurrent() {
         pguidProvider := Guid()

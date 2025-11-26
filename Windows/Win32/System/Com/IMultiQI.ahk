@@ -31,11 +31,51 @@ class IMultiQI extends IUnknown{
     static VTableNames => ["QueryMultipleInterfaces"]
 
     /**
+     * Retrieves pointers to multiple supported interfaces on an object.
+     * @param {Integer} cMQIs The number of elements in the <i>pMQIs</i> array.
+     * @param {Pointer<MULTI_QI>} pMQIs An array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-multi_qi">MULTI_QI</a> structures. For more information, see Remarks.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} cMQIs 
-     * @param {Pointer<MULTI_QI>} pMQIs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imultiqi-querymultipleinterfaces
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method retrieved pointers to all requested interfaces.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method retrieved pointers to some, but not all, of the requested interfaces.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method retrieved pointers to none of the requested interfaces.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imultiqi-querymultipleinterfaces
      */
     QueryMultipleInterfaces(cMQIs, pMQIs) {
         result := ComCall(3, this, "uint", cMQIs, "ptr", pMQIs, "HRESULT")

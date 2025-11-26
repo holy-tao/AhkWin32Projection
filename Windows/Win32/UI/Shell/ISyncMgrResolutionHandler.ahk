@@ -31,9 +31,11 @@ class ISyncMgrResolutionHandler extends IUnknown{
     static VTableNames => ["QueryAbilities", "KeepOther", "KeepRecent", "RemoveFromSyncSet", "KeepItems"]
 
     /**
+     * Determines what options the conflict presenter will display.
+     * @returns {Integer} Type: <b>SYNCMGR_RESOLUTION_ABILITIES_FLAGS*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-queryabilities
+     * When this method returns, contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_abilities">SYNCMGR_RESOLUTION_ABILITIES</a> enumerated type.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrresolutionhandler-queryabilities
      */
     QueryAbilities() {
         result := ComCall(3, this, "uint*", &pdwAbilities := 0, "HRESULT")
@@ -41,10 +43,14 @@ class ISyncMgrResolutionHandler extends IUnknown{
     }
 
     /**
+     * Replaces the versions in conflict with a different Shell item that is usually a merged version of the originals.
+     * @param {IShellItem} psiOther Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiOther 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepother
+     * A pointer to the substitute <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a>*</b>
+     * 
+     * When this method returns, contains a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a> value.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepother
      */
     KeepOther(psiOther) {
         result := ComCall(4, this, "ptr", psiOther, "int*", &pFeedback := 0, "HRESULT")
@@ -52,9 +58,11 @@ class ISyncMgrResolutionHandler extends IUnknown{
     }
 
     /**
+     * Keeps the more recent copy.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keeprecent
+     * When this method returns, contains a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a> value.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keeprecent
      */
     KeepRecent() {
         result := ComCall(5, this, "int*", &pFeedback := 0, "HRESULT")
@@ -62,9 +70,11 @@ class ISyncMgrResolutionHandler extends IUnknown{
     }
 
     /**
+     * Deletes the conflict and removes the IShellItem from synchronization.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-removefromsyncset
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a> value.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrresolutionhandler-removefromsyncset
      */
     RemoveFromSyncSet() {
         result := ComCall(6, this, "int*", &pFeedback := 0, "HRESULT")
@@ -72,10 +82,14 @@ class ISyncMgrResolutionHandler extends IUnknown{
     }
 
     /**
+     * Keeps the Shell items that are passed in.
+     * @param {ISyncMgrConflictResolutionItems} pArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflictresolutionitems">ISyncMgrConflictResolutionItems</a>*</b>
      * 
-     * @param {ISyncMgrConflictResolutionItems} pArray 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepitems
+     * A pointer to an array of<a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflictresolutionitems">ISyncMgrConflictResolutionItems</a>. The array will contain more than one item if method <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-queryabilities">ISyncMgrResolutionHandler::QueryAbilities</a> returned SYNCMGR_RA_KEEP_MULTIPLE in parameter <i>pdwAbilities</i>.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a>*</b>
+     * 
+     * When this method returns, contains a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback">SYNCMGR_RESOLUTION_FEEDBACK</a> value.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepitems
      */
     KeepItems(pArray) {
         result := ComCall(7, this, "ptr", pArray, "int*", &pFeedback := 0, "HRESULT")

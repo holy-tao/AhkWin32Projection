@@ -41,11 +41,11 @@ class IAzRoleDefinition extends IAzTask{
     }
 
     /**
-     * 
+     * Retrieves a collection of IAzRoleAssignment objects that represent the role assignments associated with this IAzRoleDefinition object.
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT_BOOL} bRecursive 
      * @returns {IAzRoleAssignments} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroledefinition-roleassignments
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroledefinition-roleassignments
      */
     RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -55,10 +55,12 @@ class IAzRoleDefinition extends IAzTask{
     }
 
     /**
+     * Adds the specified IAzRoleDefinition object to this IAzRoleDefinition object.
+     * @param {BSTR} bstrRoleDefinition The name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> to add.
+     * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * @param {BSTR} bstrRoleDefinition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroledefinition-addroledefinition
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroledefinition-addroledefinition
      */
     AddRoleDefinition(bstrRoleDefinition) {
         bstrRoleDefinition := bstrRoleDefinition is String ? BSTR.Alloc(bstrRoleDefinition).Value : bstrRoleDefinition
@@ -68,10 +70,12 @@ class IAzRoleDefinition extends IAzTask{
     }
 
     /**
+     * Removes the IAzRoleDefinition object with the specified name from this IAzRoleDefinition object.
+     * @param {BSTR} bstrRoleDefinition The name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object to delete.
+     * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * @param {BSTR} bstrRoleDefinition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroledefinition-deleteroledefinition
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroledefinition-deleteroledefinition
      */
     DeleteRoleDefinition(bstrRoleDefinition) {
         bstrRoleDefinition := bstrRoleDefinition is String ? BSTR.Alloc(bstrRoleDefinition).Value : bstrRoleDefinition
@@ -81,9 +85,9 @@ class IAzRoleDefinition extends IAzTask{
     }
 
     /**
-     * 
+     * Retrieves a collection of the IAzRoleDefinition objects associated with this IAzRoleDefinition object.
      * @returns {IAzRoleDefinitions} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroledefinition-get_roledefinitions
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroledefinition-get_roledefinitions
      */
     get_RoleDefinitions() {
         result := ComCall(36, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")

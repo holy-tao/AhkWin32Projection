@@ -39,12 +39,14 @@ class IAzBizRuleInterfaces extends IDispatch{
     }
 
     /**
+     * Adds the specified interface to the list of IDispatch interfaces that can be called by business rule (BizRule) scripts.
+     * @param {BSTR} bstrInterfaceName A string that contains the name used by scripts to call the interface specified by the <i>varInterface</i> parameter.
+     * @param {Integer} lInterfaceFlag Flags sent to the <a href="https://docs.microsoft.com/scripting/winscript/reference/iactivescript-addnameditem">AddNamedItem</a> method of the <a href="https://docs.microsoft.com/scripting/winscript/reference/iactivescript">IActiveScript</a> interface. The <b>AddNamedItem</b> always behaves as if the <b>SCRIPTITEM_ISVISIBLE</b> flag is set, and the <b>SCRIPTITEM_ISPERSISTENT</b> flag is not set.
+     * @param {VARIANT} varInterface The ID of the interface to be added.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {BSTR} bstrInterfaceName 
-     * @param {Integer} lInterfaceFlag 
-     * @param {VARIANT} varInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-addinterface
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizruleinterfaces-addinterface
      */
     AddInterface(bstrInterfaceName, lInterfaceFlag, varInterface) {
         bstrInterfaceName := bstrInterfaceName is String ? BSTR.Alloc(bstrInterfaceName).Value : bstrInterfaceName
@@ -54,12 +56,14 @@ class IAzBizRuleInterfaces extends IDispatch{
     }
 
     /**
+     * Adds the specified interfaces to the list of IDispatch interfaces that can be called by business rule (BizRule) scripts.
+     * @param {VARIANT} varInterfaceNames A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that specifies the names that scripts use to call the interfaces specified by the <i>varInterfaces</i> array.
+     * @param {VARIANT} varInterfaceFlags A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that specifies flags sent to the <a href="https://docs.microsoft.com/scripting/winscript/reference/iactivescript-addnameditem">AddNamedItem</a> method of the <a href="https://docs.microsoft.com/scripting/winscript/reference/iactivescript">IActiveScript</a> interface. The <b>AddNamedItem</b> always behaves as if the <b>SCRIPTITEM_ISVISIBLE</b> flag is set, and the <b>SCRIPTITEM_ISPERSISTENT</b> flag is not set.
+     * @param {VARIANT} varInterfaces A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that specifies the IDs of the interfaces to be added.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {VARIANT} varInterfaceNames 
-     * @param {VARIANT} varInterfaceFlags 
-     * @param {VARIANT} varInterfaces 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-addinterfaces
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizruleinterfaces-addinterfaces
      */
     AddInterfaces(varInterfaceNames, varInterfaceFlags, varInterfaces) {
         result := ComCall(8, this, "ptr", varInterfaceNames, "ptr", varInterfaceFlags, "ptr", varInterfaces, "HRESULT")
@@ -67,12 +71,14 @@ class IAzBizRuleInterfaces extends IDispatch{
     }
 
     /**
+     * Gets the ID and flags of the interface that corresponds to the specified interface name.
+     * @param {BSTR} bstrInterfaceName A string that contains the interface name.
+     * @param {Pointer<Integer>} lInterfaceFlag A pointer to the flags associated with the interface name.
+     * @param {Pointer<VARIANT>} varInterface A pointer to the ID associated with the interface name.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {BSTR} bstrInterfaceName 
-     * @param {Pointer<Integer>} lInterfaceFlag 
-     * @param {Pointer<VARIANT>} varInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-getinterfacevalue
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizruleinterfaces-getinterfacevalue
      */
     GetInterfaceValue(bstrInterfaceName, lInterfaceFlag, varInterface) {
         bstrInterfaceName := bstrInterfaceName is String ? BSTR.Alloc(bstrInterfaceName).Value : bstrInterfaceName
@@ -84,10 +90,12 @@ class IAzBizRuleInterfaces extends IDispatch{
     }
 
     /**
+     * Removes the specified interface from the list of interfaces The number of interfaces in the list of interfaces that can be called by BizRule scripts.
+     * @param {BSTR} bstrInterfaceName The name of the interface to remove.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {BSTR} bstrInterfaceName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-remove
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizruleinterfaces-remove
      */
     Remove(bstrInterfaceName) {
         bstrInterfaceName := bstrInterfaceName is String ? BSTR.Alloc(bstrInterfaceName).Value : bstrInterfaceName
@@ -97,9 +105,9 @@ class IAzBizRuleInterfaces extends IDispatch{
     }
 
     /**
-     * 
+     * Removes all interfaces from the list of interfaces that can be called by business rule (BizRule) scripts.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-removeall
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizruleinterfaces-removeall
      */
     RemoveAll() {
         result := ComCall(11, this, "HRESULT")
@@ -107,9 +115,9 @@ class IAzBizRuleInterfaces extends IDispatch{
     }
 
     /**
-     * 
+     * Specifies the number of interfaces that can be called by business rule (BizRule) scripts.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizruleinterfaces-get_count
      */
     get_Count() {
         result := ComCall(12, this, "uint*", &plCount := 0, "HRESULT")

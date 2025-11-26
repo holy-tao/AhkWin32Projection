@@ -36,9 +36,9 @@ class IMbnRegistration extends IUnknown{
     static VTableNames => ["GetRegisterState", "GetRegisterMode", "GetProviderID", "GetProviderName", "GetRoamingText", "GetAvailableDataClasses", "GetCurrentDataClass", "GetRegistrationNetworkError", "GetPacketAttachNetworkError", "SetRegisterMode"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregisterstate
+     * Gets the registration state.
+     * @returns {Integer} A pointer an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_register_state">MBN_REGISTER_STATE</a> value that specifies to the current registration state of the device.  The value is meaningful only if the method returned <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getregisterstate
      */
     GetRegisterState() {
         result := ComCall(3, this, "int*", &registerState := 0, "HRESULT")
@@ -46,9 +46,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregistermode
+     * Gets the network registration mode of a Mobile Broadband device.
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_register_mode">MBN_REGISTER_MODE</a> value that specifies the current network registration mode of the device.  The value is meaningful only if the method returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getregistermode
      */
     GetRegisterMode() {
         result := ComCall(4, this, "int*", &registerMode := 0, "HRESULT")
@@ -56,9 +56,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getproviderid
+     * Gets the provider ID for the currently registered network.
+     * @returns {BSTR} Pointer to a string that contains the ID of the currently registered provider.  The maximum length is <b>MBN_PROVIDERID_LEN</b> characters.  The string is filled only when the method returns <b>S_OK</b> for success.  Upon success, the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getproviderid
      */
     GetProviderID() {
         providerID := BSTR()
@@ -67,9 +67,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getprovidername
+     * Gets the provider name for the currently registered network.
+     * @returns {BSTR} Pointer to a string that contains the name of the currently registered provider.  The maximum length of this string is <b>MBN_PROVIDERNAME_LEN</b> characters.  The string is filled only when the method returns <b>S_OK</b> for success.  Upon success, the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getprovidername
      */
     GetProviderName() {
         providerName := BSTR()
@@ -78,9 +78,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getroamingtext
+     * Gets the roaming text describing the roaming provider.
+     * @returns {BSTR} Pointer to a string that contains additional information about a network with which the device is roaming. The maximum length is <b>MBN_ROAMTEXT_LEN</b> characters.  The string is filled only when the method returns <b>S_OK</b> for success.  Upon success, the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getroamingtext
      */
     GetRoamingText() {
         roamingText := BSTR()
@@ -89,9 +89,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getavailabledataclasses
+     * Gets the available data classes in the current network.
+     * @returns {Integer} A pointer to a bitwise OR combination of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_data_class">MBN_DATA_CLASS</a> values.  This parameter is meaningful only if the function returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getavailabledataclasses
      */
     GetAvailableDataClasses() {
         result := ComCall(8, this, "uint*", &availableDataClasses := 0, "HRESULT")
@@ -99,9 +99,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getcurrentdataclass
+     * Gets the current data class in the current network.
+     * @returns {Integer} A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_data_class">MBN_DATA_CLASS</a> value.  This parameter is meaningful only if the function returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getcurrentdataclass
      */
     GetCurrentDataClass() {
         result := ComCall(9, this, "uint*", &currentDataClass := 0, "HRESULT")
@@ -109,9 +109,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregistrationnetworkerror
+     * Gets the network error from a registration operation.
+     * @returns {Integer} A pointer to an error code returned by the last failed network registration operation.  This is set to 0 if there is no error or if the error code is unknown.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getregistrationnetworkerror
      */
     GetRegistrationNetworkError() {
         result := ComCall(10, this, "uint*", &registrationNetworkError := 0, "HRESULT")
@@ -119,9 +119,9 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getpacketattachnetworkerror
+     * Gets the network error from a packet attach operation.
+     * @returns {Integer} A pointer to an error code returned by the last failed network packet attach operation.  This is set to 0 if there is no error or if the error code is unknown.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-getpacketattachnetworkerror
      */
     GetPacketAttachNetworkError() {
         result := ComCall(11, this, "uint*", &packetAttachNetworkError := 0, "HRESULT")
@@ -129,12 +129,12 @@ class IMbnRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} registerMode 
-     * @param {PWSTR} providerID 
-     * @param {Integer} dataClass 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-setregistermode
+     * Sets the registration mode for the device.
+     * @param {Integer} registerMode An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_register_mode">MBN_REGISTER_MODE</a> value that specifies the new registration mode.
+     * @param {PWSTR} providerID A string that specifies the provider ID of the network provider to which to register.  Must be <b>NULL</b> when <i>registerMode</i> is <b>MBN_REGISTER_MODE_AUTOMATIC</b>.
+     * @param {Integer} dataClass A bitwise combination of OR <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_data_class">MBN_DATA_CLASS</a> values that specify the preferred data access technologies for the connection.  The Mobile Broadband service will register the highest available data class technology from this list.  If no data class from this list can be registered to, then the Mobile Broadband service will register to the best available data class.
+     * @returns {Integer} A request ID set by the Mobile Broadband service to identify this asynchronous request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnregistration-setregistermode
      */
     SetRegisterMode(registerMode, providerID, dataClass) {
         providerID := providerID is String ? StrPtr(providerID) : providerID

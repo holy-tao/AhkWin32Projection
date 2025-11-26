@@ -40,9 +40,9 @@ class ITDirectoryObjectUser extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectuser-get_ipphoneprimary
+     * The get_IPPhonePrimary method gets the name of a computer that is the primary IP phone for the user.
+     * @returns {BSTR} Pointer to the <b>BSTR</b> representation of the user's IP primary phone.
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobjectuser-get_ipphoneprimary
      */
     get_IPPhonePrimary() {
         ppName := BSTR()
@@ -51,10 +51,39 @@ class ITDirectoryObjectUser extends IDispatch{
     }
 
     /**
+     * The put_IPPhonePrimary method sets the name of a machine as the primary IP phone for a user.
+     * @param {BSTR} pName Pointer to the <b>BSTR</b> representation of the user's IP primary phone.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} pName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectuser-put_ipphoneprimary
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobjectuser-put_ipphoneprimary
      */
     put_IPPhonePrimary(pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName

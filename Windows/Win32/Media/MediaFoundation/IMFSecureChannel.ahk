@@ -31,11 +31,29 @@ class IMFSecureChannel extends IUnknown{
     static VTableNames => ["GetCertificate", "SetupSession"]
 
     /**
+     * Retrieves the client's certificate.
+     * @param {Pointer<Pointer<Integer>>} ppCert Receives a pointer to a buffer allocated by the object. The buffer contains the client's certificate. The caller must release the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcbCert Receives the size of the <i>ppCert</i> buffer, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Pointer<Integer>>} ppCert 
-     * @param {Pointer<Integer>} pcbCert 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-getcertificate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsecurechannel-getcertificate
      */
     GetCertificate(ppCert, pcbCert) {
         ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
@@ -46,11 +64,29 @@ class IMFSecureChannel extends IUnknown{
     }
 
     /**
+     * Passes the encrypted session key to the client.
+     * @param {Pointer} pbEncryptedSessionKey Pointer to a buffer that contains the encrypted session key. This parameter can be <b>NULL</b>.
+     * @param {Integer} cbSessionKey Size of the <i>pbEncryptedSessionKey</i> buffer, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer} pbEncryptedSessionKey 
-     * @param {Integer} cbSessionKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-setupsession
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsecurechannel-setupsession
      */
     SetupSession(pbEncryptedSessionKey, cbSessionKey) {
         result := ComCall(4, this, "ptr", pbEncryptedSessionKey, "uint", cbSessionKey, "HRESULT")

@@ -31,10 +31,14 @@ class ISearchPersistentItemsChangedSink extends IUnknown{
     static VTableNames => ["StartedMonitoringScope", "StoppedMonitoringScope", "OnItemsChanged"]
 
     /**
+     * Called by a notifications provider to notify the indexer to monitor changes to items within a specified hierarchical scope.
+     * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-startedmonitoringscope
+     * Pointer to a null-terminated Unicode string that is the start address for the scope to be monitored.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchpersistentitemschangedsink-startedmonitoringscope
      */
     StartedMonitoringScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
@@ -44,10 +48,14 @@ class ISearchPersistentItemsChangedSink extends IUnknown{
     }
 
     /**
+     * Called by a notifications provider to notify the indexer to stop monitoring changes to items within a specified hierarchical scope.
+     * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-stoppedmonitoringscope
+     * Pointer to a null-terminated Unicode string that is the address for the scope to stop monitoring.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchpersistentitemschangedsink-stoppedmonitoringscope
      */
     StoppedMonitoringScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
@@ -57,11 +65,17 @@ class ISearchPersistentItemsChangedSink extends IUnknown{
     }
 
     /**
+     * Notifies the indexer to index changed items.
+     * @param {Integer} dwNumberOfChanges Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwNumberOfChanges 
-     * @param {Pointer<SEARCH_ITEM_PERSISTENT_CHANGE>} DataChangeEntries 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-onitemschanged
+     * The number of changes being reported.
+     * @param {Pointer<SEARCH_ITEM_PERSISTENT_CHANGE>} DataChangeEntries Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_persistent_change">SEARCH_ITEM_PERSISTENT_CHANGE</a>[]</b>
+     * 
+     * An array of structures of type <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_persistent_change">SEARCH_ITEM_PERSISTENT_CHANGE</a> identifying the details for each change.
+     * @returns {HRESULT} Type: <b>HRESULT[]</b>
+     * 
+     * Indicates whether each URL was accepted for indexing.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchpersistentitemschangedsink-onitemschanged
      */
     OnItemsChanged(dwNumberOfChanges, DataChangeEntries) {
         result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", DataChangeEntries, "int*", &hrCompletionCodes := 0, "HRESULT")

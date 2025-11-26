@@ -34,9 +34,9 @@ class IUpdateSession3 extends IUpdateSession2{
     static VTableNames => ["CreateUpdateServiceManager", "QueryHistory"]
 
     /**
-     * 
-     * @returns {IUpdateServiceManager2} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession3-createupdateservicemanager
+     * Returns a pointer to an IUpdateServiceManager2 interface for the session.
+     * @returns {IUpdateServiceManager2} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservicemanager2">IUpdateServiceManager2</a> interface for the session.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession3-createupdateservicemanager
      */
     CreateUpdateServiceManager() {
         result := ComCall(17, this, "ptr*", &retval := 0, "HRESULT")
@@ -44,12 +44,12 @@ class IUpdateSession3 extends IUpdateSession2{
     }
 
     /**
-     * 
-     * @param {BSTR} criteria 
-     * @param {Integer} startIndex 
-     * @param {Integer} count 
-     * @returns {IUpdateHistoryEntryCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession3-queryhistory
+     * Synchronously queries the computer for the history of update events.
+     * @param {BSTR} criteria A string that specifies the search criteria.
+     * @param {Integer} startIndex The index of the first event to retrieve.
+     * @param {Integer} count The number of events to retrieve.
+     * @returns {IUpdateHistoryEntryCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatehistoryentrycollection">IUpdateHistoryEntryCollection</a> interface that contains the matching event records on the computer in descending chronological order.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession3-queryhistory
      */
     QueryHistory(criteria, startIndex, count) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria

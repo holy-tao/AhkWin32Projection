@@ -39,9 +39,11 @@ class IAppxManifestPackageId extends IUnknown{
     static VTableNames => ["GetName", "GetArchitecture", "GetPublisher", "GetVersion", "GetResourceId", "ComparePublisher", "GetPackageFullName", "GetPackageFamilyName"]
 
     /**
+     * Gets the name of the package as defined in the manifest.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getname
+     * The name of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
@@ -49,9 +51,11 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
+     * Gets the processor architecture as defined in the manifest.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_package_architecture">APPX_PACKAGE_ARCHITECTURE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getarchitecture
+     * The architecture specified for the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getarchitecture
      */
     GetArchitecture() {
         result := ComCall(4, this, "int*", &architecture := 0, "HRESULT")
@@ -59,9 +63,11 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
+     * Gets the name of the package publisher as defined in the manifest.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getpublisher
+     * The publisher of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getpublisher
      */
     GetPublisher() {
         result := ComCall(5, this, "ptr*", &publisher := 0, "HRESULT")
@@ -69,9 +75,11 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
-     * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * Gets the version of the package as defined in the manifest.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
+     * 
+     * The version of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getversion
      */
     GetVersion() {
         result := ComCall(6, this, "uint*", &packageVersion := 0, "HRESULT")
@@ -79,9 +87,11 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
+     * Gets the package resource identifier as defined in the manifest.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getresourceid
+     * The resource identifier of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getresourceid
      */
     GetResourceId() {
         result := ComCall(7, this, "ptr*", &resourceId := 0, "HRESULT")
@@ -89,10 +99,14 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
+     * Compares the specified publisher with the publisher defined in the manifest.
+     * @param {PWSTR} other Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} other 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-comparepublisher
+     * The publisher name to be compared.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * 
+     * <b>TRUE</b> if the specified publisher matches the package publisher; <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-comparepublisher
      */
     ComparePublisher(other) {
         other := other is String ? StrPtr(other) : other
@@ -102,11 +116,11 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
-     * Gets the package full name for the specified process.
-     * @returns {PWSTR} Type: <b>PWSTR</b>
+     * Gets the package full name.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The package full name.
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefullname
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getpackagefullname
      */
     GetPackageFullName() {
         result := ComCall(9, this, "ptr*", &packageFullName := 0, "HRESULT")
@@ -114,11 +128,11 @@ class IAppxManifestPackageId extends IUnknown{
     }
 
     /**
-     * Gets the package family name for the specified process.
-     * @returns {PWSTR} Type: <b>PWSTR</b>
+     * Gets the package family name.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The package family name.
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilyname
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getpackagefamilyname
      */
     GetPackageFamilyName() {
         result := ComCall(10, this, "ptr*", &packageFamilyName := 0, "HRESULT")

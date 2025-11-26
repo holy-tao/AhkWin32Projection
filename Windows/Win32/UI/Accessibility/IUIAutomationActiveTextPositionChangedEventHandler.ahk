@@ -36,11 +36,11 @@ class IUIAutomationActiveTextPositionChangedEventHandler extends IUnknown{
     static VTableNames => ["HandleActiveTextPositionChangedEvent"]
 
     /**
-     * 
-     * @param {IUIAutomationElement} sender 
-     * @param {IUIAutomationTextRange} range 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationactivetextpositionchangedeventhandler-handleactivetextpositionchangedevent
+     * Handles a Microsoft UI Automation active text position change event.
+     * @param {IUIAutomationElement} sender A pointer to the UI Automation element that raised the event.
+     * @param {IUIAutomationTextRange} range A span of continuous text in a container that supports the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern">IUIAutomationTextPattern</a> interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationactivetextpositionchangedeventhandler-handleactivetextpositionchangedevent
      */
     HandleActiveTextPositionChangedEvent(sender, range) {
         result := ComCall(3, this, "ptr", sender, "ptr", range, "HRESULT")

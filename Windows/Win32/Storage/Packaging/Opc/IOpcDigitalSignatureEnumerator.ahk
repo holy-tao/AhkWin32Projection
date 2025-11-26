@@ -43,9 +43,40 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
     static VTableNames => ["MoveNext", "MovePrevious", "GetCurrent", "Clone"]
 
     /**
+     * Moves the current position of the enumerator to the next IOpcDigitalSignature interface pointer.
+     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignature">IOpcDigitalSignature</a> interface pointer at the current position.
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext
+     * The value of <i>hasNext</i> is only valid when the method succeeds.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>TRUE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been advanced to the next pointer and that pointer is valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been advanced past the end of the collection and is no longer valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext
      */
     MoveNext() {
         result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
@@ -53,9 +84,40 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
     }
 
     /**
+     * Moves the current position of the enumerator to the previous IOpcDigitalSignature interface pointer.
+     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignature">IOpcDigitalSignature</a> interface pointer at the current position.
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-moveprevious
+     * The value of <i>hasPrevious</i> is only valid when the method succeeds.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>TRUE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been moved to the previous pointer in the collection, and that pointer is valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been moved past the beginning of the collection and is no longer valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-moveprevious
      */
     MovePrevious() {
         result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
@@ -63,9 +125,9 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcDigitalSignature} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-getcurrent
+     * Gets the IOpcDigitalSignature interface pointer at the current position of the enumerator.
+     * @returns {IOpcDigitalSignature} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignature">IOpcDigitalSignature</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(5, this, "ptr*", &digitalSignature := 0, "HRESULT")
@@ -73,9 +135,9 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcDigitalSignatureEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-clone
+     * Creates a copy of the current IOpcDigitalSignatureEnumerator interface pointer and all its descendants.
+     * @returns {IOpcDigitalSignatureEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignatureenumerator">IOpcDigitalSignatureEnumerator</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")

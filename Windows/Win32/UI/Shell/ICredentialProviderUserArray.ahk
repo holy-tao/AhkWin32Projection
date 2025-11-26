@@ -41,10 +41,10 @@ class ICredentialProviderUserArray extends IUnknown{
     static VTableNames => ["SetProviderFilter", "GetAccountOptions", "GetCount", "GetAt"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidProviderToFilterTo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-setproviderfilter
+     * Limits the set of users in the array to either local accounts or Microsoft accounts.
+     * @param {Pointer<Guid>} guidProviderToFilterTo Set this parameter to Identity_LocalUserProvider for the local accounts credential provider; otherwise set it to the GUID of the Microsoft account provider.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-setproviderfilter
      */
     SetProviderFilter(guidProviderToFilterTo) {
         result := ComCall(3, this, "ptr", guidProviderToFilterTo, "HRESULT")
@@ -52,9 +52,9 @@ class ICredentialProviderUserArray extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
+     * Retrieves a value that indicates whether the &quot;Other user&quot; tile for local or Microsoft accounts is shown in the logon or credential UI.
+     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives one or more flags that specify which empty tiles are shown by the logon or credential UI.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
      */
     GetAccountOptions() {
         result := ComCall(4, this, "int*", &credentialProviderAccountOptions := 0, "HRESULT")
@@ -62,9 +62,9 @@ class ICredentialProviderUserArray extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount
+     * Retrieves the number of ICredentialProviderUser objects in the user array.
+     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the number of users in the array.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount
      */
     GetCount() {
         result := ComCall(5, this, "uint*", &userCount := 0, "HRESULT")
@@ -72,10 +72,10 @@ class ICredentialProviderUserArray extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} userIndex 
-     * @returns {ICredentialProviderUser} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getat
+     * Retrieves a specified user from the array.
+     * @param {Integer} userIndex The 0-based array index of the user. The size of the array can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount">GetCount</a> method.
+     * @returns {ICredentialProviderUser} The address of a pointer to an object that, when this method returns successfully, represents the specified user. It is the responsibility of the caller to free this object when it is no longer needed by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getat
      */
     GetAt(userIndex) {
         result := ComCall(6, this, "uint", userIndex, "ptr*", &user := 0, "HRESULT")

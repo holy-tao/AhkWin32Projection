@@ -55,9 +55,9 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     }
 
     /**
-     * 
+     * Recieves the WDSTRANSPORT_UDP_PORT_POLICY value that specifies the UDP port allocation policy to be used by WDS transport services. The value enables a WDS client computer to configure the UDP port allocation policy.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_udpportpolicy
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_udpportpolicy
      */
     get_UdpPortPolicy() {
         result := ComCall(23, this, "int*", &pUdpPortPolicy := 0, "HRESULT")
@@ -65,10 +65,10 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     }
 
     /**
-     * 
+     * Recieves the WDSTRANSPORT_UDP_PORT_POLICY value that specifies the UDP port allocation policy to be used by WDS transport services. The value enables a WDS client computer to configure the UDP port allocation policy.
      * @param {Integer} UdpPortPolicy 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_udpportpolicy
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_udpportpolicy
      */
     put_UdpPortPolicy(UdpPortPolicy) {
         result := ComCall(24, this, "int", UdpPortPolicy, "HRESULT")
@@ -76,9 +76,9 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     }
 
     /**
-     * 
+     * Receives a value for the maximum block size used by the TFTP server. The value enables a WDS client computer to configure the maximum block size.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_tftpmaximumblocksize
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_tftpmaximumblocksize
      */
     get_TftpMaximumBlockSize() {
         result := ComCall(25, this, "uint*", &pulTftpMaximumBlockSize := 0, "HRESULT")
@@ -86,10 +86,10 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     }
 
     /**
-     * 
+     * Receives a value for the maximum block size used by the TFTP server. The value enables a WDS client computer to configure the maximum block size.
      * @param {Integer} ulTftpMaximumBlockSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_tftpmaximumblocksize
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_tftpmaximumblocksize
      */
     put_TftpMaximumBlockSize(ulTftpMaximumBlockSize) {
         result := ComCall(26, this, "uint", ulTftpMaximumBlockSize, "HRESULT")
@@ -97,9 +97,9 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     }
 
     /**
-     * 
+     * Receives a WDSTRANSPORT_TFTP_CAPABILITY value that specifies whether variable-window extension is enabled on the TFTP server. The value enables a WDS client computer to configure the WDS TFTP server to use variable-window extensions.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_enabletftpvariablewindowextension
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_enabletftpvariablewindowextension
      */
     get_EnableTftpVariableWindowExtension() {
         result := ComCall(27, this, "short*", &pbEnableTftpVariableWindowExtension := 0, "HRESULT")
@@ -107,10 +107,10 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     }
 
     /**
-     * 
+     * Receives a WDSTRANSPORT_TFTP_CAPABILITY value that specifies whether variable-window extension is enabled on the TFTP server. The value enables a WDS client computer to configure the WDS TFTP server to use variable-window extensions.
      * @param {VARIANT_BOOL} bEnableTftpVariableWindowExtension 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_enabletftpvariablewindowextension
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_enabletftpvariablewindowextension
      */
     put_EnableTftpVariableWindowExtension(bEnableTftpVariableWindowExtension) {
         result := ComCall(28, this, "short", bEnableTftpVariableWindowExtension, "HRESULT")

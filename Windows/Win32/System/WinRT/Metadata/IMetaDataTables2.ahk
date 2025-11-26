@@ -31,11 +31,11 @@ class IMetaDataTables2 extends IMetaDataTables{
     static VTableNames => ["GetMetaDataStorage", "GetMetaDataStreamInfo"]
 
     /**
-     * 
-     * @param {Pointer<Pointer<Void>>} ppvMd 
-     * @param {Pointer<Integer>} pcbMd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastorage
+     * Gets the size and contents of the metadata stored in the specified section.
+     * @param {Pointer<Pointer<Void>>} ppvMd A pointer to a metadata section.
+     * @param {Pointer<Integer>} pcbMd The size of the metadata stream.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastorage
      */
     GetMetaDataStorage(ppvMd, pcbMd) {
         ppvMdMarshal := ppvMd is VarRef ? "ptr*" : "ptr"
@@ -46,13 +46,13 @@ class IMetaDataTables2 extends IMetaDataTables{
     }
 
     /**
-     * 
-     * @param {Integer} ix 
-     * @param {Pointer<Pointer<Integer>>} ppchName 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @param {Pointer<Integer>} pcb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastreaminfo
+     * Gets the name, size, and contents of the metadata stream at the specified index.
+     * @param {Integer} ix The index of the requested metadata stream.
+     * @param {Pointer<Pointer<Integer>>} ppchName A pointer to the name of the stream.
+     * @param {Pointer<Pointer<Void>>} ppv A pointer to the metadata stream.
+     * @param {Pointer<Integer>} pcb The size, in bytes, of <i>ppv</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastreaminfo
      */
     GetMetaDataStreamInfo(ix, ppchName, ppv, pcb) {
         ppchNameMarshal := ppchName is VarRef ? "ptr*" : "ptr"

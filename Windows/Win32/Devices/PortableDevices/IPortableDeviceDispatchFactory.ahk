@@ -52,10 +52,10 @@ class IPortableDeviceDispatchFactory extends IUnknown{
     static VTableNames => ["GetDeviceDispatch"]
 
     /**
-     * 
-     * @param {PWSTR} pszPnPDeviceID 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedispatchfactory-getdevicedispatch
+     * Instantiates a WPD Automation Device object for a given WPD device identifier.
+     * @param {PWSTR} pszPnPDeviceID A pointer to a <b>String</b> that is used by Plug-and-play to identify a currently connected WPD device. The Plug and Play (PnP) identifier for a particular device can be obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">IPortableDeviceManager::GetDevices</a> method in the WPD C++/COM API.
+     * @returns {IDispatch} Contains a pointer to the <b>IDispatch</b> implementation for the WPD Automation <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wiaaut/-wiaaut-device">Device</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicedispatchfactory-getdevicedispatch
      */
     GetDeviceDispatch(pszPnPDeviceID) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID

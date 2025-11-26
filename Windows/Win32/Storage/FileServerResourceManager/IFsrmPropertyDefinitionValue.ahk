@@ -60,9 +60,9 @@ class IFsrmPropertyDefinitionValue extends IDispatch{
     }
 
     /**
-     * 
+     * Name of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_name
      */
     get_Name() {
         name := BSTR()
@@ -71,9 +71,9 @@ class IFsrmPropertyDefinitionValue extends IDispatch{
     }
 
     /**
-     * 
+     * Display name of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_displayname
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_displayname
      */
     get_DisplayName() {
         displayName := BSTR()
@@ -82,9 +82,9 @@ class IFsrmPropertyDefinitionValue extends IDispatch{
     }
 
     /**
-     * 
+     * Description of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_description
      */
     get_Description() {
         description := BSTR()
@@ -93,9 +93,9 @@ class IFsrmPropertyDefinitionValue extends IDispatch{
     }
 
     /**
-     * 
+     * Unique ID of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_uniqueid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_uniqueid
      */
     get_UniqueID() {
         uniqueID := BSTR()

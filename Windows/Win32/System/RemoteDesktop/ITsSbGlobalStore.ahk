@@ -34,12 +34,12 @@ class ITsSbGlobalStore extends IUnknown{
     static VTableNames => ["QueryTarget", "QuerySessionBySessionId", "EnumerateFarms", "EnumerateTargets", "EnumerateEnvironmentsByProvider", "EnumerateSessions", "GetFarmProperty"]
 
     /**
-     * 
-     * @param {BSTR} ProviderName 
-     * @param {BSTR} TargetName 
-     * @param {BSTR} FarmName 
-     * @returns {ITsSbTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-querytarget
+     * Retrieves the ITsSbTarget object for the given parameters.
+     * @param {BSTR} ProviderName The name of the resource plug-in provider.
+     * @param {BSTR} TargetName The target name.
+     * @param {BSTR} FarmName The farm name to which the target belongs. If <b>NULL</b>, the first target found is returned.
+     * @returns {ITsSbTarget} A pointer to a pointer to a target <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-querytarget
      */
     QueryTarget(ProviderName, TargetName, FarmName) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -51,12 +51,12 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} ProviderName 
-     * @param {Integer} dwSessionId 
-     * @param {BSTR} TargetName 
-     * @returns {ITsSbSession} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-querysessionbysessionid
+     * Retrieves the ITsSbSession object associated with the given session ID.
+     * @param {BSTR} ProviderName The resource plug-in provider name that owns the target.
+     * @param {Integer} dwSessionId The session ID.
+     * @param {BSTR} TargetName The name of the target computer on which this session is present.
+     * @returns {ITsSbSession} A pointer to a pointer to a session object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-querysessionbysessionid
      */
     QuerySessionBySessionId(ProviderName, dwSessionId, TargetName) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -67,12 +67,12 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} ProviderName 
-     * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratefarms
+     * Enumerates all the farms that have been added by the specified resource plug-in.
+     * @param {BSTR} ProviderName The provider name of the resource plug-in.
+     * @param {Pointer<Integer>} pdwCount The count of farms retrieved.
+     * @param {Pointer<Pointer<SAFEARRAY>>} pVal A pointer to an array of farm names. The number of elements in this array is specified by the <i>pdwCount</i> parameter. When you have finished using the array, free the allocated memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a> function.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumeratefarms
      */
     EnumerateFarms(ProviderName, pdwCount, pVal) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -85,13 +85,13 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} ProviderName 
-     * @param {BSTR} FarmName 
-     * @param {BSTR} EnvName 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {Pointer<ITsSbTarget>} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratetargets
+     * Returns an array that contains the specified targets present in the global store.
+     * @param {BSTR} ProviderName The provider name.
+     * @param {BSTR} FarmName The farm name.
+     * @param {BSTR} EnvName The environment name.
+     * @param {Pointer<Integer>} pdwCount The number of targets retrieved.
+     * @returns {Pointer<ITsSbTarget>} Pointer to the retrieved <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a>objects.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumeratetargets
      */
     EnumerateTargets(ProviderName, FarmName, EnvName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -105,11 +105,11 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} ProviderName 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {Pointer<ITsSbEnvironment>} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumerateenvironmentsbyprovider
+     * Returns an array that contains the environments present on the specified provider.
+     * @param {BSTR} ProviderName The name of the provider.
+     * @param {Pointer<Integer>} pdwCount A pointer to the number of environments retrieved.
+     * @returns {Pointer<ITsSbEnvironment>} A pointer to an array that contains references to the environments present. When you have finished using the array, release each element and free the array by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumerateenvironmentsbyprovider
      */
     EnumerateEnvironmentsByProvider(ProviderName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -121,17 +121,17 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} ProviderName 
-     * @param {BSTR} targetName 
-     * @param {BSTR} userName 
-     * @param {BSTR} userDomain 
-     * @param {BSTR} poolName 
-     * @param {BSTR} initialProgram 
-     * @param {Pointer<Integer>} pSessionState 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {Pointer<ITsSbSession>} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratesessions
+     * Returns an array that contains sessions on the specified provider.
+     * @param {BSTR} ProviderName The name of the provider.
+     * @param {BSTR} targetName The name of the target.
+     * @param {BSTR} userName The name of the user account.
+     * @param {BSTR} userDomain The domain name of the user account.
+     * @param {BSTR} poolName The name of the pool.
+     * @param {BSTR} initialProgram The name of the published remote application.
+     * @param {Pointer<Integer>} pSessionState A pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value of the sessions to enumerate.
+     * @param {Pointer<Integer>} pdwCount Returns a pointer to the number of sessions returned.
+     * @returns {Pointer<ITsSbSession>} Returns the list of sessions requested.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-enumeratesessions
      */
     EnumerateSessions(ProviderName, targetName, userName, userDomain, poolName, initialProgram, pSessionState, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
@@ -149,12 +149,12 @@ class ITsSbGlobalStore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} farmName 
-     * @param {BSTR} propertyName 
-     * @param {Pointer<VARIANT>} pVarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-getfarmproperty
+     * Retrieves a property of a farm.
+     * @param {BSTR} farmName The name of the farm.
+     * @param {BSTR} propertyName The name of the property to retrieve.
+     * @param {Pointer<VARIANT>} pVarValue Returns a pointer to the value of the property.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbglobalstore-getfarmproperty
      */
     GetFarmProperty(farmName, propertyName, pVarValue) {
         farmName := farmName is String ? BSTR.Alloc(farmName).Value : farmName

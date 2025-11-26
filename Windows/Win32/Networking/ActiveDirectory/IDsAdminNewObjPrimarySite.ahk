@@ -31,10 +31,11 @@ class IDsAdminNewObjPrimarySite extends IUnknown{
     static VTableNames => ["CreateNew", "Commit"]
 
     /**
-     * 
-     * @param {PWSTR} pszName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjprimarysite-createnew
+     * The IDsAdminNewObjPrimarySite::CreateNew method enables a primary object creation extension to create a temporary directory service object in Active Directory Domain Services.
+     * @param {PWSTR} pszName Pointer to a <b>WCHAR</b> string that contains the name of the object to be created.
+     * @returns {HRESULT} If the  method 
+     *       succeeds, <b>S_OK</b> is returned. If the method fails, an OLE-defined error code is returned. This method fails if the calling extension is not a primary object creation extension.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjprimarysite-createnew
      */
     CreateNew(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -44,9 +45,9 @@ class IDsAdminNewObjPrimarySite extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjprimarysite-commit
+     * The IDsAdminNewObjPrimarySite::Commit method causes a single-page primary object creation extension's IDsAdminNewObjExt::WriteData method to be called and writes the temporary object to persistent memory.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful or an OLE-defined error code otherwise. This method fails if the calling extension is not a primary object creation extension. This method also fails if the object creation wizard contains more than one page.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobjprimarysite-commit
      */
     Commit() {
         result := ComCall(4, this, "HRESULT")

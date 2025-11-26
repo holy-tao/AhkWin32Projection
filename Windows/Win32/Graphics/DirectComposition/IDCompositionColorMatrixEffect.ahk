@@ -31,10 +31,17 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetMatrix", "SetMatrixElement", "SetMatrixElement1", "SetAlphaMode", "SetClampOutput"]
 
     /**
+     * Sets the matrix used by the effect to multiply the RGBA values of the image.
+     * @param {Pointer<D2D_MATRIX_5X4_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-5x4-f">D2D1_MATRIX_5X4_F</a></b>
      * 
-     * @param {Pointer<D2D_MATRIX_5X4_F>} matrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrix
+     * The matrix used by the effect to multiply the RGBA values of the image. The matrix is column major and is applied as shown in the following equation:
+     *           
+     * 
+     * <img alt="Matrix equation" src="./images/color_matrix_formula.png"/>
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrix
      */
     SetMatrix(matrix) {
         result := ComCall(4, this, "ptr", matrix, "HRESULT")
@@ -68,10 +75,14 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Sets the alpha mode of the output for the color matrix effect.
+     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/color-matrix">D2D1_COLORMATRIX_ALPHA_MODE</a></b>
      * 
-     * @param {Integer} mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setalphamode
+     * The alpha mode of the output for the color matrix effect.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositioncolormatrixeffect-setalphamode
      */
     SetAlphaMode(mode) {
         result := ComCall(7, this, "int", mode, "HRESULT")
@@ -79,10 +90,14 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether the effect clamps color values to between 0 and 1 before the effects passes the values to the next effect in the chain.
+     * @param {BOOL} clamp Type: <b>BOOL</b>
      * 
-     * @param {BOOL} clamp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setclampoutput
+     * A boolean value indicating whether the effect clamps color values to between 0 and 1 before the effects passes the values to the next effect in the chain.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositioncolormatrixeffect-setclampoutput
      */
     SetClampOutput(clamp) {
         result := ComCall(8, this, "int", clamp, "HRESULT")

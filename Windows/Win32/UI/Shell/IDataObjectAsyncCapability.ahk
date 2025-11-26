@@ -39,10 +39,14 @@ class IDataObjectAsyncCapability extends IUnknown{
     static VTableNames => ["SetAsyncMode", "GetAsyncMode", "StartOperation", "InOperation", "EndOperation"]
 
     /**
+     * Called by a drop source to specify whether the data object supports asynchronous data extraction.
+     * @param {BOOL} fDoOpAsync Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fDoOpAsync 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-setasyncmode
+     * <b>VARIANT_TRUE</b> if an asynchronous operation is supported; otherwise, <b>VARIANT_FALSE</b>. The default value is <b>VARIANT_FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-idataobjectasynccapability-setasyncmode
      */
     SetAsyncMode(fDoOpAsync) {
         result := ComCall(3, this, "int", fDoOpAsync, "HRESULT")
@@ -50,9 +54,11 @@ class IDataObjectAsyncCapability extends IUnknown{
     }
 
     /**
+     * Called by a drop target to determine whether the data object supports asynchronous data extraction.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-getasyncmode
+     * <b>VARIANT_TRUE</b> if an asynchronous operation is supported; otherwise, <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-idataobjectasynccapability-getasyncmode
      */
     GetAsyncMode() {
         result := ComCall(4, this, "int*", &pfIsOpAsync := 0, "HRESULT")
@@ -60,10 +66,14 @@ class IDataObjectAsyncCapability extends IUnknown{
     }
 
     /**
+     * Called by a drop target to indicate that asynchronous data extraction is starting.
+     * @param {IBindCtx} pbcReserved Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
-     * @param {IBindCtx} pbcReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-startoperation
+     * Reserved. Set this value to <b>nullptr</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-idataobjectasynccapability-startoperation
      */
     StartOperation(pbcReserved) {
         result := ComCall(5, this, "ptr", pbcReserved, "HRESULT")
@@ -71,9 +81,11 @@ class IDataObjectAsyncCapability extends IUnknown{
     }
 
     /**
+     * Called by the drop source to determine whether the target is extracting data asynchronously.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-inoperation
+     * <b>VARIANT_TRUE</b> if data extraction is being handled asynchronously; otherwise, <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-idataobjectasynccapability-inoperation
      */
     InOperation() {
         result := ComCall(6, this, "int*", &pfInAsyncOp := 0, "HRESULT")
@@ -81,12 +93,20 @@ class IDataObjectAsyncCapability extends IUnknown{
     }
 
     /**
+     * Notifies the data object that the asynchronous data extraction has ended.
+     * @param {HRESULT} hResult Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hResult 
-     * @param {IBindCtx} pbcReserved 
-     * @param {Integer} dwEffects 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-endoperation
+     * Indicates the outcome of the data extraction. Set this value to S_OK if successful, or a COM error code otherwise.
+     * @param {IBindCtx} pbcReserved Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * 
+     * Reserved. Set to <b>nullptr</b>.
+     * @param {Integer} dwEffects Type: <b>DWORD</b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> value that indicates the result of an optimized move. This should be the same value that would be passed to the data object as a CFSTR_PERFORMEDDROPEFFECT format with a normal data extraction operation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-idataobjectasynccapability-endoperation
      */
     EndOperation(hResult, pbcReserved, dwEffects) {
         result := ComCall(7, this, "int", hResult, "ptr", pbcReserved, "uint", dwEffects, "HRESULT")

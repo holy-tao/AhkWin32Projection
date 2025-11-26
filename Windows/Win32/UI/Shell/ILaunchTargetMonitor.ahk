@@ -32,9 +32,11 @@ class ILaunchTargetMonitor extends IUnknown{
     static VTableNames => ["GetMonitor"]
 
     /**
+     * Retrieves the target monitor for the application being launched.
+     * @returns {HMONITOR} Type: <b>HMONITOR*</b>
      * 
-     * @returns {HMONITOR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
+     * Contains the address of a pointer to the target  monitor's handle.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
      */
     GetMonitor() {
         monitor := HMONITOR()

@@ -36,14 +36,54 @@ class IMF2DBuffer2 extends IMF2DBuffer{
     static VTableNames => ["Lock2DSize", "Copy2DTo"]
 
     /**
+     * Gives the caller access to the memory in the buffer.
+     * @param {Integer} lockFlags A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf2dbuffer_lockflags">MF2DBuffer_LockFlags</a> enumeration that specifies whether to lock the buffer for reading, writing, or both.
+     * @param {Pointer<Pointer<Integer>>} ppbScanline0 Receives a pointer to the first byte of the top row of pixels in the image. The top row is defined as the top row when the image is presented to the viewer, and might not be the first row in memory.
+     * @param {Pointer<Integer>} plPitch Receives the surface stride, in bytes. The stride might be negative, indicating that the image is oriented from the bottom up in memory.
+     * @param {Pointer<Pointer<Integer>>} ppbBufferStart Receives a pointer to the start of the accessible buffer in memory.
+     * @param {Pointer<Integer>} pcbBufferLength Receives the length of the buffer, in bytes.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lockFlags 
-     * @param {Pointer<Pointer<Integer>>} ppbScanline0 
-     * @param {Pointer<Integer>} plPitch 
-     * @param {Pointer<Pointer<Integer>>} ppbBufferStart 
-     * @param {Pointer<Integer>} pcbBufferLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer2-lock2dsize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_INVALIDREQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid request. The buffer might already be locked with an incompatible locking flag. See Remarks.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b> E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is insufficient memory to complete the operation. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer2-lock2dsize
      */
     Lock2DSize(lockFlags, ppbScanline0, plPitch, ppbBufferStart, pcbBufferLength) {
         ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
@@ -56,10 +96,10 @@ class IMF2DBuffer2 extends IMF2DBuffer{
     }
 
     /**
-     * 
-     * @param {IMF2DBuffer2} pDestBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer2-copy2dto
+     * Copies the buffer to another 2D buffer object.
+     * @param {IMF2DBuffer2} pDestBuffer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer2">IMF2DBuffer2</a> interface of the destination buffer.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer2-copy2dto
      */
     Copy2DTo(pDestBuffer) {
         result := ComCall(11, this, "ptr", pDestBuffer, "HRESULT")

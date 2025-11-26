@@ -36,10 +36,10 @@ class IVPConfig extends IVPBaseConfig{
     static VTableNames => ["IsVPDecimationAllowed", "SetScalingFactors"]
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbIsDecimationAllowed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpconfig-isvpdecimationallowed
+     * The IsVPDecimationAllowed method, given the context, retrieves whether scaling at the video port is possible.
+     * @param {Pointer<BOOL>} pbIsDecimationAllowed Receives a Boolean value indicating whether decimation is possible.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//vpconfig/nf-vpconfig-ivpconfig-isvpdecimationallowed
      */
     IsVPDecimationAllowed(pbIsDecimationAllowed) {
         pbIsDecimationAllowedMarshal := pbIsDecimationAllowed is VarRef ? "int*" : "ptr"
@@ -49,10 +49,10 @@ class IVPConfig extends IVPBaseConfig{
     }
 
     /**
-     * 
-     * @param {Pointer<AMVPSIZE>} pamvpSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpconfig-setscalingfactors
+     * The SetScalingFactors method sets the factors by which the decoder should scale the video stream.
+     * @param {Pointer<AMVPSIZE>} pamvpSize Pointer to the new scaling size structure (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ns-vptype-amvpsize">AMVPSIZE</a>) to use to specify the width and height.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//vpconfig/nf-vpconfig-ivpconfig-setscalingfactors
      */
     SetScalingFactors(pamvpSize) {
         result := ComCall(17, this, "ptr", pamvpSize, "HRESULT")

@@ -38,10 +38,12 @@ class ID3D10DepthStencilState extends ID3D10DeviceChild{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get the depth-stencil state.
+     * @param {Pointer<D3D10_DEPTH_STENCIL_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D10_DEPTH_STENCIL_DESC>} pDesc 
+     * A pointer to the depth-stencil state (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10depthstencilstate-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10depthstencilstate-getdesc
      */
     GetDesc(pDesc) {
         ComCall(7, this, "ptr", pDesc)

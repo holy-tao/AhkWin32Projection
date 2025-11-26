@@ -46,9 +46,9 @@ class IUIAutomationElement6 extends IUIAutomationElement5{
     }
 
     /**
-     * 
+     * Gets the current full description of the automation element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription
      */
     get_CurrentFullDescription() {
         retVal := BSTR()
@@ -57,9 +57,9 @@ class IUIAutomationElement6 extends IUIAutomationElement5{
     }
 
     /**
-     * 
+     * Gets the cached full description of the automation element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_cachedfulldescription
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_cachedfulldescription
      */
     get_CachedFullDescription() {
         retVal := BSTR()

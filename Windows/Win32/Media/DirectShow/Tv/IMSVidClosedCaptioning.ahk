@@ -50,9 +50,9 @@ class IMSVidClosedCaptioning extends IMSVidFeature{
     }
 
     /**
-     * 
+     * The get_Enable method queries whether closed captioning is enabled.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning-get_enable
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning-get_enable
      */
     get_Enable() {
         result := ComCall(16, this, "short*", &On := 0, "HRESULT")
@@ -60,10 +60,10 @@ class IMSVidClosedCaptioning extends IMSVidFeature{
     }
 
     /**
-     * 
+     * The put_Enable method enables or disables closed captioning.
      * @param {VARIANT_BOOL} On 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning-put_enable
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning-put_enable
      */
     put_Enable(On) {
         result := ComCall(17, this, "short", On, "HRESULT")

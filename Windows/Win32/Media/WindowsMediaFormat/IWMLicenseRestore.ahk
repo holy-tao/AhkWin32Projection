@@ -31,11 +31,24 @@ class IWMLicenseRestore extends IUnknown{
     static VTableNames => ["RestoreLicenses", "CancelLicenseRestore"]
 
     /**
+     * The RestoreLicenses method restores licenses that were previously backed up.
+     * @param {Integer} dwFlags <b>DWORD</b> containing the flags.
      * 
-     * @param {Integer} dwFlags 
-     * @param {IWMStatusCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserestore-restorelicenses
+     * <table>
+     * <tr>
+     * <th>Flag
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WM_RESTORE_INDIVIDUALIZE</td>
+     * <td>Indicates that the application has received permission from the user to individualize their computer. (See <a href="https://docs.microsoft.com/windows/desktop/wmformat/individualizing-drm-applications">Individualizing DRM Applications</a> section.)</td>
+     * </tr>
+     * </table>
+     * @param {IWMStatusCallback} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlicenserestore-restorelicenses
      */
     RestoreLicenses(dwFlags, pCallback) {
         result := ComCall(3, this, "uint", dwFlags, "ptr", pCallback, "HRESULT")
@@ -43,9 +56,9 @@ class IWMLicenseRestore extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserestore-cancellicenserestore
+     * The CancelLicenseRestore method cancels a current restore operation.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlicenserestore-cancellicenserestore
      */
     CancelLicenseRestore() {
         result := ComCall(4, this, "HRESULT")

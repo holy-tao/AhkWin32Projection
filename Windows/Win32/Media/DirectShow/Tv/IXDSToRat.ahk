@@ -42,9 +42,27 @@ class IXDSToRat extends IDispatch{
     static VTableNames => ["Init", "ParseXDSBytePair"]
 
     /**
+     * The Init method sets the XDSToRat object to its initial state.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ixdstorat-init
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tvratings/nf-tvratings-ixdstorat-init
      */
     Init() {
         result := ComCall(7, this, "HRESULT")
@@ -52,14 +70,43 @@ class IXDSToRat extends IDispatch{
     }
 
     /**
+     * .
+     * @param {Integer} byte1 The first byte of the byte pair.
+     * @param {Integer} byte2 The second byte of the byte pair.
+     * @param {Pointer<Integer>} pEnSystem Receives the rating system, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_system">EnTvRat_System</a> enumeration type.
+     * @param {Pointer<Integer>} pEnLevel Receives the rating level, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_genericlevel">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {Pointer<Integer>} plBfEnAttributes Receives a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-bfentvrat_genericattributes">BfEnTvRat_GenericAttributes</a> enumeration. These flags specify additional content attributes, such as violence or adult language. They do not apply to every rating system.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} byte1 
-     * @param {Integer} byte2 
-     * @param {Pointer<Integer>} pEnSystem 
-     * @param {Pointer<Integer>} pEnLevel 
-     * @param {Pointer<Integer>} plBfEnAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ixdstorat-parsexdsbytepair
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No rating has been detected in the stream yet.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tvratings/nf-tvratings-ixdstorat-parsexdsbytepair
      */
     ParseXDSBytePair(byte1, byte2, pEnSystem, pEnLevel, plBfEnAttributes) {
         pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"

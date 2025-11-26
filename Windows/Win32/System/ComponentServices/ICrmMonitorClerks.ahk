@@ -47,10 +47,10 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-item
+     * Retrieves the instance CLSID of the CRM clerk for the specified index.
+     * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>.
+     * @returns {VARIANT} A pointer to <b>Variant</b> string returning the instance CLSID corresponding to this numeric index.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-item
      */
     Item(Index) {
         pItem := VARIANT()
@@ -59,9 +59,9 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-get__newenum
+     * Retrieves an enumerator for the instance CLSIDs of the CRM clerks.
+     * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &pVal := 0, "HRESULT")
@@ -69,9 +69,9 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-get_count
+     * Retrieves the count of CRM clerks in the collection.
+     * @returns {Integer} The number of CRM clerks.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -79,10 +79,10 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-progidcompensator
+     * Retrieves the ProgId of the CRM Compensator for the specified index.
+     * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
+     * @returns {VARIANT} The ProgId of the CRM Compensator.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-progidcompensator
      */
     ProgIdCompensator(Index) {
         pItem := VARIANT()
@@ -91,10 +91,10 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-description
+     * Retrieves the description of the CRM Compensator for the specified index.
+     * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
+     * @returns {VARIANT} The description string originally provided by <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icrmlogcontrol-registercompensator">ICrmLogControl::RegisterCompensator</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-description
      */
     Description(Index) {
         pItem := VARIANT()
@@ -103,10 +103,10 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-transactionuow
+     * Retrieves the unit of work (UOW) of the transaction for the specified index.
+     * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
+     * @returns {VARIANT} The transaction UOW.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-transactionuow
      */
     TransactionUOW(Index) {
         pItem := VARIANT()
@@ -115,10 +115,10 @@ class ICrmMonitorClerks extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorclerks-activityid
+     * Retrieves the activity ID of the CRM Worker for the specified index.
+     * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
+     * @returns {VARIANT} The activity ID of the CRM Worker.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-activityid
      */
     ActivityId(Index) {
         pItem := VARIANT()

@@ -33,9 +33,9 @@ class IAppxContentGroupMapReader extends IUnknown{
     static VTableNames => ["GetRequiredGroup", "GetAutomaticGroups"]
 
     /**
-     * 
-     * @returns {IAppxContentGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getrequiredgroup
+     * Gets the required content group from the content group map.
+     * @returns {IAppxContentGroup} The required content group.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getrequiredgroup
      */
     GetRequiredGroup() {
         result := ComCall(3, this, "ptr*", &requiredGroup := 0, "HRESULT")
@@ -43,9 +43,9 @@ class IAppxContentGroupMapReader extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IAppxContentGroupsEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getautomaticgroups
+     * Gets the automatic content group(s) from the content group map.
+     * @returns {IAppxContentGroupsEnumerator} An enumerator for the automatic content group(s).
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getautomaticgroups
      */
     GetAutomaticGroups() {
         result := ComCall(4, this, "ptr*", &automaticGroupsEnumerator := 0, "HRESULT")

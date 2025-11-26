@@ -31,10 +31,11 @@ class ITPluggableTerminalEventSinkRegistration extends IUnknown{
     static VTableNames => ["RegisterSink", "UnregisterSink"]
 
     /**
-     * 
-     * @param {ITPluggableTerminalEventSink} pEventSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itpluggableterminaleventsinkregistration-registersink
+     * The RegisterSink method registers the application for pluggable terminal event notification.
+     * @param {ITPluggableTerminalEventSink} pEventSink Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/msp/nn-msp-itpluggableterminaleventsink">ITPluggableTerminalEventSink</a> interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3/nf-tapi3-itpluggableterminaleventsinkregistration-registersink
      */
     RegisterSink(pEventSink) {
         result := ComCall(3, this, "ptr", pEventSink, "HRESULT")
@@ -42,9 +43,9 @@ class ITPluggableTerminalEventSinkRegistration extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itpluggableterminaleventsinkregistration-unregistersink
+     * The UnregisterSink method clears event registration for pluggable terminal events.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3/nf-tapi3-itpluggableterminaleventsinkregistration-unregistersink
      */
     UnregisterSink() {
         result := ComCall(4, this, "HRESULT")

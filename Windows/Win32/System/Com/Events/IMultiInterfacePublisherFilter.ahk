@@ -32,20 +32,10 @@ class IMultiInterfacePublisherFilter extends IUnknown{
     static VTableNames => ["Initialize", "PrepareToFire"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IMultiInterfaceEventControl} pEIC 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Associates an event class with a publisher filter.
+     * @param {IMultiInterfaceEventControl} pEIC A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-imultiinterfaceeventcontrol">IMultiInterfaceEventControl</a> interface on an event class object.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-imultiinterfacepublisherfilter-initialize
      */
     Initialize(pEIC) {
         result := ComCall(3, this, "ptr", pEIC, "HRESULT")
@@ -53,12 +43,12 @@ class IMultiInterfacePublisherFilter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} iid 
-     * @param {BSTR} methodName 
-     * @param {IFiringControl} firingControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfacepublisherfilter-preparetofire
+     * Prepares the publisher filter to begin firing a filtered list of subscriptions using a provided firing control. The firing control is contained in the event class object.
+     * @param {Pointer<Guid>} iid The interface ID of the interface being fired.
+     * @param {BSTR} methodName The name of the event method to be fired.
+     * @param {IFiringControl} firingControl A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ifiringcontrol">IFiringControl</a> interface on the firing control object.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-imultiinterfacepublisherfilter-preparetofire
      */
     PrepareToFire(iid, methodName, firingControl) {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName

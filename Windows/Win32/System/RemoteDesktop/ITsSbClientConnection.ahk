@@ -114,9 +114,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that indicates the name of the user who initiated the connection.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_username
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_username
      */
     get_UserName() {
         pVal := BSTR()
@@ -125,9 +125,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that indicates the domain name of the Remote Desktop Connection (RDC) client.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_domain
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_domain
      */
     get_Domain() {
         pVal := BSTR()
@@ -136,9 +136,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that indicates the program that is launched when the user logs on to the target computer.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_initialprogram
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_initialprogram
      */
     get_InitialProgram() {
         pVal := BSTR()
@@ -147,9 +147,14 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
+     * Retrieves a value that indicates the name of the target computer returned by load balancing.
+     * @remarks
+     * 
+     * This method can be called by placement and orchestration plug-ins to retrieve the target name.
+     * 
      * 
      * @returns {ITsSbLoadBalanceResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_loadbalanceresult
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_loadbalanceresult
      */
     get_LoadBalanceResult() {
         result := ComCall(6, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -157,9 +162,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Farm name.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_farmname
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_farmname
      */
     get_FarmName() {
         pVal := BSTR()
@@ -168,11 +173,11 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} contextId 
-     * @param {VARIANT} context 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-putcontext
+     * Can be used by plug-ins to store context information specific to the connection.
+     * @param {BSTR} contextId A <b>BSTR</b> variable that contains the context ID. We recommend using unique identifiers as context IDs to avoid collisions between plug-ins. A client connection object can be used by more than one plug-in.
+     * @param {VARIANT} context The context information to store.
+     * @returns {VARIANT} Existing context information for the supplied context ID, if any, is returned in this parameter. The existing information is overwritten.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-putcontext
      */
     PutContext(contextId, context) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
@@ -183,10 +188,10 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} contextId 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-getcontext
+     * Retrieves context information that was stored by a plug-in by using the PutContext method.
+     * @param {BSTR} contextId A <b>BSTR</b> variable that contains the context ID.
+     * @returns {VARIANT} A pointer to the context information.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-getcontext
      */
     GetContext(contextId) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
@@ -197,9 +202,14 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
+     * Retrieves an object that contains information about the environment that hosts the target computer.
+     * @remarks
+     * 
+     * An orchestration plug-in can call this method to retrieve environment information about a target virtual machine.
+     * 
      * 
      * @returns {ITsSbEnvironment} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_environment
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_environment
      */
     get_Environment() {
         result := ComCall(10, this, "ptr*", &ppEnvironment := 0, "HRESULT")
@@ -207,9 +217,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that indicates the error that occurred while a client connection was being processed.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_connectionerror
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_connectionerror
      */
     get_ConnectionError() {
         result := ComCall(11, this, "HRESULT")
@@ -217,9 +227,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that indicates the domain name and user name of the user who initiated the connection.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_samuseraccount
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_samuseraccount
      */
     get_SamUserAccount() {
         pVal := BSTR()
@@ -228,9 +238,17 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
+     * Retrieves an object that contains properties associated with the client connection.
+     * @remarks
+     * 
+     * Plug-ins can use this interface to store custom properties for the lifetime of a connection request.
+     * 
+     * 
+     * By default, Remote Desktop Connection Broker (RD Connection Broker) sets the following properties for the property set object.
+     * 
      * 
      * @returns {ITsSbClientConnectionPropertySet} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_clientconnectionpropertyset
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_clientconnectionpropertyset
      */
     get_ClientConnectionPropertySet() {
         result := ComCall(13, this, "ptr*", &ppPropertySet := 0, "HRESULT")
@@ -238,9 +256,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Whether this is the first assignment.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_isfirstassignment
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_isfirstassignment
      */
     get_IsFirstAssignment() {
         result := ComCall(14, this, "int*", &ppVal := 0, "HRESULT")
@@ -248,9 +266,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Rd Farm Type.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_rdfarmtype
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_rdfarmtype
      */
     get_RdFarmType() {
         result := ComCall(15, this, "int*", &pRdFarmType := 0, "HRESULT")
@@ -258,9 +276,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * User SID as a string.
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_usersidstring
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-get_usersidstring
      */
     get_UserSidString() {
         result := ComCall(16, this, "ptr*", &pszUserSidString := 0, "HRESULT")
@@ -268,9 +286,9 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a disconnected session.
      * @returns {ITsSbSession} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-getdisconnectedsession
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbclientconnection-getdisconnectedsession
      */
     GetDisconnectedSession() {
         result := ComCall(17, this, "ptr*", &ppSession := 0, "HRESULT")

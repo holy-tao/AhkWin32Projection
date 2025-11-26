@@ -31,11 +31,14 @@ class IDsAdminNewObj extends IUnknown{
     static VTableNames => ["SetButtons", "GetPageCounts"]
 
     /**
+     * The IDsAdminNewObj::SetButtons method enables or disables the &quot;Next&quot; command button in the wizard for a specific page.
+     * @param {Integer} nCurrIndex Contains the zero-based index of the wizard page for which the "Next" button will be enabled or disabled. This index is relative to the page count of the wizard extension that calls the method.
+     * @param {BOOL} bValid Specifies if the "Next" command button is enabled or disabled. If this value is zero, the "Next" command button is disabled. If this value is nonzero, the "Next" command button is enabled.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nCurrIndex 
-     * @param {BOOL} bValid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobj-setbuttons
+     * 
+     * Returns one of the following values.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobj-setbuttons
      */
     SetButtons(nCurrIndex, bValid) {
         result := ComCall(3, this, "uint", nCurrIndex, "int", bValid, "HRESULT")
@@ -43,11 +46,14 @@ class IDsAdminNewObj extends IUnknown{
     }
 
     /**
+     * The IDsAdminNewObj::GetPageCounts method obtains the total number of pages in the wizard as well as the index of the first page of the extension.
+     * @param {Pointer<Integer>} pnTotal Pointer to a <b>LONG</b> value that receives the total number of pages contained in the wizard.
+     * @param {Pointer<Integer>} pnStartIndex Pointer to a <b>LONG</b> value that receives the zero-based index of the first page of the extension.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} pnTotal 
-     * @param {Pointer<Integer>} pnStartIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobj-getpagecounts
+     * 
+     * Returns one of the following values.
+     * @see https://docs.microsoft.com/windows/win32/api//dsadmin/nf-dsadmin-idsadminnewobj-getpagecounts
      */
     GetPageCounts(pnTotal, pnStartIndex) {
         pnTotalMarshal := pnTotal is VarRef ? "int*" : "ptr"

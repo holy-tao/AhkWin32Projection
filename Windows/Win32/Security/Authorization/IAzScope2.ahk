@@ -50,9 +50,9 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
-     * 
+     * Retrieves an IAzRoleDefinitions object that represents the collection of IAzRoleDefinition objects associated with this scope.
      * @returns {IAzRoleDefinitions} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-get_roledefinitions
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-get_roledefinitions
      */
     get_RoleDefinitions() {
         result := ComCall(45, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
@@ -60,10 +60,12 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
+     * Creates a new IAzRoleDefinition object with the specified name in this scope.
+     * @param {BSTR} bstrRoleDefinitionName A string that contains the name of the new <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object.
+     * @returns {IAzRoleDefinition} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object that this method creates.
      * 
-     * @param {BSTR} bstrRoleDefinitionName 
-     * @returns {IAzRoleDefinition} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-createroledefinition
+     * When you have finished using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-createroledefinition
      */
     CreateRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
@@ -73,10 +75,12 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
+     * Opens an IAzRoleDefinition object with the specified name in this scope.
+     * @param {BSTR} bstrRoleDefinitionName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object to open.
+     * @returns {IAzRoleDefinition} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object that this method opens.
      * 
-     * @param {BSTR} bstrRoleDefinitionName 
-     * @returns {IAzRoleDefinition} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-openroledefinition
+     * When you have finished using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-openroledefinition
      */
     OpenRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
@@ -86,10 +90,12 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
+     * Removes the specified IAzRoleDefinition object from this scope.
+     * @param {BSTR} bstrRoleDefinitionName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object to remove.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {BSTR} bstrRoleDefinitionName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-deleteroledefinition
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-deleteroledefinition
      */
     DeleteRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
@@ -99,9 +105,9 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
-     * 
+     * Retrieves an IAzRoleAssignments object that represents the collection of IAzRoleAssignment objects associated with this scope.
      * @returns {IAzRoleAssignments} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-get_roleassignments
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-get_roleassignments
      */
     get_RoleAssignments() {
         result := ComCall(49, this, "ptr*", &ppRoleAssignments := 0, "HRESULT")
@@ -109,10 +115,12 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
+     * Creates a new IAzRoleAssignment object with the specified name in this scope.
+     * @param {BSTR} bstrRoleAssignmentName A string that contains the name of the new <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object.
+     * @returns {IAzRoleAssignment} The address of  a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object that this method creates.
      * 
-     * @param {BSTR} bstrRoleAssignmentName 
-     * @returns {IAzRoleAssignment} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-createroleassignment
+     * When you have finished using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-createroleassignment
      */
     CreateRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
@@ -122,10 +130,12 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
+     * Opens an IAzRoleAssignment object with the specified name in this scope.
+     * @param {BSTR} bstrRoleAssignmentName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object to open.
+     * @returns {IAzRoleAssignment} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object that this method opens.
      * 
-     * @param {BSTR} bstrRoleAssignmentName 
-     * @returns {IAzRoleAssignment} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-openroleassignment
+     * When you have finished using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-openroleassignment
      */
     OpenRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
@@ -135,10 +145,12 @@ class IAzScope2 extends IAzScope{
     }
 
     /**
+     * Removes the specified IAzRoleAssignment object from this scope.
+     * @param {BSTR} bstrRoleAssignmentName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object to remove.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {BSTR} bstrRoleAssignmentName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-deleteroleassignment
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscope2-deleteroleassignment
      */
     DeleteRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName

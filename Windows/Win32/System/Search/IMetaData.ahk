@@ -31,11 +31,17 @@ class IMetaData extends IUnknown{
     static VTableNames => ["GetData"]
 
     /**
+     * Retrieves one key/value pair from the metadata of an IEntity, IRelationship, or ISchemaProvider object.
+     * @param {Pointer<PWSTR>} ppszKey Type: <b>LPCWSTR*</b>
      * 
-     * @param {Pointer<PWSTR>} ppszKey 
-     * @param {Pointer<PWSTR>} ppszValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-imetadata-getdata
+     * Receives the key of the metadata pair as a Unicode string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<PWSTR>} ppszValue Type: <b>LPWSTR*</b>
+     * 
+     * Receives the value of the metadata pair as a Unicode string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-imetadata-getdata
      */
     GetData(ppszKey, ppszValue) {
         ppszKeyMarshal := ppszKey is VarRef ? "ptr*" : "ptr"

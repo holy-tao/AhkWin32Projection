@@ -31,9 +31,9 @@ class IOfflineFilesPinInfo extends IUnknown{
     static VTableNames => ["IsPinned", "IsPinnedForUser", "IsPinnedForUserByPolicy", "IsPinnedForComputer", "IsPinnedForFolderRedirection"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinned
+     * Determines whether the item is pinned.
+     * @returns {BOOL} Receives <b>TRUE</b> if the item is pinned for any reason, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilespininfo-ispinned
      */
     IsPinned() {
         result := ComCall(3, this, "int*", &pbPinned := 0, "HRESULT")
@@ -41,11 +41,11 @@ class IOfflineFilesPinInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbPinnedForUser 
-     * @param {Pointer<BOOL>} pbInherit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuser
+     * Determines whether the item was pinned by a user.
+     * @param {Pointer<BOOL>} pbPinnedForUser Receives  <b>TRUE</b> if the item was pinned by a user, or <b>FALSE</b> otherwise.
+     * @param {Pointer<BOOL>} pbInherit Receives <b>TRUE</b> if the pinned state is inherited by new child items, or <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuser
      */
     IsPinnedForUser(pbPinnedForUser, pbInherit) {
         pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : "ptr"
@@ -56,11 +56,11 @@ class IOfflineFilesPinInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbPinnedForUser 
-     * @param {Pointer<BOOL>} pbInherit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuserbypolicy
+     * Determines whether the item was pinned for users by Group Policy.
+     * @param {Pointer<BOOL>} pbPinnedForUser Receives  <b>TRUE</b> if the item was pinned for users by Group Policy, or <b>FALSE</b> otherwise.
+     * @param {Pointer<BOOL>} pbInherit Receives <b>TRUE</b> if the pinned state is inherited by new child items, or <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuserbypolicy
      */
     IsPinnedForUserByPolicy(pbPinnedForUser, pbInherit) {
         pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : "ptr"
@@ -71,11 +71,11 @@ class IOfflineFilesPinInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbPinnedForComputer 
-     * @param {Pointer<BOOL>} pbInherit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforcomputer
+     * Determines whether the item was pinned for all users on the computer by Group Policy.
+     * @param {Pointer<BOOL>} pbPinnedForComputer Receives  <b>TRUE</b> if the item was pinned for users by Group Policy, or <b>FALSE</b> otherwise.
+     * @param {Pointer<BOOL>} pbInherit Receives <b>TRUE</b> if the pinned state is inherited by new child items, or <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforcomputer
      */
     IsPinnedForComputer(pbPinnedForComputer, pbInherit) {
         pbPinnedForComputerMarshal := pbPinnedForComputer is VarRef ? "int*" : "ptr"
@@ -86,11 +86,11 @@ class IOfflineFilesPinInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbPinnedForFolderRedirection 
-     * @param {Pointer<BOOL>} pbInherit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforfolderredirection
+     * Determines whether the item was pinned by Folder Redirection.
+     * @param {Pointer<BOOL>} pbPinnedForFolderRedirection Receives  <b>TRUE</b> if the item was pinned for users by Folder Redirection, or <b>FALSE</b> otherwise.
+     * @param {Pointer<BOOL>} pbInherit Receives <b>TRUE</b> if the pinned state is inherited by new child items, or <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforfolderredirection
      */
     IsPinnedForFolderRedirection(pbPinnedForFolderRedirection, pbInherit) {
         pbPinnedForFolderRedirectionMarshal := pbPinnedForFolderRedirection is VarRef ? "int*" : "ptr"

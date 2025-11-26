@@ -1454,9 +1454,9 @@ class IADsUser extends IADs{
     }
 
     /**
-     * 
-     * @returns {IADsMembers} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-groups
+     * Obtains a collection of the ADSI group objects to which this user belongs.
+     * @returns {IADsMembers} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsmembers">IADsMembers</a> interface on a members object that can be enumerated using  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> to determine the groups to which this end-user belongs.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-groups
      */
     Groups() {
         result := ComCall(108, this, "ptr*", &ppGroups := 0, "HRESULT")
@@ -1464,10 +1464,10 @@ class IADsUser extends IADs{
     }
 
     /**
-     * 
-     * @param {BSTR} NewPassword 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-setpassword
+     * Sets the user password to a specified value.
+     * @param {BSTR} NewPassword A <b>BSTR</b> that contains the new password.
+     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-setpassword
      */
     SetPassword(NewPassword) {
         NewPassword := NewPassword is String ? BSTR.Alloc(NewPassword).Value : NewPassword
@@ -1477,11 +1477,11 @@ class IADsUser extends IADs{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrOldPassword 
-     * @param {BSTR} bstrNewPassword 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-changepassword
+     * Changes the user password from the specified old value to a new value.
+     * @param {BSTR} bstrOldPassword A <b>BSTR</b> that contains the current password.
+     * @param {BSTR} bstrNewPassword A <b>BSTR</b> that contains the new password.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-changepassword
      */
     ChangePassword(bstrOldPassword, bstrNewPassword) {
         bstrOldPassword := bstrOldPassword is String ? BSTR.Alloc(bstrOldPassword).Value : bstrOldPassword

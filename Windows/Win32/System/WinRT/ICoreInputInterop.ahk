@@ -43,10 +43,10 @@ class ICoreInputInterop extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icoreinputinterop-setinputsource
+     * Sets the input source for an app's CoreIndependentInputSource or CoreComponentInputSource.
+     * @param {IUnknown} value Pointer to the base COM interface of the input source.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-icoreinputinterop-setinputsource
      */
     SetInputSource(value) {
         result := ComCall(3, this, "ptr", value, "HRESULT")
@@ -54,10 +54,10 @@ class ICoreInputInterop extends IUnknown{
     }
 
     /**
-     * 
+     * Sets whether or not the message to the CoreWindow has been handled.
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icoreinputinterop-put_messagehandled
+     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-icoreinputinterop-put_messagehandled
      */
     put_MessageHandled(value) {
         result := ComCall(4, this, "char", value, "HRESULT")

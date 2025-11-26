@@ -99,9 +99,9 @@ class IXpsOMGradientStop extends IUnknown{
     static VTableNames => ["GetOwner", "GetOffset", "SetOffset", "GetColor", "SetColor", "Clone"]
 
     /**
-     * 
-     * @returns {IXpsOMGradientBrush} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getowner
+     * Gets a pointer to the IXpsOMGradientBrush interface that contains the gradient stop.
+     * @returns {IXpsOMGradientBrush} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientbrush">IXpsOMGradientBrush</a> interface that contains the gradient stop. If the gradient stop is not assigned to a gradient brush, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getowner
      */
     GetOwner() {
         result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
@@ -109,9 +109,9 @@ class IXpsOMGradientStop extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getoffset
+     * Gets the offset value of the gradient stop.
+     * @returns {Float} The offset value of the gradient stop, expressed as a fraction of the gradient path.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getoffset
      */
     GetOffset() {
         result := ComCall(4, this, "float*", &offset := 0, "HRESULT")
@@ -119,10 +119,41 @@ class IXpsOMGradientStop extends IUnknown{
     }
 
     /**
+     * Sets the offset location of the gradient stop.
+     * @param {Float} offset The offset value that describes the location of the gradient stop as a fraction of the gradient path.
      * 
-     * @param {Float} offset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setoffset
+     * The valid range of this parameter is 0.0 &lt;= <i>offset</i> &lt;= 1.0.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>offset</i> did not contain a valid offset value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setoffset
      */
     SetOffset(offset) {
         result := ComCall(5, this, "float", offset, "HRESULT")
@@ -130,10 +161,10 @@ class IXpsOMGradientStop extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<XPS_COLOR>} color 
-     * @returns {IXpsOMColorProfileResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getcolor
+     * Gets the color value and color profile of the gradient stop.
+     * @param {Pointer<XPS_COLOR>} color The color value of the gradient stop.
+     * @returns {IXpsOMColorProfileResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface that contains the color profile to be used. If no color profile resource has been set, a <b>NULL</b> pointer is returned. See remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getcolor
      */
     GetColor(color) {
         result := ComCall(6, this, "ptr", color, "ptr*", &colorProfile := 0, "HRESULT")
@@ -141,11 +172,77 @@ class IXpsOMGradientStop extends IUnknown{
     }
 
     /**
+     * Sets the color value and color profile of the gradient stop.
+     * @param {Pointer<XPS_COLOR>} color The color value to be set at the gradient stop.
      * 
-     * @param {Pointer<XPS_COLOR>} color 
-     * @param {IXpsOMColorProfileResource} colorProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setcolor
+     * If the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed in this parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, a valid color profile must be provided in the <i>colorProfile</i> parameter.
+     * @param {IXpsOMColorProfileResource} colorProfile The color profile to be used with <i>color</i>.
+     * 
+     * A color profile is required when the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed  in the <i>color</i> parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>. If the value of the <b>colorType</b> field is not <b>XPS_COLOR_TYPE_CONTEXT</b>, this parameter must be set to <b>NULL</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>color</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_MISSING_COLORPROFILE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>colorProfile</i> is <b>NULL</b> when a color profile was expected. A color profile is required when the color type is <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_NO_CUSTOM_OBJECTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>colorProfile</i> does not point to a recognized interface implementation. Custom implementation of XPS Document API interfaces is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_UNEXPECTED_COLORPROFILE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>colorProfile</i> contained a color profile when one was not expected. A color profile is only allowed when the color type is <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setcolor
      */
     SetColor(color, colorProfile) {
         result := ComCall(7, this, "ptr", color, "ptr", colorProfile, "HRESULT")
@@ -153,9 +250,9 @@ class IXpsOMGradientStop extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsOMGradientStop} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-clone
+     * Makes a deep copy of the IXpsOMGradientStop interface.
+     * @returns {IXpsOMGradientStop} A pointer to the copy of the  interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-clone
      */
     Clone() {
         result := ComCall(8, this, "ptr*", &gradientStop := 0, "HRESULT")

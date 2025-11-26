@@ -33,14 +33,14 @@ class IAppxEncryptionFactory3 extends IUnknown{
     static VTableNames => ["EncryptPackage", "CreateEncryptedPackageWriter", "EncryptBundle", "CreateEncryptedBundleWriter"]
 
     /**
-     * 
-     * @param {IStream} inputStream 
-     * @param {IStream} outputStream 
-     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings 
-     * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-encryptpackage
+     * Creates an encrypted Windows app package from an unencrypted one.
+     * @param {IStream} inputStream A readable stream from the app bundle to encrypt.
+     * @param {IStream} outputStream A writeable stream for writing the resulting encrypted app bundle.
+     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings Settings for creating the bundle.
+     * @param {Pointer<APPX_KEY_INFO>} keyInfo Key info containing the base encryption key and key ID for encrypting the bundle. The base encryption key is used to derive the per file encryption keys. If this parameter is null, the global test key and key ID are used.
+     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles Files exempted from the package writer.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptionfactory3-encryptpackage
      */
     EncryptPackage(inputStream, outputStream, settings, keyInfo, exemptedFiles) {
         result := ComCall(3, this, "ptr", inputStream, "ptr", outputStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "HRESULT")
@@ -48,15 +48,15 @@ class IAppxEncryptionFactory3 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} outputStream 
-     * @param {IStream} manifestStream 
-     * @param {IStream} contentGroupMapStream 
-     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings 
-     * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @returns {IAppxEncryptedPackageWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedpackagewriter
+     * Creates a new instance of an IAppxEncryptedPackageWriter.
+     * @param {IStream} outputStream A writeable stream for sending bytes produced by the app package.
+     * @param {IStream} manifestStream A readable stream that defines the package for the  AppxManifest.xml.
+     * @param {IStream} contentGroupMapStream A stream that defines the content group map.
+     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings Settings for creating the package.
+     * @param {Pointer<APPX_KEY_INFO>} keyInfo Key info containing the base encryption key and key ID for encrypting the package. The base encryption key is used to derive the per file encryption keys. If this parameter is null, the global test key and key ID are used.
+     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles Files exempted from the package writer.
+     * @returns {IAppxEncryptedPackageWriter} The package writer object created.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedpackagewriter
      */
     CreateEncryptedPackageWriter(outputStream, manifestStream, contentGroupMapStream, settings, keyInfo, exemptedFiles) {
         result := ComCall(4, this, "ptr", outputStream, "ptr", manifestStream, "ptr", contentGroupMapStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")
@@ -64,14 +64,14 @@ class IAppxEncryptionFactory3 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} inputStream 
-     * @param {IStream} outputStream 
-     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings 
-     * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-encryptbundle
+     * Creates an encrypted Windows app bundle from an unencrypted one.
+     * @param {IStream} inputStream A readable stream from the app bundle to encrypt.
+     * @param {IStream} outputStream A writeable stream for writing the resulting encrypted app bundle.
+     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings Settings for creating the bundle.
+     * @param {Pointer<APPX_KEY_INFO>} keyInfo Key info containing the base encryption key and key ID for encrypting the bundle. The base encryption key is used to derive the per file encryption keys. If this parameter is null, the global test key and key ID are used.
+     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles Files exempted from the bundle writer.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptionfactory3-encryptbundle
      */
     EncryptBundle(inputStream, outputStream, settings, keyInfo, exemptedFiles) {
         result := ComCall(5, this, "ptr", inputStream, "ptr", outputStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "HRESULT")
@@ -79,14 +79,14 @@ class IAppxEncryptionFactory3 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} outputStream 
-     * @param {Integer} bundleVersion 
-     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings 
-     * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @returns {IAppxEncryptedBundleWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedbundlewriter
+     * Creates a write-only bundle object to which encrypted Windows app packages can be added.
+     * @param {IStream} outputStream A writeable stream for writing the resulting encrypted app bundle.
+     * @param {Integer} bundleVersion The version number of the bundle. If the bundle version is 0, a default version based on the current system time will be generated.
+     * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings Settings for creating the package.
+     * @param {Pointer<APPX_KEY_INFO>} keyInfo Key info containing the base encryption key and key ID for decrypting the bundle. The base key is used to derive the per file encryption keys. If this parameter is null, the global test key and key ID are used.
+     * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles Files exempted from the bundle writer.
+     * @returns {IAppxEncryptedBundleWriter} The bundle writer object created.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedbundlewriter
      */
     CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles) {
         result := ComCall(6, this, "ptr", outputStream, "uint", bundleVersion, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")

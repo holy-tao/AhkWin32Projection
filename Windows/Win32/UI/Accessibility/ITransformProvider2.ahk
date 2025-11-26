@@ -59,10 +59,14 @@ class ITransformProvider2 extends ITransformProvider{
     }
 
     /**
+     * Zooms the viewport of the control.
+     * @param {Float} zoom Type: <b>double</b>
      * 
-     * @param {Float} zoom 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-zoom
+     * The amount to zoom the viewport, specified as a percentage. The provider should zoom the viewport to the nearest supported value.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider2-zoom
      */
     Zoom(zoom) {
         result := ComCall(9, this, "double", zoom, "HRESULT")
@@ -70,9 +74,9 @@ class ITransformProvider2 extends ITransformProvider{
     }
 
     /**
-     * 
+     * Indicates whether the control supports zooming of its viewport.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_canzoom
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider2-get_canzoom
      */
     get_CanZoom() {
         result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
@@ -80,9 +84,9 @@ class ITransformProvider2 extends ITransformProvider{
     }
 
     /**
-     * 
+     * Retrieves the current zoom level of the element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomlevel
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomlevel
      */
     get_ZoomLevel() {
         result := ComCall(11, this, "double*", &pRetVal := 0, "HRESULT")
@@ -90,9 +94,9 @@ class ITransformProvider2 extends ITransformProvider{
     }
 
     /**
-     * 
+     * Retrieves the minimum zoom level of the element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomminimum
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomminimum
      */
     get_ZoomMinimum() {
         result := ComCall(12, this, "double*", &pRetVal := 0, "HRESULT")
@@ -100,9 +104,9 @@ class ITransformProvider2 extends ITransformProvider{
     }
 
     /**
-     * 
+     * Retrieves the maximum zoom level of the element.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoommaximum
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoommaximum
      */
     get_ZoomMaximum() {
         result := ComCall(13, this, "double*", &pRetVal := 0, "HRESULT")
@@ -110,10 +114,10 @@ class ITransformProvider2 extends ITransformProvider{
     }
 
     /**
-     * 
-     * @param {Integer} zoomUnit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-zoombyunit
+     * Zooms the viewport of the control by the specified logical unit.
+     * @param {Integer} zoomUnit The logical unit by which to increase or decrease the zoom of the viewport.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itransformprovider2-zoombyunit
      */
     ZoomByUnit(zoomUnit) {
         result := ComCall(14, this, "int", zoomUnit, "HRESULT")

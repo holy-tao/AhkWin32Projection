@@ -31,10 +31,39 @@ class IConfigAviMux extends IUnknown{
     static VTableNames => ["SetMasterStream", "GetMasterStream", "SetOutputCompatibilityIndex", "GetOutputCompatibilityIndex"]
 
     /**
+     * The SetMasterStream method specifies a stream that will be used to synchronize the other streams in the file.
+     * @param {Integer} iStream Specifies the index of the stream, or –1 to indicate no master stream. The AVI Mux writes one stream for each connected input pin. Stream numbers are indexed from zero.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} iStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-setmasterstream
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfigavimux-setmasterstream
      */
     SetMasterStream(iStream) {
         result := ComCall(3, this, "int", iStream, "HRESULT")
@@ -42,9 +71,9 @@ class IConfigAviMux extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-getmasterstream
+     * The GetMasterStream method queries which stream will be used to synchronize the other streams in the file.
+     * @returns {Integer} Receives the index of the master stream, or -1 if no master stream was set.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfigavimux-getmasterstream
      */
     GetMasterStream() {
         result := ComCall(4, this, "int*", &pStream := 0, "HRESULT")
@@ -52,10 +81,10 @@ class IConfigAviMux extends IUnknown{
     }
 
     /**
-     * 
+     * The SetOutputCompatibilityIndex method sets the AVI index format.
      * @param {BOOL} fOldIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-setoutputcompatibilityindex
+     * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfigavimux-setoutputcompatibilityindex
      */
     SetOutputCompatibilityIndex(fOldIndex) {
         result := ComCall(5, this, "int", fOldIndex, "HRESULT")
@@ -63,9 +92,9 @@ class IConfigAviMux extends IUnknown{
     }
 
     /**
-     * 
+     * The GetOutputCompatibilityIndex method retrieves the setting for the AVI index format.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-getoutputcompatibilityindex
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iconfigavimux-getoutputcompatibilityindex
      */
     GetOutputCompatibilityIndex() {
         result := ComCall(6, this, "int*", &pfOldIndex := 0, "HRESULT")

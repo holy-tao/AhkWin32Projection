@@ -46,9 +46,9 @@ class ISharedProperty extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-get_value
+     * Retrieves the value of a shared property.
+     * @returns {VARIANT} The value of this shared property.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedproperty-get_value
      */
     get_Value() {
         pVal := VARIANT()
@@ -57,10 +57,50 @@ class ISharedProperty extends IDispatch{
     }
 
     /**
+     * Sets the value of a shared property.
+     * @param {VARIANT} val The new value that is to be set for this shared property.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {VARIANT} val 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedproperty-put_value
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DISP_E_ARRAYISLOCKED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument passed in the parameter contains an array that is locked.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DISP_E_BADVARTYPE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument passed in the parameter is not a valid Variant type.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedproperty-put_value
      */
     put_Value(val) {
         result := ComCall(8, this, "ptr", val, "HRESULT")

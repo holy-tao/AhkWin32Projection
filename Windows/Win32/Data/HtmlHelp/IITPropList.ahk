@@ -85,11 +85,44 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Returns the property object associated with the given property ID.
+     * @param {Integer} PropID ID of the property object to get.
+     * @param {Pointer<CProperty>} Property The property object returned.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} PropID 
-     * @param {Pointer<CProperty>} Property 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-get
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property was successfully returned.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTEXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested property does not exist.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-get
      */
     Get(PropID, Property) {
         result := ComCall(13, this, "uint", PropID, "ptr", Property, "HRESULT")
@@ -97,9 +130,27 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Clears memory associated with a property list and reinitializes the list.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-clear
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property list was cleared.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-clear
      */
     Clear() {
         result := ComCall(14, this, "HRESULT")
@@ -130,10 +181,41 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Returns the first property object in a property list.
+     * @param {Pointer<CProperty>} Property The property object returned.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<CProperty>} Property 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getfirst
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property was successfully returned.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTEXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested property does not exist.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-getfirst
      */
     GetFirst(Property) {
         result := ComCall(17, this, "ptr", Property, "HRESULT")
@@ -163,11 +245,31 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Saves the property ID and data type from the property list to a buffer. Only saves properties marked with a persistence state of TRUE.
+     * @param {Pointer<Void>} lpvData Pointer to a buffer to fill.
+     * @param {Integer} dwHdrSize Size of the buffer.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Void>} lpvData 
-     * @param {Integer} dwHdrSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-saveheader
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property list was successfully saved.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-saveheader
      */
     SaveHeader(lpvData, dwHdrSize) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
@@ -177,13 +279,33 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Saves the data size and data from the property list to a buffer.
+     * @param {Pointer<Void>} lpvHeader Pointer to a buffer containing the header.
+     * @param {Integer} dwHdrSize Size of the buffer containing the header.
+     * @param {Pointer<Void>} lpvData Pointer to a buffer to fill.
+     * @param {Integer} dwBufSize Size of the buffer to fill.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Void>} lpvHeader 
-     * @param {Integer} dwHdrSize 
-     * @param {Pointer<Void>} lpvData 
-     * @param {Integer} dwBufSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-savedata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property list was successfully saved.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-savedata
      */
     SaveData(lpvHeader, dwHdrSize, lpvData, dwBufSize) {
         lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
@@ -194,10 +316,28 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Returns the number of bytes needed to save the header.
+     * @param {Pointer<Integer>} dwHdrSize Size, in bytes.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} dwHdrSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getheadersize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The size was successfully returned. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-getheadersize
      */
     GetHeaderSize(dwHdrSize) {
         dwHdrSizeMarshal := dwHdrSize is VarRef ? "uint*" : "ptr"
@@ -207,12 +347,52 @@ class IITPropList extends IPersistStreamInit{
     }
 
     /**
+     * Returns the number of bytes needed to save the property data.
+     * @param {Pointer<Void>} lpvHeader Pointer to a buffer containing the header.
+     * @param {Integer} dwHdrSize Size of the header buffer.
+     * @param {Pointer<Integer>} dwDataSize Size in bytes.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Void>} lpvHeader 
-     * @param {Integer} dwHdrSize 
-     * @param {Pointer<Integer>} dwDataSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getdatasize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The size was successfully returned. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpvHeader</i> parameter is NULL, or <i>dwHdrSize</i> is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_BADVALUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid header buffer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitproplist-getdatasize
      */
     GetDataSize(lpvHeader, dwHdrSize, dwDataSize) {
         lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"

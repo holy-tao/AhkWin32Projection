@@ -34,9 +34,9 @@ class IVdsLunPlex extends IUnknown{
     static VTableNames => ["GetProperties", "GetLun", "QueryExtents", "QueryHints", "ApplyHints"]
 
     /**
-     * 
-     * @returns {VDS_LUN_PLEX_PROP} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-getproperties
+     * Returns the properties of the LUN plex.
+     * @returns {VDS_LUN_PLEX_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop">VDS_LUN_PLEX_PROP</a> structure allocated and passed in by the caller.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-getproperties
      */
     GetProperties() {
         pPlexProp := VDS_LUN_PLEX_PROP()
@@ -45,9 +45,9 @@ class IVdsLunPlex extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IVdsLun} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-getlun
+     * Returns the LUN to which the plex belongs.
+     * @returns {IVdsLun} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdslun">IVdsLun</a>interface pointer. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-getlun
      */
     GetLun() {
         result := ComCall(4, this, "ptr*", &ppLun := 0, "HRESULT")
@@ -55,11 +55,68 @@ class IVdsLunPlex extends IUnknown{
     }
 
     /**
+     * Returns an array of the drive extents that contribute to the plex.
+     * @param {Pointer<Pointer<VDS_DRIVE_EXTENT>>} ppExtentArray A pointer to the array of pointers to drive extents passed in by the caller. These are the extents that contribute to the plex. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_extent">VDS_DRIVE_EXTENT</a> structure. Callers must free this array by using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @param {Pointer<Integer>} plNumberOfExtents A pointer to the number of drive extents returned in <i>ppExtentArray</i>.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Pointer<Pointer<VDS_DRIVE_EXTENT>>} ppExtentArray 
-     * @param {Pointer<Integer>} plNumberOfExtents 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryextents
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_PROVIDER_CACHE_CORRUPT</b></dt>
+     * <dt>0x8004241FL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_DELETED</b></dt>
+     * <dt>0x8004240BL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *   
+     * The LUN plex is no longer present.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_STATUS_FAILED</b></dt>
+     * <dt>0x80042431L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The LUN plex is in a failed state, and is unable to perform the requested operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_ANOTHER_CALL_IN_PROGRESS</b></dt>
+     * <dt>0x80042404L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Another operation is in progress; this operation cannot proceed until the previous operation or operations are complete.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
         ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
@@ -70,9 +127,9 @@ class IVdsLunPlex extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {VDS_HINTS} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryhints
+     * Returns the hints that are currently applied to the LUN plex.
+     * @returns {VDS_HINTS} Pointer to the returned plex hints. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints">VDS_HINTS</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-queryhints
      */
     QueryHints() {
         pHints := VDS_HINTS()
@@ -81,10 +138,77 @@ class IVdsLunPlex extends IUnknown{
     }
 
     /**
+     * Applies a new set of hints to the LUN plex. Hints applied to a plex affect neither the LUN nor its other plexes.
+     * @param {Pointer<VDS_HINTS>} pHints Pointer to the hints to be applied to the LUN plex. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints">VDS_HINTS</a> structure. Only fields relevant to a LUN plex are expected to be set; irrelevant fields are ignored.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
-     * @param {Pointer<VDS_HINTS>} pHints 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-applyhints
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_PROVIDER_CACHE_CORRUPT</b></dt>
+     * <dt>0x8004241FL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_DELETED</b></dt>
+     * <dt>0x8004240BL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The LUN plex is no longer present.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_OBJECT_STATUS_FAILED</b></dt>
+     * <dt>0x80042431L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The LUN plex is in a failed state, and is unable to perform the requested operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_ANOTHER_CALL_IN_PROGRESS</b></dt>
+     * <dt>0x80042404L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Another operation is in progress; this operation cannot proceed until the previous operation or operations are complete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VDS_E_NOT_SUPPORTED</b></dt>
+     * <dt>0x80042400L</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This operation or combination of parameters is not supported by this provider.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-applyhints
      */
     ApplyHints(pHints) {
         result := ComCall(7, this, "ptr", pHints, "HRESULT")

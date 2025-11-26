@@ -36,12 +36,12 @@ class IUIAutomationChangesEventHandler extends IUnknown{
     static VTableNames => ["HandleChangesEvent"]
 
     /**
-     * 
-     * @param {IUIAutomationElement} sender 
-     * @param {Pointer<UiaChangeInfo>} uiaChanges 
-     * @param {Integer} changesCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationchangeseventhandler-handlechangesevent
+     * Handles one or more Microsoft UI Automation change events.
+     * @param {IUIAutomationElement} sender A pointer to the element that raised the event.
+     * @param {Pointer<UiaChangeInfo>} uiaChanges A collection of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures.
+     * @param {Integer} changesCount The number of changes that occurred. This is the number of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures pointed to by the <i>uiaChanges</i> parameter.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationchangeseventhandler-handlechangesevent
      */
     HandleChangesEvent(sender, uiaChanges, changesCount) {
         result := ComCall(3, this, "ptr", sender, "ptr", uiaChanges, "int", changesCount, "HRESULT")

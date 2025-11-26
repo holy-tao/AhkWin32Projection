@@ -56,11 +56,19 @@ class IDXGIFactory1 extends IDXGIFactory{
     static VTableNames => ["EnumAdapters1", "IsCurrent"]
 
     /**
+     * Enumerates both adapters (video cards) with or without outputs.
+     * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Adapter 
-     * @param {Pointer<IDXGIAdapter1>} ppAdapter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory1-enumadapters1
+     * The index of the adapter to enumerate.
+     * @param {Pointer<IDXGIAdapter1>} ppAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter1">IDXGIAdapter1</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter1">IDXGIAdapter1</a> interface at the position specified by the <i>Adapter</i> parameter.  
+     *           This parameter must not be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful; otherwise, returns <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_NOT_FOUND</a> if the index is greater than or equal to the number of adapters in the local 
+     *       system, or <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_INVALID_CALL</a> if <i>ppAdapter</i> parameter is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgifactory1-enumadapters1
      */
     EnumAdapters1(Adapter, ppAdapter) {
         result := ComCall(12, this, "uint", Adapter, "ptr*", ppAdapter, "int")
@@ -68,9 +76,14 @@ class IDXGIFactory1 extends IDXGIFactory{
     }
 
     /**
+     * Informs an application of the possible need to re-enumerate adapters.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory1-iscurrent
+     * <b>FALSE</b>, if a new adapter is becoming available or the current adapter is going away.
+     *     <b>TRUE</b>, no adapter changes.
+     * 
+     * <b>IsCurrent</b> returns <b>FALSE</b> to inform the calling application to re-enumerate adapters.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgifactory1-iscurrent
      */
     IsCurrent() {
         result := ComCall(13, this, "int")

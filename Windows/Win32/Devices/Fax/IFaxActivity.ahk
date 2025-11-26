@@ -71,9 +71,14 @@ class IFaxActivity extends IDispatch{
     }
 
     /**
+     * The IFaxActivity::get_IncomingMessages property is a number that represents the total number of incoming fax jobs that the fax service is currently in the process of receiving.
+     * @remarks
+     * 
+     * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_incomingmessages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxactivity-get_incomingmessages
      */
     get_IncomingMessages() {
         result := ComCall(7, this, "int*", &plIncomingMessages := 0, "HRESULT")
@@ -81,9 +86,14 @@ class IFaxActivity extends IDispatch{
     }
 
     /**
+     * The IFaxActivity::get_RoutingMessages property is a number that represents the total number of incoming fax jobs that the fax service is currently routing.
+     * @remarks
+     * 
+     * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_routingmessages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxactivity-get_routingmessages
      */
     get_RoutingMessages() {
         result := ComCall(8, this, "int*", &plRoutingMessages := 0, "HRESULT")
@@ -91,9 +101,14 @@ class IFaxActivity extends IDispatch{
     }
 
     /**
+     * The IFaxActivity::get_OutgoingMessages property is a number that represents the total number of outgoing fax jobs that the fax service is in the process of sending.
+     * @remarks
+     * 
+     * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_outgoingmessages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxactivity-get_outgoingmessages
      */
     get_OutgoingMessages() {
         result := ComCall(9, this, "int*", &plOutgoingMessages := 0, "HRESULT")
@@ -101,9 +116,14 @@ class IFaxActivity extends IDispatch{
     }
 
     /**
+     * The IFaxActivity::get_QueuedMessages property is a number that represents the total number of fax jobs in the fax job queue that are pending processing. This does not include jobs for which the number of retries has been exceeded.
+     * @remarks
+     * 
+     * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_queuedmessages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxactivity-get_queuedmessages
      */
     get_QueuedMessages() {
         result := ComCall(10, this, "int*", &plQueuedMessages := 0, "HRESULT")
@@ -111,9 +131,11 @@ class IFaxActivity extends IDispatch{
     }
 
     /**
+     * The IFaxActivity::Refresh method refreshes FaxActivity information from the fax server.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-refresh
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxactivity-refresh
      */
     Refresh() {
         result := ComCall(11, this, "HRESULT")

@@ -46,10 +46,28 @@ class IMFRemoteDesktopPlugin extends IUnknown{
     static VTableNames => ["UpdateTopology"]
 
     /**
+     * Modifies a topology for use in a Terminal Services environment.
+     * @param {IMFTopology} pTopology Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the topology.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFTopology} pTopology 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology
      */
     UpdateTopology(pTopology) {
         result := ComCall(3, this, "ptr", pTopology, "HRESULT")

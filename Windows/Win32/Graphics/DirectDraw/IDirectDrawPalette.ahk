@@ -72,10 +72,17 @@ class IDirectDrawPalette extends IUnknown{
     static VTableNames => ["GetCaps", "GetEntries", "Initialize", "SetEntries"]
 
     /**
-     * 
+     * Retrieves the capabilities of the palette object.
      * @param {Pointer<Integer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getcaps
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-getcaps
      */
     GetCaps(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -85,13 +92,23 @@ class IDirectDrawPalette extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves palette values from a DirectDrawPalette object.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Pointer<PALETTEENTRY>} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getentries
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOTPALETTIZED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-getentries
      */
     GetEntries(param0, param1, param2, param3) {
         result := ComCall(4, this, "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "HRESULT")
@@ -99,22 +116,14 @@ class IDirectDrawPalette extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
+     * Initializes the DirectDrawPalette object.
      * @param {IDirectDraw} param0 
      * @param {Integer} param1 
      * @param {Pointer<PALETTEENTRY>} param2 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @returns {HRESULT} This method returns DDERR_ALREADYINITIALIZED.
+     * 
+     * This method is provided for compliance with the Component Object Model (COM). Because the DirectDrawPalette object is initialized when it is created, this method always returns DDERR_ALREADYINITIALIZED.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-initialize
      */
     Initialize(param0, param1, param2) {
         result := ComCall(5, this, "ptr", param0, "uint", param1, "ptr", param2, "HRESULT")
@@ -122,13 +131,25 @@ class IDirectDrawPalette extends IUnknown{
     }
 
     /**
-     * 
+     * Changes entries in a DirectDrawPalette object immediately.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Pointer<PALETTEENTRY>} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-setentries
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOPALETTEATTACHED</li>
+     * <li>DDERR_NOTPALETTIZED</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-setentries
      */
     SetEntries(param0, param1, param2, param3) {
         result := ComCall(6, this, "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "HRESULT")

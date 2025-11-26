@@ -126,9 +126,9 @@ class IOleWindow extends IUnknown{
     static VTableNames => ["GetWindow", "ContextSensitiveHelp"]
 
     /**
-     * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @returns {HWND} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
+     * Retrieves a handle to one of the windows participating in in-place activation (frame, document, parent, or in-place object window).
+     * @returns {HWND} A pointer to a variable that receives the window handle.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolewindow-getwindow
      */
     GetWindow() {
         phwnd := HWND()
@@ -137,10 +137,50 @@ class IOleWindow extends IUnknown{
     }
 
     /**
+     * Determines whether context-sensitive help mode should be entered during an in-place activation session.
+     * @param {BOOL} fEnterMode <b>TRUE</b> if help mode should be entered; <b>FALSE</b> if it should be exited.
+     * @returns {HRESULT} This method returns S_OK if the help mode was entered or exited successfully, depending on the value passed in <i>fEnterMode</i>. Other possible return values include the following.
      * 
-     * @param {BOOL} fEnterMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolewindow-contextsensitivehelp
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <i>fEnterMode</i> value is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is insufficient memory available for this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iolewindow-contextsensitivehelp
      */
     ContextSensitiveHelp(fEnterMode) {
         result := ComCall(4, this, "int", fEnterMode, "HRESULT")

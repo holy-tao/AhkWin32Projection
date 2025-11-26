@@ -32,9 +32,9 @@ class IMFDXGIDeviceManagerSource extends IUnknown{
     static VTableNames => ["GetManager"]
 
     /**
-     * 
-     * @returns {IMFDXGIDeviceManager} 
-     * @see https://learn.microsoft.com/windows/win32/medfound/imfdxgidevicemanagersource-getmanager
+     * Gets the IMFDXGIDeviceManager from the Microsoft Media Foundation video rendering sink.
+     * @returns {IMFDXGIDeviceManager} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfdxgidevicemanagersource-getmanager
      */
     GetManager() {
         result := ComCall(3, this, "ptr*", &ppManager := 0, "HRESULT")

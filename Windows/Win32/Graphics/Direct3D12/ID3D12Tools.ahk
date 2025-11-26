@@ -38,19 +38,30 @@ class ID3D12Tools extends IUnknown{
     static VTableNames => ["EnableShaderInstrumentation", "ShaderInstrumentationEnabled"]
 
     /**
+     * This method enables tools such as PIX to instrument shaders.
+     * @remarks
      * 
-     * @param {BOOL} bEnable 
+     * Do not use this interface in your application, its not intended or supported for any scenario other than to enable tooling such as PIX.
+     * 
+     * Developer Mode must be enabled for this interface to respond.
+     * 
+     * 
+     * @param {BOOL} bEnable Type: <b>BOOL</b>
+     * 
+     * TRUE to enable shader instrumentation; otherwise, FALSE.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12tools-enableshaderinstrumentation
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12tools-enableshaderinstrumentation
      */
     EnableShaderInstrumentation(bEnable) {
         ComCall(3, this, "int", bEnable)
     }
 
     /**
+     * Determines whether shader instrumentation is enabled.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12tools-shaderinstrumentationenabled
+     * Returns TRUE if shader instrumentation is enabled; otherwise FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12tools-shaderinstrumentationenabled
      */
     ShaderInstrumentationEnabled() {
         result := ComCall(4, this, "int")

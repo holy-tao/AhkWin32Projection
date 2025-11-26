@@ -43,9 +43,27 @@ class IWMPPlayerApplication extends IDispatch{
     }
 
     /**
+     * The switchToPlayerApplication method switches a remoted Windows Media Player control to the full mode of the Player.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-switchtoplayerapplication
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerapplication-switchtoplayerapplication
      */
     switchToPlayerApplication() {
         result := ComCall(7, this, "HRESULT")
@@ -53,9 +71,27 @@ class IWMPPlayerApplication extends IDispatch{
     }
 
     /**
+     * The switchToControl method switches a remoted Windows Media Player control to the docked state.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-switchtocontrol
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerapplication-switchtocontrol
      */
     switchToControl() {
         result := ComCall(8, this, "HRESULT")
@@ -63,10 +99,28 @@ class IWMPPlayerApplication extends IDispatch{
     }
 
     /**
+     * The get_playerDocked method retrieves a value indicating whether Windows Media Player is in a docked state.
+     * @param {Pointer<VARIANT_BOOL>} pbPlayerDocked Pointer to a <b>VARIANT_BOOL</b> indicating whether Windows Media Player is in a docked state.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbPlayerDocked 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-get_playerdocked
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerapplication-get_playerdocked
      */
     get_playerDocked(pbPlayerDocked) {
         pbPlayerDockedMarshal := pbPlayerDocked is VarRef ? "short*" : "ptr"
@@ -76,10 +130,28 @@ class IWMPPlayerApplication extends IDispatch{
     }
 
     /**
+     * The get_hasDisplay method retrieves a value indicating whether video can display through the remoted Windows Media Player control.
+     * @param {Pointer<VARIANT_BOOL>} pbHasDisplay Pointer to a <b>VARIANT_BOOL</b> indicating whether video can display through the remoted Windows Media Player control.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbHasDisplay 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-get_hasdisplay
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerapplication-get_hasdisplay
      */
     get_hasDisplay(pbHasDisplay) {
         pbHasDisplayMarshal := pbHasDisplay is VarRef ? "short*" : "ptr"

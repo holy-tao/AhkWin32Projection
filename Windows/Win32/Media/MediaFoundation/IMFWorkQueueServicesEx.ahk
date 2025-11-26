@@ -39,10 +39,10 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
     static VTableNames => ["GetTopologyWorkQueueMMCSSPriority", "BeginRegisterPlatformWorkQueueWithMMCSSEx", "GetPlatformWorkQueueMMCSSPriority"]
 
     /**
-     * 
-     * @param {Integer} dwTopologyWorkQueueId 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-gettopologyworkqueuemmcsspriority
+     * Retrieves the Multimedia Class Scheduler Service (MMCSS) string associated with the given topology work queue.
+     * @param {Integer} dwTopologyWorkQueueId The id of the topology work queue.
+     * @returns {Integer} Pointer to the buffer the work queue's MMCSS task id will be copied to.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservicesex-gettopologyworkqueuemmcsspriority
      */
     GetTopologyWorkQueueMMCSSPriority(dwTopologyWorkQueueId) {
         result := ComCall(15, this, "uint", dwTopologyWorkQueueId, "int*", &plPriority := 0, "HRESULT")
@@ -50,15 +50,15 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
     }
 
     /**
-     * 
-     * @param {Integer} dwPlatformWorkQueue 
-     * @param {PWSTR} wszClass 
-     * @param {Integer} dwTaskId 
-     * @param {Integer} lPriority 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} pState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-beginregisterplatformworkqueuewithmmcssex
+     * Registers a platform work queue with Multimedia Class Scheduler Service (MMCSS) using the specified class and task id.
+     * @param {Integer} dwPlatformWorkQueue The id of one of the standard platform work queues.
+     * @param {PWSTR} wszClass The MMCSS class which the work queue should be registered with.
+     * @param {Integer} dwTaskId The task id which the work queue should be registered with. If <i>dwTaskId</i> is 0, a new MMCSS bucket will be created.
+     * @param {Integer} lPriority The priority.
+     * @param {IMFAsyncCallback} pCallback Standard callback used for async operations in Media Foundation.
+     * @param {IUnknown} pState Standard state used for async operations in Media Foundation.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservicesex-beginregisterplatformworkqueuewithmmcssex
      */
     BeginRegisterPlatformWorkQueueWithMMCSSEx(dwPlatformWorkQueue, wszClass, dwTaskId, lPriority, pCallback, pState) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
@@ -68,10 +68,10 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
     }
 
     /**
-     * 
-     * @param {Integer} dwPlatformWorkQueueId 
+     * Gets the priority of the Multimedia Class Scheduler Service (MMCSS) priority associated with the specified platform work queue.
+     * @param {Integer} dwPlatformWorkQueueId Topology work queue id for which the info will be returned.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-getplatformworkqueuemmcsspriority
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfworkqueueservicesex-getplatformworkqueuemmcsspriority
      */
     GetPlatformWorkQueueMMCSSPriority(dwPlatformWorkQueueId) {
         result := ComCall(17, this, "uint", dwPlatformWorkQueueId, "int*", &plPriority := 0, "HRESULT")

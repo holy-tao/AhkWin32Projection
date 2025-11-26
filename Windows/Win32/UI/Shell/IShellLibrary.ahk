@@ -150,11 +150,17 @@ class IShellLibrary extends IUnknown{
     static VTableNames => ["LoadLibraryFromItem", "LoadLibraryFromKnownFolder", "AddFolder", "RemoveFolder", "GetFolders", "ResolveFolder", "GetDefaultSaveFolder", "SetDefaultSaveFolder", "GetOptions", "SetOptions", "GetFolderType", "SetFolderType", "GetIcon", "SetIcon", "Commit", "Save", "SaveInKnownFolder"]
 
     /**
+     * Loads the library from a specified library definition file.
+     * @param {IShellItem} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiLibrary 
-     * @param {Integer} grfMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromitem
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object for the library definition file to load. An error is returned if this object is not a library.
+     * @param {Integer} grfMode Type: <b>DWORD</b>
+     * 
+     * One or more <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> storage medium flags that specify access and sharing modes for the library object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromitem
      */
     LoadLibraryFromItem(psiLibrary, grfMode) {
         result := ComCall(3, this, "ptr", psiLibrary, "uint", grfMode, "HRESULT")
@@ -162,11 +168,17 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Loads the library that is referenced by a KNOWNFOLDERID.
+     * @param {Pointer<Guid>} kfidLibrary Type: <b>REFKNOWNFOLDERID</b>
      * 
-     * @param {Pointer<Guid>} kfidLibrary 
-     * @param {Integer} grfMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromknownfolder
+     * The  <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> value that identifies the library to load.
+     * @param {Integer} grfMode Type: <b>DWORD</b>
+     * 
+     * One or more <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> storage medium flags that specify access and sharing modes for the library object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromknownfolder
      */
     LoadLibraryFromKnownFolder(kfidLibrary, grfMode) {
         result := ComCall(4, this, "ptr", kfidLibrary, "uint", grfMode, "HRESULT")
@@ -174,10 +186,14 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Adds a folder to the library.
+     * @param {IShellItem} psiLocation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiLocation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-addfolder
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the folder to be added to the library.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-addfolder
      */
     AddFolder(psiLocation) {
         result := ComCall(5, this, "ptr", psiLocation, "HRESULT")
@@ -185,10 +201,14 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Removes a folder from the library.
+     * @param {IShellItem} psiLocation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiLocation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-removefolder
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the folder to remove.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-removefolder
      */
     RemoveFolder(psiLocation) {
         result := ComCall(6, this, "ptr", psiLocation, "HRESULT")
@@ -196,11 +216,17 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Gets the set of child folders that are contained in the library.
+     * @param {Integer} lff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter">LIBRARYFOLDERFILTER</a></b>
      * 
-     * @param {Integer} lff 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfolders
+     * One of the following <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter">LIBRARYFOLDERFILTER</a>   values that determines the folders to get. These flags cannot be combined.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface to  get in  <i>ppv</i>. This value is typically IID_IShellItemArray,  but it can also be IID_IObjectCollection, IID_IObjectArray, or the IID of any other interface that is implemented by CShellItemArray.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     *  A pointer to the interface  requested in <i>riid</i>. If this  call fails, this value is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-getfolders
      */
     GetFolders(lff, riid) {
         result := ComCall(7, this, "int", lff, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -208,12 +234,20 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Resolves the target location of a library folder, even if the folder has been moved or renamed.
+     * @param {IShellItem} psiFolderToResolve Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiFolderToResolve 
-     * @param {Integer} dwTimeout 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-resolvefolder
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the library folder to locate.
+     * @param {Integer} dwTimeout Type: <b>DWORD</b>
+     * 
+     * The maximum time, in milliseconds, the method will  attempt to locate the folder before returning. If the folder could not be located before the specified time elapses, an error is returned.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface to get in <i>ppv</i> that will represent the resolved  target location. This value is typically IID_IShellItem,  but it can also be IID_IShellItem2 or the IID of any other interface that is implemented by CShellItem.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * A pointer  to the interface requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-resolvefolder
      */
     ResolveFolder(psiFolderToResolve, dwTimeout, riid) {
         result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -221,11 +255,17 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Retrieves the default target folder that the library uses for save operations.
+     * @param {Integer} dsft Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a></b>
      * 
-     * @param {Integer} dsft 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getdefaultsavefolder
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a>  value that specifies the save folder to get.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface to get in <i>ppv</i> that will represent the save location.   This value is typically IID_IShellItem,  but it can also be IID_IShellItem2 or the IID of any other interface that is implemented by CShellItem.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * A  pointer  to the interface requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-getdefaultsavefolder
      */
     GetDefaultSaveFolder(dsft, riid) {
         result := ComCall(9, this, "int", dsft, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -233,11 +273,17 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Sets the default target folder that the library will use for save operations.
+     * @param {Integer} dsft Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a></b>
      * 
-     * @param {Integer} dsft 
-     * @param {IShellItem} psi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setdefaultsavefolder
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a>  value  that specifies the default save location to set.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * An  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the folder that to use as the default save location. The folder that this object represents must be a folder that is already in the library.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-setdefaultsavefolder
      */
     SetDefaultSaveFolder(dsft, psi) {
         result := ComCall(10, this, "int", dsft, "ptr", psi, "HRESULT")
@@ -245,9 +291,11 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Gets the library's options.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getoptions
+     * The library options for this library. <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a> is a bitwise enumerator, which means that more than one flag could be set.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-getoptions
      */
     GetOptions() {
         result := ComCall(11, this, "int*", &plofOptions := 0, "HRESULT")
@@ -255,11 +303,17 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Sets the library options.
+     * @param {Integer} lofMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a></b>
      * 
-     * @param {Integer} lofMask 
-     * @param {Integer} lofOptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setoptions
+     * A bitmask  that specifies   the   <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a> values  to change in  this call.
+     * @param {Integer} lofOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a></b>
+     * 
+     * A bitmask that specifies the new value of each  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a>  value to change. <b>LIBRARYOPTIONFLAGS</b>  values that are not set in <i>lofMask</i> are not changed by this call.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-setoptions
      */
     SetOptions(lofMask, lofOptions) {
         result := ComCall(12, this, "int", lofMask, "int", lofOptions, "HRESULT")
@@ -267,9 +321,11 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Gets the library's folder type.
+     * @returns {Guid} Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a>*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfoldertype
+     * The  view template that is applied to a folder, usually based on its intended use and contents.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-getfoldertype
      */
     GetFolderType() {
         pftid := Guid()
@@ -278,10 +334,14 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Sets the library's folder type.
+     * @param {Pointer<Guid>} ftid Type: <b>REFFOLDERTYPEID</b>
      * 
-     * @param {Pointer<Guid>} ftid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setfoldertype
+     * The <b>GUID</b> or <a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a> that represents  the  view template that is applied to a folder, usually based on its intended use and contents.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-setfoldertype
      */
     SetFolderType(ftid) {
         result := ComCall(14, this, "ptr", ftid, "HRESULT")
@@ -289,9 +349,30 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Gets the default icon for the library.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-geticon
+     * A null-terminated Unicode string that describes the location of the default icon. The  string is returned as <c>ModuleFileName,ResourceIndex</code> or <code>ModuleFileName,-ResourceID</c>. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>ModuleFileName</td>
+     * <td>The file name of the module file that contains the icon resource.</td>
+     * </tr>
+     * <tr>
+     * <td>ResourceIndex</td>
+     * <td>If the number that follows the comma is positive, the index of the resource in the module file.</td>
+     * </tr>
+     * <tr>
+     * <td>-ResourceID</td>
+     * <td>If the number that follows the comma is negative, the absolute value of the number is the resource ID of the icon in the module file.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-geticon
      */
     GetIcon() {
         result := ComCall(15, this, "ptr*", &ppszIcon := 0, "HRESULT")
@@ -299,10 +380,33 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Sets the default icon for the library.
+     * @param {PWSTR} pszIcon Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-seticon
+     * A null-terminated Unicode string that describes the location of the default icon. The string must be formatted as <c>ModuleFileName,ResourceIndex</code> or <code>ModuleFileName,-ResourceID</c>. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>ModuleFileName</td>
+     * <td>The file name of the module file that contains the icon resource.</td>
+     * </tr>
+     * <tr>
+     * <td>ResourceIndex</td>
+     * <td>A positive decimal number that specifies the index of the icon resource in the module file.</td>
+     * </tr>
+     * <tr>
+     * <td>-ResourceID</td>
+     * <td>A negative decimal number whose absolute value is the resource ID of the icon resource in the module file.</td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-seticon
      */
     SetIcon(pszIcon) {
         pszIcon := pszIcon is String ? StrPtr(pszIcon) : pszIcon
@@ -312,9 +416,11 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Commits library updates to an existing Library Description file.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-commit
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-commit
      */
     Commit() {
         result := ComCall(17, this, "HRESULT")
@@ -322,12 +428,20 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Saves the library to a new Library Description (*.library-ms) file.
+     * @param {IShellItem} psiFolderToSaveIn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiFolderToSaveIn 
-     * @param {PWSTR} pszLibraryName 
-     * @param {Integer} lsf 
-     * @returns {IShellItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-save
+     * The  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object  that specifies the folder in which to save the library, or <b>NULL</b> to save the library  with the user's default libraries in the FOLDERID_Libraries known folder.
+     * @param {PWSTR} pszLibraryName Type: <b>LPCWSTR</b>
+     * 
+     * The file name under which to save the library. The file name must not include the file name extension; the file name extension is added automatically.
+     * @param {Integer} lsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a>  value that specifies how to handle a library name collision.
+     * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
+     * 
+     * The  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object  that represents the library description file into   which the library was saved.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-save
      */
     Save(psiFolderToSaveIn, pszLibraryName, lsf) {
         pszLibraryName := pszLibraryName is String ? StrPtr(pszLibraryName) : pszLibraryName
@@ -337,12 +451,22 @@ class IShellLibrary extends IUnknown{
     }
 
     /**
+     * Saves the library to a new file in a specified known folder.
+     * @param {Pointer<Guid>} kfidToSaveIn Type: <b>REFKNOWNFOLDERID</b>
      * 
-     * @param {Pointer<Guid>} kfidToSaveIn 
-     * @param {PWSTR} pszLibraryName 
-     * @param {Integer} lsf 
-     * @returns {IShellItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-saveinknownfolder
+     * The ID of the known folder in which to save the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllibrary">IShellLibrary</a> object.
+     *                
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a>.
+     * @param {PWSTR} pszLibraryName Type: <b>LPCWSTR</b>
+     * 
+     * The file name under which to save the library. The file name must not include the file name extension; the file name extension is added automatically.
+     * @param {Integer} lsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a>  value that specifies how to handle a library name collision.
+     * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object  that represents the library description file into    which the library was saved.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllibrary-saveinknownfolder
      */
     SaveInKnownFolder(kfidToSaveIn, pszLibraryName, lsf) {
         pszLibraryName := pszLibraryName is String ? StrPtr(pszLibraryName) : pszLibraryName

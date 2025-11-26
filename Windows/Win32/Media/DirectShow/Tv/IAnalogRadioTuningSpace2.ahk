@@ -44,9 +44,9 @@ class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace2-get_countrycode
+     * This topic applies to Windows XP Media Center Edition 2004 and later.
+     * @returns {Integer} Pointer to a variable that receives the country/region code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace2-get_countrycode
      */
     get_CountryCode() {
         result := ComCall(32, this, "int*", &CountryCodeVal := 0, "HRESULT")
@@ -54,10 +54,10 @@ class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewCountryCodeVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace2-put_countrycode
+     * This topic applies to Windows XP Media Center Edition 2004 and later.
+     * @param {Integer} NewCountryCodeVal The country/region code.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved by using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace2-put_countrycode
      */
     put_CountryCode(NewCountryCodeVal) {
         result := ComCall(33, this, "int", NewCountryCodeVal, "HRESULT")

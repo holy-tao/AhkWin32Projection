@@ -44,11 +44,11 @@ class IMbnVendorSpecificEvents extends IUnknown{
     static VTableNames => ["OnEventNotification", "OnSetVendorSpecificComplete"]
 
     /**
-     * 
-     * @param {IMbnVendorSpecificOperation} vendorOperation 
-     * @param {Pointer<SAFEARRAY>} vendorSpecificData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnvendorspecificevents-oneventnotification
+     * Notification method signaling a change event from the underlying Mobile Broadband device miniport driver.
+     * @param {IMbnVendorSpecificOperation} vendorOperation A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnvendorspecificoperation">IMbnVendorSpecificOperation</a> interface representing the device on which the event has occurred.
+     * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array containing the data returned by underlying miniport driver.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnvendorspecificevents-oneventnotification
      */
     OnEventNotification(vendorOperation, vendorSpecificData) {
         result := ComCall(3, this, "ptr", vendorOperation, "ptr", vendorSpecificData, "HRESULT")
@@ -56,12 +56,12 @@ class IMbnVendorSpecificEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnVendorSpecificOperation} vendorOperation 
-     * @param {Pointer<SAFEARRAY>} vendorSpecificData 
-     * @param {Integer} requestID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnvendorspecificevents-onsetvendorspecificcomplete
+     * Notification method indicating that a vendor-specific operation has completed.
+     * @param {IMbnVendorSpecificOperation} vendorOperation An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnvendorspecificoperation">IMbnVendorSpecificOperation</a> interface representing the operation that completed.
+     * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array containing the data returned by underlying miniport driver.
+     * @param {Integer} requestID A request ID assigned by the Mobile Broadband service to identify the vendor-specific operation request.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnvendorspecificevents-onsetvendorspecificcomplete
      */
     OnSetVendorSpecificComplete(vendorOperation, vendorSpecificData, requestID) {
         result := ComCall(4, this, "ptr", vendorOperation, "ptr", vendorSpecificData, "uint", requestID, "HRESULT")

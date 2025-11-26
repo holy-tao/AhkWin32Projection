@@ -38,11 +38,40 @@ class IMFMediaEngineOPMInfo extends IUnknown{
     static VTableNames => ["GetOPMInfo"]
 
     /**
+     * Gets status information about the Output Protection Manager (OPM).
+     * @param {Pointer<Integer>} pStatus A pointer to a <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-media-engine-opm-status">MF_MEDIA_ENGINE_OPM_STATUS</a> enum type that indicates the OPM status.
+     * @param {Pointer<BOOL>} pConstricted A pointer to a <b>BOOL</b> type that indicates the constriction status.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @param {Pointer<BOOL>} pConstricted 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineopminfo-getopminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * If any of the parameters are <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineopminfo-getopminfo
      */
     GetOPMInfo(pStatus, pConstricted) {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"

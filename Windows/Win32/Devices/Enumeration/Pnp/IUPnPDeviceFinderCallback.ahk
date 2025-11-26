@@ -32,11 +32,13 @@ class IUPnPDeviceFinderCallback extends IUnknown{
     static VTableNames => ["DeviceAdded", "DeviceRemoved", "SearchComplete"]
 
     /**
-     * 
-     * @param {Integer} lFindData 
-     * @param {IUPnPDevice} pDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefindercallback-deviceadded
+     * The DeviceAdded method is invoked by the UPnP framework to notify the application that a device has been added to the network.
+     * @param {Integer} lFindData Specifies the search for which the UPnP framework is returning results. The value of <i>lFindData</i> is the value returned to the caller by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicefinder-createasyncfind">IUPnPDeviceFinder::CreateAsyncFind</a>.
+     * @param {IUPnPDevice} pDevice Reference to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a> object that contains the new device.
+     * @returns {HRESULT} The UPnP framework does not expect the application to return any specific value; any value returned is ignored by the UPnP framework.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicefindercallback-deviceadded
      */
     DeviceAdded(lFindData, pDevice) {
         result := ComCall(3, this, "int", lFindData, "ptr", pDevice, "HRESULT")
@@ -44,11 +46,12 @@ class IUPnPDeviceFinderCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lFindData 
-     * @param {BSTR} bstrUDN 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefindercallback-deviceremoved
+     * The DeviceRemoved method is invoked by the UPnP framework to notify the application that a device has been removed from the network.
+     * @param {Integer} lFindData Specifies the search for which the UPnP framework is returning results. The value of <i>lFindData</i> is the value returned to the caller by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicefinder-createasyncfind">IUPnPDeviceFinder::CreateAsyncFind</a>.
+     * @param {BSTR} bstrUDN Specifies the UDN of the device that was removed from the network.
+     * @returns {HRESULT} The application should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicefindercallback-deviceremoved
      */
     DeviceRemoved(lFindData, bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
@@ -58,10 +61,11 @@ class IUPnPDeviceFinderCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lFindData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefindercallback-searchcomplete
+     * The SearchComplete method is invoked by the UPnP framework to notify the application that the initial search for network devices has been completed.
+     * @param {Integer} lFindData Specifies the search for which the UPnP framework is returning results. The value of <i>lFindData</i> is the value returned to the caller by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicefinder-createasyncfind">IUPnPDeviceFinder::CreateAsyncFind</a>.
+     * @returns {HRESULT} The application should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicefindercallback-searchcomplete
      */
     SearchComplete(lFindData) {
         result := ComCall(5, this, "int", lFindData, "HRESULT")

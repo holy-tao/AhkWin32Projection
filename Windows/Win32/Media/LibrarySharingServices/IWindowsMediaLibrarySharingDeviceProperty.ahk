@@ -52,9 +52,9 @@ class IWindowsMediaLibrarySharingDeviceProperty extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_name
+     * The get_Name method retrieves the name of an individual property of a media device.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the property name.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_name
      */
     get_Name() {
         name := BSTR()
@@ -63,9 +63,9 @@ class IWindowsMediaLibrarySharingDeviceProperty extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_value
+     * The get_Value method retrieves the value of an individual property of a media device.
+     * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the property value.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperty-get_value
      */
     get_Value() {
         value := VARIANT()

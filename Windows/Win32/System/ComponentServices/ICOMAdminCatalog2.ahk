@@ -75,11 +75,11 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrCollectionName 
-     * @param {Pointer<VARIANT>} pVarQueryStrings 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2
+     * Retrieves a collection of items in the COM+ catalog that satisfy the specified set of query keys.
+     * @param {BSTR} bstrCollectionName The name of the collection to be retrieved from the catalog. Possible collection names can be found in the table of collections at <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
+     * @param {Pointer<VARIANT>} pVarQueryStrings The query keys.
+     * @returns {IDispatch} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface pointer containing the result of the query.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2
      */
     GetCollectionByQuery2(bstrCollectionName, pVarQueryStrings) {
         bstrCollectionName := bstrCollectionName is String ? BSTR.Alloc(bstrCollectionName).Value : bstrCollectionName
@@ -89,10 +89,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {Integer} lProcessID 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid
+     * Retrieives the application instance identifier for the specified process identifier.
+     * @param {Integer} lProcessID The process ID.
+     * @returns {BSTR} The corresponding application instance ID.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid
      */
     GetApplicationInstanceIDFromProcessID(lProcessID) {
         pbstrApplicationInstanceID := BSTR()
@@ -101,10 +101,39 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Initiates shutdown of the specified application server processes.
+     * @param {Pointer<VARIANT>} pVarApplicationInstanceID The application instances to be shut down. Each element of the <b>Variant</b> may be a <b>String</b> containing an application instance GUID (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid">GetApplicationInstanceIDFromProcessID</a> method), a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<VARIANT>} pVarApplicationInstanceID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-shutdownapplicationinstances
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified application instance does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-shutdownapplicationinstances
      */
     ShutdownApplicationInstances(pVarApplicationInstanceID) {
         result := ComCall(35, this, "ptr", pVarApplicationInstanceID, "HRESULT")
@@ -112,10 +141,39 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Pauses the specified application server processes.
+     * @param {Pointer<VARIANT>} pVarApplicationInstanceID The application instances to be paused. Each element of the <b>Variant</b> may be a <b>String</b> containing an application instance GUID (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid">GetApplicationInstanceIDFromProcessID</a> method), a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<VARIANT>} pVarApplicationInstanceID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-pauseapplicationinstances
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified application instance does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-pauseapplicationinstances
      */
     PauseApplicationInstances(pVarApplicationInstanceID) {
         result := ComCall(36, this, "ptr", pVarApplicationInstanceID, "HRESULT")
@@ -123,10 +181,40 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Resumes the specified application server processes.
+     * @param {Pointer<VARIANT>} pVarApplicationInstanceID The application instances to be resumed. Each element of the <b>Variant</b> may be a <b>String</b> containing an application instance GUID (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid">GetApplicationInstanceIDFromProcessID</a> method), a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<VARIANT>} pVarApplicationInstanceID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-resumeapplicationinstances
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified application instance does not exist.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-resumeapplicationinstances
      */
     ResumeApplicationInstances(pVarApplicationInstanceID) {
         result := ComCall(37, this, "ptr", pVarApplicationInstanceID, "HRESULT")
@@ -134,11 +222,40 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Recycles (shuts down and restarts) the specified application server processes.
+     * @param {Pointer<VARIANT>} pVarApplicationInstanceID The application instances to be recycled. Each element of the <b>Variant</b> may be a <b>String</b> containing an application instance GUID (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid">GetApplicationInstanceIDFromProcessID</a> method), a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @param {Integer} lReasonCode The reason for recycling the specified application instances. This code is written to an event log entry.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<VARIANT>} pVarApplicationInstanceID 
-     * @param {Integer} lReasonCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-recycleapplicationinstances
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A specified application instance does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-recycleapplicationinstances
      */
     RecycleApplicationInstances(pVarApplicationInstanceID, lReasonCode) {
         result := ComCall(38, this, "ptr", pVarApplicationInstanceID, "int", lReasonCode, "HRESULT")
@@ -146,10 +263,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pVarApplicationInstanceID 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-areapplicationinstancespaused
+     * Determines whether any of the specified application instances (processes) are paused.
+     * @param {Pointer<VARIANT>} pVarApplicationInstanceID The application instances to be checked. Each element of the <b>Variant</b> may be a <b>String</b> containing an application instance ID (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid">GetApplicationInstanceIDFromProcessID</a> method), a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @returns {VARIANT_BOOL} Indicates whether the specified applications are paused.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-areapplicationinstancespaused
      */
     AreApplicationInstancesPaused(pVarApplicationInstanceID) {
         result := ComCall(39, this, "ptr", pVarApplicationInstanceID, "short*", &pVarBoolPaused := 0, "HRESULT")
@@ -157,12 +274,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationInstanceID 
-     * @param {BSTR} bstrDirectory 
-     * @param {Integer} lMaxImages 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-dumpapplicationinstance
+     * Creates a dump file containing an image of the state of the specified application instance (process).
+     * @param {BSTR} bstrApplicationInstanceID The GUID of the application instance.
+     * @param {BSTR} bstrDirectory The complete path to the directory into which the dump file is placed. Do not include the file name. If this parameter is <b>NULL</b>, the default directory is %SystemRoot%\system32\com\dmp.
+     * @param {Integer} lMaxImages The maximum number of dump files that may exist in the dump directory. Specifying this variable prevents dump files from consuming too much storage space.
+     * @returns {BSTR} The name of the dump file containing the resulting application instance image.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-dumpapplicationinstance
      */
     DumpApplicationInstance(bstrApplicationInstanceID, bstrDirectory, lMaxImages) {
         bstrApplicationInstanceID := bstrApplicationInstanceID is String ? BSTR.Alloc(bstrApplicationInstanceID).Value : bstrApplicationInstanceID
@@ -174,9 +291,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
+     * Indicates whether the software required for application instance dumps is installed.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_isapplicationinstancedumpsupported
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-get_isapplicationinstancedumpsupported
      */
     get_IsApplicationInstanceDumpSupported() {
         result := ComCall(41, this, "short*", &pVarBoolDumpSupported := 0, "HRESULT")
@@ -184,17 +301,17 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @param {BSTR} bstrServiceName 
-     * @param {BSTR} bstrStartType 
-     * @param {BSTR} bstrErrorControl 
-     * @param {BSTR} bstrDependencies 
-     * @param {BSTR} bstrRunAs 
-     * @param {BSTR} bstrPassword 
-     * @param {VARIANT_BOOL} bDesktopOk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-createserviceforapplication
+     * Configures a COM+ application to run as a Windows service.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of the application.
+     * @param {BSTR} bstrServiceName The service name of the application. This name is the internal name used by the service control manager (SCM), not the display name.
+     * @param {BSTR} bstrStartType When to start the service. The valid arguments are the options of the <i>dwStartType</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The arguments must be in quotes. The following are the valid arguments: SERVICE_BOOT_START, SERVICE_SYSTEM_START, SERVICE_AUTO_START, SERVICE_DEMAND_START, and SERVICE_DISABLED.
+     * @param {BSTR} bstrErrorControl The severity of the error if this service fails to start during startup. The error determines the action taken by the startup program if failure occurs. The valid arguments are the options of the <i>dwErrorControl</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The arguments must be in quotes. The following are the valid arguments: SERVICE_ERROR_IGNORE, SERVICE_ERROR_NORMAL, SERVICE_ERROR_SEVERE, and SERVICE_ERROR_CRITICAL.
+     * @param {BSTR} bstrDependencies A list of dependencies for the service. There are two possible formats for the string: a standard null-delimited, double-null-terminated string (exactly as documented for <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a>); or a script-friendly list of service names separated by "\" (an invalid character to have in a service name). The rpcss service is implicit in this parameter and does not need to be specified.
+     * @param {BSTR} bstrRunAs The user name to run this service as. If this parameter is <b>NULL</b>, the service will run as Local Service.
+     * @param {BSTR} bstrPassword The password for the system user account. This parameter must be <b>NULL</b> if the service is configured to run as Local Service.
+     * @param {VARIANT_BOOL} bDesktopOk Indicates whether the service should be allowed to interact with the desktop. This parameter is valid only when the service is marked as Local Service and must be <b>FALSE</b> otherwise.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-createserviceforapplication
      */
     CreateServiceForApplication(bstrApplicationIDOrName, bstrServiceName, bstrStartType, bstrErrorControl, bstrDependencies, bstrRunAs, bstrPassword, bDesktopOk) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -210,10 +327,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-deleteserviceforapplication
+     * Deletes the Windows service associated with the specified COM+ application.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of the COM+ application to be deleted.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-deleteserviceforapplication
      */
     DeleteServiceForApplication(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -223,10 +340,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getpartitionid
+     * Retrieves the partition identifier for the specified COM+ application.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of a COM+ application.
+     * @returns {BSTR} The partition GUID associated with the specified application.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-getpartitionid
      */
     GetPartitionID(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -237,10 +354,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getpartitionname
+     * Retrieves the name of the specified COM+ application.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of a COM+ application.
+     * @returns {BSTR} The partition name associated with the specified application.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-getpartitionname
      */
     GetPartitionName(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -251,10 +368,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
+     * Sets the current destination partition.
      * @param {BSTR} bstrPartitionIDOrName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-put_currentpartition
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-put_currentpartition
      */
     put_CurrentPartition(bstrPartitionIDOrName) {
         bstrPartitionIDOrName := bstrPartitionIDOrName is String ? BSTR.Alloc(bstrPartitionIDOrName).Value : bstrPartitionIDOrName
@@ -264,9 +381,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
+     * Retrieves the identifier for the current partition.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionid
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionid
      */
     get_CurrentPartitionID() {
         pbstrPartitionID := BSTR()
@@ -275,9 +392,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
+     * Retrieves the name of the current partition.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionname
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionname
      */
     get_CurrentPartitionName() {
         pbstrPartitionName := BSTR()
@@ -286,9 +403,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
+     * Retrieves the identifier for the global partition.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_globalpartitionid
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-get_globalpartitionid
      */
     get_GlobalPartitionID() {
         pbstrGlobalPartitionID := BSTR()
@@ -297,9 +414,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-flushpartitioncache
+     * Empties the cache that maps users to their default partitions.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-flushpartitioncache
      */
     FlushPartitionCache() {
         result := ComCall(50, this, "HRESULT")
@@ -307,12 +424,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrSourcePartitionIDOrName 
-     * @param {Pointer<VARIANT>} pVarApplicationID 
-     * @param {BSTR} bstrDestinationPartitionIDOrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-copyapplications
+     * Copies the specified COM+ applications from one partition to another.
+     * @param {BSTR} bstrSourcePartitionIDOrName The partition GUID or the name of the source partition.
+     * @param {Pointer<VARIANT>} pVarApplicationID The applications to be copied. Each element of the <b>Variant</b> may be a <b>String</b> containing an application name or ID, a single catalog object, or a catalog collection (as returned, for example, by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @param {BSTR} bstrDestinationPartitionIDOrName The partition GUID or the name of the destination partition.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-copyapplications
      */
     CopyApplications(bstrSourcePartitionIDOrName, pVarApplicationID, bstrDestinationPartitionIDOrName) {
         bstrSourcePartitionIDOrName := bstrSourcePartitionIDOrName is String ? BSTR.Alloc(bstrSourcePartitionIDOrName).Value : bstrSourcePartitionIDOrName
@@ -323,12 +440,41 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Copies the specified components from one partition to another.
+     * @param {BSTR} bstrSourceApplicationIDOrName The application ID or name of the source application.
+     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID The components to be copied. Each element of the <b>Variant</b> may be a <b>String</b> containing a class ID or program ID, a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @param {BSTR} bstrDestinationApplicationIDOrName The application ID or name of the destination application.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrSourceApplicationIDOrName 
-     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID 
-     * @param {BSTR} bstrDestinationApplicationIDOrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-copycomponents
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_AMBIGUOUS_APPLICATION_NAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the named applications exists in multiple partitions. To avoid this error, use application IDs instead of names.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-copycomponents
      */
     CopyComponents(bstrSourceApplicationIDOrName, pVarCLSIDOrProgID, bstrDestinationApplicationIDOrName) {
         bstrSourceApplicationIDOrName := bstrSourceApplicationIDOrName is String ? BSTR.Alloc(bstrSourceApplicationIDOrName).Value : bstrSourceApplicationIDOrName
@@ -339,12 +485,41 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Moves the specified components from one application to another.
+     * @param {BSTR} bstrSourceApplicationIDOrName The application ID or name of the source application.
+     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID The components to be moved. Each element of the <b>Variant</b> may be a <b>String</b> containing a class ID or program ID, a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
+     * @param {BSTR} bstrDestinationApplicationIDOrName The application ID or name of the destination application.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrSourceApplicationIDOrName 
-     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID 
-     * @param {BSTR} bstrDestinationApplicationIDOrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-movecomponents
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADIN_E_AMBIGUOUS_APPLICATION_NAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the named applications exists in multiple partitions. To avoid this error, use application IDs instead of names.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-movecomponents
      */
     MoveComponents(bstrSourceApplicationIDOrName, pVarCLSIDOrProgID, bstrDestinationApplicationIDOrName) {
         bstrSourceApplicationIDOrName := bstrSourceApplicationIDOrName is String ? BSTR.Alloc(bstrSourceApplicationIDOrName).Value : bstrSourceApplicationIDOrName
@@ -355,14 +530,43 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
+     * Creates an alias for an existing COM+ component.
+     * @param {BSTR} bstrSrcApplicationIDOrName The application ID or name of the source application containing the component.
+     * @param {BSTR} bstrCLSIDOrProgID The class ID or program ID of the component for which an alias is created.
+     * @param {BSTR} bstrDestApplicationIDOrName The application ID or the name of the destination application that contains the alias. If this argument is <b>NULL</b> or an empty string, the alias is created within the source application.
+     * @param {BSTR} bstrNewProgId The program ID of the alias.
+     * @param {BSTR} bstrNewClsid The class ID of the alias. If this argument is <b>NULL</b> or an empty string, a new, unique class ID is assigned.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {BSTR} bstrSrcApplicationIDOrName 
-     * @param {BSTR} bstrCLSIDOrProgID 
-     * @param {BSTR} bstrDestApplicationIDOrName 
-     * @param {BSTR} bstrNewProgId 
-     * @param {BSTR} bstrNewClsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-aliascomponent
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_AMBIGUOUS_APPLICATION_NAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the named applications exists in multiple partitions. To avoid this error, use application IDs instead of names.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-aliascomponent
      */
     AliasComponent(bstrSrcApplicationIDOrName, bstrCLSIDOrProgID, bstrDestApplicationIDOrName, bstrNewProgId, bstrNewClsid) {
         bstrSrcApplicationIDOrName := bstrSrcApplicationIDOrName is String ? BSTR.Alloc(bstrSrcApplicationIDOrName).Value : bstrSrcApplicationIDOrName
@@ -376,10 +580,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrDllName 
+     * Determines whether the specified DLL is in use by the COM+ catalog or the registry.
+     * @param {BSTR} bstrDllName The full path to the DLL to be tested.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-issafetodelete
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-issafetodelete
      */
     IsSafeToDelete(bstrDllName) {
         bstrDllName := bstrDllName is String ? BSTR.Alloc(bstrDllName).Value : bstrDllName
@@ -389,12 +593,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID 
+     * Imports the specified classes into a COM+ application as unconfigured components.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of the application into which the components are to be imported.
+     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID The unconfigured components to be imported. Each element of the <b>Variant</b> may be a <b>String</b> containing a class ID or program ID, a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
      * @param {Pointer<VARIANT>} pVarComponentType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-importunconfiguredcomponents
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-importunconfiguredcomponents
      */
     ImportUnconfiguredComponents(bstrApplicationIDOrName, pVarCLSIDOrProgID, pVarComponentType) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -404,12 +608,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID 
+     * Promotes the specified classes from unconfigured components to configured components.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of the application containing the components to be promoted.
+     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID The unconfigured components to be promoted. Each element of the <b>Variant</b> may be a <b>String</b> containing a class ID or program ID, a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
      * @param {Pointer<VARIANT>} pVarComponentType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-promoteunconfiguredcomponents
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-promoteunconfiguredcomponents
      */
     PromoteUnconfiguredComponents(bstrApplicationIDOrName, pVarCLSIDOrProgID, pVarComponentType) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -419,12 +623,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationIDOrName 
-     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID 
+     * Imports the specified components that are already registered into an application.
+     * @param {BSTR} bstrApplicationIDOrName The application ID or name of the application into which the components are to be imported.
+     * @param {Pointer<VARIANT>} pVarCLSIDOrProgID The components to be imported. Each element of the <b>Variant</b> may be a <b>String</b> containing a class ID or program ID, a single catalog object, or a catalog collection (for example, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2">GetCollectionByQuery2</a> method).
      * @param {Pointer<VARIANT>} pVarComponentType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-importcomponents
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-importcomponents
      */
     ImportComponents(bstrApplicationIDOrName, pVarCLSIDOrProgID, pVarComponentType) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
@@ -434,9 +638,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
+     * Indicates whether the currently connected catalog server is a 64-bit computer.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_is64bitcatalogserver
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-get_is64bitcatalogserver
      */
     get_Is64BitCatalogServer() {
         result := ComCall(59, this, "short*", &pbIs64Bit := 0, "HRESULT")
@@ -444,12 +648,41 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPartitionIDOrName 
-     * @param {BSTR} bstrPartitionFileName 
+     * Exports a partition to a file.
+     * @param {BSTR} bstrPartitionIDOrName The partition GUID or name of the partition.
+     * @param {BSTR} bstrPartitionFileName The file to which the specified partition is exported. If no path is specified, the current directory is used. If no file name is specified, the application name is used.
      * @param {Integer} lOptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-exportpartition
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_OBJECT_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified partition does not exist.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-exportpartition
      */
     ExportPartition(bstrPartitionIDOrName, bstrPartitionFileName, lOptions) {
         bstrPartitionIDOrName := bstrPartitionIDOrName is String ? BSTR.Alloc(bstrPartitionIDOrName).Value : bstrPartitionIDOrName
@@ -460,15 +693,15 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrFileName 
-     * @param {BSTR} bstrDestDirectory 
+     * Imports a partition from a file.
+     * @param {BSTR} bstrFileName The file from which the partition is to be imported.
+     * @param {BSTR} bstrDestDirectory The path to the directory in which to install the partition components.
      * @param {Integer} lOptions 
-     * @param {BSTR} bstrUserID 
-     * @param {BSTR} bstrPassword 
-     * @param {BSTR} bstrRSN 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-installpartition
+     * @param {BSTR} bstrUserID The user ID under which to install the partition.
+     * @param {BSTR} bstrPassword The password for the specified user.
+     * @param {BSTR} bstrRSN The name of a remote server to use as a proxy.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-installpartition
      */
     InstallPartition(bstrFileName, bstrDestDirectory, lOptions, bstrUserID, bstrPassword, bstrRSN) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
@@ -482,10 +715,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationFile 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-queryapplicationfile2
+     * Retrieves information about an application that is about to be installed.
+     * @param {BSTR} bstrApplicationFile The full path to the application file.
+     * @returns {IDispatch} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface pointer that specifies the <a href="https://docs.microsoft.com/windows/desktop/cossdk/filesforimport">FilesForImport</a> collection for the application.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-queryapplicationfile2
      */
     QueryApplicationFile2(bstrApplicationFile) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
@@ -495,10 +728,10 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrCLSIDOrProgID 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getcomponentversioncount
+     * Retrieves the number of partitions in which a specified component is installed.
+     * @param {BSTR} bstrCLSIDOrProgID The class ID or program ID of the component.
+     * @returns {Integer} The number of different partitions in which the component is installed.
+     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog2-getcomponentversioncount
      */
     GetComponentVersionCount(bstrCLSIDOrProgID) {
         bstrCLSIDOrProgID := bstrCLSIDOrProgID is String ? BSTR.Alloc(bstrCLSIDOrProgID).Value : bstrCLSIDOrProgID

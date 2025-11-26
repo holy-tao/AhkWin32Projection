@@ -37,9 +37,9 @@ class IXpsPrintJobStream extends ISequentialStream{
     static VTableNames => ["Close"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-ixpsprintjobstream-close
+     * Closes the stream and indicates to the print job that the entire document has been written to the print queue by the application.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nf-xpsprint-ixpsprintjobstream-close
      */
     Close() {
         result := ComCall(5, this, "HRESULT")

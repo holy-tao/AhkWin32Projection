@@ -32,9 +32,11 @@ class ID2D1GradientMesh extends ID2D1Resource{
     static VTableNames => ["GetPatchCount", "GetPatches"]
 
     /**
+     * Returns the number of patches that make up this gradient mesh.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatchcount
+     * Returns the number of patches that make up this gradient mesh.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatchcount
      */
     GetPatchCount() {
         result := ComCall(4, this, "uint")
@@ -42,11 +44,17 @@ class ID2D1GradientMesh extends ID2D1Resource{
     }
 
     /**
+     * Returns a subset of the patches that make up this gradient mesh.
+     * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} startIndex 
-     * @param {Integer} patchesCount 
-     * @returns {D2D1_GRADIENT_MESH_PATCH} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatches
+     * Index of the first patch to return.
+     * @param {Integer} patchesCount Type: <b>UINT32</b>
+     * 
+     * The number of patches to be returned.
+     * @returns {D2D1_GRADIENT_MESH_PATCH} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch">D2D1_GRADIENT_MESH_PATCH</a>*</b>
+     * 
+     * A pointer to the array to be filled with the patch data.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatches
      */
     GetPatches(startIndex, patchesCount) {
         patches := D2D1_GRADIENT_MESH_PATCH()

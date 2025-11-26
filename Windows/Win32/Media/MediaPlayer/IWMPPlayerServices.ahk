@@ -32,10 +32,23 @@ class IWMPPlayerServices extends IUnknown{
     static VTableNames => ["activateUIPlugin", "setTaskPane", "setTaskPaneURL"]
 
     /**
+     * The activateUIPlugin method activates the specified UI plug-in in the full mode of Windows Media Player.
+     * @param {BSTR} bstrPlugin <b>BSTR</b> containing the name of the plug-in to activate.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrPlugin 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerservices-activateuiplugin
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerservices-activateuiplugin
      */
     activateUIPlugin(bstrPlugin) {
         bstrPlugin := bstrPlugin is String ? BSTR.Alloc(bstrPlugin).Value : bstrPlugin
@@ -45,10 +58,23 @@ class IWMPPlayerServices extends IUnknown{
     }
 
     /**
-     * 
+     * The setTaskPane method displays the specified task pane in the full mode of Windows Media Player.
      * @param {BSTR} bstrTaskPane 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerservices-settaskpane
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerservices-settaskpane
      */
     setTaskPane(bstrTaskPane) {
         bstrTaskPane := bstrTaskPane is String ? BSTR.Alloc(bstrTaskPane).Value : bstrTaskPane
@@ -58,12 +84,25 @@ class IWMPPlayerServices extends IUnknown{
     }
 
     /**
-     * 
+     * This page documents a feature of the Windows Media Player 9 Series SDK and the Windows Media Player 10 SDK. It may be unavailable in subsequent versions.
      * @param {BSTR} bstrTaskPane 
-     * @param {BSTR} bstrURL 
-     * @param {BSTR} bstrFriendlyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerservices-settaskpaneurl
+     * @param {BSTR} bstrURL <b>BSTR</b> containing the URL to display in the task pane.
+     * @param {BSTR} bstrFriendlyName <b>BSTR</b> containing the friendly name of the content at the specified URL.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerservices-settaskpaneurl
      */
     setTaskPaneURL(bstrTaskPane, bstrURL, bstrFriendlyName) {
         bstrTaskPane := bstrTaskPane is String ? BSTR.Alloc(bstrTaskPane).Value : bstrTaskPane

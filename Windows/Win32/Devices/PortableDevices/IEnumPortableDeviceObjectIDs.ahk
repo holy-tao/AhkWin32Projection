@@ -32,11 +32,11 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "Cancel"]
 
     /**
-     * 
-     * @param {Integer} cObjects 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-next
+     * The Next method retrieves the next one or more object IDs in the enumeration sequence.
+     * @param {Integer} cObjects A count of the objects requested.
+     * @param {Pointer<Integer>} pcFetched On input, this parameter is ignored. On output, the number of IDs actually retrieved. If no object IDs are released and the return value is S_FALSE, there are no more objects to enumerate.
+     * @returns {PWSTR} An array of <b>LPWSTR</b> pointers, each specifying a retrieved object ID. The caller must allocate an array of <i>cObjects</i> LPWSTR elements. The caller must free both the array and the returned strings. The strings are freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-next
      */
     Next(cObjects, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -46,10 +46,40 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
     }
 
     /**
+     * The Skip method skips a specified number of objects in the enumeration sequence.
+     * @param {Integer} cObjects The number of objects to skip.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *           
      * 
-     * @param {Integer} cObjects 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified number of objects could not be skipped (for instance, if fewer than <i>cObjects</i> remained in the enumeration sequence).
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-skip
      */
     Skip(cObjects) {
         result := ComCall(4, this, "uint", cObjects, "int")
@@ -57,9 +87,28 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
     }
 
     /**
+     * The Reset method resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *           
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -67,9 +116,9 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumPortableDeviceObjectIDs} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-clone
+     * The Clone method duplicates the current IEnumPortableDeviceObjectIDs interface.
+     * @returns {IEnumPortableDeviceObjectIDs} Address of a variable that receives a pointer to an enumeration interface. The caller must release this interface when it is finished with the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -77,9 +126,40 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
     }
 
     /**
+     * The Cancel method cancels a pending operation.
+     * @returns {HRESULT} The method returns an 
+     * <b>HRESULT</b>
+     * . Possible values include, but are not limited to, those in the following table.
+     *           
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was canceled successfully.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-cancel
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_WPD_DEVICE_NOT_OPEN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device is not opened.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-cancel
      */
     Cancel() {
         result := ComCall(7, this, "HRESULT")

@@ -55,11 +55,11 @@ class IRawElementProviderSimple3 extends IRawElementProviderSimple2{
     static VTableNames => ["GetMetadataValue"]
 
     /**
-     * 
-     * @param {Integer} targetId 
-     * @param {Integer} metadataId 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple3-getmetadatavalue
+     * Gets metadata from the UI Automation element that indicates how the information should be interpreted.
+     * @param {Integer} targetId The ID of the property to retrieve.
+     * @param {Integer} metadataId Specifies the type of metadata to retrieve.
+     * @returns {VARIANT} The metadata.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple3-getmetadatavalue
      */
     GetMetadataValue(targetId, metadataId) {
         returnVal := VARIANT()

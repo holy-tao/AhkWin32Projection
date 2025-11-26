@@ -60,9 +60,9 @@ class IFsrmProperty extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the property.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_name
      */
     get_Name() {
         name := BSTR()
@@ -71,9 +71,9 @@ class IFsrmProperty extends IDispatch{
     }
 
     /**
-     * 
+     * The value of the property.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_value
      */
     get_Value() {
         value := BSTR()
@@ -82,9 +82,14 @@ class IFsrmProperty extends IDispatch{
     }
 
     /**
+     * The modules and rules that have set the value.
+     * @remarks
+     * 
+     * The format of the source string is  "<i>module_name</i>,<i>rule_name</i>".
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_sources
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_sources
      */
     get_Sources() {
         result := ComCall(9, this, "ptr*", &sources := 0, "HRESULT")
@@ -92,9 +97,9 @@ class IFsrmProperty extends IDispatch{
     }
 
     /**
-     * 
+     * Flag values that provides additional information about a property.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_propertyflags
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_propertyflags
      */
     get_PropertyFlags() {
         result := ComCall(10, this, "int*", &flags := 0, "HRESULT")

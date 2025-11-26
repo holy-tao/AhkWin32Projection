@@ -49,13 +49,35 @@ class IQueryAssociations extends IUnknown{
     static VTableNames => ["Init", "GetString", "GetKey", "GetData", "GetEnum"]
 
     /**
+     * Initializes the IQueryAssociations interface and sets the root key to the appropriate ProgID.
+     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a></b>
      * 
-     * @param {Integer} flags 
-     * @param {PWSTR} pszAssoc 
-     * @param {HKEY} hkProgid 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-init
+     * A flag that specifies how the search is to be initialized. It is typically set to zero, but it can also take one of the following <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a> values. 
+     * 					
+     *                     
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_INIT_BYEXENAME</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_INIT_DEFAULTTOFOLDER</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_INIT_DEFAULTTOSTAR</a>
+     * </li>
+     * </ul>
+     * @param {PWSTR} pszAssoc Type: <b>LPCWSTR</b>
+     * 
+     * A Unicode string that is used to determine the root key. If a value is specified for <i>hkProgid</i>, set this parameter to <b>NULL</b>. Four types of string can be used:
+     * @param {HKEY} hkProgid Type: <b>HKEY</b>
+     * 
+     * The HKEY value of the subkey that is used as a root key. The search looks only below this key. If a value is specified for <i>pwszAssoc</i>, set this parameter to <b>NULL</b>.
+     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-init
      */
     Init(flags, pszAssoc, hkProgid, hwnd) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
@@ -67,14 +89,74 @@ class IQueryAssociations extends IUnknown{
     }
 
     /**
+     * Searches for and retrieves a file or protocol association-related string from the registry.
+     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
-     * @param {Integer} flags 
-     * @param {Integer} str 
-     * @param {PWSTR} pszExtra 
-     * @param {PWSTR} pszOut 
-     * @param {Pointer<Integer>} pcchOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getstring
+     * A flag that can be used to control the search. It can be any combination of the following <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values. 
+     * 
+     * 					
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_IGNOREBASECLASS</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOFIXUPS</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOTRUNCATE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOUSERSETTINGS</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_REMAPRUNDLL</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_VERIFY</a>
+     * </li>
+     * </ul>
+     * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
+     * @param {PWSTR} pszExtra Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to an optional, null-terminated Unicode string with information about the location of the string. It is typically set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
+     * @param {PWSTR} pszOut Type: <b>LPWSTR</b>
+     * 
+     * A pointer to a null-terminated Unicode string used to return the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
+     * 
+     * A pointer to a value that, on entry, is set to the number of characters in the <i>pwszOut</i> buffer. When the function returns successfully, it points to the number of characters placed in the buffer.
+     * 
+     * If the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOTRUNCATE</a> flag is set in <i>flags</i> and the buffer specified in <i>pwszOut</i> is too small, the function returns E_POINTER and <i>pcchOut</i> points to the required size of the buffer.
+     * 
+     * If <i>pwszOut</i> is <b>NULL</b>, the function returns S_FALSE and <i>pcchOut</i> points to the required size of the buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a standard COM error value, including the following: 
+     * 
+     *                     
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Error</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>Success.</td>
+     * </tr>
+     * <tr>
+     * <td>E_POINTER</td>
+     * <td>The <i>pwszOut</i> buffer is too small to hold the entire string.</td>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td><i>pwszOut</i> is <b>NULL</b>. <i>pcchOut</i> contains the required buffer size.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getstring
      */
     GetString(flags, str, pszExtra, pszOut, pcchOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
@@ -87,12 +169,20 @@ class IQueryAssociations extends IUnknown{
     }
 
     /**
+     * Searches for and retrieves a file or protocol association-related key from the registry.
+     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
-     * @param {Integer} flags 
-     * @param {Integer} key 
-     * @param {PWSTR} pszExtra 
-     * @returns {HKEY} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getkey
+     * The <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> value that can be used to control the search.
+     * @param {Integer} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a> value that specifies the type of key that is to be returned.
+     * @param {PWSTR} pszExtra Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to an optional null-terminated Unicode string with information about the location of the key. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
+     * @returns {HKEY} Type: <b>HKEY*</b>
+     * 
+     * A pointer to the key's HKEY value.
+     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getkey
      */
     GetKey(flags, key, pszExtra) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
@@ -103,14 +193,26 @@ class IQueryAssociations extends IUnknown{
     }
 
     /**
+     * Searches for and retrieves file or protocol association-related binary data from the registry.
+     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
-     * @param {Integer} flags 
-     * @param {Integer} data 
-     * @param {PWSTR} pszExtra 
-     * @param {Pointer} pvOut 
-     * @param {Pointer<Integer>} pcbOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getdata
+     * The <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> value that can be used to control the search.
+     * @param {Integer} data Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocdata">ASSOCDATA</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocdata">ASSOCDATA</a> value that specifies the type of data that is to be returned.
+     * @param {PWSTR} pszExtra Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to an optional, null-terminated Unicode string with information about the location of the data. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
+     * @param {Pointer} pvOut Type: <b>void*</b>
+     * 
+     * A pointer to a value that, when this method returns successfully, receives the requested data value.
+     * @param {Pointer<Integer>} pcbOut Type: <b>DWORD*</b>
+     * 
+     * A pointer to a value that, when this method is called, holds the size of <i>pvOut</i>, in bytes. When this method returns successfully, the value contains the size of the data actually retrieved.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getdata
      */
     GetData(flags, data, pszExtra, pvOut, pcbOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
@@ -122,13 +224,13 @@ class IQueryAssociations extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} flags 
-     * @param {Integer} assocenum 
-     * @param {PWSTR} pszExtra 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getenum
+     * This method is not implemented.
+     * @param {Integer} flags TBD
+     * @param {Integer} assocenum TBD
+     * @param {PWSTR} pszExtra TBD
+     * @param {Pointer<Guid>} riid TBD
+     * @returns {Pointer<Void>} TBD
+     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getenum
      */
     GetEnum(flags, assocenum, pszExtra, riid) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra

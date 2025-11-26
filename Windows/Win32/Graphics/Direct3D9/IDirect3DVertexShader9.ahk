@@ -44,9 +44,11 @@ class IDirect3DVertexShader9 extends IUnknown{
     static VTableNames => ["GetDevice", "GetFunction"]
 
     /**
+     * Gets the device.
+     * @returns {IDirect3DDevice9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>**</b>
      * 
-     * @returns {IDirect3DDevice9} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexshader9-getdevice
+     * Pointer to the IDirect3DDevice9 interface that is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexshader9-getdevice
      */
     GetDevice() {
         result := ComCall(3, this, "ptr*", &ppDevice := 0, "HRESULT")
@@ -54,11 +56,16 @@ class IDirect3DVertexShader9 extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a pointer to the shader data.
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Integer>} pSizeOfData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexshader9-getfunction
+     * @param {Pointer<Integer>} pSizeOfData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * 
+     * Size of the data, in bytes. To get the buffer size that is needed to retrieve the data, set pData = <b>NULL</b> when calling GetFunction. Then call GetFunction with the returned size, to get the buffer data.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be
+     *      D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexshader9-getfunction
      */
     GetFunction(param0, pSizeOfData) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"

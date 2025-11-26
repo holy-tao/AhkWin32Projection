@@ -52,10 +52,10 @@ class IAudioSessionNotification extends IUnknown{
     static VTableNames => ["OnSessionCreated"]
 
     /**
-     * 
-     * @param {IAudioSessionControl} NewSession 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionnotification-onsessioncreated
+     * The OnSessionCreated method notifies the registered processes that the audio session has been created.
+     * @param {IAudioSessionControl} NewSession Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> interface of the audio session that was created.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionnotification-onsessioncreated
      */
     OnSessionCreated(NewSession) {
         result := ComCall(3, this, "ptr", NewSession, "HRESULT")

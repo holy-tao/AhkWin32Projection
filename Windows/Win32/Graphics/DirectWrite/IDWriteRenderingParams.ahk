@@ -31,9 +31,12 @@ class IDWriteRenderingParams extends IUnknown{
     static VTableNames => ["GetGamma", "GetEnhancedContrast", "GetClearTypeLevel", "GetPixelGeometry", "GetRenderingMode"]
 
     /**
+     * Gets the gamma value used for gamma correction. Valid values must be greater than zero and cannot exceed 256.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getgamma
+     * Returns the gamma value used for gamma correction. Valid values must be
+     *      greater than zero and cannot exceed 256.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriterenderingparams-getgamma
      */
     GetGamma() {
         result := ComCall(3, this, "float")
@@ -41,9 +44,12 @@ class IDWriteRenderingParams extends IUnknown{
     }
 
     /**
+     * Gets the enhanced contrast property of the rendering parameters object. Valid values are greater than or equal to zero.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getenhancedcontrast
+     * Returns the amount of contrast enhancement. Valid values are greater than
+     *      or equal to zero.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriterenderingparams-getenhancedcontrast
      */
     GetEnhancedContrast() {
         result := ComCall(4, this, "float")
@@ -51,9 +57,11 @@ class IDWriteRenderingParams extends IUnknown{
     }
 
     /**
+     * Gets the ClearType level of the rendering parameters object.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getcleartypelevel
+     * The ClearType level of the rendering parameters object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriterenderingparams-getcleartypelevel
      */
     GetClearTypeLevel() {
         result := ComCall(5, this, "float")
@@ -61,9 +69,11 @@ class IDWriteRenderingParams extends IUnknown{
     }
 
     /**
+     * Gets the pixel geometry of the rendering parameters object.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getpixelgeometry
+     *  A value that indicates the type of  pixel geometry used in the rendering parameters object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriterenderingparams-getpixelgeometry
      */
     GetPixelGeometry() {
         result := ComCall(6, this, "int")
@@ -71,9 +81,11 @@ class IDWriteRenderingParams extends IUnknown{
     }
 
     /**
+     * Gets the rendering mode of the rendering parameters object.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getrenderingmode
+     * A value that indicates the rendering mode of the rendering parameters object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriterenderingparams-getrenderingmode
      */
     GetRenderingMode() {
         result := ComCall(7, this, "int")

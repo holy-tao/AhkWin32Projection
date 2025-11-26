@@ -44,10 +44,10 @@ class IMbnConnectionManagerEvents extends IUnknown{
     static VTableNames => ["OnConnectionArrival", "OnConnectionRemoval"]
 
     /**
-     * 
-     * @param {IMbnConnection} newConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionarrival
+     * Notification method that indicates a new connection was added to the system.
+     * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device added to the system.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionarrival
      */
     OnConnectionArrival(newConnection) {
         result := ComCall(3, this, "ptr", newConnection, "HRESULT")
@@ -55,10 +55,10 @@ class IMbnConnectionManagerEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnConnection} oldConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionremoval
+     * Notification method that indicates a connection was removed from the system.
+     * @param {IMbnConnection} oldConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device removed from the system.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanagerevents-onconnectionremoval
      */
     OnConnectionRemoval(oldConnection) {
         result := ComCall(4, this, "ptr", oldConnection, "HRESULT")

@@ -32,9 +32,9 @@ class IGetSecurityCallContext extends IDispatch{
     static VTableNames => ["GetSecurityCallContext"]
 
     /**
-     * 
-     * @returns {ISecurityCallContext} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetsecuritycallcontext-getsecuritycallcontext
+     * Retrieves a reference to an object created from the SecurityCallContext class that is associated with the current call.
+     * @returns {ISecurityCallContext} A reference to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-isecuritycallcontext">ISecurityCallContext</a> on the object's context.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-igetsecuritycallcontext-getsecuritycallcontext
      */
     GetSecurityCallContext() {
         result := ComCall(7, this, "ptr*", &ppObject := 0, "HRESULT")

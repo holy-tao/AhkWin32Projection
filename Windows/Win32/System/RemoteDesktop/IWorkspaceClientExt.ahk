@@ -32,9 +32,9 @@ class IWorkspaceClientExt extends IUnknown{
     static VTableNames => ["GetResourceId", "GetResourceDisplayName", "IssueDisconnect"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourceid
+     * Returns the ID of the custom client in RemoteApp and Desktop Connection.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> variable to receive the ID of the custom client.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourceid
      */
     GetResourceId() {
         bstrWorkspaceId := BSTR()
@@ -43,9 +43,9 @@ class IWorkspaceClientExt extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourcedisplayname
+     * Returns the display name of the custom client in RemoteApp and Desktop Connection.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> variable to receive the display name.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourcedisplayname
      */
     GetResourceDisplayName() {
         bstrWorkspaceDisplayName := BSTR()
@@ -54,9 +54,9 @@ class IWorkspaceClientExt extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-issuedisconnect
+     * Disconnects the custom client in RemoteApp and Desktop Connection.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-issuedisconnect
      */
     IssueDisconnect() {
         result := ComCall(5, this, "HRESULT")

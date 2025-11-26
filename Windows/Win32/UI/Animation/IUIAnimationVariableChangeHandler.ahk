@@ -38,13 +38,13 @@ class IUIAnimationVariableChangeHandler extends IUnknown{
     static VTableNames => ["OnValueChanged"]
 
     /**
-     * 
-     * @param {IUIAnimationStoryboard} storyboard 
-     * @param {IUIAnimationVariable} variable 
-     * @param {Float} newValue 
-     * @param {Float} previousValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariablechangehandler-onvaluechanged
+     * Handles events that occur when the value of an animation variable changes.
+     * @param {IUIAnimationStoryboard} storyboard The storyboard that is animating the animation variable specified by the <i>variable</i> parameter.
+     * @param {IUIAnimationVariable} variable The animation variable that has been updated.
+     * @param {Float} newValue The new value of the animation variable.
+     * @param {Float} previousValue The previous value of the animation variable.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariablechangehandler-onvaluechanged
      */
     OnValueChanged(storyboard, variable, newValue, previousValue) {
         result := ComCall(3, this, "ptr", storyboard, "ptr", variable, "double", newValue, "double", previousValue, "HRESULT")

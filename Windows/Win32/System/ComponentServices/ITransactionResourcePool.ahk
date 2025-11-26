@@ -31,11 +31,11 @@ class ITransactionResourcePool extends IUnknown{
     static VTableNames => ["PutResource", "GetResource"]
 
     /**
-     * 
-     * @param {IObjPool} pPool 
-     * @param {IUnknown} pUnk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionresourcepool-putresource
+     * Adds an object to the list of pooled objects.
+     * @param {IObjPool} pPool The key to each object in the transaction resource pool. It determines the type of pooled object to add to the list.
+     * @param {IUnknown} pUnk A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the pooled object.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionresourcepool-putresource
      */
     PutResource(pPool, pUnk) {
         result := ComCall(3, this, "ptr", pPool, "ptr", pUnk, "HRESULT")
@@ -43,10 +43,12 @@ class ITransactionResourcePool extends IUnknown{
     }
 
     /**
+     * Retrieves an object from the list of pooled objects.
+     * @param {IObjPool} pPool The key to each object in the transaction resource pool. It determines the type of pooled object to retrieve from the list.
+     * @returns {IUnknown} A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the pooled object.
      * 
-     * @param {IObjPool} pPool 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionresourcepool-getresource
+     * The object that is retrieved must have the same <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iobjpool">IObjPool</a> pointer as an object that was put on the list by using <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-itransactionresourcepool-putresource">PutResource</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionresourcepool-getresource
      */
     GetResource(pPool) {
         result := ComCall(4, this, "ptr", pPool, "ptr*", &ppUnk := 0, "HRESULT")

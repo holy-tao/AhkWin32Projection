@@ -32,9 +32,9 @@ class IAudioProcessingObject extends IUnknown{
     static VTableNames => ["Reset", "GetLatency", "GetRegistrationProperties", "Initialize", "IsInputFormatSupported", "IsOutputFormatSupported", "GetInputChannelCount"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-reset
+     * The Reset method resets the APO to its original state. This method does not cause any changes in the connection objects that are attached to the input or the output of the APO.
+     * @returns {HRESULT} The <code>Reset</code> method returns a value of S_OK when the call is completed successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-reset
      */
     Reset() {
         result := ComCall(3, this, "HRESULT")
@@ -42,9 +42,9 @@ class IAudioProcessingObject extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getlatency
+     * The GetLatency method returns the latency for this APO. Latency is the amount of time it takes a frame to traverse the processing pass of an APO.
+     * @returns {Integer} A pointer to an MFTIME structure that will receive the number of units of delay that this APO introduces. Each unit of delay represents 100 nanoseconds.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getlatency
      */
     GetLatency() {
         result := ComCall(4, this, "int64*", &pTime := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IAudioProcessingObject extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<APO_REG_PROPERTIES>} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getregistrationproperties
+     * GetRegistrationProperties returns the registration properties of the audio processing object (APO).
+     * @returns {Pointer<APO_REG_PROPERTIES>} The registration properties of the APO. This parameter is of type <a href="https://docs.microsoft.com/windows/desktop/api/audioenginebaseapo/ns-audioenginebaseapo-apo_reg_properties">APO_REG_PROPERTIES</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getregistrationproperties
      */
     GetRegistrationProperties() {
         result := ComCall(5, this, "ptr*", &ppRegProps := 0, "HRESULT")
@@ -62,21 +62,62 @@ class IAudioProcessingObject extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} cbDataSize 
-     * @param {Pointer<Integer>} pbyData 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method initializes the APO and supports data of variable length.
+     * @param {Integer} cbDataSize This is the size, in bytes, of the initialization data.
+     * @param {Pointer<Integer>} pbyData This is initialization data that is specific to this APO.
+     * @returns {HRESULT} The <code>Initialize</code> method returns a value of S_OK if the call was successful. Otherwise, this method returns one of the following error codes:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer passed to the function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>APOERR_ALREADY_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * APO already initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Other HRESULTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * These additional error conditions are tracked by the audio engine.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-initialize
      */
     Initialize(cbDataSize, pbyData) {
         pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
@@ -86,11 +127,11 @@ class IAudioProcessingObject extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IAudioMediaType} pOppositeFormat 
-     * @param {IAudioMediaType} pRequestedInputFormat 
-     * @returns {IAudioMediaType} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-isinputformatsupported
+     * This method negotiates with the Windows Vista audio engine to establish a data format for the stream of audio data.
+     * @param {IAudioMediaType} pOppositeFormat A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audiomediatype/nn-audiomediatype-iaudiomediatype">IAudioMediaType</a> interface. This parameter is used to indicate the output format of the data. The value of pOppositeFormat must be set to <b>NULL</b> to indicate that the output format can be any type.
+     * @param {IAudioMediaType} pRequestedInputFormat A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audiomediatype/nn-audiomediatype-iaudiomediatype">IAudioMediaType</a> interface. This parameter is used to indicate the input format that is to be verified.
+     * @returns {IAudioMediaType} This parameter indicates the supported format that is closest to the format to be verified.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-isinputformatsupported
      */
     IsInputFormatSupported(pOppositeFormat, pRequestedInputFormat) {
         result := ComCall(7, this, "ptr", pOppositeFormat, "ptr", pRequestedInputFormat, "ptr*", &ppSupportedInputFormat := 0, "HRESULT")
@@ -98,11 +139,11 @@ class IAudioProcessingObject extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IAudioMediaType} pOppositeFormat 
-     * @param {IAudioMediaType} pRequestedOutputFormat 
-     * @returns {IAudioMediaType} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-isoutputformatsupported
+     * The IsOutputFormatSupported method is used to verify that a specific output format is supported.
+     * @param {IAudioMediaType} pOppositeFormat A pointer to an IAudioMediaType interface. This parameter indicates the output format. This parameter must be set to <b>NULL</b> to indicate that the output format can be any type.
+     * @param {IAudioMediaType} pRequestedOutputFormat A pointer to an <b>IAudioMediaType</b> interface. This parameter indicates the output format that is to be verified.
+     * @returns {IAudioMediaType} This parameter indicates the supported output format that is closest to the format to be verified.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-isoutputformatsupported
      */
     IsOutputFormatSupported(pOppositeFormat, pRequestedOutputFormat) {
         result := ComCall(8, this, "ptr", pOppositeFormat, "ptr", pRequestedOutputFormat, "ptr*", &ppSupportedOutputFormat := 0, "HRESULT")
@@ -110,9 +151,9 @@ class IAudioProcessingObject extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getinputchannelcount
+     * GetInputChannelCount returns the input channel count (samples-per-frame) for this APO.
+     * @returns {Integer} The input channel count.
+     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getinputchannelcount
      */
     GetInputChannelCount() {
         result := ComCall(9, this, "uint*", &pu32ChannelCount := 0, "HRESULT")

@@ -31,11 +31,13 @@ class IUPnPEventSink extends IUnknown{
     static VTableNames => ["OnStateChanged", "OnStateChangedSafe"]
 
     /**
+     * The OnStateChanged method sends an event to the device host with the list of DISPIDs of the state variables that have changed. The device host must query the service object to obtain the new value for each state variable that has changed.
+     * @param {Integer} cChanges Specifies the number of variables in <i>rgdispidChanges</i>. The value indicates the number of variables whose values have changed.
+     * @param {Pointer<Integer>} rgdispidChanges Contains a list of the DISPIDs of the state variables that have changed. The number of elements in this buffer is specified by <i>cChanges</i>.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
      * 
-     * @param {Integer} cChanges 
-     * @param {Pointer<Integer>} rgdispidChanges 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpeventsink-onstatechanged
+     * If <i>cChanges</i> is zero or <i>rgdispidChanges</i> is <b>NULL</b>, E_INVALIDARG is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpeventsink-onstatechanged
      */
     OnStateChanged(cChanges, rgdispidChanges) {
         rgdispidChangesMarshal := rgdispidChanges is VarRef ? "int*" : "ptr"
@@ -45,10 +47,10 @@ class IUPnPEventSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT} varsadispidChanges 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpeventsink-onstatechangedsafe
+     * The OnStateChangedSafe method sends an event to the device host with the list of DISPIDs that have changed. The device host must query the service object to obtain the new value for each state variable that has changed.
+     * @param {VARIANT} varsadispidChanges Contains a safearray of the DISPIDs of the state variables that have changed.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpeventsink-onstatechangedsafe
      */
     OnStateChangedSafe(varsadispidChanges) {
         result := ComCall(4, this, "ptr", varsadispidChanges, "HRESULT")

@@ -41,9 +41,9 @@ class IEditionUpgradeHelper extends IUnknown{
     static VTableNames => ["CanUpgrade", "UpdateOperatingSystem", "ShowProductKeyUI", "GetOsProductContentId", "GetGenuineLocalStatus"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-canupgrade
+     * Checks if the user has sufficient permissions to upgrade the operating system, and prompts the user to run as an administrator if needed.
+     * @returns {BOOL} TRUE if the user has sufficient permissions to upgrade the operating system; otherwise FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-canupgrade
      */
     CanUpgrade() {
         result := ComCall(3, this, "int*", &isAllowed := 0, "HRESULT")
@@ -51,10 +51,12 @@ class IEditionUpgradeHelper extends IUnknown{
     }
 
     /**
+     * Upgrades the installed edition of the operating system to the edition that the user purchased in the Windows Store, or gets a genuine copy of the operating system.
+     * @param {PWSTR} contentId The content identifier of the edition of the operating system that the user purchased and which the method should install.
      * 
-     * @param {PWSTR} contentId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-updateoperatingsystem
+     * If this edition is a higher edition that the currently installed edition of Windows, this method performs an upgrade to that edition, If this edition is the same edition as the currently installed edition, this method installs a genuine copy of that edition.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-updateoperatingsystem
      */
     UpdateOperatingSystem(contentId) {
         contentId := contentId is String ? StrPtr(contentId) : contentId
@@ -64,9 +66,9 @@ class IEditionUpgradeHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-showproductkeyui
+     * Displays the user interface through which the user can provide a product key to upgrade or get a genuine copy of the operating system.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-showproductkeyui
      */
     ShowProductKeyUI() {
         result := ComCall(5, this, "HRESULT")
@@ -74,9 +76,9 @@ class IEditionUpgradeHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-getosproductcontentid
+     * Retrieves the content identifier that corresponds to the current installation of the operating system. The content identifier is used to look up the operating system product in the store catalog.
+     * @returns {PWSTR} The content identifier that corresponds to the current installation of the operating system.
+     * @see https://docs.microsoft.com/windows/win32/api//editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-getosproductcontentid
      */
     GetOsProductContentId() {
         result := ComCall(6, this, "ptr*", &contentId := 0, "HRESULT")
@@ -84,9 +86,9 @@ class IEditionUpgradeHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-getgenuinelocalstatus
+     * Retrieves whether the currently installed operating system is activated.
+     * @returns {BOOL} TRUE is the currently installed operating system is activated; otherwise, FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-getgenuinelocalstatus
      */
     GetGenuineLocalStatus() {
         result := ComCall(7, this, "int*", &isGenuine := 0, "HRESULT")

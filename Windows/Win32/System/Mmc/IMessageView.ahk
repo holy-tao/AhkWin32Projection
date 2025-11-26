@@ -31,10 +31,10 @@ class IMessageView extends IUnknown{
     static VTableNames => ["SetTitleText", "SetBodyText", "SetIcon", "Clear"]
 
     /**
-     * 
-     * @param {PWSTR} pszTitleText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imessageview-settitletext
+     * The IMessageView::SetTitleText method enables a snap-in to set the title text for the result pane message displayed using the MMC message OCX control.
+     * @param {PWSTR} pszTitleText A pointer to a null-terminated string that contains the title text for the result pane message.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-imessageview-settitletext
      */
     SetTitleText(pszTitleText) {
         pszTitleText := pszTitleText is String ? StrPtr(pszTitleText) : pszTitleText
@@ -44,10 +44,10 @@ class IMessageView extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszBodyText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imessageview-setbodytext
+     * The IMessageView::SetBodyText method enables a snap-in to set the body text for the result pane message displayed using the MMC message OCX control.
+     * @param {PWSTR} pszBodyText A pointer to a null-terminated string that contains the body text for the result pane message.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-imessageview-setbodytext
      */
     SetBodyText(pszBodyText) {
         pszBodyText := pszBodyText is String ? StrPtr(pszBodyText) : pszBodyText
@@ -57,10 +57,11 @@ class IMessageView extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} id 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imessageview-seticon
+     * The IMessageView::SetIcon method enables a snap-in to set the icon for the result pane message displayed using the MMC message OCX control.
+     * @param {Integer} id A value that specifies the type of icon for the result pane message. The value is taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-iconidentifier">IconIdentifier</a> enumeration.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-imessageview-seticon
      */
     SetIcon(id) {
         result := ComCall(5, this, "int", id, "HRESULT")
@@ -68,9 +69,9 @@ class IMessageView extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imessageview-clear
+     * The IMessageView::Clear method enables a snap-in to clear the title, text, and icon of the result pane message displayed using the MMC message OCX control.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-imessageview-clear
      */
     Clear() {
         result := ComCall(6, this, "HRESULT")

@@ -48,11 +48,21 @@ class IDirectDrawGammaControl extends IUnknown{
     static VTableNames => ["GetGammaRamp", "SetGammaRamp"]
 
     /**
-     * 
+     * Retrieves the red, green, and blue gamma ramps for the primary surface.
      * @param {Integer} param0 
      * @param {Pointer<DDGAMMARAMP>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawgammacontrol-getgammaramp
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_EXCEPTION</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawgammacontrol-getgammaramp
      */
     GetGammaRamp(param0, param1) {
         result := ComCall(3, this, "uint", param0, "ptr", param1, "HRESULT")
@@ -60,11 +70,22 @@ class IDirectDrawGammaControl extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the red, green, and blue gamma ramps for the primary surface.
      * @param {Integer} param0 
      * @param {Pointer<DDGAMMARAMP>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawgammacontrol-setgammaramp
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_EXCEPTION</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawgammacontrol-setgammaramp
      */
     SetGammaRamp(param0, param1) {
         result := ComCall(4, this, "uint", param0, "ptr", param1, "HRESULT")

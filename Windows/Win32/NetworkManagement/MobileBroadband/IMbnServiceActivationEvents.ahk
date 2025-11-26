@@ -44,14 +44,16 @@ class IMbnServiceActivationEvents extends IUnknown{
     static VTableNames => ["OnActivationComplete"]
 
     /**
+     * Notification method called by the Mobile Broadband service to indicate that a service activation request ahs completed.
+     * @param {IMbnServiceActivation} serviceActivation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnserviceactivation">IMbnServiceActivation</a> interface representing the device on which the request was performed.
+     * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array containing the data returned by the underlying Mobile Broadband miniport driver in <a href="https://docs.microsoft.com/windows-hardware/drivers/network/ndis-status-wwan-service-activation">NDIS_STATUS_WWAN_SERVICE_ACTIVATION</a>.
+     * @param {Integer} requestID The request ID assigned by the Mobile Broadband service when the request was initialized.
+     * @param {HRESULT} status The completion status.
+     * @param {Integer} networkError The error code returned by the network during the activation operation. This value is meaningful only when <i>status</i> is not S_OK. 
      * 
-     * @param {IMbnServiceActivation} serviceActivation 
-     * @param {Pointer<SAFEARRAY>} vendorSpecificData 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @param {Integer} networkError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnserviceactivationevents-onactivationcomplete
+     * The exact value of <i>networkError</i> is driver/network dependent.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnserviceactivationevents-onactivationcomplete
      */
     OnActivationComplete(serviceActivation, vendorSpecificData, requestID, status, networkError) {
         result := ComCall(3, this, "ptr", serviceActivation, "ptr", vendorSpecificData, "uint", requestID, "int", status, "uint", networkError, "HRESULT")

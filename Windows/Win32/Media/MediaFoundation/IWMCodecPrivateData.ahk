@@ -31,10 +31,28 @@ class IWMCodecPrivateData extends IUnknown{
     static VTableNames => ["SetPartialOutputType", "GetPrivateData"]
 
     /**
+     * Gives the codec the output media type without the codec data. This enables the codec to generate the private data.
+     * @param {Pointer<DMO_MEDIA_TYPE>} pmt Address of the partial output media type.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-setpartialoutputtype
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-setpartialoutputtype
      */
     SetPartialOutputType(pmt) {
         result := ComCall(3, this, "ptr", pmt, "HRESULT")
@@ -42,11 +60,29 @@ class IWMCodecPrivateData extends IUnknown{
     }
 
     /**
+     * Retrieves the codec data for the video content based on the output type passed using the IWMCodecPrivateData::SetPartialOutputType method.
+     * @param {Pointer<Integer>} pbData Address of the buffer that receives the private data. If you set this to <b>NULL</b>, the size required to hold the private data will be returned in <i>pcbData</i>.
+     * @param {Pointer<Integer>} pcbData Pointer to the size of the private data in bytes. If pbData is <b>NULL</b>, the method will set this to the correct value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pbData 
-     * @param {Pointer<Integer>} pcbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-getprivatedata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-getprivatedata
      */
     GetPrivateData(pbData, pcbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"

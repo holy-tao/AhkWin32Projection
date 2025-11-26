@@ -31,12 +31,20 @@ class ISearchNotifyInlineSite extends IUnknown{
     static VTableNames => ["OnItemIndexedStatusChange", "OnCatalogStatusChange"]
 
     /**
+     * Called by the search service to notify the client when the status of a particular document or item changes.
+     * @param {Integer} sipStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_indexing_phase">SEARCH_INDEXING_PHASE</a></b>
      * 
-     * @param {Integer} sipStatus 
-     * @param {Integer} dwNumEntries 
-     * @param {Pointer<SEARCH_ITEM_INDEXING_STATUS>} rgItemStatusEntries 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-onitemindexedstatuschange
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_indexing_phase">SEARCH_INDEXING_PHASE</a> status of each document in the array being sent.
+     * @param {Integer} dwNumEntries Type: <b>DWORD</b>
+     * 
+     * The number of entries in <i>rgItemStatusEntries</i>.
+     * @param {Pointer<SEARCH_ITEM_INDEXING_STATUS>} rgItemStatusEntries Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_indexing_status">SEARCH_ITEM_INDEXING_STATUS</a>[]</b>
+     * 
+     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_indexing_status">SEARCH_ITEM_INDEXING_STATUS</a> structures containing status update information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchnotifyinlinesite-onitemindexedstatuschange
      */
     OnItemIndexedStatusChange(sipStatus, dwNumEntries, rgItemStatusEntries) {
         result := ComCall(3, this, "int", sipStatus, "uint", dwNumEntries, "ptr", rgItemStatusEntries, "HRESULT")
@@ -44,12 +52,20 @@ class ISearchNotifyInlineSite extends IUnknown{
     }
 
     /**
+     * Called by the search service to notify a client when the status of the catalog changes.
+     * @param {Pointer<Guid>} guidCatalogResetSignature Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} guidCatalogResetSignature 
-     * @param {Pointer<Guid>} guidCheckPointSignature 
-     * @param {Integer} dwLastCheckPointNumber 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-oncatalogstatuschange
+     * A GUID representing the catalog reset. If this GUID changes, all notifications must be resent.
+     * @param {Pointer<Guid>} guidCheckPointSignature Type: <b>REFGUID</b>
+     * 
+     * A GUID representing the last checkpoint restored. If this GUID changes, all notifications accumulated since the last saved checkpoint must be resent.
+     * @param {Integer} dwLastCheckPointNumber Type: <b>DWORD</b>
+     * 
+     * A number indicating the last checkpoint saved.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchnotifyinlinesite-oncatalogstatuschange
      */
     OnCatalogStatusChange(guidCatalogResetSignature, guidCheckPointSignature, dwLastCheckPointNumber) {
         result := ComCall(4, this, "ptr", guidCatalogResetSignature, "ptr", guidCheckPointSignature, "uint", dwLastCheckPointNumber, "HRESULT")

@@ -31,11 +31,54 @@ class IAudioClock2 extends IUnknown{
     static VTableNames => ["GetDevicePosition"]
 
     /**
+     * The GetDevicePosition method gets the current device position, in frames, directly from the hardware.
+     * @param {Pointer<Integer>} DevicePosition Receives the device position, in frames. The received position is an unprocessed value that the method obtains directly from the hardware. For more information, see Remarks.
+     * @param {Pointer<Integer>} QPCPosition Receives the value of the performance counter at the time that the audio endpoint device read the device position retrieved in the <i>DevicePosition</i> parameter in response to the <b>GetDevicePosition</b> call.  
+     * 					 <b>GetDevicePosition</b> converts the counter value to 100-nanosecond time units before writing it to <i>QPCPosition</i>.
+     * 					<i>QPCPosition</i> can be <b>NULL</b> if the client does not require the performance counter value.
+     * 				For more information, see Remarks.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
      * 
-     * @param {Pointer<Integer>} DevicePosition 
-     * @param {Pointer<Integer>} QPCPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock2-getdeviceposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Parameter <i>DevicePosition</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>AUDCLNT_E_DEVICE_INVALIDATED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The audio endpoint has been disconnected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>AUDCLNT_S_POSITION_STALLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-start">IAudioClient::Start</a> method has not been called for this stream.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudioclock2-getdeviceposition
      */
     GetDevicePosition(DevicePosition, QPCPosition) {
         DevicePositionMarshal := DevicePosition is VarRef ? "uint*" : "ptr"

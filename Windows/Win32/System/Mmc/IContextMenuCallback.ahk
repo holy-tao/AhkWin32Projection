@@ -31,10 +31,11 @@ class IContextMenuCallback extends IUnknown{
     static VTableNames => ["AddItem"]
 
     /**
-     * 
-     * @param {Pointer<CONTEXTMENUITEM>} pItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontextmenucallback-additem
+     * The IContextMenuCallback::AddItem method adds a single item to a context menu.
+     * @param {Pointer<CONTEXTMENUITEM>} pItem A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-contextmenuitem">CONTEXTMENUITEM</a> structure with the item to be added. This parameter cannot be <b>NULL</b>.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icontextmenucallback-additem
      */
     AddItem(pItem) {
         result := ComCall(3, this, "ptr", pItem, "HRESULT")

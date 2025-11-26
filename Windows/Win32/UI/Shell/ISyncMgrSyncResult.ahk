@@ -31,12 +31,20 @@ class ISyncMgrSyncResult extends IUnknown{
     static VTableNames => ["Result"]
 
     /**
+     * Gets the result of a StartHandlerSync or StartItemSync call.
+     * @param {Integer} nStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a></b>
      * 
-     * @param {Integer} nStatus 
-     * @param {Integer} cError 
-     * @param {Integer} cConflicts 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncresult-result
+     * The current status of the progress report. See <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a>.
+     * @param {Integer} cError Type: <b>UINT</b>
+     * 
+     * An error.
+     * @param {Integer} cConflicts Type: <b>UINT</b>
+     * 
+     * Specifies conflicts.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncresult-result
      */
     Result(nStatus, cError, cConflicts) {
         result := ComCall(3, this, "int", nStatus, "uint", cError, "uint", cConflicts, "HRESULT")

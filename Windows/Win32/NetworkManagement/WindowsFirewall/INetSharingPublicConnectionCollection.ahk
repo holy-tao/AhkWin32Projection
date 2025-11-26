@@ -46,9 +46,9 @@ class INetSharingPublicConnectionCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingpublicconnectioncollection-get__newenum
+     * The get__NewEnum method retrieves an enumerator for the public connections collection.
+     * @returns {IUnknown} Pointer to an interface pointer that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingpublicconnectioncollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
@@ -56,9 +56,9 @@ class INetSharingPublicConnectionCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingpublicconnectioncollection-get_count
+     * The get_Count method retrieves the number of items in the public connections collection.
+     * @returns {Integer} Pointer to a <b>long</b> variable that receives the number of items in the public connections collection.
+     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingpublicconnectioncollection-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")

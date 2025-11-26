@@ -50,9 +50,9 @@ class IAnalogAudioComponentType extends IComponentType{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-get_analogaudiomode
+     * The get_AnalogAudioMode method retrieves the analog audio mode.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-tvaudiomode">TVAudioMode</a> variable that receives the analog audio mode.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogaudiocomponenttype-get_analogaudiomode
      */
     get_AnalogAudioMode() {
         result := ComCall(24, this, "int*", &Mode := 0, "HRESULT")
@@ -60,10 +60,10 @@ class IAnalogAudioComponentType extends IComponentType{
     }
 
     /**
-     * 
-     * @param {Integer} Mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-put_analogaudiomode
+     * The put_AnalogAudioMode method specifies the analog audio mode.
+     * @param {Integer} Mode Specifies the analog audio mode. This parameter is a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-tvaudiomode">TVAudioMode</a>.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved by using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogaudiocomponenttype-put_analogaudiomode
      */
     put_AnalogAudioMode(Mode) {
         result := ComCall(25, this, "int", Mode, "HRESULT")

@@ -31,11 +31,51 @@ class IHolder extends IUnknown{
     static VTableNames => ["AllocResource", "FreeResource", "TrackResource", "TrackResourceS", "UntrackResource", "UntrackResourceS", "Close", "RequestDestroyResource"]
 
     /**
+     * Allocates a resource from the inventory.
+     * @param {Pointer} __MIDL__IHolder0000 The type of resource to be allocated.
+     * @param {Pointer<Pointer>} __MIDL__IHolder0001 A pointer to the location where the handle of the allocated resource is returned.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer} __MIDL__IHolder0000 
-     * @param {Pointer<Pointer>} __MIDL__IHolder0001 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-allocresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>ResTypId</i> is <b>NULL</b> or an empty string, or the Resource Dispenser's <a href="/windows/desktop/api/comsvcs/nf-comsvcs-idispenserdriver-createresource">IDispenserDriver::CreateResource</a> method generated an empty or duplicate RESID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed. The <i>pResId</i> parameter has not been set. The likely cause is that the caller's transaction is aborting.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-allocresource
      */
     AllocResource(__MIDL__IHolder0000, __MIDL__IHolder0001) {
         __MIDL__IHolder0001Marshal := __MIDL__IHolder0001 is VarRef ? "ptr*" : "ptr"
@@ -45,14 +85,50 @@ class IHolder extends IUnknown{
     }
 
     /**
-     * Decrements (decreases by one) the reference count of a loaded resource. When the reference count reaches zero, the memory occupied by the resource is freed.
-     * @param {Pointer} __MIDL__IHolder0002 
-     * @returns {HRESULT} Type: <b>BOOL</b>
+     * Returns a resource to the inventory.
+     * @param {Pointer} __MIDL__IHolder0002 The handle of the resource to be freed.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * If the function succeeds, the return value is zero.
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
      * 
-     * If the function fails, the return value is nonzero, which indicates that the resource has not been freed.
-     * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-freeresource
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>ResTypId</i> is not a valid resource handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed. The resource has not been freed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-freeresource
      */
     FreeResource(__MIDL__IHolder0002) {
         result := ComCall(4, this, "ptr", __MIDL__IHolder0002, "HRESULT")
@@ -60,10 +136,50 @@ class IHolder extends IUnknown{
     }
 
     /**
+     * Tracks the resource.
+     * @param {Pointer} __MIDL__IHolder0003 The handle of the resource to be tracked. The Resource Dispenser has already created this resource before calling <b>TrackResource</b>.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer} __MIDL__IHolder0003 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-trackresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>ResId</i> is not a valid resource handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed. The resource has not been tracked. The likely cause is that the caller's transaction is aborting.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-trackresource
      */
     TrackResource(__MIDL__IHolder0003) {
         result := ComCall(5, this, "ptr", __MIDL__IHolder0003, "HRESULT")
@@ -71,10 +187,50 @@ class IHolder extends IUnknown{
     }
 
     /**
+     * Tracks the resource (string version).
+     * @param {Pointer<Integer>} __MIDL__IHolder0004 The handle of the resource to be tracked. The Resource Dispenser has already created this resource before calling <b>TrackResourceS</b>.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer<Integer>} __MIDL__IHolder0004 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-trackresources
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>SResId</i> is not a valid resource handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed. The resource has not been tracked. The likely cause is that the caller's transaction is aborting.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-trackresources
      */
     TrackResourceS(__MIDL__IHolder0004) {
         __MIDL__IHolder0004Marshal := __MIDL__IHolder0004 is VarRef ? "ushort*" : "ptr"
@@ -84,11 +240,51 @@ class IHolder extends IUnknown{
     }
 
     /**
+     * Stops tracking a resource.
+     * @param {Pointer} __MIDL__IHolder0005 The handle of the resource to stop tracking.
+     * @param {BOOL} __MIDL__IHolder0006 If <b>TRUE</b>, caller is requesting that the resource be destroyed, by calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-idispenserdriver-destroyresource">IDispenserDriver::DestroyResource</a>. If <b>FALSE</b>, caller destroys the resource.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer} __MIDL__IHolder0005 
-     * @param {BOOL} __MIDL__IHolder0006 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-untrackresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>ResId</i> is not a valid resource handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-untrackresource
      */
     UntrackResource(__MIDL__IHolder0005, __MIDL__IHolder0006) {
         result := ComCall(7, this, "ptr", __MIDL__IHolder0005, "int", __MIDL__IHolder0006, "HRESULT")
@@ -96,11 +292,51 @@ class IHolder extends IUnknown{
     }
 
     /**
+     * Stops tracking a resource (string version).
+     * @param {Pointer<Integer>} __MIDL__IHolder0007 The handle of the resource to stop tracking.
+     * @param {BOOL} __MIDL__IHolder0008 If <b>TRUE</b>, caller is requesting that the resource be destroyed, by calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-idispenserdriver-destroyresource">IDispenserDriver::DestroyResource</a>. If <b>FALSE</b>, caller destroys the resource.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer<Integer>} __MIDL__IHolder0007 
-     * @param {BOOL} __MIDL__IHolder0008 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-untrackresources
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>SResId</i> is not a valid resource handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-untrackresources
      */
     UntrackResourceS(__MIDL__IHolder0007, __MIDL__IHolder0008) {
         __MIDL__IHolder0007Marshal := __MIDL__IHolder0007 is VarRef ? "ushort*" : "ptr"
@@ -110,9 +346,9 @@ class IHolder extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-close
+     * Closes the Holder.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-close
      */
     Close() {
         result := ComCall(9, this, "HRESULT")
@@ -120,10 +356,50 @@ class IHolder extends IUnknown{
     }
 
     /**
+     * Deletes a resource, calling its destructor to free memory and other associated system resources.
+     * @param {Pointer} __MIDL__IHolder0009 The resource to be destroyed.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer} __MIDL__IHolder0009 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-requestdestroyresource
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>ResId</i> is not a valid resource handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed. The resource has not been destroyed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iholder-requestdestroyresource
      */
     RequestDestroyResource(__MIDL__IHolder0009) {
         result := ComCall(10, this, "ptr", __MIDL__IHolder0009, "HRESULT")

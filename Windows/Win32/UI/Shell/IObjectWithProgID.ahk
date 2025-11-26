@@ -31,10 +31,14 @@ class IObjectWithProgID extends IUnknown{
     static VTableNames => ["SetProgID", "GetProgID"]
 
     /**
+     * Sets the ProgID of an object.
+     * @param {PWSTR} pszProgID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszProgID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithprogid-setprogid
+     * A pointer to a string that contains the new ProgID.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithprogid-setprogid
      */
     SetProgID(pszProgID) {
         pszProgID := pszProgID is String ? StrPtr(pszProgID) : pszProgID
@@ -44,9 +48,11 @@ class IObjectWithProgID extends IUnknown{
     }
 
     /**
+     * Retrieves the ProgID associated with an object.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithprogid-getprogid
+     * A pointer to a string that, when this method returns successfully, contains the ProgID.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithprogid-getprogid
      */
     GetProgID() {
         result := ComCall(4, this, "ptr*", &ppszProgID := 0, "HRESULT")

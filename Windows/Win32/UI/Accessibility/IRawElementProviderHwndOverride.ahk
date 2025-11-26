@@ -32,10 +32,15 @@ class IRawElementProviderHwndOverride extends IUnknown{
     static VTableNames => ["GetOverrideProviderForHwnd"]
 
     /**
+     * Gets a UI Automation provider for the specified element.
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
-     * @param {HWND} hwnd 
-     * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderhwndoverride-getoverrideproviderforhwnd
+     * The window handle of the element.
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * 
+     * Receives a pointer to the new provider for the specified window, or <b>NULL</b> if the provider is not being overridden. 
+     * 				This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderhwndoverride-getoverrideproviderforhwnd
      */
     GetOverrideProviderForHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

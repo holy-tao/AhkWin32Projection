@@ -36,9 +36,11 @@ class IWizardSite extends IUnknown{
     static VTableNames => ["GetPreviousPage", "GetNextPage", "GetCancelledPage"]
 
     /**
+     * Called when the user navigates backward out of the wizard extension. Gets the handle of the PROPSHEETPAGE that represents the wizard page that is before the wizard extension page.
+     * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE*</b>
      * 
-     * @returns {HPROPSHEETPAGE} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getpreviouspage
+     * A pointer to a variable handle of type <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> that represents the wizard page that comes immediately before the wizard extension page.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwizardsite-getpreviouspage
      */
     GetPreviousPage() {
         phpage := HPROPSHEETPAGE()
@@ -47,9 +49,11 @@ class IWizardSite extends IUnknown{
     }
 
     /**
+     * Called when the user navigates forward past the wizard extension pages. Gets the handle of the PROPSHEETPAGE that represents the wizard page immediately following the wizard extension page.
+     * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE*</b>
      * 
-     * @returns {HPROPSHEETPAGE} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getnextpage
+     * A pointer to a handle variable of type <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> for the wizard page following the extension page.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwizardsite-getnextpage
      */
     GetNextPage() {
         phpage := HPROPSHEETPAGE()
@@ -58,9 +62,11 @@ class IWizardSite extends IUnknown{
     }
 
     /**
+     * Called when the user cancels navigation through the wizard extension. Gets the handle of the PROPSHEETPAGE that represents the wizard page to display when the user cancels navigation while in the wizard extension.
+     * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE*</b>
      * 
-     * @returns {HPROPSHEETPAGE} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getcancelledpage
+     * A pointer to a handle variable of type <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> that receives the wizard page to display when the user cancels navigation while in the wizard extension.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwizardsite-getcancelledpage
      */
     GetCancelledPage() {
         phpage := HPROPSHEETPAGE()

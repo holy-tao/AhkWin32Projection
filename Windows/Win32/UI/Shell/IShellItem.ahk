@@ -44,12 +44,18 @@ class IShellItem extends IUnknown{
     static VTableNames => ["BindToHandler", "GetParent", "GetDisplayName", "GetAttributes", "Compare"]
 
     /**
+     * Binds to a handler for an item as specified by the handler ID value (BHID).
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
-     * @param {IBindCtx} pbc 
-     * @param {Pointer<Guid>} bhid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on a bind context object. Used to pass optional parameters to the handler. The contents of the bind context are handler-specific. For example, when binding to <b>BHID_Stream</b>, the <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> flags in the bind context indicate the mode of access desired (read or read/write).
+     * @param {Pointer<Guid>} bhid Type: <b>REFGUID</b>
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * IID of the object type to retrieve.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains a pointer of type <i>riid</i> that is returned by the handler specified by <i>rbhid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler
      */
     BindToHandler(pbc, bhid, riid) {
         result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -57,9 +63,11 @@ class IShellItem extends IUnknown{
     }
 
     /**
-     * Retrieves a handle to the specified window's parent or owner.
-     * @returns {IShellItem} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
+     * Gets the parent of an IShellItem object.
+     * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
+     * 
+     * The address of a pointer to the parent of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-getparent
      */
     GetParent() {
         result := ComCall(4, this, "ptr*", &ppsi := 0, "HRESULT")
@@ -67,10 +75,14 @@ class IShellItem extends IUnknown{
     }
 
     /**
+     * Gets the display name of the IShellItem object.
+     * @param {Integer} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
      * 
-     * @param {Integer} sigdnName 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a> values that indicates how the name should look.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * A value that, when this function returns successfully, receives the address of a pointer to the retrieved display name.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname
      */
     GetDisplayName(sigdnName) {
         result := ComCall(5, this, "int", sigdnName, "ptr*", &ppszName := 0, "HRESULT")
@@ -78,10 +90,14 @@ class IShellItem extends IUnknown{
     }
 
     /**
+     * Gets a requested set of attributes of the IShellItem object.
+     * @param {Integer} sfgaoMask Type: <b>SFGAOF</b>
      * 
-     * @param {Integer} sfgaoMask 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getattributes
+     * Specifies the attributes to retrieve. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO</a> values. Use a bitwise OR operator to determine the attributes to retrieve.
+     * @returns {Integer} Type: <b>SFGAOF*</b>
+     * 
+     * A pointer to a value that, when this method returns successfully, contains the requested attributes. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO</a> values. Only those attributes specified by <i>sfgaoMask</i> are returned; other attribute values are undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-getattributes
      */
     GetAttributes(sfgaoMask) {
         result := ComCall(6, this, "uint", sfgaoMask, "uint*", &psfgaoAttribs := 0, "HRESULT")
@@ -89,11 +105,17 @@ class IShellItem extends IUnknown{
     }
 
     /**
+     * Compares two IShellItem objects.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psi 
-     * @param {Integer} hint 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-compare
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object to compare with the existing <b>IShellItem</b> object.
+     * @param {Integer} hint Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_sichintf">SICHINTF</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_sichintf">SICHINTF</a> values that determines how to perform the comparison. See <b>SICHINTF</b> for the list of possible values for this parameter.
+     * @returns {Integer} Type: <b>int*</b>
+     * 
+     * This parameter receives the result of the comparison. If the two items are the same this parameter equals zero; if they are different the parameter is nonzero.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem-compare
      */
     Compare(psi, hint) {
         result := ComCall(7, this, "ptr", psi, "uint", hint, "int*", &piOrder := 0, "HRESULT")

@@ -59,10 +59,43 @@ class IMenuBand extends IUnknown{
     static VTableNames => ["IsMenuMessage", "TranslateMenuMessage"]
 
     /**
+     * A message pump calls this method to see if any messages should be redirected to the Component Object Model (COM) object.
+     * @param {Pointer<MSG>} pmsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
-     * @param {Pointer<MSG>} pmsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenuband-ismenumessage
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A message should be redirected to the COM object. The application should call <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-imenuband-translatemenumessage">IMenuBand::TranslateMenuMessage</a> with this message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The menu has exited the menu mode and can be destroyed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-imenuband-ismenumessage
      */
     IsMenuMessage(pmsg) {
         result := ComCall(3, this, "ptr", pmsg, "HRESULT")
@@ -70,10 +103,14 @@ class IMenuBand extends IUnknown{
     }
 
     /**
+     * Translates a message for a Component Object Model (COM) object.
+     * @param {Pointer<MSG>} pmsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
-     * @param {Pointer<MSG>} pmsg 
-     * @returns {LRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenuband-translatemenumessage
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains the incoming message.
+     * @returns {LRESULT} Type: <b>LRESULT*</b>
+     * 
+     * A pointer to the translated message.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-imenuband-translatemenumessage
      */
     TranslateMenuMessage(pmsg) {
         result := ComCall(4, this, "ptr", pmsg, "ptr*", &plRet := 0, "HRESULT")

@@ -33,10 +33,14 @@ class IMILBitmapEffectConnections extends IUnknown{
     static VTableNames => ["GetInputConnector", "GetOutputConnector"]
 
     /**
+     * Retrieves the input connector associated with the given pin index.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectInputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnections-getinputconnector
+     * A zero based index value indicating which input pin to use to retrieve the input connector.
+     * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
+     * 
+     * When this method returns, contains the input connector for the given input pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnections-getinputconnector
      */
     GetInputConnector(uiIndex) {
         result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
@@ -44,10 +48,14 @@ class IMILBitmapEffectConnections extends IUnknown{
     }
 
     /**
+     * Retrieves the output connector associated with the given pin index.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectOutputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnections-getoutputconnector
+     * A zero based index value indicating which output pin to use to retrieve the output connector.
+     * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
+     * 
+     * When this method returns, contains the output connector for the given output pin.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnections-getoutputconnector
      */
     GetOutputConnector(uiIndex) {
         result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")

@@ -41,11 +41,11 @@ class IProviderProperties extends IUnknown{
     static VTableNames => ["GetCount", "GetAt", "GetValue", "SetValue"]
 
     /**
-     * 
-     * @param {IFunctionInstance} pIFunctionInstance 
-     * @param {Pointer} iProviderInstanceContext 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getcount
+     * Gets the number of properties in the property store.
+     * @param {IFunctionInstance} pIFunctionInstance An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer.
+     * @param {Pointer} iProviderInstanceContext The context associated with the specific function instance.
+     * @returns {Integer} The number of properties in the property store.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getcount
      */
     GetCount(pIFunctionInstance, iProviderInstanceContext) {
         result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint*", &pdwCount := 0, "HRESULT")
@@ -53,12 +53,12 @@ class IProviderProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IFunctionInstance} pIFunctionInstance 
-     * @param {Pointer} iProviderInstanceContext 
-     * @param {Integer} dwIndex 
-     * @returns {PROPERTYKEY} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getat
+     * Gets the property key at the specified index.
+     * @param {IFunctionInstance} pIFunctionInstance A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface.
+     * @param {Pointer} iProviderInstanceContext The context associated with the specific function instance.
+     * @param {Integer} dwIndex The index of the property key.
+     * @returns {PROPERTYKEY} The property key.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getat
      */
     GetAt(pIFunctionInstance, iProviderInstanceContext, dwIndex) {
         pKey := PROPERTYKEY()
@@ -67,12 +67,12 @@ class IProviderProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IFunctionInstance} pIFunctionInstance 
-     * @param {Pointer} iProviderInstanceContext 
-     * @param {Pointer<PROPERTYKEY>} Key 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getvalue
+     * Gets the value of the specified property key.
+     * @param {IFunctionInstance} pIFunctionInstance An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer.
+     * @param {Pointer} iProviderInstanceContext The context associated with the specific function instance.
+     * @param {Pointer<PROPERTYKEY>} Key The property key reference.
+     * @returns {PROPVARIANT} The value of the property key specified by <i>Key</i>. The <b>PROPVARIANT</b> type is VT_EMPTY if the key is not found in the property store.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getvalue
      */
     GetValue(pIFunctionInstance, iProviderInstanceContext, Key) {
         ppropVar := PROPVARIANT()
@@ -81,13 +81,42 @@ class IProviderProperties extends IUnknown{
     }
 
     /**
+     * Sets the value of the specified property key.
+     * @param {IFunctionInstance} pIFunctionInstance An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface.
+     * @param {Pointer} iProviderInstanceContext The context associated with the specific function instance.
+     * @param {Pointer<PROPERTYKEY>} Key The property key for the property to be set.
+     * @param {Pointer<PROPVARIANT>} ppropVar The property data. To remove the property from the store, specify a <b>PROPVARIANT</b> with the type VT_EMPTY.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {IFunctionInstance} pIFunctionInstance 
-     * @param {Pointer} iProviderInstanceContext 
-     * @param {Pointer<PROPERTYKEY>} Key 
-     * @param {Pointer<PROPVARIANT>} ppropVar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-setvalue
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pIFunctionInstance</i>, <i>pvProviderInstanceContext</i>, or <i>ppropVar</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-setvalue
      */
     SetValue(pIFunctionInstance, iProviderInstanceContext, Key, ppropVar) {
         result := ComCall(6, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "ptr", Key, "ptr", ppropVar, "HRESULT")

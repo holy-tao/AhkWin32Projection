@@ -36,10 +36,14 @@ class IWICDdsEncoder extends IUnknown{
     static VTableNames => ["SetParameters", "GetParameters", "CreateNewFrame"]
 
     /**
+     * Sets DDS-specific data.
+     * @param {Pointer<WICDdsParameters>} pParameters Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicddsparameters">WICDdsParameters</a>*</b>
      * 
-     * @param {Pointer<WICDdsParameters>} pParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsencoder-setparameters
+     * Points to the structure where the information is described.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsencoder-setparameters
      */
     SetParameters(pParameters) {
         result := ComCall(3, this, "ptr", pParameters, "HRESULT")
@@ -47,9 +51,11 @@ class IWICDdsEncoder extends IUnknown{
     }
 
     /**
+     * Gets DDS-specific data.
+     * @returns {WICDdsParameters} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicddsparameters">WICDdsParameters</a>*</b>
      * 
-     * @returns {WICDdsParameters} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsencoder-getparameters
+     * Points to the structure where the information is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsencoder-getparameters
      */
     GetParameters() {
         pParameters := WICDdsParameters()
@@ -58,13 +64,13 @@ class IWICDdsEncoder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<IWICBitmapFrameEncode>} ppIFrameEncode 
-     * @param {Pointer<Integer>} pArrayIndex 
-     * @param {Pointer<Integer>} pMipLevel 
-     * @param {Pointer<Integer>} pSliceIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsencoder-createnewframe
+     * Creates a new frame to encode.
+     * @param {Pointer<IWICBitmapFrameEncode>} ppIFrameEncode A pointer to the newly created frame object.
+     * @param {Pointer<Integer>} pArrayIndex Points to the location where the array index is returned.
+     * @param {Pointer<Integer>} pMipLevel Points to the location where the mip level index is returned.
+     * @param {Pointer<Integer>} pSliceIndex Points to the location where the slice index is returned.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsencoder-createnewframe
      */
     CreateNewFrame(ppIFrameEncode, pArrayIndex, pMipLevel, pSliceIndex) {
         pArrayIndexMarshal := pArrayIndex is VarRef ? "uint*" : "ptr"

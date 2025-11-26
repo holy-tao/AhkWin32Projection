@@ -35,9 +35,9 @@ class IMFNetCrossOriginSupport extends IUnknown{
     static VTableNames => ["GetCrossOriginPolicy", "GetSourceOrigin", "IsSameOrigin"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
+     * Returns the client's current cross-origin policy to apply to the download session.
+     * @returns {Integer} A value indicating the client's current cross-origin policy to apply to the download session.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
      */
     GetCrossOriginPolicy() {
         result := ComCall(3, this, "int*", &pPolicy := 0, "HRESULT")
@@ -45,9 +45,9 @@ class IMFNetCrossOriginSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcrossoriginsupport-getsourceorigin
+     * Returns the W3C origin of the HTML5 media element.
+     * @returns {PWSTR} The W3C origin of the HTML5 media element.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcrossoriginsupport-getsourceorigin
      */
     GetSourceOrigin() {
         result := ComCall(4, this, "ptr*", &wszSourceOrigin := 0, "HRESULT")

@@ -36,12 +36,18 @@ class IUIAutomationTextEditTextChangedEventHandler extends IUnknown{
     static VTableNames => ["HandleTextEditTextChangedEvent"]
 
     /**
+     * Handles an event that is raised when a Microsoft UI Automation provider for a text-edit control reports a programmatic text change.
+     * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} sender 
+     * A pointer to the element that raised the event.
      * @param {Integer} textEditChangeType 
-     * @param {Pointer<SAFEARRAY>} eventStrings 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextedittextchangedeventhandler-handletextedittextchangedevent
+     * @param {Pointer<SAFEARRAY>} eventStrings Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
+     * 
+     * Event data passed by the event.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextedittextchangedeventhandler-handletextedittextchangedevent
      */
     HandleTextEditTextChangedEvent(sender, textEditChangeType, eventStrings) {
         result := ComCall(3, this, "ptr", sender, "int", textEditChangeType, "ptr", eventStrings, "HRESULT")

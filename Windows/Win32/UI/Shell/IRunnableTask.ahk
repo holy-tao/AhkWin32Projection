@@ -44,9 +44,40 @@ class IRunnableTask extends IUnknown{
     static VTableNames => ["Run", "Kill", "Suspend", "Resume", "IsRunning"]
 
     /**
+     * Requests that a task begin.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-run
+     * Returns one of the following two codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Execution is complete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Execution is suspended.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-run
      */
     Run() {
         result := ComCall(3, this, "HRESULT")
@@ -54,10 +85,14 @@ class IRunnableTask extends IUnknown{
     }
 
     /**
+     * Requests that a task be stopped.
+     * @param {BOOL} bWait Type: <b>BOOL</b>
      * 
-     * @param {BOOL} bWait 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill
+     * Not currently used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-kill
      */
     Kill(bWait) {
         result := ComCall(4, this, "int", bWait, "HRESULT")
@@ -65,9 +100,11 @@ class IRunnableTask extends IUnknown{
     }
 
     /**
+     * Requests that a task be suspended.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-suspend
+     * Return S_OK if successful, or standard COM-defined error codes otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-suspend
      */
     Suspend() {
         result := ComCall(5, this, "HRESULT")
@@ -75,9 +112,11 @@ class IRunnableTask extends IUnknown{
     }
 
     /**
+     * Requests that a task resume.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-resume
+     * Returns S_OK if successful, or standard COM-defined error codes otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-resume
      */
     Resume() {
         result := ComCall(6, this, "HRESULT")
@@ -85,9 +124,74 @@ class IRunnableTask extends IUnknown{
     }
 
     /**
+     * Requests information on the state of a task, such as thumbnail extraction.
+     * @returns {Integer} Type: <b>LONG</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irunnabletask-isrunning
+     * Returns one of the following values to indicate the current execution state.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IRTIR_TASK_NOT_RUNNING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Extraction has not yet started.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IRTIR_TASK_RUNNING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The task is running.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IRTIR_TASK_SUSPENDED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The task is suspended.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IRTIR_TASK_PENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-irunnabletask-kill">IRunnableTask::Kill</a> has been called on the thread, but the thread has not yet completely shut down.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IRTIR_TASK_FINISHED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The task is finished.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irunnabletask-isrunning
      */
     IsRunning() {
         result := ComCall(7, this, "uint")

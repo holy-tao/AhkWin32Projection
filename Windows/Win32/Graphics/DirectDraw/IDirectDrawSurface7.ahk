@@ -195,10 +195,24 @@ class IDirectDrawSurface7 extends IUnknown{
     static VTableNames => ["AddAttachedSurface", "AddOverlayDirtyRect", "Blt", "BltBatch", "BltFast", "DeleteAttachedSurface", "EnumAttachedSurfaces", "EnumOverlayZOrders", "Flip", "GetAttachedSurface", "GetBltStatus", "GetCaps", "GetClipper", "GetColorKey", "GetDC", "GetFlipStatus", "GetOverlayPosition", "GetPalette", "GetPixelFormat", "GetSurfaceDesc", "Initialize", "IsLost", "Lock", "ReleaseDC", "Restore", "SetClipper", "SetColorKey", "SetOverlayPosition", "SetPalette", "Unlock", "UpdateOverlay", "UpdateOverlayDisplay", "UpdateOverlayZOrder", "GetDDInterface", "PageLock", "PageUnlock", "SetSurfaceDesc", "SetPrivateData", "GetPrivateData", "FreePrivateData", "GetUniquenessValue", "ChangeUniquenessValue", "SetPriority", "GetPriority", "SetLOD", "GetLOD"]
 
     /**
-     * 
+     * Attaches the specified z-buffer surface to this surface.
      * @param {IDirectDrawSurface7} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-addattachedsurface
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_CANNOTATTACHSURFACE</li>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_SURFACEALREADYATTACHED</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-addattachedsurface
      */
     AddAttachedSurface(param0) {
         result := ComCall(3, this, "ptr", param0, "HRESULT")
@@ -206,10 +220,19 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectDrawSurface7::AddOverlayDirtyRect method is not currently implemented.
      * @param {Pointer<RECT>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-addoverlaydirtyrect
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-addoverlaydirtyrect
      */
     AddOverlayDirtyRect(param0) {
         result := ComCall(4, this, "ptr", param0, "HRESULT")
@@ -217,14 +240,39 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Performs a bit block transfer (bitblt). This method does not support z-buffering or alpha blending during bitblt operations.
      * @param {Pointer<RECT>} param0 
      * @param {IDirectDrawSurface7} param1 
      * @param {Pointer<RECT>} param2 
      * @param {Integer} param3 
      * @param {Pointer<DDBLTFX>} param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-blt
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDCLIPLIST</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDRECT</li>
+     * <li>DDERR_NOALPHAHW</li>
+     * <li>DDERR_NOBLTHW</li>
+     * <li>DDERR_NOCLIPLIST</li>
+     * <li>DDERR_NODDROPSHW</li>
+     * <li>DDERR_NOMIRRORHW</li>
+     * <li>DDERR_NORASTEROPHW</li>
+     * <li>DDERR_NOROTATIONHW</li>
+     * <li>DDERR_NOSTRETCHHW</li>
+     * <li>DDERR_NOZBUFFERHW</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-blt
      */
     Blt(param0, param1, param2, param3, param4) {
         result := ComCall(5, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
@@ -232,12 +280,36 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectDrawSurface7::BltBatch method is not currently implemented.
      * @param {Pointer<DDBLTBATCH>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-bltbatch
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDCLIPLIST</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDRECT</li>
+     * <li>DDERR_NOALPHAHW</li>
+     * <li>DDERR_NOBLTHW</li>
+     * <li>DDERR_NOCLIPLIST</li>
+     * <li>DDERR_NODDROPSHW</li>
+     * <li>DDERR_NOMIRRORHW</li>
+     * <li>DDERR_NORASTEROPHW</li>
+     * <li>DDERR_NOROTATIONHW</li>
+     * <li>DDERR_NOSTRETCHHW</li>
+     * <li>DDERR_NOZBUFFERHW</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-bltbatch
      */
     BltBatch(param0, param1, param2) {
         result := ComCall(6, this, "ptr", param0, "uint", param1, "uint", param2, "HRESULT")
@@ -245,14 +317,31 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Performs a source copy bitblt or transparent bitblt by using a source color key or destination color key.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {IDirectDrawSurface7} param2 
      * @param {Pointer<RECT>} param3 
      * @param {Integer} param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-bltfast
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_EXCEPTION</li>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDRECT</li>
+     * <li>DDERR_NOBLTHW</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-bltfast
      */
     BltFast(param0, param1, param2, param3, param4) {
         result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, "ptr", param3, "uint", param4, "HRESULT")
@@ -260,11 +349,23 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Detaches one or more attached surfaces.
      * @param {Integer} param0 
      * @param {IDirectDrawSurface7} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-deleteattachedsurface
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_CANNOTDETACHSURFACE</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_SURFACENOTATTACHED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-deleteattachedsurface
      */
     DeleteAttachedSurface(param0, param1) {
         result := ComCall(8, this, "uint", param0, "ptr", param1, "HRESULT")
@@ -272,11 +373,21 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Enumerates all the surfaces that are attached to this surface.
      * @param {Pointer<Void>} param0 
      * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_SURFACELOST</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces
      */
     EnumAttachedSurfaces(param0, param1) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
@@ -286,12 +397,21 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Enumerates the overlay surfaces on the specified destination. You can enumerate the overlays in front-to-back or back-to-front order.
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-enumoverlayzorders
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-enumoverlayzorders
      */
     EnumOverlayZOrders(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
@@ -301,11 +421,27 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Makes the surface memory that is associated with the DDSCAPS_BACKBUFFER surface become associated with the front-buffer surface.
      * @param {IDirectDrawSurface7} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-flip
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOFLIPHW</li>
+     * <li>DDERR_NOTFLIPPABLE</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-flip
      */
     Flip(param0, param1) {
         result := ComCall(11, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -313,10 +449,10 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Obtains the attached surface that has the specified capabilities, and increments the reference count of the retrieved interface.
      * @param {Pointer<DDSCAPS2>} param0 
      * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getattachedsurface
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getattachedsurface
      */
     GetAttachedSurface(param0) {
         result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
@@ -324,10 +460,22 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Obtains status about a bit block transfer (bitblt) operation.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getbltstatus
+     * @returns {HRESULT} If the method succeeds, a bitbltter is present, and the return value is DD_OK.
+     * 
+     * If it fails, the method returns DDERR_WASSTILLDRAWING if the bitbltter is busy, DDERR_NOBLTHW if there is no bitbltter, or one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOBLTHW</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getbltstatus
      */
     GetBltStatus(param0) {
         result := ComCall(13, this, "uint", param0, "HRESULT")
@@ -335,10 +483,17 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the capabilities of this surface. These capabilities are not necessarily related to the capabilities of the display device.
      * @param {Pointer<DDSCAPS2>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getcaps
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getcaps
      */
     GetCaps(param0) {
         result := ComCall(14, this, "ptr", param0, "HRESULT")
@@ -346,9 +501,9 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the DirectDrawClipper object that is associated with this surface, and increments the reference count of the returned clipper.
      * @returns {IDirectDrawClipper} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getclipper
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getclipper
      */
     GetClipper() {
         result := ComCall(15, this, "ptr*", &param0 := 0, "HRESULT")
@@ -356,11 +511,24 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the color key value for this surface.
      * @param {Integer} param0 
      * @param {Pointer<DDCOLORKEY>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getcolorkey
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOCOLORKEY</li>
+     * <li>DDERR_NOCOLORKEYHW</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getcolorkey
      */
     GetColorKey(param0, param1) {
         result := ComCall(16, this, "uint", param0, "ptr", param1, "HRESULT")
@@ -368,12 +536,25 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
+     * Creates a GDI-compatible handle of a device context for this surface.
      * @param {Pointer<HDC>} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * If the function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_DCALREADYCREATED</li>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getdc
      */
     GetDC(param0) {
         result := ComCall(17, this, "ptr", param0, "HRESULT")
@@ -381,10 +562,22 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves status about whether this surface has finished its flipping process.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getflipstatus
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return DDERR_WASSTILLDRAWING if the surface has not finished its flipping process, or one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getflipstatus
      */
     GetFlipStatus(param0) {
         result := ComCall(18, this, "uint", param0, "HRESULT")
@@ -392,11 +585,26 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the display coordinates of this surface. This method is used on a visible, active overlay surface (that is, a surface that has the DDSCAPS_OVERLAY flag set).
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getoverlayposition
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDPOSITION</li>
+     * <li>DDERR_NOOVERLAYDEST</li>
+     * <li>DDERR_NOTAOVERLAYSURFACE</li>
+     * <li>DDERR_OVERLAYNOTVISIBLE</li>
+     * <li>DDERR_SURFACELOST</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getoverlayposition
      */
     GetOverlayPosition(param0, param1) {
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
@@ -407,9 +615,9 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the DirectDrawPalette object that is associated with this surface, and increments the reference count of the returned palette.
      * @returns {IDirectDrawPalette} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getpalette
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getpalette
      */
     GetPalette() {
         result := ComCall(20, this, "ptr*", &param0 := 0, "HRESULT")
@@ -417,12 +625,18 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
+     * Retrieves the color and pixel format of this surface.
      * @param {Pointer<DDPIXELFORMAT>} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getpixelformat
      */
     GetPixelFormat(param0) {
         result := ComCall(21, this, "ptr", param0, "HRESULT")
@@ -430,10 +644,17 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a description of this surface in its current condition.
      * @param {Pointer<DDSURFACEDESC2>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getsurfacedesc
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getsurfacedesc
      */
     GetSurfaceDesc(param0) {
         result := ComCall(22, this, "ptr", param0, "HRESULT")
@@ -441,21 +662,13 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
+     * Initializes a DirectDrawSurface object.
      * @param {IDirectDraw} param0 
      * @param {Pointer<DDSURFACEDESC2>} param1 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @returns {HRESULT} This method returns DDERR_ALREADYINITIALIZED.
+     * 
+     * This method is provided for compliance with the Component Object Model (COM). Because the DirectDrawSurface object is initialized when it is created, this method always returns DDERR_ALREADYINITIALIZED.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-initialize
      */
     Initialize(param0, param1) {
         result := ComCall(23, this, "ptr", param0, "ptr", param1, "HRESULT")
@@ -463,9 +676,20 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
+     * Determines whether the surface memory that is associated with a DirectDrawSurface object has been freed.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK because the memory has not been freed.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-islost
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_SURFACELOST</li>
+     * </ul>
+     * You can use this method to determine when you need to reallocate surface memory. When a DirectDrawSurface object loses its surface memory, most methods return DDERR_SURFACELOST and perform no other action.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-islost
      */
     IsLost() {
         result := ComCall(24, this, "HRESULT")
@@ -473,13 +697,26 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Obtains a pointer to the surface memory.
      * @param {Pointer<RECT>} param0 
      * @param {Pointer<DDSURFACEDESC2>} param1 
      * @param {Integer} param2 
      * @param {HANDLE} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-lock
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-lock
      */
     Lock(param0, param1, param2, param3) {
         param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
@@ -489,12 +726,20 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
+     * Releases the handle of a device context that was previously obtained by using the IDirectDrawSurface7::GetDC method.
      * @param {HDC} param0 
-     * @returns {HRESULT} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * If the DC was not released, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-releasedc
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-releasedc
      */
     ReleaseDC(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
@@ -504,9 +749,25 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
+     * Restores a surface that has been lost. This occurs when the surface memory that is associated with the DirectDrawSurface object has been freed.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-restore
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_IMPLICITLYCREATED</li>
+     * <li>DDERR_INCOMPATIBLEPRIMARY</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WRONGMODE</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-restore
      */
     Restore() {
         result := ComCall(27, this, "HRESULT")
@@ -514,10 +775,19 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Attaches a clipper object to, or deletes one from, this surface.
      * @param {IDirectDrawClipper} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setclipper
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_NOCLIPPERATTACHED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setclipper
      */
     SetClipper(param0) {
         result := ComCall(28, this, "ptr", param0, "HRESULT")
@@ -525,11 +795,27 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the color key value for the DirectDrawSurface object if the hardware supports color keys on a per-surface basis.
      * @param {Integer} param0 
      * @param {Pointer<DDCOLORKEY>} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setcolorkey
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_NOOVERLAYHW</li>
+     * <li>DDERR_NOTAOVERLAYSURFACE</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_WASSTILLDRAWING</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setcolorkey
      */
     SetColorKey(param0, param1) {
         result := ComCall(29, this, "uint", param0, "ptr", param1, "HRESULT")
@@ -537,11 +823,27 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Changes the display coordinates of an overlay surface.
      * @param {Integer} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setoverlayposition
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDPOSITION</li>
+     * <li>DDERR_NOOVERLAYDEST</li>
+     * <li>DDERR_NOTAOVERLAYSURFACE</li>
+     * <li>DDERR_OVERLAYNOTVISIBLE</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setoverlayposition
      */
     SetOverlayPosition(param0, param1) {
         result := ComCall(30, this, "int", param0, "int", param1, "HRESULT")
@@ -549,10 +851,26 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Attaches a palette object to (or detaches one from) a surface. The surface uses this palette for all subsequent operations. The palette change takes place immediately, without regard to refresh timing.
      * @param {IDirectDrawPalette} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setpalette
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDPIXELFORMAT</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_NOEXCLUSIVEMODE</li>
+     * <li>DDERR_NOPALETTEATTACHED</li>
+     * <li>DDERR_NOPALETTEHW</li>
+     * <li>DDERR_NOT8BITCOLOR</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setpalette
      */
     SetPalette(param0) {
         result := ComCall(31, this, "ptr", param0, "HRESULT")
@@ -560,10 +878,21 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Notifies DirectDraw that the direct surface manipulations are complete.
      * @param {Pointer<RECT>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-unlock
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDRECT</li>
+     * <li>DDERR_NOTLOCKED</li>
+     * <li>DDERR_SURFACELOST</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-unlock
      */
     Unlock(param0) {
         result := ComCall(32, this, "ptr", param0, "HRESULT")
@@ -571,14 +900,34 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Repositions or modifies the visual attributes of an overlay surface. These surfaces must have the DDSCAPS_OVERLAY flag set.
      * @param {Pointer<RECT>} param0 
      * @param {IDirectDrawSurface7} param1 
      * @param {Pointer<RECT>} param2 
      * @param {Integer} param3 
      * @param {Pointer<DDOVERLAYFX>} param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_DEVICEDOESNTOWNSURFACE</li>
+     * <li>DDERR_GENERIC</li>
+     * <li>DDERR_HEIGHTALIGN</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDRECT</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_NOSTRETCHHW</li>
+     * <li>DDERR_NOTAOVERLAYSURFACE</li>
+     * <li>DDERR_OUTOFCAPS</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_XALIGN</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay
      */
     UpdateOverlay(param0, param1, param2, param3, param4) {
         result := ComCall(33, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
@@ -586,10 +935,10 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectDrawSurface7::UpdateOverlayDisplay method is not currently implemented.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlaydisplay
+     * @returns {HRESULT} The method is not currently implemented.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-updateoverlaydisplay
      */
     UpdateOverlayDisplay(param0) {
         result := ComCall(34, this, "uint", param0, "HRESULT")
@@ -597,11 +946,21 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the z-order of an overlay.
      * @param {Integer} param0 
      * @param {IDirectDrawSurface7} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlayzorder
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOTAOVERLAYSURFACE</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-updateoverlayzorder
      */
     UpdateOverlayZOrder(param0, param1) {
         result := ComCall(35, this, "uint", param0, "ptr", param1, "HRESULT")
@@ -609,10 +968,19 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves an interface to the DirectDraw object that was used to create this surface.
      * @param {Pointer<Pointer<Void>>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getddinterface
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getddinterface
      */
     GetDDInterface(param0) {
         param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
@@ -622,10 +990,19 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Prevents a system-memory surface from being paged out while a bit block transfer (bitblt) operation that uses direct memory access (DMA) transfers to or from system memory is in progress.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-pagelock
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_CANTPAGELOCK</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_SURFACELOST</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-pagelock
      */
     PageLock(param0) {
         result := ComCall(37, this, "uint", param0, "HRESULT")
@@ -633,10 +1010,20 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Unlocks a system-memory surface, which then allows it to be paged out.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-pageunlock
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_CANTPAGEUNLOCK</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOTPAGELOCKED</li>
+     * <li>DDERR_SURFACELOST</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-pageunlock
      */
     PageUnlock(param0) {
         result := ComCall(38, this, "uint", param0, "HRESULT")
@@ -644,11 +1031,27 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the characteristics of an existing surface.
      * @param {Pointer<DDSURFACEDESC2>} param0 
      * @param {Integer} param1 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setsurfacedesc
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_SURFACELOST</li>
+     * <li>DDERR_SURFACEBUSY</li>
+     * <li>DDERR_INVALIDSURFACETYPE</li>
+     * <li>DDERR_INVALIDPIXELFORMAT</li>
+     * <li>DDERR_INVALIDCAPS</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * <li>DDERR_GENERIC</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setsurfacedesc
      */
     SetSurfaceDesc(param0, param1) {
         result := ComCall(39, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -656,13 +1059,23 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Associates data with the surface that is intended for use by the application, not by DirectDraw. Data is passed by value, and multiple sets of data can be associated with a single surface.
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setprivatedata
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setprivatedata
      */
     SetPrivateData(param0, param1, param2, param3) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
@@ -672,12 +1085,25 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Copies the private data that is associated with this surface to a provided buffer.
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<Integer>} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getprivatedata
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_EXPIRED</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_MOREDATA</li>
+     * <li>DDERR_NOTFOUND</li>
+     * <li>DDERR_OUTOFMEMORY</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getprivatedata
      */
     GetPrivateData(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
@@ -688,10 +1114,18 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Frees the specified private data that is associated with this surface.
      * @param {Pointer<Guid>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-freeprivatedata
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_NOTFOUND</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-freeprivatedata
      */
     FreePrivateData(param0) {
         result := ComCall(42, this, "ptr", param0, "HRESULT")
@@ -699,10 +1133,17 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the current uniqueness value for this surface.
      * @param {Pointer<Integer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getuniquenessvalue
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getuniquenessvalue
      */
     GetUniquenessValue(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -712,9 +1153,19 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
+     * Manually updates the uniqueness value for this surface.
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-changeuniquenessvalue
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_EXCEPTION</li>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-changeuniquenessvalue
      */
     ChangeUniquenessValue() {
         result := ComCall(44, this, "HRESULT")
@@ -722,10 +1173,12 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Assigns the texture-management priority for this texture. This method succeeds only on managed textures.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setpriority
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the return value is an error. The method returns DDERR_INVALIDOBJECT if the parameter is invalid or if the texture is not managed by Direct3D.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setpriority
      */
     SetPriority(param0) {
         result := ComCall(45, this, "uint", param0, "HRESULT")
@@ -733,10 +1186,12 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the texture-management priority for this texture. This method succeeds only on managed textures.
      * @param {Pointer<Integer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getpriority
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the return value is an error. The method returns DDERR_INVALIDOBJECT if the parameter is invalid or if the texture is not managed by Direct3D.
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getpriority
      */
     GetPriority(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -746,10 +1201,17 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the maximum level of detail (LOD) for a managed mipmap surface. This method succeeds only on managed textures.
      * @param {Integer} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setlod
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-setlod
      */
     SetLOD(param0) {
         result := ComCall(47, this, "uint", param0, "HRESULT")
@@ -757,10 +1219,19 @@ class IDirectDrawSurface7 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the maximum level of detail (LOD) currently set for a managed mipmap surface. This method succeeds only on managed textures.
      * @param {Pointer<Integer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getlod
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawsurface7-getlod
      */
     GetLOD(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"

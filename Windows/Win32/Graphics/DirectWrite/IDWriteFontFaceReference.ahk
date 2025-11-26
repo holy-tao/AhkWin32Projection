@@ -34,9 +34,11 @@ class IDWriteFontFaceReference extends IUnknown{
     static VTableNames => ["CreateFontFace", "CreateFontFaceWithSimulations", "Equals", "GetFontFaceIndex", "GetSimulations", "GetFontFile", "GetLocalFileSize", "GetFileSize", "GetFileTime", "GetLocality", "EnqueueFontDownloadRequest", "EnqueueCharacterDownloadRequest", "EnqueueGlyphDownloadRequest", "EnqueueFileFragmentDownloadRequest"]
 
     /**
+     * Creates a font face from the reference for use with layout, shaping, or rendering.
+     * @returns {IDWriteFontFace3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3">IDWriteFontFace3</a>**</b>
      * 
-     * @returns {IDWriteFontFace3} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontface
+     * Newly created font face object, or nullptr in the case of failure.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontface
      */
     CreateFontFace() {
         result := ComCall(3, this, "ptr*", &fontFace := 0, "HRESULT")
@@ -44,10 +46,14 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Creates a font face with alternate font simulations, for example, to explicitly simulate a bold font face out of a regular variant.
+     * @param {Integer} fontFaceSimulationFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
-     * @param {Integer} fontFaceSimulationFlags 
-     * @returns {IDWriteFontFace3} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontfacewithsimulations
+     * Font face simulation flags for algorithmic emboldening and italicization.
+     * @returns {IDWriteFontFace3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3">IDWriteFontFace3</a>**</b>
+     * 
+     * Newly created font face object, or nullptr in the case of failure.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontfacewithsimulations
      */
     CreateFontFaceWithSimulations(fontFaceSimulationFlags) {
         result := ComCall(4, this, "int", fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
@@ -65,9 +71,12 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Obtains the zero-based index of the font face in its font file or files. If the font files contain a single face, the return value is zero.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getfontfaceindex
+     *  the zero-based index of the font face in its font file or files. If the font files contain a single face,  
+     *      the return value is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getfontfaceindex
      */
     GetFontFaceIndex() {
         result := ComCall(6, this, "uint")
@@ -75,9 +84,11 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Obtains the algorithmic style simulation flags of a font face.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getsimulations
+     * Returns the algorithmic style simulation flags of a font face.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getsimulations
      */
     GetSimulations() {
         result := ComCall(7, this, "int")
@@ -85,9 +96,9 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IDWriteFontFile} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getfontfile
+     * Obtains the font file representing a font face.
+     * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getfontfile
      */
     GetFontFile() {
         result := ComCall(8, this, "ptr*", &fontFile := 0, "HRESULT")
@@ -95,9 +106,13 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Get the local size of the font face in bytes, which will always be less than or equal to GetFullSize. If the locality is remote, this value is zero. If full, this value will equal GetFileSize.
+     * @returns {Integer} Type: <b>UINT64</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocalfilesize
+     * the local size of the font face in bytes, which will always be   
+     *      less than or equal to GetFullSize. If the locality is remote, this     
+     *      value is zero. If full, this value will equal <a href="/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getfilesize">GetFileSize</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocalfilesize
      */
     GetLocalFileSize() {
         result := ComCall(9, this, "uint")
@@ -105,23 +120,11 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
-     * Retrieves the size of the specified file, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
-     *        <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the 
-     *        high-order doubleword of the file size into the variable pointed to by that parameter.
+     * Get the total size of the font face in bytes.
+     * @returns {Integer} Type: <b>UINT64</b>
      * 
-     * If the function fails and <i>lpFileSizeHigh</i> is <b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. When 
-     *        <i>lpFileSizeHigh</i> is <b>NULL</b>, the results returned for large 
-     *        files are ambiguous, and you will not be able to determine the actual size of the file. It is recommended that 
-     *        you use <a href="/windows/desktop/api/fileapi/nf-fileapi-getfilesizeex">GetFileSizeEx</a> instead.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b> and 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return a value other than 
-     *        <b>NO_ERROR</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
+     * Returns the total size of the font face in bytes. If the locality is remote, this value is unknown and will be zero.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getfilesize
      */
     GetFileSize() {
         result := ComCall(10, this, "uint")
@@ -129,9 +132,11 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
-     * Retrieves the date and time that a file or directory was created, last accessed, and last modified.
-     * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfiletime
+     * Get the last modified date.
+     * @returns {FILETIME} Type: <b>FILETIME*</b>
+     * 
+     * Returns the last modified date. The time may be zero if the font file loader does not expose file time.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getfiletime
      */
     GetFileTime() {
         lastWriteTime := FILETIME()
@@ -140,9 +145,11 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Get the locality of this font face reference.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocality
+     * Returns the locality of this font face reference.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocality
      */
     GetLocality() {
         result := ComCall(12, this, "int")
@@ -150,9 +157,11 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Adds a request to the font download queue (IDWriteFontDownloadQueue).
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuefontdownloadrequest
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuefontdownloadrequest
      */
     EnqueueFontDownloadRequest() {
         result := ComCall(13, this, "HRESULT")
@@ -160,11 +169,17 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Adds a request to the font download queue (IDWriteFontDownloadQueue).
+     * @param {PWSTR} characters Type: <b>const WCHAR*</b>
      * 
-     * @param {PWSTR} characters 
-     * @param {Integer} characterCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuecharacterdownloadrequest
+     * Array of characters to download.
+     * @param {Integer} characterCount Type: <b>UINT32</b>
+     * 
+     * The number of elements in the character array.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuecharacterdownloadrequest
      */
     EnqueueCharacterDownloadRequest(characters, characterCount) {
         characters := characters is String ? StrPtr(characters) : characters
@@ -174,11 +189,17 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Adds a request to the font download queue (IDWriteFontDownloadQueue).
+     * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
      * 
-     * @param {Pointer<Integer>} glyphIndices 
-     * @param {Integer} glyphCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueueglyphdownloadrequest
+     * Array of glyph indices to download.
+     * @param {Integer} glyphCount Type: <b>UINT32</b>
+     * 
+     * The number of elements in the glyph index array.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueueglyphdownloadrequest
      */
     EnqueueGlyphDownloadRequest(glyphIndices, glyphCount) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
@@ -188,11 +209,17 @@ class IDWriteFontFaceReference extends IUnknown{
     }
 
     /**
+     * Adds a request to the font download queue (IDWriteFontDownloadQueue).
+     * @param {Integer} fileOffset Type: <b>UINT64</b>
      * 
-     * @param {Integer} fileOffset 
-     * @param {Integer} fragmentSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuefilefragmentdownloadrequest
+     * Offset of the fragment from the beginning of the font file.
+     * @param {Integer} fragmentSize Type: <b>UINT64</b>
+     * 
+     * Size of the fragment in bytes.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuefilefragmentdownloadrequest
      */
     EnqueueFileFragmentDownloadRequest(fileOffset, fragmentSize) {
         result := ComCall(16, this, "uint", fileOffset, "uint", fragmentSize, "HRESULT")

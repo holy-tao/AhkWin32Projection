@@ -71,9 +71,9 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITuningSpace} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tuningspace
+     * The get_TuningSpace method gets the tuning space currently in effect for the Network Provider.
+     * @returns {ITuningSpace} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface pointer that will be set to the current tuning space.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-get_tuningspace
      */
     get_TuningSpace() {
         result := ComCall(3, this, "ptr*", &TuningSpace := 0, "HRESULT")
@@ -81,10 +81,10 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITuningSpace} TuningSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_tuningspace
+     * The put_TuningSpace method sets the tuning space for the Network Provider.
+     * @param {ITuningSpace} TuningSpace Pointer to the tuning space that will be set in the Network Provider.
+     * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-put_tuningspace
      */
     put_TuningSpace(TuningSpace) {
         result := ComCall(4, this, "ptr", TuningSpace, "HRESULT")
@@ -92,9 +92,9 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumTuningSpaces} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-enumtuningspaces
+     * The EnumTuningSpaces method creates a collection of tuning spaces preferred by this implementation.
+     * @returns {IEnumTuningSpaces} Address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ienumtuningspaces">IEnumTuningSpaces</a> interface pointer that will be set to the returned collection.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-enumtuningspaces
      */
     EnumTuningSpaces() {
         result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -102,9 +102,9 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITuneRequest} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tunerequest
+     * The get_TuneRequest method gets the tune request currently in effect for the Network Provider.
+     * @returns {ITuneRequest} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface pointer that will be set to the returned object.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-get_tunerequest
      */
     get_TuneRequest() {
         result := ComCall(6, this, "ptr*", &TuneRequest := 0, "HRESULT")
@@ -112,10 +112,10 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITuneRequest} TuneRequest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_tunerequest
+     * The put_TuneRequest method sets the tune request currently in effect for the Network Provider.
+     * @param {ITuneRequest} TuneRequest Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> object that will be used to set the Network Provider.
+     * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-put_tunerequest
      */
     put_TuneRequest(TuneRequest) {
         result := ComCall(7, this, "ptr", TuneRequest, "HRESULT")
@@ -123,10 +123,10 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITuneRequest} TuneRequest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-validate
+     * The Validate method returns a value indicating that the tune request can be carried out.
+     * @param {ITuneRequest} TuneRequest Pointer to the tune request object.
+     * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-validate
      */
     Validate(TuneRequest) {
         result := ComCall(8, this, "ptr", TuneRequest, "HRESULT")
@@ -134,9 +134,9 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IComponentTypes} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_preferredcomponenttypes
+     * The get_PreferredComponentTypes method gets the collection of ComponentType objects used for default component selection.
+     * @returns {IComponentTypes} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface pointer that receives the collection of ComponentType objects.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-get_preferredcomponenttypes
      */
     get_PreferredComponentTypes() {
         result := ComCall(9, this, "ptr*", &ComponentTypes := 0, "HRESULT")
@@ -144,10 +144,10 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IComponentTypes} ComponentTypes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_preferredcomponenttypes
+     * The put_PreferredComponentTypes method sets the collection of ComponentType objects used for default component selection.
+     * @param {IComponentTypes} ComponentTypes Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface that contains the collection of ComponentType objects.
+     * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-put_preferredcomponenttypes
      */
     put_PreferredComponentTypes(ComponentTypes) {
         result := ComCall(10, this, "ptr", ComponentTypes, "HRESULT")
@@ -155,9 +155,9 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_signalstrength
+     * The get_SignalStrength method retrieves the Network Provider-specific signal strength metric.
+     * @returns {Integer} Receives the signal strength.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-get_signalstrength
      */
     get_SignalStrength() {
         result := ComCall(11, this, "int*", &Strength := 0, "HRESULT")
@@ -165,10 +165,10 @@ class ITuner extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Interval 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-triggersignalevents
+     * The TriggerSignalEvents method enables the tuner to raise an event when the status of the signal changes.
+     * @param {Integer} Interval Specifies the time-out interval in milliseconds.
+     * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituner-triggersignalevents
      */
     TriggerSignalEvents(Interval) {
         result := ComCall(12, this, "int", Interval, "HRESULT")

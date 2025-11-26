@@ -33,11 +33,11 @@ class IAzAuthorizationStore2 extends IAzAuthorizationStore{
     static VTableNames => ["OpenApplication2", "CreateApplication2"]
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationName 
-     * @param {VARIANT} varReserved 
-     * @returns {IAzApplication2} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore2-openapplication2
+     * Opens the IAzApplication2 object with the specified name.
+     * @param {BSTR} bstrApplicationName The name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication2">IAzApplication2</a> object to open.
+     * @param {VARIANT} varReserved Reserved for future use.
+     * @returns {IAzApplication2} A pointer to a pointer to the opened <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication2">IAzApplication2</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore2-openapplication2
      */
     OpenApplication2(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
@@ -47,11 +47,11 @@ class IAzAuthorizationStore2 extends IAzAuthorizationStore{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrApplicationName 
-     * @param {VARIANT} varReserved 
-     * @returns {IAzApplication2} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore2-createapplication2
+     * Creates an IAzApplication2 object by using the specified name.
+     * @param {BSTR} bstrApplicationName The name for the new <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication2">IAzApplication2</a> object.
+     * @param {VARIANT} varReserved Reserved for future use.
+     * @returns {IAzApplication2} A pointer to a pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication2">IAzApplication2</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore2-createapplication2
      */
     CreateApplication2(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName

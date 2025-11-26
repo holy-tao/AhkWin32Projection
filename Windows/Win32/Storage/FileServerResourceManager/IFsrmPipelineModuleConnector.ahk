@@ -86,9 +86,9 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     }
 
     /**
-     * 
+     * The interface that implements the pipeline module.
      * @returns {IFsrmPipelineModuleImplementation} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_moduleimplementation
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_moduleimplementation
      */
     get_ModuleImplementation() {
         result := ComCall(7, this, "ptr*", &pipelineModuleImplementation := 0, "HRESULT")
@@ -96,9 +96,9 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the module.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
      */
     get_ModuleName() {
         userName := BSTR()
@@ -107,9 +107,9 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     }
 
     /**
-     * 
+     * The user account under which the module runs.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
      */
     get_HostingUserAccount() {
         userAccount := BSTR()
@@ -118,9 +118,9 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     }
 
     /**
-     * 
+     * The process identifier of the module.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostingprocesspid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostingprocesspid
      */
     get_HostingProcessPid() {
         result := ComCall(10, this, "int*", &pid := 0, "HRESULT")
@@ -128,11 +128,11 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IFsrmPipelineModuleDefinition} moduleDefinition 
-     * @param {IFsrmPipelineModuleImplementation} moduleImplementation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-bind
+     * Binds the pipeline module implementation to the FSRM communication channel.
+     * @param {IFsrmPipelineModuleDefinition} moduleDefinition An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition">IFsrmPipelineModuleDefinition</a> interface that contains the definition of the module.
+     * @param {IFsrmPipelineModuleImplementation} moduleImplementation An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleimplementation">IFsrmPipelineModuleImplementation</a> interface to the module's implementation.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-bind
      */
     Bind(moduleDefinition, moduleImplementation) {
         result := ComCall(11, this, "ptr", moduleDefinition, "ptr", moduleImplementation, "HRESULT")

@@ -62,20 +62,14 @@ class IColumnProvider extends IUnknown{
     static VTableNames => ["Initialize", "GetColumnInfo", "GetItemData"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Pointer<SHCOLUMNINIT>} psci 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes an IColumnProvider interface.
+     * @param {Pointer<SHCOLUMNINIT>} psci Type: <b>LPCSHCOLUMNINIT</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumninit">SHCOLUMNINIT</a> structure with initialization information, including the folder whose contents are to be displayed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icolumnprovider-initialize
      */
     Initialize(psci) {
         result := ComCall(3, this, "ptr", psci, "HRESULT")
@@ -83,10 +77,14 @@ class IColumnProvider extends IUnknown{
     }
 
     /**
+     * Requests information about a column.
+     * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIndex 
-     * @returns {SHCOLUMNINFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icolumnprovider-getcolumninfo
+     * The column's zero-based index. It is an arbitrary value that is used to enumerate columns.
+     * @returns {SHCOLUMNINFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumninfo">SHCOLUMNINFO</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumninfo">SHCOLUMNINFO</a> structure to hold the column information.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icolumnprovider-getcolumninfo
      */
     GetColumnInfo(dwIndex) {
         psci := SHCOLUMNINFO()
@@ -95,11 +93,17 @@ class IColumnProvider extends IUnknown{
     }
 
     /**
+     * Requests column data for a specified file.
+     * @param {Pointer<PROPERTYKEY>} pscid Type: <b>LPCSHCOLUMNID</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} pscid 
-     * @param {Pointer<SHCOLUMNDATA>} pscd 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icolumnprovider-getitemdata
+     * An <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> structure that identifies the column.
+     * @param {Pointer<SHCOLUMNDATA>} pscd Type: <b>LPCSHCOLUMNDATA</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumndata">SHCOLUMNDATA</a> structure that specifies the file.
+     * @returns {VARIANT} Type: <b>VARIANT*</b>
+     * 
+     * A pointer to a <b>VARIANT</b> with the data for the file specified by <i>pscd</i> that belongs in the column specified by <i>pscid</i>. Set this value if the file is a member of the class supported by the column provider.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icolumnprovider-getitemdata
      */
     GetItemData(pscid, pscd) {
         pvarData := VARIANT()

@@ -35,9 +35,9 @@ class IESFileExpiryDateEvent extends IESEvent{
     static VTableNames => ["GetTunerId", "GetExpiryDate", "GetFinalExpiryDate", "GetMaxRenewalCount", "IsEntitlementTokenPresent", "DoesExpireAfterFirstUse"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-gettunerid
+     * Gets a globally unique identifier (GUID) from a FileExpiryDate event that identifies the media transform device (MTD) that originated the event.
+     * @returns {Guid} Receives the GUID for the MTD.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesfileexpirydateevent-gettunerid
      */
     GetTunerId() {
         pguidTunerId := Guid()
@@ -46,9 +46,9 @@ class IESFileExpiryDateEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-getexpirydate
+     * Gets the date from a FileExpiryDate event that indicates when a license for protected content expires.
+     * @returns {Integer} Receives the expiry date from the event.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesfileexpirydateevent-getexpirydate
      */
     GetExpiryDate() {
         result := ComCall(9, this, "uint*", &pqwExpiryDate := 0, "HRESULT")
@@ -56,9 +56,9 @@ class IESFileExpiryDateEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-getfinalexpirydate
+     * Gets the date from a FileExpiryDate event that indicates when a renewable license for protected content finally expires.
+     * @returns {Integer} Receives the final expiry date.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesfileexpirydateevent-getfinalexpirydate
      */
     GetFinalExpiryDate() {
         result := ComCall(10, this, "uint*", &pqwExpiryDate := 0, "HRESULT")
@@ -66,9 +66,9 @@ class IESFileExpiryDateEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-getmaxrenewalcount
+     * Gets the maximum number of times that a license for protected content can be renewed from a FileExpiryDate event.
+     * @returns {Integer} Receives the maximum renewal count.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesfileexpirydateevent-getmaxrenewalcount
      */
     GetMaxRenewalCount() {
         result := ComCall(11, this, "uint*", &dwMaxRenewalCount := 0, "HRESULT")
@@ -76,9 +76,9 @@ class IESFileExpiryDateEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-isentitlementtokenpresent
+     * Gets a flag from FileExpiryDate event that indicates whether a license for protected content contains an entitlement token.
+     * @returns {BOOL} Receives the flag, which is true if the license for protected content contains an entitlement token or false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesfileexpirydateevent-isentitlementtokenpresent
      */
     IsEntitlementTokenPresent() {
         result := ComCall(12, this, "int*", &pfEntTokenPresent := 0, "HRESULT")
@@ -86,9 +86,9 @@ class IESFileExpiryDateEvent extends IESEvent{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-doesexpireafterfirstuse
+     * Gets a flag from a FileExpiryDate event that indicates whether a license for protected content expires after its first use.
+     * @returns {BOOL} Receives the flag, which is true if the license expires after first use or false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesfileexpirydateevent-doesexpireafterfirstuse
      */
     DoesExpireAfterFirstUse() {
         result := ComCall(13, this, "int*", &pfExpireAfterFirstUse := 0, "HRESULT")

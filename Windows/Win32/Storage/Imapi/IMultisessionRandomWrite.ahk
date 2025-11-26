@@ -60,9 +60,9 @@ class IMultisessionRandomWrite extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize
+     * Retrieves the size of a writeable unit on the media.
+     * @returns {Integer} The size of a writeable unit on the media.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize
      */
     get_WriteUnitSize() {
         result := ComCall(11, this, "int*", &value := 0, "HRESULT")
@@ -70,9 +70,9 @@ class IMultisessionRandomWrite extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_lastwrittenaddress
+     * Retrieves the last written address on the media.
+     * @returns {Integer} The last written address on the media.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionrandomwrite-get_lastwrittenaddress
      */
     get_LastWrittenAddress() {
         result := ComCall(12, this, "int*", &value := 0, "HRESULT")
@@ -80,9 +80,9 @@ class IMultisessionRandomWrite extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_totalsectorsonmedia
+     * Retrieves the total number of sectors on the media.
+     * @returns {Integer} The total number of sectors on the media.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionrandomwrite-get_totalsectorsonmedia
      */
     get_TotalSectorsOnMedia() {
         result := ComCall(13, this, "int*", &value := 0, "HRESULT")

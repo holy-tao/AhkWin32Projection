@@ -31,11 +31,12 @@ class IWbemProviderIdentity extends IUnknown{
     static VTableNames => ["SetRegistrationObject"]
 
     /**
-     * 
-     * @param {Integer} lFlags 
-     * @param {IWbemClassObject} pProvReg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemprovideridentity-setregistrationobject
+     * The IWbemProviderIdentity::SetRegistrationObject method is called by the Windows Management service prior to initializing an event provider (if the provider implements IWbemProviderIdentity).
+     * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
+     * @param {IWbemClassObject} pProvReg Instance of 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/--win32provider">__Win32Provider</a> that announces the provider's name and <b>CLSID</b>.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> with one of the following values.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemprovideridentity-setregistrationobject
      */
     SetRegistrationObject(lFlags, pProvReg) {
         result := ComCall(3, this, "int", lFlags, "ptr", pProvReg, "HRESULT")

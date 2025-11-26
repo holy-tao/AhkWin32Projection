@@ -32,10 +32,10 @@ class ICertGetConfig extends IDispatch{
     static VTableNames => ["GetConfig"]
 
     /**
-     * 
+     * The ICertGetConfig::GetConfig method retrieves the configuration string for a Certificate Services server.
      * @param {Integer} Flags 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertgetconfig-getconfig
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that contains the configuration. When you have finished using the configuration, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function to free <i>pbstrOut</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertgetconfig-getconfig
      */
     GetConfig(Flags) {
         pstrOut := BSTR()

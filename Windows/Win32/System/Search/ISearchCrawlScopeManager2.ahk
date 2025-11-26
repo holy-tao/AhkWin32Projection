@@ -36,13 +36,17 @@ class ISearchCrawlScopeManager2 extends ISearchCrawlScopeManager{
     static VTableNames => ["GetVersion"]
 
     /**
-     * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<Pointer<Integer>>} plVersion 
-     * @param {Pointer<HANDLE>} phFileMapping 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
+     * Causes file mapping to be mapped into the address space of the calling process, and informs clients if the state of the Crawl Scope Manager (CSM) has changed.
+     * @param {Pointer<Pointer<Integer>>} plVersion Type: <b>LONG**</b>
      * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * Receives a pointer to the address of a memory mapped file that contains the crawl scope version.
+     * @param {Pointer<HANDLE>} phFileMapping Type: <b>HANDLE*</b>
+     * 
+     * Receives a pointer to the handle of the file mapping object, with read-only access, that was used to create the memory mapped file that contains the crawl scope version.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchcrawlscopemanager2-getversion
      */
     GetVersion(plVersion, phFileMapping) {
         plVersionMarshal := plVersion is VarRef ? "ptr*" : "ptr"

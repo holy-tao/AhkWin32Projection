@@ -38,10 +38,12 @@ class ID3D11ShaderResourceView extends ID3D11View{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get the shader resource view's description.
+     * @param {Pointer<D3D11_SHADER_RESOURCE_VIEW_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_shader_resource_view_desc">D3D11_SHADER_RESOURCE_VIEW_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_SHADER_RESOURCE_VIEW_DESC>} pDesc 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_shader_resource_view_desc">D3D11_SHADER_RESOURCE_VIEW_DESC</a> structure to be filled with data about the shader resource view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11shaderresourceview-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11shaderresourceview-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

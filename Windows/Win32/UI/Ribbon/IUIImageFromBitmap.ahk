@@ -32,11 +32,50 @@ class IUIImageFromBitmap extends IUnknown{
     static VTableNames => ["CreateImage"]
 
     /**
+     * Creates an IUIImage object from a bitmap image.
+     * @param {HBITMAP} bitmap Type: <b>HBITMAP</b>
      * 
-     * @param {HBITMAP} bitmap 
-     * @param {Integer} options 
-     * @returns {IUIImage} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
+     * A handle to the bitmap that contains the image.
+     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">UI_OWNERSHIP</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">ownership conditions</a> under which 
+     * 					an image is created.
+     * 					
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>UI_OWNERSHIP_TRANSFER</td>
+     * <td>If <b>UI_OWNERSHIP_TRANSFER</b> is specified as the value of 
+     * 				<i>options</i>, then the Ribbon framework owns 
+     * 					the handle to the bitmap (HBITMAP) through the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object and 
+     * 					releases it when the framework no longer requires it.
+     * 				<div class="alert"><b>Note</b>  This option prevents the Ribbon host application from safely referencing the same HBITMAP 
+     * 					elsewhere in the application UI.
+     * 				</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>UI_OWNERSHIP_COPY</td>
+     * <td>If <b>UI_OWNERSHIP_COPY</b> is specified as the value of 
+     * 				<i>options</i>, then the host application owns the 
+     * 					HBITMAP and is able to reference the same HBITMAP for use elsewhere in the 
+     * 					UI.
+     * 				<div class="alert"><b>Note</b>  This option places responsibility for releasing the HBITMAP on the 
+     * 					host application.
+     * 				</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {IUIImage} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
      */
     CreateImage(bitmap, options) {
         bitmap := bitmap is Win32Handle ? NumGet(bitmap, "ptr") : bitmap

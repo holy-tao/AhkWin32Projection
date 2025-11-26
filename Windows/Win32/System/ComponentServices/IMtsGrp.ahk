@@ -45,9 +45,9 @@ class IMtsGrp extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-get_count
+     * Retrieves the number of running packages in the catalog.
+     * @returns {Integer} The number of running packages.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsgrp-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
@@ -55,10 +55,10 @@ class IMtsGrp extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} lIndex 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-item
+     * Retrieves the IUnknown pointer for the specified package.
+     * @param {Integer} lIndex The index containing running packages.
+     * @returns {IUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer, which can be used to access <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtsevents">IMtsEvents</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsgrp-item
      */
     Item(lIndex) {
         result := ComCall(8, this, "int", lIndex, "ptr*", &ppUnkDispatcher := 0, "HRESULT")
@@ -66,9 +66,9 @@ class IMtsGrp extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-refresh
+     * Updates the list of IUnknown pointers that was populated upon the creation of the object.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsgrp-refresh
      */
     Refresh() {
         result := ComCall(9, this, "HRESULT")

@@ -37,12 +37,21 @@ class IDWriteFontCollectionLoader extends IUnknown{
     static VTableNames => ["CreateEnumeratorFromKey"]
 
     /**
+     * Creates a font file enumerator object that encapsulates a collection of font files. The font system calls back to this interface to create a font collection.
+     * @param {IDWriteFactory} factory Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a>*</b>
      * 
-     * @param {IDWriteFactory} factory 
-     * @param {Pointer} collectionKey 
-     * @param {Integer} collectionKeySize 
-     * @returns {IDWriteFontFileEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollectionloader-createenumeratorfromkey
+     * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a> object that was used to create the current font collection.
+     * @param {Pointer} collectionKey Type: <b>const void*</b>
+     * 
+     * A font collection key that uniquely identifies the collection of font files within
+     *      the scope of the font collection loader being used. The buffer allocated for this key must be at least  the size, in bytes, specified by <i>collectionKeySize</i>.
+     * @param {Integer} collectionKeySize Type: <b>UINT32</b>
+     * 
+     * The size of the font collection key, in bytes.
+     * @returns {IDWriteFontFileEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileenumerator">IDWriteFontFileEnumerator</a>**</b>
+     * 
+     * When this method returns, contains the address of  a pointer to the newly created font file enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontcollectionloader-createenumeratorfromkey
      */
     CreateEnumeratorFromKey(factory, collectionKey, collectionKeySize) {
         result := ComCall(3, this, "ptr", factory, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontFileEnumerator := 0, "HRESULT")

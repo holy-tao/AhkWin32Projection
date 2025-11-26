@@ -33,10 +33,10 @@ class IMFImageSharingEngineClassFactory extends IUnknown{
     static VTableNames => ["CreateInstanceFromUDN"]
 
     /**
-     * 
-     * @param {BSTR} pUniqueDeviceName 
-     * @returns {IMFImageSharingEngine} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfimagesharingengineclassfactory-createinstancefromudn
+     * Creates an instance of the IMFImageSharingEngine from the provided unique device name.
+     * @param {BSTR} pUniqueDeviceName The unique device name of the device with which the sharing engine is created.
+     * @returns {IMFImageSharingEngine} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/nn-mfsharingengine-imfimagesharingengine">IMFImageSharingEngine</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-imfimagesharingengineclassfactory-createinstancefromudn
      */
     CreateInstanceFromUDN(pUniqueDeviceName) {
         pUniqueDeviceName := pUniqueDeviceName is String ? BSTR.Alloc(pUniqueDeviceName).Value : pUniqueDeviceName

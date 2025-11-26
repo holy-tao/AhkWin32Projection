@@ -32,13 +32,13 @@ class IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcElements{
     static VTableNames => ["AddElementEx", "GetKeySystem"]
 
     /**
-     * 
-     * @param {BSTR} pURL 
-     * @param {BSTR} pType 
-     * @param {BSTR} pMedia 
-     * @param {BSTR} keySystem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelementsex-addelementex
+     * Provides an enhanced version of IMFMediaEngineSrcElements::AddElement to add the key system intended to be used with content to an element.
+     * @param {BSTR} pURL The URL of the source element, or <b>NULL</b>.
+     * @param {BSTR} pType The MIME type of the source element, or <b>NULL</b>.
+     * @param {BSTR} pMedia A media-query string that specifies the intended media type, or <b>NULL</b>. If specified, the string should conform to the W3C <i>Media Queries</i> specification.
+     * @param {BSTR} keySystem The media key session.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelementsex-addelementex
      */
     AddElementEx(pURL, pType, pMedia, keySystem) {
         pURL := pURL is String ? BSTR.Alloc(pURL).Value : pURL
@@ -51,10 +51,10 @@ class IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcElements{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelementsex-getkeysystem
+     * Gets the key system for the given source element index.
+     * @param {Integer} index The source element index.
+     * @returns {BSTR} The MIME type of the source element.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelementsex-getkeysystem
      */
     GetKeySystem(index) {
         pType := BSTR()

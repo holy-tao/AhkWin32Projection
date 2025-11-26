@@ -45,10 +45,14 @@ class ISearchBoxInfo extends IUnknown{
     static VTableNames => ["GetCondition", "GetText"]
 
     /**
+     * Retrieves the contents of the search box as an ICondition object.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-getcondition
+     * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_ICondition.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-isearchboxinfo-getcondition
      */
     GetCondition(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -56,9 +60,11 @@ class ISearchBoxInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the contents of the search box as plain text.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-gettext
+     * Pointer to a buffer that, when this method returns successfully, receives the full text entered in the search box.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-isearchboxinfo-gettext
      */
     GetText() {
         result := ComCall(4, this, "ptr*", &ppsz := 0, "HRESULT")

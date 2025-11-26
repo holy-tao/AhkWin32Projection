@@ -44,9 +44,11 @@ class IInvokeProvider extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
+     * Sends a request to activate a control and initiate its single, unambiguous action.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iinvokeprovider-invoke
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iinvokeprovider-invoke
      */
     Invoke() {
         result := ComCall(3, this, "HRESULT")

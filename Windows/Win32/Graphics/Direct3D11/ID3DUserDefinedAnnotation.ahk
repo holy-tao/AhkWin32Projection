@@ -46,10 +46,13 @@ class ID3DUserDefinedAnnotation extends IUnknown{
     static VTableNames => ["BeginEvent", "EndEvent", "SetMarker", "GetStatus"]
 
     /**
+     * Marks the beginning of a section of event code.
+     * @param {PWSTR} Name A <b>NULL</b>-terminated <b>UNICODE</b> string that contains the name of the event. The name is not relevant to the operating system. You can choose a name that is meaningful when the calling application is running under the Direct3D profiling tool.
+     * A <b>NULL</b> pointer produces undefined results.
+     * @returns {Integer} Returns the number of previous calls to <b>BeginEvent</b> that have not yet been finalized by calls to the <a href="/windows/desktop/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-endevent">ID3DUserDefinedAnnotation::EndEvent</a> method.
      * 
-     * @param {PWSTR} Name 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-beginevent
+     * The return value is –1 if the calling application is not running under a Direct3D profiling tool.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3duserdefinedannotation-beginevent
      */
     BeginEvent(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -59,9 +62,11 @@ class ID3DUserDefinedAnnotation extends IUnknown{
     }
 
     /**
+     * Marks the end of a section of event code.
+     * @returns {Integer} Returns the number of previous calls to the <a href="/windows/desktop/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-beginevent">ID3DUserDefinedAnnotation::BeginEvent</a> method that have not yet been finalized by calls to <b>EndEvent</b>.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-endevent
+     * The return value is –1 if the calling application is not running under a Direct3D profiling tool.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3duserdefinedannotation-endevent
      */
     EndEvent() {
         result := ComCall(4, this, "int")
@@ -69,10 +74,19 @@ class ID3DUserDefinedAnnotation extends IUnknown{
     }
 
     /**
+     * Marks a single point of execution in code.
+     * @remarks
      * 
-     * @param {PWSTR} Name 
+     * A user can visualize the marker when the calling application is running under an enabled Direct3D profiling tool such as Microsoft Visual Studio Ultimate 2012.
+     * 
+     * <b>SetMarker</b> has no effect if the calling application is not running under an enabled Direct3D profiling tool.
+     * 
+     * 
+     * 
+     * @param {PWSTR} Name A <b>NULL</b>-terminated <b>UNICODE</b> string that contains the name of the marker. The name is not relevant to the operating system. You can choose a name that is meaningful when the calling application is running under the Direct3D profiling tool.
+     * A <b>NULL</b> pointer produces undefined results.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-setmarker
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3duserdefinedannotation-setmarker
      */
     SetMarker(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -81,9 +95,9 @@ class ID3DUserDefinedAnnotation extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3duserdefinedannotation-getstatus
+     * Determines whether the calling application is running under a Microsoft Direct3D profiling tool.
+     * @returns {BOOL} The return value is nonzero if the calling application is running under a Direct3D profiling tool such as Visual Studio Ultimate 2012, and zero otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3duserdefinedannotation-getstatus
      */
     GetStatus() {
         result := ComCall(6, this, "int")

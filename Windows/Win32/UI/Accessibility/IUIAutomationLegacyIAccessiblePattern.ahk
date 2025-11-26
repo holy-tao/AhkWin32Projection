@@ -165,10 +165,14 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Performs a Microsoft Active Accessibility selection.
+     * @param {Integer} flagsSelect Type: <b>long</b>
      * 
-     * @param {Integer} flagsSelect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-select
+     * Specifies which selection or focus operations are to be performed. This parameter must have a combination of the values described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/selflag">SELFLAG Constants</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-select
      */
     Select(flagsSelect) {
         result := ComCall(3, this, "int", flagsSelect, "HRESULT")
@@ -176,9 +180,11 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Performs the Microsoft Active Accessibility default action for the element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-dodefaultaction
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-dodefaultaction
      */
     DoDefaultAction() {
         result := ComCall(4, this, "HRESULT")
@@ -186,10 +192,14 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Sets the Microsoft Active Accessibility value property for the element.
+     * @param {PWSTR} szValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} szValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-setvalue
+     * A localized string that contains the object's value.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-setvalue
      */
     SetValue(szValue) {
         szValue := szValue is String ? StrPtr(szValue) : szValue
@@ -199,9 +209,14 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Retrieves the Microsoft Active Accessibility child identifier for the element.
+     * @remarks
+     * 
+     * If the element is not a child element, CHILDID_SELF (0) is returned.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentchildid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentchildid
      */
     get_CurrentChildId() {
         result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
@@ -209,9 +224,14 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Retrieves the Microsoft Active Accessibility name property of the element.
+     * @remarks
+     * 
+     * The name of an element can be used to find the element in the element tree when the automation ID property is not supported on the element.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentname
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentname
      */
     get_CurrentName() {
         pszName := BSTR()
@@ -220,9 +240,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility value property.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentvalue
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentvalue
      */
     get_CurrentValue() {
         pszValue := BSTR()
@@ -231,9 +251,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility description of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdescription
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdescription
      */
     get_CurrentDescription() {
         pszDescription := BSTR()
@@ -242,9 +262,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility role identifier of the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentrole
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentrole
      */
     get_CurrentRole() {
         result := ComCall(10, this, "uint*", &pdwRole := 0, "HRESULT")
@@ -252,9 +272,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility state identifier for the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentstate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentstate
      */
     get_CurrentState() {
         result := ComCall(11, this, "uint*", &pdwState := 0, "HRESULT")
@@ -262,9 +282,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility help string for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currenthelp
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currenthelp
      */
     get_CurrentHelp() {
         pszHelp := BSTR()
@@ -273,9 +293,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility keyboard shortcut property for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentkeyboardshortcut
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentkeyboardshortcut
      */
     get_CurrentKeyboardShortcut() {
         pszKeyboardShortcut := BSTR()
@@ -284,9 +304,11 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Retrieves the Microsoft Active Accessibility property that identifies the selected children of this element.
+     * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
-     * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getcurrentselection
+     * Receives a pointer to the collection of the selected child elements.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getcurrentselection
      */
     GetCurrentSelection() {
         result := ComCall(14, this, "ptr*", &pvarSelectedChildren := 0, "HRESULT")
@@ -294,9 +316,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility current default action for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdefaultaction
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdefaultaction
      */
     get_CurrentDefaultAction() {
         pszDefaultAction := BSTR()
@@ -305,9 +327,14 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Retrieves the cached Microsoft Active Accessibility child identifier for the element.
+     * @remarks
+     * 
+     * If the element is not a child element, CHILDID_SELF (0) is returned.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedchildid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedchildid
      */
     get_CachedChildId() {
         result := ComCall(16, this, "int*", &pRetVal := 0, "HRESULT")
@@ -315,9 +342,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility name property of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedname
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedname
      */
     get_CachedName() {
         pszName := BSTR()
@@ -326,9 +353,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility value property.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedvalue
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedvalue
      */
     get_CachedValue() {
         pszValue := BSTR()
@@ -337,9 +364,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility description of the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddescription
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddescription
      */
     get_CachedDescription() {
         pszDescription := BSTR()
@@ -348,9 +375,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility role of the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedrole
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedrole
      */
     get_CachedRole() {
         result := ComCall(20, this, "uint*", &pdwRole := 0, "HRESULT")
@@ -358,9 +385,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility state identifier for the element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedstate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedstate
      */
     get_CachedState() {
         result := ComCall(21, this, "uint*", &pdwState := 0, "HRESULT")
@@ -368,9 +395,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility help string for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedhelp
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedhelp
      */
     get_CachedHelp() {
         pszHelp := BSTR()
@@ -379,9 +406,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached Microsoft Active Accessibility keyboard shortcut property for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedkeyboardshortcut
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedkeyboardshortcut
      */
     get_CachedKeyboardShortcut() {
         pszKeyboardShortcut := BSTR()
@@ -390,9 +417,11 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Retrieves the cached Microsoft Active Accessibility property that identifies the selected children of this element.
+     * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
-     * @returns {IUIAutomationElementArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getcachedselection
+     * Receives a pointer to the cached collection of the selected child elements.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getcachedselection
      */
     GetCachedSelection() {
         result := ComCall(24, this, "ptr*", &pvarSelectedChildren := 0, "HRESULT")
@@ -400,9 +429,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the Microsoft Active Accessibility cached default action for the element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddefaultaction
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddefaultaction
      */
     get_CachedDefaultAction() {
         pszDefaultAction := BSTR()
@@ -411,9 +440,11 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
     }
 
     /**
+     * Retrieves an IAccessible object that corresponds to the Microsoft UI Automation element.
+     * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
-     * @returns {IAccessible} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getiaccessible
+     * Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface for the accessible object.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getiaccessible
      */
     GetIAccessible() {
         result := ComCall(26, this, "ptr*", &ppAccessible := 0, "HRESULT")

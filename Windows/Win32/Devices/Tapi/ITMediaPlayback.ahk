@@ -40,10 +40,15 @@ class ITMediaPlayback extends IDispatch{
     }
 
     /**
+     * The put_PlayList method provides the file playback terminal with the list of files to play.
+     * @param {VARIANT} PlayListVariant Variant of type VT_ARRAY, which contains variants of type VT_BSTR and VT_STORAGE. 
      * 
-     * @param {VARIANT} PlayListVariant 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediaplayback-put_playlist
+     * 
+     * 
+     * 
+     * The VT_BSTR elements of the array contain the names of the files to play. The file name extension is used to determine the type of file. Currently, the supported file name extensions are .avi and .wav.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediaplayback-put_playlist
      */
     put_PlayList(PlayListVariant) {
         result := ComCall(7, this, "ptr", PlayListVariant, "HRESULT")
@@ -51,9 +56,14 @@ class ITMediaPlayback extends IDispatch{
     }
 
     /**
+     * The get_PlayList method gets the list of files to play.
+     * @returns {VARIANT} Pointer to variant of type VT_ARRAY, which contains variants of type VT_BSTR and VT_STORAGE. 
      * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediaplayback-get_playlist
+     * 
+     * 
+     * 
+     * The VT_BSTR elements of the array contain the names of the files to play. The file name extension is used to specify the type of file. Currently, supported file name extensions are .avi and .wav.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediaplayback-get_playlist
      */
     get_PlayList() {
         pPlayListVariant := VARIANT()

@@ -47,11 +47,37 @@ class ISupportLastWriteTime extends IUnknown{
     static VTableNames => ["GetItemChangeTime", "GetChangeUnitChangeTime"]
 
     /**
+     * Gets the date and time when the specified item was last changed.
+     * @param {Pointer<Integer>} pbItemId The ID of the item to look up.
+     * @param {Pointer<Integer>} pullTimestamp The date and time when the specified item was last changed.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbItemId 
-     * @param {Pointer<Integer>} pullTimestamp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportlastwritetime-getitemchangetime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isupportlastwritetime-getitemchangetime
      */
     GetItemChangeTime(pbItemId, pullTimestamp) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -62,12 +88,38 @@ class ISupportLastWriteTime extends IUnknown{
     }
 
     /**
+     * Gets the date and time when the specified change unit was last changed.
+     * @param {Pointer<Integer>} pbItemId The ID of the item that contains the change unit to look up.
+     * @param {Pointer<Integer>} pbChangeUnitId The ID of the change unit to look up.
+     * @param {Pointer<Integer>} pullTimestamp The date and time when the specified change unit was last changed.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbItemId 
-     * @param {Pointer<Integer>} pbChangeUnitId 
-     * @param {Pointer<Integer>} pullTimestamp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportlastwritetime-getchangeunitchangetime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isupportlastwritetime-getchangeunitchangetime
      */
     GetChangeUnitChangeTime(pbItemId, pbChangeUnitId, pullTimestamp) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"

@@ -47,10 +47,10 @@ class IX509Attributes extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an IX509Attribute object from the collection by index number.
      * @param {Integer} Index 
      * @returns {IX509Attribute} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributes-get_itembyindex
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributes-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -58,9 +58,9 @@ class IX509Attributes extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of IX509Attribute objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributes-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributes-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -68,9 +68,9 @@ class IX509Attributes extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the enumerator for the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributes-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributes-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -78,10 +78,12 @@ class IX509Attributes extends IDispatch{
     }
 
     /**
+     * Adds an IX509Attribute object to the collection.
+     * @param {IX509Attribute} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509attribute">IX509Attribute</a> interface that represents the attribute to add to the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {IX509Attribute} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributes-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributes-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -89,10 +91,12 @@ class IX509Attributes extends IDispatch{
     }
 
     /**
+     * Removes an IX509Attribute object from the collection by index number.
+     * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributes-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributes-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -100,9 +104,11 @@ class IX509Attributes extends IDispatch{
     }
 
     /**
+     * Removes all IX509Attribute objects from the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributes-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributes-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")

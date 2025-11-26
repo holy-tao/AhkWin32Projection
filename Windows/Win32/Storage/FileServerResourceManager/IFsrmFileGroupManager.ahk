@@ -61,9 +61,11 @@ class IFsrmFileGroupManager extends IDispatch{
     static VTableNames => ["CreateFileGroup", "GetFileGroup", "EnumFileGroups", "ExportFileGroups", "ImportFileGroups"]
 
     /**
-     * 
-     * @returns {IFsrmFileGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup
+     * Creates a file group object.
+     * @returns {IFsrmFileGroup} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroup">IFsrmFileGroup</a> interface to the new file group. To 
+     *       add the file group to FSRM, call 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileGroup::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup
      */
     CreateFileGroup() {
         result := ComCall(7, this, "ptr*", &fileGroup := 0, "HRESULT")
@@ -71,10 +73,11 @@ class IFsrmFileGroupManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {IFsrmFileGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-getfilegroup
+     * Retrieves the specified file group from FSRM.
+     * @param {BSTR} name The name of the file group to retrieve. The string is limited to 4,000 characters.
+     * @returns {IFsrmFileGroup} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroup">IFsrmFileGroup</a> interface to the retrieved file 
+     *       group.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-getfilegroup
      */
     GetFileGroup(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -84,10 +87,18 @@ class IFsrmFileGroupManager extends IDispatch{
     }
 
     /**
+     * Enumerates the file groups in FSRM.
+     * @param {Integer} options One or more options for enumerating the file groups. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *        that contains a collection of file groups. Each item of the collection is a 
+     *        <b>VARIANT</b> of type <b>VT_DISPATCH</b>. Query the 
+     *        <b>pdispVal</b> member of the variant for the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroup">IFsrmFileGroup</a> interface.
      * 
-     * @param {Integer} options 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups
+     * The collection contains only committed file groups; the collection will not contain newly created file groups 
+     *        that have not been committed.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups
      */
     EnumFileGroups(options) {
         result := ComCall(9, this, "int", options, "ptr*", &fileGroups := 0, "HRESULT")
@@ -95,10 +106,11 @@ class IFsrmFileGroupManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} fileGroupNamesArray 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
+     * Exports the specified file groups as an XML string.
+     * @param {Pointer<VARIANT>} fileGroupNamesArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of the names 
+     *       of the file groups to export. If <b>NULL</b>, the method exports all file groups.
+     * @returns {BSTR} The specified file groups in XML format.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
      */
     ExportFileGroups(fileGroupNamesArray) {
         serializedFileGroups := BSTR()
@@ -107,11 +119,21 @@ class IFsrmFileGroupManager extends IDispatch{
     }
 
     /**
+     * Imports the specified file groups from an XML string.
+     * @param {BSTR} serializedFileGroups An XML string that represents one or more file groups.
+     * @param {Pointer<VARIANT>} fileGroupNamesArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of the names 
+     *       of the file groups to import. If <b>NULL</b>, the method imports all file groups.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *        that contains a collection of file groups.
      * 
-     * @param {BSTR} serializedFileGroups 
-     * @param {Pointer<VARIANT>} fileGroupNamesArray 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-importfilegroups
+     * Each item of the collection is a <b>VARIANT</b> of type 
+     *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroupimported">IFsrmFileGroupImported</a> interface.
+     * 
+     * To add the file groups to FSRM, call the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit">IFsrmCommittableCollection::Commit</a> 
+     *        method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-importfilegroups
      */
     ImportFileGroups(serializedFileGroups, fileGroupNamesArray) {
         serializedFileGroups := serializedFileGroups is String ? BSTR.Alloc(serializedFileGroups).Value : serializedFileGroups

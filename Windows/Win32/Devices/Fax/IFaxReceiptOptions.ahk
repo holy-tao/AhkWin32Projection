@@ -106,9 +106,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_AuthenticationType property specifies the type of authentication the fax service uses when connecting to an Simple Mail Transport Protocol (SMTP) server.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_authenticationtype
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_authenticationtype
      */
     get_AuthenticationType() {
         result := ComCall(7, this, "int*", &pType := 0, "HRESULT")
@@ -116,10 +121,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_AuthenticationType property specifies the type of authentication the fax service uses when connecting to an Simple Mail Transport Protocol (SMTP) server.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Integer} Type 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_authenticationtype
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_authenticationtype
      */
     put_AuthenticationType(Type) {
         result := ComCall(8, this, "int", Type, "HRESULT")
@@ -127,9 +137,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPServer property is a null-terminated string that contains the name of the Simple Mail Transport Protocol (SMTP) server.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpserver
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpserver
      */
     get_SMTPServer() {
         pbstrSMTPServer := BSTR()
@@ -138,10 +153,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPServer property is a null-terminated string that contains the name of the Simple Mail Transport Protocol (SMTP) server.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {BSTR} bstrSMTPServer 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpserver
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpserver
      */
     put_SMTPServer(bstrSMTPServer) {
         bstrSMTPServer := bstrSMTPServer is String ? BSTR.Alloc(bstrSMTPServer).Value : bstrSMTPServer
@@ -151,9 +171,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPPort property is a value that specifies the Simple Mail Transport Protocol (SMTP) port number.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpport
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpport
      */
     get_SMTPPort() {
         result := ComCall(11, this, "int*", &plSMTPPort := 0, "HRESULT")
@@ -161,10 +186,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPPort property is a value that specifies the Simple Mail Transport Protocol (SMTP) port number.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Integer} lSMTPPort 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpport
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpport
      */
     put_SMTPPort(lSMTPPort) {
         result := ComCall(12, this, "int", lSMTPPort, "HRESULT")
@@ -172,9 +202,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPSender property is a null-terminated string that contains the Simple Mail Transport Protocol (SMTP) email address for the sender of the mail message receipt.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpsender
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpsender
      */
     get_SMTPSender() {
         pbstrSMTPSender := BSTR()
@@ -183,10 +218,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPSender property is a null-terminated string that contains the Simple Mail Transport Protocol (SMTP) email address for the sender of the mail message receipt.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {BSTR} bstrSMTPSender 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpsender
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpsender
      */
     put_SMTPSender(bstrSMTPSender) {
         bstrSMTPSender := bstrSMTPSender is String ? BSTR.Alloc(bstrSMTPSender).Value : bstrSMTPSender
@@ -196,9 +236,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPUser property is a null-terminated string that contains the Simple Mail Transport Protocol (SMTP) user name used for authenticated connections.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpuser
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpuser
      */
     get_SMTPUser() {
         pbstrSMTPUser := BSTR()
@@ -207,10 +252,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPUser property is a null-terminated string that contains the Simple Mail Transport Protocol (SMTP) user name used for authenticated connections.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {BSTR} bstrSMTPUser 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpuser
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpuser
      */
     put_SMTPUser(bstrSMTPUser) {
         bstrSMTPUser := bstrSMTPUser is String ? BSTR.Alloc(bstrSMTPUser).Value : bstrSMTPUser
@@ -220,9 +270,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_AllowedReceipts property is a value that specifies the permitted types of delivery receipts.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_allowedreceipts
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_allowedreceipts
      */
     get_AllowedReceipts() {
         result := ComCall(17, this, "int*", &pAllowedReceipts := 0, "HRESULT")
@@ -230,10 +285,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_AllowedReceipts property is a value that specifies the permitted types of delivery receipts.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Integer} AllowedReceipts 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_allowedreceipts
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_allowedreceipts
      */
     put_AllowedReceipts(AllowedReceipts) {
         result := ComCall(18, this, "int", AllowedReceipts, "HRESULT")
@@ -241,9 +301,14 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPPassword property is a null-terminated string that contains the Simple Mail Transport Protocol (SMTP) password used for authenticated connections.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtppassword
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtppassword
      */
     get_SMTPPassword() {
         pbstrSMTPPassword := BSTR()
@@ -252,10 +317,15 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_SMTPPassword property is a null-terminated string that contains the Simple Mail Transport Protocol (SMTP) password used for authenticated connections.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {BSTR} bstrSMTPPassword 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtppassword
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtppassword
      */
     put_SMTPPassword(bstrSMTPPassword) {
         bstrSMTPPassword := bstrSMTPPassword is String ? BSTR.Alloc(bstrSMTPPassword).Value : bstrSMTPPassword
@@ -265,9 +335,11 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::Refresh method refreshes FaxReceiptOptions object information from the fax server. When the IFaxReceiptOptions::Refresh method is called, any configuration changes made after the last IFaxReceiptOptions::Save method call are lost.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-refresh
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-refresh
      */
     Refresh() {
         result := ComCall(21, this, "HRESULT")
@@ -275,9 +347,11 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::Save method saves the FaxReceiptOptions object data.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-save
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-save
      */
     Save() {
         result := ComCall(22, this, "HRESULT")
@@ -285,9 +359,16 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_UseForInboundRouting property sets or retrieves whether to use the FaxReceiptOptions settings for the Microsoft Routing Extension, which allows incoming faxes to be routed to email addresses.
+     * @remarks
+     * 
+     * If the settings are not used (property is set to <b>FALSE</b>), then the Microsoft Routing Extension is disabled, and users will not be able to receive faxes to email addresses. If the settings are used (property is set to <b>TRUE</b>), then the Microsoft Routing Extension is enabled, and users will be able to receive faxes to email addresses.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_useforinboundrouting
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-get_useforinboundrouting
      */
     get_UseForInboundRouting() {
         result := ComCall(23, this, "short*", &pbUseForInboundRouting := 0, "HRESULT")
@@ -295,10 +376,17 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
+     * The IFaxReceiptOptions::get_UseForInboundRouting property sets or retrieves whether to use the FaxReceiptOptions settings for the Microsoft Routing Extension, which allows incoming faxes to be routed to email addresses.
+     * @remarks
+     * 
+     * If the settings are not used (property is set to <b>FALSE</b>), then the Microsoft Routing Extension is disabled, and users will not be able to receive faxes to email addresses. If the settings are used (property is set to <b>TRUE</b>), then the Microsoft Routing Extension is enabled, and users will be able to receive faxes to email addresses.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {VARIANT_BOOL} bUseForInboundRouting 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_useforinboundrouting
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxreceiptoptions-put_useforinboundrouting
      */
     put_UseForInboundRouting(bUseForInboundRouting) {
         result := ComCall(24, this, "short", bUseForInboundRouting, "HRESULT")

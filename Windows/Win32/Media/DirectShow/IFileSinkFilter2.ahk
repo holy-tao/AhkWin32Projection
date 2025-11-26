@@ -31,10 +31,10 @@ class IFileSinkFilter2 extends IFileSinkFilter{
     static VTableNames => ["SetMode", "GetMode"]
 
     /**
-     * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesinkfilter2-setmode
+     * The SetMode method determines whether the file writer destroys the file when it creates the new one.
+     * @param {Integer} dwFlags Currently, the only defined flag is AM_FILE_OVERWRITE, which indicates that the file writer should destroy the file. Specify zero for <i>dwFlags</i> to leave the file alone.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilesinkfilter2-setmode
      */
     SetMode(dwFlags) {
         result := ComCall(5, this, "uint", dwFlags, "HRESULT")
@@ -42,9 +42,9 @@ class IFileSinkFilter2 extends IFileSinkFilter{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesinkfilter2-getmode
+     * The GetMode method retrieves whether the file writer destroys the file when it creates the new one.
+     * @returns {Integer} Pointer to the retrieved flags. Currently, the only defined flag is AM_FILE_OVERWRITE, which indicates that the file should be destroyed; zero indicates that the file will be left alone.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilesinkfilter2-getmode
      */
     GetMode() {
         result := ComCall(6, this, "uint*", &pdwFlags := 0, "HRESULT")

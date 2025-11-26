@@ -31,9 +31,9 @@ class IMemAllocatorNotifyCallbackTemp extends IUnknown{
     static VTableNames => ["NotifyRelease"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocatornotifycallbacktemp-notifyrelease
+     * The NotifyRelease method is called whenever the allocator's IMemAllocator::ReleaseBuffer method is called. The ReleaseBuffer method returns a media sample to the allocator's free list. Samples call this method when their reference counts reach zero.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imemallocatornotifycallbacktemp-notifyrelease
      */
     NotifyRelease() {
         result := ComCall(3, this, "HRESULT")

@@ -31,11 +31,11 @@ class IComUserEvent extends IUnknown{
     static VTableNames => ["OnUserEvent"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<VARIANT>} pvarEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomuserevent-onuserevent
+     * Provided for user components to generate user-defined events.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<VARIANT>} pvarEvent The user-defined information.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomuserevent-onuserevent
      */
     OnUserEvent(pInfo, pvarEvent) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", pvarEvent, "HRESULT")

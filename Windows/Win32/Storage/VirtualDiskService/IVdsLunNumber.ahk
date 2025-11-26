@@ -31,9 +31,9 @@ class IVdsLunNumber extends IUnknown{
     static VTableNames => ["GetLunNumber"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunnumber-getlunnumber
+     * Retrieves the LUN number for a LUN.
+     * @returns {Integer} The address of a  variable that receives the LUN number. This value is required and cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunnumber-getlunnumber
      */
     GetLunNumber() {
         result := ComCall(3, this, "uint*", &pulLunNumber := 0, "HRESULT")

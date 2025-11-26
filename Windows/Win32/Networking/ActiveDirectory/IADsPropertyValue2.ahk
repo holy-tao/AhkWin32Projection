@@ -337,10 +337,12 @@ class IADsPropertyValue2 extends IDispatch{
     static VTableNames => ["GetObjectProperty", "PutObjectProperty"]
 
     /**
+     * Retrieves an attribute value.
+     * @param {Pointer<Integer>} lnADsType Pointer to a variable that, on entry, contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> values that specifies the data format that the value should be returned.
      * 
-     * @param {Pointer<Integer>} lnADsType 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue2-getobjectproperty
+     * If the data type is not known, set this to <b>ADSTYPE_UNKNOWN</b>. In this case, this method will obtain the attribute value in the default data type and set this variable to the corresponding <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> value. If any other <b>ADSTYPEENUM</b> value is specified, ADSI will return the attribute value only if the data type matches the format of the value.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the requested attribute value. The variant type of this data will depend on the value returned in <i>lnADsType</i>. For more information and  a list of the <i>lnADsType</i> values and corresponding <i>pvProp</i> variant types, see <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyvalue2">IADsPropertyValue2</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertyvalue2-getobjectproperty
      */
     GetObjectProperty(lnADsType) {
         lnADsTypeMarshal := lnADsType is VarRef ? "int*" : "ptr"
@@ -351,11 +353,11 @@ class IADsPropertyValue2 extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} lnADsType 
-     * @param {VARIANT} vProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue2-putobjectproperty
+     * Sets an attribute value.
+     * @param {Integer} lnADsType Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> values that specifies the data format of the value set. This value must correspond to the <i>pvProp</i> variant type. For more information and a list of the <i>lnADsType</i> values and corresponding <i>pvProp</i> variant types, see <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyvalue2">IADsPropertyValue2</a>.
+     * @param {VARIANT} vProp Pointer to a <b>VARIANT</b> that contains the new attribute value. The variant type of this data must correspond to the value in <i>lnADsType</i>. For more information and a list of the <i>lnADsType</i> values and corresponding <i>pvProp</i> variant types, see <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyvalue2">IADsPropertyValue2</a>.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful or an error code otherwise. The following are the most common error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertyvalue2-putobjectproperty
      */
     PutObjectProperty(lnADsType, vProp) {
         result := ComCall(8, this, "int", lnADsType, "ptr", vProp, "HRESULT")

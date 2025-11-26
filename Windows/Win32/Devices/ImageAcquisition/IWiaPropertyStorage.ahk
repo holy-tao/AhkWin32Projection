@@ -286,13 +286,62 @@ class IWiaPropertyStorage extends IUnknown{
     }
 
     /**
+     * The IWiaPropertyStorage::GetPropertyAttributes method retrieves access rights and legal value information for a specified set of properties.
+     * @param {Integer} cpspec Type: <b>ULONG</b>
      * 
-     * @param {Integer} cpspec 
-     * @param {Pointer<PROPSPEC>} rgpspec 
-     * @param {Pointer<Integer>} rgflags 
-     * @param {Pointer<PROPVARIANT>} rgpropvar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getpropertyattributes
+     * Specifies the number of property attributes to query.
+     * @param {Pointer<PROPSPEC>} rgpspec Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propspec">PROPSPEC</a>[]</b>
+     * 
+     * Specifies an array of <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wiadeviceinfoprop">Device Information Property Constants</a>. Each constant in the array selects a property to query.
+     * @param {Pointer<Integer>} rgflags Type: <b>ULONG[]</b>
+     * 
+     * An array that receives a <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-property-attributes">property attribute descriptor</a> for each property specified in the <i>rgpspec</i> array. Each element in the array is one or more descriptor values combined with a bitwise <b>OR</b> operation.
+     * @param {Pointer<PROPVARIANT>} rgpropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>[]</b>
+     * 
+     * An array that receives a <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-property-attributes">property attribute descriptor</a> for each property specified in the <i>pPROPSPEC</i> array. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method returns one of the following values or a standard COM error code:
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Return Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>This method succeeded.</td>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td>The specified property names do not exist. No attributes were retrieved.</td>
+     * </tr>
+     * <tr>
+     * <td>STG_E_ACCESSDENIED</td>
+     * <td>The application does not have access to the property stream or the stream may already be open.</td>
+     * </tr>
+     * <tr>
+     * <td>STG_E_INSUFFICIENTMEMORY</td>
+     * <td>There is not enough memory to complete the operation.</td>
+     * </tr>
+     * <tr>
+     * <td>ERROR_NOT_SUPPORTED</td>
+     * <td>The property type is not supported.</td>
+     * </tr>
+     * <tr>
+     * <td>STG_E_INVALIDPARAMETER</td>
+     * <td>One or more parameters are invalid. One or more of the <a href="/windows/desktop/api/propidl/ns-propidl-propspec">PROPSPEC</a> structures contain invalid data.</td>
+     * </tr>
+     * <tr>
+     * <td>STG_E_INVALIDPOINTER</td>
+     * <td>One or more of the pointers passed to this method are invalid.</td>
+     * </tr>
+     * <tr>
+     * <td>ERROR_NO_UNICODE_TRANSLATION</td>
+     * <td>A translation from Unicode to ANSI or ANSI to Unicode failed.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiapropertystorage-getpropertyattributes
      */
     GetPropertyAttributes(cpspec, rgpspec, rgflags, rgpropvar) {
         rgflagsMarshal := rgflags is VarRef ? "uint*" : "ptr"
@@ -302,9 +351,11 @@ class IWiaPropertyStorage extends IUnknown{
     }
 
     /**
+     * The IWiaPropertyStorage::GetCount method returns the number of properties stored in the property storage.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getcount
+     * Receives the number of properties stored in the property storage.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiapropertystorage-getcount
      */
     GetCount() {
         result := ComCall(16, this, "uint*", &pulNumProps := 0, "HRESULT")
@@ -312,11 +363,17 @@ class IWiaPropertyStorage extends IUnknown{
     }
 
     /**
+     * The IWiaPropertyStorage::GetPropertyStream method retrieves the property stream of an item.
+     * @param {Pointer<Guid>} pCompatibilityId Type: <b>GUID*</b>
      * 
-     * @param {Pointer<Guid>} pCompatibilityId 
-     * @param {Pointer<IStream>} ppIStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getpropertystream
+     * Receives a unique identifier for a set of property values.
+     * @param {Pointer<IStream>} ppIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
+     * 
+     * Pointer to a stream that receives the item properties. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiapropertystorage-getpropertystream
      */
     GetPropertyStream(pCompatibilityId, ppIStream) {
         result := ComCall(17, this, "ptr", pCompatibilityId, "ptr*", ppIStream, "HRESULT")
@@ -324,11 +381,17 @@ class IWiaPropertyStorage extends IUnknown{
     }
 
     /**
+     * The IWiaPropertyStorage::SetPropertyStream sets the property stream of an item in the tree of IWiaItem objects of a Windows Image Acquisition (WIA) hardware device.
+     * @param {Pointer<Guid>} pCompatibilityId Type: <b>GUID*</b>
      * 
-     * @param {Pointer<Guid>} pCompatibilityId 
-     * @param {IStream} pIStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-setpropertystream
+     * Specifies a unique identifier for a set of property values.
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * 
+     * Pointer to the property stream that is used to set the current item's property stream.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiapropertystorage-setpropertystream
      */
     SetPropertyStream(pCompatibilityId, pIStream) {
         result := ComCall(18, this, "ptr", pCompatibilityId, "ptr", pIStream, "HRESULT")

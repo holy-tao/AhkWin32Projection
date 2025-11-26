@@ -38,12 +38,12 @@ class IWbemStatusCodeText extends IUnknown{
     static VTableNames => ["GetErrorCodeText", "GetFacilityCodeText"]
 
     /**
-     * 
-     * @param {HRESULT} hRes 
-     * @param {Integer} LocaleId 
-     * @param {Integer} lFlags 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemstatuscodetext-geterrorcodetext
+     * Returns the text string description associated with the error code.
+     * @param {HRESULT} hRes Handle to the error code for which you want a description.
+     * @param {Integer} LocaleId Reserved. This parameter must be 0 (zero).
+     * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
+     * @returns {BSTR} Pointer to a string containing the descriptive text of the error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemstatuscodetext-geterrorcodetext
      */
     GetErrorCodeText(hRes, LocaleId, lFlags) {
         MessageText := BSTR()
@@ -52,12 +52,12 @@ class IWbemStatusCodeText extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} hRes 
-     * @param {Integer} LocaleId 
-     * @param {Integer} lFlags 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemstatuscodetext-getfacilitycodetext
+     * The IWbemStatusCodeText::GetFacilityCodeText method returns the name of the subsystem where the error occurred, such as &quot;Windows&quot;, &quot;WBEM&quot;, &quot;SSPI&quot;, or &quot;RPC&quot;.
+     * @param {HRESULT} hRes Handle to the error code for which you want a description.
+     * @param {Integer} LocaleId Reserved. This parameter must be 0 (zero).
+     * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
+     * @returns {BSTR} Pointer to a string containing the descriptive text of the error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemstatuscodetext-getfacilitycodetext
      */
     GetFacilityCodeText(hRes, LocaleId, lFlags) {
         MessageText := BSTR()

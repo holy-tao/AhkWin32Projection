@@ -32,11 +32,11 @@ class IQuickActivate extends IUnknown{
     static VTableNames => ["QuickActivate", "SetContentExtent", "GetContentExtent"]
 
     /**
-     * 
-     * @param {Pointer<QACONTAINER>} pQaContainer 
-     * @param {Pointer<QACONTROL>} pQaControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iquickactivate-quickactivate
+     * Quick activates a control.
+     * @param {Pointer<QACONTAINER>} pQaContainer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-qacontainer">QACONTAINER</a> structure containing information about the container.
+     * @param {Pointer<QACONTROL>} pQaControl A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-qacontrol">QACONTROL</a> structure filled in by the control to return information about the control to the container. The container calling this method must reserve memory for this structure.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iquickactivate-quickactivate
      */
     QuickActivate(pQaContainer, pQaControl) {
         result := ComCall(3, this, "ptr", pQaContainer, "ptr", pQaControl, "HRESULT")
@@ -44,10 +44,10 @@ class IQuickActivate extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<SIZE>} pSizel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iquickactivate-setcontentextent
+     * Sets the content extent of a control.
+     * @param {Pointer<SIZE>} pSizel The size of the content extent.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iquickactivate-setcontentextent
      */
     SetContentExtent(pSizel) {
         result := ComCall(4, this, "ptr", pSizel, "HRESULT")
@@ -55,9 +55,9 @@ class IQuickActivate extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {SIZE} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iquickactivate-getcontentextent
+     * Gets the content extent of a control.
+     * @returns {SIZE} A pointer to a structure that contains size of the content extent.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iquickactivate-getcontentextent
      */
     GetContentExtent() {
         pSizel := SIZE()

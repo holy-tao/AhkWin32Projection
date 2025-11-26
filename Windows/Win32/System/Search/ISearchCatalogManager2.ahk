@@ -31,11 +31,17 @@ class ISearchCatalogManager2 extends ISearchCatalogManager{
     static VTableNames => ["PrioritizeMatchingURLs"]
 
     /**
+     * Instructs the indexer to give a higher priority to indexing items that have URLs that match a specified pattern. These items will then have a higher priority than other indexing tasks.
+     * @param {PWSTR} pszPattern Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszPattern 
-     * @param {Integer} dwPrioritizeFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager2-prioritizematchingurls
+     * A string specifying the URL pattern that defines items that failed indexing and need re-indexing.
+     * @param {Integer} dwPrioritizeFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-tagprioritize_flags">PRIORITIZE_FLAGS</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-tagprioritize_flags">PRIORITIZE_FLAGS</a> enumeration that specifies how to process items that the indexer has failed to index.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchcatalogmanager2-prioritizematchingurls
      */
     PrioritizeMatchingURLs(pszPattern, dwPrioritizeFlags) {
         pszPattern := pszPattern is String ? StrPtr(pszPattern) : pszPattern

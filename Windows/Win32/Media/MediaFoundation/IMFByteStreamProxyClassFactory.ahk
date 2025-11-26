@@ -36,12 +36,12 @@ class IMFByteStreamProxyClassFactory extends IUnknown{
     static VTableNames => ["CreateByteStreamProxy"]
 
     /**
-     * 
-     * @param {IMFByteStream} pByteStream 
-     * @param {IMFAttributes} pAttributes 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestreamproxyclassfactory-createbytestreamproxy
+     * Creates a proxy to a byte stream.
+     * @param {IMFByteStream} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the byte stream to proxy.
+     * @param {IMFAttributes} pAttributes Reserved. Set to <b>NULL</b>.
+     * @param {Pointer<Guid>} riid The interface identifer (IID) of the interface being requested.
+     * @returns {Pointer<Void>} Receives a pointer to the interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestreamproxyclassfactory-createbytestreamproxy
      */
     CreateByteStreamProxy(pByteStream, pAttributes, riid) {
         result := ComCall(3, this, "ptr", pByteStream, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")

@@ -32,11 +32,11 @@ class INodeProperties extends IUnknown{
     static VTableNames => ["GetProperty"]
 
     /**
-     * 
-     * @param {IDataObject} pDataObject 
-     * @param {BSTR} szPropertyName 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-inodeproperties-getproperty
+     * The GetProperty method retrieves text-only property values for a node. Your implementation of the INodeProperties::GetProperty method is called when an application based on the MMC 2.0 Automation Object Model retrieves the Node.Property property.
+     * @param {IDataObject} pDataObject A pointer to the snap-in data object.
+     * @param {BSTR} szPropertyName The name of the property retrieved.
+     * @returns {BSTR} Text value for the property.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-inodeproperties-getproperty
      */
     GetProperty(pDataObject, szPropertyName) {
         szPropertyName := szPropertyName is String ? BSTR.Alloc(szPropertyName).Value : szPropertyName

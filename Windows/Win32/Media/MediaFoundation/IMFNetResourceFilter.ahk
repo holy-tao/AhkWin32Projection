@@ -41,10 +41,10 @@ class IMFNetResourceFilter extends IUnknown{
     static VTableNames => ["OnRedirect", "OnSendingRequest"]
 
     /**
-     * 
-     * @param {PWSTR} pszUrl 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetresourcefilter-onredirect
+     * Called when the byte stream redirects to a URL.
+     * @param {PWSTR} pszUrl The URL to which the connection has been redirected.
+     * @returns {VARIANT_BOOL} To cancel the redirection, set this parameter to <b>VARIANT_TRUE</b>. To allow the redirection, set this parameter to <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetresourcefilter-onredirect
      */
     OnRedirect(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
@@ -54,10 +54,10 @@ class IMFNetResourceFilter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszUrl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetresourcefilter-onsendingrequest
+     * Called when the byte stream requests a URL.
+     * @param {PWSTR} pszUrl The URL that the byte stream is requesting.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetresourcefilter-onsendingrequest
      */
     OnSendingRequest(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl

@@ -39,12 +39,20 @@ class IShellIconOverlayManager extends IUnknown{
     static VTableNames => ["GetFileOverlayInfo", "GetReservedOverlayInfo", "RefreshOverlayImages", "LoadNonloadedOverlayIdentifiers", "OverlayIndexFromImageIndex"]
 
     /**
+     * Gets the index of the icon overlay or the icon image for the specified file with the specified attributes.
+     * @param {PWSTR} pwszPath Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pwszPath 
-     * @param {Integer} dwAttrib 
-     * @param {Integer} dwflags 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getfileoverlayinfo
+     * The full path of the file.
+     * @param {Integer} dwAttrib Type: <b>DWORD</b>
+     * 
+     * The attributes of the file. This parameter can be a combination of any of the file attribute flags (FILE_ATTRIBUTE_*) defined in the Windows header files. See <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-attribute-constants">File Attribute Constants</a>.
+     * @param {Integer} dwflags Type: <b>DWORD</b>
+     * 
+     * For the index of the icon overlay, use SIOM_OVERLAYINDEX. For the index of the icon image, use SIOM_ICONINDEX.
+     * @returns {Integer} Type: <b>int*</b>
+     * 
+     * A pointer to the icon index in the system image list.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getfileoverlayinfo
      */
     GetFileOverlayInfo(pwszPath, dwAttrib, dwflags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
@@ -54,13 +62,23 @@ class IShellIconOverlayManager extends IUnknown{
     }
 
     /**
+     * Gets the index of the icon overlay or the icon image for the specified file with the specified attributes from one of the reserved overlays.
+     * @param {PWSTR} pwszPath Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pwszPath 
-     * @param {Integer} dwAttrib 
-     * @param {Integer} dwflags 
-     * @param {Integer} iReservedID 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getreservedoverlayinfo
+     * The full path of the file.
+     * @param {Integer} dwAttrib Type: <b>DWORD</b>
+     * 
+     * The attributes of the file. This parameter can be a combination of any of the file attribute flags (FILE_ATTRIBUTE_*) defined in the Windows header files. See <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-attribute-constants">File Attribute Constants</a>.
+     * @param {Integer} dwflags Type: <b>DWORD</b>
+     * 
+     * For the index of the icon overlay, use SIOM_OVERLAYINDEX. For the index of the icon image, use SIOM_ICONINDEX.
+     * @param {Integer} iReservedID Type: <b>int</b>
+     * 
+     * The reserved icon overlay ID.
+     * @returns {Integer} Type: <b>int*</b>
+     * 
+     * The index of the icon image or icon overlay, depending on the value of <i>dwflags</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getreservedoverlayinfo
      */
     GetReservedOverlayInfo(pwszPath, dwAttrib, dwflags, iReservedID) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
@@ -70,10 +88,14 @@ class IShellIconOverlayManager extends IUnknown{
     }
 
     /**
+     * Refreshes the overlay cache, the image list, or both.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-refreshoverlayimages
+     * Determines what to refresh. It can be a bitwise OR one of the following:
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-refreshoverlayimages
      */
     RefreshOverlayImages(dwFlags) {
         result := ComCall(5, this, "uint", dwFlags, "HRESULT")
@@ -81,9 +103,40 @@ class IShellIconOverlayManager extends IUnknown{
     }
 
     /**
+     * Loads any registered overlay identifiers, or handlers, that are not currently loaded.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-loadnonloadedoverlayidentifiers
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not out of memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Out of memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-loadnonloadedoverlayidentifiers
      */
     LoadNonloadedOverlayIdentifiers() {
         result := ComCall(6, this, "HRESULT")
@@ -91,11 +144,17 @@ class IShellIconOverlayManager extends IUnknown{
     }
 
     /**
+     * Finds the index of an overlay image for the specified icon image. It can add an overlay if one is not found for the icon.
+     * @param {Integer} iImage Type: <b>int</b>
      * 
-     * @param {Integer} iImage 
-     * @param {BOOL} fAdd 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
+     * The existing shell image list index to look for.
+     * @param {BOOL} fAdd Type: <b>BOOL</b>
+     * 
+     * Whether to add an image if one is not already present.
+     * @returns {Integer} Type: <b>int</b>
+     * 
+     * The returned overlay index.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
      */
     OverlayIndexFromImageIndex(iImage, fAdd) {
         result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, "int", fAdd, "HRESULT")

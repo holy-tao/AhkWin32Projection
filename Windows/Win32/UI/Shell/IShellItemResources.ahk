@@ -32,9 +32,11 @@ class IShellItemResources extends IUnknown{
     static VTableNames => ["GetAttributes", "GetSize", "GetTimes", "SetTimes", "GetResourceDescription", "EnumResources", "SupportsResource", "OpenResource", "CreateResource", "MarkForDelete"]
 
     /**
+     * Gets resource attributes.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getattributes
+     * A pointer to resource attributes. The following are attribute values.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-getattributes
      */
     GetAttributes() {
         result := ComCall(3, this, "uint*", &pdwAttributes := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Gets the source size.
+     * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getsize
+     * A pointer to the source size.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-getsize
      */
     GetSize() {
         result := ComCall(4, this, "uint*", &pullSize := 0, "HRESULT")
@@ -52,12 +56,20 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Gets file times.
+     * @param {Pointer<FILETIME>} pftCreation Type: <b>FILETIME*</b>
      * 
-     * @param {Pointer<FILETIME>} pftCreation 
-     * @param {Pointer<FILETIME>} pftWrite 
-     * @param {Pointer<FILETIME>} pftAccess 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-gettimes
+     * A pointer to the creation date and time as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @param {Pointer<FILETIME>} pftWrite Type: <b>FILETIME*</b>
+     * 
+     * A pointer to write date and time as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @param {Pointer<FILETIME>} pftAccess Type: <b>FILETIME*</b>
+     * 
+     * A pointer to access date and time as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-gettimes
      */
     GetTimes(pftCreation, pftWrite, pftAccess) {
         result := ComCall(5, this, "ptr", pftCreation, "ptr", pftWrite, "ptr", pftAccess, "HRESULT")
@@ -65,12 +77,20 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Sets file times.
+     * @param {Pointer<FILETIME>} pftCreation Type: <b>const FILETIME*</b>
      * 
-     * @param {Pointer<FILETIME>} pftCreation 
-     * @param {Pointer<FILETIME>} pftWrite 
-     * @param {Pointer<FILETIME>} pftAccess 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-settimes
+     * A pointer to a creation date and time as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @param {Pointer<FILETIME>} pftWrite Type: <b>const FILETIME*</b>
+     * 
+     * A pointer to a write date and time as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @param {Pointer<FILETIME>} pftAccess Type: <b>const FILETIME*</b>
+     * 
+     * A pointer to an access date and time as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-settimes
      */
     SetTimes(pftCreation, pftWrite, pftAccess) {
         result := ComCall(6, this, "ptr", pftCreation, "ptr", pftWrite, "ptr", pftAccess, "HRESULT")
@@ -78,10 +98,14 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Gets a resource description.
+     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a>*</b>
      * 
-     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getresourcedescription
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a> resource.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a resource description as a Unicode string.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-getresourcedescription
      */
     GetResourceDescription(pcsir) {
         result := ComCall(7, this, "ptr", pcsir, "ptr*", &ppszDescription := 0, "HRESULT")
@@ -89,9 +113,11 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Gets a resource enumerator object.
+     * @returns {IEnumResources} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumresources">IEnumResources</a>**</b>
      * 
-     * @returns {IEnumResources} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-enumresources
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumresources">IEnumResources</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-enumresources
      */
     EnumResources() {
         result := ComCall(8, this, "ptr*", &ppenumr := 0, "HRESULT")
@@ -99,10 +125,14 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Retrieves whether an item supports a specified resource.
+     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a>*</b>
      * 
-     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-supportsresource
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a> resource.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-supportsresource
      */
     SupportsResource(pcsir) {
         result := ComCall(9, this, "ptr", pcsir, "HRESULT")
@@ -110,11 +140,17 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Opens a specified resource.
+     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a>*</b>
      * 
-     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-openresource
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a> resource.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to a desired IID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * The address of a pointer to a resource.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-openresource
      */
     OpenResource(pcsir, riid) {
         result := ComCall(10, this, "ptr", pcsir, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -122,11 +158,17 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Creates a specified resource.
+     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a>*</b>
      * 
-     * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-createresource
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shell_item_resource">SHELL_ITEM_RESOURCE</a> resource.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to a desired IID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * The address of a pointer to the resource.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-createresource
      */
     CreateResource(pcsir, riid) {
         result := ComCall(11, this, "ptr", pcsir, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -134,9 +176,11 @@ class IShellItemResources extends IUnknown{
     }
 
     /**
+     * Marks for delete.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-markfordelete
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemresources-markfordelete
      */
     MarkForDelete() {
         result := ComCall(12, this, "HRESULT")

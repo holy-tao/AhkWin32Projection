@@ -32,10 +32,10 @@ class IWMStreamPrioritization extends IUnknown{
     static VTableNames => ["GetPriorityRecords", "SetPriorityRecords"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pcRecords 
-     * @returns {WM_STREAM_PRIORITY_RECORD} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
+     * The GetPriorityRecords method retrieves the list of streams and their priorities from the profile.
+     * @param {Pointer<Integer>} pcRecords Pointer to a <b>WORD</b> that receives the count of records.
+     * @returns {WM_STREAM_PRIORITY_RECORD} Pointer to an array of <b>WM_STREAM_PRIORITY_RECORD</b> structures. This array will receive the current stream priority data.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
      */
     GetPriorityRecords(pcRecords) {
         pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : "ptr"
@@ -46,11 +46,55 @@ class IWMStreamPrioritization extends IUnknown{
     }
 
     /**
+     * The SetPriorityRecords method assigns the members of an array as the stream priority list in the stream prioritization object.
+     * @param {Pointer<WM_STREAM_PRIORITY_RECORD>} pRecordArray Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_stream_priority_record">WM_STREAM_PRIORITY_RECORD</a> structures.
+     * @param {Integer} cRecords Count of records.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<WM_STREAM_PRIORITY_RECORD>} pRecordArray 
-     * @param {Integer} cRecords 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-setpriorityrecords
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>cRecords</i> specifies a record count greater than zero, but <i>pRecordArray</i> is <b>NULL</b>.
+     * 
+     * OR
+     * 
+     * One of the array rules has been broken (see the Remarks section).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is unable to allocate the memory required to store the array in the stream prioritization object.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-setpriorityrecords
      */
     SetPriorityRecords(pRecordArray, cRecords) {
         result := ComCall(4, this, "ptr", pRecordArray, "ushort", cRecords, "HRESULT")

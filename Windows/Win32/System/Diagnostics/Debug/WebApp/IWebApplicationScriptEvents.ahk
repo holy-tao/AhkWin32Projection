@@ -41,13 +41,23 @@ class IWebApplicationScriptEvents extends IUnknown{
     }
 
     /**
+     * Fired when an unhandled script error occurs.
+     * @param {IHTMLWindow2} htmlWindow Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa741505(v=vs.85)">IHTMLWindow2</a>*</b>
      * 
-     * @param {IHTMLWindow2} htmlWindow 
-     * @param {IActiveScriptError} scriptError 
-     * @param {PWSTR} url 
-     * @param {BOOL} errorHandled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationscriptevents-scripterror
+     * The window or frame in which the script error occurred.
+     * @param {IActiveScriptError} scriptError Type: <b><a href="https://docs.microsoft.com/scripting/winscript/reference/iactivescripterror">IActiveScriptError</a>*</b>
+     * 
+     * The object that contains info about the script error that occurred.
+     * @param {PWSTR} url Type: <b>LPCWSTR</b>
+     * 
+     * The URL on which the script error occurred.
+     * @param {BOOL} errorHandled Type: <b>BOOL</b>
+     * 
+     * <b>TRUE</b> if the app handled the error; otherwise <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationscriptevents-scripterror
      */
     ScriptError(htmlWindow, scriptError, url, errorHandled) {
         url := url is String ? StrPtr(url) : url

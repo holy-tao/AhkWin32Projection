@@ -32,10 +32,10 @@ class ITfLMLattice extends IUnknown{
     static VTableNames => ["QueryType", "EnumLatticeElements"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rguidType 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itflmlattice-querytype
+     * ITfLMLattice::QueryType method
+     * @param {Pointer<Guid>} rguidType Specifies the lattice type identifier. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/lattice-types">Lattice Type</a> values.
+     * @returns {BOOL} Pointer to a <b>BOOL</b> that receives a value that indicates if the lattice type is supported. If the lattice type is supported, this parameter receives a nonzero value and the method returns S_OK. If the lattice type is unsupported, this parameter receives zero and the method returns E_INVALIDARG.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itflmlattice-querytype
      */
     QueryType(rguidType) {
         result := ComCall(3, this, "ptr", rguidType, "int*", &pfSupported := 0, "HRESULT")
@@ -43,11 +43,11 @@ class ITfLMLattice extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwFrameStart 
-     * @param {Pointer<Guid>} rguidType 
-     * @returns {IEnumTfLatticeElements} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itflmlattice-enumlatticeelements
+     * ITfLMLattice::EnumLatticeElements method
+     * @param {Integer} dwFrameStart Specifies the offset, in 100-nanosecond units, relative to the start of the phrase, of the first element to obtain.
+     * @param {Pointer<Guid>} rguidType Specifies the lattice type identifier. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/lattice-types">Lattice Type</a> values.
+     * @returns {IEnumTfLatticeElements} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-ienumtflatticeelements">IEnumTfLatticeElements</a> interface pointer that receives the enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itflmlattice-enumlatticeelements
      */
     EnumLatticeElements(dwFrameStart, rguidType) {
         result := ComCall(4, this, "uint", dwFrameStart, "ptr", rguidType, "ptr*", &ppEnum := 0, "HRESULT")

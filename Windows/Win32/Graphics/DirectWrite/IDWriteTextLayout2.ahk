@@ -33,9 +33,11 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     static VTableNames => ["GetMetrics", "SetVerticalGlyphOrientation", "GetVerticalGlyphOrientation", "SetLastLineWrapping", "GetLastLineWrapping", "SetOpticalAlignment", "GetOpticalAlignment", "SetFontFallback", "GetFontFallback"]
 
     /**
+     * Retrieves overall metrics for the formatted string.
+     * @returns {DWRITE_TEXT_METRICS1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ns-dwrite_2-dwrite_text_metrics1">DWRITE_TEXT_METRICS1</a>*</b>
      * 
-     * @returns {DWRITE_TEXT_METRICS1} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout2-getmetrics
+     * When this method returns, contains the measured distances of text and associated content after being formatted.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-getmetrics
      */
     GetMetrics() {
         textMetrics := DWRITE_TEXT_METRICS1()
@@ -44,10 +46,10 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
-     * @param {Integer} glyphOrientation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-setverticalglyphorientation
+     * Set the preferred orientation of glyphs when using a vertical reading direction.
+     * @param {Integer} glyphOrientation Preferred glyph orientation.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-setverticalglyphorientation
      */
     SetVerticalGlyphOrientation(glyphOrientation) {
         result := ComCall(72, this, "int", glyphOrientation, "HRESULT")
@@ -55,9 +57,9 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
+     * Get the preferred orientation of glyphs when using a vertical reading direction.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getverticalglyphorientation
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation() {
         result := ComCall(73, this, "int")
@@ -65,10 +67,10 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
-     * @param {BOOL} isLastLineWrappingEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-setlastlinewrapping
+     * Set whether or not the last word on the last line is wrapped.
+     * @param {BOOL} isLastLineWrappingEnabled Line wrapping option.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-setlastlinewrapping
      */
     SetLastLineWrapping(isLastLineWrappingEnabled) {
         result := ComCall(74, this, "int", isLastLineWrappingEnabled, "HRESULT")
@@ -76,9 +78,9 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
+     * Get whether or not the last word on the last line is wrapped.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getlastlinewrapping
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-getlastlinewrapping
      */
     GetLastLineWrapping() {
         result := ComCall(75, this, "int")
@@ -86,10 +88,10 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
-     * @param {Integer} opticalAlignment 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-setopticalalignment
+     * Set how the glyphs align to the edges the margin.
+     * @param {Integer} opticalAlignment Optical alignment option.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-setopticalalignment
      */
     SetOpticalAlignment(opticalAlignment) {
         result := ComCall(76, this, "int", opticalAlignment, "HRESULT")
@@ -97,9 +99,9 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
+     * Get how the glyphs align to the edges the margin.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getopticalalignment
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-getopticalalignment
      */
     GetOpticalAlignment() {
         result := ComCall(77, this, "int")
@@ -107,10 +109,10 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
-     * @param {IDWriteFontFallback} fontFallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-setfontfallback
+     * Apply a custom font fallback onto layout.
+     * @param {IDWriteFontFallback} fontFallback Custom font fallback created from <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-createfontfallback">IDWriteFontFallbackBuilder::CreateFontFallback</a> or <a href="https://docs.microsoft.com/windows/win32/DirectWrite/idwritefactory2-getsystemfontfallback">IDWriteFactory2::GetSystemFontFallback</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-setfontfallback
      */
     SetFontFallback(fontFallback) {
         result := ComCall(78, this, "ptr", fontFallback, "HRESULT")
@@ -118,9 +120,9 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
     }
 
     /**
-     * 
-     * @returns {IDWriteFontFallback} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getfontfallback
+     * Get the current font fallback object.
+     * @returns {IDWriteFontFallback} The current font fallback object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextlayout2-getfontfallback
      */
     GetFontFallback() {
         result := ComCall(79, this, "ptr*", &fontFallback := 0, "HRESULT")

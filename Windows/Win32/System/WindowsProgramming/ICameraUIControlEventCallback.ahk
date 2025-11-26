@@ -31,28 +31,28 @@ class ICameraUIControlEventCallback extends IUnknown{
     static VTableNames => ["OnStartupComplete", "OnSuspendComplete", "OnItemCaptured", "OnItemDeleted", "OnClosed"]
 
     /**
-     * 
+     * Occurs when startup for the camera UI control has completed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onstartupcomplete
+     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onstartupcomplete
      */
     OnStartupComplete() {
         ComCall(3, this)
     }
 
     /**
-     * 
+     * Occurs when the camera UI control has completed being suspended.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onsuspendcomplete
+     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onsuspendcomplete
      */
     OnSuspendComplete() {
         ComCall(4, this)
     }
 
     /**
-     * 
-     * @param {PWSTR} pszPath 
+     * Occurs when an item is captured.
+     * @param {PWSTR} pszPath The path to the captured item.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onitemcaptured
+     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onitemcaptured
      */
     OnItemCaptured(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -61,10 +61,10 @@ class ICameraUIControlEventCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszPath 
+     * Occurs when an item is deleted.
+     * @param {PWSTR} pszPath The path to the deleted item.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onitemdeleted
+     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onitemdeleted
      */
     OnItemDeleted(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -73,9 +73,9 @@ class ICameraUIControlEventCallback extends IUnknown{
     }
 
     /**
-     * 
+     * Occurs when the camera UI control is closed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onclosed
+     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontroleventcallback-onclosed
      */
     OnClosed() {
         ComCall(7, this)

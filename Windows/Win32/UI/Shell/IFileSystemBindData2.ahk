@@ -60,10 +60,14 @@ class IFileSystemBindData2 extends IFileSystemBindData{
     static VTableNames => ["SetFileID", "GetFileID", "SetJunctionCLSID", "GetJunctionCLSID"]
 
     /**
+     * Sets the unique file identifier for the current file.
+     * @param {Integer} liFileID Type: <b>LARGE_INTEGER</b>
      * 
-     * @param {Integer} liFileID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-setfileid
+     * A unique file identifier for the current file.  <i>liFileID</i> is a value that is a concatenation of the values <i>nFileIndexHigh</i> and <i>nFileIndexlow</i>, noted in structure <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-by_handle_file_information">_by_handle_file_information</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-setfileid
      */
     SetFileID(liFileID) {
         result := ComCall(5, this, "int64", liFileID, "HRESULT")
@@ -71,9 +75,11 @@ class IFileSystemBindData2 extends IFileSystemBindData{
     }
 
     /**
+     * Gets the unique file identifier for the current file.
+     * @returns {Integer} Type: <b>LARGE_INTEGER*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getfileid
+     * When this method returns successfully, receives a pointer to the unique file identifier for the current file. <i>pliFileID</i> is a pointer to a value that is a concatenation of the values <i>nFileIndexHigh</i> and <i>nFileIndexlow</i>, noted in structure <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-by_handle_file_information">_by_handle_file_information</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getfileid
      */
     GetFileID() {
         result := ComCall(6, this, "int64*", &pliFileID := 0, "HRESULT")
@@ -81,10 +87,14 @@ class IFileSystemBindData2 extends IFileSystemBindData{
     }
 
     /**
+     * Sets the class identifier (CLSID) of the object that implements IShellFolder, if the current item is a junction point.
+     * @param {Pointer<Guid>} clsid Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-setjunctionclsid
+     * The CLSID for the object that implements <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> with a junction point as its current item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-setjunctionclsid
      */
     SetJunctionCLSID(clsid) {
         result := ComCall(7, this, "ptr", clsid, "HRESULT")
@@ -92,9 +102,11 @@ class IFileSystemBindData2 extends IFileSystemBindData{
     }
 
     /**
+     * Gets the class identifier (CLSID) of the object that implements IShellFolder for the item, if the item is a junction point.
+     * @returns {Guid} Type: <b>CLSID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getjunctionclsid
+     * When this method returns successfully, receives a pointer to the CLSID of the object that implements <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> for the current item, if the item is a junction point.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getjunctionclsid
      */
     GetJunctionCLSID() {
         pclsid := Guid()

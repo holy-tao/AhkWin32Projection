@@ -34,10 +34,10 @@ class IAppxFactory2 extends IUnknown{
     static VTableNames => ["CreateContentGroupMapReader", "CreateSourceContentGroupMapReader", "CreateContentGroupMapWriter"]
 
     /**
-     * 
-     * @param {IStream} inputStream 
-     * @returns {IAppxContentGroupMapReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory2-createcontentgroupmapreader
+     * Creates an IAppxContentGroupMapReader.
+     * @param {IStream} inputStream The stream that delivers the content group map XML for reading.
+     * @returns {IAppxContentGroupMapReader} The content group map reader.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfactory2-createcontentgroupmapreader
      */
     CreateContentGroupMapReader(inputStream) {
         result := ComCall(3, this, "ptr", inputStream, "ptr*", &contentGroupMapReader := 0, "HRESULT")
@@ -45,10 +45,10 @@ class IAppxFactory2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} inputStream 
+     * Creates an IAppxSourceContentGroupMapReader.
+     * @param {IStream} inputStream The stream that delivers the source content group map XML for reading.
      * @returns {IAppxSourceContentGroupMapReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory2-createsourcecontentgroupmapreader
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfactory2-createsourcecontentgroupmapreader
      */
     CreateSourceContentGroupMapReader(inputStream) {
         result := ComCall(4, this, "ptr", inputStream, "ptr*", &reader := 0, "HRESULT")
@@ -56,10 +56,10 @@ class IAppxFactory2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStream} stream 
-     * @returns {IAppxContentGroupMapWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory2-createcontentgroupmapwriter
+     * Creates an IAppxContentGroupMapWriter.
+     * @param {IStream} stream The stream that receives the content group map.
+     * @returns {IAppxContentGroupMapWriter} Provides a write-only object model for a content group map.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxfactory2-createcontentgroupmapwriter
      */
     CreateContentGroupMapWriter(stream) {
         result := ComCall(5, this, "ptr", stream, "ptr*", &contentGroupMapWriter := 0, "HRESULT")

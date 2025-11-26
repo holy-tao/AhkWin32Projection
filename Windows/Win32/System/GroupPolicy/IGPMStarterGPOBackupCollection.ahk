@@ -59,9 +59,9 @@ class IGPMStarterGPOBackupCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Returns the number of GPMStarterGPOBackup objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpobackupcollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpobackupcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
@@ -69,10 +69,10 @@ class IGPMStarterGPOBackupCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Given an index, returns an GPMStarterGPOBackup object from the collection.
      * @param {Integer} lIndex 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpobackupcollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpobackupcollection-get_item
      */
     get_Item(lIndex) {
         pVal := VARIANT()

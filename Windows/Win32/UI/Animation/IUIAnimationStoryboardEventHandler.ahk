@@ -31,12 +31,12 @@ class IUIAnimationStoryboardEventHandler extends IUnknown{
     static VTableNames => ["OnStoryboardStatusChanged", "OnStoryboardUpdated"]
 
     /**
-     * 
-     * @param {IUIAnimationStoryboard} storyboard 
-     * @param {Integer} newStatus 
-     * @param {Integer} previousStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboardeventhandler-onstoryboardstatuschanged
+     * Handles events that occur when a storyboard's status changes.
+     * @param {IUIAnimationStoryboard} storyboard The storyboard whose status has changed.
+     * @param {Integer} newStatus The new status.
+     * @param {Integer} previousStatus The previous status.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationstoryboardeventhandler-onstoryboardstatuschanged
      */
     OnStoryboardStatusChanged(storyboard, newStatus, previousStatus) {
         result := ComCall(3, this, "ptr", storyboard, "int", newStatus, "int", previousStatus, "HRESULT")
@@ -44,10 +44,10 @@ class IUIAnimationStoryboardEventHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUIAnimationStoryboard} storyboard 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboardeventhandler-onstoryboardupdated
+     * Handles events that occur when a storyboard is updated.
+     * @param {IUIAnimationStoryboard} storyboard The storyboard that has been updated.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationstoryboardeventhandler-onstoryboardupdated
      */
     OnStoryboardUpdated(storyboard) {
         result := ComCall(4, this, "ptr", storyboard, "HRESULT")

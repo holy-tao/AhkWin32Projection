@@ -32,11 +32,11 @@ class IMpeg2Demultiplexer extends IUnknown{
     static VTableNames => ["CreateOutputPin", "SetOutputPinMediaType", "DeleteOutputPin"]
 
     /**
-     * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
-     * @param {PWSTR} pszPinName 
-     * @returns {IPin} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2demultiplexer-createoutputpin
+     * The CreateOutputPin method creates a new output pin on the Demux.
+     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the media type information for the new pin.
+     * @param {PWSTR} pszPinName Pointer to a wide character string that specifies a name for the new pin. The maximum length is 128 characters, including the <b>NULL</b> terminator.
+     * @returns {IPin} Address of a variable that receives a pointer to the pin's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2demultiplexer-createoutputpin
      */
     CreateOutputPin(pMediaType, pszPinName) {
         pszPinName := pszPinName is String ? StrPtr(pszPinName) : pszPinName
@@ -46,11 +46,11 @@ class IMpeg2Demultiplexer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszPinName 
-     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2demultiplexer-setoutputpinmediatype
+     * The SetOutputPinMediaType method updates the media type of the specified output pin. (DirectX 9.0 and later.).
+     * @param {PWSTR} pszPinName The friendly name of the pin as specified when the pin was created in a call to <b>CreateOutputPin</b>.
+     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the new media type information for the pin.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2demultiplexer-setoutputpinmediatype
      */
     SetOutputPinMediaType(pszPinName, pMediaType) {
         pszPinName := pszPinName is String ? StrPtr(pszPinName) : pszPinName
@@ -60,10 +60,10 @@ class IMpeg2Demultiplexer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszPinName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2demultiplexer-deleteoutputpin
+     * The DeleteOutputPin method deletes the specified output pin.
+     * @param {PWSTR} pszPinName The friendly name of the pin as specified when the pin was created in a call to <b>CreateOutputPin</b>.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2demultiplexer-deleteoutputpin
      */
     DeleteOutputPin(pszPinName) {
         pszPinName := pszPinName is String ? StrPtr(pszPinName) : pszPinName

@@ -41,10 +41,28 @@ class IReferenceClockTimerControl extends IUnknown{
     static VTableNames => ["SetDefaultTimerResolution", "GetDefaultTimerResolution"]
 
     /**
+     * The SetDefaultTimerResolution method sets the minimum timer resolution.
+     * @param {Integer} timerResolution Minimum timer resolution, in 100-nanosecond units. If the value is zero, the reference clock cancels its previous request.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} timerResolution 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ireferenceclocktimercontrol-setdefaulttimerresolution
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclocktimercontrol-setdefaulttimerresolution
      */
     SetDefaultTimerResolution(timerResolution) {
         result := ComCall(3, this, "int64", timerResolution, "HRESULT")
@@ -52,9 +70,9 @@ class IReferenceClockTimerControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ireferenceclocktimercontrol-getdefaulttimerresolution
+     * The GetDefaultTimerResolution method returns the timer resolution that was requested by the reference clock.
+     * @returns {Integer} Receives the requested timer resolution, in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclocktimercontrol-getdefaulttimerresolution
      */
     GetDefaultTimerResolution() {
         result := ComCall(4, this, "int64*", &pTimerResolution := 0, "HRESULT")

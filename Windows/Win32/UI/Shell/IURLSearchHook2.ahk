@@ -37,12 +37,20 @@ class IURLSearchHook2 extends IURLSearchHook{
     static VTableNames => ["TranslateWithSearchContext"]
 
     /**
+     * Called by the browser when the browser cannot determine the protocol of a URL address. This method uses a search context to determine the protocol.
+     * @param {PWSTR} pwszSearchURL Type: <b>PWSTR</b>
      * 
-     * @param {PWSTR} pwszSearchURL 
-     * @param {Integer} cchBufferSize 
-     * @param {ISearchContext} pSearchContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iurlsearchhook2-translatewithsearchcontext
+     * The address of a wide character buffer that, on entry, contains the URL address for which the browser is trying to determine the protocol. On exit, this buffer contains the modified URL address if the method was successful.
+     * @param {Integer} cchBufferSize Type: <b>DWORD</b>
+     * 
+     * The size, in characters, of the buffer at <i>lpwszSearchURL</i>.
+     * @param {ISearchContext} pSearchContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-isearchcontext">ISearchContext</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-isearchcontext">ISearchContext</a> object. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iurlsearchhook2-translatewithsearchcontext
      */
     TranslateWithSearchContext(pwszSearchURL, cchBufferSize, pSearchContext) {
         pwszSearchURL := pwszSearchURL is String ? StrPtr(pwszSearchURL) : pwszSearchURL

@@ -38,13 +38,23 @@ class IAccDictionary extends IUnknown{
     static VTableNames => ["GetLocalizedString", "GetParentTerm", "GetMnemonicString", "LookupMnemonicTerm", "ConvertValueToString"]
 
     /**
+     * Clients call the IAccDictionary::GetLocalizedString method to get localized strings for all system properties and their values.
+     * @param {Pointer<Guid>} Term Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} Term 
-     * @param {Integer} lcid 
-     * @param {Pointer<BSTR>} pResult 
-     * @param {Pointer<Integer>} plcid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getlocalizedstring
+     * A globally unique identifier (GUID) that represents a property.
+     * @param {Integer} lcid Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LCID</a></b>
+     * 
+     * The locale of the string to be returned.
+     * @param {Pointer<BSTR>} pResult Type: <b>BSTR*</b>
+     * 
+     * A localized string that represents the term.
+     * @param {Pointer<Integer>} plcid Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LCID</a>*</b>
+     * 
+     * The language of the returned string.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If successful, returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccdictionary-getlocalizedstring
      */
     GetLocalizedString(Term, lcid, pResult, plcid) {
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
@@ -54,10 +64,14 @@ class IAccDictionary extends IUnknown{
     }
 
     /**
+     * Clients call the IAccDictionary::GetParentTerm method to navigate through the object hierarchy tree. This method returns the parent object of a specified property.
+     * @param {Pointer<Guid>} Term Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} Term 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getparentterm
+     * A GUID for a property.
+     * @returns {Guid} Type: <b>GUID*</b>
+     * 
+     * The parent of the property specified in the <i>Term</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccdictionary-getparentterm
      */
     GetParentTerm(Term) {
         pParentTerm := Guid()
@@ -66,10 +80,14 @@ class IAccDictionary extends IUnknown{
     }
 
     /**
+     * Retrieves a mnemonic string.Note  Active Accessibility Text Services is deprecated.
+     * @param {Pointer<Guid>} Term Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} Term 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getmnemonicstring
+     * A GUID representing a property.
+     * @returns {BSTR} Type: <b>BSTR*</b>
+     * 
+     * A mnemonic string for the property. This string is not localized.
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccdictionary-getmnemonicstring
      */
     GetMnemonicString(Term) {
         pResult := BSTR()
@@ -78,10 +96,14 @@ class IAccDictionary extends IUnknown{
     }
 
     /**
+     * Clients call the IAccDictionary::LookupMnemonicTerm method to find the property for a given mnemonic string.
+     * @param {BSTR} bstrMnemonic Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrMnemonic 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-lookupmnemonicterm
+     * A non-localized mnemonic string for a property.
+     * @returns {Guid} Type: <b>GUID*</b>
+     * 
+     * A GUID representing the property in <i>bstrMnemonic</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccdictionary-lookupmnemonicterm
      */
     LookupMnemonicTerm(bstrMnemonic) {
         bstrMnemonic := bstrMnemonic is String ? BSTR.Alloc(bstrMnemonic).Value : bstrMnemonic
@@ -92,14 +114,26 @@ class IAccDictionary extends IUnknown{
     }
 
     /**
+     * Clients call the IAccDictionary::ConvertValueToString method to convert a value to a localized string.
+     * @param {Pointer<Guid>} Term Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} Term 
-     * @param {Integer} lcid 
-     * @param {VARIANT} varValue 
-     * @param {Pointer<BSTR>} pbstrResult 
-     * @param {Pointer<Integer>} plcid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-convertvaluetostring
+     * A GUID that represents a property.
+     * @param {Integer} lcid Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LCID</a></b>
+     * 
+     * The locale of the string to be returned.
+     * @param {VARIANT} varValue Type: <b>VARIANT</b>
+     * 
+     * The value of the item.
+     * @param {Pointer<BSTR>} pbstrResult Type: <b>BSTR*</b>
+     * 
+     * A pointer to the converted value.
+     * @param {Pointer<Integer>} plcid Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LCID</a>*</b>
+     * 
+     * A pointer to the language of the returned string.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If successful, returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccdictionary-convertvaluetostring
      */
     ConvertValueToString(Term, lcid, varValue, pbstrResult, plcid) {
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"

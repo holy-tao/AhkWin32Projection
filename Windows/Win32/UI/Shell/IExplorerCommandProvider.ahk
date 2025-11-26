@@ -37,11 +37,17 @@ class IExplorerCommandProvider extends IUnknown{
     static VTableNames => ["GetCommands", "GetCommand"]
 
     /**
+     * Gets a specified Explorer command enumerator instance.
+     * @param {IUnknown} punkSite Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkSite 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommands
+     * A pointer to an interface used to set a site.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the requested interface.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this function returns, contains the interface pointer requested in riid. This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumexplorercommand">IEnumExplorerCommand</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommands
      */
     GetCommands(punkSite, riid) {
         result := ComCall(3, this, "ptr", punkSite, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -49,11 +55,17 @@ class IExplorerCommandProvider extends IUnknown{
     }
 
     /**
+     * Gets a specified Explorer command instance.
+     * @param {Pointer<Guid>} rguidCommandId Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} rguidCommandId 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommand
+     * A reference to a command ID as a <b>GUID</b>. Used to obtain a command definition.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the requested interface.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this function returns, contains the interface pointer requested in riid. This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexplorercommand">IExplorerCommand</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommand
      */
     GetCommand(rguidCommandId, riid) {
         result := ComCall(4, this, "ptr", rguidCommandId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

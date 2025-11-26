@@ -31,10 +31,10 @@ class IAMWMBufferPass extends IUnknown{
     static VTableNames => ["SetNotify"]
 
     /**
-     * 
-     * @param {IAMWMBufferPassCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iamwmbufferpass-setnotify
+     * The SetNotify method is used by applications to provide the WM ASF Writer or WM ASF Reader filter with a pointer to the application's IAMWMBufferPassCallback interface.
+     * @param {IAMWMBufferPassCallback} pCallback Pointer to the application's <b>IAMWMBufferPassCallback</b> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dshowasf/nf-dshowasf-iamwmbufferpass-setnotify
      */
     SetNotify(pCallback) {
         result := ComCall(3, this, "ptr", pCallback, "HRESULT")

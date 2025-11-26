@@ -26,11 +26,11 @@ class IMAPIControl extends IUnknown{
     static VTableNames => ["GetLastError", "Activate", "GetState"]
 
     /**
-     * Retrieves the calling thread's last-error code value.
+     * 
      * @param {HRESULT} hResult 
      * @param {Integer} ulFlags 
      * @returns {Pointer<MAPIERROR>} 
-     * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-getlasterror
      */
     GetLastError(hResult, ulFlags) {
         result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")

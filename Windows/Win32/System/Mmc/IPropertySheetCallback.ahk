@@ -31,10 +31,12 @@ class IPropertySheetCallback extends IUnknown{
     static VTableNames => ["AddPage", "RemovePage"]
 
     /**
-     * 
-     * @param {HPROPSHEETPAGE} hPage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ipropertysheetcallback-addpage
+     * The IPropertySheetCallback::AddPage method enables a snap-in to add a page to a property sheet.
+     * @param {HPROPSHEETPAGE} hPage A value that specifies the handle to the page to be added. The hPage parameter is a handle to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v3">PROPSHEETPAGE</a> structure created by the Windows API 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a>.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-ipropertysheetcallback-addpage
      */
     AddPage(hPage) {
         hPage := hPage is Win32Handle ? NumGet(hPage, "ptr") : hPage
@@ -44,10 +46,10 @@ class IPropertySheetCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HPROPSHEETPAGE} hPage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ipropertysheetcallback-removepage
+     * The IPropertySheetCallback::RemovePage method enables a snap-in to remove a page from a property sheet.
+     * @param {HPROPSHEETPAGE} hPage A handle to the page to be removed.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-ipropertysheetcallback-removepage
      */
     RemovePage(hPage) {
         hPage := hPage is Win32Handle ? NumGet(hPage, "ptr") : hPage

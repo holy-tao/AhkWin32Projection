@@ -36,11 +36,17 @@ class IPreviewHandler extends IUnknown{
     static VTableNames => ["SetWindow", "SetRect", "DoPreview", "Unload", "SetFocus", "QueryFocus", "TranslateAccelerator"]
 
     /**
+     * Sets the parent window of the previewer window, as well as the area within the parent to be used for the previewer window.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-setwindow
+     * A handle to the parent window.
+     * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * A pointer to a <b>RECT</b> defining the area for the previewer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-setwindow
      */
     SetWindow(hwnd, prc) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -50,12 +56,14 @@ class IPreviewHandler extends IUnknown{
     }
 
     /**
-     * The SetRect function sets the coordinates of the specified rectangle. This is equivalent to assigning the left, top, right, and bottom arguments to the appropriate members of the RECT structure.
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * Directs the preview handler to change the area within the parent hwnd that it draws into.
+     * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setrect
+     * A pointer to a <b>RECT</b> to be used for the preview.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-setrect
      */
     SetRect(prc) {
         result := ComCall(4, this, "ptr", prc, "HRESULT")
@@ -63,9 +71,73 @@ class IPreviewHandler extends IUnknown{
     }
 
     /**
+     * Directs the preview handler to load data from the source specified in an earlier Initialize method call, and to begin rendering to the previewer window.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-dopreview
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PREVIEWHANDLER_DRM_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Blocked by digital rights management.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PREVIEWHANDLER_NOAUTH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Blocked by file permissions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PREVIEWHANDLER_NOTFOUND</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Item was not found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_PREVIEWHANDLER_CORRUPT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Item was corrupt.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-dopreview
      */
     DoPreview() {
         result := ComCall(5, this, "HRESULT")
@@ -73,9 +145,11 @@ class IPreviewHandler extends IUnknown{
     }
 
     /**
+     * Directs the preview handler to cease rendering a preview and to release all resources that have been allocated based on the item passed in during the initialization.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-unload
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-unload
      */
     Unload() {
         result := ComCall(6, this, "HRESULT")
@@ -83,13 +157,11 @@ class IPreviewHandler extends IUnknown{
     }
 
     /**
-     * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
-     * @returns {HRESULT} Type: **HWND**
+     * Directs the preview handler to set focus to itself.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * 
-     * Extended error ERROR_INVALID_PARAMETER (0x57) means that window is in disabled state.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setfocus
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-setfocus
      */
     SetFocus() {
         result := ComCall(7, this, "HRESULT")
@@ -97,9 +169,11 @@ class IPreviewHandler extends IUnknown{
     }
 
     /**
+     * Directs the preview handler to return the HWND from calling the GetFocus Function.
+     * @returns {HWND} Type: <b>HWND*</b>
      * 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-queryfocus
+     * When this method returns, contains a pointer to the HWND returned from calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getfocus">GetFocus Function</a> from the preview handler's foreground thread.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-queryfocus
      */
     QueryFocus() {
         phwnd := HWND()
@@ -108,10 +182,14 @@ class IPreviewHandler extends IUnknown{
     }
 
     /**
+     * Directs the preview handler to handle a keystroke passed up from the message pump of the process in which the preview handler is running.
+     * @param {Pointer<MSG>} pmsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
-     * @param {Pointer<MSG>} pmsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-translateaccelerator
+     * A pointer to a window message.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the keystroke message can be processed by the preview handler, the handler will process it and return <b>S_OK</b>.  If the preview handler cannot process the keystroke message, it will offer it to the host using <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-translateaccelerator">TranslateAccelerator</a>.  If the host processes the message, this method will return <b>S_OK</b>.  If the host does not process the message, this method will return <b>S_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandler-translateaccelerator
      */
     TranslateAccelerator(pmsg) {
         result := ComCall(9, this, "ptr", pmsg, "HRESULT")

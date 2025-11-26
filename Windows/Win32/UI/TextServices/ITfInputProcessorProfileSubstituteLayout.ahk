@@ -32,12 +32,12 @@ class ITfInputProcessorProfileSubstituteLayout extends IUnknown{
     static VTableNames => ["GetSubstituteKeyboardLayout"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rclsid 
-     * @param {Integer} langid 
-     * @param {Pointer<Guid>} guidProfile 
-     * @returns {HKL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilesubstitutelayout-getsubstitutekeyboardlayout
+     * ITfInputProcessorProfileSubstituteLayout::GetSubstituteKeyboardLayout method
+     * @param {Pointer<Guid>} rclsid Contains the class identifier of the text service.
+     * @param {Integer} langid Specifies the language of the profile. See <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifiers</a>.
+     * @param {Pointer<Guid>} guidProfile Identifies the profile GUID.
+     * @returns {HKL} Pointer to an <b>HKL</b> value that specifies the substitute input locale identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilesubstitutelayout-getsubstitutekeyboardlayout
      */
     GetSubstituteKeyboardLayout(rclsid, langid, guidProfile) {
         phKL := HKL()

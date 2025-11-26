@@ -78,9 +78,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minminorchannel
+     * The get_MinMinorChannel method gets the lowest minor channel number ever allowed for this tuning space.
+     * @returns {Integer} Receives the lowest minor channel.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-get_minminorchannel
      */
     get_MinMinorChannel() {
         result := ComCall(34, this, "int*", &MinMinorChannelVal := 0, "HRESULT")
@@ -88,10 +88,10 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewMinMinorChannelVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_minminorchannel
+     * The put_MinMinorChannel method sets the lowest minor channel number ever allowed for this tuning space.
+     * @param {Integer} NewMinMinorChannelVal Variable of type <b>long</b> that specifies the lowest minor channel.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-put_minminorchannel
      */
     put_MinMinorChannel(NewMinMinorChannelVal) {
         result := ComCall(35, this, "int", NewMinMinorChannelVal, "HRESULT")
@@ -99,9 +99,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_maxminorchannel
+     * The get_MaxMinorChannel method gets the highest minor channel number for this tuning space.
+     * @returns {Integer} Receives the highest minor channel.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-get_maxminorchannel
      */
     get_MaxMinorChannel() {
         result := ComCall(36, this, "int*", &MaxMinorChannelVal := 0, "HRESULT")
@@ -109,10 +109,10 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewMaxMinorChannelVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_maxminorchannel
+     * The put_MaxMinorChannel method gets the highest minor channel number for this tuning space.
+     * @param {Integer} NewMaxMinorChannelVal The highest minor channel.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-put_maxminorchannel
      */
     put_MaxMinorChannel(NewMaxMinorChannelVal) {
         result := ComCall(37, this, "int", NewMaxMinorChannelVal, "HRESULT")
@@ -120,9 +120,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minphysicalchannel
+     * The get_MinPhysicalChannel method sets the lowest physical channel number for this tuning space.
+     * @returns {Integer} Receives the lowest physical channel.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-get_minphysicalchannel
      */
     get_MinPhysicalChannel() {
         result := ComCall(38, this, "int*", &MinPhysicalChannelVal := 0, "HRESULT")
@@ -130,10 +130,10 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewMinPhysicalChannelVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_minphysicalchannel
+     * The put_MinPhysicalChannel method sets the lowest physical channel number for this tuning space.
+     * @param {Integer} NewMinPhysicalChannelVal Variable of type <b>long</b> that specifies the lowest physical channel.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-put_minphysicalchannel
      */
     put_MinPhysicalChannel(NewMinPhysicalChannelVal) {
         result := ComCall(39, this, "int", NewMinPhysicalChannelVal, "HRESULT")
@@ -141,9 +141,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_maxphysicalchannel
+     * The get_MaxPhysicalChannel method gets the highest physical channel number for this tuning space.
+     * @returns {Integer} Receives the highest physical channel.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-get_maxphysicalchannel
      */
     get_MaxPhysicalChannel() {
         result := ComCall(40, this, "int*", &MaxPhysicalChannelVal := 0, "HRESULT")
@@ -151,10 +151,10 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewMaxPhysicalChannelVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_maxphysicalchannel
+     * The put_MaxPhysicalChannel method sets the highest physical channel number for this tuning space.
+     * @param {Integer} NewMaxPhysicalChannelVal Variable of type <b>long</b> that specifies the highest physical channel.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsctuningspace-put_maxphysicalchannel
      */
     put_MaxPhysicalChannel(NewMaxPhysicalChannelVal) {
         result := ComCall(41, this, "int", NewMaxPhysicalChannelVal, "HRESULT")

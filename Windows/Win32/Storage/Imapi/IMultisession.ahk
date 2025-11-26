@@ -59,9 +59,9 @@ class IMultisession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_issupportedoncurrentmediastate
+     * Determines if the multi-session type can write to the current optical media.
+     * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the multi-session interface can write to the current optical media in its current state. Otherwise, VARIANT_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisession-get_issupportedoncurrentmediastate
      */
     get_IsSupportedOnCurrentMediaState() {
         result := ComCall(7, this, "short*", &value := 0, "HRESULT")
@@ -69,10 +69,10 @@ class IMultisession extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-put_inuse
+     * Determines if this multi-session interface is the one you should use on the current media.
+     * @param {VARIANT_BOOL} value Set to VARIANT_TRUE if this multi-session interface is the one you should use to write to the current media. Otherwise, VARIANT_FALSE.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisession-put_inuse
      */
     put_InUse(value) {
         result := ComCall(8, this, "short", value, "HRESULT")
@@ -80,9 +80,9 @@ class IMultisession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_inuse
+     * Determines if this multi-session interface is the one you should use on the current media.
+     * @returns {VARIANT_BOOL} Is VARIANT_TRUE if this multi-session interface is the one you should use to write to the  current media. Otherwise, VARIANT_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisession-get_inuse
      */
     get_InUse() {
         result := ComCall(9, this, "short*", &value := 0, "HRESULT")
@@ -90,9 +90,9 @@ class IMultisession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDiscRecorder2} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_importrecorder
+     * Retrieves the disc recorder to use to import one or more previous sessions.
+     * @returns {IDiscRecorder2} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">IDiscRecorder2</a> interface that identifies the device that contains one or more session images to import.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisession-get_importrecorder
      */
     get_ImportRecorder() {
         result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")

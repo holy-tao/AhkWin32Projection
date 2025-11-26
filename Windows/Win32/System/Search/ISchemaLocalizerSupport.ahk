@@ -31,10 +31,14 @@ class ISchemaLocalizerSupport extends IUnknown{
     static VTableNames => ["Localize"]
 
     /**
+     * Localizes keywords from an input string.
+     * @param {PWSTR} pszGlobalString Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszGlobalString 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemalocalizersupport-localize
+     * Pointer to a null-terminated Unicode string to be localized. It may be in one of two forms: (1) a set of keywords separated by the vertical bar character (Unicode character code 007C) (for example "date modified|modified|modification date"), or (2) a string of the form "@some.dll,-12345". This example refers to resource ID 12345 of the some.dll binary. That resource must be a string of the previous (1) form.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * Returns a null-terminated Unicode string that is the localized string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. If the method does not succeed, this parameter is set to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ischemalocalizersupport-localize
      */
     Localize(pszGlobalString) {
         pszGlobalString := pszGlobalString is String ? StrPtr(pszGlobalString) : pszGlobalString

@@ -33,11 +33,11 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
     static VTableNames => ["CreateTargetForHwnd", "CreateSurfaceFromHandle", "CreateSurfaceFromHwnd"]
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @param {BOOL} topmost 
-     * @returns {IDCompositionTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createtargetforhwnd
+     * Creates a composition target object that is bound to the window that is represented by the specified window handle.
+     * @param {HWND} hwnd The window to which the composition target object should be bound. This parameter must not be NULL.
+     * @param {BOOL} topmost TRUE if the visual tree should be displayed on top of the children of the window specified by the hwnd parameter; otherwise, the visual tree is displayed behind the children.
+     * @returns {IDCompositionTarget} The new composition target object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondesktopdevice-createtargetforhwnd
      */
     CreateTargetForHwnd(hwnd, topmost) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -47,10 +47,10 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
     }
 
     /**
-     * 
-     * @param {HANDLE} handle 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhandle
+     * Creates a new composition surface object that wraps an existing composition surface.
+     * @param {HANDLE} handle The handle of an existing composition surface that was created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-dcompositioncreatesurfacehandle">DCompositionCreateSurfaceHandle</a> function.
+     * @returns {IUnknown} The new composition surface object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhandle
      */
     CreateSurfaceFromHandle(handle) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
@@ -60,10 +60,10 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
     }
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhwnd
+     * Creates a wrapper object that represents the rasterization of a layered window, and that can be associated with a visual for composition.
+     * @param {HWND} hwnd The handle of the layered window for which to create a wrapper. A layered window is created by specifying WS_EX_LAYERED when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting WS_EX_LAYERED via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
+     * @returns {IUnknown} The new composition surface object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhwnd
      */
     CreateSurfaceFromHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

@@ -47,10 +47,10 @@ class IWindowsDriverUpdateEntryCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an IWindowsDriverUpdateEntry interface in the collection.
      * @param {Integer} index 
      * @returns {IWindowsDriverUpdateEntry} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentrycollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentrycollection-get_item
      */
     get_Item(index) {
         result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
@@ -58,9 +58,9 @@ class IWindowsDriverUpdateEntryCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an IEnumVARIANT interface that is used to enumerate the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentrycollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentrycollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
@@ -68,9 +68,9 @@ class IWindowsDriverUpdateEntryCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of elements contained in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentrycollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdateentrycollection-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")

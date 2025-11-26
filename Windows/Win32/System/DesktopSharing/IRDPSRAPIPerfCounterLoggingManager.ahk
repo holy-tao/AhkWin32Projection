@@ -33,10 +33,10 @@ class IRDPSRAPIPerfCounterLoggingManager extends IUnknown{
     static VTableNames => ["CreateLogger"]
 
     /**
-     * 
-     * @param {BSTR} bstrCounterName 
-     * @returns {IRDPSRAPIPerfCounterLogger} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterloggingmanager-createlogger
+     * Creates a new IRDPSRAPIPerfCounterLogger object.
+     * @param {BSTR} bstrCounterName The name of the counter.
+     * @returns {IRDPSRAPIPerfCounterLogger} An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterlogger">IRDPSRAPIPerfCounterLogger</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterloggingmanager-createlogger
      */
     CreateLogger(bstrCounterName) {
         bstrCounterName := bstrCounterName is String ? BSTR.Alloc(bstrCounterName).Value : bstrCounterName

@@ -36,11 +36,29 @@ class IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferSourceEvent{
     static VTableNames => ["RateChange"]
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Float} qwNewRate Specifies the new playback rate.
+     * @param {Float} qwOldRate Specifies the previous playback rate.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Float} qwNewRate 
-     * @param {Float} qwOldRate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent2-ratechange
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent2-ratechange
      */
     RateChange(qwNewRate, qwOldRate) {
         result := ComCall(17, this, "double", qwNewRate, "double", qwOldRate, "HRESULT")

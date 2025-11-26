@@ -31,9 +31,11 @@ class IRawElementProviderHostingAccessibles extends IUnknown{
     static VTableNames => ["GetEmbeddedAccessibles"]
 
     /**
+     * Retrieves the IAccessible interface pointers of the windowless Microsoft ActiveX controls that are hosted by this provider.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderhostingaccessibles-getembeddedaccessibles
+     * Receives the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> pointers of the hosted windowless ActiveX controls.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderhostingaccessibles-getembeddedaccessibles
      */
     GetEmbeddedAccessibles() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")

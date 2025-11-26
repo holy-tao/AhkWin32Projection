@@ -32,9 +32,9 @@ class IWSDHttpAuthParameters extends IUnknown{
     static VTableNames => ["GetClientAccessToken", "GetAuthType"]
 
     /**
-     * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getclientaccesstoken
+     * GetClientAccessToken method retrieves the client access token that can be used to either authenticate or impersonate the client.
+     * @returns {HANDLE} Pointer to a variable that on return receives the token handle.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpauthparameters-getclientaccesstoken
      */
     GetClientAccessToken() {
         phToken := HANDLE()
@@ -43,9 +43,38 @@ class IWSDHttpAuthParameters extends IUnknown{
     }
 
     /**
+     * GetAuthType method retrieves the HTTP authentication scheme used during the authentication of the client.
+     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_request_auth_type">HTTP_REQUEST_AUTH_TYPE</a>  value that indicates the HTTP authentication scheme used during authentication. Possible values include:
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getauthtype
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WSD_SECURITY_HTTP_AUTH_SCHEME_NEGOTIATE_"></a><a id="wsd_security_http_auth_scheme_negotiate_"></a><dl>
+     * <dt><b>WSD_SECURITY_HTTP_AUTH_SCHEME_NEGOTIATE </b></dt>
+     * <dt>0x1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Negotiate authentication.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WSD_SECURITY_HTTP_AUTH_SCHEME_NTLM"></a><a id="wsd_security_http_auth_scheme_ntlm"></a><dl>
+     * <dt><b>WSD_SECURITY_HTTP_AUTH_SCHEME_NTLM</b></dt>
+     * <dt>0x2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NTLM authentication.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpauthparameters-getauthtype
      */
     GetAuthType() {
         result := ComCall(4, this, "uint*", &pAuthType := 0, "HRESULT")

@@ -31,9 +31,9 @@ class IOfflineFilesErrorInfo extends IUnknown{
     static VTableNames => ["GetRawData", "GetDescription"]
 
     /**
-     * 
-     * @returns {Pointer<BYTE_BLOB>} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileserrorinfo-getrawdata
+     * Retrieves a block of bytes containing internal data associated with the error.
+     * @returns {Pointer<BYTE_BLOB>} Receives the address of a BYTE_BLOB structure describing the raw data.  The caller must free this memory block by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileserrorinfo-getrawdata
      */
     GetRawData() {
         result := ComCall(3, this, "ptr*", &ppBlob := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IOfflineFilesErrorInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileserrorinfo-getdescription
+     * Retrieves a text string describing the error.
+     * @returns {PWSTR} Receives the address of a text string describing the error.  The caller must free this memory block by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileserrorinfo-getdescription
      */
     GetDescription() {
         result := ComCall(4, this, "ptr*", &ppszDescription := 0, "HRESULT")

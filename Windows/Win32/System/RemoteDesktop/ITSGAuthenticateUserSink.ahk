@@ -32,13 +32,13 @@ class ITSGAuthenticateUserSink extends IUnknown{
     static VTableNames => ["OnUserAuthenticated", "OnUserAuthenticationFailed", "ReauthenticateUser", "DisconnectUser"]
 
     /**
-     * 
-     * @param {BSTR} userName 
-     * @param {BSTR} userDomain 
-     * @param {Pointer} context 
-     * @param {HANDLE_PTR} userToken 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-onuserauthenticated
+     * Notifies Remote Desktop Gateway (RD Gateway) that the authentication plug-in has successfully authenticated the user.
+     * @param {BSTR} userName The name of the user who initiated the connection.
+     * @param {BSTR} userDomain The domain of the user who initiated the connection.
+     * @param {Pointer} context A pointer to  a <b>ULONG</b> that contains  a value that identifies this connection. Use the value that was passed by the <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> method.
+     * @param {HANDLE_PTR} userToken A pointer to a <b>HANDLE</b> that specifies the user token of the user. If the user is not running Windows, set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-onuserauthenticated
      */
     OnUserAuthenticated(userName, userDomain, context, userToken) {
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
@@ -49,12 +49,12 @@ class ITSGAuthenticateUserSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} context 
-     * @param {HRESULT} genericErrorCode 
-     * @param {HRESULT} specificErrorCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-onuserauthenticationfailed
+     * Notifies Remote Desktop Gateway (RD Gateway) that the authentication plug-in failed to authenticate the user.
+     * @param {Pointer} context A pointer to  a <b>ULONG</b> that contains  a value that identifies this connection. Use the value that was passed by the <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> method.
+     * @param {HRESULT} genericErrorCode A Windows error code that specifies the cause of the authentication failure.
+     * @param {HRESULT} specificErrorCode This parameter is reserved. Always set this parameter to zero.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-onuserauthenticationfailed
      */
     OnUserAuthenticationFailed(context, genericErrorCode, specificErrorCode) {
         result := ComCall(4, this, "ptr", context, "int", genericErrorCode, "int", specificErrorCode, "HRESULT")
@@ -62,10 +62,13 @@ class ITSGAuthenticateUserSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} context 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-reauthenticateuser
+     * Notifies Remote Desktop Gateway (RD Gateway) that it should silently reauthenticate and reauthorize the user.
+     * @param {Pointer} context A pointer to  a <b>ULONG</b> that contains  a value specific to this connection. Use 
+     *        the value that was passed by the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> 
+     *        method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-reauthenticateuser
      */
     ReauthenticateUser(context) {
         result := ComCall(5, this, "ptr", context, "HRESULT")
@@ -73,10 +76,10 @@ class ITSGAuthenticateUserSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} context 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-disconnectuser
+     * Notifies Remote Desktop Gateway (RD Gateway) that it should disconnect the client.
+     * @param {Pointer} context A pointer to  a <b>ULONG</b> that contains  a value that identifies the connection to disconnect. Use the value that was passed by the <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-disconnectuser
      */
     DisconnectUser(context) {
         result := ComCall(6, this, "ptr", context, "HRESULT")

@@ -38,9 +38,9 @@ class IUIAutomationAndCondition extends IUIAutomationCondition{
     }
 
     /**
-     * 
+     * Retrieves the number of conditions that make up this &quot;and&quot; condition.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-get_childcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-get_childcount
      */
     get_ChildCount() {
         result := ComCall(3, this, "int*", &childCount := 0, "HRESULT")
@@ -48,11 +48,17 @@ class IUIAutomationAndCondition extends IUIAutomationCondition{
     }
 
     /**
+     * Retrieves the conditions that make up this &quot;and&quot; condition, as an ordinary array.
+     * @param {Pointer<Pointer<IUIAutomationCondition>>} childArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>***</b>
      * 
-     * @param {Pointer<Pointer<IUIAutomationCondition>>} childArray 
-     * @param {Pointer<Integer>} childArrayCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-getchildrenasnativearray
+     * Receives a pointer to an  array of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a> interface pointers.
+     * @param {Pointer<Integer>} childArrayCount Type: <b>int*</b>
+     * 
+     * Receives the number of elements in the array.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-getchildrenasnativearray
      */
     GetChildrenAsNativeArray(childArray, childArrayCount) {
         childArrayMarshal := childArray is VarRef ? "ptr*" : "ptr"
@@ -63,9 +69,11 @@ class IUIAutomationAndCondition extends IUIAutomationCondition{
     }
 
     /**
+     * Retrieves the conditions that make up this &quot;and&quot; condition.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-getchildren
+     * Receives a pointer to the child conditions.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationandcondition-getchildren
      */
     GetChildren() {
         result := ComCall(5, this, "ptr*", &childArray := 0, "HRESULT")

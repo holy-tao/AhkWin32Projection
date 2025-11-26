@@ -35,14 +35,14 @@ class IContextCallback extends IUnknown{
     static VTableNames => ["ContextCallback"]
 
     /**
-     * 
-     * @param {Pointer<PFNCONTEXTCALL>} pfnCallback 
-     * @param {Pointer<ComCallData>} pParam 
-     * @param {Pointer<Guid>} riid 
-     * @param {Integer} iMethod 
-     * @param {IUnknown} pUnk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctxtcall/nf-ctxtcall-icontextcallback-contextcallback
+     * Enters the object context, executes the specified function, and returns.
+     * @param {Pointer<PFNCONTEXTCALL>} pfnCallback The function to be called inside the object context.
+     * @param {Pointer<ComCallData>} pParam The data to be passed to the function when it is called in the context.
+     * @param {Pointer<Guid>} riid The IID of the call that is being simulated. See Remarks for more information.
+     * @param {Integer} iMethod The method number of the call that is being simulated. See Remarks for more information.
+     * @param {IUnknown} pUnk This parameter is reserved and must be <b>NULL</b>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL. If none of these failures occur, the return value of this function is the <b>HRESULT</b> value returned by the <i>pfnCallback</i> function.
+     * @see https://docs.microsoft.com/windows/win32/api//ctxtcall/nf-ctxtcall-icontextcallback-contextcallback
      */
     ContextCallback(pfnCallback, pParam, riid, iMethod, pUnk) {
         result := ComCall(3, this, "ptr", pfnCallback, "ptr", pParam, "ptr", riid, "int", iMethod, "ptr", pUnk, "HRESULT")

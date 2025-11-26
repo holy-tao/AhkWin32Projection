@@ -35,10 +35,10 @@ class IWMPMediaCollection extends IDispatch{
     static VTableNames => ["add", "getAll", "getByName", "getByGenre", "getByAuthor", "getByAlbum", "getByAttribute", "remove", "getAttributeStringCollection", "getMediaAtom", "setDeleted", "isDeleted"]
 
     /**
-     * 
-     * @param {BSTR} bstrURL 
-     * @returns {IWMPMedia} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-add
+     * The add method adds a new media item or playlist to the library.
+     * @param {BSTR} bstrURL String containing the URL that specifies the location of the media item or playlist.
+     * @returns {IWMPMedia} Pointer to a pointer to the <b>IWMPMedia</b> interface for the added item or playlist.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-add
      */
     add(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
@@ -48,9 +48,9 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getall
+     * The getAll method retrieves a pointer to an IWMPPlaylist interface. This interface corresponds to the playlist that contains all media items in the library.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the playlist that contains all of the requested media items.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getall
      */
     getAll() {
         result := ComCall(8, this, "ptr*", &ppMediaItems := 0, "HRESULT")
@@ -58,10 +58,10 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrName 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyname
+     * The getByName method retrieves a pointer to an IWMPPlaylist interface. This interface contains the media items with the specified name.
+     * @param {BSTR} bstrName String containing the specified name.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the retrieved media items.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getbyname
      */
     getByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -71,10 +71,10 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrGenre 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbygenre
+     * The getByGenre method retrieves a pointer to an IWMPPlaylist interface. This interface contains the media items with the specified genre.
+     * @param {BSTR} bstrGenre String containing the genre.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the retrieved media items.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getbygenre
      */
     getByGenre(bstrGenre) {
         bstrGenre := bstrGenre is String ? BSTR.Alloc(bstrGenre).Value : bstrGenre
@@ -84,10 +84,10 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAuthor 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyauthor
+     * The getByAuthor method retrieves a pointer to an IWMPPlaylist interface. This interface contains the media items for the specified author.
+     * @param {BSTR} bstrAuthor String containing the specified author.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the retrieved media items.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getbyauthor
      */
     getByAuthor(bstrAuthor) {
         bstrAuthor := bstrAuthor is String ? BSTR.Alloc(bstrAuthor).Value : bstrAuthor
@@ -97,10 +97,10 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAlbum 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyalbum
+     * The getByAlbum method retrieves a pointer to an IWMPPlaylist interface. This interface contains the media items from the specified album.
+     * @param {BSTR} bstrAlbum String containing the album.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the retrieved media items.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getbyalbum
      */
     getByAlbum(bstrAlbum) {
         bstrAlbum := bstrAlbum is String ? BSTR.Alloc(bstrAlbum).Value : bstrAlbum
@@ -110,11 +110,11 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAttribute 
-     * @param {BSTR} bstrValue 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyattribute
+     * The getByAttribute method retrieves a pointer to an IWMPPlaylist interface. This interface corresponds to the specified attribute having the specified value.
+     * @param {BSTR} bstrAttribute String containing the specified attribute.
+     * @param {BSTR} bstrValue String containing the specified value.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the retrieved media items.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getbyattribute
      */
     getByAttribute(bstrAttribute, bstrValue) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
@@ -125,11 +125,29 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
+     * The remove method removes a specified item from the media collection.
+     * @param {IWMPMedia} pItem Pointer to an <b>IWMPMedia</b> interface that identifies the item to remove.
+     * @param {VARIANT_BOOL} varfDeleteFile Specifies whether the method should remove the specified item.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pItem 
-     * @param {VARIANT_BOOL} varfDeleteFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-remove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-remove
      */
     remove(pItem, varfDeleteFile) {
         result := ComCall(14, this, "ptr", pItem, "short", varfDeleteFile, "HRESULT")
@@ -137,11 +155,11 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAttribute 
-     * @param {BSTR} bstrMediaType 
-     * @returns {IWMPStringCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getattributestringcollection
+     * The getAttributeStringCollection method retrieves a pointer to an IWMPStringCollection interface. This interface represents the set of all values for a given attribute within a given media type.
+     * @param {BSTR} bstrAttribute String containing the attribute for which the values are retrieved.
+     * @param {BSTR} bstrMediaType String containing the media type for which the values are retrieved.
+     * @returns {IWMPStringCollection} Pointer to a pointer to an <b>IWMPStringCollection</b> interface for the retrieved values.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getattributestringcollection
      */
     getAttributeStringCollection(bstrAttribute, bstrMediaType) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
@@ -152,11 +170,29 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
+     * The getMediaAtom method retrieves the index at which a given attribute resides within the set of available attributes.
+     * @param {BSTR} bstrItemName String containing the name of the item for which the index should be retrieved.
+     * @param {Pointer<Integer>} plAtom Pointer to a <b>long</b> containing the index.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrItemName 
-     * @param {Pointer<Integer>} plAtom 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getmediaatom
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-getmediaatom
      */
     getMediaAtom(bstrItemName, plAtom) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
@@ -168,11 +204,29 @@ class IWMPMediaCollection extends IDispatch{
     }
 
     /**
+     * The setDeleted method moves the specified media item to the deleted items folder.
+     * @param {IWMPMedia} pItem Pointer to an <b>IWMPMedia</b> interface for the item to be moved.
+     * @param {VARIANT_BOOL} varfIsDeleted Specifies whether the item should be moved. This value must always be true.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pItem 
-     * @param {VARIANT_BOOL} varfIsDeleted 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-setdeleted
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmediacollection-setdeleted
      */
     setDeleted(pItem, varfIsDeleted) {
         result := ComCall(17, this, "ptr", pItem, "short", varfIsDeleted, "HRESULT")

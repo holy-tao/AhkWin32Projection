@@ -36,9 +36,9 @@ class ITfReverseConversionList extends IUnknown{
     static VTableNames => ["GetLength", "GetString"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionlist-getlength
+     * Retrieves the number of keystroke sequences in the list.
+     * @returns {Integer} The number of keystroke sequences  in the list.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversionlist-getlength
      */
     GetLength() {
         result := ComCall(3, this, "uint*", &puIndex := 0, "HRESULT")
@@ -46,10 +46,10 @@ class ITfReverseConversionList extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} uIndex 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionlist-getstring
+     * Retrieves the keystroke sequence at the specified index.
+     * @param {Integer} uIndex The index of the keystroke sequence to retrieve.
+     * @returns {BSTR} The keystroke sequence at the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversionlist-getstring
      */
     GetString(uIndex) {
         pbstr := BSTR()

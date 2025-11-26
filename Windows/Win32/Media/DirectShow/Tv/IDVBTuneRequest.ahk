@@ -66,9 +66,9 @@ class IDVBTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_onid
+     * The get_ONID method retrieves the original network ID.
+     * @returns {Integer} Receives the original network ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtunerequest-get_onid
      */
     get_ONID() {
         result := ComCall(12, this, "int*", &ONID := 0, "HRESULT")
@@ -76,10 +76,10 @@ class IDVBTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} ONID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_onid
+     * The put_ONID method sets the original network ID.
+     * @param {Integer} ONID The original network ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtunerequest-put_onid
      */
     put_ONID(ONID) {
         result := ComCall(13, this, "int", ONID, "HRESULT")
@@ -87,9 +87,9 @@ class IDVBTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_tsid
+     * The get_TSID method retrieves the transport stream ID.
+     * @returns {Integer} Receives the transport stream ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtunerequest-get_tsid
      */
     get_TSID() {
         result := ComCall(14, this, "int*", &TSID := 0, "HRESULT")
@@ -97,10 +97,10 @@ class IDVBTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} TSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_tsid
+     * The put_TSID method sets the transport stream ID.
+     * @param {Integer} TSID The transport stream ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtunerequest-put_tsid
      */
     put_TSID(TSID) {
         result := ComCall(15, this, "int", TSID, "HRESULT")
@@ -108,9 +108,9 @@ class IDVBTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_sid
+     * The get_SID method retrieves the service ID for the network.
+     * @returns {Integer} Receives the service ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtunerequest-get_sid
      */
     get_SID() {
         result := ComCall(16, this, "int*", &SID := 0, "HRESULT")
@@ -118,10 +118,10 @@ class IDVBTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} SID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_sid
+     * The put_SID method sets the service ID.
+     * @param {Integer} SID The service ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtunerequest-put_sid
      */
     put_SID(SID) {
         result := ComCall(17, this, "int", SID, "HRESULT")

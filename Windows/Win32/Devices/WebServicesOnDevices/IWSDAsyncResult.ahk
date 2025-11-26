@@ -43,11 +43,45 @@ class IWSDAsyncResult extends IUnknown{
     static VTableNames => ["SetCallback", "SetWaitHandle", "HasCompleted", "GetAsyncState", "Abort", "GetEvent", "GetEndpointProxy"]
 
     /**
+     * Specifies a callback interface to call when the asynchronous operation has completed.
+     * @param {IWSDAsyncCallback} pCallback Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> object that contains the callback implemented by the user.
+     * @param {IUnknown} pAsyncState User-defined state information to pass to the callback.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IWSDAsyncCallback} pCallback 
-     * @param {IUnknown} pAsyncState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-setcallback
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pCallback</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-setcallback
      */
     SetCallback(pCallback, pAsyncState) {
         result := ComCall(3, this, "ptr", pCallback, "ptr", pAsyncState, "HRESULT")
@@ -55,10 +89,50 @@ class IWSDAsyncResult extends IUnknown{
     }
 
     /**
+     * Specifies a wait handle to set when the operation completes.
+     * @param {HANDLE} hWaitHandle The wait handle to set.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {HANDLE} hWaitHandle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-setwaithandle
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>hWaitHandle</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-setwaithandle
      */
     SetWaitHandle(hWaitHandle) {
         hWaitHandle := hWaitHandle is Win32Handle ? NumGet(hWaitHandle, "ptr") : hWaitHandle
@@ -68,9 +142,43 @@ class IWSDAsyncResult extends IUnknown{
     }
 
     /**
+     * Indicates whether the operation has completed.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-hascompleted
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation completed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation has not completed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-hascompleted
      */
     HasCompleted() {
         result := ComCall(5, this, "HRESULT")
@@ -78,9 +186,9 @@ class IWSDAsyncResult extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getasyncstate
+     * Gets the state of the asynchronous operation.
+     * @returns {IUnknown} User-defined state information.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-getasyncstate
      */
     GetAsyncState() {
         result := ComCall(6, this, "ptr*", &ppAsyncState := 0, "HRESULT")
@@ -88,9 +196,32 @@ class IWSDAsyncResult extends IUnknown{
     }
 
     /**
+     * Aborts the asynchronous operation.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-abort
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-abort
      */
     Abort() {
         result := ComCall(7, this, "HRESULT")
@@ -98,9 +229,9 @@ class IWSDAsyncResult extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {WSD_EVENT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getevent
+     * Retrieves a WSD_EVENT structure that contains the result of the event.
+     * @returns {WSD_EVENT} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_event">WSD_EVENT</a> structure that provides data about the event.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-getevent
      */
     GetEvent() {
         pEvent := WSD_EVENT()
@@ -109,9 +240,9 @@ class IWSDAsyncResult extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IWSDEndpointProxy} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getendpointproxy
+     * Retrieves the endpoint proxy for the asynchronous operation.
+     * @returns {IWSDEndpointProxy} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdendpointproxy">IWSDEndpointProxy</a> interface that implements an endpoint proxy.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasyncresult-getendpointproxy
      */
     GetEndpointProxy() {
         result := ComCall(9, this, "ptr*", &ppEndpoint := 0, "HRESULT")

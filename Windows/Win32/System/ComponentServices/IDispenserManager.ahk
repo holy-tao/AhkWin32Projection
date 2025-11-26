@@ -38,11 +38,11 @@ class IDispenserManager extends IUnknown{
     static VTableNames => ["RegisterDispenser", "GetContext"]
 
     /**
-     * 
-     * @param {IDispenserDriver} __MIDL__IDispenserManager0000 
-     * @param {PWSTR} szDispenserName 
-     * @returns {IHolder} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-registerdispenser
+     * Registers the resource dispenser with the dispenser manager.
+     * @param {IDispenserDriver} __MIDL__IDispenserManager0000 The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-idispenserdriver">IDispenserDriver</a> interface the Resource Dispenser offers to the Dispenser Manager to use later to notify the Resource Dispenser.
+     * @param {PWSTR} szDispenserName A friendly name of the Resource Dispenser for administrator display.
+     * @returns {IHolder} The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iholder">IHolder</a> interface that has been instantiated for the resource dispenser.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-idispensermanager-registerdispenser
      */
     RegisterDispenser(__MIDL__IDispenserManager0000, szDispenserName) {
         szDispenserName := szDispenserName is String ? StrPtr(szDispenserName) : szDispenserName
@@ -52,11 +52,11 @@ class IDispenserManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Pointer>} __MIDL__IDispenserManager0002 
-     * @param {Pointer<Pointer>} __MIDL__IDispenserManager0003 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-getcontext
+     * Determines the current context.
+     * @param {Pointer<Pointer>} __MIDL__IDispenserManager0002 An internal unique identifier of the current object, or 0 if no current object. This may not be interpreted as an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer to the current object.
+     * @param {Pointer<Pointer>} __MIDL__IDispenserManager0003 The transaction that the current object is running in, or 0 if none. This value may be cast to <b>ITransaction *</b>.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-idispensermanager-getcontext
      */
     GetContext(__MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003) {
         __MIDL__IDispenserManager0002Marshal := __MIDL__IDispenserManager0002 is VarRef ? "ptr*" : "ptr"

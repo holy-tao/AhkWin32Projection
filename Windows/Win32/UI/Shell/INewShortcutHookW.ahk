@@ -46,11 +46,13 @@ class INewShortcutHookW extends IUnknown{
     static VTableNames => ["SetReferent", "GetReferent", "SetFolder", "GetFolder", "GetName", "GetExtension"]
 
     /**
+     * Sets the referent of the shortcut object.
+     * @param {PWSTR} pcszReferent TBD
+     * @param {HWND} hwnd TBD
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {PWSTR} pcszReferent 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-setreferent
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-inewshortcuthookw-setreferent
      */
     SetReferent(pcszReferent, hwnd) {
         pcszReferent := pcszReferent is String ? StrPtr(pcszReferent) : pcszReferent

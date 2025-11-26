@@ -68,9 +68,9 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
-     * 
+     * Indicates if the fax has a cover page.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_hascoverpage
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_hascoverpage
      */
     get_HasCoverPage() {
         result := ComCall(26, this, "short*", &pbHasCoverPage := 0, "HRESULT")
@@ -78,9 +78,9 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
-     * 
+     * Specifies the type of delivery report that is sent following an attempted transmission.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receipttype
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receipttype
      */
     get_ReceiptType() {
         result := ComCall(27, this, "int*", &pReceiptType := 0, "HRESULT")
@@ -88,9 +88,29 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
+     * Specifies the address to which the delivery report is sent.
+     * @remarks
+     * 
+     * The type of address will vary according to the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage-receipttype-vb">IFaxOutgoingMessage2::ReceiptType</a> property as indicated in this table.
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage-receipttype-vb">IFaxOutgoingMessage2::ReceiptType</a> property</th>
+     * <th>Type of address</th>
+     * </tr>
+     * <tr>
+     * <td>frtMAIL</td>
+     * <td>An SMTP email address</td>
+     * </tr>
+     * <tr>
+     * <td>frtMSGBOX</td>
+     * <td>The computer name on which the delivery report message box will appear</td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receiptaddress
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receiptaddress
      */
     get_ReceiptAddress() {
         pbstrReceiptAddress := BSTR()
@@ -99,9 +119,16 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
+     * Indicates if the fax has been read.
+     * @remarks
+     * 
+     * Possible values are VARIANT_TRUE and VARIANT_FALSE.
+     * 
+     * A change to this value is not committed to the server until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage-save-vb">IFaxOutgoingMessage2::Save</a> is called.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_read
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_read
      */
     get_Read() {
         result := ComCall(29, this, "short*", &pbRead := 0, "HRESULT")
@@ -109,10 +136,17 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
+     * Indicates if the fax has been read.
+     * @remarks
+     * 
+     * Possible values are VARIANT_TRUE and VARIANT_FALSE.
+     * 
+     * A change to this value is not committed to the server until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage-save-vb">IFaxOutgoingMessage2::Save</a> is called.
+     * 
      * 
      * @param {VARIANT_BOOL} bRead 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-put_read
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-put_read
      */
     put_Read(bRead) {
         result := ComCall(30, this, "short", bRead, "HRESULT")
@@ -120,9 +154,11 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
+     * Saves the FaxOutgoingMessage object's data.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-save
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-save
      */
     Save() {
         result := ComCall(31, this, "HRESULT")
@@ -130,9 +166,11 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
+     * Refreshes FaxOutgoingMessage object information from the fax server. When the Refresh method is called, any configuration changes made after the last Save method call are lost.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-refresh
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage2-refresh
      */
     Refresh() {
         result := ComCall(32, this, "HRESULT")

@@ -34,9 +34,9 @@ class ITargetInfo extends IUnknown{
     static VTableNames => ["GetTargetMode", "SetTargetMode", "GetTemporaryStoreLocation", "SetTemporaryStoreLocation", "GetTargetID", "SetTargetID", "GetTargetProcessorArchitecture", "SetTargetProcessorArchitecture", "GetProperty", "SetProperty", "GetEnumerator", "ExpandTarget", "ExpandTargetPath", "SetModulePath", "LoadModule", "SetWow64Context", "TranslateWow64", "SetSchemaHiveLocation", "GetSchemaHiveLocation", "SetSchemaHiveMountName", "GetSchemaHiveMountName"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
+     * Gets the current target mode.
+     * @returns {Integer} The current target mode. The target mode identifies the way in which the redirections from the target are handled.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
      */
     GetTargetMode() {
         result := ComCall(3, this, "int*", &TargetMode := 0, "HRESULT")
@@ -44,10 +44,10 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} TargetMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settargetmode
+     * Sets the target mode.
+     * @param {Integer} TargetMode The target mode.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settargetmode
      */
     SetTargetMode(TargetMode) {
         result := ComCall(4, this, "int", TargetMode, "HRESULT")
@@ -55,9 +55,9 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
+     * Gets the current temporary store location.
+     * @returns {BSTR} The current temporary store location.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
      */
     GetTemporaryStoreLocation() {
         TemporaryStoreLocation := BSTR()
@@ -66,10 +66,50 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
+     * Sets the current temporary store location.
+     * @param {PWSTR} TemporaryStoreLocation The current temporary store location.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} TemporaryStoreLocation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settemporarystorelocation
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32 (ERROR_INVALID_OPERATION)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that the target processor architecture has already been set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that system resources are low.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settemporarystorelocation
      */
     SetTemporaryStoreLocation(TemporaryStoreLocation) {
         TemporaryStoreLocation := TemporaryStoreLocation is String ? StrPtr(TemporaryStoreLocation) : TemporaryStoreLocation
@@ -79,9 +119,9 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
+     * Gets the unique identifier associated with the current target.
+     * @returns {BSTR} The unique identifier associated with the current target.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
      */
     GetTargetID() {
         TargetID := BSTR()
@@ -90,10 +130,10 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} TargetID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settargetid
+     * Sets the unique identifier associated with current target.
+     * @param {Guid} TargetID The unique identifier associated with current target.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settargetid
      */
     SetTargetID(TargetID) {
         result := ComCall(8, this, "ptr", TargetID, "HRESULT")
@@ -101,9 +141,9 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
+     * Gets processor architecture associated with the current target.
+     * @returns {BSTR} The processor architecture associated with the current target.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
      */
     GetTargetProcessorArchitecture() {
         ProcessorArchitecture := BSTR()
@@ -112,10 +152,10 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} ProcessorArchitecture 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settargetprocessorarchitecture
+     * Sets the processor architecture associated with the current target.
+     * @param {PWSTR} ProcessorArchitecture The processor architecture associated with the current target.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success. Returns <b>HRESULT_FROM_WIN32</b> (<b>ERROR_INVALID_OPERATION</b>) if the target processor architecture has been set. May return <b>E_OUTOFMEMORY</b> if system resources are low.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settargetprocessorarchitecture
      */
     SetTargetProcessorArchitecture(ProcessorArchitecture) {
         ProcessorArchitecture := ProcessorArchitecture is String ? StrPtr(ProcessorArchitecture) : ProcessorArchitecture
@@ -125,11 +165,11 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} Offline 
-     * @param {PWSTR} Property 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getproperty
+     * Gets a property value for the offline installation location.
+     * @param {BOOL} Offline <b>True</b> if the installation location is offline.
+     * @param {PWSTR} Property The name of the property.
+     * @returns {BSTR} The value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getproperty
      */
     GetProperty(Offline, Property) {
         Property := Property is String ? StrPtr(Property) : Property
@@ -140,12 +180,12 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} Offline 
-     * @param {PWSTR} Property 
-     * @param {PWSTR} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setproperty
+     * Sets a property value for the offline installation location.
+     * @param {BOOL} Offline <b>True</b> if installation location is offline.
+     * @param {PWSTR} Property The name of the property.
+     * @param {PWSTR} Value The value of the property.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setproperty
      */
     SetProperty(Offline, Property, Value) {
         Property := Property is String ? StrPtr(Property) : Property
@@ -156,9 +196,9 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IItemEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
+     * Gets the enumerator used to access the collection of offline properties.
+     * @returns {IItemEnumerator} A pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> object that provides access to  the collection of offline properties.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
      */
     GetEnumerator() {
         result := ComCall(13, this, "ptr*", &Enumerator := 0, "HRESULT")
@@ -166,11 +206,11 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} Offline 
-     * @param {PWSTR} Location 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
+     * Expands a location string to indicate the offline installation location.
+     * @param {BOOL} Offline <b>True</b> if the installation location is offline.
+     * @param {PWSTR} Location The location string.
+     * @returns {BSTR} The expanded location string.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
      */
     ExpandTarget(Offline, Location) {
         Location := Location is String ? StrPtr(Location) : Location
@@ -181,11 +221,11 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} Offline 
-     * @param {PWSTR} Location 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
+     * Expands a location string to indicate the offline installation location.
+     * @param {BOOL} Offline <b>True</b> if the installation location is offline.
+     * @param {PWSTR} Location The location string.
+     * @returns {BSTR} The expanded location target path.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
      */
     ExpandTargetPath(Offline, Location) {
         Location := Location is String ? StrPtr(Location) : Location
@@ -196,11 +236,11 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} Module 
-     * @param {PWSTR} Path 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setmodulepath
+     * Sets the module path for the offline installation location.
+     * @param {PWSTR} Module The name of the module.
+     * @param {PWSTR} Path The module path.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setmodulepath
      */
     SetModulePath(Module, Path) {
         Module := Module is String ? StrPtr(Module) : Module
@@ -211,10 +251,10 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * Loads and executes an application or creates a new instance of an existing application.
-     * @param {PWSTR} Module 
-     * @returns {HMODULE} 
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-loadmodule
+     * Loads the module from the offline installation location.
+     * @param {PWSTR} Module The name of the module.
+     * @returns {HMODULE} The module handle.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-loadmodule
      */
     LoadModule(Module) {
         Module := Module is String ? StrPtr(Module) : Module
@@ -225,11 +265,11 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} InstallerModule 
-     * @param {Pointer<Integer>} Wow64Context 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setwow64context
+     * Sets an opaque context object for wow64 redirection.
+     * @param {PWSTR} InstallerModule The name of the installer module.
+     * @param {Pointer<Integer>} Wow64Context The opaque context object for wow64 redirection.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setwow64context
      */
     SetWow64Context(InstallerModule, Wow64Context) {
         InstallerModule := InstallerModule is String ? StrPtr(InstallerModule) : InstallerModule
@@ -241,11 +281,11 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} ClientArchitecture 
-     * @param {PWSTR} Value 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-translatewow64
+     * Translates paths for wow64 redirection.
+     * @param {PWSTR} ClientArchitecture The name of the client architecture.
+     * @param {PWSTR} Value The original path value.
+     * @returns {BSTR} The translated path value.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-translatewow64
      */
     TranslateWow64(ClientArchitecture, Value) {
         ClientArchitecture := ClientArchitecture is String ? StrPtr(ClientArchitecture) : ClientArchitecture
@@ -257,10 +297,50 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
+     * Sets the location of the schema hive.
+     * @param {PWSTR} pwzHiveDir A pointer to the location of the schema hive.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pwzHiveDir 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setschemahivelocation
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b> E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that the system is low on resources.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that the location <i>pwzHiveDir</i> is not a directory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setschemahivelocation
      */
     SetSchemaHiveLocation(pwzHiveDir) {
         pwzHiveDir := pwzHiveDir is String ? StrPtr(pwzHiveDir) : pwzHiveDir
@@ -270,9 +350,9 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
+     * Get the location of the schema hive.
+     * @returns {BSTR} A pointer to the schema hive location.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
      */
     GetSchemaHiveLocation() {
         pHiveLocation := BSTR()
@@ -281,10 +361,10 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwzMountName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setschemahivemountname
+     * Sets the name of the mount location of the schema hive.
+     * @param {PWSTR} pwzMountName The mount location of the schema hive.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success. May return <b>E_OUTOFMEMORY</b> if the system is low on resources.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setschemahivemountname
      */
     SetSchemaHiveMountName(pwzMountName) {
         pwzMountName := pwzMountName is String ? StrPtr(pwzMountName) : pwzMountName
@@ -294,9 +374,9 @@ class ITargetInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
+     * Gets the name of the mount location of the schema hive.
+     * @returns {BSTR} The name of the mount location of the schema hive. The value of <i>pMountName</i> is <b>NULL</b>  on return if the default name is to be used.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
      */
     GetSchemaHiveMountName() {
         pMountName := BSTR()

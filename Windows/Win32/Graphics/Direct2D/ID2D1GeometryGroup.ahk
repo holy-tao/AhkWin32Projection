@@ -42,9 +42,11 @@ class ID2D1GeometryGroup extends ID2D1Geometry{
     static VTableNames => ["GetFillMode", "GetSourceGeometryCount", "GetSourceGeometries"]
 
     /**
+     * Indicates how the intersecting areas of the geometries contained in this geometry group are combined.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrygroup-getfillmode
+     *  A value that indicates how the intersecting areas of the geometries contained in this geometry group are combined.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1geometrygroup-getfillmode
      */
     GetFillMode() {
         result := ComCall(17, this, "int")
@@ -52,9 +54,11 @@ class ID2D1GeometryGroup extends ID2D1Geometry{
     }
 
     /**
+     * Indicates the number of geometry objects in the geometry group.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrygroup-getsourcegeometrycount
+     * The number of geometries in the <a href="/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup">ID2D1GeometryGroup</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1geometrygroup-getsourcegeometrycount
      */
     GetSourceGeometryCount() {
         result := ComCall(18, this, "uint")
@@ -62,11 +66,20 @@ class ID2D1GeometryGroup extends ID2D1Geometry{
     }
 
     /**
+     * Retrieves the geometries in the geometry group.
+     * @remarks
      * 
-     * @param {Pointer<ID2D1Geometry>} geometries 
-     * @param {Integer} geometriesCount 
+     * The returned geometries are referenced and  counted, and the caller must release them.
+     * 
+     * 
+     * @param {Pointer<ID2D1Geometry>} geometries Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to an array of geometries to be filled by this method. The length of the array is specified by the <i>geometryCount</i> parameter. If the array is <b>NULL</b>, then this method performs no operation. You must allocate the memory for this array.
+     * @param {Integer} geometriesCount Type: <b>UINT</b>
+     * 
+     * A value indicating the number of geometries to return in the <i>geometries</i> array. If this value is less than the number of geometries in the geometry group, the remaining geometries are omitted. If this value is larger than the number of geometries in the geometry group, the extra geometries are set to <b>NULL</b>. To obtain the number of geometries currently in the geometry group, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrygroup-getsourcegeometrycount">GetSourceGeometryCount</a> method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrygroup-getsourcegeometries
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1geometrygroup-getsourcegeometries
      */
     GetSourceGeometries(geometries, geometriesCount) {
         ComCall(19, this, "ptr*", geometries, "uint", geometriesCount)

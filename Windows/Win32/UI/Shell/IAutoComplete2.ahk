@@ -41,10 +41,14 @@ class IAutoComplete2 extends IAutoComplete{
     static VTableNames => ["SetOptions", "GetOptions"]
 
     /**
+     * Sets the current autocomplete options.
+     * @param {Integer} dwFlag Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwFlag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete2-setoptions
+     * One or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/ne-shldisp-autocompleteoptions">AUTOCOMPLETEOPTIONS</a> enumeration that specify autocomplete options.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-iautocomplete2-setoptions
      */
     SetOptions(dwFlag) {
         result := ComCall(5, this, "uint", dwFlag, "HRESULT")
@@ -52,9 +56,11 @@ class IAutoComplete2 extends IAutoComplete{
     }
 
     /**
+     * Gets the current autocomplete options.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete2-getoptions
+     * One or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/ne-shldisp-autocompleteoptions">AUTOCOMPLETEOPTIONS</a> enumeration that indicate the options that are currently set.
+     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-iautocomplete2-getoptions
      */
     GetOptions() {
         result := ComCall(6, this, "uint*", &pdwFlag := 0, "HRESULT")

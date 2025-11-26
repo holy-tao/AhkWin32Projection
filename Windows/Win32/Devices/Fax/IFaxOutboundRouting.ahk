@@ -43,9 +43,11 @@ class IFaxOutboundRouting extends IDispatch{
     static VTableNames => ["GetGroups", "GetRules"]
 
     /**
+     * The IFaxOutboundRouting::GetGroups method retrieves an interface that represents a collection of outbound routing groups.
+     * @returns {IFaxOutboundRoutingGroups} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroups">IFaxOutboundRoutingGroups</a>**</b>
      * 
-     * @returns {IFaxOutboundRoutingGroups} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundrouting-getgroups
+     * An address of a pointer that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroups">IFaxOutboundRoutingGroups</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundrouting-getgroups
      */
     GetGroups() {
         result := ComCall(7, this, "ptr*", &pFaxOutboundRoutingGroups := 0, "HRESULT")
@@ -53,9 +55,11 @@ class IFaxOutboundRouting extends IDispatch{
     }
 
     /**
+     * The IFaxOutboundRouting::GetRules method retrieves an interface that represents a collection of outbound routing groups.
+     * @returns {IFaxOutboundRoutingRules} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrules">IFaxOutboundRoutingRules</a>**</b>
      * 
-     * @returns {IFaxOutboundRoutingRules} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundrouting-getrules
+     * An address of a pointer that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrules">IFaxOutboundRoutingRules</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundrouting-getrules
      */
     GetRules() {
         result := ComCall(8, this, "ptr*", &pFaxOutboundRoutingRules := 0, "HRESULT")

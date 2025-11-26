@@ -36,10 +36,14 @@ class IPreviewHandlerVisuals extends IUnknown{
     static VTableNames => ["SetBackgroundColor", "SetFont", "SetTextColor"]
 
     /**
+     * Sets the background color of the preview handler.
+     * @param {COLORREF} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
-     * @param {COLORREF} color 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setbackgroundcolor
+     * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> to use for the preview handler background.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setbackgroundcolor
      */
     SetBackgroundColor(color) {
         result := ComCall(3, this, "uint", color, "HRESULT")
@@ -47,10 +51,14 @@ class IPreviewHandlerVisuals extends IUnknown{
     }
 
     /**
+     * Sets the font attributes to be used for text within the preview handler.
+     * @param {Pointer<LOGFONTW>} plf Type: <b>const LOGFONTW*</b>
      * 
-     * @param {Pointer<LOGFONTW>} plf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setfont
+     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa741231(v=vs.85)">LOGFONTW Structure</a> containing the necessary attributes for the font to use.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-setfont
      */
     SetFont(plf) {
         result := ComCall(4, this, "ptr", plf, "HRESULT")
@@ -58,12 +66,14 @@ class IPreviewHandlerVisuals extends IUnknown{
     }
 
     /**
-     * The SetTextColor function sets the text color for the specified device context to the specified color.
-     * @param {COLORREF} color The color of the text.
-     * @returns {HRESULT} If the function succeeds, the return value is a color reference for the previous text color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * Sets the color of the text within the preview handler.
+     * @param {COLORREF} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
-     * If the function fails, the return value is CLR_INVALID.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextcolor
+     * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> to use for the preview handler text color.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandlervisuals-settextcolor
      */
     SetTextColor(color) {
         result := ComCall(5, this, "uint", color, "HRESULT")

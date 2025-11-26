@@ -31,9 +31,9 @@ class IOplockBreakingHandler extends IUnknown{
     static VTableNames => ["OplockBreaking"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-ioplockbreakinghandler-oplockbreaking
+     * This method is not currently implemented.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-ioplockbreakinghandler-oplockbreaking
      */
     OplockBreaking() {
         result := ComCall(3, this, "HRESULT")

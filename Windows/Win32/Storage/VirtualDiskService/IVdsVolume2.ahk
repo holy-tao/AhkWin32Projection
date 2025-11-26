@@ -32,9 +32,12 @@ class IVdsVolume2 extends IUnknown{
     static VTableNames => ["GetProperties2"]
 
     /**
-     * 
-     * @returns {VDS_VOLUME_PROP2} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume2-getproperties2
+     * Returns property information for the current volume. This method is identical to the IVdsVolume::GetProperties method, except that it returns a VDS_VOLUME_PROP2 structure instead of a VDS_VOLUME_PROP structure.
+     * @returns {VDS_VOLUME_PROP2} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP2</a> structure 
+     *       allocated and passed in by the caller. VDS allocates memory for the <b>pwszName</b> member 
+     *       string. Callers must free the string by using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvolume2-getproperties2
      */
     GetProperties2() {
         pVolumeProperties := VDS_VOLUME_PROP2()

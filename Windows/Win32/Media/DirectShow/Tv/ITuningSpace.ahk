@@ -112,9 +112,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_uniquename
+     * The get_UniqueName method retrieves the unique name of the tuning space.
+     * @returns {BSTR} Pointer to a variable that receives the unique name.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_uniquename
      */
     get_UniqueName() {
         Name := BSTR()
@@ -123,10 +123,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} Name 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put_uniquename
+     * The put_UniqueName method sets a unique name for the tuning space.
+     * @param {BSTR} Name Variable of type <b>BSTR</b> that specifies the unique name.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put_uniquename
      */
     put_UniqueName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -136,9 +136,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_friendlyname
+     * The get_FriendlyName method retrieves the localized, user-friendly name of the tuning space.
+     * @returns {BSTR} Pointer to a variable receives the user-friendly name.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_friendlyname
      */
     get_FriendlyName() {
         Name := BSTR()
@@ -147,10 +147,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} Name 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put_friendlyname
+     * The put_FriendlyName method sets the localized, user-friendly name of the tuning space.
+     * @param {BSTR} Name Specifies the user-friendly name.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put_friendlyname
      */
     put_FriendlyName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -160,9 +160,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_clsid
+     * The get_CLSID method gets the CLSID of the tuning space as a BSTR.
+     * @returns {BSTR} Pointer to a variable that receives a string representation of the tuning space CLSID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_clsid
      */
     get_CLSID() {
         SpaceCLSID := BSTR()
@@ -171,9 +171,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_networktype
+     * The get_NetworkType method retrieves the network type of the tuning space as a BSTR.
+     * @returns {BSTR} Pointer to a variable that receives a string containing the network type GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_networktype
      */
     get_NetworkType() {
         NetworkTypeGuid := BSTR()
@@ -182,10 +182,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} NetworkTypeGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put_networktype
+     * The put_NetworkType method specifies the network type of the tuning space as a BSTR.
+     * @param {BSTR} NetworkTypeGuid Contains the string representation of the network type GUID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put_networktype
      */
     put_NetworkType(NetworkTypeGuid) {
         NetworkTypeGuid := NetworkTypeGuid is String ? BSTR.Alloc(NetworkTypeGuid).Value : NetworkTypeGuid
@@ -195,9 +195,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get__networktype
+     * The get_NetworkType method retrieves the network type for this tuning space.
+     * @returns {Guid} Pointer to a variable that receives the network type GUID. This GUID corresponds to the CLSID of the Network Provider for the tuning space. For some tuning spaces, the network type is GUID_NULL, which means the tuning space does not use a Network Provider filter.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get__networktype
      */
     get__NetworkType() {
         NetworkTypeGuid := Guid()
@@ -206,10 +206,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} NetworkTypeGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put__networktype
+     * The put_NetworkType method specifies the network type of the tuning space.
+     * @param {Pointer<Guid>} NetworkTypeGuid Specifies the network type GUID. This GUID corresponds to the CLSID of the Network Provider for the tuning space. The value GUID_NULL means the tuning space does not use a Network Provider filter.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put__networktype
      */
     put__NetworkType(NetworkTypeGuid) {
         result := ComCall(15, this, "ptr", NetworkTypeGuid, "HRESULT")
@@ -217,9 +217,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITuneRequest} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-createtunerequest
+     * The CreateTuneRequest method creates an empty (uninitialized) tune request.
+     * @returns {ITuneRequest} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the new tune request object. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-createtunerequest
      */
     CreateTuneRequest() {
         result := ComCall(16, this, "ptr*", &TuneRequest := 0, "HRESULT")
@@ -227,9 +227,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumGUID} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-enumcategoryguids
+     * Currently not implemented.
+     * @returns {IEnumGUID} Address of an <b>IEnumGUID</b> interface pointer that receives the returned enumeration object.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-enumcategoryguids
      */
     EnumCategoryGUIDs() {
         result := ComCall(17, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -237,9 +237,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-enumdevicemonikers
+     * The EnumDeviceMonikers method creates an enumerator of device monikers representing the tuner filters that support this tuning space.
+     * @returns {IEnumMoniker} Address of an <b>IEnumMoniker</b> interface pointer that receives the returned enumeration object.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-enumdevicemonikers
      */
     EnumDeviceMonikers() {
         result := ComCall(18, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -247,9 +247,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IComponentTypes} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_defaultpreferredcomponenttypes
+     * The get_DefaultPreferredComponentTypes method returns an list of the default preferred component types for this tuning space.
+     * @returns {IComponentTypes} Address of a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface pointer. Use this interface to enumerate the component types. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_defaultpreferredcomponenttypes
      */
     get_DefaultPreferredComponentTypes() {
         result := ComCall(19, this, "ptr*", &ComponentTypes := 0, "HRESULT")
@@ -257,10 +257,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IComponentTypes} NewComponentTypes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put_defaultpreferredcomponenttypes
+     * The put_DefaultPreferredComponentTypes method specifies the default preferred component types for this tuning space.
+     * @param {IComponentTypes} NewComponentTypes Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface of the component types collection.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put_defaultpreferredcomponenttypes
      */
     put_DefaultPreferredComponentTypes(NewComponentTypes) {
         result := ComCall(20, this, "ptr", NewComponentTypes, "HRESULT")
@@ -268,9 +268,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_frequencymapping
+     * The get_FrequencyMapping method retrieves the frequency mapping previously created by the network provider by a call to put_FrequencyMapping.
+     * @returns {BSTR} Pointer to a variable that receives the frequency mappings created by the Network Provider filter.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_frequencymapping
      */
     get_FrequencyMapping() {
         pMapping := BSTR()
@@ -279,10 +279,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} Mapping 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put_frequencymapping
+     * The put_FrequencyMapping method creates a frequency/channel map, frequency/transponder map, or whatever other mapping from carrier frequencies to frequency identifiers is appropriate for the tuning space.
+     * @param {BSTR} Mapping <b>BSTR</b> that contains the frequency mappings.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put_frequencymapping
      */
     put_FrequencyMapping(Mapping) {
         Mapping := Mapping is String ? BSTR.Alloc(Mapping).Value : Mapping
@@ -292,9 +292,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ILocator} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_defaultlocator
+     * The get_DefaultLocator method retrieves the default locator for this tuning space.
+     * @returns {ILocator} Address of a variable that receives a pointer to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ilocator">ILocator</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-get_defaultlocator
      */
     get_DefaultLocator() {
         result := ComCall(23, this, "ptr*", &LocatorVal := 0, "HRESULT")
@@ -302,10 +302,10 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @param {ILocator} LocatorVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-put_defaultlocator
+     * The put_DefaultLocator method sets the default locator for this tuning space.
+     * @param {ILocator} LocatorVal Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ilocator">ILocator</a> interface of the locator object.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-put_defaultlocator
      */
     put_DefaultLocator(LocatorVal) {
         result := ComCall(24, this, "ptr", LocatorVal, "HRESULT")
@@ -313,9 +313,9 @@ class ITuningSpace extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITuningSpace} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-clone
+     * The Clone method creates a new copy of the tuning space.
+     * @returns {ITuningSpace} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface of the new tuning space object. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspace-clone
      */
     Clone() {
         result := ComCall(25, this, "ptr*", &NewTS := 0, "HRESULT")

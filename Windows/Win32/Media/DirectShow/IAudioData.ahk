@@ -32,9 +32,9 @@ class IAudioData extends IMemoryData{
     static VTableNames => ["GetFormat", "SetFormat"]
 
     /**
-     * 
-     * @returns {WAVEFORMATEX} 
-     * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiodata-getformat
+     * Note  This interface is deprecated. New applications should not use it. The GetFormat method retrieves the current data format.
+     * @returns {WAVEFORMATEX} Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that contains the current data format.
+     * @see https://docs.microsoft.com/windows/win32/api//austream/nf-austream-iaudiodata-getformat
      */
     GetFormat() {
         pWaveFormatCurrent := WAVEFORMATEX()
@@ -43,10 +43,50 @@ class IAudioData extends IMemoryData{
     }
 
     /**
+     * Note  This interface is deprecated. New applications should not use it. The SetFormat method sets the current data format.
+     * @param {Pointer<WAVEFORMATEX>} lpWaveFormat Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that will contain the current data format.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value, which can include the following values.
      * 
-     * @param {Pointer<WAVEFORMATEX>} lpWaveFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiodata-setformat
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid format.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//austream/nf-austream-iaudiodata-setformat
      */
     SetFormat(lpWaveFormat) {
         result := ComCall(7, this, "ptr", lpWaveFormat, "HRESULT")

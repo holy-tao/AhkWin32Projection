@@ -32,9 +32,9 @@ class IProvideClassInfo extends IUnknown{
     static VTableNames => ["GetClassInfo"]
 
     /**
-     * 
-     * @returns {ITypeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovideclassinfo-getclassinfo
+     * Retrieves a pointer to the ITypeInfo interface for the object's type information. The type information for an object corresponds to the object's coclass entry in a type library.
+     * @returns {ITypeInfo} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a> pointer variable that receives the interface pointer to the object's type information. The caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the returned interface pointer if this method returns successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iprovideclassinfo-getclassinfo
      */
     GetClassInfo() {
         result := ComCall(3, this, "ptr*", &ppTI := 0, "HRESULT")

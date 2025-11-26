@@ -32,9 +32,11 @@ class IDXGIOutput6 extends IDXGIOutput5{
     static VTableNames => ["GetDesc1", "CheckHardwareCompositionSupport"]
 
     /**
+     * Get an extended description of the output that includes color characteristics and connection type.
+     * @returns {DXGI_OUTPUT_DESC1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/ns-dxgi1_6-dxgi_output_desc1">DXGI_OUTPUT_DESC1</a>*</b>
      * 
-     * @returns {DXGI_OUTPUT_DESC1} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-getdesc1
+     * A pointer to the output description (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/ns-dxgi1_6-dxgi_output_desc1">DXGI_OUTPUT_DESC1</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nf-dxgi1_6-idxgioutput6-getdesc1
      */
     GetDesc1() {
         pDesc := DXGI_OUTPUT_DESC1()
@@ -43,9 +45,11 @@ class IDXGIOutput6 extends IDXGIOutput5{
     }
 
     /**
+     * Notifies applications that hardware stretching is supported.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-checkhardwarecompositionsupport
+     * A bitfield of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/ne-dxgi1_6-dxgi_hardware_composition_support_flags">DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS</a> enumeration values describing which types of hardware composition are supported. The values are bitwise OR'd together.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nf-dxgi1_6-idxgioutput6-checkhardwarecompositionsupport
      */
     CheckHardwareCompositionSupport() {
         result := ComCall(28, this, "uint*", &pFlags := 0, "HRESULT")

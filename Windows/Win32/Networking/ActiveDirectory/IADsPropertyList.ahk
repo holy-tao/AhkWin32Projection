@@ -49,9 +49,9 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-next
+     * The IADsPropertyList::Next method gets the next item in the property list. The returned item is a Property Entry object.
+     * @returns {VARIANT} Address of a caller-allocated variable that contains the value of the next item in the property list. The return value of <b>VT_DISPATCH</b> refers to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer to an object implementing the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyentry">IADsPropertyEntry</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-next
      */
     Next() {
         pVariant := VARIANT()
@@ -60,10 +60,10 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} cElements 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-skip
+     * Skips a specified number of items, counting from the current cursor position, in the property list.
+     * @param {Integer} cElements Number of elements to be skipped.
+     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-skip
      */
     Skip(cElements) {
         result := ComCall(9, this, "int", cElements, "int")
@@ -71,9 +71,9 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-reset
+     * Resets the list to the first item.
+     * @returns {HRESULT} This method supports the standard <b>HRESULT</b> values, including <b>S_OK</b>. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-reset
      */
     Reset() {
         result := ComCall(10, this, "HRESULT")
@@ -81,10 +81,10 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} varIndex 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-item
+     * The IADsPropertyList::Item method retrieves the specified property item from the list.
+     * @param {VARIANT} varIndex The <b>VARIANT</b> that contains the index or name of the property to be retrieved.
+     * @returns {VARIANT} Address of a caller-allocated <b>VARIANT</b> variable. On return, the <b>VARIANT</b> contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> pointer to the object which implements the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyentry">IADsPropertyEntry</a> interface for the attribute retrieved.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-item
      */
     Item(varIndex) {
         pVariant := VARIANT()
@@ -93,11 +93,13 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
+     * Retrieves the item that matches the name from the list.
+     * @param {BSTR} bstrName Contains the name of the requested property.
+     * @param {Integer} lnADsType Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration values that determines the data type to be used in interpreting the requested property. If the type is unknown, this parameter can be set to <b>ADSTYPE_UNKNOWN</b>. For schemaless servers, the user must specify the type.
+     * @returns {VARIANT} Address of a caller-allocated <b>VARIANT</b> variable. On return, the <b>VARIANT</b> contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer of the object which implements the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyentry">IADsPropertyEntry</a> interface for the retrieved attribute.
      * 
-     * @param {BSTR} bstrName 
-     * @param {Integer} lnADsType 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-getpropertyitem
+     * Any memory allocated for this parameter must be released with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> function when the data is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-getpropertyitem
      */
     GetPropertyItem(bstrName, lnADsType) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -108,10 +110,10 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} varData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-putpropertyitem
+     * Updates the values for an item in the property list.
+     * @param {VARIANT} varData New property values to be put in the property cache. This should contain the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> pointer to the object which implements the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadspropertyentry">IADsPropertyEntry</a> that contain the modified property values.
+     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-putpropertyitem
      */
     PutPropertyItem(varData) {
         result := ComCall(13, this, "ptr", varData, "HRESULT")
@@ -119,10 +121,10 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} varEntry 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-resetpropertyitem
+     * Removes the specified item from the list; that is, from the cache.
+     * @param {VARIANT} varEntry Entry to be reset.
+     * @returns {HRESULT} This method supports the standard <b>HRESULT</b> return values, including <b>S_OK</b>. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-resetpropertyitem
      */
     ResetPropertyItem(varEntry) {
         result := ComCall(14, this, "ptr", varEntry, "HRESULT")
@@ -130,9 +132,9 @@ class IADsPropertyList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-purgepropertylist
+     * Deletes all items from the property list.
+     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertylist-purgepropertylist
      */
     PurgePropertyList() {
         result := ComCall(15, this, "HRESULT")

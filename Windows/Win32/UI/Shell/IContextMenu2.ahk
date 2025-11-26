@@ -58,12 +58,20 @@ class IContextMenu2 extends IContextMenu{
     static VTableNames => ["HandleMenuMsg"]
 
     /**
+     * Enables client objects of the IContextMenu interface to handle messages associated with owner-drawn menu items.
+     * @param {Integer} uMsg Type: <b>UINT</b>
      * 
-     * @param {Integer} uMsg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu2-handlemenumsg
+     * The message to be processed. In the case of some messages, such as WM_INITMENUPOPUP, WM_DRAWITEM, WM_MENUCHAR, or WM_MEASUREITEM, the client object being called may provide owner-drawn menu items.
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenu2-handlemenumsg
      */
     HandleMenuMsg(uMsg, wParam, lParam) {
         result := ComCall(6, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")

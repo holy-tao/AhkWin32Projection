@@ -53,9 +53,9 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Receives or sets a value that enables a WDS client to configure diagnostic logging on the server.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_enabled
      */
     get_Enabled() {
         result := ComCall(11, this, "short*", &pbEnabled := 0, "HRESULT")
@@ -63,10 +63,10 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Receives or sets a value that enables a WDS client to configure diagnostic logging on the server.
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_enabled
      */
     put_Enabled(bEnabled) {
         result := ComCall(12, this, "short", bEnabled, "HRESULT")
@@ -74,9 +74,9 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Enables a WDS client to configure which WDS transport components have event logging.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_components
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_components
      */
     get_Components() {
         result := ComCall(13, this, "uint*", &pulComponents := 0, "HRESULT")
@@ -84,10 +84,10 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Enables a WDS client to configure which WDS transport components have event logging.
      * @param {Integer} ulComponents 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_components
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_components
      */
     put_Components(ulComponents) {
         result := ComCall(14, this, "uint", ulComponents, "HRESULT")

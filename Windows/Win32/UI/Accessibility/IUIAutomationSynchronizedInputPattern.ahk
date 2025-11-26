@@ -31,10 +31,12 @@ class IUIAutomationSynchronizedInputPattern extends IUnknown{
     static VTableNames => ["StartListening", "Cancel"]
 
     /**
-     * 
+     * Causes the Microsoft UI Automation provider to start listening for mouse or keyboard input.
      * @param {Integer} inputType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationsynchronizedinputpattern-startlistening
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationsynchronizedinputpattern-startlistening
      */
     StartListening(inputType) {
         result := ComCall(3, this, "int", inputType, "HRESULT")
@@ -42,9 +44,11 @@ class IUIAutomationSynchronizedInputPattern extends IUnknown{
     }
 
     /**
+     * Causes the Microsoft UI Automation provider to stop listening for mouse or keyboard input.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationsynchronizedinputpattern-cancel
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationsynchronizedinputpattern-cancel
      */
     Cancel() {
         result := ComCall(4, this, "HRESULT")

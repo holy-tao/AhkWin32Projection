@@ -100,10 +100,14 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
+     * Selects the element.
+     * @param {Integer} flagsSelect Type: <b>long</b>
      * 
-     * @param {Integer} flagsSelect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-select
+     * Specifies which selection or focus operations are to be performed. This parameter must have a combination of the values described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/selflag">SELFLAG Constants</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-select
      */
     Select(flagsSelect) {
         result := ComCall(3, this, "int", flagsSelect, "HRESULT")
@@ -111,9 +115,11 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
+     * Performs the default action on the control.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-dodefaultaction
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-dodefaultaction
      */
     DoDefaultAction() {
         result := ComCall(4, this, "HRESULT")
@@ -121,10 +127,14 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
+     * Sets the string value of the control.
+     * @param {PWSTR} szValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} szValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-setvalue
+     * A localized string that contains the value.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-setvalue
      */
     SetValue(szValue) {
         szValue := szValue is String ? StrPtr(szValue) : szValue
@@ -134,9 +144,11 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
+     * Retrieves an accessible object that corresponds to a UI Automation element that supports the LegacyIAccessible control pattern.
+     * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
-     * @returns {IAccessible} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getiaccessible
+     * Receives a pointer to the accessible object.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getiaccessible
      */
     GetIAccessible() {
         result := ComCall(6, this, "ptr*", &ppAccessible := 0, "HRESULT")
@@ -144,9 +156,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the child identifier of this element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_childid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_childid
      */
     get_ChildId() {
         result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
@@ -154,9 +166,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the name of this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_name
      */
     get_Name() {
         pszName := BSTR()
@@ -165,9 +177,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the value of this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_value
      */
     get_Value() {
         pszValue := BSTR()
@@ -176,9 +188,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Contains the description of this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_description
      */
     get_Description() {
         pszDescription := BSTR()
@@ -187,9 +199,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the role identifier of this element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_role
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_role
      */
     get_Role() {
         result := ComCall(11, this, "uint*", &pdwRole := 0, "HRESULT")
@@ -197,9 +209,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the state of this element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_state
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_state
      */
     get_State() {
         result := ComCall(12, this, "uint*", &pdwState := 0, "HRESULT")
@@ -207,9 +219,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies a string that contains help information for this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_help
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_help
      */
     get_Help() {
         pszHelp := BSTR()
@@ -218,9 +230,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the keyboard shortcut for this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_keyboardshortcut
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_keyboardshortcut
      */
     get_KeyboardShortcut() {
         pszKeyboardShortcut := BSTR()
@@ -229,9 +241,11 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
+     * Retrieves the selected item or items in the control.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getselection
+     * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> containing the selected items.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getselection
      */
     GetSelection() {
         result := ComCall(15, this, "ptr*", &pvarSelectedChildren := 0, "HRESULT")
@@ -239,9 +253,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Contains a description of the default action for this element.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_defaultaction
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_defaultaction
      */
     get_DefaultAction() {
         pszDefaultAction := BSTR()

@@ -32,9 +32,9 @@ class IMILBitmapEffectInteriorOutputConnector extends IUnknown{
     static VTableNames => ["GetOutputConnector"]
 
     /**
-     * 
-     * @returns {IMILBitmapEffectOutputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinterioroutputconnector-getoutputconnector
+     * Gets the IMILBitmapEffectOutputConnector associated with the interior output connector.
+     * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectinterioroutputconnector-getoutputconnector
      */
     GetOutputConnector() {
         result := ComCall(3, this, "ptr*", &pOutputConnector := 0, "HRESULT")

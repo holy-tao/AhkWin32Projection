@@ -39,10 +39,10 @@ class IStorageProviderHandler extends IUnknown{
     static VTableNames => ["GetPropertyHandlerFromPath", "GetPropertyHandlerFromUri", "GetPropertyHandlerFromFileId"]
 
     /**
-     * 
-     * @param {PWSTR} path 
-     * @returns {IStorageProviderPropertyHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
+     * Gets an instance of IStorageProviderPropertyHandler associated with the provided path.
+     * @param {PWSTR} path The path for the relevant file.
+     * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>path</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
      */
     GetPropertyHandlerFromPath(path) {
         path := path is String ? StrPtr(path) : path
@@ -52,10 +52,10 @@ class IStorageProviderHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} uri 
-     * @returns {IStorageProviderPropertyHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromuri
+     * Gets an instance of IStorageProviderPropertyHandler associated with the provided URI.
+     * @param {PWSTR} uri The URI for the relevant file.
+     * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>uri</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromuri
      */
     GetPropertyHandlerFromUri(uri) {
         uri := uri is String ? StrPtr(uri) : uri
@@ -65,10 +65,10 @@ class IStorageProviderHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} fileId 
-     * @returns {IStorageProviderPropertyHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromfileid
+     * Gets an instance of IStorageProviderPropertyHandler associated with the provided file identifier.
+     * @param {PWSTR} fileId The identifier for the relevant file.
+     * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>fileId</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromfileid
      */
     GetPropertyHandlerFromFileId(fileId) {
         fileId := fileId is String ? StrPtr(fileId) : fileId

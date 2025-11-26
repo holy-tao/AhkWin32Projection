@@ -33,9 +33,9 @@ class IEnumTfLangBarItems extends IUnknown{
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
-     * @returns {IEnumTfLangBarItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-clone
+     * IEnumTfLangBarItems::Clone method
+     * @returns {IEnumTfLangBarItems} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-ienumtflangbaritems">IEnumTfLangBarItems</a> interface pointer that receives the new enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -43,11 +43,11 @@ class IEnumTfLangBarItems extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulCount 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {ITfLangBarItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-next
+     * IEnumTfLangBarItems::Next method
+     * @param {Integer} ulCount Specifies the number of elements to obtain.
+     * @param {Pointer<Integer>} pcFetched [in, out] Pointer to a ULONG value that receives the number of elements obtained. This value can be less than the number of items requested. This parameter can be <b>NULL</b>.
+     * @returns {ITfLangBarItem} Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritem">ITfLangBarItem</a> interface pointers that receives the requested objects. This array must be at least <i>ulCount</i> elements in size.
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-next
      */
     Next(ulCount, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -57,9 +57,27 @@ class IEnumTfLangBarItems extends IUnknown{
     }
 
     /**
+     * IEnumTfLangBarItems::Reset method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-reset
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -67,10 +85,39 @@ class IEnumTfLangBarItems extends IUnknown{
     }
 
     /**
+     * IEnumTfLangBarItems::Skip method
+     * @param {Integer} ulCount Contains the number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ulCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-skip
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method reached the end of the enumeration before the specified number of elements could be skipped.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-ienumtflangbaritems-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

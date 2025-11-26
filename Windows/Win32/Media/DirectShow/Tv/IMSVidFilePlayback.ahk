@@ -47,9 +47,9 @@ class IMSVidFilePlayback extends IMSVidPlayback{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback-get_filename
+     * The get_FileName method retrieves the name of the file to play.
+     * @returns {BSTR} Pointer to a variable that receives the file name.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback-get_filename
      */
     get_FileName() {
         FileName := BSTR()
@@ -58,10 +58,28 @@ class IMSVidFilePlayback extends IMSVidPlayback{
     }
 
     /**
+     * The put_FileName method sets the name of the file to play.
+     * @param {BSTR} FileName Specifies the file name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @param {BSTR} FileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback-put_filename
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback-put_filename
      */
     put_FileName(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName

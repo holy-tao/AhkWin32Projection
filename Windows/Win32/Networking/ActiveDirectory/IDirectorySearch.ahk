@@ -33,11 +33,13 @@ class IDirectorySearch extends IUnknown{
     static VTableNames => ["SetSearchPreference", "ExecuteSearch", "AbandonSearch", "GetFirstRow", "GetNextRow", "GetPreviousRow", "GetNextColumnName", "GetColumn", "FreeColumn", "CloseSearchHandle"]
 
     /**
+     * Specifies a search preference for obtaining data in a subsequent search.
+     * @param {Pointer<ADS_SEARCHPREF_INFO>} pSearchPrefs Provides a caller-allocated array of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structures that contain the search preferences to be set.
+     * @param {Integer} dwNumPrefs Provides the size of the <i>pSearchPrefs</i> array.
+     * @returns {HRESULT} This method supports the standard return values, as well as the following:
      * 
-     * @param {Pointer<ADS_SEARCHPREF_INFO>} pSearchPrefs 
-     * @param {Integer} dwNumPrefs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-setsearchpreference
+     * For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-setsearchpreference
      */
     SetSearchPreference(pSearchPrefs, dwNumPrefs) {
         result := ComCall(3, this, "ptr", pSearchPrefs, "uint", dwNumPrefs, "HRESULT")
@@ -45,12 +47,12 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszSearchFilter 
-     * @param {Pointer<PWSTR>} pAttributeNames 
-     * @param {Integer} dwNumberAttributes 
-     * @returns {ADS_SEARCH_HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-executesearch
+     * The IDirectorySearch::ExecuteSearch method executes a search and passes the results to the caller.
+     * @param {PWSTR} pszSearchFilter A search filter string in LDAP format, such as "(objectClass=user)".
+     * @param {Pointer<PWSTR>} pAttributeNames An array of attribute names for which data is requested. If <b>NULL</b>, <i>dwNumberAttributes</i> must be 0 or 0xFFFFFFFF.
+     * @param {Integer} dwNumberAttributes The size of the <i>pAttributeNames</i> array. The special value 0xFFFFFFFF indicates that <i>pAttributeNames</i> is ignored and can be <b>NULL</b>.  This special value means that all attributes that are set are requested.  If this value is 0 the <i>pAttributeNames</i> array can be <b>NULL</b>.  No attribute will be requested.
+     * @returns {ADS_SEARCH_HANDLE} The address of a method-allocated handle to the search context. The caller passes this handle to other methods of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-idirectorysearch">IDirectorySearch</a> to examine the search result. If <b>NULL</b>, the search cannot be executed.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-executesearch
      */
     ExecuteSearch(pszSearchFilter, pAttributeNames, dwNumberAttributes) {
         pszSearchFilter := pszSearchFilter is String ? StrPtr(pszSearchFilter) : pszSearchFilter
@@ -63,10 +65,12 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
+     * The IDirectorySearch::AbandonSearch method abandons a search initiated by an earlier call to the ExecuteSearch method.
+     * @param {ADS_SEARCH_HANDLE} phSearchResult Provides a handle to the search context.
+     * @returns {HRESULT} This method returns the standard return values, including S_OK if the first row is obtained successfully.
      * 
-     * @param {ADS_SEARCH_HANDLE} phSearchResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-abandonsearch
+     * For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-abandonsearch
      */
     AbandonSearch(phSearchResult) {
         phSearchResult := phSearchResult is Win32Handle ? NumGet(phSearchResult, "ptr") : phSearchResult
@@ -76,10 +80,13 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
+     * The GetFirstRow method gets the first row of a search result. This method will issue or reissue a new search, even if this method has been called before.
+     * @param {ADS_SEARCH_HANDLE} hSearchResult Contains the search handle obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-executesearch">IDirectorySearch::ExecuteSearch</a>.
+     * @returns {HRESULT} This method returns the standard return values, as well as the following:
+     *       
      * 
-     * @param {ADS_SEARCH_HANDLE} hSearchResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getfirstrow
+     * For more information,  see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-getfirstrow
      */
     GetFirstRow(hSearchResult) {
         hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
@@ -89,10 +96,12 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
+     * Gets the next row of the search result.
+     * @param {ADS_SEARCH_HANDLE} hSearchResult Contains the search handle obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-executesearch">IDirectorySearch::ExecuteSearch</a>.
+     * @returns {HRESULT} This method returns the standard return values, as well as the following:
      * 
-     * @param {ADS_SEARCH_HANDLE} hSearchResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getnextrow
+     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-getnextrow
      */
     GetNextRow(hSearchResult) {
         hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
@@ -102,10 +111,12 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
+     * The IDirectorySearch::GetPreviousRow method gets the previous row of the search result. If the provider does not provide cursor support, it should return E_NOTIMPL.
+     * @param {ADS_SEARCH_HANDLE} hSearchResult Provides a handle to the search context.
+     * @returns {HRESULT} This method returns the standard return values, as well as the following:
      * 
-     * @param {ADS_SEARCH_HANDLE} hSearchResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getpreviousrow
+     * For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-getpreviousrow
      */
     GetPreviousRow(hSearchResult) {
         hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
@@ -115,10 +126,10 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ADS_SEARCH_HANDLE} hSearchHandle 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getnextcolumnname
+     * The IDirectorySearch::GetNextColumnName method gets the name of the next column in the search result that contains data.
+     * @param {ADS_SEARCH_HANDLE} hSearchHandle Provides a handle to the search context.
+     * @returns {PWSTR} Provides the address of a pointer to a method-allocated string containing the requested column name. If <b>NULL</b>, no subsequent rows contain data.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-getnextcolumnname
      */
     GetNextColumnName(hSearchHandle) {
         hSearchHandle := hSearchHandle is Win32Handle ? NumGet(hSearchHandle, "ptr") : hSearchHandle
@@ -128,11 +139,11 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ADS_SEARCH_HANDLE} hSearchResult 
-     * @param {PWSTR} szColumnName 
-     * @returns {ADS_SEARCH_COLUMN} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getcolumn
+     * The IDirectorySearch::GetColumn method gets data from a named column of the search result.
+     * @param {ADS_SEARCH_HANDLE} hSearchResult Provides a handle to the search context.
+     * @param {PWSTR} szColumnName Provides the name of the column for which data is requested.
+     * @returns {ADS_SEARCH_COLUMN} Provides the address of a method-allocated  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_search_column">ADS_SEARCH_COLUMN</a> structure that contains the column from the current row of the search result.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-getcolumn
      */
     GetColumn(hSearchResult, szColumnName) {
         hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
@@ -144,10 +155,12 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
+     * The IDirectorySearch::FreeColumn method releases memory that the IDirectorySearch::GetColumn method allocated for data for the column.
+     * @param {Pointer<ADS_SEARCH_COLUMN>} pSearchColumn Provides a pointer to the column to be freed.
+     * @returns {HRESULT} This method returns the standard return values, as well as the following:
      * 
-     * @param {Pointer<ADS_SEARCH_COLUMN>} pSearchColumn 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-freecolumn
+     * For other return values, see <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-freecolumn
      */
     FreeColumn(pSearchColumn) {
         result := ComCall(11, this, "ptr", pSearchColumn, "HRESULT")
@@ -155,10 +168,12 @@ class IDirectorySearch extends IUnknown{
     }
 
     /**
+     * The IDirectorySearch::CloseSearchHandle method closes the handle to a search result and frees the associated memory.
+     * @param {ADS_SEARCH_HANDLE} hSearchResult Provides a handle to the search result to be closed.
+     * @returns {HRESULT} This method returns the standard return values, as well as the following:
      * 
-     * @param {ADS_SEARCH_HANDLE} hSearchResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-closesearchhandle
+     * For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-idirectorysearch-closesearchhandle
      */
     CloseSearchHandle(hSearchResult) {
         hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult

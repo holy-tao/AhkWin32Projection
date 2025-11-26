@@ -31,10 +31,14 @@ class ID2D1CommandSink1 extends ID2D1CommandSink{
     static VTableNames => ["SetPrimitiveBlend1"]
 
     /**
+     * Sets a new primitive blend mode.
+     * @param {Integer} primitiveBlend Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend">D2D1_PRIMITIVE_BLEND</a></b>
      * 
-     * @param {Integer} primitiveBlend 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1commandsink1-setprimitiveblend1
+     * The primitive blend that will apply to subsequent primitives.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_2/nf-d2d1_2-id2d1commandsink1-setprimitiveblend1
      */
     SetPrimitiveBlend1(primitiveBlend) {
         result := ComCall(28, this, "int", primitiveBlend, "HRESULT")

@@ -152,9 +152,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
      */
     get_Context() {
         result := ComCall(11, this, "ptr*", &ppContext := 0, "HRESULT")
@@ -162,10 +162,10 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it.
      * @param {IUnknown} pContext 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-put_context
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-put_context
      */
     put_Context(pContext) {
         result := ComCall(12, this, "ptr", pContext, "HRESULT")

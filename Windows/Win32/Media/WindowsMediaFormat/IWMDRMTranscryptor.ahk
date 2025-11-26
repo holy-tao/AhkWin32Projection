@@ -40,14 +40,14 @@ class IWMDRMTranscryptor extends IUnknown{
     static VTableNames => ["Initialize", "Seek", "Read", "Close"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {BSTR} bstrFileName 
-     * @param {Pointer<Integer>} pbLicenseRequestMsg 
-     * @param {Integer} cbLicenseRequestMsg 
-     * @param {IWMStatusCallback} pCallback 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {INSSBuffer} 
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method loads a file into the DRM transcryptor. A file must be loaded before the transcryptor can process any data.
+     * @param {BSTR} bstrFileName Name of the file to load. This should be a DRM-encrypted ASF file.
+     * @param {Pointer<Integer>} pbLicenseRequestMsg Address of the license request message in memory. This message is sent to your application by a device.
+     * @param {Integer} cbLicenseRequestMsg The size of the license request message in bytes.
+     * @param {IWMStatusCallback} pCallback Address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> implementation that will receive status messages from the transcryptor.
+     * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This is passed to the application in calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback. You can use this parameter to differentiate between messages from different objects when sharing a single status callback. This parameter can be <b>NULL</b>.
+     * @returns {INSSBuffer} Address of a variable that receives the address of the license response message. Your application must send this message to the device before sending any encrypted data.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-initialize
      */
     Initialize(bstrFileName, pbLicenseRequestMsg, cbLicenseRequestMsg, pCallback, pvContext) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
@@ -60,10 +60,39 @@ class IWMDRMTranscryptor extends IUnknown{
     }
 
     /**
+     * The Seek method sets the DRM transcryptor to read from the specified point in the data stream of the loaded file. Subsequent Read calls generate data beginning at that point.
+     * @param {Integer} hnsTime Seek time in 100-nanosecond units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} hnsTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-seek
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_INVALID_REQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is no file loaded in the transcryptor.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-seek
      */
     Seek(hnsTime) {
         result := ComCall(4, this, "uint", hnsTime, "HRESULT")
@@ -71,11 +100,44 @@ class IWMDRMTranscryptor extends IUnknown{
     }
 
     /**
+     * The Read method reads data from the file loaded in the transcryptor and encrypts it for streaming to devices that support Windows Media DRM 10 for Network Devices.
+     * @param {Pointer<Integer>} pbData Address of a buffer that receives the data.
+     * @param {Pointer<Integer>} pcbData Address of a variable containing the size of the data buffer pointed to by <i>pbData</i>. On input, set to the size of the buffer.On output, the value is changed to the number of bytes actually read.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pbData 
-     * @param {Pointer<Integer>} pcbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-read
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_INVALID_REQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transcryptor is not ready for reading.
+     * 
+     * OR
+     * 
+     * Another read is in progress.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-read
      */
     Read(pbData, pcbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
@@ -86,9 +148,27 @@ class IWMDRMTranscryptor extends IUnknown{
     }
 
     /**
+     * The Close method unloads the file from the DRM transcryptor and releases all associated resources.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-close
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-close
      */
     Close() {
         result := ComCall(6, this, "HRESULT")

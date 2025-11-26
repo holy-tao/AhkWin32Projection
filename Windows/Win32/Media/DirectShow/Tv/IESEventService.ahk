@@ -42,10 +42,10 @@ class IESEventService extends IUnknown{
     static VTableNames => ["FireESEvent"]
 
     /**
-     * 
-     * @param {IESEvent} pESEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventservice-fireesevent
+     * Raises an event derived from the IESEvent interface.
+     * @param {IESEvent} pESEvent Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-iesevent">IESEvent</a> interface for the event being raised.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieseventservice-fireesevent
      */
     FireESEvent(pESEvent) {
         result := ComCall(3, this, "ptr", pESEvent, "HRESULT")

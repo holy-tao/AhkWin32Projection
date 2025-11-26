@@ -31,9 +31,9 @@ class IOfflineFilesFileItem extends IOfflineFilesItem{
     static VTableNames => ["IsSparse", "IsEncrypted"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-issparse
+     * Determines whether an item in the Offline Files cache is sparsely cached.
+     * @returns {BOOL} Receives <b>TRUE</b> if the item is sparsely cached, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesfileitem-issparse
      */
     IsSparse() {
         result := ComCall(8, this, "int*", &pbIsSparse := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IOfflineFilesFileItem extends IOfflineFilesItem{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-isencrypted
+     * Determines whether an item in the Offline Files cache is encrypted.
+     * @returns {BOOL} Receives <b>TRUE</b> if the item is encrypted, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesfileitem-isencrypted
      */
     IsEncrypted() {
         result := ComCall(9, this, "int*", &pbIsEncrypted := 0, "HRESULT")

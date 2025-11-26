@@ -36,9 +36,9 @@ class ITfUIElement extends IUnknown{
     static VTableNames => ["GetDescription", "GetGUID", "Show", "IsShown"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getdescription
+     * The ITfUIElement::GetDescription method returns the description of the UI element.
+     * @returns {BSTR} [in] A pointer to BSTR that contains the description of the UI element.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-getdescription
      */
     GetDescription() {
         pbstrDescription := BSTR()
@@ -47,9 +47,9 @@ class ITfUIElement extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getguid
+     * The ITfUIElement::GetGUID method returns the unique id of this UI element.
+     * @returns {Guid} [out] A pointer to receive the GUID of the UI element.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-getguid
      */
     GetGUID() {
         pguid := Guid()
@@ -58,10 +58,39 @@ class ITfUIElement extends IUnknown{
     }
 
     /**
+     * The ITfUIElement::Show method shows the text service's UI of this UI element.
+     * @param {BOOL} bShow [in] <b>TRUE</b> to show the original UI of the element. <b>FALSE</b> to hide the original UI of the element.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} bShow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-show
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-show
      */
     Show(bShow) {
         result := ComCall(5, this, "int", bShow, "HRESULT")
@@ -69,9 +98,9 @@ class ITfUIElement extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-isshown
+     * The ITfUIElement::IsShown method returns true if the UI is currently shown by a text service; otherwise false.
+     * @returns {BOOL} [out] A pointer to bool of the current show status of the original UI of this element.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-isshown
      */
     IsShown() {
         result := ComCall(6, this, "int*", &pbShow := 0, "HRESULT")

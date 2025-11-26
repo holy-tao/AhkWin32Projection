@@ -34,9 +34,11 @@ class IDWriteFont extends IUnknown{
     static VTableNames => ["GetFontFamily", "GetWeight", "GetStretch", "GetStyle", "IsSymbolFont", "GetFaceNames", "GetInformationalStrings", "GetSimulations", "GetMetrics", "HasCharacter", "CreateFontFace"]
 
     /**
+     * Gets the font family to which the specified font belongs.
+     * @returns {IDWriteFontFamily} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a>**</b>
      * 
-     * @returns {IDWriteFontFamily} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getfontfamily
+     * When this method returns, contains an address of a pointer to the font family object to which the specified font belongs.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getfontfamily
      */
     GetFontFamily() {
         result := ComCall(3, this, "ptr*", &fontFamily := 0, "HRESULT")
@@ -44,9 +46,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Gets the weight, or stroke thickness, of the specified font.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getweight
+     * A value that indicates the weight for the specified font.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getweight
      */
     GetWeight() {
         result := ComCall(4, this, "int")
@@ -54,9 +58,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Gets the stretch, or width, of the specified font.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getstretch
+     * A value that indicates the type of stretch, or width, applied to the specified font.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getstretch
      */
     GetStretch() {
         result := ComCall(5, this, "int")
@@ -64,9 +70,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Gets the style, or slope, of the specified font.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getstyle
+     * A value that indicates the type of style, or slope, of the specified font.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getstyle
      */
     GetStyle() {
         result := ComCall(6, this, "int")
@@ -74,9 +82,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Determines whether the font is a symbol font.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-issymbolfont
+     * <b>TRUE</b> if the font is a symbol font; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-issymbolfont
      */
     IsSymbolFont() {
         result := ComCall(7, this, "int")
@@ -84,9 +94,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Gets a localized strings collection containing the face names for the font (such as Regular or Bold), indexed by locale name.
+     * @returns {IDWriteLocalizedStrings} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
      * 
-     * @returns {IDWriteLocalizedStrings} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getfacenames
+     * When this method returns, contains an address to a  pointer to the newly created localized strings object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getfacenames
      */
     GetFaceNames() {
         result := ComCall(8, this, "ptr*", &names := 0, "HRESULT")
@@ -94,12 +106,20 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Gets a localized strings collection containing the specified informational strings, indexed by locale name.
+     * @param {Integer} informationalStringID Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id">DWRITE_INFORMATIONAL_STRING_ID</a></b>
      * 
-     * @param {Integer} informationalStringID 
-     * @param {Pointer<IDWriteLocalizedStrings>} informationalStrings 
-     * @param {Pointer<BOOL>} exists 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getinformationalstrings
+     * A value that identifies the  informational string to get. For example, <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id">DWRITE_INFORMATIONAL_STRING_DESCRIPTION</a> specifies a string that contains a description of the font.
+     * @param {Pointer<IDWriteLocalizedStrings>} informationalStrings Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
+     * 
+     * When this method returns, contains an address of a pointer to the newly created localized strings object.
+     * @param {Pointer<BOOL>} exists Type: <b>BOOL*</b>
+     * 
+     * When this method returns, <b>TRUE</b> if the font contains the specified string ID; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getinformationalstrings
      */
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
@@ -109,9 +129,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Gets a value that indicates what simulations are applied to the specified font.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getsimulations
+     *  A value that indicates one or more of the  types of simulations (none, bold, or oblique)  applied to the specified font.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getsimulations
      */
     GetSimulations() {
         result := ComCall(10, this, "int")
@@ -119,20 +141,26 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations.
+     * @param {Pointer<DWRITE_FONT_METRICS>} fontMetrics Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a>*</b>
      * 
-     * @param {Pointer<DWRITE_FONT_METRICS>} fontMetrics 
+     * When this method returns, contains a structure that has font metrics for the current font face. The metrics returned by this function are in font design units.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getmetrics
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-getmetrics
      */
     GetMetrics(fontMetrics) {
         ComCall(11, this, "ptr", fontMetrics)
     }
 
     /**
+     * Determines whether the font supports a specified character.
+     * @param {Integer} unicodeValue Type: <b>UINT32</b>
      * 
-     * @param {Integer} unicodeValue 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-hascharacter
+     * A Unicode (UCS-4) character value for the method to inspect.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * When this method returns, <b>TRUE</b> if the font supports the specified character; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-hascharacter
      */
     HasCharacter(unicodeValue) {
         result := ComCall(12, this, "uint", unicodeValue, "int*", &exists := 0, "HRESULT")
@@ -140,9 +168,11 @@ class IDWriteFont extends IUnknown{
     }
 
     /**
+     * Creates a font face object for the font.
+     * @returns {IDWriteFontFace} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>**</b>
      * 
-     * @returns {IDWriteFontFace} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-createfontface
+     * When this method returns, contains an address of a pointer to the newly created font face object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefont-createfontface
      */
     CreateFontFace() {
         result := ComCall(13, this, "ptr*", &fontFace := 0, "HRESULT")

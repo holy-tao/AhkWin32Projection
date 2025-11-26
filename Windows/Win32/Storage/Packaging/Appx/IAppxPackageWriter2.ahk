@@ -31,11 +31,40 @@ class IAppxPackageWriter2 extends IUnknown{
     static VTableNames => ["Close"]
 
     /**
+     * Closes the package writer object's output stream.
+     * @param {IStream} manifest The stream that provides the contents of the manifest for the package. The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
+     * @param {IStream} contentGroupMap The stream that provides the contents of the content group map for the package.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code that includes, but is not limited to, those in the following table. 
      * 
-     * @param {IStream} manifest 
-     * @param {IStream} contentGroupMap 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagewriter2-close
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOT_VALID_STATE </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The writer is closed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>APPX_E_INVALID_MANIFEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input stream contains a manifest that is not valid. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter2-close
      */
     Close(manifest, contentGroupMap) {
         result := ComCall(3, this, "ptr", manifest, "ptr", contentGroupMap, "HRESULT")

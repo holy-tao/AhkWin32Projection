@@ -32,10 +32,10 @@ class IAssociatedIdentityProvider extends IUnknown{
     static VTableNames => ["AssociateIdentity", "DisassociateIdentity", "ChangeCredential"]
 
     /**
-     * 
-     * @param {HWND} hwndParent 
-     * @returns {IPropertyStore} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-associateidentity
+     * Associates an identity with a local user account.
+     * @param {HWND} hwndParent A handle to the parent of the window used to collect account credentials.
+     * @returns {IPropertyStore} A pointer to the <b>IPropertyStore</b> interface associated with the identity.
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iassociatedidentityprovider-associateidentity
      */
     AssociateIdentity(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -45,11 +45,13 @@ class IAssociatedIdentityProvider extends IUnknown{
     }
 
     /**
+     * Disassociates the specified identity from a local user account.
+     * @param {HWND} hwndParent A handle to the parent of the window used to collect account credentials.
+     * @param {PWSTR} lpszUniqueID The identity to disassociate.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {HWND} hwndParent 
-     * @param {PWSTR} lpszUniqueID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-disassociateidentity
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iassociatedidentityprovider-disassociateidentity
      */
     DisassociateIdentity(hwndParent, lpszUniqueID) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -60,11 +62,13 @@ class IAssociatedIdentityProvider extends IUnknown{
     }
 
     /**
+     * Changes the credentials associated with the specified identity.
+     * @param {HWND} hwndParent A handle to the parent of the window used to collect account credentials.
+     * @param {PWSTR} lpszUniqueID The identity for which to change the credentials.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {HWND} hwndParent 
-     * @param {PWSTR} lpszUniqueID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-changecredential
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iassociatedidentityprovider-changecredential
      */
     ChangeCredential(hwndParent, lpszUniqueID) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

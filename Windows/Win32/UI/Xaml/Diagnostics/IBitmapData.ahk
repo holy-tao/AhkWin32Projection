@@ -32,13 +32,13 @@ class IBitmapData extends IUnknown{
     static VTableNames => ["CopyBytesTo", "GetStride", "GetBitmapDescription", "GetSourceBitmapDescription"]
 
     /**
-     * 
-     * @param {Integer} sourceOffsetInBytes 
-     * @param {Integer} maxBytesToCopy 
-     * @param {Pointer<Integer>} pvBytes 
-     * @param {Pointer<Integer>} numberOfBytesCopied 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-copybytesto
+     * Copies up to the specified maximum number of bytes from the given offset in the bitmap data into the caller’s buffer (pvBytes), and returns the number of bytes copied.
+     * @param {Integer} sourceOffsetInBytes The place in the bitmap data to start copying from, in bytes.
+     * @param {Integer} maxBytesToCopy The maximum number of bytes to copy.
+     * @param {Pointer<Integer>} pvBytes The buffer into which the bytes are copied.
+     * @param {Pointer<Integer>} numberOfBytesCopied The number of bytes copied.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ibitmapdata-copybytesto
      */
     CopyBytesTo(sourceOffsetInBytes, maxBytesToCopy, pvBytes, numberOfBytesCopied) {
         pvBytesMarshal := pvBytes is VarRef ? "char*" : "ptr"
@@ -49,9 +49,9 @@ class IBitmapData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getstride
+     * Gets the stride of the data. This is the length in bytes of each row of the bitmap.
+     * @returns {Integer} The length in bytes of each row of the bitmap.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ibitmapdata-getstride
      */
     GetStride() {
         result := ComCall(4, this, "uint*", &pStride := 0, "HRESULT")
@@ -59,9 +59,9 @@ class IBitmapData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BitmapDescription} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getbitmapdescription
+     * Gets a BitmapDescription that describes the bitmap data stored in the IBitmapData.
+     * @returns {BitmapDescription} Information about the bitmap stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nn-xamlom-ibitmapdata">IBitmapData</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ibitmapdata-getbitmapdescription
      */
     GetBitmapDescription() {
         pBitmapDescription := BitmapDescription()
@@ -70,9 +70,9 @@ class IBitmapData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BitmapDescription} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getsourcebitmapdescription
+     * Gets a BitmapDescription that describes the original format of the bitmap data stored in the IBitmapData.
+     * @returns {BitmapDescription} Information about the original format of the  bitmap stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nn-xamlom-ibitmapdata">IBitmapData</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ibitmapdata-getsourcebitmapdescription
      */
     GetSourceBitmapDescription() {
         pBitmapDescription := BitmapDescription()

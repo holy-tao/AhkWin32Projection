@@ -32,9 +32,11 @@ class IUIAutomationTextEditPattern extends IUIAutomationTextPattern{
     static VTableNames => ["GetActiveComposition", "GetConversionTarget"]
 
     /**
+     * Returns the active composition.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
      * 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getactivecomposition
+     * Pointer to the range of the current conversion (none if there is no conversion).
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getactivecomposition
      */
     GetActiveComposition() {
         result := ComCall(9, this, "ptr*", &range := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IUIAutomationTextEditPattern extends IUIAutomationTextPattern{
     }
 
     /**
+     * Returns the current conversion target range.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
      * 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getconversiontarget
+     * Pointer to the conversion target range (none if there is no conversion).
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getconversiontarget
      */
     GetConversionTarget() {
         result := ComCall(10, this, "ptr*", &range := 0, "HRESULT")

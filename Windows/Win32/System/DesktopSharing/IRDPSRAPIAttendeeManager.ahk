@@ -51,9 +51,9 @@ class IRDPSRAPIAttendeeManager extends IDispatch{
     }
 
     /**
-     * 
+     * An enumerator interface for the attendee collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -61,10 +61,15 @@ class IRDPSRAPIAttendeeManager extends IDispatch{
     }
 
     /**
+     * An item in the attendee collection.
+     * @remarks
+     * 
+     * If the identifier matches the object identifier of one of the attendee objects, the object is returned.
+     * 
      * 
      * @param {Integer} id 
      * @returns {IRDPSRAPIAttendee} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get_item
      */
     get_Item(id) {
         result := ComCall(8, this, "int", id, "ptr*", &ppItem := 0, "HRESULT")

@@ -50,9 +50,14 @@ class IDCompositionDevice2 extends IUnknown{
     static VTableNames => ["Commit", "WaitForCommitCompletion", "GetFrameStatistics", "CreateVisual", "CreateSurfaceFactory", "CreateSurface", "CreateVirtualSurface", "CreateTranslateTransform", "CreateScaleTransform", "CreateRotateTransform", "CreateSkewTransform", "CreateMatrixTransform", "CreateTransformGroup", "CreateTranslateTransform3D", "CreateScaleTransform3D", "CreateRotateTransform3D", "CreateMatrixTransform3D", "CreateTransform3DGroup", "CreateEffectGroup", "CreateRectangleClip", "CreateAnimation"]
 
     /**
+     * Commits all DirectComposition commands that are pending on this device.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-commit
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> 
+     *        error code. See 
+     *        <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a> for a 
+     *        list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-commit
      */
     Commit() {
         result := ComCall(3, this, "HRESULT")
@@ -60,9 +65,9 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-waitforcommitcompletion
+     * Waits for the composition engine to finish processing the previous call to the IDCompositionDevice2::Commit method.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-waitforcommitcompletion
      */
     WaitForCommitCompletion() {
         result := ComCall(4, this, "HRESULT")
@@ -70,9 +75,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Retrieves information from the composition engine about composition times and the frame rate.
+     * @returns {DCOMPOSITION_FRAME_STATISTICS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ns-dcomptypes-dcomposition_frame_statistics">DCOMPOSITION_FRAME_STATISTICS</a>*</b>
      * 
-     * @returns {DCOMPOSITION_FRAME_STATISTICS} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-getframestatistics
+     * A structure that receives composition times and frame rate information.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-getframestatistics
      */
     GetFrameStatistics() {
         statistics := DCOMPOSITION_FRAME_STATISTICS()
@@ -81,9 +88,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a new visual object.
+     * @returns {IDCompositionVisual2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual2">IDCompositionVisual2</a>**</b>
      * 
-     * @returns {IDCompositionVisual2} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createvisual
+     * The new visual object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createvisual
      */
     CreateVisual() {
         result := ComCall(6, this, "ptr*", &visual := 0, "HRESULT")
@@ -91,10 +100,10 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} renderingDevice 
-     * @returns {IDCompositionSurfaceFactory} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createsurfacefactory
+     * Creates a Microsoft DirectComposition surface factory object, which can be used to create other DirectComposition surface or virtual surface objects.
+     * @param {IUnknown} renderingDevice A pointer to a DirectX device to be used to create DirectComposition surface objects. Must be a pointer to an object implementing the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a> interfaces. This parameter must not be NULL.
+     * @returns {IDCompositionSurfaceFactory} The newly created surface factory object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createsurfacefactory
      */
     CreateSurfaceFactory(renderingDevice) {
         result := ComCall(7, this, "ptr", renderingDevice, "ptr*", &surfaceFactory := 0, "HRESULT")
@@ -102,13 +111,21 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates an updateable surface object that can be associated with one or more visuals for composition.
+     * @param {Integer} width Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} width 
-     * @param {Integer} height 
-     * @param {Integer} pixelFormat 
-     * @param {Integer} alphaMode 
-     * @returns {IDCompositionSurface} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createsurface
+     * The width of the surface, in pixels. Constrained by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> of the rendering device that was passed in at the time the DirectComposition device was created.
+     * @param {Integer} height Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The height of the surface, in pixels. Constrained by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> of the rendering device that was passed in at the time the DirectComposition device was created.
+     * @param {Integer} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * 
+     * The pixel format of the surface.
+     * @param {Integer} alphaMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a></b>
+     * @returns {IDCompositionSurface} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionsurface">IDCompositionSurface</a>**</b>
+     * 
+     * The newly created surface object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createsurface
      */
     CreateSurface(width, height, pixelFormat, alphaMode) {
         result := ComCall(8, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", &surface := 0, "HRESULT")
@@ -116,13 +133,21 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a sparsely populated surface that can be associated with one or more visuals for composition.
+     * @param {Integer} initialWidth Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} initialWidth 
-     * @param {Integer} initialHeight 
-     * @param {Integer} pixelFormat 
-     * @param {Integer} alphaMode 
-     * @returns {IDCompositionVirtualSurface} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createvirtualsurface
+     * The width of the surface, in pixels. The maximum width is 16,777,216 pixels.
+     * @param {Integer} initialHeight Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The height of the surface, in pixels. The maximum height is 16,777,216 pixels.
+     * @param {Integer} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * 
+     * The pixel format of the surface.
+     * @param {Integer} alphaMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a></b>
+     * @returns {IDCompositionVirtualSurface} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvirtualsurface">IDCompositionVirtualSurface</a>**</b>
+     * 
+     * The newly created surface object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createvirtualsurface
      */
     CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
         result := ComCall(9, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
@@ -130,9 +155,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 2D translation transform object.
+     * @returns {IDCompositionTranslateTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontranslatetransform">IDCompositionTranslateTransform</a>**</b>
      * 
-     * @returns {IDCompositionTranslateTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtranslatetransform
+     * The new 2D translation transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createtranslatetransform
      */
     CreateTranslateTransform() {
         result := ComCall(10, this, "ptr*", &translateTransform := 0, "HRESULT")
@@ -140,9 +167,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 2D scale transform object.
+     * @returns {IDCompositionScaleTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionscaletransform">IDCompositionScaleTransform</a>**</b>
      * 
-     * @returns {IDCompositionScaleTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createscaletransform
+     * The new 2D scale transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createscaletransform
      */
     CreateScaleTransform() {
         result := ComCall(11, this, "ptr*", &scaleTransform := 0, "HRESULT")
@@ -150,9 +179,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 2D rotation transform object.
+     * @returns {IDCompositionRotateTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionrotatetransform">IDCompositionRotateTransform</a>**</b>
      * 
-     * @returns {IDCompositionRotateTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createrotatetransform
+     * The new rotation transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createrotatetransform
      */
     CreateRotateTransform() {
         result := ComCall(12, this, "ptr*", &rotateTransform := 0, "HRESULT")
@@ -160,9 +191,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 2D skew transform object.
+     * @returns {IDCompositionSkewTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionskewtransform">IDCompositionSkewTransform</a>**</b>
      * 
-     * @returns {IDCompositionSkewTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createskewtransform
+     * The new 2D skew transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createskewtransform
      */
     CreateSkewTransform() {
         result := ComCall(13, this, "ptr*", &skewTransform := 0, "HRESULT")
@@ -170,9 +203,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 2D 3-by-2 matrix transform object.
+     * @returns {IDCompositionMatrixTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionmatrixtransform">IDCompositionMatrixTransform</a>**</b>
      * 
-     * @returns {IDCompositionMatrixTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-creatematrixtransform
+     * The new matrix transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-creatematrixtransform
      */
     CreateMatrixTransform() {
         result := ComCall(14, this, "ptr*", &matrixTransform := 0, "HRESULT")
@@ -180,11 +215,17 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 2D transform group object that holds an array of 2D transform objects.
+     * @param {Pointer<IDCompositionTransform>} transforms Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontransform">IDCompositionTransform</a>**</b>
      * 
-     * @param {Pointer<IDCompositionTransform>} transforms 
-     * @param {Integer} elements 
-     * @returns {IDCompositionTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtransformgroup
+     * An array of 2D transform objects that make up this transform group.
+     * @param {Integer} elements Type: <b>UINT</b>
+     * 
+     * The number of elements in the <i>transforms</i> array.
+     * @returns {IDCompositionTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontransform">IDCompositionTransform</a>**</b>
+     * 
+     * The new transform group object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createtransformgroup
      */
     CreateTransformGroup(transforms, elements) {
         result := ComCall(15, this, "ptr*", transforms, "uint", elements, "ptr*", &transformGroup := 0, "HRESULT")
@@ -192,9 +233,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 3D translation transform object.
+     * @returns {IDCompositionTranslateTransform3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontranslatetransform3d">IDCompositionTranslateTransform3D</a>**</b>
      * 
-     * @returns {IDCompositionTranslateTransform3D} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtranslatetransform3d
+     * The new 3D translation transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createtranslatetransform3d
      */
     CreateTranslateTransform3D() {
         result := ComCall(16, this, "ptr*", &translateTransform3D := 0, "HRESULT")
@@ -202,9 +245,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 3D scale transform object.
+     * @returns {IDCompositionScaleTransform3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionscaletransform3d">IDCompositionScaleTransform3D</a>**</b>
      * 
-     * @returns {IDCompositionScaleTransform3D} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createscaletransform3d
+     * The new 3D scale transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createscaletransform3d
      */
     CreateScaleTransform3D() {
         result := ComCall(17, this, "ptr*", &scaleTransform3D := 0, "HRESULT")
@@ -212,9 +257,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 3D rotation transform object.
+     * @returns {IDCompositionRotateTransform3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionrotatetransform3d">IDCompositionRotateTransform3D</a>**</b>
      * 
-     * @returns {IDCompositionRotateTransform3D} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createrotatetransform3d
+     * The new 3D rotation transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createrotatetransform3d
      */
     CreateRotateTransform3D() {
         result := ComCall(18, this, "ptr*", &rotateTransform3D := 0, "HRESULT")
@@ -222,9 +269,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 3D 4-by-4 matrix transform object.
+     * @returns {IDCompositionMatrixTransform3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionmatrixtransform3d">IDCompositionMatrixTransform3D</a>**</b>
      * 
-     * @returns {IDCompositionMatrixTransform3D} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-creatematrixtransform3d
+     * The new 3D matrix transform object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-creatematrixtransform3d
      */
     CreateMatrixTransform3D() {
         result := ComCall(19, this, "ptr*", &matrixTransform3D := 0, "HRESULT")
@@ -232,11 +281,17 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a 3D transform group object that holds an array of 3D transform objects.
+     * @param {Pointer<IDCompositionTransform3D>} transforms3D Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontransform3d">IDCompositionTransform3D</a>**</b>
      * 
-     * @param {Pointer<IDCompositionTransform3D>} transforms3D 
-     * @param {Integer} elements 
-     * @returns {IDCompositionTransform3D} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtransform3dgroup
+     * An array of 3D transform objects that make up this transform group.
+     * @param {Integer} elements Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of elements in the <i>transforms</i> array.
+     * @returns {IDCompositionTransform3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontransform3d">IDCompositionTransform3D</a>**</b>
+     * 
+     * The new 3D transform group object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createtransform3dgroup
      */
     CreateTransform3DGroup(transforms3D, elements) {
         result := ComCall(20, this, "ptr*", transforms3D, "uint", elements, "ptr*", &transform3DGroup := 0, "HRESULT")
@@ -244,9 +299,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates an object that represents multiple effects to be applied to a visual subtree.
+     * @returns {IDCompositionEffectGroup} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffectgroup">IDCompositionEffectGroup</a>**</b>
      * 
-     * @returns {IDCompositionEffectGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createeffectgroup
+     * The new effect group object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createeffectgroup
      */
     CreateEffectGroup() {
         result := ComCall(21, this, "ptr*", &effectGroup := 0, "HRESULT")
@@ -254,9 +311,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates a clip object that can be used to restrict the rendering of a visual subtree to a rectangular area.
+     * @returns {IDCompositionRectangleClip} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionrectangleclip">IDCompositionRectangleClip</a>**</b>
      * 
-     * @returns {IDCompositionRectangleClip} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createrectangleclip
+     * The new clip object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createrectangleclip
      */
     CreateRectangleClip() {
         result := ComCall(22, this, "ptr*", &clip := 0, "HRESULT")
@@ -264,9 +323,11 @@ class IDCompositionDevice2 extends IUnknown{
     }
 
     /**
+     * Creates an animation object that is used to animate one or more scalar properties of one or more Microsoft DirectComposition objects.
+     * @returns {IDCompositionAnimation} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>**</b>
      * 
-     * @returns {IDCompositionAnimation} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createanimation
+     * The new animation object. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice2-createanimation
      */
     CreateAnimation() {
         result := ComCall(23, this, "ptr*", &animation := 0, "HRESULT")

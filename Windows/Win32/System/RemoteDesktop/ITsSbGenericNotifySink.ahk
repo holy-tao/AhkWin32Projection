@@ -32,10 +32,10 @@ class ITsSbGenericNotifySink extends IUnknown{
     static VTableNames => ["OnCompleted", "GetWaitTimeout"]
 
     /**
-     * 
-     * @param {HRESULT} Status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbgenericnotifysink-oncompleted
+     * Reports completion to Remote Desktop Connection Broker (RD Connection Broker).
+     * @param {HRESULT} Status The status to report.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbgenericnotifysink-oncompleted
      */
     OnCompleted(Status) {
         result := ComCall(3, this, "int", Status, "HRESULT")
@@ -43,9 +43,9 @@ class ITsSbGenericNotifySink extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the wait timeout.
      * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbgenericnotifysink-getwaittimeout
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbgenericnotifysink-getwaittimeout
      */
     GetWaitTimeout() {
         pftTimeout := FILETIME()

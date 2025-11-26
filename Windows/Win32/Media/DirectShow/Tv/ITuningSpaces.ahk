@@ -62,9 +62,9 @@ class ITuningSpaces extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_count
+     * The get_Count method returns the number of tuning spaces in the collection.
+     * @returns {Integer} Pointer to a variable that receives the number of items in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspaces-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -72,9 +72,9 @@ class ITuningSpaces extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get__newenum
+     * The get__NewEnum method returns an enumerator for the collection.
+     * @returns {IEnumVARIANT} Pointer to a variable that receives an <b>IEnumVARIANT</b> interface pointer. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspaces-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &NewEnum := 0, "HRESULT")
@@ -82,10 +82,10 @@ class ITuningSpaces extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} varIndex 
-     * @returns {ITuningSpace} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_item
+     * The get_Item method returns the specified item in the collection.
+     * @param {VARIANT} varIndex <b>VARIANT</b> type that specifies the ID of the tuning space. The ID uniquely identifies the tuning space within the <b>SystemTuningSpaces</b> object.
+     * @returns {ITuningSpace} Address of a variable that receives a pointer to the tuning space's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspaces-get_item
      */
     get_Item(varIndex) {
         result := ComCall(9, this, "ptr", varIndex, "ptr*", &TuningSpace := 0, "HRESULT")
@@ -93,9 +93,9 @@ class ITuningSpaces extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumTuningSpaces} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_enumtuningspaces
+     * The get_EnumTuningSpaces method returns an enumerator for the collection.
+     * @returns {IEnumTuningSpaces} Pointer to a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ienumtuningspaces">IEnumTuningSpaces</a> interface pointer. Use this interface to iterate through the collection. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ituningspaces-get_enumtuningspaces
      */
     get_EnumTuningSpaces() {
         result := ComCall(10, this, "ptr*", &NewEnum := 0, "HRESULT")

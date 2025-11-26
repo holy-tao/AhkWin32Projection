@@ -64,9 +64,11 @@ class IFileIsInUse extends IUnknown{
     static VTableNames => ["GetAppName", "GetUsage", "GetCapabilities", "GetSwitchToHWND", "CloseFile"]
 
     /**
+     * Retrieves the name of the application that is using the file.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getappname
+     * The address of a pointer to a buffer that, when this method returns successfully, receives the application name.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getappname
      */
     GetAppName() {
         result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
@@ -74,9 +76,11 @@ class IFileIsInUse extends IUnknown{
     }
 
     /**
+     * Gets a value that indicates how the file in use is being used.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage
+     * Pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a> values.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage
      */
     GetUsage() {
         result := ComCall(4, this, "int*", &pfut := 0, "HRESULT")
@@ -84,9 +88,9 @@ class IFileIsInUse extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities
+     * Determines whether the file can be closed and whether the UI is capable of switching to the window of the application that is using the file.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(5, this, "uint*", &pdwCapFlags := 0, "HRESULT")
@@ -94,9 +98,11 @@ class IFileIsInUse extends IUnknown{
     }
 
     /**
+     * Retrieves the handle of the top-level window of the application that is using the file.
+     * @returns {HWND} Type: <b>HWND*</b>
      * 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getswitchtohwnd
+     * A pointer to an <b>HWND</b> value that, when this method returns successfully, receives the window handle.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getswitchtohwnd
      */
     GetSwitchToHWND() {
         phwnd := HWND()
@@ -105,9 +111,11 @@ class IFileIsInUse extends IUnknown{
     }
 
     /**
+     * Closes the file currently in use.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-closefile
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-closefile
      */
     CloseFile() {
         result := ComCall(7, this, "HRESULT")

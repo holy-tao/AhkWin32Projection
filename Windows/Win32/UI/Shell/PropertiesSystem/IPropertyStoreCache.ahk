@@ -42,10 +42,14 @@ class IPropertyStoreCache extends IPropertyStore{
     static VTableNames => ["GetState", "GetValueAndState", "SetState", "SetValueAndState"]
 
     /**
+     * Gets the state of a specified property key.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getstate
+     * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a> enumeration value.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorecache-getstate
      */
     GetState(key) {
         result := ComCall(8, this, "ptr", key, "int*", &pstate := 0, "HRESULT")
@@ -53,12 +57,20 @@ class IPropertyStoreCache extends IPropertyStore{
     }
 
     /**
+     * Gets value and state data for a property key.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @param {Pointer<Integer>} pstate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getvalueandstate
+     * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure identifying the property.
+     * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure for the property data.
+     * @param {Pointer<Integer>} pstate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a> enumeration value declaring the current state of the property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorecache-getvalueandstate
      */
     GetValueAndState(key, ppropvar, pstate) {
         pstateMarshal := pstate is VarRef ? "int*" : "ptr"
@@ -79,12 +91,20 @@ class IPropertyStoreCache extends IPropertyStore{
     }
 
     /**
+     * Sets value and state data for a property key.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @param {Integer} state 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-setvalueandstate
+     * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure identifying the property.
+     * @param {Pointer<PROPVARIANT>} ppropvar Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure containing the property data.
+     * @param {Integer} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a> enumeration declaring the state of the property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorecache-setvalueandstate
      */
     SetValueAndState(key, ppropvar, state) {
         result := ComCall(11, this, "ptr", key, "ptr", ppropvar, "int", state, "HRESULT")

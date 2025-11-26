@@ -172,9 +172,9 @@ class IGPMSecurityInfo extends IDispatch{
     }
 
     /**
-     * 
+     * Returns the number of GPMPermission objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsecurityinfo-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsecurityinfo-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
@@ -182,10 +182,10 @@ class IGPMSecurityInfo extends IDispatch{
     }
 
     /**
-     * 
+     * Given an index, returns a GPMPermission object from the collection.
      * @param {Integer} lIndex 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsecurityinfo-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsecurityinfo-get_item
      */
     get_Item(lIndex) {
         pVal := VARIANT()
@@ -194,9 +194,9 @@ class IGPMSecurityInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsecurityinfo-get__newenum
+     * Retrieves an enumerator for the collection.
+     * @returns {IEnumVARIANT} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface of an enumerator object for the collection. <b>IEnumVARIANT</b> provides a number of methods that you can use to iterate through the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsecurityinfo-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -204,10 +204,14 @@ class IGPMSecurityInfo extends IDispatch{
     }
 
     /**
+     * Adds the permission specified in a GPMPermission object to the GPMSecurityInfo collection. You can add a permission that is above the level of existing permissions. For more information about restrictions that apply, see the following Remarks section.
+     * @param {IGPMPermission} pPerm Pointer to the <b>GPMPermission</b> object to add to the collection.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @param {IGPMPermission} pPerm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsecurityinfo-add
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsecurityinfo-add
      */
     Add(pPerm) {
         result := ComCall(10, this, "ptr", pPerm, "HRESULT")
@@ -215,10 +219,14 @@ class IGPMSecurityInfo extends IDispatch{
     }
 
     /**
+     * Removes the permission specified in a given GPMPermission object from the GPMSecurityInfo collection.
+     * @param {IGPMPermission} pPerm Pointer to the <b>GPMPermission</b> object to remove from the collection.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @param {IGPMPermission} pPerm 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsecurityinfo-remove
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsecurityinfo-remove
      */
     Remove(pPerm) {
         result := ComCall(11, this, "ptr", pPerm, "HRESULT")
@@ -226,10 +234,14 @@ class IGPMSecurityInfo extends IDispatch{
     }
 
     /**
+     * Removes all policy-related permissions for the specified trustee. A trustee is a user, computer, or security group that can be granted permissions on a GPO, SOM, or WMI filter.
+     * @param {BSTR} bstrTrustee Required. The name or SID of the trustee for which all permissions should be removed. Names are in Security Accounts Manager (SAM) compatible format (Exampledomain\Someone). Use null-terminated string.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @param {BSTR} bstrTrustee 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsecurityinfo-removetrustee
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsecurityinfo-removetrustee
      */
     RemoveTrustee(bstrTrustee) {
         bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee

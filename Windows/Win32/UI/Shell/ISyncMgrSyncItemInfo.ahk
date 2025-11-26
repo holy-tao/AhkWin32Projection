@@ -38,9 +38,11 @@ class ISyncMgrSyncItemInfo extends IUnknown{
     static VTableNames => ["GetTypeLabel", "GetComment", "GetLastSyncTime", "IsEnabled", "IsConnected"]
 
     /**
+     * Gets a label for the item type. This typically provides the model of the device or an equivalent item-specific identity string.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-gettypelabel
+     * When this method returns, contains a pointer to a buffer containing the label string.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynciteminfo-gettypelabel
      */
     GetTypeLabel() {
         result := ComCall(3, this, "ptr*", &ppszTypeLabel := 0, "HRESULT")
@@ -48,9 +50,11 @@ class ISyncMgrSyncItemInfo extends IUnknown{
     }
 
     /**
+     * Gets a string that contains commentary regarding the item.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-getcomment
+     * When this method returns, contains a pointer to a buffer containing the comment string. This string is of maximum length MAX_SYNCMGR_NAME including the terminating null character.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynciteminfo-getcomment
      */
     GetComment() {
         result := ComCall(4, this, "ptr*", &ppszComment := 0, "HRESULT")
@@ -58,9 +62,11 @@ class ISyncMgrSyncItemInfo extends IUnknown{
     }
 
     /**
+     * Gets the date and time when the item was last synchronized.
+     * @returns {FILETIME} Type: <b>FILETIME*</b>
      * 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-getlastsynctime
+     * When this method returns, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the date and time information.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynciteminfo-getlastsynctime
      */
     GetLastSyncTime() {
         pftLastSync := FILETIME()
@@ -69,9 +75,17 @@ class ISyncMgrSyncItemInfo extends IUnknown{
     }
 
     /**
+     * Generates a value that indicates whether the item is enabled.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-isenabled
+     * Returns S_OK if the item is enabled; otherwise, S_FALSE.
+     *                     
+     *                     
+     * 
+     * If the item wants Sync Center to maintain the current state, it can return E_NOTIMPL. If any other value is returned, Sync Center sets the item's enabled state to the last known value and enables or disables the associated tasks as appropriate.
+     * 
+     * If either the SYNCMGR_ICM_QUERY_BEFORE_ENABLE or SYNCMGR_ICM_QUERY_BEFORE_DISABLE flags are set in the mask returned from <a href="/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities">GetCapabilities</a>, the handler must manage its own enabled state and therefore must return either S_OK or S_FALSE. Any other return value will be considered an error.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynciteminfo-isenabled
      */
     IsEnabled() {
         result := ComCall(6, this, "HRESULT")
@@ -79,9 +93,11 @@ class ISyncMgrSyncItemInfo extends IUnknown{
     }
 
     /**
+     * Generates a value that indicates whether the item�typically some type of external device�is connected.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-isconnected
+     * Returns S_OK if the item is connected; otherwise, S_FALSE. An error returned by this method will be interpreted as S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsynciteminfo-isconnected
      */
     IsConnected() {
         result := ComCall(7, this, "int")

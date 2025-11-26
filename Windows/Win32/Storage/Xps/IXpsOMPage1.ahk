@@ -39,9 +39,9 @@ class IXpsOMPage1 extends IXpsOMPage{
     static VTableNames => ["GetDocumentType", "Write1"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompage1-getdocumenttype
+     * Gets the type of FixedPage markup that was used to initialize this page. This method is used to determine whether a document is the XPS or OpenXPS type. For more information, see XPS Documents.
+     * @returns {Integer} [out, retval] The document type of the source data used to initialize this package. A document type value of XPS_DOCUMENT_TYPE_UNSPECIFIED is returned if the package was created in memory.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompage1-getdocumenttype
      */
     GetDocumentType() {
         result := ComCall(27, this, "int*", &documentType := 0, "HRESULT")

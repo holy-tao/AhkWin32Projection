@@ -36,10 +36,10 @@ class ITfPreservedKeyNotifySink extends IUnknown{
     static VTableNames => ["OnUpdated"]
 
     /**
-     * 
-     * @param {Pointer<TF_PRESERVEDKEY>} pprekey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpreservedkeynotifysink-onupdated
+     * ITfPreservedKeyNotifySink::OnUpdated method
+     * @param {Pointer<TF_PRESERVEDKEY>} pprekey Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_preservedkey">TF_PRESERVEDKEY</a> structure that contains data about the key.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfpreservedkeynotifysink-onupdated
      */
     OnUpdated(pprekey) {
         result := ComCall(3, this, "ptr", pprekey, "HRESULT")

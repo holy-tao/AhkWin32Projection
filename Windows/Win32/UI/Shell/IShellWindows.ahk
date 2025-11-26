@@ -71,9 +71,11 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Gets the number of windows in the Shell windows collection.
+     * @returns {Integer} Type: <b>long*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-get_count
+     * The number of windows in the Shell windows collection.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -81,10 +83,14 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Returns the registered Shell window for a specified index.
+     * @param {VARIANT} index Type: <b>VARIANT</b>
      * 
-     * @param {VARIANT} index 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-item
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_UI4, VT_I2, or VT_I4. If the type is VT_UI4, the value of <i>index</i> is interpreted as a member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a>; in this case, <b>Item</b> returns the window that is closest to the foreground window and has a matching type. If the type is VT_I, or VT_I4, <i>index</i> is treated as an index into the Shell windows collection.
+     * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
+     * 
+     * A reference to the window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface, or <b>NULL</b> if the specified window was not found.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-item
      */
     Item(index) {
         result := ComCall(8, this, "ptr", index, "ptr*", &Folder := 0, "HRESULT")
@@ -92,9 +98,11 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Retrieves an enumerator for the collection of Shell windows.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-_newenum
+     * When this method returns, contains an interface pointer to an object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-_newenum
      */
     _NewEnum() {
         result := ComCall(9, this, "ptr*", &ppunk := 0, "HRESULT")
@@ -102,12 +110,20 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Registers an open window as a Shell window; the window is specified by handle.
+     * @param {IDispatch} pid Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>*</b>
      * 
-     * @param {IDispatch} pid 
-     * @param {Integer} hwnd 
-     * @param {Integer} swClass 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
+     * The window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface.
+     * @param {Integer} hwnd Type: <b>long</b>
+     * 
+     * A handle that specifies the window to register.
+     * @param {Integer} swClass Type: <b>int</b>
+     * 
+     * A member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> that specifies the type of window.
+     * @returns {Integer} Type: <b>long*</b>
+     * 
+     * The window's cookie.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-register
      */
     Register(pid, hwnd, swClass) {
         result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, "int*", &plCookie := 0, "HRESULT")
@@ -115,13 +131,21 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Registers a pending window as a Shell window; the window is specified by an absolute PIDL.
+     * @param {Integer} lThreadId A thread ID.
+     * @param {Pointer<VARIANT>} pvarloc Type: <b>VARIANT*</b>
      * 
-     * @param {Integer} lThreadId 
-     * @param {Pointer<VARIANT>} pvarloc 
-     * @param {Pointer<VARIANT>} pvarlocRoot 
-     * @param {Integer} swClass 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-registerpending
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_VARIANT | VT_BYREF. Set the value of <i>pvarloc</i> to an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">PIDL</a> (PIDLIST_ABSOLUTE) that specifies the window to register.
+     * @param {Pointer<VARIANT>} pvarlocRoot Type: <b>VARIANT*</b>
+     * 
+     * Must be <b>NULL</b> or of type VT_EMPTY.
+     * @param {Integer} swClass Type: <b>int</b>
+     * 
+     * A member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> that specifies the type of window.
+     * @returns {Integer} Type: <b>long*</b>
+     * 
+     * The window's cookie.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-registerpending
      */
     RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass) {
         result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, "int*", &plCookie := 0, "HRESULT")
@@ -129,10 +153,14 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Revokes a Shell window's registration and removes the window from the Shell windows collection.
+     * @param {Integer} lCookie Type: <b>long*</b>
      * 
-     * @param {Integer} lCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-revoke
+     * The cookie that identifies the window to un-register.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-revoke
      */
     Revoke(lCookie) {
         result := ComCall(12, this, "int", lCookie, "HRESULT")
@@ -140,11 +168,17 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Occurs when a Shell window is navigated to a new location.
+     * @param {Integer} lCookie Type: <b>long</b>
      * 
-     * @param {Integer} lCookie 
-     * @param {Pointer<VARIANT>} pvarLoc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onnavigate
+     * The cookie that identifies the window.
+     * @param {Pointer<VARIANT>} pvarLoc Type: <b>VARIANT*</b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_VARIANT | VT_BYREF. Set the value of <i>pvarLoc</i> to an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">PIDL</a> (PIDLIST_ABSOLUTE) that specifies the new location.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-onnavigate
      */
     OnNavigate(lCookie, pvarLoc) {
         result := ComCall(13, this, "int", lCookie, "ptr", pvarLoc, "HRESULT")
@@ -152,11 +186,17 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Occurs when a Shell window's activation state changes.
+     * @param {Integer} lCookie Type: <b>long</b>
      * 
-     * @param {Integer} lCookie 
-     * @param {VARIANT_BOOL} fActive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onactivated
+     * The cookie that identifies the window.
+     * @param {VARIANT_BOOL} fActive Type: <b>VARIANT_BOOL</b>
+     * 
+     * <b>TRUE</b> if the window is being activated; <b>FALSE</b> if the window is being deactivated.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-onactivated
      */
     OnActivated(lCookie, fActive) {
         result := ComCall(14, this, "int", lCookie, "short", fActive, "HRESULT")
@@ -164,14 +204,26 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Finds a window in the Shell windows collection and returns the window's handle and IDispatch interface.
+     * @param {Pointer<VARIANT>} pvarLoc Type: <b>VARIANT*</b>
      * 
-     * @param {Pointer<VARIANT>} pvarLoc 
-     * @param {Pointer<VARIANT>} pvarLocRoot 
-     * @param {Integer} swClass 
-     * @param {Pointer<Integer>} phwnd 
-     * @param {Integer} swfwOptions 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-findwindowsw
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_VARIANT | VT_BYREF. Set the value of <i>pvarLoc</i> to an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">PIDL</a> (PIDLIST_ABSOLUTE) that specifies the window to find. (See remarks.)
+     * @param {Pointer<VARIANT>} pvarLocRoot Type: <b>VARIANT*</b>
+     * 
+     * Must be <b>NULL</b> or of type VT_EMPTY.
+     * @param {Integer} swClass Type: <b>int</b>
+     * 
+     * One or more <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> flags that specify window types to include in the search.
+     * @param {Pointer<Integer>} phwnd Type: <b>long*</b>
+     * 
+     * A handle for the window matching the specified search criteria, or <b>NULL</b> if no such window was found.
+     * @param {Integer} swfwOptions Type: <b>int</b>
+     * 
+     * One or more <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowfindwindowoptions">ShellWindowFindWindowOptions</a> flags that specify search options.
+     * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
+     * 
+     * A reference to the window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface, or <b>NULL</b> if no such window was found.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-findwindowsw
      */
     FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions) {
         phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
@@ -181,11 +233,17 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Occurs when a new Shell window is created for a frame.
+     * @param {Integer} lCookie Type: <b>long</b>
      * 
-     * @param {Integer} lCookie 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-oncreated
+     * The cookie that identifies the window.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * The address of the new window's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-oncreated
      */
     OnCreated(lCookie, punk) {
         result := ComCall(16, this, "int", lCookie, "ptr", punk, "HRESULT")
@@ -193,10 +251,14 @@ class IShellWindows extends IDispatch{
     }
 
     /**
+     * Deprecated. Always returns S_OK.
+     * @param {VARIANT_BOOL} fAttach Type: <b>VARIANT_BOOL</b>
      * 
-     * @param {VARIANT_BOOL} fAttach 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-processattachdetach
+     * Not used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-processattachdetach
      */
     ProcessAttachDetach(fAttach) {
         result := ComCall(17, this, "short", fAttach, "HRESULT")

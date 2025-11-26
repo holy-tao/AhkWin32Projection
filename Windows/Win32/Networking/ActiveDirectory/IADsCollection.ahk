@@ -46,9 +46,9 @@ class IADsCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscollection-get__newenum
+     * The IADsCollection::get__NewEnum method gets a dependent enumerator object that implements IEnumVARIANT for this ADSI collection object. Be aware that there are two underscore characters in the function name (get__NewEnum).
+     * @returns {IUnknown} Pointer to a pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the enumerator object for this collection.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppEnumerator := 0, "HRESULT")
@@ -56,11 +56,14 @@ class IADsCollection extends IDispatch{
     }
 
     /**
+     * Adds a named item to the collection.
+     * @param {BSTR} bstrName The <b>BSTR</b> value that specifies the item name.  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscollection-getobject">IADsCollection::GetObject</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscollection-remove">IADsCollection::Remove</a> reference the item by this name.
+     * @param {VARIANT} vItem Item value. When the item is an object, this parameter holds the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer on the object.
+     * @returns {HRESULT} This method supports the standard return values, as well as the following.
+     *       
      * 
-     * @param {BSTR} bstrName 
-     * @param {VARIANT} vItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscollection-add
+     * For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscollection-add
      */
     Add(bstrName, vItem) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -70,10 +73,10 @@ class IADsCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrItemToBeRemoved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscollection-remove
+     * The IADsCollection::Remove method removes the named item from this ADSI collection object.
+     * @param {BSTR} bstrItemToBeRemoved The null-terminated Unicode string that specifies the name of the item as it was specified by  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscollection-add">IADsCollection::Add</a>.
+     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscollection-remove
      */
     Remove(bstrItemToBeRemoved) {
         bstrItemToBeRemoved := bstrItemToBeRemoved is String ? BSTR.Alloc(bstrItemToBeRemoved).Value : bstrItemToBeRemoved
@@ -83,10 +86,10 @@ class IADsCollection extends IDispatch{
     }
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {BSTR} bstrName 
-     * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Retrieves an item of the collection.
+     * @param {BSTR} bstrName The null-terminated Unicode string that specifies the name of the item. This is the same name passed to  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscollection-add">IADsCollection::Add</a> when the item is added to the collection.
+     * @returns {VARIANT} Current value of the item. For an object, this corresponds to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer on the object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscollection-getobject
      */
     GetObject(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName

@@ -32,12 +32,12 @@ class ISCPSession extends IUnknown{
     static VTableNames => ["BeginSession", "EndSession", "GetSecureQuery"]
 
     /**
-     * 
-     * @param {IMDSPDevice} pIDevice 
-     * @param {Pointer<Integer>} pCtx 
-     * @param {Integer} dwSizeCtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-beginsession
+     * The BeginSession method indicates beginning of a transfer session. It can be used to optimize operations that need to occur only once per transfer session.
+     * @param {IMDSPDevice} pIDevice Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-imdspdevice">IMDSPDevice</a> object.
+     * @param {Pointer<Integer>} pCtx Pointer to the context.
+     * @param {Integer} dwSizeCtx <b>DWORD</b> containing the size of context.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsession-beginsession
      */
     BeginSession(pIDevice, pCtx, dwSizeCtx) {
         pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
@@ -47,11 +47,11 @@ class ISCPSession extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pCtx 
-     * @param {Integer} dwSizeCtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-endsession
+     * The EndSession method indicates the ending of a transfer session.
+     * @param {Pointer<Integer>} pCtx Pointer to the context.
+     * @param {Integer} dwSizeCtx <b>DWORD</b> containing the size of context.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsession-endsession
      */
     EndSession(pCtx, dwSizeCtx) {
         pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
@@ -61,9 +61,9 @@ class ISCPSession extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ISCPSecureQuery} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-getsecurequery
+     * The GetSecureQuery method is used to obtain a secure query object for the session.
+     * @returns {ISCPSecureQuery} Pointer to a secure query object.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsession-getsecurequery
      */
     GetSecureQuery() {
         result := ComCall(5, this, "ptr*", &ppSecureQuery := 0, "HRESULT")

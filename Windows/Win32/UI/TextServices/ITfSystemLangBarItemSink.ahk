@@ -36,10 +36,39 @@ class ITfSystemLangBarItemSink extends IUnknown{
     static VTableNames => ["InitMenu", "OnMenuSelect"]
 
     /**
+     * ITfSystemLangBarItemSink::InitMenu method
+     * @param {ITfMenu} pMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itfmenu">ITfMenu</a> interface that the system language bar item uses to add items to the system language bar menu.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITfMenu} pMenu 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritemsink-initmenu
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritemsink-initmenu
      */
     InitMenu(pMenu) {
         result := ComCall(3, this, "ptr", pMenu, "HRESULT")
@@ -47,10 +76,39 @@ class ITfSystemLangBarItemSink extends IUnknown{
     }
 
     /**
+     * ITfSystemLangBarItemSink::OnMenuSelect method
+     * @param {Integer} wID Specifies the identifier of the menu item selected. This is the value passed for <i>uId</i> in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itfmenu-addmenuitem">ITfMenu::AddMenuItem</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} wID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritemsink-onmenuselect
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritemsink-onmenuselect
      */
     OnMenuSelect(wID) {
         result := ComCall(4, this, "uint", wID, "HRESULT")

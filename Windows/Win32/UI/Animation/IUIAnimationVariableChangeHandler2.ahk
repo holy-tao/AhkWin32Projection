@@ -38,14 +38,14 @@ class IUIAnimationVariableChangeHandler2 extends IUnknown{
     static VTableNames => ["OnValueChanged"]
 
     /**
-     * 
-     * @param {IUIAnimationStoryboard2} storyboard 
-     * @param {IUIAnimationVariable2} variable 
-     * @param {Pointer<Float>} newValue 
-     * @param {Pointer<Float>} previousValue 
-     * @param {Integer} cDimension 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariablechangehandler2-onvaluechanged
+     * Handles events that occur when the value of an animation variable changes in the specified dimension.
+     * @param {IUIAnimationStoryboard2} storyboard The storyboard that is animating the animation variable specified by the <i>variable</i> parameter.
+     * @param {IUIAnimationVariable2} variable The animation variable that has been updated.
+     * @param {Pointer<Float>} newValue The new value of the animation variable.
+     * @param {Pointer<Float>} previousValue The previous value of the animation variable.
+     * @param {Integer} cDimension The dimension in which the value of the animation variable changed.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariablechangehandler2-onvaluechanged
      */
     OnValueChanged(storyboard, variable, newValue, previousValue, cDimension) {
         newValueMarshal := newValue is VarRef ? "double*" : "ptr"

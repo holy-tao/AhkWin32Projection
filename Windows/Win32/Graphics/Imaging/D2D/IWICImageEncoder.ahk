@@ -31,12 +31,20 @@ class IWICImageEncoder extends IUnknown{
     static VTableNames => ["WriteFrame", "WriteFrameThumbnail", "WriteThumbnail"]
 
     /**
+     * Encodes the image to the frame given by the IWICBitmapFrameEncode.
+     * @param {ID2D1Image} pImage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
      * 
-     * @param {ID2D1Image} pImage 
-     * @param {IWICBitmapFrameEncode} pFrameEncode 
-     * @param {Pointer<WICImageParameters>} pImageParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimageencoder-writeframe
+     * The Direct2D image that will be encoded.
+     * @param {IWICBitmapFrameEncode} pFrameEncode Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-imp-iwicbitmapframeencode">IWICBitmapFrameEncode</a>*</b>
+     * 
+     * The frame encoder to which the image is written.
+     * @param {Pointer<WICImageParameters>} pImageParameters Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicimageparameters">WICImageParameters</a>*</b>
+     * 
+     * Additional parameters to control encoding.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimageencoder-writeframe
      */
     WriteFrame(pImage, pFrameEncode, pImageParameters) {
         result := ComCall(3, this, "ptr", pImage, "ptr", pFrameEncode, "ptr", pImageParameters, "HRESULT")
@@ -44,12 +52,20 @@ class IWICImageEncoder extends IUnknown{
     }
 
     /**
+     * Encodes the image as a thumbnail to the frame given by the IWICBitmapFrameEncode.
+     * @param {ID2D1Image} pImage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
      * 
-     * @param {ID2D1Image} pImage 
-     * @param {IWICBitmapFrameEncode} pFrameEncode 
-     * @param {Pointer<WICImageParameters>} pImageParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimageencoder-writeframethumbnail
+     * The Direct2D image that will be encoded.
+     * @param {IWICBitmapFrameEncode} pFrameEncode Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-imp-iwicbitmapframeencode">IWICBitmapFrameEncode</a>*</b>
+     * 
+     * The frame encoder on which the thumbnail is set.
+     * @param {Pointer<WICImageParameters>} pImageParameters Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicimageparameters">WICImageParameters</a>*</b>
+     * 
+     * Additional parameters to control encoding.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimageencoder-writeframethumbnail
      */
     WriteFrameThumbnail(pImage, pFrameEncode, pImageParameters) {
         result := ComCall(4, this, "ptr", pImage, "ptr", pFrameEncode, "ptr", pImageParameters, "HRESULT")
@@ -57,12 +73,20 @@ class IWICImageEncoder extends IUnknown{
     }
 
     /**
+     * Encodes the given image as the thumbnail to the given WIC bitmap encoder.
+     * @param {ID2D1Image} pImage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
      * 
-     * @param {ID2D1Image} pImage 
-     * @param {IWICBitmapEncoder} pEncoder 
-     * @param {Pointer<WICImageParameters>} pImageParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimageencoder-writethumbnail
+     * The Direct2D image that will be encoded.
+     * @param {IWICBitmapEncoder} pEncoder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a>*</b>
+     * 
+     * The encoder on which the thumbnail is set.
+     * @param {Pointer<WICImageParameters>} pImageParameters Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicimageparameters">WICImageParameters</a>*</b>
+     * 
+     * Additional parameters to control encoding.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimageencoder-writethumbnail
      */
     WriteThumbnail(pImage, pEncoder, pImageParameters) {
         result := ComCall(5, this, "ptr", pImage, "ptr", pEncoder, "ptr", pImageParameters, "HRESULT")

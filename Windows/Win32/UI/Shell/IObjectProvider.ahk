@@ -35,11 +35,17 @@ class IObjectProvider extends IUnknown{
     static VTableNames => ["QueryObject"]
 
     /**
+     * Queries for a specified object.
+     * @param {Pointer<Guid>} guidObject Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectprovider-queryobject
+     * A reference to the <b>GUID</b> used to identify the object.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * Specifies the desired interface ID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * On success, contains the address of a pointer to the object specified by <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectprovider-queryobject
      */
     QueryObject(guidObject, riid) {
         result := ComCall(3, this, "ptr", guidObject, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")

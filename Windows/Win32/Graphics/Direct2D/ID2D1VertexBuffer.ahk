@@ -31,10 +31,14 @@ class ID2D1VertexBuffer extends IUnknown{
     static VTableNames => ["Map", "Unmap"]
 
     /**
+     * Maps the provided data into user memory.
+     * @param {Integer} bufferSize Type: <b>UINT32</b>
      * 
-     * @param {Integer} bufferSize 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-map
+     * The desired size of the buffer.
+     * @returns {Pointer<Integer>} Type: <b>const BYTE**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the available buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-map
      */
     Map(bufferSize) {
         result := ComCall(3, this, "ptr*", &data := 0, "uint", bufferSize, "HRESULT")
@@ -42,9 +46,27 @@ class ID2D1VertexBuffer extends IUnknown{
     }
 
     /**
+     * Unmaps the vertex buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-unmap
+     * The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>D2DERR_WRONG_STATE</td>
+     * <td>The object was not in the correct state to process the method.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-unmap
      */
     Unmap() {
         result := ComCall(4, this, "HRESULT")

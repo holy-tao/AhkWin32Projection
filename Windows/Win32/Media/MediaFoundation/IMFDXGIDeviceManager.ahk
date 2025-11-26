@@ -43,10 +43,39 @@ class IMFDXGIDeviceManager extends IUnknown{
     static VTableNames => ["CloseDeviceHandle", "GetVideoService", "LockDevice", "OpenDeviceHandle", "ResetDevice", "TestDevice", "UnlockDevice"]
 
     /**
+     * Closes a Microsoft Direct3D device handle.
+     * @param {HANDLE} hDevice A handle to the Direct3D device.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {HANDLE} hDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-closedevicehandle
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified handle is not a Direct3D device handle.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-closedevicehandle
      */
     CloseDeviceHandle(hDevice) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -56,11 +85,18 @@ class IMFDXGIDeviceManager extends IUnknown{
     }
 
     /**
+     * Queries the Microsoft Direct3D device for an interface.
+     * @param {HANDLE} hDevice A handle to the Direct3D device. To get the device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle">IMFDXGIDeviceManager::OpenDeviceHandle</a>.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the requested interface. The Direct3D device supports the following interfaces:
      * 
-     * @param {HANDLE} hDevice 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-getvideoservice
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a>. To get a pointer to the Direct3D11 device, use <b>IID_ID3D11Device</b> as the <i>riid</i>.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodevice">ID3D11VideoDevice</a>. To get a pointer to the Direct3D11 video device, use <b>IID_ID3D11VideoDevice</b> as the <i>riid</i>.</li>
+     * </ul>
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-getvideoservice
      */
     GetVideoService(hDevice, riid) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -70,12 +106,24 @@ class IMFDXGIDeviceManager extends IUnknown{
     }
 
     /**
+     * Gives the caller exclusive access to the Microsoft Direct3D device.
+     * @param {HANDLE} hDevice A handle to the Direct3D device. To get the device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle">IMFDXGIDeviceManager::OpenDeviceHandle</a>.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the requested interface. The Direct3D device will support the following interfaces:
      * 
-     * @param {HANDLE} hDevice 
-     * @param {Pointer<Guid>} riid 
-     * @param {BOOL} fBlock 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-lockdevice
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videocontext">ID3D11VideoContext</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodevice">ID3D11VideoDevice</a>
+     * </li>
+     * </ul>
+     * @param {BOOL} fBlock Specifies whether to wait for the device lock. If the device is already locked and this parameter is <b>TRUE</b>, the method blocks until the device is unlocked. Otherwise, if the device is locked and this parameter is <b>FALSE</b>, the method returns immediately with the error code <b>DXVA2_E_VIDEO_DEVICE_LOCKED</b>.
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-lockdevice
      */
     LockDevice(hDevice, riid, fBlock) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -85,9 +133,9 @@ class IMFDXGIDeviceManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle
+     * Gets a handle to the Microsoft Direct3D device.
+     * @returns {HANDLE} Receives the device handle.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle
      */
     OpenDeviceHandle() {
         phDevice := HANDLE()
@@ -96,11 +144,11 @@ class IMFDXGIDeviceManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pUnkDevice 
-     * @param {Integer} resetToken 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-resetdevice
+     * Sets the Microsoft Direct3D device or notifies the device manager that the Direct3D device was reset.
+     * @param {IUnknown} pUnkDevice A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the DXGI device.
+     * @param {Integer} resetToken The token that was received in the <i>pResetToken</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatedxgidevicemanager">MFCreateDXGIDeviceManager</a> function.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-resetdevice
      */
     ResetDevice(pUnkDevice, resetToken) {
         result := ComCall(7, this, "ptr", pUnkDevice, "uint", resetToken, "HRESULT")
@@ -108,10 +156,51 @@ class IMFDXGIDeviceManager extends IUnknown{
     }
 
     /**
+     * Tests whether a Microsoft Direct3D device handle is valid.
+     * @param {HANDLE} hDevice A handle to the Direct3D device. To get the device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle">IMFDXGIDeviceManager::OpenDeviceHandle</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {HANDLE} hDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-testdevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified handle is not a Direct3D device handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_DXGI_NEW_VIDEO_DEVICE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device handle is invalid. 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-testdevice
      */
     TestDevice(hDevice) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -121,11 +210,11 @@ class IMFDXGIDeviceManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HANDLE} hDevice 
-     * @param {BOOL} fSaveState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-unlockdevice
+     * Unlocks the Microsoft Direct3D device.
+     * @param {HANDLE} hDevice A handle to the Direct3D device. To get the device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle">IMFDXGIDeviceManager::OpenDeviceHandle</a>.
+     * @param {BOOL} fSaveState Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgidevicemanager-unlockdevice
      */
     UnlockDevice(hDevice, fSaveState) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice

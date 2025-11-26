@@ -51,10 +51,15 @@ class ITaskSettings2 extends IDispatch{
     }
 
     /**
+     * Gets or sets a Boolean value that specifies that the task will not be started if triggered to run in a Remote Applications Integrated Locally (RAIL) session.
+     * @remarks
+     * 
+     * When reading or writing  XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-disallowstartonremoteappsession-settingstype-element">DisallowStartOnRemoteAppSession</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<VARIANT_BOOL>} pDisallowStart 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-get_disallowstartonremoteappsession
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings2-get_disallowstartonremoteappsession
      */
     get_DisallowStartOnRemoteAppSession(pDisallowStart) {
         pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
@@ -64,10 +69,15 @@ class ITaskSettings2 extends IDispatch{
     }
 
     /**
+     * Gets or sets a Boolean value that specifies that the task will not be started if triggered to run in a Remote Applications Integrated Locally (RAIL) session.
+     * @remarks
+     * 
+     * When reading or writing  XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-disallowstartonremoteappsession-settingstype-element">DisallowStartOnRemoteAppSession</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {VARIANT_BOOL} disallowStart 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-put_disallowstartonremoteappsession
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings2-put_disallowstartonremoteappsession
      */
     put_DisallowStartOnRemoteAppSession(disallowStart) {
         result := ComCall(8, this, "short", disallowStart, "HRESULT")
@@ -75,10 +85,15 @@ class ITaskSettings2 extends IDispatch{
     }
 
     /**
+     * Gets or sets a Boolean value that indicates that the Unified Scheduling Engine will be utilized to run this task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-useunifiedschedulingengine-settingstype-element">UseUnifiedSchedulingEngine</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<VARIANT_BOOL>} pUseUnifiedEngine 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-get_useunifiedschedulingengine
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings2-get_useunifiedschedulingengine
      */
     get_UseUnifiedSchedulingEngine(pUseUnifiedEngine) {
         pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : "ptr"
@@ -88,10 +103,15 @@ class ITaskSettings2 extends IDispatch{
     }
 
     /**
+     * Gets or sets a Boolean value that indicates that the Unified Scheduling Engine will be utilized to run this task.
+     * @remarks
+     * 
+     * When reading or writing XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-useunifiedschedulingengine-settingstype-element">UseUnifiedSchedulingEngine</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {VARIANT_BOOL} useUnifiedEngine 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-put_useunifiedschedulingengine
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings2-put_useunifiedschedulingengine
      */
     put_UseUnifiedSchedulingEngine(useUnifiedEngine) {
         result := ComCall(10, this, "short", useUnifiedEngine, "HRESULT")

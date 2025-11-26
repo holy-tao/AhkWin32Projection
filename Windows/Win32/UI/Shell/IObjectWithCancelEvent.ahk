@@ -32,9 +32,11 @@ class IObjectWithCancelEvent extends IUnknown{
     static VTableNames => ["GetCancelEvent"]
 
     /**
+     * Retrieves an event that will be sent when an operation is canceled.
+     * @returns {HANDLE} Type: <b>HANDLE*</b>
      * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithcancelevent-getcancelevent
+     * Pointer to a handle that, when this method successfully returns, is the handle to the cancel event. The caller is responsible for closing this handle when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithcancelevent-getcancelevent
      */
     GetCancelEvent() {
         phEvent := HANDLE()

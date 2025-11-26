@@ -31,9 +31,9 @@ class IOfflineFilesSyncErrorItemInfo extends IUnknown{
     static VTableNames => ["GetFileAttributes", "GetFileTimes", "GetFileSize"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerroriteminfo-getfileattributes
+     * Retrieves the Win32 file attributes for the item.
+     * @returns {Integer} Receives the file attribute mask for the item.  One or more of FILE_ATTRIBUTE_XXXXXX as defined in the Windows SDK. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessyncerroriteminfo-getfileattributes
      */
     GetFileAttributes() {
         result := ComCall(3, this, "uint*", &pdwAttributes := 0, "HRESULT")
@@ -41,11 +41,11 @@ class IOfflineFilesSyncErrorItemInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<FILETIME>} pftLastWrite 
-     * @param {Pointer<FILETIME>} pftChange 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerroriteminfo-getfiletimes
+     * Retrieves the last-write and change times for the item.
+     * @param {Pointer<FILETIME>} pftLastWrite Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the item's last-write time value.
+     * @param {Pointer<FILETIME>} pftChange Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the item's change time value.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessyncerroriteminfo-getfiletimes
      */
     GetFileTimes(pftLastWrite, pftChange) {
         result := ComCall(4, this, "ptr", pftLastWrite, "ptr", pftChange, "HRESULT")
@@ -53,9 +53,9 @@ class IOfflineFilesSyncErrorItemInfo extends IUnknown{
     }
 
     /**
-     * Retrieves the size of the specified file, in bytes.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
+     * Retrieves the size of the item in bytes.
+     * @returns {Integer} Receives the item's size in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessyncerroriteminfo-getfilesize
      */
     GetFileSize() {
         result := ComCall(5, this, "int64*", &pSize := 0, "HRESULT")

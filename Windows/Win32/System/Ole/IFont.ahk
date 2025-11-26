@@ -236,9 +236,9 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_name
+     * Retrieves the name of the font family.
+     * @returns {BSTR} A pointer to the caller-allocated variable that receives the name. This string must be freed with <b>SysFreeString</b> when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_name
      */
     get_Name() {
         pName := BSTR()
@@ -247,10 +247,42 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Specifies a new name for the font family.
+     * @param {BSTR} name The new name of the font family. This value is both allocated and freed by 
+     *       the caller.
+     * @returns {HRESULT} The method supports the standard return value <b>E_UNEXPECTED</b>, as well as the 
+     *       following values.
      * 
-     * @param {BSTR} name 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_name
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The name was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The address in the <i>name</i> parameter is not valid. For example, it may be 
+     *         <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -260,9 +292,10 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {CY} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_size
+     * Retrieves the point size of the font.
+     * @returns {CY} A pointer to the caller-allocated variable that receives the size,  in <b>HIMETRIC</b> 
+     *    units.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_size
      */
     get_Size() {
         pSize := CY()
@@ -271,10 +304,39 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Sets the point size of the font.
+     * @param {CY} size The new size of the font, in <b>HIMETRIC</b> units.
+     * @returns {HRESULT} The method supports the standard return value <b>E_UNEXPECTED</b>, as well as the following values.
      * 
-     * @param {CY} size 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_size
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font was resized successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value of the <i>size</i> parameter is not valid. For example, it does not contain a usable font size.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_size
      */
     put_Size(size) {
         result := ComCall(6, this, "ptr", size, "HRESULT")
@@ -282,9 +344,10 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_bold
+     * Gets the font's current Bold property.
+     * @returns {BOOL} A pointer to a caller-allocated 
+     *      variable that receives the current Bold property for the font.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_bold
      */
     get_Bold() {
         result := ComCall(7, this, "int*", &pBold := 0, "HRESULT")
@@ -292,10 +355,39 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Sets the font's Bold property.
+     * @param {BOOL} bold The new Bold property for the font.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} bold 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_bold
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The bold state was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font does not support a bold state. Note that this is not an error condition.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_bold
      */
     put_Bold(bold) {
         result := ComCall(8, this, "int", bold, "HRESULT")
@@ -303,9 +395,9 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_italic
+     * Gets the font's current Italic property.
+     * @returns {BOOL} A pointer to the caller-allocated variable that receives the current Italic property for the font.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_italic
      */
     get_Italic() {
         result := ComCall(9, this, "int*", &pItalic := 0, "HRESULT")
@@ -313,10 +405,39 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Sets the font's Italic property.
+     * @param {BOOL} italic The new Italic property for the font.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} italic 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_italic
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The italic state was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font does not support an italic state. This value is not an error condition.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_italic
      */
     put_Italic(italic) {
         result := ComCall(10, this, "int", italic, "HRESULT")
@@ -324,9 +445,9 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_underline
+     * Gets the font's current Underline property.
+     * @returns {BOOL} A pointer to the caller-allocated variable that receives the current Underline property for the font.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_underline
      */
     get_Underline() {
         result := ComCall(11, this, "int*", &pUnderline := 0, "HRESULT")
@@ -334,10 +455,39 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Sets the font's Underline property.
+     * @param {BOOL} underline The new Underline property for the font.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} underline 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_underline
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The underline state was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font does not support an underline state. This value is not an error condition.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_underline
      */
     put_Underline(underline) {
         result := ComCall(12, this, "int", underline, "HRESULT")
@@ -345,9 +495,9 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_strikethrough
+     * Gets the font's current Strikethrough property.
+     * @returns {BOOL} A pointer to the caller-allocated variable that receives the current Strikethrough property for the font.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_strikethrough
      */
     get_Strikethrough() {
         result := ComCall(13, this, "int*", &pStrikethrough := 0, "HRESULT")
@@ -355,10 +505,39 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Sets the font's Strikethrough property.
+     * @param {BOOL} strikethrough The new Strikethrough property for the font.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} strikethrough 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_strikethrough
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Strikethrough property was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font does not support a strikethrough state. This value is not an error condition.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_strikethrough
      */
     put_Strikethrough(strikethrough) {
         result := ComCall(14, this, "int", strikethrough, "HRESULT")
@@ -366,9 +545,9 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_weight
+     * Gets the font's current Weight property.
+     * @returns {Integer} A pointer to the caller-allocated variable that receives the current Weight property for the font. For a list of possible values, see the <b>lfWeight</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_weight
      */
     get_Weight() {
         result := ComCall(15, this, "short*", &pWeight := 0, "HRESULT")
@@ -376,10 +555,40 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Sets the font's Weight property.
+     * @param {Integer} weight The new Weight for the font. For a list of available font weights, see the description of the <b>lfWeight</b> member of 
+     *     the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} weight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_weight
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Weight property was changed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This font does not support different weights. This value is not an error condition.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_weight
      */
     put_Weight(weight) {
         result := ComCall(16, this, "short", weight, "HRESULT")
@@ -387,9 +596,10 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_charset
+     * Retrieves the character set used in the font.
+     * @returns {Integer} A pointer to the caller-allocated variable that receives the character set 
+     *       value.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_charset
      */
     get_Charset() {
         result := ComCall(17, this, "short*", &pCharset := 0, "HRESULT")
@@ -397,10 +607,10 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} charset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_charset
+     * Sets the font's character set.
+     * @param {Integer} charset The new character set for the font.
+     * @returns {HRESULT} The method supports the standard return value <b>E_INVALIDARG</b> and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-put_charset
      */
     put_Charset(charset) {
         result := ComCall(18, this, "short", charset, "HRESULT")
@@ -408,9 +618,10 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HFONT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_hfont
+     * Retrieves a handle to the font described by this font object.
+     * @returns {HFONT} A pointer to the caller-allocated variable that receives the font handle. 
+     *       The caller does not own this resource and must not attempt to destroy the font.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-get_hfont
      */
     get_hFont() {
         phFont := HFONT()
@@ -419,9 +630,12 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IFont} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-clone
+     * Creates a duplicate font object.
+     * @returns {IFont} Address of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ifont">IFont</a> pointer variable that receives the interface 
+     *        pointer to the new font object. The caller must call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IFont::Release</a> when this new font object is no longer 
+     *        needed.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-clone
      */
     Clone() {
         result := ComCall(20, this, "ptr*", &ppFont := 0, "HRESULT")
@@ -429,10 +643,52 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Compares this font object to another for equivalence.
+     * @param {IFont} pFontOther A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ifont">IFont</a> interface on the font object to be compared to this font. The reference count of the object referred to by this pointer is not affected by the comparison operation.
+     * @returns {HRESULT} The method supports the standard return value <b>E_UNEXPECTED</b>, as well as the 
+     *       following values.
      * 
-     * @param {IFont} pFontOther 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-isequal
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The two fonts are equivalent.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The two fonts are not equivalent.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The address in the <i>pFontOther</i> parameter is not valid. For example, it may be 
+     *         <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-isequal
      */
     IsEqual(pFontOther) {
         result := ComCall(21, this, "ptr", pFontOther, "HRESULT")
@@ -440,11 +696,11 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cyLogical 
-     * @param {Integer} cyHimetric 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-setratio
+     * Converts the scaling factor for this font between logical units and HIMETRIC units.
+     * @param {Integer} cyLogical The font size, in logical units.
+     * @param {Integer} cyHimetric The font size, in <b>HIMETRIC</b> units.
+     * @returns {HRESULT} The method supports the standard return values E_UNEXPECTED, E_INVALIDARG, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-setratio
      */
     SetRatio(cyLogical, cyHimetric) {
         result := ComCall(22, this, "int", cyLogical, "int", cyHimetric, "HRESULT")
@@ -452,9 +708,11 @@ class IFont extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {TEXTMETRICW} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-querytextmetrics
+     * Fills a caller-allocated structure with information about the font.
+     * @returns {TEXTMETRICW} Pointer to the caller-allocated structure that receives the font information. The 
+     *    <b>TEXTMETRICOLE</b> structure is defined as a 
+     *    <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRICW</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-querytextmetrics
      */
     QueryTextMetrics() {
         pTM := TEXTMETRICW()
@@ -463,10 +721,28 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Notifies the font object that the previously realized font identified with hFont should remain valid until ReleaseHfont is called or the font object itself is released completely.
+     * @param {HFONT} hFont Font handle previously realized through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">get_hFont</a> to be locked in the font object's cache.
+     * @returns {HRESULT} The method supports the standard return values <b>E_UNEXPECTED</b> and <b>E_INVALIDARG</b>, as well as the following values.
      * 
-     * @param {HFONT} hFont 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-addrefhfont
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font was successfully locked in the cache.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-addrefhfont
      */
     AddRefHfont(hFont) {
         hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
@@ -476,10 +752,44 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Notifies the font object that the caller that previously locked this font in the cache with IFont::AddRefHfont no longer requires the lock.
+     * @param {HFONT} hFont A font handle previously realized through 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">IFont::get_hFont</a>. This value was passed to a previous 
+     *       call to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-addrefhfont">IFont::AddRefHfont</a> to lock the font, and the 
+     *       caller would now like to unlock the font in the cache.
+     * @returns {HRESULT} The method supports the standard return values <b>E_UNEXPECTED</b> and 
+     *       <b>E_INVALIDARG</b>, as well as the following values.
      * 
-     * @param {HFONT} hFont 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-releasehfont
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font was unlocked successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font was not locked in the cache. This return value is a benign notification to the caller that it 
+     *         may have a font reference counting problem.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-releasehfont
      */
     ReleaseHfont(hFont) {
         hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
@@ -489,10 +799,40 @@ class IFont extends IUnknown{
     }
 
     /**
+     * Provides a device context to the font that describes the logical mapping mode.
+     * @param {HDC} hDC A handle to the device context in which to select the font.
+     * @returns {HRESULT} The method supports the standard return value <b>E_INVALIDARG</b>, as well as the 
+     *       following values.
      * 
-     * @param {HDC} hDC 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-sethdc
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font was selected successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The font selection is not supported through this font object.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ifont-sethdc
      */
     SetHdc(hDC) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC

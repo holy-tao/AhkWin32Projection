@@ -31,11 +31,13 @@ class IMFContentDecryptorContext extends IUnknown{
     static VTableNames => ["InitializeHardwareKey"]
 
     /**
-     * 
-     * @param {Integer} InputPrivateDataByteCount 
-     * @param {Pointer<Void>} InputPrivateData 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentdecryptorcontext-initializehardwarekey
+     * Allows the display driver to return IHV-specific information used when initializing a new hardware key.
+     * @param {Integer} InputPrivateDataByteCount The number of bytes in the buffer that <i>InputPrivateData</i> specifies.
+     * @param {Pointer<Void>} InputPrivateData The contents of this parameter are defined by the implementation of   
+     *          the protection system that runs in the security processor. The contents may contain data about license or stream properties.
+     * @returns {Integer} The return data is also defined by the implementation of the protection system implementation   
+     *      that runs in the security processor.  The contents may contain data associated with the underlying hardware key.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentdecryptorcontext-initializehardwarekey
      */
     InitializeHardwareKey(InputPrivateDataByteCount, InputPrivateData) {
         InputPrivateDataMarshal := InputPrivateData is VarRef ? "ptr" : "ptr"

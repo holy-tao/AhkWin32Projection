@@ -39,10 +39,12 @@ class ID2D1DrawingStateBlock extends ID2D1Resource{
     static VTableNames => ["GetDescription", "SetDescription", "SetTextRenderingParams", "GetTextRenderingParams"]
 
     /**
+     * Retrieves the antialiasing mode, transform, and tags portion of the drawing state.
+     * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION>} stateDescription Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_drawing_state_description">D2D1_DRAWING_STATE_DESCRIPTION</a>*</b>
      * 
-     * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION>} stateDescription 
+     * When this method returns, contains the antialiasing mode, transform, and tags portion of the drawing state. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-getdescription
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1drawingstateblock-getdescription
      */
     GetDescription(stateDescription) {
         ComCall(4, this, "ptr", stateDescription)
@@ -59,20 +61,24 @@ class ID2D1DrawingStateBlock extends ID2D1Resource{
     }
 
     /**
+     * Specifies the text-rendering configuration of the drawing state.
+     * @param {IDWriteRenderingParams} textRenderingParams Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>*</b>
      * 
-     * @param {IDWriteRenderingParams} textRenderingParams 
+     * The text-rendering configuration of the drawing state, or NULL to use default settings.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-settextrenderingparams
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1drawingstateblock-settextrenderingparams
      */
     SetTextRenderingParams(textRenderingParams) {
         ComCall(6, this, "ptr", textRenderingParams)
     }
 
     /**
+     * Retrieves the text-rendering configuration of the drawing state.
+     * @param {Pointer<IDWriteRenderingParams>} textRenderingParams Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>**</b>
      * 
-     * @param {Pointer<IDWriteRenderingParams>} textRenderingParams 
+     * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a> object that describes the text-rendering configuration of the drawing state.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-gettextrenderingparams
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1drawingstateblock-gettextrenderingparams
      */
     GetTextRenderingParams(textRenderingParams) {
         ComCall(7, this, "ptr*", textRenderingParams)

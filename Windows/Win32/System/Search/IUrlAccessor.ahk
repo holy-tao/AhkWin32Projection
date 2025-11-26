@@ -43,11 +43,17 @@ class IUrlAccessor extends IUnknown{
     static VTableNames => ["AddRequestParameter", "GetDocFormat", "GetCLSID", "GetHost", "IsDirectory", "GetSize", "GetLastModified", "GetFileName", "GetSecurityDescriptor", "GetRedirectedURL", "GetSecurityProvider", "BindToStream", "BindToFilter"]
 
     /**
+     * Requests a property-value set.
+     * @param {Pointer<PROPSPEC>} pSpec Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propspec">PROPSPEC</a>*</b>
      * 
-     * @param {Pointer<PROPSPEC>} pSpec 
-     * @param {Pointer<PROPVARIANT>} pVar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-addrequestparameter
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propspec">PROPSPEC</a> structure containing the requested property.
+     * @param {Pointer<PROPVARIANT>} pVar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure containing the value for the property specified by <i>pSpec</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-addrequestparameter
      */
     AddRequestParameter(pSpec, pVar) {
         result := ComCall(3, this, "ptr", pSpec, "ptr", pVar, "HRESULT")
@@ -55,11 +61,17 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the document format, represented as a Multipurpose Internet Mail Extensions (MIME) string.
+     * @param {PWSTR} wszDocFormat Type: <b>WCHAR[]</b>
      * 
-     * @param {PWSTR} wszDocFormat 
-     * @param {Integer} dwSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getdocformat
+     * Receives a pointer to a null-terminated Unicode string containing the MIME type for the current item.
+     * @param {Integer} dwSize Type: <b>DWORD</b>
+     * 
+     * Size of <i>wszDocFormat</i>in <b>TCHAR</b><b>s</b>.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * Receives a pointer to the number of <b>TCHAR</b><b>s</b> written to <i>wszDocFormat</i>, not including the terminating <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getdocformat
      */
     GetDocFormat(wszDocFormat, dwSize) {
         wszDocFormat := wszDocFormat is String ? StrPtr(wszDocFormat) : wszDocFormat
@@ -69,9 +81,11 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the CLSID for the document type of the URL item being processed.
+     * @returns {Guid} Type: <b>CLSID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getclsid
+     * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/clsid">CLSID</a> for the document type of the URL item being processed.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getclsid
      */
     GetCLSID() {
         pClsid := Guid()
@@ -80,11 +94,17 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the host name for the content source, if applicable.
+     * @param {PWSTR} wszHost Type: <b>WCHAR[]</b>
      * 
-     * @param {PWSTR} wszHost 
-     * @param {Integer} dwSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-gethost
+     * Receives the name of the host that the content source file resides on, as a null-terminated Unicode string.
+     * @param {Integer} dwSize Type: <b>DWORD</b>
+     * 
+     * Size in <b>TCHAR</b><b>s</b>of <i>wszHost</i>, not including the terminating <b>NULL</b>.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * Receives a pointer to the number of <b>TCHAR</b><b>s</b> written to <i>wszHost</i>, not including the terminating <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-gethost
      */
     GetHost(wszHost, dwSize) {
         wszHost := wszHost is String ? StrPtr(wszHost) : wszHost
@@ -94,9 +114,11 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Ascertains whether the item URL points to a directory.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-isdirectory
+     * Returns S_OK if the URL is a directory, otherwise S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-isdirectory
      */
     IsDirectory() {
         result := ComCall(7, this, "HRESULT")
@@ -104,9 +126,12 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the size of the content designated by the URL.
+     * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsize
+     * Receives a pointer to the 
+     *      number of bytes of data contained in the URL.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getsize
      */
     GetSize() {
         result := ComCall(8, this, "uint*", &pllSize := 0, "HRESULT")
@@ -114,9 +139,11 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the time stamp identifying when the URL was last modified.
+     * @returns {FILETIME} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>*</b>
      * 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getlastmodified
+     * Receives a pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> identifying the time stamp when the URL was last modified.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getlastmodified
      */
     GetLastModified() {
         pftLastModified := FILETIME()
@@ -125,11 +152,21 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Retrieves the file name of the item, which the filter host uses for indexing. If the item does not exist in a file system and the IUrlAccessor::BindToStream method is implemented, this method returns the shell's System.ParsingPath property for the item.
+     * @param {PWSTR} wszFileName Type: <b>WCHAR[]</b>
      * 
-     * @param {PWSTR} wszFileName 
-     * @param {Integer} dwSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getfilename
+     * Receives the file name as a null-terminated Unicode string.
+     * @param {Integer} dwSize Type: <b>DWORD</b>
+     * 
+     * Size in 
+     *                 <b>TCHAR</b><b>s</b> of
+     *                 <i>wszFileName</i>, not including the terminating <b>NULL</b>.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * Receives a pointer to the number of 
+     *            <b>TCHAR</b><b>s</b>written to <b>wszFileName</b>, not including
+     *                 <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getfilename
      */
     GetFileName(wszFileName, dwSize) {
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
@@ -139,12 +176,20 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the security descriptor for the URL item. Security is applied at query time, so this descriptor identifies security for read access.
+     * @param {Pointer<Integer>} pSD Type: <b>BYTE*</b>
      * 
-     * @param {Pointer<Integer>} pSD 
-     * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsecuritydescriptor
+     * Receives a pointer to the security descriptor.
+     * @param {Integer} dwSize Type: <b>DWORD</b>
+     * 
+     * Size in <b>TCHAR</b><b>s</b>of the <i>pSD</i> array.
+     * @param {Pointer<Integer>} pdwLength Type: <b>DWORD*</b>
+     * 
+     * Receives a pointer to the number of <b>TCHAR</b><b>s</b> written to <i>pSD</i>, not including the terminating <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getsecuritydescriptor
      */
     GetSecurityDescriptor(pSD, dwSize, pdwLength) {
         pSDMarshal := pSD is VarRef ? "char*" : "ptr"
@@ -155,11 +200,20 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the redirected URL for the current item.
+     * @param {PWSTR} wszRedirectedURL Type: <b>WCHAR[]</b>
      * 
-     * @param {PWSTR} wszRedirectedURL 
-     * @param {Integer} dwSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getredirectedurl
+     * Receives the redirected URL as a Unicode string, not including the terminating <b>NULL</b>.
+     * @param {Integer} dwSize Type: <b>DWORD</b>
+     * 
+     * Size in <b>TCHAR</b><b>s</b>of <i>wszRedirectedURL</i>, not including the terminating <b>NULL</b>.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * Receives a pointer to the number of
+     *                 <b>TCHAR</b><b>s</b> 
+     *                 written to <i>wszRedirectedURL</i>,
+     *                 not including the terminating <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getredirectedurl
      */
     GetRedirectedURL(wszRedirectedURL, dwSize) {
         wszRedirectedURL := wszRedirectedURL is String ? StrPtr(wszRedirectedURL) : wszRedirectedURL
@@ -169,9 +223,11 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Gets the security provider for the URL.
+     * @returns {Guid} Type: <b>CLSID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsecurityprovider
+     * Receives a pointer to a security provider's CLSID.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-getsecurityprovider
      */
     GetSecurityProvider() {
         pSPClsid := Guid()
@@ -180,9 +236,11 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Binds the item being processed to an IStream interface [Structured Storage] data stream and retrieves a pointer to that stream.
+     * @returns {IStream} Type: <b>IStream**</b>
      * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-bindtostream
+     * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that contains the item represented by the URL.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-bindtostream
      */
     BindToStream() {
         result := ComCall(14, this, "ptr*", &ppStream := 0, "HRESULT")
@@ -190,9 +248,11 @@ class IUrlAccessor extends IUnknown{
     }
 
     /**
+     * Binds the item being processed to the appropriate IFilterand retrieves a pointer to the IFilter.
+     * @returns {IFilter} Type: <b>IFilter**</b>
      * 
-     * @returns {IFilter} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-bindtofilter
+     * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> that can return metadata about the item being processed.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor-bindtofilter
      */
     BindToFilter() {
         result := ComCall(15, this, "ptr*", &ppFilter := 0, "HRESULT")

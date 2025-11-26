@@ -31,10 +31,39 @@ class IDMOQualityControl extends IUnknown{
     static VTableNames => ["SetNow", "SetStatus", "GetStatus"]
 
     /**
+     * The SetNow method specifies the earliest time stamp that the DMO will deliver.
+     * @param {Integer} rtNow Reference time specifying the earliest time stamp to deliver.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {Integer} rtNow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmoqualitycontrol-setnow
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmoqualitycontrol-setnow
      */
     SetNow(rtNow) {
         result := ComCall(3, this, "int64", rtNow, "HRESULT")
@@ -42,10 +71,39 @@ class IDMOQualityControl extends IUnknown{
     }
 
     /**
+     * The SetStatus method enables or disables quality control.
+     * @param {Integer} dwFlags Value that specifies whether to enable or disable quality control. Use DMO_QUALITY_STATUS_ENABLED to enable quality control, or zero to disable quality control.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmoqualitycontrol-setstatus
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmoqualitycontrol-setstatus
      */
     SetStatus(dwFlags) {
         result := ComCall(4, this, "uint", dwFlags, "HRESULT")
@@ -53,9 +111,9 @@ class IDMOQualityControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmoqualitycontrol-getstatus
+     * The GetStatus method determines whether quality control is active.
+     * @returns {Integer} Pointer to a variable that receives the quality control status. If quality control is disabled, the value is zero. If quality control is enabled, the value is DMO_QUALITY_STATUS_ENABLED.
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmoqualitycontrol-getstatus
      */
     GetStatus() {
         result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")

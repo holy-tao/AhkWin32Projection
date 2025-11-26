@@ -36,12 +36,30 @@ class IRegisteredSyncProvider extends IUnknown{
     static VTableNames => ["Init", "GetInstanceId", "Reset"]
 
     /**
+     * Initializes the synchronization provider before it is ready for a synchronization session.
+     * @param {Pointer<Guid>} pguidInstanceId The instance ID of the synchronization provider.
+     * @param {Pointer<Guid>} pguidContentType A GUID that represents the content type that this provider will synchronize.
+     * @param {IPropertyStore} pContextPropertyStore The properties needed to initialize the synchronization provider. These properties are also provided when the synchronization provider is registered.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Guid>} pguidInstanceId 
-     * @param {Pointer<Guid>} pguidContentType 
-     * @param {IPropertyStore} pContextPropertyStore 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-init
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-iregisteredsyncprovider-init
      */
     Init(pguidInstanceId, pguidContentType, pContextPropertyStore) {
         result := ComCall(3, this, "ptr", pguidInstanceId, "ptr", pguidContentType, "ptr", pContextPropertyStore, "HRESULT")
@@ -49,9 +67,9 @@ class IRegisteredSyncProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-getinstanceid
+     * Returns the synchronization provider's instance ID.
+     * @returns {Guid} The instance ID of the synchronization provider.
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-iregisteredsyncprovider-getinstanceid
      */
     GetInstanceId() {
         pguidInstanceId := Guid()
@@ -60,9 +78,27 @@ class IRegisteredSyncProvider extends IUnknown{
     }
 
     /**
+     * Resets a synchronization provider so that it looks like a new replica in the next synchronization session.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-iregisteredsyncprovider-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")

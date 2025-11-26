@@ -48,12 +48,20 @@ class IContextMenu3 extends IContextMenu2{
     static VTableNames => ["HandleMenuMsg2"]
 
     /**
+     * Allows client objects of the IContextMenu3 interface to handle messages associated with owner-drawn menu items.
+     * @param {Integer} uMsg Type: <b>UINT</b>
      * 
-     * @param {Integer} uMsg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {LRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
+     * The message to be processed. In the case of some messages, such as WM_INITMENUPOPUP, WM_DRAWITEM, WM_MENUCHAR, or WM_MEASUREITEM, the client object being called may provide owner-drawn menu items.
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
+     * @returns {LRESULT} Type: <b>LRESULT*</b>
+     * 
+     * The address of an <b>LRESULT</b> value that the owner of the menu will return from the message. This parameter can be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
      */
     HandleMenuMsg2(uMsg, wParam, lParam) {
         result := ComCall(7, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")

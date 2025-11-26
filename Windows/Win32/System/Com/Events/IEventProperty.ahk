@@ -49,9 +49,9 @@ class IEventProperty extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the event property.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventproperty-get_name
      */
     get_Name() {
         propertyName := BSTR()
@@ -60,10 +60,10 @@ class IEventProperty extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the event property.
      * @param {BSTR} propertyName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventproperty-put_name
      */
     put_Name(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
@@ -73,9 +73,9 @@ class IEventProperty extends IDispatch{
     }
 
     /**
-     * 
+     * The value of the event property.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventproperty-get_value
      */
     get_Value() {
         propertyValue := VARIANT()
@@ -84,10 +84,10 @@ class IEventProperty extends IDispatch{
     }
 
     /**
-     * 
+     * The value of the event property.
      * @param {Pointer<VARIANT>} propertyValue 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-put_value
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventproperty-put_value
      */
     put_Value(propertyValue) {
         result := ComCall(10, this, "ptr", propertyValue, "HRESULT")

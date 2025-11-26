@@ -70,10 +70,12 @@ class ID3D10Query extends ID3D10Asynchronous{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get a query description.
+     * @param {Pointer<D3D10_QUERY_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D10_QUERY_DESC>} pDesc 
+     * Pointer to a query description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10query-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10query-getdesc
      */
     GetDesc(pDesc) {
         ComCall(11, this, "ptr", pDesc)

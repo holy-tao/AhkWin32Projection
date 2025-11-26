@@ -37,16 +37,16 @@ class IWbemDecoupledRegistrar extends IUnknown{
     static VTableNames => ["Register", "UnRegister"]
 
     /**
-     * 
-     * @param {Integer} a_Flags 
-     * @param {IWbemContext} a_Context 
-     * @param {PWSTR} a_User 
-     * @param {PWSTR} a_Locale 
-     * @param {PWSTR} a_Scope 
-     * @param {PWSTR} a_Registration 
-     * @param {IUnknown} pIUnknown 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledregistrar-register
+     * The IWbemDecoupledRegistrar::Register method registers an object interface with WMI.
+     * @param {Integer} a_Flags Reserved for future use.
+     * @param {IWbemContext} a_Context Reserved for future use.
+     * @param {PWSTR} a_User String identifying the user for this registration.
+     * @param {PWSTR} a_Locale String identifying the locale for this registration.
+     * @param {PWSTR} a_Scope Object path representing the binding to a WMI provider registration object in a specified namespace. The scope object path can be <b>NULL</b>, indicating that the provider will support all namespaces.
+     * @param {PWSTR} a_Registration Name of the provider being registered.
+     * @param {IUnknown} pIUnknown Pointer to an object for particular registration. This interface will be queried to determine the interface support that the object is capable of servicing.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemdecoupledregistrar-register
      */
     Register(a_Flags, a_Context, a_User, a_Locale, a_Scope, a_Registration, pIUnknown) {
         a_User := a_User is String ? StrPtr(a_User) : a_User
@@ -59,9 +59,9 @@ class IWbemDecoupledRegistrar extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledregistrar-unregister
+     * The IWbemDecoupledRegistrar::UnRegister method removes the registration of an object interface from WMI.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemdecoupledregistrar-unregister
      */
     UnRegister() {
         result := ComCall(4, this, "HRESULT")

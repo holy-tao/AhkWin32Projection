@@ -31,11 +31,11 @@ class IPrintManagerInterop extends IInspectable{
     static VTableNames => ["GetForWindow", "ShowPrintUIForWindowAsync"]
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-getforwindow
+     * Gets the PrintManager instance for the specified window.
+     * @param {HWND} appWindow The window to get the <a href="https://docs.microsoft.com/uwp/api/Windows.Graphics.Printing.PrintManager">PrintManager</a> instance for.
+     * @param {Pointer<Guid>} riid The reference ID of the specified window.
+     * @returns {Pointer<Void>} The <a href="https://docs.microsoft.com/uwp/api/Windows.Graphics.Printing.PrintManager">PrintManager</a> instance for the specified window.
+     * @see https://docs.microsoft.com/windows/win32/api//printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
@@ -45,11 +45,11 @@ class IPrintManagerInterop extends IInspectable{
     }
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-showprintuiforwindowasync
+     * Displays the UI for printing content for the specified window.
+     * @param {HWND} appWindow The window to show the print UI  for.
+     * @param {Pointer<Guid>} riid The reference ID of the specified window.
+     * @returns {Pointer<Void>} The asynchronous operation that reports completion.
+     * @see https://docs.microsoft.com/windows/win32/api//printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-showprintuiforwindowasync
      */
     ShowPrintUIForWindowAsync(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow

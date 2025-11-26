@@ -31,10 +31,28 @@ class IWMPLibrarySharingServices extends IUnknown{
     static VTableNames => ["isLibraryShared", "isLibrarySharingEnabled", "showLibrarySharing"]
 
     /**
+     * The isLibraryShared method retrieves a value indicating whether the user's library is shared.
+     * @param {Pointer<VARIANT_BOOL>} pvbShared Pointer to a <b>VARIANT_BOOL</b> that receives the result. <b>VARIANT_TRUE</b> indicates that the user's library is currently shared.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbShared 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-islibraryshared
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrarysharingservices-islibraryshared
      */
     isLibraryShared(pvbShared) {
         pvbSharedMarshal := pvbShared is VarRef ? "short*" : "ptr"
@@ -44,10 +62,28 @@ class IWMPLibrarySharingServices extends IUnknown{
     }
 
     /**
+     * The isLibrarySharingEnabled method retrieves a value indicating whether the user has enabled library sharing in Windows Media Player.
+     * @param {Pointer<VARIANT_BOOL>} pvbEnabled Pointer to a <b>VARIANT_BOOL</b> that receives the result. <b>VARIANT_TRUE</b> indicates that the user has enabled library sharing.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-islibrarysharingenabled
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrarysharingservices-islibrarysharingenabled
      */
     isLibrarySharingEnabled(pvbEnabled) {
         pvbEnabledMarshal := pvbEnabled is VarRef ? "short*" : "ptr"
@@ -57,9 +93,27 @@ class IWMPLibrarySharingServices extends IUnknown{
     }
 
     /**
+     * The showLibrarySharing method displays the Windows Media Player Library Sharing dialog box.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-showlibrarysharing
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmplibrarysharingservices-showlibrarysharing
      */
     showLibrarySharing() {
         result := ComCall(5, this, "HRESULT")

@@ -33,10 +33,24 @@ class ISdoDictionaryOld extends IDispatch{
     static VTableNames => ["EnumAttributes", "GetAttributeInfo", "EnumAttributeValues", "CreateAttribute", "GetAttributeID"]
 
     /**
+     * The EnumAttributes method retrieves the values of the specified attributes.
+     * @param {Pointer<VARIANT>} Id On input, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> 
+     *        that specifies the attributes to enumerate. If the type of this 
+     *        <b>VARIANT</b>, given by 
+     *        <b>V_VT</b>(Id), is 
+     *        <b>VT_EMPTY</b>, 
+     *        <b>ISdoDictionaryOld::EnumAttributes</b> 
+     *        enumerates all the attributes. If the type is <b>VT_I4</b>, then the value of the 
+     *        <b>VARIANT</b> is the ID of the attribute 
+     *        to enumerate.
      * 
-     * @param {Pointer<VARIANT>} Id 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-enumattributes
+     * On output, pointer to a 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the IDs of 
+     *        the enumerated attributes.
+     * @returns {VARIANT} Pointer to a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains 
+     *       the values of the enumerated attributes.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdodictionaryold-enumattributes
      */
     EnumAttributes(Id) {
         pValues := VARIANT()
@@ -45,11 +59,12 @@ class ISdoDictionaryOld extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Id 
-     * @param {Pointer<VARIANT>} pInfoIDs 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-getattributeinfo
+     * The GetAttributeInfo retrieves information for the specified attribute.
+     * @param {Integer} Id Specifies the ID for the attribute.
+     * @param {Pointer<VARIANT>} pInfoIDs Pointer to an array of information IDs. This pointer cannot be <b>NULL</b>.
+     * @returns {VARIANT} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> of 
+     *       information values.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdodictionaryold-getattributeinfo
      */
     GetAttributeInfo(Id, pInfoIDs) {
         pInfoValues := VARIANT()
@@ -58,11 +73,15 @@ class ISdoDictionaryOld extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Id 
-     * @param {Pointer<VARIANT>} pValueIds 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-enumattributevalues
+     * The EnumAttributeValues method retrieves the values for an enumerable attribute.
+     * @param {Integer} Id Specifies the ID of the attribute.
+     * @param {Pointer<VARIANT>} pValueIds On successful return points to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> of value IDs for the enumerable attribute. If the attribute is not enumerable, points to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VT_EMPTY</a> variant.
+     * @returns {VARIANT} On successful return points to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> of value descriptions for the enumerable attribute. If the attribute is not enumerable, points to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VT_EMPTY</a> variant.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdodictionaryold-enumattributevalues
      */
     EnumAttributeValues(Id, pValueIds) {
         pValuesDesc := VARIANT()
@@ -71,10 +90,12 @@ class ISdoDictionaryOld extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Id 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-createattribute
+     * The CreateAttribute method creates a new attribute object and returns an IDispatch interface to it.
+     * @param {Integer} Id Specifies a value from the enumeration type 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-attributeid">ATTRIBUTEID</a>. This value specifies the type of attribute to create.
+     * @returns {IDispatch} Pointer to a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer for the created attribute object.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdodictionaryold-createattribute
      */
     CreateAttribute(Id) {
         result := ComCall(10, this, "uint", Id, "ptr*", &ppAttributeObject := 0, "HRESULT")
@@ -82,10 +103,11 @@ class ISdoDictionaryOld extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAttributeName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-getattributeid
+     * The GetAttributeID method retrieves the ID for the specified attribute.
+     * @param {BSTR} bstrAttributeName Specifies the name of the attribute. This name is either the Lightweight Directory Access Protocol (LDAP) name, or the display name for the attribute.
+     * @returns {Integer} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-attributeid">ATTRIBUTEID</a> that receives the ID of the specified attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdodictionaryold-getattributeid
      */
     GetAttributeID(bstrAttributeName) {
         bstrAttributeName := bstrAttributeName is String ? BSTR.Alloc(bstrAttributeName).Value : bstrAttributeName

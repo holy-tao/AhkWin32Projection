@@ -112,22 +112,12 @@ class ITsSbPlugin extends IUnknown{
     static VTableNames => ["Initialize", "Terminate"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {ITsSbProvider} pProvider 
-     * @param {ITsSbPluginNotifySink} pNotifySink 
-     * @param {ITsSbPluginPropertySet} pPropertySet 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the plug-in.
+     * @param {ITsSbProvider} pProvider A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovider">ITsSbProvider</a> provider object.
+     * @param {ITsSbPluginNotifySink} pNotifySink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbpluginnotifysink">ITsSbPluginNotifySink</a> notify sink object.
+     * @param {ITsSbPluginPropertySet} pPropertySet A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbpluginpropertyset">ITsSbPluginPropertySet</a> plug-in property set object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbplugin-initialize
      */
     Initialize(pProvider, pNotifySink, pPropertySet) {
         result := ComCall(3, this, "ptr", pProvider, "ptr", pNotifySink, "ptr", pPropertySet, "HRESULT")
@@ -135,10 +125,10 @@ class ITsSbPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbplugin-terminate
+     * Performs clean-up and unloads the plug-in.
+     * @param {HRESULT} hr Specifies the reason for termination. The plug-in should specify a standard <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbplugin-terminate
      */
     Terminate(hr) {
         result := ComCall(4, this, "int", hr, "HRESULT")

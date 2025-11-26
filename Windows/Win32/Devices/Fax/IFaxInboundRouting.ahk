@@ -43,9 +43,11 @@ class IFaxInboundRouting extends IDispatch{
     static VTableNames => ["GetExtensions", "GetMethods"]
 
     /**
+     * The GetExtensions method retrieves the collection of inbound routing extensions registered with the fax service.
+     * @returns {IFaxInboundRoutingExtensions} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingextensions">IFaxInboundRoutingExtensions</a>**</b>
      * 
-     * @returns {IFaxInboundRoutingExtensions} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundrouting-getextensions
+     * Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingextensions">IFaxInboundRoutingExtensions</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundrouting-getextensions
      */
     GetExtensions() {
         result := ComCall(7, this, "ptr*", &pFaxInboundRoutingExtensions := 0, "HRESULT")
@@ -53,9 +55,11 @@ class IFaxInboundRouting extends IDispatch{
     }
 
     /**
+     * The IFaxInboundRouting::GetMethods method retrieves the ordered collection of all the inbound routing methods exposed by all the inbound routing extensions currently registered with the fax service.
+     * @returns {IFaxInboundRoutingMethods} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethods">IFaxInboundRoutingMethods</a>**</b>
      * 
-     * @returns {IFaxInboundRoutingMethods} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundrouting-getmethods
+     * Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethods">IFaxInboundRoutingMethods</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundrouting-getmethods
      */
     GetMethods() {
         result := ComCall(8, this, "ptr*", &pFaxInboundRoutingMethods := 0, "HRESULT")

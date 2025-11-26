@@ -48,9 +48,9 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
-     * 
-     * @returns {IUIAutomationEventHandlerGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-createeventhandlergroup
+     * Registers one or more event listeners in a single method call.
+     * @returns {IUIAutomationEventHandlerGroup} A collection of UI Automation event listeners.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-createeventhandlergroup
      */
     CreateEventHandlerGroup() {
         result := ComCall(70, this, "ptr*", &handlerGroup := 0, "HRESULT")
@@ -58,11 +58,11 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
-     * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationEventHandlerGroup} handlerGroup 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-addeventhandlergroup
+     * Registers a collection of event handler methods specified with the CreateEventHandlerGroup.
+     * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler group.
+     * @param {IUIAutomationEventHandlerGroup} handlerGroup A collection of UI Automation event listeners.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-addeventhandlergroup
      */
     AddEventHandlerGroup(element, handlerGroup) {
         result := ComCall(71, this, "ptr", element, "ptr", handlerGroup, "HRESULT")
@@ -70,11 +70,11 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
-     * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationEventHandlerGroup} handlerGroup 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-removeeventhandlergroup
+     * Asynchronously removes the specified UI Automation event handler group.
+     * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler group.
+     * @param {IUIAutomationEventHandlerGroup} handlerGroup A collection of UI Automation event listeners.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-removeeventhandlergroup
      */
     RemoveEventHandlerGroup(element, handlerGroup) {
         result := ComCall(72, this, "ptr", element, "ptr", handlerGroup, "HRESULT")
@@ -82,9 +82,20 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
+     * Indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive.
+     * @remarks
+     * 
+     * > ### Parameters
+     * >
+     * > `connectionRecoveryBehaviorOptions` [in]
+     * >
+     * > Type: **ConnectionRecoveryBehaviorOptions**
+     * >
+     * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
      */
     get_ConnectionRecoveryBehavior() {
         result := ComCall(73, this, "int*", &connectionRecoveryBehaviorOptions := 0, "HRESULT")
@@ -92,10 +103,21 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
+     * Indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive.
+     * @remarks
+     * 
+     * > ### Parameters
+     * >
+     * > `connectionRecoveryBehaviorOptions` [out]
+     * >
+     * > Type: **ConnectionRecoveryBehaviorOptions**
+     * >
+     * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
+     * 
      * 
      * @param {Integer} connectionRecoveryBehaviorOptions 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
      */
     put_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions) {
         result := ComCall(74, this, "int", connectionRecoveryBehaviorOptions, "HRESULT")
@@ -103,9 +125,20 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
+     * Gets or sets whether an accessible technology client receives all events, or a subset where duplicate events are detected and filtered.
+     * @remarks
+     * 
+     * > ### Parameters
+     * >
+     * > `coalesceEventsOptions` [in]
+     * >
+     * > Type: **CoalesceEventsOptions**
+     * >
+     * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
      */
     get_CoalesceEvents() {
         result := ComCall(75, this, "int*", &coalesceEventsOptions := 0, "HRESULT")
@@ -113,10 +146,21 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
+     * Gets or sets whether an accessible technology client receives all events, or a subset where duplicate events are detected and filtered.
+     * @remarks
+     * 
+     * > ### Parameters
+     * >
+     * > `coalesceEventsOptions` [out]
+     * >
+     * > Type: **CoalesceEventsOptions**
+     * >
+     * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
+     * 
      * 
      * @param {Integer} coalesceEventsOptions 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
      */
     put_CoalesceEvents(coalesceEventsOptions) {
         result := ComCall(76, this, "int", coalesceEventsOptions, "HRESULT")
@@ -124,13 +168,13 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
-     * 
-     * @param {IUIAutomationElement} element 
+     * Registers a method that handles when the active text position changes.
+     * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
      * @param {Integer} scope 
-     * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-addactivetextpositionchangedeventhandler
+     * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or NULL if no caching is wanted.
+     * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-addactivetextpositionchangedeventhandler
      */
     AddActiveTextPositionChangedEventHandler(element, scope, cacheRequest, handler) {
         result := ComCall(77, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
@@ -138,11 +182,11 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
-     * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-removeactivetextpositionchangedeventhandler
+     * Removes an active text position changed event handler.
+     * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
+     * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-removeactivetextpositionchangedeventhandler
      */
     RemoveActiveTextPositionChangedEventHandler(element, handler) {
         result := ComCall(78, this, "ptr", element, "ptr", handler, "HRESULT")

@@ -451,9 +451,9 @@ class IADsClass extends IADs{
     }
 
     /**
-     * 
-     * @returns {IADsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsclass-qualifiers
+     * Returns a collection of ADSI objects that describe additional qualifiers for this schema class.
+     * @returns {IADsCollection} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> pointer variable that receives the interface pointer to the ADSI collection object that represents additional limits for this schema class.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsclass-qualifiers
      */
     Qualifiers() {
         result := ComCall(49, this, "ptr*", &ppQualifiers := 0, "HRESULT")

@@ -31,11 +31,14 @@ class IGetOleObject extends IUnknown{
     static VTableNames => ["GetOleObject"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-igetoleobject-getoleobject
+     * Gets a pointer to an OLE control on a Visual Basic container.
+     * @param {Pointer<Guid>} riid Specifies the interface to retrieve. Pass <b>IID_IOleObject</b> to obtain a pointer to 
+     *       the control.
+     * @param {Pointer<Pointer<Void>>} ppvObj Pointer to the control.
+     * @returns {HRESULT} This method supports the standard return values <b>E_INVALIDARG</b>, 
+     *       <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the 
+     *       following:
+     * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nf-vbinterf-igetoleobject-getoleobject
      */
     GetOleObject(riid, ppvObj) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"

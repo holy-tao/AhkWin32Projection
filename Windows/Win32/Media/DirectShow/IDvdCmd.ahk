@@ -31,9 +31,9 @@ class IDvdCmd extends IUnknown{
     static VTableNames => ["WaitForStart", "WaitForEnd"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcmd-waitforstart
+     * The WaitForStart method blocks the DVD Navigator until the command associated with this object begins.
+     * @returns {HRESULT} Returns S_OK if successful or an <b>HRESULT</b> error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdcmd-waitforstart
      */
     WaitForStart() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IDvdCmd extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcmd-waitforend
+     * The WaitForEnd method blocks the DVD Navigator until the command associated with this object completes or is canceled.
+     * @returns {HRESULT} Returns S_OK if successful or an <b>HRESULT</b> error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdcmd-waitforend
      */
     WaitForEnd() {
         result := ComCall(4, this, "HRESULT")

@@ -67,9 +67,9 @@ class IFaxServer2 extends IFaxServer{
     }
 
     /**
-     * 
+     * The IFaxServer2::Configuration property holds a IFaxConfiguration object. The object permits a fax client application to access information about the configuration of the connected fax server.
      * @returns {IFaxConfiguration} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_configuration
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver2-get_configuration
      */
     get_Configuration() {
         result := ComCall(33, this, "ptr*", &ppFaxConfiguration := 0, "HRESULT")
@@ -77,9 +77,9 @@ class IFaxServer2 extends IFaxServer{
     }
 
     /**
-     * 
+     * The IFaxServer2::CurrentAccount property returns the fax account for the user account that has connected to the fax server.
      * @returns {IFaxAccount} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_currentaccount
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver2-get_currentaccount
      */
     get_CurrentAccount() {
         result := ComCall(34, this, "ptr*", &ppCurrentAccount := 0, "HRESULT")
@@ -87,9 +87,9 @@ class IFaxServer2 extends IFaxServer{
     }
 
     /**
-     * 
+     * The IFaxServer2::FaxAccountSet property returns a IFaxAccountSet object used to manage the fax accounts on the fax server.
      * @returns {IFaxAccountSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_faxaccountset
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver2-get_faxaccountset
      */
     get_FaxAccountSet() {
         result := ComCall(35, this, "ptr*", &ppFaxAccountSet := 0, "HRESULT")
@@ -97,9 +97,9 @@ class IFaxServer2 extends IFaxServer{
     }
 
     /**
-     * 
+     * The IFaxServer2::Security2 property returns a IFaxSecurity2 object used to configure security on the fax server.
      * @returns {IFaxSecurity2} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_security2
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxserver2-get_security2
      */
     get_Security2() {
         result := ComCall(36, this, "ptr*", &ppFaxSecurity2 := 0, "HRESULT")

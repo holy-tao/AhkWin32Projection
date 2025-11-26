@@ -37,12 +37,63 @@ class IEnumSyncProviderInfos extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Returns the next ISyncProviderInfo object.
+     * @param {Integer} cInstances The number of <b>ISyncProviderInfo</b> objects to retrieve in the range of zero to 1.
+     * @param {Pointer<ISyncProviderInfo>} ppSyncProviderInfo Returns the next <i>pcFetched</i><b>ISyncProviderInfo</b> objects.
+     * @param {Pointer<Integer>} pcFetched Returns the number of <b>ISyncProviderInfo</b> objects that are retrieved.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} cInstances 
-     * @param {Pointer<ISyncProviderInfo>} ppSyncProviderInfo 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderinfos-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested number of objects was not available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was not enough memory available to return the next  <b>ISyncProviderInfo</b> object.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-ienumsyncproviderinfos-next
      */
     Next(cInstances, ppSyncProviderInfo, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -52,10 +103,39 @@ class IEnumSyncProviderInfos extends IUnknown{
     }
 
     /**
+     * Skips the specified number of ISyncProviderInfo objects.
+     * @param {Integer} cInstances The number of <b>ISyncProviderInfo</b> objects to skip.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} cInstances 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderinfos-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The end of the collection was reached before the specified number of items was skipped.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-ienumsyncproviderinfos-skip
      */
     Skip(cInstances) {
         result := ComCall(4, this, "uint", cInstances, "HRESULT")
@@ -63,9 +143,27 @@ class IEnumSyncProviderInfos extends IUnknown{
     }
 
     /**
+     * Resets the enumerator to the beginning of the ISyncProviderInfo set.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderinfos-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-ienumsyncproviderinfos-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -73,9 +171,9 @@ class IEnumSyncProviderInfos extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumSyncProviderInfos} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderinfos-clone
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * @returns {IEnumSyncProviderInfos} Returns the newly cloned enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-ienumsyncproviderinfos-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

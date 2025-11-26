@@ -42,10 +42,10 @@ class IMFSinkWriterCallback extends IUnknown{
     static VTableNames => ["OnFinalize", "OnMarker"]
 
     /**
-     * 
-     * @param {HRESULT} hrStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onfinalize
+     * Called when the IMFSinkWriter::Finalize method completes.
+     * @param {HRESULT} hrStatus The status code for the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-finalize">Finalize</a> operation. If the value is an error code, the output file might be invalid.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the sink writer ignores the return value.
+     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onfinalize
      */
     OnFinalize(hrStatus) {
         result := ComCall(3, this, "int", hrStatus, "HRESULT")
@@ -53,11 +53,11 @@ class IMFSinkWriterCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwStreamIndex 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onmarker
+     * Called when the IMFSinkWriter::PlaceMarker method completes.
+     * @param {Integer} dwStreamIndex The zero-based index of the stream. This parameter equals the value of the <i>dwStreamIndex</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-placemarker">PlaceMarker</a> method.
+     * @param {Pointer<Void>} pvContext The application-defined value that was given in the <i>pvContext</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-placemarker">PlaceMarker</a> method.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the sink writer ignores the return value.
+     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onmarker
      */
     OnMarker(dwStreamIndex, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"

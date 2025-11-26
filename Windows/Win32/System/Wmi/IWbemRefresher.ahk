@@ -37,10 +37,14 @@ class IWbemRefresher extends IUnknown{
     static VTableNames => ["Refresh"]
 
     /**
+     * The IWbemRefresher::Refresh method updates all refreshable objects, enumerators, and nested refreshers. The WMI Refresher calls this function in response to a client request to Refresh.
+     * @param {Integer} lFlags Bitmask of flags that modify the behavior of this method.
      * 
-     * @param {Integer} lFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemrefresher-refresh
+     * If <b>WBEM_FLAG_REFRESH_AUTO_RECONNECT</b> is specified and if the connection is broken, the refresher attempts to reconnect to the provider automatically. This is the default behavior for this method.
+     * 
+     * If you do not want the refresher to attempt to reconnect to the provider, specify <b>WBEM_FLAG_REFRESH_NO_AUTO_RECONNECT</b>.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemrefresher-refresh
      */
     Refresh(lFlags) {
         result := ComCall(3, this, "int", lFlags, "HRESULT")

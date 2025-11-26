@@ -31,9 +31,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetGroupType", "GetCountOfRecords", "GetRecordEvent", "GetCountOfRefRecords", "GetRefRecordEvent"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-gettag
+     * Gets the tag that identifies an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
+     * @returns {Integer} Receives the tag value. For ISDB event group descriptors, this value is 0xD6.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getlength
+     * Gets the body length of an Integrated Services Digital Broadcasting (ISDB) event group descriptor, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     }
 
     /**
-     * 
+     * Gets a code that describes the event group type from an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getgrouptype
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getgrouptype
      */
     GetGroupType() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -61,9 +61,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getcountofrecords
+     * Gets the number of event records from an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
+     * @returns {Integer} Receives the number of records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -71,12 +71,12 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pwServiceId 
-     * @param {Pointer<Integer>} pwEventId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrecordevent
+     * Gets data from an event record in an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the event record containing the data. To get the number of components, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getcountofrecords">IIsdbEventGrouptDescriptor::GetCountOfRecords</a>.
+     * @param {Pointer<Integer>} pwServiceId Receives the value of the sevice_id field from the event record. This value identifies the information service and appears in the program_number field of the corresponding program map section.
+     * @param {Pointer<Integer>} pwEventId Receives the value of  the event_id field from the related event record. This value identifies the event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrecordevent
      */
     GetRecordEvent(bRecordIndex, pwServiceId, pwEventId) {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
@@ -87,9 +87,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getcountofrefrecords
+     * Gets the number of related event records from an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
+     * @returns {Integer} Receives the number of related event records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getcountofrefrecords
      */
     GetCountOfRefRecords() {
         result := ComCall(8, this, "char*", &pbVal := 0, "HRESULT")
@@ -97,14 +97,16 @@ class IIsdbEventGroupDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pwOriginalNetworkId 
-     * @param {Pointer<Integer>} pwTransportStreamId 
-     * @param {Pointer<Integer>} pwServiceId 
-     * @param {Pointer<Integer>} pwEventId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrefrecordevent
+     * Gets data from a related event record in an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the related event record containing the data. To get the number of components, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getcountofrecords">IIsdbEventGrouptDescriptor::GetCountOfRecords</a>.
+     * @param {Pointer<Integer>} pwOriginalNetworkId Receives the value of the original_network_id field from the related
+     * event record. This value is transmitted at the time of event relay or event move across networks.
+     * @param {Pointer<Integer>} pwTransportStreamId Receives the value of the transport_stream_id field from the related
+     * event record. This value that is transmitted at the time of event relay or event move across networks.
+     * @param {Pointer<Integer>} pwServiceId Receives the value of the sevice_id field from the related event record. This value identifies the related information service and appears in the program_number field of the corresponding program map section.
+     * @param {Pointer<Integer>} pwEventId Receives the value of  the event_id field from the related event record. This value identifies the related event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrefrecordevent
      */
     GetRefRecordEvent(bRecordIndex, pwOriginalNetworkId, pwTransportStreamId, pwServiceId, pwEventId) {
         pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"

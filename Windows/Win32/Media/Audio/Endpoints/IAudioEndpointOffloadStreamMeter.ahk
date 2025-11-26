@@ -31,9 +31,9 @@ class IAudioEndpointOffloadStreamMeter extends IUnknown{
     static VTableNames => ["GetMeterChannelCount", "GetMeteringData"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeterchannelcount
+     * Gets the number of available audio channels in the offloaded stream that can be metered.
+     * @returns {Integer} A Pointer to a variable that indicates the number of available audio channels in the offloaded stream that can be metered.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeterchannelcount
      */
     GetMeterChannelCount() {
         result := ComCall(3, this, "uint*", &pu32ChannelCount := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IAudioEndpointOffloadStreamMeter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} u32ChannelCount 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeteringdata
+     * The GetMeteringData method retrieves general information about the available audio channels in the offloaded stream.
+     * @param {Integer} u32ChannelCount Indicates the number of available audio channels in the offloaded audio stream.
+     * @returns {Float} A pointer to the peak values for the audio channels in the offloaded audio stream.
+     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeteringdata
      */
     GetMeteringData(u32ChannelCount) {
         result := ComCall(4, this, "uint", u32ChannelCount, "float*", &pf32PeakValues := 0, "HRESULT")

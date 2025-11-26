@@ -31,11 +31,37 @@ class ISyncCallback2 extends ISyncCallback{
     static VTableNames => ["OnChangeApplied", "OnChangeFailed"]
 
     /**
+     * Occurs after a change is successfully applied.
+     * @param {Integer} dwChangesApplied The number of changes that have been successfully applied during the synchronization session. This value is the sum of item changes plus change unit changes.
+     * @param {Integer} dwChangesFailed The number of changes that have failed to apply during the synchronization session. This value is the sum of item changes plus change unit changes.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} dwChangesApplied 
-     * @param {Integer} dwChangesFailed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback2-onchangeapplied
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Application-determined error codes</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback2-onchangeapplied
      */
     OnChangeApplied(dwChangesApplied, dwChangesFailed) {
         result := ComCall(8, this, "uint", dwChangesApplied, "uint", dwChangesFailed, "HRESULT")
@@ -43,11 +69,37 @@ class ISyncCallback2 extends ISyncCallback{
     }
 
     /**
+     * Occurs after a change fails to apply.
+     * @param {Integer} dwChangesApplied The number of changes that have been successfully applied during the synchronization session. This value is the sum of item changes plus change unit changes.
+     * @param {Integer} dwChangesFailed The number of changes that have failed to apply during the synchronization session. This value is the sum of item changes plus change unit changes.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} dwChangesApplied 
-     * @param {Integer} dwChangesFailed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback2-onchangefailed
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Application-determined error codes</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback2-onchangefailed
      */
     OnChangeFailed(dwChangesApplied, dwChangesFailed) {
         result := ComCall(9, this, "uint", dwChangesApplied, "uint", dwChangesFailed, "HRESULT")

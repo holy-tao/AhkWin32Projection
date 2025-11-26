@@ -29,11 +29,11 @@ class IProviderAdmin extends IUnknown{
     static VTableNames => ["GetLastError", "GetProviderTable", "CreateProvider", "DeleteProvider", "OpenProfileSection"]
 
     /**
-     * Retrieves the calling thread's last-error code value.
+     * 
      * @param {HRESULT} hResult 
      * @param {Integer} ulFlags 
      * @returns {Pointer<MAPIERROR>} 
-     * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-getlasterror
      */
     GetLastError(hResult, ulFlags) {
         result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")

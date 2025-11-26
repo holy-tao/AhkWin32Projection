@@ -31,9 +31,9 @@ class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetPrivateDataSpecifier"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-gettag
+     * Gets the tag that identifies a Digital Video Broadcast (DVB) private data descriptor.
+     * @returns {Integer} Receives the private descriptor identifier tag. For private data descriptors, this value is 0x5F.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getlength
+     * Gets the body length of a Digital Video Broadcast (DVB) private data descriptor.
+     * @returns {Integer} Receives the private data descriptor length, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getprivatedataspecifier
+     * Gets the data from a Digital Video Broadcast (DVB) private data descriptor.
+     * @returns {Integer} Receives the private descriptor specifier data.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getprivatedataspecifier
      */
     GetPrivateDataSpecifier() {
         result := ComCall(5, this, "uint*", &pdwVal := 0, "HRESULT")

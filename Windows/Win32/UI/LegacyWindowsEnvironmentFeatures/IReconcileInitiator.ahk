@@ -31,10 +31,43 @@ class IReconcileInitiator extends IUnknown{
     static VTableNames => ["SetAbortCallback", "SetProgressFeedback"]
 
     /**
+     * Sets the object through which the initiator can asynchronously terminate a reconciliation. A briefcase reconciler typically sets this object for reconciliations that are lengthy or involve user interaction.
+     * @param {IUnknown} punkForAbort Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkForAbort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcileinitiator-setabortcallback
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the object. The initiator signals a request to terminate the reconciliation by using the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method to release the object. This parameter may be <b>NULL</b> to direct the initiator to remove the previously specified object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns the S_OK value if successful, or one of the following error values otherwise. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>REC_E_NOCALLBACK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The initiator does not support termination of reconciliation operations and does not hold the specified object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unspecified error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-ireconcileinitiator-setabortcallback
      */
     SetAbortCallback(punkForAbort) {
         result := ComCall(3, this, "ptr", punkForAbort, "HRESULT")
@@ -42,11 +75,17 @@ class IReconcileInitiator extends IUnknown{
     }
 
     /**
+     * Indicates the amount of progress the briefcase reconciler has made toward completing the reconciliation.
+     * @param {Integer} ulProgress Type: <b>ULONG</b>
      * 
-     * @param {Integer} ulProgress 
-     * @param {Integer} ulProgressMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcileinitiator-setprogressfeedback
+     * The numerator of the progress fraction.
+     * @param {Integer} ulProgressMax Type: <b>ULONG</b>
+     * 
+     * The denominator of the progress fraction.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns the S_OK value if successful, or the E_UNEXPECTED value if an unspecified error occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-ireconcileinitiator-setprogressfeedback
      */
     SetProgressFeedback(ulProgress, ulProgressMax) {
         result := ComCall(4, this, "uint", ulProgress, "uint", ulProgressMax, "HRESULT")

@@ -37,87 +37,29 @@ class IRdcComparator extends IUnknown{
     static VTableNames => ["Process"]
 
     /**
-     * Performs ink recognition synchronously.
-     * @param {BOOL} endOfInput 
-     * @param {Pointer<BOOL>} endOfOutput 
-     * @param {Pointer<RdcBufferPointer>} inputBuffer 
-     * @param {Pointer<RdcNeedPointer>} outputBuffer 
-     * @param {Pointer<Integer>} rdc_ErrorCode 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not process the ink because the ink has been fully processed, or the <a href="/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function has not been called and the recognizer does not support incremental processing of ink.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_S_INTERRUPTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process was interrupted by a call to the <a href="/windows/desktop/api/recapis/nf-recapis-adviseinkchange">AdviseInkChange</a> function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
+     * Compares two signature streams (seed and source) and produces a needs list, which describes the chunks of file data needed to create the target file.
+     * @param {BOOL} endOfInput Set to <b>TRUE</b> if the <i>inputBuffer</i> parameter contains all 
+     *       remaining input.
+     * @param {Pointer<BOOL>} endOfOutput Address of a <b>BOOL</b> that on successful completion is set to 
+     *       <b>TRUE</b> if all output data has been generated.
+     * @param {Pointer<RdcBufferPointer>} inputBuffer Address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcbufferpointer">RdcBufferPointer</a> structure containing 
+     *       information about the input buffer. The <b>m_Used</b> member of this structure is used to 
+     *       indicate how much input, if any, was processed during this call.
+     * @param {Pointer<RdcNeedPointer>} outputBuffer Address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneedpointer">RdcNeedPointer</a> structure containing 
+     *       information about the output buffer. On input the <b>m_Size</b> member of this structure 
+     *       must contain the number of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneed">RdcNeed</a> structures in the array 
+     *       pointed to by the <b>m_Data</b> member, and the <b>m_Used</b> member 
+     *       must be zero. On output the <b>m_Used</b> member will contain the number of 
+     *       <b>RdcNeed</b> structures in the array pointed to by the 
+     *       <b>m_Data</b> member.
+     * @param {Pointer<Integer>} rdc_ErrorCode The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
+     *       filled with an RDC specific error code if the return value from the 
+     *       <b>Process</b> method is 
+     *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
+     *       return value of the <b>Process</b> method contains the 
+     *       specific error code.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdccomparator-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, rdc_ErrorCode) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"

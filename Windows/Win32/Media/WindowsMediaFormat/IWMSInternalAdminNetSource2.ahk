@@ -32,16 +32,18 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
     static VTableNames => ["SetCredentialsEx", "GetCredentialsEx", "DeleteCredentialsEx", "FindProxyForURLEx"]
 
     /**
+     * The SetCredentialsEx method adds a password to the cache.
+     * @param {BSTR} bstrRealm String containing the realm name. Realm names are supplied by servers to distinguish different levels of access to their files. Not all servers have realm names, in which case the DNS name should be used.
      * 
-     * @param {BSTR} bstrRealm 
-     * @param {BSTR} bstrUrl 
-     * @param {BOOL} fProxy 
-     * @param {BSTR} bstrName 
-     * @param {BSTR} bstrPassword 
-     * @param {BOOL} fPersist 
-     * @param {BOOL} fConfirmedGood 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-setcredentialsex
+     * If <i>fProxy</i> is False, this realm refers to the host server. If <i>fProxy</i> is True, this realm refers to the proxy server.
+     * @param {BSTR} bstrUrl String containing the URL to which the credentials apply.
+     * @param {BOOL} fProxy Boolean value that is True if the password applies when using a proxy server to access the site specified by <i>bstrUrl</i>.
+     * @param {BSTR} bstrName String containing the user name.
+     * @param {BSTR} bstrPassword String containing the password.
+     * @param {BOOL} fPersist Boolean value that is True if these credentials should be permanently saved. If you set this to False, the credentials will only be persisted for the current session.
+     * @param {BOOL} fConfirmedGood Boolean value that is True if the server has confirmed the password as correct. You can cache the password before receiving verification from the server, in which case you should set this to False.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-setcredentialsex
      */
     SetCredentialsEx(bstrRealm, bstrUrl, fProxy, bstrName, bstrPassword, fPersist, fConfirmedGood) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
@@ -54,16 +56,18 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
     }
 
     /**
+     * The GetCredentialsEx method retrieves a cached password.
+     * @param {BSTR} bstrRealm String containing the realm name. Realm names are supplied by servers to distinguish different levels of access to their files. Not all servers have realm names, in which case the DNS name is used.
      * 
-     * @param {BSTR} bstrRealm 
-     * @param {BSTR} bstrUrl 
-     * @param {BOOL} fProxy 
-     * @param {Pointer<Integer>} pdwUrlPolicy 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @param {Pointer<BSTR>} pbstrPassword 
-     * @param {Pointer<BOOL>} pfConfirmedGood 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-getcredentialsex
+     * If <i>fProxy</i> is False, this realm refers to the host server. If <i>fProxy</i> is True, this realm refers to the proxy server.
+     * @param {BSTR} bstrUrl String containing the URL to which the credentials apply.
+     * @param {BOOL} fProxy Boolean value that is True if the password applies when using a proxy server to access the site specified by <i>bstrUrl</i>.
+     * @param {Pointer<Integer>} pdwUrlPolicy Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings">NETSOURCE_URLCREDPOLICY_SETTINGS</a> enumeration type. This value is based on the user's network security settings and determines whether your application can automatically log in to sites for the user if you have credentials cached.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a string containing the user name.
+     * @param {Pointer<BSTR>} pbstrPassword Pointer to a string containing the password.
+     * @param {Pointer<BOOL>} pfConfirmedGood Boolean value that is True if the password was cached after it was confirmed as correct by the server.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-getcredentialsex
      */
     GetCredentialsEx(bstrRealm, bstrUrl, fProxy, pdwUrlPolicy, pbstrName, pbstrPassword, pfConfirmedGood) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
@@ -77,12 +81,12 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrRealm 
-     * @param {BSTR} bstrUrl 
-     * @param {BOOL} fProxy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-deletecredentialsex
+     * The DeleteCredentialsEx method removes a password from the cache.
+     * @param {BSTR} bstrRealm String containing the realm name. Realm names are supplied by servers to distinguish different levels of access to their files. Not all servers will have realm names, in which case the DNS name is used.
+     * @param {BSTR} bstrUrl String containing the URL to which the credentials apply.
+     * @param {BOOL} fProxy Boolean value that is True if the password applies when using a proxy server to access the site specified by <i>bstrUrl</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-deletecredentialsex
      */
     DeleteCredentialsEx(bstrRealm, bstrUrl, fProxy) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm

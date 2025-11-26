@@ -36,13 +36,42 @@ class IMFSeekInfo extends IUnknown{
     static VTableNames => ["GetNearestKeyFrames"]
 
     /**
+     * For a particular seek position, gets the two nearest key frames.
+     * @param {Pointer<Guid>} pguidTimeFormat A pointer to a GUID that specifies the time format. The time format defines the units for the other parameters of this method. If the value is <b>GUID_NULL</b>, the time format is 100-nanosecond units. Some media sources might support additional time format GUIDs.
+     * @param {Pointer<PROPVARIANT>} pvarStartPosition The seek position. The units for this parameter are specified by <i>pguidTimeFormat</i>.
+     * @param {Pointer<PROPVARIANT>} pvarPreviousKeyFrame Receives the position of the nearest key frame that appears earlier than <i>pvarStartPosition</i>. The units for this parameter are specified by <i>pguidTimeFormat</i>.
+     * @param {Pointer<PROPVARIANT>} pvarNextKeyFrame Receives the position of the nearest key frame that appears later than <i>pvarStartPosition</i>. The units for this parameter are specified by <i>pguidTimeFormat</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} pguidTimeFormat 
-     * @param {Pointer<PROPVARIANT>} pvarStartPosition 
-     * @param {Pointer<PROPVARIANT>} pvarPreviousKeyFrame 
-     * @param {Pointer<PROPVARIANT>} pvarNextKeyFrame 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfseekinfo-getnearestkeyframes
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_UNSUPPORTED_TIME_FORMAT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The time format specified in <i>pguidTimeFormat</i> is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfseekinfo-getnearestkeyframes
      */
     GetNearestKeyFrames(pguidTimeFormat, pvarStartPosition, pvarPreviousKeyFrame, pvarNextKeyFrame) {
         result := ComCall(3, this, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "ptr", pvarPreviousKeyFrame, "ptr", pvarNextKeyFrame, "HRESULT")

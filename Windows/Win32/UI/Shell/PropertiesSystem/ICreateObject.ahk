@@ -31,12 +31,20 @@ class ICreateObject extends IUnknown{
     static VTableNames => ["CreateObject"]
 
     /**
+     * Creates a local object of a specified class and returns a pointer to a specified interface on the object.
+     * @param {Pointer<Guid>} clsid Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {IUnknown} pUnkOuter 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-icreateobject-createobject
+     * A reference to a CLSID.
+     * @param {IUnknown} pUnkOuter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that aggregates the object created by this function, or <b>NULL</b> if no aggregation is desired.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface the created object should return.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the address of the pointer to the interface requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-icreateobject-createobject
      */
     CreateObject(clsid, pUnkOuter, riid) {
         result := ComCall(3, this, "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

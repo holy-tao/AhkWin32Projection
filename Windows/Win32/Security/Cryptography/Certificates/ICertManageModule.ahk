@@ -89,13 +89,90 @@ class ICertManageModule extends IDispatch{
     static VTableNames => ["GetProperty", "SetProperty", "Configure"]
 
     /**
+     * Retrieves a module's property value.
+     * @param {BSTR} strConfig Represents the configuration string for the Certificate Services server in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) as entered for the CA during Certificate Services setup. For information about the configuration string name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
+     * @param {BSTR} strStorageLocation A registry key that denotes the storage location in the <b>HKEY_LOCAL_MACHINE</b> hive for the property values. This value is in the following form:
      * 
-     * @param {BSTR} strConfig 
-     * @param {BSTR} strStorageLocation 
-     * @param {BSTR} strPropertyName 
-     * @param {Integer} Flags 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certmod/nf-certmod-icertmanagemodule-getproperty
+     * 
+     * <pre xml:space="preserve"><b>SYSTEM</b>
+     *    <b>CurrentControlSet</b>
+     *       <b>Services</b>
+     *          <b>CertSvc</b>
+     *             <b>Configuration</b>
+     *                <i>CAName</i>
+     *                   <i>PolicyOrExitModules</i>
+     *                      <i>MyModule.PolicyOrExit</i></pre>
+     * 
+     * 
+     * The <i>CAName</i> is the name of the certification authority's configuration string, <i>PolicyOrExitModules</i> will be either "Policy" or "Exit" (depending on whether a Policy or Exit module applies to this implementation of <b>ICertManageModule</b>), and <i>MyModule.PolicyOrExit</i> is the application-specific identifier for the module. Note that <i>CAName</i> is the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">sanitized name</a> for the certification authority. For information about the sanitized name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertconfig-getconfig">ICertConfig::GetConfig</a>. The use of this storage location is for future use.
+     * @param {BSTR} strPropertyName The name of the property being queried. Policy and exit modules should support the following properties. 
+     * 
+     * 
+     * 
+     * 
+     * 					
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Name"></a><a id="name"></a><a id="NAME"></a><dl>
+     * <dt><b>Name</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Name of the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Description"></a><a id="description"></a><a id="DESCRIPTION"></a><dl>
+     * <dt><b>Description</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Description of the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Copyright"></a><a id="copyright"></a><a id="COPYRIGHT"></a><dl>
+     * <dt><b>Copyright</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Copyright pertaining to the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="File_Version"></a><a id="file_version"></a><a id="FILE_VERSION"></a><dl>
+     * <dt><b>File Version</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Version of the module file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Product_Version"></a><a id="product_version"></a><a id="PRODUCT_VERSION"></a><dl>
+     * <dt><b>Product Version</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Version of the module.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Integer} Flags This parameter is reserved and must be set to zero.
+     * @returns {VARIANT} A pointer to a <b>VARIANT</b> that is the retrieved value for the property specified by <i>strPropertyName</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//certmod/nf-certmod-icertmanagemodule-getproperty
      */
     GetProperty(strConfig, strStorageLocation, strPropertyName, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -108,14 +185,76 @@ class ICertManageModule extends IDispatch{
     }
 
     /**
+     * Allows a module to set a property value.
+     * @param {BSTR} strConfig Represents the configuration string for the Certificate Services server in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) as entered for the CA during Certificate Services setup. For information about the configuration string name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
+     * @param {BSTR} strStorageLocation The location that provides storage for the property values, as described in the definition of <i>strStorageLocation</i> in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certmod/nf-certmod-icertmanagemodule-getproperty">ICertManageModule::GetProperty</a>.
+     * @param {BSTR} strPropertyName The name of the property whose value is being assigned. Policy and exit modules should support the following properties, which are used by Certificate Services Manager.
      * 
-     * @param {BSTR} strConfig 
-     * @param {BSTR} strStorageLocation 
-     * @param {BSTR} strPropertyName 
-     * @param {Integer} Flags 
-     * @param {Pointer<VARIANT>} pvarProperty 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certmod/nf-certmod-icertmanagemodule-setproperty
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Name"></a><a id="name"></a><a id="NAME"></a><dl>
+     * <dt><b>Name</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Name of the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Description"></a><a id="description"></a><a id="DESCRIPTION"></a><dl>
+     * <dt><b>Description</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Description of the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Copyright"></a><a id="copyright"></a><a id="COPYRIGHT"></a><dl>
+     * <dt><b>Copyright</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Copyright pertaining to the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="File_Version"></a><a id="file_version"></a><a id="FILE_VERSION"></a><dl>
+     * <dt><b>File Version</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Version of the module file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="Product_Version"></a><a id="product_version"></a><a id="PRODUCT_VERSION"></a><dl>
+     * <dt><b>Product Version</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Version of the module.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Integer} Flags This parameter is reserved and must be set to zero.
+     * @param {Pointer<VARIANT>} pvarProperty A value that is being assigned to the property specified by <i>strPropertyName</i>.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certmod/nf-certmod-icertmanagemodule-setproperty
      */
     SetProperty(strConfig, strStorageLocation, strPropertyName, Flags, pvarProperty) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -127,12 +266,17 @@ class ICertManageModule extends IDispatch{
     }
 
     /**
+     * Displays the module user interface.
+     * @param {BSTR} strConfig Represents the configuration string for the Certificate Services server in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) as entered for the CA during Certificate Services setup. For information about the configuration string name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
+     * @param {BSTR} strStorageLocation A location that provides storage for the property values, as described in the definition of <i>strStorageLocation</i> in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certmod/nf-certmod-icertmanagemodule-getproperty">ICertManageModule::GetProperty</a>.
+     * @param {Integer} Flags A value used to determine whether the configuration interface is to be presented to the user. If this value is zero, the user will be presented with an interface for configuring the module. If this value is CMM_REFRESHONLY, Certificate Services will not display the user interface, but the latest changes to the configuration of the module will be in effect when future certificate requests are processed (this allows changes to be incorporated without requiring a response to a user interface).
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {BSTR} strConfig 
-     * @param {BSTR} strStorageLocation 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certmod/nf-certmod-icertmanagemodule-configure
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certmod/nf-certmod-icertmanagemodule-configure
      */
     Configure(strConfig, strStorageLocation, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig

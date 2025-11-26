@@ -32,9 +32,9 @@ class IErrorInfo extends IUnknown{
     static VTableNames => ["GetGUID", "GetSource", "GetDescription", "GetHelpFile", "GetHelpContext"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getguid
+     * Returns the globally unique identifier (GUID) of the interface that defined the error.
+     * @returns {Guid} A pointer to a GUID, or GUID_NULL, if the error was defined by the operating system.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ierrorinfo-getguid
      */
     GetGUID() {
         pGUID := Guid()
@@ -43,9 +43,9 @@ class IErrorInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getsource
+     * Returns the language-dependent programmatic ID (ProgID) for the class or application that raised the error.
+     * @returns {BSTR} A ProgID, in the form <i>progname</i>.<i>objectname</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ierrorinfo-getsource
      */
     GetSource() {
         pBstrSource := BSTR()
@@ -54,9 +54,9 @@ class IErrorInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getdescription
+     * Returns a textual description of the error.
+     * @returns {BSTR} A brief description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ierrorinfo-getdescription
      */
     GetDescription() {
         pBstrDescription := BSTR()
@@ -65,9 +65,9 @@ class IErrorInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpfile
+     * Returns the path of the Help file that describes the error.
+     * @returns {BSTR} The fully qualified path of the Help file.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ierrorinfo-gethelpfile
      */
     GetHelpFile() {
         pBstrHelpFile := BSTR()
@@ -76,9 +76,9 @@ class IErrorInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpcontext
+     * Returns the Help context identifier (ID) for the error.
+     * @returns {Integer} The Help context ID for the error.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ierrorinfo-gethelpcontext
      */
     GetHelpContext() {
         result := ComCall(7, this, "uint*", &pdwHelpContext := 0, "HRESULT")

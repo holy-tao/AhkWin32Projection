@@ -37,9 +37,11 @@ class ITraceEvent extends IUnknown{
     static VTableNames => ["Clone", "GetUserContext", "GetEventRecord", "SetPayload", "SetEventDescriptor", "SetProcessId", "SetProcessorIndex", "SetThreadId", "SetThreadTimes", "SetActivityId", "SetTimeStamp", "SetProviderId"]
 
     /**
+     * Creates a duplicate copy of an event.
+     * @returns {ITraceEvent} Type: <b>IEvent**</b>
      * 
-     * @returns {ITraceEvent} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-clone
+     * The new event.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &NewEvent := 0, "HRESULT")
@@ -47,9 +49,11 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Retrieves the user context associated with the stream to which the event belongs.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-getusercontext
+     * The user context. This is the context specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/relogger/nf-relogger-itracerelogger-addlogfiletracestream">ITraceRelogger::AddLogfileTraceStream</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-getusercontext
      */
     GetUserContext() {
         result := ComCall(4, this, "ptr*", &UserContext := 0, "HRESULT")
@@ -57,9 +61,11 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Retrieves the event record that describes an event.
+     * @returns {Pointer<EVENT_RECORD>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a>*</b>
      * 
-     * @returns {Pointer<EVENT_RECORD>} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-geteventrecord
+     * The event record.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-geteventrecord
      */
     GetEventRecord() {
         result := ComCall(5, this, "ptr*", &EventRecord := 0, "HRESULT")
@@ -67,11 +73,17 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the payload for an event.
+     * @param {Pointer<Integer>} Payload Type: <b>BYTE*</b>
      * 
-     * @param {Pointer<Integer>} Payload 
-     * @param {Integer} PayloadSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setpayload
+     * The event payload data.
+     * @param {Integer} PayloadSize Type: <b>ULONG</b>
+     * 
+     * Size of the payload data, in bytes.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setpayload
      */
     SetPayload(Payload, PayloadSize) {
         PayloadMarshal := Payload is VarRef ? "char*" : "ptr"
@@ -81,10 +93,14 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the event descriptor for an event.
+     * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">PCEVENT_DESCRIPTOR</a></b>
      * 
-     * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-seteventdescriptor
+     * The event descriptor data.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-seteventdescriptor
      */
     SetEventDescriptor(EventDescriptor) {
         result := ComCall(7, this, "ptr", EventDescriptor, "HRESULT")
@@ -92,10 +108,14 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Assigns an event to a specific process.
+     * @param {Integer} ProcessId Type: <b>ULONG</b>
      * 
-     * @param {Integer} ProcessId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setprocessid
+     * Identifier of the process that should own this event.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setprocessid
      */
     SetProcessId(ProcessId) {
         result := ComCall(8, this, "uint", ProcessId, "HRESULT")
@@ -114,10 +134,14 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the identifier of a thread that generates an event.
+     * @param {Integer} ThreadId Type: <b>ULONG</b>
      * 
-     * @param {Integer} ThreadId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setthreadid
+     * Identifier of the thread that generates the event.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setthreadid
      */
     SetThreadId(ThreadId) {
         result := ComCall(10, this, "uint", ThreadId, "HRESULT")
@@ -148,10 +172,14 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the time at which an event occurred.
+     * @param {Pointer<Integer>} TimeStamp Type: <b>LARGE_INTEGER*</b>
      * 
-     * @param {Pointer<Integer>} TimeStamp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-settimestamp
+     *  The time at which the event occurred, in system time.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-settimestamp
      */
     SetTimeStamp(TimeStamp) {
         TimeStampMarshal := TimeStamp is VarRef ? "int64*" : "ptr"
@@ -161,10 +189,14 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the GUID for the provider which traced an event.
+     * @param {Pointer<Guid>} ProviderId Type: <b>LPCGUID</b>
      * 
-     * @param {Pointer<Guid>} ProviderId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setproviderid
+     * Unique identifier of the provider.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setproviderid
      */
     SetProviderId(ProviderId) {
         result := ComCall(14, this, "ptr", ProviderId, "HRESULT")

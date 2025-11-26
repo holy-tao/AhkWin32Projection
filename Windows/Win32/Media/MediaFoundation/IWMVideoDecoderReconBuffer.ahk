@@ -31,10 +31,28 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
     static VTableNames => ["GetReconstructedVideoFrameSize", "GetReconstructedVideoFrame", "SetReconstructedVideoFrame"]
 
     /**
+     * Note  This method is obsolete and should not be used. Retrieves the size of the current reconstructed video frame.
+     * @param {Pointer<Integer>} pdwSize Address of a variable that receives the frame size in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframesize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframesize
      */
     GetReconstructedVideoFrameSize(pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
@@ -44,10 +62,28 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
     }
 
     /**
+     * Note  This method is obsolete and should not be used. Retrieves the current reconstructed video frame.
+     * @param {IMediaBuffer} pBuf Address of a media buffer that receives the reconstructed video frame.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMediaBuffer} pBuf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframe
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframe
      */
     GetReconstructedVideoFrame(pBuf) {
         result := ComCall(4, this, "ptr", pBuf, "HRESULT")
@@ -55,10 +91,28 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
     }
 
     /**
+     * Note  This method is obsolete and should not be used. Restores the current reconstructed video frame.
+     * @param {IMediaBuffer} pBuf Address of an IMediaBuffer interface containing the reconstructed frame to restore.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMediaBuffer} pBuf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-setreconstructedvideoframe
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-setreconstructedvideoframe
      */
     SetReconstructedVideoFrame(pBuf) {
         result := ComCall(5, this, "ptr", pBuf, "HRESULT")

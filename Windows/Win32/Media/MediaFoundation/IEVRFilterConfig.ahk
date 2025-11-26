@@ -38,10 +38,50 @@ class IEVRFilterConfig extends IUnknown{
     static VTableNames => ["SetNumberOfStreams", "GetNumberOfStreams"]
 
     /**
+     * Sets the number of input pins on the EVR filter.
+     * @param {Integer} dwMaxStreams Specifies the total number of input pins on the EVR filter. This value includes the input pin for the reference stream, which is created by default. For example, to mix one substream plus the reference stream, set this parameter to 2.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwMaxStreams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfig-setnumberofstreams
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid number of streams. The minimum is one, and the maximum is 16.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method has already been called, or at least one pin is already connected.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-ievrfilterconfig-setnumberofstreams
      */
     SetNumberOfStreams(dwMaxStreams) {
         result := ComCall(3, this, "uint", dwMaxStreams, "HRESULT")
@@ -49,9 +89,9 @@ class IEVRFilterConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfig-getnumberofstreams
+     * Retrieves the number of input pins on the EVR filter. The EVR filter always has at least one input pin, which corresponds to the reference stream.
+     * @returns {Integer} Receives the number of streams.
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-ievrfilterconfig-getnumberofstreams
      */
     GetNumberOfStreams() {
         result := ComCall(4, this, "uint*", &pdwMaxStreams := 0, "HRESULT")

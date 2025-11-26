@@ -31,11 +31,11 @@ class IPortableDeviceServiceMethodCallback extends IUnknown{
     static VTableNames => ["OnComplete"]
 
     /**
-     * 
-     * @param {HRESULT} hrStatus 
-     * @param {IPortableDeviceValues} pResults 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethodcallback-oncomplete
+     * Indicates that a callback method has completed execution.
+     * @param {HRESULT} hrStatus The overall status of the method.
+     * @param {IPortableDeviceValues} pResults An <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that contains the method-execution results.  This is empty if the method returns no results.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Any other <b>HRESULT</b> value indicates that the call failed.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethodcallback-oncomplete
      */
     OnComplete(hrStatus, pResults) {
         result := ComCall(3, this, "int", hrStatus, "ptr", pResults, "HRESULT")

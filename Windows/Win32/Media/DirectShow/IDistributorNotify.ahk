@@ -31,9 +31,38 @@ class IDistributorNotify extends IUnknown{
     static VTableNames => ["Stop", "Pause", "Run", "SetSyncSource", "NotifyGraphChange"]
 
     /**
+     * The Stop method is called when the filter graph is entering a stopped state.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idistributornotify-stop
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Transition is not complete, but no error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-stop
      */
     Stop() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +70,38 @@ class IDistributorNotify extends IUnknown{
     }
 
     /**
+     * The Pause method is called when the filter graph is entering a paused state.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idistributornotify-pause
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Transition is not complete, but no error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-pause
      */
     Pause() {
         result := ComCall(4, this, "HRESULT")
@@ -51,10 +109,10 @@ class IDistributorNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tStart 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idistributornotify-run
+     * The Run method is called when the filter graph is entering a running state.
+     * @param {Integer} tStart Stream-time offset that will be passed to every filter's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediafilter-run">IMediaFilter::Run</a> method.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-run
      */
     Run(tStart) {
         result := ComCall(5, this, "int64", tStart, "HRESULT")
@@ -62,10 +120,10 @@ class IDistributorNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IReferenceClock} pClock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idistributornotify-setsyncsource
+     * The SetSyncSource method is called when a new clock is registered.
+     * @param {IReferenceClock} pClock Pointer to the new clock's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ireferenceclock">IReferenceClock</a> interface.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-setsyncsource
      */
     SetSyncSource(pClock) {
         result := ComCall(6, this, "ptr", pClock, "HRESULT")
@@ -73,9 +131,9 @@ class IDistributorNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idistributornotify-notifygraphchange
+     * The NotifyGraphChange method is called when the set of filters in the filter graph changes or any pin connections change.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-notifygraphchange
      */
     NotifyGraphChange() {
         result := ComCall(7, this, "HRESULT")

@@ -39,9 +39,9 @@ class IInvalidProductLicenseException extends IUpdateException{
     }
 
     /**
-     * 
+     * Gets the language-invariant name of the product.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product
      */
     get_Product() {
         retval := BSTR()

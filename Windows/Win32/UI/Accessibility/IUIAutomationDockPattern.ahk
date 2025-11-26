@@ -50,10 +50,12 @@ class IUIAutomationDockPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the dock position of this element.
      * @param {Integer} dockPos 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-setdockposition
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-setdockposition
      */
     SetDockPosition(dockPos) {
         result := ComCall(3, this, "int", dockPos, "HRESULT")
@@ -61,9 +63,9 @@ class IUIAutomationDockPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the dock position of this element within its docking container.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-get_currentdockposition
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-get_currentdockposition
      */
     get_CurrentDockPosition() {
         result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
@@ -71,9 +73,9 @@ class IUIAutomationDockPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached dock position of this element within its docking container.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-get_cacheddockposition
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-get_cacheddockposition
      */
     get_CachedDockPosition() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")

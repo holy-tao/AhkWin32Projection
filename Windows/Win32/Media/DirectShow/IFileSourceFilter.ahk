@@ -31,11 +31,11 @@ class IFileSourceFilter extends IUnknown{
     static VTableNames => ["Load", "GetCurFile"]
 
     /**
-     * 
-     * @param {PWSTR} pszFileName 
-     * @param {Pointer<AM_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesourcefilter-load
+     * The Load method causes a source filter to load a media file.
+     * @param {PWSTR} pszFileName Pointer to the name of the file to open.
+     * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to the media type of the file. This can be <b>NULL</b>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilesourcefilter-load
      */
     Load(pszFileName, pmt) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
@@ -45,11 +45,62 @@ class IFileSourceFilter extends IUnknown{
     }
 
     /**
+     * The GetCurFile method retrieves the name and media type of the current file.
+     * @param {Pointer<PWSTR>} ppszFileName Address of a pointer that receives the name of the file, as an <b>OLESTR</b> type.
+     * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that receives the media type. This parameter can by <b>NULL</b>, in which case the method does not return the media type.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
-     * @param {Pointer<PWSTR>} ppszFileName 
-     * @param {Pointer<AM_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesourcefilter-getcurfile
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No file is opened.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument in <i>ppszFileName</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilesourcefilter-getcurfile
      */
     GetCurFile(ppszFileName, pmt) {
         ppszFileNameMarshal := ppszFileName is VarRef ? "ptr*" : "ptr"

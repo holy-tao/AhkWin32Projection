@@ -37,12 +37,41 @@ class IEnumTuneRequests extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * The Next method retrieves the specified number of items in the collection.
+     * @param {Integer} celt Specifies the number of items to retrieve.
+     * @param {Pointer<ITuneRequest>} ppprop Array of size <i>celt</i> that is filled with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface pointers.
+     * @param {Pointer<Integer>} pcelt Receives the number of items retrieved.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<ITuneRequest>} ppprop 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is at the end of the enumeration sequence.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-next
      */
     Next(celt, ppprop, pcelt) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -52,10 +81,28 @@ class IEnumTuneRequests extends IUnknown{
     }
 
     /**
+     * The Skip method skips over the specified number of items in the collection.
+     * @param {Integer} celt Specifies the number of items to skip.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -63,9 +110,27 @@ class IEnumTuneRequests extends IUnknown{
     }
 
     /**
+     * The Reset method sets the enumerator to the first item in the collection.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -73,9 +138,9 @@ class IEnumTuneRequests extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumTuneRequests} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-clone
+     * The Clone method creates a copy of the collection.
+     * @returns {IEnumTuneRequests} Receives the new collection.
+     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-ienumtunerequests-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

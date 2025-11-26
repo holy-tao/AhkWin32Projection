@@ -36,10 +36,30 @@ class IStreamBufferSink3 extends IStreamBufferSink2{
     static VTableNames => ["SetAvailableFilter"]
 
     /**
+     * The SetAvailableFilter method limits how far the Stream Buffer Source filter can seek backward, relative to the current recording position.
+     * @param {Pointer<Integer>} prtMin On input, specifies the earliest seek time, in 100-nanosecond units, relative to the recording position when the method is called. The value must be less than or equal to zero. To make the entire backing store available, use the value -MAXLONGLONG.
      * 
-     * @param {Pointer<Integer>} prtMin 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffersink3-setavailablefilter
+     * On output, this parameter receives the actual minimum seek time. The two values may differ if the requested time exceeds the amount of time that is available.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambuffersink3-setavailablefilter
      */
     SetAvailableFilter(prtMin) {
         prtMinMarshal := prtMin is VarRef ? "int64*" : "ptr"

@@ -33,11 +33,11 @@ class IEnumChangeUnitExceptions extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cExceptions 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {IChangeUnitException} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-next
+     * Returns the next elements in the change unit exception set, if they are available.
+     * @param {Integer} cExceptions The number of change unit exceptions to retrieve in the range of zero to 1000.
+     * @param {Pointer<Integer>} pcFetched Returns the number of change unit exceptions that are retrieved. This value can be <b>NULL</b> only if <i>cExceptions</i> is 1.
+     * @returns {IChangeUnitException} Returns the next <i>pcFetched</i> change unit exceptions.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumchangeunitexceptions-next
      */
     Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +47,47 @@ class IEnumChangeUnitExceptions extends IUnknown{
     }
 
     /**
+     * Skips the specified number of change unit exceptions.
+     * @param {Integer} cExceptions The number of change unit exceptions to skip.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} cExceptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The enumerator reaches the end of the list before it can skip the specified number of change unit exceptions. In this case, the enumerator skips as many elements as possible.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumchangeunitexceptions-skip
      */
     Skip(cExceptions) {
         result := ComCall(4, this, "uint", cExceptions, "HRESULT")
@@ -58,9 +95,27 @@ class IEnumChangeUnitExceptions extends IUnknown{
     }
 
     /**
+     * Resets the enumerator to the beginning of the change unit exception set.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumchangeunitexceptions-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +123,9 @@ class IEnumChangeUnitExceptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumChangeUnitExceptions} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-clone
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * @returns {IEnumChangeUnitExceptions} Returns the newly cloned enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumchangeunitexceptions-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

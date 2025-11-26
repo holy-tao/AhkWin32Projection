@@ -48,10 +48,14 @@ class IFileDialog2 extends IFileDialog{
     static VTableNames => ["SetCancelButtonLabel", "SetNavigationRoot"]
 
     /**
+     * Replaces the default text &quot;Cancel&quot; on the common file dialog's Cancel button.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialog2-setcancelbuttonlabel
+     * Pointer to a string that contains the new text to display on the button.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialog2-setcancelbuttonlabel
      */
     SetCancelButtonLabel(pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -61,10 +65,14 @@ class IFileDialog2 extends IFileDialog{
     }
 
     /**
+     * Specifies a top-level location from which to begin browsing a namespace, for instance in the Save dialog's Browse folder option. Users cannot navigate above this location.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a></b>
      * 
-     * @param {IShellItem} psi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialog2-setnavigationroot
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the navigation root.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialog2-setnavigationroot
      */
     SetNavigationRoot(psi) {
         result := ComCall(28, this, "ptr", psi, "HRESULT")

@@ -181,9 +181,9 @@ class IADsProperty extends IADs{
     }
 
     /**
-     * 
-     * @returns {IADsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsproperty-qualifiers
+     * Returns a collection of ADSI objects that describe additional qualifiers of this property.
+     * @returns {IADsCollection} Indirect pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface on the ADSI collection object that represents additional limits for this property.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsproperty-qualifiers
      */
     Qualifiers() {
         result := ComCall(30, this, "ptr*", &ppQualifiers := 0, "HRESULT")

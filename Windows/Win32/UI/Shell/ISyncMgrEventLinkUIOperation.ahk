@@ -37,11 +37,17 @@ class ISyncMgrEventLinkUIOperation extends ISyncMgrUIOperation{
     static VTableNames => ["Init"]
 
     /**
+     * Enables Sync Center to provide the event to link to so ISyncMgrUIOperation::Run knows which event to operate upon.
+     * @param {Pointer<Guid>} rguidEventID Type: <b>REFGUID</b>
      * 
-     * @param {Pointer<Guid>} rguidEventID 
-     * @param {ISyncMgrEvent} pEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventlinkuioperation-init
+     * A reference to the event ID that is being stored. This parameter is the same as what is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrevent-geteventid">GetEventID</a> method of the <i>pEvent</i> parameter.
+     * @param {ISyncMgrEvent} pEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrevent">ISyncMgrEvent</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrevent">ISyncMgrEvent</a> object for <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgruioperation-run">Run</a> to use. This is the event object that owns the link.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgreventlinkuioperation-init
      */
     Init(rguidEventID, pEvent) {
         result := ComCall(4, this, "ptr", rguidEventID, "ptr", pEvent, "HRESULT")

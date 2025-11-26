@@ -37,11 +37,11 @@ class IPrintDocumentPackageTarget extends IUnknown{
     static VTableNames => ["GetPackageTargetTypes", "GetPackageTarget", "Cancel"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} targetCount 
-     * @param {Pointer<Pointer<Guid>>} targetTypes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes
+     * Enumerates the supported target types.
+     * @param {Pointer<Integer>} targetCount The number of supported target types.
+     * @param {Pointer<Pointer<Guid>>} targetTypes The array of supported target types. An array of GUIDs.
+     * @returns {HRESULT} If the <b>GetPackageTargetTypes</b> method completes successfully, it returns an S_OK. Otherwise it returns the appropriate HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes
      */
     GetPackageTargetTypes(targetCount, targetTypes) {
         targetCountMarshal := targetCount is VarRef ? "uint*" : "ptr"
@@ -52,11 +52,11 @@ class IPrintDocumentPackageTarget extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidTargetType 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetarget
+     * Retrieves the pointer to the specific document package target, which allows the client to add a document with the given target type. Clients can call this method multiple times but they always have to use the same target ID.
+     * @param {Pointer<Guid>} guidTargetType The target type GUID obtained from <a href="https://docs.microsoft.com/windows/desktop/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes">GetPackageTargetTypes</a>.
+     * @param {Pointer<Guid>} riid The identifier of the interface being requested.
+     * @returns {Pointer<Void>} The requested document target interface. The returned pointer is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsdocumentpackagetarget">IXpsDocumentPackageTarget</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetarget
      */
     GetPackageTarget(guidTargetType, riid) {
         result := ComCall(4, this, "ptr", guidTargetType, "ptr", riid, "ptr*", &ppvTarget := 0, "HRESULT")
@@ -64,9 +64,9 @@ class IPrintDocumentPackageTarget extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-cancel
+     * Cancels the current print job.
+     * @returns {HRESULT} If the <b>Cancel</b> method completes successfully, it returns an S_OK. Otherwise it returns the appropriate HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetarget-cancel
      */
     Cancel() {
         result := ComCall(5, this, "HRESULT")

@@ -32,12 +32,12 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject{
     static VTableNames => ["OnWindowMessage", "GetDropTarget"]
 
     /**
-     * 
-     * @param {Integer} msg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {LRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
+     * Dispatches a message from a container to a windowless object that is in-place active.
+     * @param {Integer} msg The identifier for the window message provided to the container by Windows.
+     * @param {WPARAM} wParam A parameter for the window message provided to the container by Windows.
+     * @param {LPARAM} lParam A parameter for the window message provided to the container by Windows.
+     * @returns {LRESULT} A pointer to result code for the window message.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
      */
     OnWindowMessage(msg, wParam, lParam) {
         result := ComCall(9, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
@@ -45,9 +45,9 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject{
     }
 
     /**
-     * 
-     * @returns {IDropTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-getdroptarget
+     * Retrieves the IDropTarget interface for an in-place active, windowless object that supports drag and drop.
+     * @returns {IDropTarget} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> pointer variable that receives the interface pointer to the windowless object.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleinplaceobjectwindowless-getdroptarget
      */
     GetDropTarget() {
         result := ComCall(10, this, "ptr*", &ppDropTarget := 0, "HRESULT")

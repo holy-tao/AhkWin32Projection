@@ -66,12 +66,12 @@ class ItsPubPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} userID 
-     * @param {Pointer<Integer>} pceAppListSize 
-     * @param {Pointer<Pointer<pluginResource>>} resourceList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-getresourcelist
+     * Retrieves a list of resources assigned to the specified user.
+     * @param {PWSTR} userID The user security identifier (SID).
+     * @param {Pointer<Integer>} pceAppListSize A pointer to a <b>LONG</b> variable to receive the number of elements in the <i>resourceList</i>.
+     * @param {Pointer<Pointer<pluginResource>>} resourceList The address of a pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/tspubplugincom/ns-tspubplugincom-pluginresource">pluginResource</a> structures that receive the resources assigned to the specified user. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function to allocate this memory. The caller is responsible for freeing this memory.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nf-tspubplugincom-itspubplugin-getresourcelist
      */
     GetResourceList(userID, pceAppListSize, resourceList) {
         userID := userID is String ? StrPtr(userID) : userID
@@ -84,11 +84,11 @@ class ItsPubPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} alias 
-     * @param {Integer} flags 
-     * @returns {pluginResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-getresource
+     * This method is reserved and should always return E_NOTIMPL.
+     * @param {PWSTR} alias This parameter is reserved.
+     * @param {Integer} flags This parameter is reserved.
+     * @returns {pluginResource} This parameter is reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nf-tspubplugincom-itspubplugin-getresource
      */
     GetResource(alias, flags) {
         alias := alias is String ? StrPtr(alias) : alias
@@ -99,9 +99,9 @@ class ItsPubPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-getcachelastupdatetime
+     * Returns the time that the cache was last updated.
+     * @returns {Integer} A pointer to an  <b>unsigned long long</b> variable that receives the time that the cache was last updated.
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nf-tspubplugincom-itspubplugin-getcachelastupdatetime
      */
     GetCacheLastUpdateTime() {
         result := ComCall(5, this, "uint*", &lastUpdateTime := 0, "HRESULT")
@@ -109,9 +109,9 @@ class ItsPubPlugin extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the name of the plug-in.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginname
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginname
      */
     get_pluginName() {
         pVal := BSTR()
@@ -120,9 +120,9 @@ class ItsPubPlugin extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the version of the plug-in.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginversion
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginversion
      */
     get_pluginVersion() {
         pVal := BSTR()
@@ -131,13 +131,13 @@ class ItsPubPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} resourceLocation 
-     * @param {PWSTR} endPointName 
-     * @param {PWSTR} userID 
-     * @param {PWSTR} alias 
+     * Provides information about how to connect to a user's assigned personal virtual desktop.
+     * @param {PWSTR} resourceLocation The name of the resource plug-in.
+     * @param {PWSTR} endPointName The name of the endpoint. For personal virtual desktops, specify the name of the desktop assigned to the user. For virtual desktop pools, specify the name of the pool.
+     * @param {PWSTR} userID A pointer to a string that contains the user security identifier (SID).
+     * @param {PWSTR} alias A pointer to a string that contains the alias of the user.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-resolveresource
+     * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nf-tspubplugincom-itspubplugin-resolveresource
      */
     ResolveResource(resourceLocation, endPointName, userID, alias) {
         resourceLocation := resourceLocation is String ? StrPtr(resourceLocation) : resourceLocation

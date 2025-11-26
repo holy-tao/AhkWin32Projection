@@ -32,12 +32,12 @@ class IViewObject2 extends IViewObject{
     static VTableNames => ["GetExtent"]
 
     /**
-     * 
-     * @param {Integer} dwDrawAspect 
-     * @param {Integer} lindex 
-     * @param {Pointer<DVTARGETDEVICE>} ptd 
-     * @returns {SIZE} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject2-getextent
+     * Retrieves the size that the specified view object will be drawn on the specified target device.
+     * @param {Integer} dwDrawAspect Requested view of the object whose size is of interest. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-dvaspect2">DVASPECT2</a> enumerations. Note that newer objects and containers that support optimized drawing interfaces support the <b>DVASPECT2</b> enumeration values. Older objects and containers that do not support optimized drawing interfaces may not support <b>DVASPECT2</b>.
+     * @param {Integer} lindex The portion of the object that is of interest. Currently, the only possible value is -1.
+     * @param {Pointer<DVTARGETDEVICE>} ptd A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-dvtargetdevice">DVTARGETDEVICE</a> structure defining the target device for which the object's size should be returned.
+     * @returns {SIZE} A pointer to where the object's size is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-iviewobject2-getextent
      */
     GetExtent(dwDrawAspect, lindex, ptd) {
         lpsizel := SIZE()

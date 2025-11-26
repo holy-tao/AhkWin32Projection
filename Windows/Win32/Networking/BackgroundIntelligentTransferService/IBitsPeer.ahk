@@ -31,9 +31,10 @@ class IBitsPeer extends IUnknown{
     static VTableNames => ["GetPeerName", "IsAuthenticated", "IsAvailable"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-getpeername
+     * Gets the server principal name that uniquely identifies the peer.
+     * @returns {PWSTR} Null-terminated string that contains the server principal name of the peer. The principal name is of the form, server$.domain.suffix. Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>pName</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeer-getpeername
      */
     GetPeerName() {
         result := ComCall(3, this, "ptr*", &pName := 0, "HRESULT")
@@ -41,9 +42,9 @@ class IBitsPeer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-isauthenticated
+     * Determines whether the peer is authenticated.
+     * @returns {BOOL} <b>TRUE</b> if the peer is authenticated, otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeer-isauthenticated
      */
     IsAuthenticated() {
         result := ComCall(4, this, "int*", &pAuth := 0, "HRESULT")
@@ -51,9 +52,9 @@ class IBitsPeer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-isavailable
+     * Determines whether the peer is available (online) to serve content.
+     * @returns {BOOL} <b>TRUE</b> if the peer is available to serve content, otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeer-isavailable
      */
     IsAvailable() {
         result := ComCall(5, this, "int*", &pOnline := 0, "HRESULT")

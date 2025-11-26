@@ -31,9 +31,9 @@ class IRandomAccessStreamFileAccessMode extends IUnknown{
     static VTableNames => ["GetMode"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-irandomaccessstreamfileaccessmode-getmode
+     * Retrieves the file access mode that was used when the StorageFile.OpenAsync method was called to open the random-access byte stream.
+     * @returns {Integer} The file access mode that was used when the <a href="https://docs.microsoft.com/uwp/api/windows.storage.storagefile.openasync">StorageFile.OpenAsync</a> method was called to open the random-access byte stream. Cast this value as a <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">Windows::Storage::FileAccessMode</a> enumeration value.
+     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-irandomaccessstreamfileaccessmode-getmode
      */
     GetMode() {
         result := ComCall(3, this, "uint*", &fileAccessMode := 0, "HRESULT")

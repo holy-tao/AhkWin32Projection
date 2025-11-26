@@ -31,9 +31,43 @@ class IWSDHttpAddress extends IWSDTransportAddress{
     static VTableNames => ["GetSecure", "SetSecure", "GetPath", "SetPath"]
 
     /**
+     * Retrieves the status on whether TLS secure sessions are enabled for this address.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-getsecure
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TLS secure sessions are enabled for this address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TLS secure sessions are disabled for this address.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-getsecure
      */
     GetSecure() {
         result := ComCall(10, this, "HRESULT")
@@ -41,10 +75,33 @@ class IWSDHttpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Enables or disables TLS secure sessions for this address.
+     * @param {BOOL} fSecure <b>TRUE</b> to enable TLS secure session communications for this address, <b>FALSE</b> to disable TLS.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} fSecure 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-setsecure
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-setsecure
      */
     SetSecure(fSecure) {
         result := ComCall(11, this, "int", fSecure, "HRESULT")
@@ -52,9 +109,9 @@ class IWSDHttpAddress extends IWSDTransportAddress{
     }
 
     /**
-     * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
+     * Gets the URI path for this address.
+     * @returns {PWSTR} Pointer to the URI path for this address. Do not release this object.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-getpath
      */
     GetPath() {
         result := ComCall(12, this, "ptr*", &ppszPath := 0, "HRESULT")
@@ -62,10 +119,55 @@ class IWSDHttpAddress extends IWSDTransportAddress{
     }
 
     /**
+     * Sets the URI path for this address.
+     * @param {PWSTR} pszPath The URI path to use for this address.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pszPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-setpath
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The length in characters of <i>pszPath</i> exceeds WSD_MAX_TEXT_LENGTH (8192). 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpaddress-setpath
      */
     SetPath(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath

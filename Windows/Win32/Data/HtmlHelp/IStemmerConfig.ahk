@@ -31,11 +31,44 @@ class IStemmerConfig extends IUnknown{
     static VTableNames => ["SetLocaleInfo", "GetLocaleInfo", "SetControlInfo", "GetControlInfo", "LoadExternalStemmerData"]
 
     /**
+     * Sets locale information for the stemmer.
+     * @param {Integer} dwCodePageID ANSI code page number specified at build time.
+     * @param {Integer} lcid Win32 API locale identifier specified at build time.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwCodePageID 
-     * @param {Integer} lcid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-istemmerconfig-setlocaleinfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Locale described by the parameters is supported.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Locale described by the parameters is not supported.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-istemmerconfig-setlocaleinfo
      */
     SetLocaleInfo(dwCodePageID, lcid) {
         result := ComCall(3, this, "uint", dwCodePageID, "uint", lcid, "HRESULT")

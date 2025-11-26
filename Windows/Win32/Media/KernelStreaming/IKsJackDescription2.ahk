@@ -32,9 +32,9 @@ class IKsJackDescription2 extends IUnknown{
     static VTableNames => ["GetJackCount", "GetJackDescription2"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackcount
+     * The GetJackCount method gets the number of jacks on the connector, which are required to connect to an endpoint device.
+     * @returns {Integer} Receives the number of audio jacks associated with the connector.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjackdescription2-getjackcount
      */
     GetJackCount() {
         result := ComCall(3, this, "uint*", &pcJacks := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IKsJackDescription2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nJack 
-     * @returns {KSJACK_DESCRIPTION2} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2
+     * The GetJackDescription2 method gets the description of a specified audio jack.
+     * @param {Integer} nJack The index of the jack to get a description for. If the connection consists of <i>n</i> jacks, the jacks are numbered from 0 to <i>n</i>– 1. To get the number of jacks, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackcount">IKsJackDescription::GetJackCount</a> method.
+     * @returns {KSJACK_DESCRIPTION2} Pointer to a caller-allocated buffer into which the method writes a structure of type <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description2">KSJACK_DESCRIPTION2</a> that contains information about the jack. The buffer size must be at least <c>sizeof(KSJACK_DESCRIPTION2)</c>.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2
      */
     GetJackDescription2(nJack) {
         pDescription2 := KSJACK_DESCRIPTION2()

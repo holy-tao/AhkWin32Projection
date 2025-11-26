@@ -38,9 +38,11 @@ class IWICProgressiveLevelControl extends IUnknown{
     static VTableNames => ["GetLevelCount", "GetCurrentLevel", "SetCurrentLevel"]
 
     /**
+     * Gets the number of levels of progressive decoding supported by the CODEC.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogressivelevelcontrol-getlevelcount
+     * Indicates the number of levels supported by the CODEC.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicprogressivelevelcontrol-getlevelcount
      */
     GetLevelCount() {
         result := ComCall(3, this, "uint*", &pcLevels := 0, "HRESULT")
@@ -48,9 +50,11 @@ class IWICProgressiveLevelControl extends IUnknown{
     }
 
     /**
+     * Gets the decoder's current progressive level.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogressivelevelcontrol-getcurrentlevel
+     * Indicates the current level specified.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicprogressivelevelcontrol-getcurrentlevel
      */
     GetCurrentLevel() {
         result := ComCall(4, this, "uint*", &pnLevel := 0, "HRESULT")
@@ -58,10 +62,14 @@ class IWICProgressiveLevelControl extends IUnknown{
     }
 
     /**
+     * Specifies the level to retrieve on the next call to CopyPixels.
+     * @param {Integer} nLevel Type: <b>UINT</b>
      * 
-     * @param {Integer} nLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogressivelevelcontrol-setcurrentlevel
+     * Specifies which level to return next. If greater than the total number of levels supported, an error will be returned.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicprogressivelevelcontrol-setcurrentlevel
      */
     SetCurrentLevel(nLevel) {
         result := ComCall(5, this, "uint", nLevel, "HRESULT")

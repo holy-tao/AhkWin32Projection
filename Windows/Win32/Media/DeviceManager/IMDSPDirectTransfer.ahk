@@ -32,15 +32,15 @@ class IMDSPDirectTransfer extends IUnknown{
     static VTableNames => ["TransferToDevice"]
 
     /**
-     * 
-     * @param {PWSTR} pwszSourceFilePath 
-     * @param {IWMDMOperation} pSourceOperation 
+     * The TransferToDevice method is called by Windows Media Device Manager to delegate content transfer content to the service provider. The source can be specified either as a file or as an operation interface.
+     * @param {PWSTR} pwszSourceFilePath Source file name. The value contained in this parameter should be ignored if WMDM_CONTENT_OPERATIONINTERFACE is specified.
+     * @param {IWMDMOperation} pSourceOperation Operation interface pointer that serves as the source. The value contained in this parameter should be ignored unless WMDM_CONTENT_OPERATIONINTERFACE is specified.
      * @param {Integer} fuFlags 
-     * @param {PWSTR} pwszDestinationName 
-     * @param {IWMDMMetaData} pSourceMetaData 
-     * @param {IWMDMProgress} pTransferProgress 
-     * @returns {IMDSPStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdirecttransfer-transfertodevice
+     * @param {PWSTR} pwszDestinationName Content should be transferred to the device with this name. This parameter is required.
+     * @param {IWMDMMetaData} pSourceMetaData Metadata interface pointer. The metadata object contains the source properties. This parameter is optional.
+     * @param {IWMDMProgress} pTransferProgress Progress callback interface. The service provider should update the information during the progress of the transfer. This parameter is optional.
+     * @returns {IMDSPStorage} Newly created storage object. This parameter is optional. This can be <b>NULL</b> if the caller does not need to have the new object returned.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdirecttransfer-transfertodevice
      */
     TransferToDevice(pwszSourceFilePath, pSourceOperation, fuFlags, pwszDestinationName, pSourceMetaData, pTransferProgress) {
         pwszSourceFilePath := pwszSourceFilePath is String ? StrPtr(pwszSourceFilePath) : pwszSourceFilePath

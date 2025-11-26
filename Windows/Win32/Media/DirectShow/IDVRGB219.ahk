@@ -31,10 +31,27 @@ class IDVRGB219 extends IUnknown{
     static VTableNames => ["SetRGB219"]
 
     /**
+     * The SetRGB219 method controls the dynamic range for DV encoding and decoding.
+     * @param {BOOL} bState Boolean value that specifies the filter's encoding or decoder behavior.
      * 
-     * @param {BOOL} bState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvrgb219-setrgb219
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td><b>TRUE</b></td>
+     * <td>Enable RGB-219 mode.</td>
+     * </tr>
+     * <tr>
+     * <td><b>FALSE</b></td>
+     * <td>Disable RGB-219 mode. Use the default mode.</td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns an <b>HRESULT</b> failure code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvrgb219-setrgb219
      */
     SetRGB219(bState) {
         result := ComCall(3, this, "int", bState, "HRESULT")

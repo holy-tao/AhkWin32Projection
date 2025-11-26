@@ -35,9 +35,9 @@ class ISBE2MediaTypeProfile extends IUnknown{
     static VTableNames => ["GetStreamCount", "GetStream", "AddStream", "DeleteStream"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount
+     * Gets the number of streams in a media type profile.
+     * @returns {Integer} Receives the number of streams in the profile.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount
      */
     GetStreamCount() {
         result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
@@ -45,10 +45,10 @@ class ISBE2MediaTypeProfile extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {Pointer<AM_MEDIA_TYPE>} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-getstream
+     * Gets the media type of a stream that appears at a specific index in a media type profile.
+     * @param {Integer} Index The index of the stream. To get the number of the streams in the profile, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount">ISBE2MediaTypeProfile::GetStreamCount</a> method.
+     * @returns {Pointer<AM_MEDIA_TYPE>} Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure. The caller must not modify this structure or release the memory allocated for it.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-getstream
      */
     GetStream(Index) {
         result := ComCall(4, this, "uint", Index, "ptr*", &ppMediaType := 0, "HRESULT")
@@ -56,10 +56,37 @@ class ISBE2MediaTypeProfile extends IUnknown{
     }
 
     /**
+     * Adds a stream to a media type profile.
+     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the media type of the stream that is added to the profile.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
      * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-addstream
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>E_INVALIDARG</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-addstream
      */
     AddStream(pMediaType) {
         result := ComCall(5, this, "ptr", pMediaType, "HRESULT")
@@ -67,10 +94,39 @@ class ISBE2MediaTypeProfile extends IUnknown{
     }
 
     /**
+     * Removes a stream from a media type profile.
+     * @param {Integer} Index The index of the stream to remove. To get the number of the streams in the profile, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount">ISBE2MediaTypeProfile::GetStreamCount</a> method.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-deletestream
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>E_INVALIDARG</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-deletestream
      */
     DeleteStream(Index) {
         result := ComCall(6, this, "uint", Index, "HRESULT")

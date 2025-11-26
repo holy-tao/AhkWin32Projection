@@ -43,10 +43,12 @@ class IUIAnimationTransitionFactory extends IUnknown{
     static VTableNames => ["CreateTransition"]
 
     /**
-     * 
-     * @param {IUIAnimationInterpolator} interpolator 
-     * @returns {IUIAnimationTransition} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionfactory-createtransition
+     * Creates a transition from a custom interpolator.
+     * @param {IUIAnimationInterpolator} interpolator The interpolator from which a transition is to be created.  
+     *                
+     * The specified object must implement the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationinterpolator">IUIAnimationInterpolator</a> interface.
+     * @returns {IUIAnimationTransition} The new transition.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransitionfactory-createtransition
      */
     CreateTransition(interpolator) {
         result := ComCall(3, this, "ptr", interpolator, "ptr*", &transition := 0, "HRESULT")

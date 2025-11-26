@@ -32,10 +32,11 @@ class IUPnPDeviceProvider extends IUnknown{
     static VTableNames => ["Start", "Stop"]
 
     /**
-     * 
-     * @param {BSTR} bstrInitString 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpdeviceprovider-start
+     * The Start method starts the device provider. The device host invokes this method after it loads the device provider This method performs any initialization required by the device provider.
+     * @param {BSTR} bstrInitString Identifies the initialization string specific to a device provider. This string is the same as the one passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerdeviceprovider">IUPnPRegistrar::RegisterDeviceProvider</a> at registration.
+     * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpdeviceprovider-start
      */
     Start(bstrInitString) {
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
@@ -45,9 +46,9 @@ class IUPnPDeviceProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpdeviceprovider-stop
+     * The Stop method stops the device provider.
+     * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpdeviceprovider-stop
      */
     Stop() {
         result := ComCall(4, this, "HRESULT")

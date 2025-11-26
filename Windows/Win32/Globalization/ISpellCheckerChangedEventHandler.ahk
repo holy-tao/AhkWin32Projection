@@ -31,10 +31,10 @@ class ISpellCheckerChangedEventHandler extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
-     * @param {ISpellChecker} sender 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellcheckerchangedeventhandler-invoke
+     * Receives the SpellCheckerChanged event.
+     * @param {ISpellChecker} sender The <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ispellchecker">ISpellChecker</a> that fired the event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellcheckerchangedeventhandler-invoke
      */
     Invoke(sender) {
         result := ComCall(3, this, "ptr", sender, "HRESULT")

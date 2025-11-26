@@ -159,9 +159,13 @@ class IGPMGPOLink extends IDispatch{
     }
 
     /**
+     * Removes the GPO link from the scope of management (SOM). The method does not delete the GPO.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpolink-delete
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmgpolink-delete
      */
     Delete() {
         result := ComCall(15, this, "HRESULT")

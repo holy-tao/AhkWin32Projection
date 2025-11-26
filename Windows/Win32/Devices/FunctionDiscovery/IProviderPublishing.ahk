@@ -38,12 +38,12 @@ class IProviderPublishing extends IUnknown{
     static VTableNames => ["CreateInstance", "RemoveInstance"]
 
     /**
-     * 
-     * @param {Integer} enumVisibilityFlags 
-     * @param {PWSTR} pszSubCategory 
-     * @param {PWSTR} pszProviderInstanceIdentity 
-     * @returns {IFunctionInstance} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-createinstance
+     * Creates a new function instance.
+     * @param {Integer} enumVisibilityFlags A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> enumeration value that specifies the visibility of the function instance which the provider is about to create.  It is up to the provider whether or not to honor this flag, however the current user visibility can be used to allow processes running in a non-Administrator security context to still be able to add function instances.
+     * @param {PWSTR} pszSubCategory The subcategory string for the function instance.
+     * @param {PWSTR} pszProviderInstanceIdentity The provider instance identifier.
+     * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer used to return the newly created function instance.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-createinstance
      */
     CreateInstance(enumVisibilityFlags, pszSubCategory, pszProviderInstanceIdentity) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
@@ -54,12 +54,52 @@ class IProviderPublishing extends IUnknown{
     }
 
     /**
+     * Deletes an existing function instance.
+     * @param {Integer} enumVisibilityFlags A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> enumeration value which specifies the visibility of the function instance which the provider is about to delete.  It is up to the provider whether or not to honor this setting, however the current user visibility can be used to allow processes running in a non-Administrator security context to still be able to remove function instances.
+     * @param {PWSTR} pszSubCategory The subcategory string of the function instance.
+     * @param {PWSTR} pszProviderInstanceIdentity The provider instance identifier.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Integer} enumVisibilityFlags 
-     * @param {PWSTR} pszSubCategory 
-     * @param {PWSTR} pszProviderInstanceIdentity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-removeinstance
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters contains an invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pSiteInfo</i>, <i>pszSubCategory</i>, or <i>pszProviderInstanceIdentity</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-removeinstance
      */
     RemoveInstance(enumVisibilityFlags, pszSubCategory, pszProviderInstanceIdentity) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory

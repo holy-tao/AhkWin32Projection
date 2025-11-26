@@ -46,9 +46,12 @@ class ITableItemProvider extends IUnknown{
     static VTableNames => ["GetRowHeaderItems", "GetColumnHeaderItems"]
 
     /**
+     * Retrieves a collection of Microsoft UI Automation provider representing all the row headers associated with a table item or cell.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableitemprovider-getrowheaderitems
+     * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces
+     * 				of the row headers. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableitemprovider-getrowheaderitems
      */
     GetRowHeaderItems() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -56,9 +59,12 @@ class ITableItemProvider extends IUnknown{
     }
 
     /**
+     * Retrieves a collection of Microsoft UI Automation provider representing all the column headers associated with a table item or cell.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableitemprovider-getcolumnheaderitems
+     * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces of
+     * 				the column headers. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableitemprovider-getcolumnheaderitems
      */
     GetColumnHeaderItems() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")

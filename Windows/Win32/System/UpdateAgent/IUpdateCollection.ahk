@@ -65,10 +65,10 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets an IUpdate interface in a collection.
      * @param {Integer} index 
      * @returns {IUpdate} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get_item
      */
     get_Item(index) {
         result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
@@ -76,11 +76,11 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets an IUpdate interface in a collection.
      * @param {Integer} index 
      * @param {IUpdate} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-put_item
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-put_item
      */
     put_Item(index, value) {
         result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
@@ -88,9 +88,9 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an IEnumVARIANT interface that can be used to enumerate the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
@@ -98,9 +98,9 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of elements in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get_count
      */
     get_Count() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
@@ -108,9 +108,9 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the update collection is read-only.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_readonly
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-get_readonly
      */
     get_ReadOnly() {
         result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
@@ -118,10 +118,10 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IUpdate} value 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-add
+     * Adds an item to the collection.
+     * @param {IUpdate} value An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate">IUpdate</a> interface to be added to the collection.
+     * @returns {Integer} The index of the added interface in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-add
      */
     Add(value) {
         result := ComCall(12, this, "ptr", value, "int*", &retval := 0, "HRESULT")
@@ -129,9 +129,29 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
+     * Removes all the elements from the collection.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-clear
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-clear
      */
     Clear() {
         result := ComCall(13, this, "HRESULT")
@@ -139,9 +159,9 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUpdateCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-copy
+     * Creates a shallow read/write copy of the collection.
+     * @returns {IUpdateCollection} A shallow read/write copy of the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-copy
      */
     Copy() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
@@ -149,11 +169,53 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
+     * Inserts an item into the collection at the specified position.
+     * @param {Integer} index The position at which a new interface will be inserted.
+     * @param {IUpdate} value The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate">IUpdate</a> interface that will be inserted.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @param {Integer} index 
-     * @param {IUpdate} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-insert
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter value is invalid or <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_INVALIDINDEX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An index is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-insert
      */
     Insert(index, value) {
         result := ComCall(15, this, "int", index, "ptr", value, "HRESULT")
@@ -161,10 +223,41 @@ class IUpdateCollection extends IDispatch{
     }
 
     /**
+     * Removes the item at the specified index from the collection.
+     * @param {Integer} index The index of the interface to be removed.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
-     * @param {Integer} index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-removeat
+     * This method can also return the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WU_E_INVALIDINDEX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An index is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatecollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(16, this, "int", index, "HRESULT")

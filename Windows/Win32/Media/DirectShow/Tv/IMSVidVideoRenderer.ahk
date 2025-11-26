@@ -171,9 +171,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_customcompositorclass
+     * The get_CustomCompositorClass method retrieves the class identifier (CLSID) of the Video Mixing Renderer's current image compositor, as a BSTR.
+     * @returns {BSTR} Receives a string representation of the CLSID.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_customcompositorclass
      */
     get_CustomCompositorClass() {
         CompositorCLSID := BSTR()
@@ -182,10 +182,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {BSTR} CompositorCLSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_customcompositorclass
+     * The put_CustomCompositorClass method specifies the class identifier (CLSID) of a custom image compositor, as a BSTR.
+     * @param {BSTR} CompositorCLSID Specifies the CLSID as a string.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_customcompositorclass
      */
     put_CustomCompositorClass(CompositorCLSID) {
         CompositorCLSID := CompositorCLSID is String ? BSTR.Alloc(CompositorCLSID).Value : CompositorCLSID
@@ -195,9 +195,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get__customcompositorclass
+     * The get__CustomCompositorClass method retrieves the class identifier (CLSID) of the Video Mixing Renderer's current image compositor, as a GUID.
+     * @returns {Guid} Receives the CLSID.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get__customcompositorclass
      */
     get__CustomCompositorClass() {
         CompositorCLSID := Guid()
@@ -206,10 +206,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} CompositorCLSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put__customcompositorclass
+     * The put__CustomCompositorClass method specifies the class identifier (CLSID) of a custom image compositor, as a GUID.
+     * @param {Pointer<Guid>} CompositorCLSID Specifies the CLSID of the custom compositor.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put__customcompositorclass
      */
     put__CustomCompositorClass(CompositorCLSID) {
         result := ComCall(19, this, "ptr", CompositorCLSID, "HRESULT")
@@ -217,9 +217,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IVMRImageCompositor} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get__customcompositor
+     * The get__CustomCompositor method retrieves the Video Mixing Renderer's current image compositor.
+     * @returns {IVMRImageCompositor} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ivmrimagecompositor">IVMRImageCompositor</a> interface pointer .
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get__customcompositor
      */
     get__CustomCompositor() {
         result := ComCall(20, this, "ptr*", &Compositor := 0, "HRESULT")
@@ -227,10 +227,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {IVMRImageCompositor} Compositor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put__customcompositor
+     * The put__CustomCompositor method specifies a custom image compositor for the Video Mixing Renderer (VMR) to use.
+     * @param {IVMRImageCompositor} Compositor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ivmrimagecompositor">IVMRImageCompositor</a> interface of the image compositor.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put__customcompositor
      */
     put__CustomCompositor(Compositor) {
         result := ComCall(21, this, "ptr", Compositor, "HRESULT")
@@ -238,9 +238,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IPictureDisp} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmap
+     * The get_MixerBitmap method retrieves the static bitmap image, as an IPictureDisp type.
+     * @returns {IPictureDisp} Receives an <b>IPictureDisp</b> interface pointer. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_mixerbitmap
      */
     get_MixerBitmap() {
         result := ComCall(22, this, "ptr*", &MixerPictureDisp := 0, "HRESULT")
@@ -248,9 +248,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IVMRMixerBitmap} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get__mixerbitmap
+     * The get__MixerBitmap method retrieves the Video Mixing Renderer's IVMRMixerBitmap interface, which controls how the VMR mixes a static bitmap.
+     * @returns {IVMRMixerBitmap} Receives an <a href="https://docs.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrmixerbitmap">IVMRMixerBitmap</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get__mixerbitmap
      */
     get__MixerBitmap() {
         result := ComCall(23, this, "ptr*", &MixerPicture := 0, "HRESULT")
@@ -258,10 +258,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {IPictureDisp} MixerPictureDisp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_mixerbitmap
+     * The put_MixerBitmap method specifies the static bitmap image, as an IPictureDisp type.
+     * @param {IPictureDisp} MixerPictureDisp Specifies a pointer to the <b>IPictureDisp</b> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_mixerbitmap
      */
     put_MixerBitmap(MixerPictureDisp) {
         result := ComCall(24, this, "ptr", MixerPictureDisp, "HRESULT")
@@ -269,10 +269,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Pointer<VMRALPHABITMAP>} MixerPicture 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put__mixerbitmap
+     * The put__MixerBitmap method specifies the static bitmap image.
+     * @param {Pointer<VMRALPHABITMAP>} MixerPicture A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-vmralphabitmap">VMRALPHABITMAP</a> structure that contains information about the bitmap.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put__mixerbitmap
      */
     put__MixerBitmap(MixerPicture) {
         result := ComCall(25, this, "ptr", MixerPicture, "HRESULT")
@@ -280,9 +280,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IMSVidRect} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmappositionrect
+     * The get_MixerBitmapPositionRect method retrieves the position of the static bitmap image, relative to the video window.
+     * @returns {IMSVidRect} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_mixerbitmappositionrect
      */
     get_MixerBitmapPositionRect() {
         result := ComCall(26, this, "ptr*", &rDest := 0, "HRESULT")
@@ -290,10 +290,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {IMSVidRect} rDest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_mixerbitmappositionrect
+     * The put_MixerBitmapPositionRect method specifies the position of the static bitmap image, relative to the video window.
+     * @param {IMSVidRect} rDest Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface, specifying the rectangle.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_mixerbitmappositionrect
      */
     put_MixerBitmapPositionRect(rDest) {
         result := ComCall(27, this, "ptr", rDest, "HRESULT")
@@ -301,9 +301,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmapopacity
+     * The get_MixerBitmapOpacity method retrieves the opacity of the static bitmap image.
+     * @returns {Integer} Receives the opacity, expressed as an integer from 0 (transparent) to 100 (opaque).
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_mixerbitmapopacity
      */
     get_MixerBitmapOpacity() {
         result := ComCall(28, this, "int*", &opacity := 0, "HRESULT")
@@ -311,10 +311,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Integer} opacity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_mixerbitmapopacity
+     * The put_MixerBitmapOpacity method specifies the opacity of the static bitmap image.
+     * @param {Integer} opacity Specifies the opacity as an integer from 0 (transparent) to 100 (opaque).
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_mixerbitmapopacity
      */
     put_MixerBitmapOpacity(opacity) {
         result := ComCall(29, this, "int", opacity, "HRESULT")
@@ -322,12 +322,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {IPictureDisp} MixerPictureDisp 
-     * @param {Integer} Opacity 
-     * @param {IMSVidRect} rDest 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-setupmixerbitmap
+     * The SetupMixerBitmap method configures the Video Mixing Renderer (VMR) to display an alpha-blended bitmap on top of the video.
+     * @param {IPictureDisp} MixerPictureDisp Pointer to an <b>IPictureDisp</b> interface that specifies the bitmap.
+     * @param {Integer} Opacity Specifies the opacity of the bitmap, as an integer from 0 (transparent) to 100 (opaque).
+     * @param {IMSVidRect} rDest Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface that specifies the position of the bitmap, relative to the video window.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-setupmixerbitmap
      */
     SetupMixerBitmap(MixerPictureDisp, Opacity, rDest) {
         result := ComCall(30, this, "ptr", MixerPictureDisp, "int", Opacity, "ptr", rDest, "HRESULT")
@@ -335,9 +335,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_sourcesize
+     * The get_SourceSize method retrieves the type of clipping to apply to the video rectangle, if any.
+     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-sourcesizelist">SourceSizeList</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_sourcesize
      */
     get_SourceSize() {
         result := ComCall(31, this, "int*", &CurrentSize := 0, "HRESULT")
@@ -345,10 +345,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Integer} NewSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_sourcesize
+     * The put_SourceSize method specifies the type of clipping to apply to the video rectangle, if any.
+     * @param {Integer} NewSize Specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-sourcesizelist">SourceSizeList</a> enumeration.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_sourcesize
      */
     put_SourceSize(NewSize) {
         result := ComCall(32, this, "int", NewSize, "HRESULT")
@@ -356,9 +356,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_overscan
+     * The get_OverScan method retrieves the amount of clipping to perform on all sides of the video frame, in order to cut off random video noise.
+     * @returns {Integer} Receives the amount to clip, in hundredths of a percent.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_overscan
      */
     get_OverScan() {
         result := ComCall(33, this, "int*", &plPercent := 0, "HRESULT")
@@ -366,10 +366,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Integer} lPercent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_overscan
+     * The put_OverScan method specifies the amount of clipping to perform on all sides of the video frame to cut off random video noise.
+     * @param {Integer} lPercent Specifies the amount to clip, in hundredths of a percent. For example, 175 indicates 1.75%.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_overscan
      */
     put_OverScan(lPercent) {
         result := ComCall(34, this, "int", lPercent, "HRESULT")
@@ -377,9 +377,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IMSVidRect} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_availablesourcerect
+     * The get_AvailableSourceRect method retrieves the size of the native video.
+     * @returns {IMSVidRect} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_availablesourcerect
      */
     get_AvailableSourceRect() {
         result := ComCall(35, this, "ptr*", &pRect := 0, "HRESULT")
@@ -387,9 +387,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IMSVidRect} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_maxvidrect
+     * The get_MaxVidRect method retrieves the maximum ideal size of the video rectangle.
+     * @returns {IMSVidRect} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_maxvidrect
      */
     get_MaxVidRect() {
         result := ComCall(36, this, "ptr*", &ppVidRect := 0, "HRESULT")
@@ -397,9 +397,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IMSVidRect} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_minvidrect
+     * The get_MinVidRect method retrieves the minimum ideal size of the video rectangle.
+     * @returns {IMSVidRect} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_minvidrect
      */
     get_MinVidRect() {
         result := ComCall(37, this, "ptr*", &ppVidRect := 0, "HRESULT")
@@ -407,9 +407,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IMSVidRect} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_clippedsourcerect
+     * The get_ClippedSourceRect method retrieves the clipping rectangle on the video source.
+     * @returns {IMSVidRect} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_clippedsourcerect
      */
     get_ClippedSourceRect() {
         result := ComCall(38, this, "ptr*", &pRect := 0, "HRESULT")
@@ -417,10 +417,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {IMSVidRect} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_clippedsourcerect
+     * The put_ClippedSourceRect method specifies the clipping rectangle on the video source.
+     * @param {IMSVidRect} pRect Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidrect">IMSVidRect</a> interface that specifies the rectangle.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_clippedsourcerect
      */
     put_ClippedSourceRect(pRect) {
         result := ComCall(39, this, "ptr", pRect, "HRESULT")
@@ -428,9 +428,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
+     * The get_UsingOverlay method queries whether the Video Mixing Renderer (VMR) is using the hardware overlay.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_usingoverlay
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_usingoverlay
      */
     get_UsingOverlay() {
         result := ComCall(40, this, "short*", &UseOverlayVal := 0, "HRESULT")
@@ -438,10 +438,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
+     * The put_UsingOverlay method specifies whether the Video Mixing Renderer will use the hardware overlay.
      * @param {VARIANT_BOOL} UseOverlayVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_usingoverlay
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_usingoverlay
      */
     put_UsingOverlay(UseOverlayVal) {
         result := ComCall(41, this, "short", UseOverlayVal, "HRESULT")
@@ -449,9 +449,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {IPictureDisp} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-capture
+     * The Capture method captures the video frame that is currently being rendered by the Video Mixing Renderer (VMR).
+     * @returns {IPictureDisp} Receives an <b>IPictureDisp</b> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-capture
      */
     Capture() {
         result := ComCall(42, this, "ptr*", &currentImage := 0, "HRESULT")
@@ -459,9 +459,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_framespersecond
+     * The get_FramesPerSecond method retrieves the current frame rate.
+     * @returns {Integer} Receives the frame rate, in frames per second.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_framespersecond
      */
     get_FramesPerSecond() {
         result := ComCall(43, this, "int*", &pVal := 0, "HRESULT")
@@ -469,9 +469,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
+     * The get_DecimateInput method queries whether the Video Mixing Renderer (VMR) is currently configured to decimate the video (that is, reduce the native video size) before processing it.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_decimateinput
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-get_decimateinput
      */
     get_DecimateInput() {
         result := ComCall(44, this, "short*", &pDeci := 0, "HRESULT")
@@ -479,10 +479,10 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * 
+     * The put_DecimateInput method specifies whether the Video Mixing Renderer (VMR) will decimate the video (that is, reduce the native video size) before processing it.
      * @param {VARIANT_BOOL} pDeci 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_decimateinput
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidvideorenderer-put_decimateinput
      */
     put_DecimateInput(pDeci) {
         result := ComCall(45, this, "short", pDeci, "HRESULT")

@@ -32,9 +32,9 @@ class IMediaParamInfo extends IUnknown{
     static VTableNames => ["GetParamCount", "GetParamInfo", "GetParamText", "GetNumTimeFormats", "GetSupportedTimeFormat", "GetCurrentTimeFormat"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamcount
+     * The GetParamCount method retrieves the number of parameters that the object supports.
+     * @returns {Integer} Pointer to a variable that receives the number of parameters.
+     * @see https://docs.microsoft.com/windows/win32/api//medparam/nf-medparam-imediaparaminfo-getparamcount
      */
     GetParamCount() {
         result := ComCall(3, this, "uint*", &pdwParams := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IMediaParamInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwParamIndex 
-     * @returns {MP_PARAMINFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparaminfo
+     * The GetParamInfo method retrieves information about a specified parameter.
+     * @param {Integer} dwParamIndex Zero-based index of the parameter.
+     * @returns {MP_PARAMINFO} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/medparam/ns-medparam-mp_paraminfo">MP_PARAMINFO</a> structure that is filled with the parameter information.
+     * @see https://docs.microsoft.com/windows/win32/api//medparam/nf-medparam-imediaparaminfo-getparaminfo
      */
     GetParamInfo(dwParamIndex) {
         pInfo := MP_PARAMINFO()
@@ -54,10 +54,10 @@ class IMediaParamInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwParamIndex 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamtext
+     * The GetParamText method retrieves a series of text strings that describe the parameter.
+     * @param {Integer} dwParamIndex Zero-based index of the parameter.
+     * @returns {Pointer<Integer>} Address of a variable that receives a pointer to a series of Unicode™ strings.
+     * @see https://docs.microsoft.com/windows/win32/api//medparam/nf-medparam-imediaparaminfo-getparamtext
      */
     GetParamText(dwParamIndex) {
         result := ComCall(5, this, "uint", dwParamIndex, "ptr*", &ppwchText := 0, "HRESULT")
@@ -65,9 +65,9 @@ class IMediaParamInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getnumtimeformats
+     * The GetNumTimeFormats method retrieves the number of time formats that the object supports.
+     * @returns {Integer} Pointer to a variable that receives the number of supported time formats.
+     * @see https://docs.microsoft.com/windows/win32/api//medparam/nf-medparam-imediaparaminfo-getnumtimeformats
      */
     GetNumTimeFormats() {
         result := ComCall(6, this, "uint*", &pdwNumTimeFormats := 0, "HRESULT")
@@ -75,10 +75,10 @@ class IMediaParamInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwFormatIndex 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getsupportedtimeformat
+     * The GetSupportedTimeFormat method retrieves a supported time format.
+     * @param {Integer} dwFormatIndex Index of the time format to retrieve.
+     * @returns {Guid} Pointer to a variable that receives a time format GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//medparam/nf-medparam-imediaparaminfo-getsupportedtimeformat
      */
     GetSupportedTimeFormat(dwFormatIndex) {
         pguidTimeFormat := Guid()
@@ -87,11 +87,40 @@ class IMediaParamInfo extends IUnknown{
     }
 
     /**
+     * The GetCurrentTimeFormat method retrieves the current time format.
+     * @param {Pointer<Guid>} pguidTimeFormat Pointer to a variable that receives a time format GUID.
+     * @param {Pointer<Integer>} pTimeData Pointer to a variable that receives an <b>MP_TIMEDATA</b> value specifying the unit of measure for the new format.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Pointer<Guid>} pguidTimeFormat 
-     * @param {Pointer<Integer>} pTimeData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getcurrenttimeformat
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//medparam/nf-medparam-imediaparaminfo-getcurrenttimeformat
      */
     GetCurrentTimeFormat(pguidTimeFormat, pTimeData) {
         pTimeDataMarshal := pTimeData is VarRef ? "uint*" : "ptr"

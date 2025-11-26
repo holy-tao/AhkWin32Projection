@@ -36,9 +36,9 @@ class IXDSCodecConfig extends IUnknown{
     static VTableNames => ["GetSecureChannelObject", "SetPauseBufferTime"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodecconfig-getsecurechannelobject
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the secure channel object's <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodecconfig-getsecurechannelobject
      */
     GetSecureChannelObject() {
         result := ComCall(3, this, "ptr*", &ppUnkDRMSecureChannel := 0, "HRESULT")
@@ -46,10 +46,10 @@ class IXDSCodecConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwPauseBufferTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodecconfig-setpausebuffertime
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Integer} dwPauseBufferTime Specifies the license generation interval, in seconds.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodecconfig-setpausebuffertime
      */
     SetPauseBufferTime(dwPauseBufferTime) {
         result := ComCall(4, this, "uint", dwPauseBufferTime, "HRESULT")

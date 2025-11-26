@@ -31,9 +31,10 @@ class IAppxManifestPackageDependency2 extends IAppxManifestPackageDependency{
     static VTableNames => ["GetMaxMajorVersionTested"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency2-getmaxmajorversiontested
+     * Returns the maximum major version number of the package that is tested to be compatible with the current package.
+     * @returns {Integer} The maximum major version number of the dependency package that has been tested to be compatible
+     * with the current package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency2-getmaxmajorversiontested
      */
     GetMaxMajorVersionTested() {
         result := ComCall(6, this, "ushort*", &maxMajorVersionTested := 0, "HRESULT")

@@ -33,12 +33,12 @@ class IBinaryConverter extends IDispatch{
     static VTableNames => ["StringToString", "VariantByteArrayToString", "StringToVariantByteArray"]
 
     /**
-     * 
-     * @param {BSTR} strEncodedIn 
-     * @param {Integer} EncodingIn 
-     * @param {Integer} Encoding 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-stringtostring
+     * Modifies the type of Unicode encoding applied to a string.
+     * @param {BSTR} strEncodedIn A <b>BSTR</b> variable that contains the string to modify.
+     * @param {Integer} EncodingIn An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to  the input string.
+     * @param {Integer} Encoding An  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to apply to the output string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the encoded output string.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ibinaryconverter-stringtostring
      */
     StringToString(strEncodedIn, EncodingIn, Encoding) {
         strEncodedIn := strEncodedIn is String ? BSTR.Alloc(strEncodedIn).Value : strEncodedIn
@@ -49,11 +49,11 @@ class IBinaryConverter extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pvarByteArray 
-     * @param {Integer} Encoding 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-variantbytearraytostring
+     * Creates a Unicode encoded string from a byte array.
+     * @param {Pointer<VARIANT>} pvarByteArray Pointer to a  <b>VARIANT</b> array of bytes to be encoded. Each byte in the array must be an unsigned integer. That is, the VARTYPE enumeration value must equal <b>VT_ARRAY</b> | <b>VT_UI1</b>.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @returns {BSTR} Pointer to a  <b>BSTR</b> variable that contains the Unicode-encoded certificate.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ibinaryconverter-variantbytearraytostring
      */
     VariantByteArrayToString(pvarByteArray, Encoding) {
         pstrEncoded := BSTR()
@@ -62,11 +62,11 @@ class IBinaryConverter extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} strEncoded 
-     * @param {Integer} Encoding 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-stringtovariantbytearray
+     * Creates a byte array from a Unicode encoded string.
+     * @param {BSTR} strEncoded A <b>BSTR</b> variable that contains the Unicode encoded string.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @returns {VARIANT} Pointer to a  <b>VARIANT</b> array of bytes. The VARTYPE enumeration value equals <b>VT_ARRAY</b> | <b>VT_UI1</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ibinaryconverter-stringtovariantbytearray
      */
     StringToVariantByteArray(strEncoded, Encoding) {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded

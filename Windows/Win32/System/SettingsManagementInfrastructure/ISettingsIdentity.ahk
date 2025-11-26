@@ -32,11 +32,11 @@ class ISettingsIdentity extends IUnknown{
     static VTableNames => ["GetAttribute", "SetAttribute", "GetFlags", "SetFlags"]
 
     /**
-     * 
-     * @param {Pointer<Void>} Reserved 
-     * @param {PWSTR} Name 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getattribute
+     * Gets an identity attribute for a namespace identity.
+     * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
+     * @param {PWSTR} Name The name of the attribute.
+     * @returns {BSTR} The value of the attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-getattribute
      */
     GetAttribute(Reserved, Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -49,12 +49,12 @@ class ISettingsIdentity extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Reserved 
-     * @param {PWSTR} Name 
-     * @param {PWSTR} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-setattribute
+     * Sets an identity attribute for a namespace identity.
+     * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
+     * @param {PWSTR} Name The name of the attribute.
+     * @param {PWSTR} Value The value of the attribute.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success. It returns <b>WCM_E_ATTRIBUTENOTALLOWED</b> if the attribute specified by Name is not recognized.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-setattribute
      */
     SetAttribute(Reserved, Name, Value) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -67,9 +67,9 @@ class ISettingsIdentity extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getflags
+     * Returns the flags for a namespace identity.
+     * @returns {Integer} The identity flags for the namespace identity.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-getflags
      */
     GetFlags() {
         result := ComCall(5, this, "uint*", &Flags := 0, "HRESULT")
@@ -77,84 +77,10 @@ class ISettingsIdentity extends IUnknown{
     }
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} Flags 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * Sets the identity flags for a namespace identity.
+     * @param {Integer} Flags The identity flags.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsidentity-setflags
      */
     SetFlags(Flags) {
         result := ComCall(6, this, "uint", Flags, "HRESULT")

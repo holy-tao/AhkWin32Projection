@@ -31,14 +31,14 @@ class IComIdentityEvents extends IUnknown{
     static VTableNames => ["OnIISRequestInfo"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Integer} ObjId 
-     * @param {PWSTR} pszClientIP 
-     * @param {PWSTR} pszServerIP 
-     * @param {PWSTR} pszURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomidentityevents-oniisrequestinfo
+     * Generated when an activity is part of an ASP page.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Integer} ObjId The unique identifier for this object.
+     * @param {PWSTR} pszClientIP The Internet Protocol (IP) address of the IIS client.
+     * @param {PWSTR} pszServerIP The IP address of the IIS server.
+     * @param {PWSTR} pszURL The URL on IIS server generating object reference.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomidentityevents-oniisrequestinfo
      */
     OnIISRequestInfo(pInfo, ObjId, pszClientIP, pszServerIP, pszURL) {
         pszClientIP := pszClientIP is String ? StrPtr(pszClientIP) : pszClientIP

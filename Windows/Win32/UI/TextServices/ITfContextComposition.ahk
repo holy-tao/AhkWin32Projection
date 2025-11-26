@@ -33,12 +33,12 @@ class ITfContextComposition extends IUnknown{
     static VTableNames => ["StartComposition", "EnumCompositions", "FindComposition", "TakeOwnership"]
 
     /**
-     * 
-     * @param {Integer} ecWrite 
-     * @param {ITfRange} pCompositionRange 
-     * @param {ITfCompositionSink} pSink 
-     * @returns {ITfComposition} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-startcomposition
+     * ITfContextComposition::StartComposition method
+     * @param {Integer} ecWrite Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
+     * @param {ITfRange} pCompositionRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that specifies the text that the composition initially covers.
+     * @param {ITfCompositionSink} pSink Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompositionsink">ITfCompositionSink</a> object that receives composition event notifications. This parameter is optional and can be <b>NULL</b>. If supplied, the object is released when the composition is terminated.
+     * @returns {ITfComposition} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcomposition">ITfComposition</a> interface pointer that receives the new composition object. This parameter receives <b>NULL</b> if the context owner rejects the composition.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextcomposition-startcomposition
      */
     StartComposition(ecWrite, pCompositionRange, pSink) {
         result := ComCall(3, this, "uint", ecWrite, "ptr", pCompositionRange, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
@@ -46,9 +46,9 @@ class ITfContextComposition extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumITfCompositionView} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-enumcompositions
+     * ITfContextComposition::EnumCompositions method
+     * @returns {IEnumITfCompositionView} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumitfcompositionview">IEnumITfCompositionView</a> interface pointer that receives the enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextcomposition-enumcompositions
      */
     EnumCompositions() {
         result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -56,11 +56,11 @@ class ITfContextComposition extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ecRead 
-     * @param {ITfRange} pTestRange 
-     * @returns {IEnumITfCompositionView} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-findcomposition
+     * ITfContextComposition::FindComposition method
+     * @param {Integer} ecRead Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
+     * @param {ITfRange} pTestRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that specifies the range to search. This parameter can be <b>NULL</b>. If this parameter is <b>NULL</b>, the enumerator will contain all compositions in the edit context.
+     * @returns {IEnumITfCompositionView} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumitfcompositionview">IEnumITfCompositionView</a> interface pointer that receives the enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextcomposition-findcomposition
      */
     FindComposition(ecRead, pTestRange) {
         result := ComCall(5, this, "uint", ecRead, "ptr", pTestRange, "ptr*", &ppEnum := 0, "HRESULT")
@@ -68,12 +68,12 @@ class ITfContextComposition extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ecWrite 
-     * @param {ITfCompositionView} pComposition 
-     * @param {ITfCompositionSink} pSink 
-     * @returns {ITfComposition} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-takeownership
+     * ITfContextComposition::TakeOwnership method
+     * @param {Integer} ecWrite Not used.
+     * @param {ITfCompositionView} pComposition Not used.
+     * @param {ITfCompositionSink} pSink Not used.
+     * @returns {ITfComposition} Not used.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextcomposition-takeownership
      */
     TakeOwnership(ecWrite, pComposition, pSink) {
         result := ComCall(6, this, "uint", ecWrite, "ptr", pComposition, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")

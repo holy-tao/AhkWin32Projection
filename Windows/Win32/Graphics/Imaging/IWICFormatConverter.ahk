@@ -31,25 +31,29 @@ class IWICFormatConverter extends IWICBitmapSource{
     static VTableNames => ["Initialize", "CanConvert"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IWICBitmapSource} pISource 
-     * @param {Pointer<Guid>} dstFormat 
-     * @param {Integer} dither 
-     * @param {IWICPalette} pIPalette 
-     * @param {Float} alphaThresholdPercent 
-     * @param {Integer} paletteTranslate 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the format converter.
+     * @param {IWICBitmapSource} pISource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
+     * 
+     * The input bitmap to convert
+     * @param {Pointer<Guid>} dstFormat Type: <b>REFWICPixelFormatGUID</b>
+     * 
+     * The destination pixel format GUID.
+     * @param {Integer} dither Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a> used for conversion.
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
+     * 
+     * The palette to use for conversion.
+     * @param {Float} alphaThresholdPercent Type: <b>double</b>
+     * 
+     * The alpha threshold to use for conversion.
+     * @param {Integer} paletteTranslate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
+     * 
+     * The palette translation type to use for conversion.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicformatconverter-initialize
      */
     Initialize(pISource, dstFormat, dither, pIPalette, alphaThresholdPercent, paletteTranslate) {
         result := ComCall(8, this, "ptr", pISource, "ptr", dstFormat, "int", dither, "ptr", pIPalette, "double", alphaThresholdPercent, "int", paletteTranslate, "HRESULT")
@@ -57,11 +61,17 @@ class IWICFormatConverter extends IWICBitmapSource{
     }
 
     /**
+     * Determines if the source pixel format can be converted to the destination pixel format.
+     * @param {Pointer<Guid>} srcPixelFormat Type: <b>REFWICPixelFormatGUID</b>
      * 
-     * @param {Pointer<Guid>} srcPixelFormat 
-     * @param {Pointer<Guid>} dstPixelFormat 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverter-canconvert
+     * The source pixel format.
+     * @param {Pointer<Guid>} dstPixelFormat Type: <b>REFWICPixelFormatGUID</b>
+     * 
+     * The destionation pixel format.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * A pointer that receives a value indicating whether the source pixel format can be converted to the destination pixel format.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicformatconverter-canconvert
      */
     CanConvert(srcPixelFormat, dstPixelFormat) {
         result := ComCall(9, this, "ptr", srcPixelFormat, "ptr", dstPixelFormat, "int*", &pfCanConvert := 0, "HRESULT")

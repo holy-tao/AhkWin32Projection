@@ -36,21 +36,45 @@ class IRecoverableErrorData extends IUnknown{
     static VTableNames => ["Initialize", "GetItemDisplayName", "GetErrorDescription"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {PWSTR} pcszItemDisplayName 
-     * @param {PWSTR} pcszErrorDescription 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the object by using the specified display name of the item that caused the error and a description of the error.
+     * @param {PWSTR} pcszItemDisplayName The display name of the item that caused the error.
+     * @param {PWSTR} pcszErrorDescription The description of the error.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerrordata-initialize
      */
     Initialize(pcszItemDisplayName, pcszErrorDescription) {
         pcszItemDisplayName := pcszItemDisplayName is String ? StrPtr(pcszItemDisplayName) : pcszItemDisplayName
@@ -61,11 +85,59 @@ class IRecoverableErrorData extends IUnknown{
     }
 
     /**
+     * Gets the display name of the item that caused the error.
+     * @param {PWSTR} pszItemDisplayName Returns the display name of the item that caused the error.
+     * @param {Pointer<Integer>} pcchItemDisplayName Specifies the number of characters in <i>pszItemDisplayName</i>. Returns the required number of characters for <i>pszItemDisplayName</i> when <i>pcchItemDisplayName</i> is too small; otherwise, returns the number of characters written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {PWSTR} pszItemDisplayName 
-     * @param {Pointer<Integer>} pcchItemDisplayName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerrordata-getitemdisplayname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pszItemDisplayName</i> is too small. In this case, the required number of characters is returned in <i>pcchItemDisplayName</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerrordata-getitemdisplayname
      */
     GetItemDisplayName(pszItemDisplayName, pcchItemDisplayName) {
         pszItemDisplayName := pszItemDisplayName is String ? StrPtr(pszItemDisplayName) : pszItemDisplayName
@@ -77,11 +149,59 @@ class IRecoverableErrorData extends IUnknown{
     }
 
     /**
+     * Gets the description of the error.
+     * @param {PWSTR} pszErrorDescription Returns the description of the error.
+     * @param {Pointer<Integer>} pcchErrorDescription Specifies the number of characters in <i>pszErrorDescription</i>. Returns the required number of characters for <i>pszErrorDescription</i> when <i>pcchErrorDescription</i> is too small; otherwise, returns the number of characters written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {PWSTR} pszErrorDescription 
-     * @param {Pointer<Integer>} pcchErrorDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerrordata-geterrordescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pszErrorDescription</i> is too small. In this case, the required number of characters is returned in <i>pcchErrorDescription</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerrordata-geterrordescription
      */
     GetErrorDescription(pszErrorDescription, pcchErrorDescription) {
         pszErrorDescription := pszErrorDescription is String ? StrPtr(pszErrorDescription) : pszErrorDescription

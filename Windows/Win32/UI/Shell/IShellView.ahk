@@ -45,10 +45,16 @@ class IShellView extends IOleWindow{
     static VTableNames => ["TranslateAccelerator", "EnableModeless", "UIActivate", "Refresh", "CreateViewWindow", "DestroyViewWindow", "GetCurrentInfo", "AddPropertySheetPages", "SaveViewState", "SelectItem", "GetItemObject"]
 
     /**
+     * Translates keyboard shortcut (accelerator) key strokes when a namespace extension's view has the focus.
+     * @param {Pointer<MSG>} pmsg Type: <b>LPMSG</b>
      * 
-     * @param {Pointer<MSG>} pmsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-translateaccelerator
+     * The address of the message to be translated.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM-defined error value otherwise.
+     * 
+     * If the view returns S_OK, it indicates that the message was translated and should not be translated or dispatched by Windows Explorer.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-translateaccelerator
      */
     TranslateAccelerator(pmsg) {
         result := ComCall(5, this, "ptr", pmsg, "int")
@@ -56,10 +62,14 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Enables or disables modeless dialog boxes. This method is not currently implemented.
+     * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless
+     * Nonzero to enable modeless dialog box windows or zero to disable them.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM-defined error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless
      */
     EnableModeless(fEnable) {
         result := ComCall(6, this, "int", fEnable, "HRESULT")
@@ -67,10 +77,12 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Called when the activation state of the view window is changed by an event that is not caused by the Shell view itself. For example, if the TAB key is pressed when the tree has the focus, the view should be given the focus.
+     * @param {Integer} uState Type: <b>UINT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Integer} uState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-uiactivate
+     * Returns <b>S_OK</b> if successful, or a COM-defined error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-uiactivate
      */
     UIActivate(uState) {
         result := ComCall(7, this, "uint", uState, "HRESULT")
@@ -78,9 +90,11 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Refreshes the view's contents in response to user input.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-refresh
+     * Returns S_OK if successful, or a COM-defined error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-refresh
      */
     Refresh() {
         result := ComCall(8, this, "HRESULT")
@@ -88,13 +102,23 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Creates a view window. This can be either the right pane of Windows Explorer or the client window of a folder window.
+     * @param {IShellView} psvPrevious Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} psvPrevious 
-     * @param {Pointer<FOLDERSETTINGS>} pfs 
-     * @param {IShellBrowser} psb 
-     * @param {Pointer<RECT>} prcView 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface of the view window being exited. Views can use this parameter to communicate with a previous view of the same implementation. This interface can be used to optimize browsing between like views. This pointer may be <b>NULL</b>.
+     * @param {Pointer<FOLDERSETTINGS>} pfs Type: <b>LPCFOLDERSETTINGS</b>
+     * 
+     * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure. The view should use this when creating its view.
+     * @param {IShellBrowser} psb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a>*</b>
+     * 
+     * The address of the current instance of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a> interface. The view should call this interface's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method and keep the interface pointer to allow communication with the Windows Explorer window.
+     * @param {Pointer<RECT>} prcView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * The dimensions of the new view, in client coordinates.
+     * @returns {HWND} Type: <b>HWND*</b>
+     * 
+     * The address of the window handle being created.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow
      */
     CreateViewWindow(psvPrevious, pfs, psb, prcView) {
         phWnd := HWND()
@@ -103,9 +127,11 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Destroys the view window.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-destroyviewwindow
+     * Returns S_OK if successful, or a COM-defined error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-destroyviewwindow
      */
     DestroyViewWindow() {
         result := ComCall(10, this, "HRESULT")
@@ -113,9 +139,11 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Gets the current folder settings.
+     * @returns {FOLDERSETTINGS} Type: <b>LPFOLDERSETTINGS</b>
      * 
-     * @returns {FOLDERSETTINGS} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getcurrentinfo
+     * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure to receive the settings.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-getcurrentinfo
      */
     GetCurrentInfo() {
         pfs := FOLDERSETTINGS()
@@ -124,12 +152,20 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Allows the view to add pages to the Options property sheet from the View menu.
+     * @param {Integer} dwReserved Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwReserved 
-     * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfn 
-     * @param {LPARAM} lparam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages
+     * Reserved.
+     * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfn Type: <b>LPFNADDPROPSHEETPAGE</b>
+     * 
+     * The address of the callback function used to add the pages.
+     * @param {LPARAM} lparam Type: <b>LPARAM</b>
+     * 
+     * A value that must be passed as the callback function's <i>lparam</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM-defined error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages
      */
     AddPropertySheetPages(dwReserved, pfn, lparam) {
         result := ComCall(12, this, "uint", dwReserved, "ptr", pfn, "ptr", lparam, "HRESULT")
@@ -137,9 +173,11 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Saves the Shell's view settings so the current state can be restored during a subsequent browsing session.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-saveviewstate
+     * Returns S_OK if successful, or a COM-defined error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-saveviewstate
      */
     SaveViewState() {
         result := ComCall(13, this, "HRESULT")
@@ -147,11 +185,17 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Changes the selection state of one or more items within the Shell view window.
+     * @param {Pointer<ITEMIDLIST>} pidlItem Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlItem 
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-selectitem
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
+     * @param {Integer} uFlags Type: <b>UINT</b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svsif">_SVSIF</a> constants that specify the type of selection to apply.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-selectitem
      */
     SelectItem(pidlItem, uFlags) {
         result := ComCall(14, this, "ptr", pidlItem, "uint", uFlags, "HRESULT")
@@ -159,11 +203,17 @@ class IShellView extends IOleWindow{
     }
 
     /**
+     * Gets an interface that refers to data presented in the view.
+     * @param {Integer} uItem Type: <b>UINT</b>
      * 
-     * @param {Integer} uItem 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getitemobject
+     * The constants that refer to an aspect of the view. This parameter can be any one of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svgio">_SVGIO</a> constants.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The identifier of the COM interface being requested.
+     * @returns {Pointer<Void>} Type: <b>LPVOID*</b>
+     * 
+     * The address that receives the interface pointer. If an error occurs, the pointer returned must be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellview-getitemobject
      */
     GetItemObject(uItem, riid) {
         result := ComCall(15, this, "uint", uItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

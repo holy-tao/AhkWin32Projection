@@ -38,9 +38,9 @@ class ISyncFullEnumerationChange extends IUnknown{
     static VTableNames => ["GetLearnedKnowledgeAfterRecoveryComplete", "GetLearnedForgottenKnowledge"]
 
     /**
-     * 
-     * @returns {ISyncKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchange-getlearnedknowledgeafterrecoverycomplete
+     * Gets the knowledge the destination replica will learn after it applies the changes in the full enumeration.
+     * @returns {ISyncKnowledge} The knowledge that the destination replica will learn after it applies this change during recovery synchronization.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchange-getlearnedknowledgeafterrecoverycomplete
      */
     GetLearnedKnowledgeAfterRecoveryComplete() {
         result := ComCall(3, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
@@ -48,9 +48,9 @@ class ISyncFullEnumerationChange extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IForgottenKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchange-getlearnedforgottenknowledge
+     * Gets the forgotten knowledge that the destination replica learns when the destination provider applies this change during recovery synchronization.
+     * @returns {IForgottenKnowledge} The forgotten knowledge that the destination replica learns when the destination provider applies this change during recovery synchronization.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchange-getlearnedforgottenknowledge
      */
     GetLearnedForgottenKnowledge() {
         result := ComCall(4, this, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")

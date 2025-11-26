@@ -46,12 +46,12 @@ class IApplicationActivationManager extends IUnknown{
     static VTableNames => ["ActivateApplication", "ActivateForFile", "ActivateForProtocol"]
 
     /**
-     * 
-     * @param {PWSTR} appUserModelId 
-     * @param {PWSTR} arguments 
-     * @param {Integer} options 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateapplication
+     * Activates the specified Windows Store app for the generic launch contract (Windows.Launch) in the current session.
+     * @param {PWSTR} appUserModelId The application user model ID of the Windows Store app.
+     * @param {PWSTR} arguments A pointer to an optional, app-specific, argument string.
+     * @param {Integer} options One or more of the following flags used to support design mode, debugging, and testing scenarios.
+     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the process ID of the app instance that fulfils this contract.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateapplication
      */
     ActivateApplication(appUserModelId, arguments, options) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
@@ -62,12 +62,12 @@ class IApplicationActivationManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} appUserModelId 
-     * @param {IShellItemArray} itemArray 
-     * @param {PWSTR} verb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateforfile
+     * Activates the specified Windows Store app for the file contract (Windows.File).
+     * @param {PWSTR} appUserModelId The application user model ID of the Windows Store app.
+     * @param {IShellItemArray} itemArray A pointer to an array of Shell items, each representing a file. This value is converted to a <a href="https://docs.microsoft.com/cpp/cppcx/platform-collections-vectorview-class?view=vs-2019">VectorView</a> of <a href="https://docs.microsoft.com/uwp/api/windows.storage.istorageitem">StorageItem</a> objects that is passed to the app through <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.activation.fileactivatedeventargs">FileActivatedEventArgs</a>.
+     * @param {PWSTR} verb The verb being applied to the file or files specified by <i>itemArray</i>.
+     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the process ID of the app instance that fulfils this contract.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateforfile
      */
     ActivateForFile(appUserModelId, itemArray, verb) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
@@ -78,11 +78,11 @@ class IApplicationActivationManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} appUserModelId 
-     * @param {IShellItemArray} itemArray 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateforprotocol
+     * Activates the specified Windows Store app for the protocol contract (Windows.Protocol).
+     * @param {PWSTR} appUserModelId The application user model ID of the Windows Store app.
+     * @param {IShellItemArray} itemArray A pointer to an array of a single Shell item. The first item in the array is converted into a Uri object that is passed to the app through <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.activation.protocolactivatedeventargs">ProtocolActivatedEventArgs</a>. Any items in the array except for the first element are ignored.
+     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the process ID of the app instance that fulfils this contract.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateforprotocol
      */
     ActivateForProtocol(appUserModelId, itemArray) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId

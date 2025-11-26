@@ -57,11 +57,17 @@ class IShellItemImageFactory extends IUnknown{
     static VTableNames => ["GetImage"]
 
     /**
+     * Gets an HBITMAP that represents an IShellItem.
+     * @param {SIZE} size Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a></b>
      * 
-     * @param {SIZE} size 
-     * @param {Integer} flags 
-     * @returns {HBITMAP} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemimagefactory-getimage
+     * A structure that specifies the size of the image to be received.
+     * @param {Integer} flags Type: <b>SIIGBF</b>
+     * 
+     * One or more of the following:
+     * @returns {HBITMAP} Type: <b>HBITMAP*</b>
+     * 
+     * Pointer to a value that, when this method returns successfully, receives the handle of the retrieved bitmap. It is the responsibility of the caller to free this retrieved resource through <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitemimagefactory-getimage
      */
     GetImage(size, flags) {
         phbm := HBITMAP()

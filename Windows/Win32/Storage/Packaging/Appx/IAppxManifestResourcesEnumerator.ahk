@@ -36,9 +36,11 @@ class IAppxManifestResourcesEnumerator extends IUnknown{
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
+     * Gets the resource at the current position of the enumerator.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-getcurrent
+     * The current resource.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &resource := 0, "HRESULT")
@@ -46,9 +48,11 @@ class IAppxManifestResourcesEnumerator extends IUnknown{
     }
 
     /**
+     * Determines whether there is a resource at the current position of the enumerator.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-gethascurrent
+     * <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-gethascurrent
      */
     GetHasCurrent() {
         result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
@@ -56,9 +60,13 @@ class IAppxManifestResourcesEnumerator extends IUnknown{
     }
 
     /**
+     * Advances the position of the enumerator to the next resource.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-movenext
+     * <b>TRUE</b> if the enumerator successfully advances
+     * 
+     * <b>FALSE</b> if the enumerator has passed the end of the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-movenext
      */
     MoveNext() {
         result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")

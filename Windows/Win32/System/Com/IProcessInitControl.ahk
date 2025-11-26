@@ -31,10 +31,10 @@ class IProcessInitControl extends IUnknown{
     static VTableNames => ["ResetInitializerTimeout"]
 
     /**
-     * 
-     * @param {Integer} dwSecondsRemaining 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iprocessinitcontrol-resetinitializertimeout
+     * Sets the process initialization time-out.
+     * @param {Integer} dwSecondsRemaining The number of seconds after this method is called before process initialization times out.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprocessinitcontrol-resetinitializertimeout
      */
     ResetInitializerTimeout(dwSecondsRemaining) {
         result := ComCall(3, this, "uint", dwSecondsRemaining, "HRESULT")

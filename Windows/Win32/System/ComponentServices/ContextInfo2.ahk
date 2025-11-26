@@ -38,9 +38,9 @@ class ContextInfo2 extends ContextInfo{
     static VTableNames => ["GetPartitionId", "GetApplicationId", "GetApplicationInstanceId"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo2-getpartitionid
+     * Retrieves the GUID of the COM+ partition of the current object context.
+     * @returns {BSTR} A reference to the partition identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo2-getpartitionid
      */
     GetPartitionId() {
         __MIDL__ContextInfo20000 := BSTR()
@@ -49,9 +49,9 @@ class ContextInfo2 extends ContextInfo{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo2-getapplicationid
+     * Retrieves the GUID of the application of the current object context.
+     * @returns {BSTR} A reference to the application identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo2-getapplicationid
      */
     GetApplicationId() {
         __MIDL__ContextInfo20001 := BSTR()
@@ -60,9 +60,9 @@ class ContextInfo2 extends ContextInfo{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo2-getapplicationinstanceid
+     * Retrieves the GUID of the application instance of the current object context.
+     * @returns {BSTR} A reference to the application instance identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo2-getapplicationinstanceid
      */
     GetApplicationInstanceId() {
         __MIDL__ContextInfo20002 := BSTR()

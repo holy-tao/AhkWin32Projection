@@ -31,11 +31,51 @@ class ITfRangeACP extends ITfRange{
     static VTableNames => ["GetExtent", "SetExtent"]
 
     /**
+     * ITfRangeACP::GetExtent method
+     * @param {Pointer<Integer>} pacpAnchor Pointer to a <b>LONG</b> value that receives the application character position of the range start anchor.
+     * @param {Pointer<Integer>} pcch Pointer to a <b>LONG</b> value that receives the number of characters in the range.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} pacpAnchor 
-     * @param {Pointer<Integer>} pcch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-getextent
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfrangeacp-getextent
      */
     GetExtent(pacpAnchor, pcch) {
         pacpAnchorMarshal := pacpAnchor is VarRef ? "int*" : "ptr"
@@ -46,11 +86,51 @@ class ITfRangeACP extends ITfRange{
     }
 
     /**
+     * ITfRangeACP::SetExtent method
+     * @param {Integer} acpAnchor Contains the application character position of the range start anchor.
+     * @param {Integer} cch Contains the number of characters in the range.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} acpAnchor 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-setextent
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfrangeacp-setextent
      */
     SetExtent(acpAnchor, cch) {
         result := ComCall(26, this, "int", acpAnchor, "int", cch, "HRESULT")

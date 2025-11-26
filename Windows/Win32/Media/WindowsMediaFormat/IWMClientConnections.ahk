@@ -32,9 +32,9 @@ class IWMClientConnections extends IUnknown{
     static VTableNames => ["GetClientCount", "GetClientProperties"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientcount
+     * The GetClientCount method retrieves the number of connected clients.
+     * @returns {Integer} Pointer to a count of the clients that are connected.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientcount
      */
     GetClientCount() {
         result := ComCall(3, this, "uint*", &pcClients := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IWMClientConnections extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwClientNum 
-     * @returns {WM_CLIENT_PROPERTIES} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientproperties
+     * The GetClientProperties method retrieves information, including the IP address and protocol, about a connected client.
+     * @param {Integer} dwClientNum <b>DWORD</b> containing the client's index number.
+     * @returns {WM_CLIENT_PROPERTIES} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_properties">WM_CLIENT_PROPERTIES</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientproperties
      */
     GetClientProperties(dwClientNum) {
         pClientProperties := WM_CLIENT_PROPERTIES()

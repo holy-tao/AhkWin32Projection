@@ -36,10 +36,39 @@ class ITfSystemLangBarItem extends IUnknown{
     static VTableNames => ["SetIcon", "SetTooltipString"]
 
     /**
+     * ITfSystemLangBarItem::SetIcon method
+     * @param {HICON} hIcon Contains the handle to the new icon.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {HICON} hIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritem-seticon
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system language bar menu does not allow its icon to be modified.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritem-seticon
      */
     SetIcon(hIcon) {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
@@ -49,11 +78,40 @@ class ITfSystemLangBarItem extends IUnknown{
     }
 
     /**
+     * ITfSystemLangBarItem::SetTooltipString method
+     * @param {PWSTR} pchToolTip A string that appears as a tooltip.
+     * @param {Integer} cch Size, in characters, of the string.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pchToolTip 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritem-settooltipstring
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The tooltip string for the system language bar menu cannot be modified.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritem-settooltipstring
      */
     SetTooltipString(pchToolTip, cch) {
         pchToolTip := pchToolTip is String ? StrPtr(pchToolTip) : pchToolTip

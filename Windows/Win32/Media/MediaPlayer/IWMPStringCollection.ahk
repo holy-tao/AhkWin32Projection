@@ -37,10 +37,28 @@ class IWMPStringCollection extends IDispatch{
     }
 
     /**
+     * The get_count method retrieves the number of items in the string collection.
+     * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection-get_count
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpstringcollection-get_count
      */
     get_count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -50,11 +68,29 @@ class IWMPStringCollection extends IDispatch{
     }
 
     /**
+     * The item method retrieves the string at the given index.
+     * @param {Integer} lIndex <b>long</b> containing the index.
+     * @param {Pointer<BSTR>} pbstrString Pointer to a <b>BSTR</b> containing the string.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<BSTR>} pbstrString 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection-item
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpstringcollection-item
      */
     item(lIndex, pbstrString) {
         result := ComCall(8, this, "int", lIndex, "ptr", pbstrString, "HRESULT")

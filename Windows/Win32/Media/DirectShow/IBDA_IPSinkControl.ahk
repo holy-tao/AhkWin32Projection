@@ -36,11 +36,11 @@ class IBDA_IPSinkControl extends IUnknown{
     static VTableNames => ["GetMulticastList", "GetAdapterIPAddress"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbSize 
-     * @param {Pointer<Pointer<Integer>>} pbBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getmulticastlist
+     * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @param {Pointer<Integer>} pulcbSize Receives the length of the buffer, in bytes.
+     * @param {Pointer<Pointer<Integer>>} pbBuffer Pointer to a byte array containing the multicast list.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getmulticastlist
      */
     GetMulticastList(pulcbSize, pbBuffer) {
         pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
@@ -51,11 +51,11 @@ class IBDA_IPSinkControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbSize 
-     * @param {Pointer<Pointer<Integer>>} pbBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getadapteripaddress
+     * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @param {Pointer<Integer>} pulcbSize Receives the length of the buffer, in bytes.
+     * @param {Pointer<Pointer<Integer>>} pbBuffer Pointer to a byte array containing the address.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getadapteripaddress
      */
     GetAdapterIPAddress(pulcbSize, pbBuffer) {
         pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"

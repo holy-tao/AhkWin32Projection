@@ -32,12 +32,14 @@ class IEnumMoniker extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Retrieves the specified number of items in the enumeration sequence.
+     * @param {Integer} celt The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
+     * @param {Pointer<IMoniker>} rgelt An array of enumerated items.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<IMoniker>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienummoniker-next
+     * The enumerator is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>, and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through each pointer enumerated. If <i>celt</i> is greater than 1, the caller must also pass a non-<b>NULL</b> pointer passed to <i>pceltFetched</i> to know how many pointers to release.
+     * @param {Pointer<Integer>} pceltFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested. This parameter can be <b>NULL</b> if <i>celt</i> is 1.
+     * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienummoniker-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +49,10 @@ class IEnumMoniker extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienummoniker-skip
+     * Skips over the specified number of items in the enumeration sequence.
+     * @param {Integer} celt The number of items to be skipped.
+     * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienummoniker-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -58,9 +60,9 @@ class IEnumMoniker extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienummoniker-reset
+     * Resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienummoniker-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +70,9 @@ class IEnumMoniker extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienummoniker-clone
+     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * @returns {IEnumMoniker} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienummoniker">IEnumMoniker</a> pointer variable that receives the interface pointer to the enumeration object. If the method is unsuccessful, the value of this output variable is undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienummoniker-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

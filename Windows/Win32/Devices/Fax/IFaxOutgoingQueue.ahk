@@ -124,9 +124,16 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Blocked property is a Boolean value that indicates whether the job queue for outgoing faxes is blocked.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the outbound job queue is blocked and the fax service is not accepting outbound fax submissions. If this property is equal to <b>FALSE</b>, the queue is not blocked.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_blocked
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_blocked
      */
     get_Blocked() {
         result := ComCall(7, this, "short*", &pbBlocked := 0, "HRESULT")
@@ -134,10 +141,17 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Blocked property is a Boolean value that indicates whether the job queue for outgoing faxes is blocked.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the outbound job queue is blocked and the fax service is not accepting outbound fax submissions. If this property is equal to <b>FALSE</b>, the queue is not blocked.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {VARIANT_BOOL} bBlocked 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_blocked
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_blocked
      */
     put_Blocked(bBlocked) {
         result := ComCall(8, this, "short", bBlocked, "HRESULT")
@@ -145,9 +159,16 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Paused property is a Boolean value that indicates whether the job queue for outgoing faxes is paused.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the job queue is paused and the fax service is not processing jobs in the queue. If this property is equal to <b>FALSE</b>, the outgoing queue is not paused.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_paused
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_paused
      */
     get_Paused() {
         result := ComCall(9, this, "short*", &pbPaused := 0, "HRESULT")
@@ -155,10 +176,17 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Paused property is a Boolean value that indicates whether the job queue for outgoing faxes is paused.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the job queue is paused and the fax service is not processing jobs in the queue. If this property is equal to <b>FALSE</b>, the outgoing queue is not paused.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {VARIANT_BOOL} bPaused 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_paused
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_paused
      */
     put_Paused(bPaused) {
         result := ComCall(10, this, "short", bPaused, "HRESULT")
@@ -166,9 +194,16 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The AllowPersonalCoverPages property is a Boolean value that indicates whether fax client applications can include a user-designed cover page with fax transmissions.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, clients can include personal cover page files with fax transmissions. If this property is equal to <b>FALSE</b>, clients must use a common cover page file stored on the fax server. 
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_allowpersonalcoverpages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_allowpersonalcoverpages
      */
     get_AllowPersonalCoverPages() {
         result := ComCall(11, this, "short*", &pbAllowPersonalCoverPages := 0, "HRESULT")
@@ -176,10 +211,17 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The AllowPersonalCoverPages property is a Boolean value that indicates whether fax client applications can include a user-designed cover page with fax transmissions.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, clients can include personal cover page files with fax transmissions. If this property is equal to <b>FALSE</b>, clients must use a common cover page file stored on the fax server. 
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {VARIANT_BOOL} bAllowPersonalCoverPages 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_allowpersonalcoverpages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_allowpersonalcoverpages
      */
     put_AllowPersonalCoverPages(bAllowPersonalCoverPages) {
         result := ComCall(12, this, "short", bAllowPersonalCoverPages, "HRESULT")
@@ -187,9 +229,16 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_UseDeviceTSID property is a Boolean value that indicates whether the fax service uses the device transmitting station identifier (TSID) instead of a sender TSID.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the fax service uses the device TSID rather than a user-specified TSID. If this property is equal to <b>FALSE</b>, the fax service uses a user-specified TSID.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_usedevicetsid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_usedevicetsid
      */
     get_UseDeviceTSID() {
         result := ComCall(13, this, "short*", &pbUseDeviceTSID := 0, "HRESULT")
@@ -197,10 +246,17 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_UseDeviceTSID property is a Boolean value that indicates whether the fax service uses the device transmitting station identifier (TSID) instead of a sender TSID.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the fax service uses the device TSID rather than a user-specified TSID. If this property is equal to <b>FALSE</b>, the fax service uses a user-specified TSID.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {VARIANT_BOOL} bUseDeviceTSID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_usedevicetsid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_usedevicetsid
      */
     put_UseDeviceTSID(bUseDeviceTSID) {
         result := ComCall(14, this, "short", bUseDeviceTSID, "HRESULT")
@@ -208,9 +264,14 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Retries property is a value that indicates the number of times that the fax service attempts to retransmit an outgoing fax when the initial transmission fails.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retries
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retries
      */
     get_Retries() {
         result := ComCall(15, this, "int*", &plRetries := 0, "HRESULT")
@@ -218,10 +279,15 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Retries property is a value that indicates the number of times that the fax service attempts to retransmit an outgoing fax when the initial transmission fails.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Integer} lRetries 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_retries
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_retries
      */
     put_Retries(lRetries) {
         result := ComCall(16, this, "int", lRetries, "HRESULT")
@@ -229,9 +295,14 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_RetryDelay property is a value that indicates the time interval, in minutes, that the fax service waits before attempting to retransmit an outbound fax job.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retrydelay
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retrydelay
      */
     get_RetryDelay() {
         result := ComCall(17, this, "int*", &plRetryDelay := 0, "HRESULT")
@@ -239,10 +310,15 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_RetryDelay property is a value that indicates the time interval, in minutes, that the fax service waits before attempting to retransmit an outbound fax job.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Integer} lRetryDelay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_retrydelay
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_retrydelay
      */
     put_RetryDelay(lRetryDelay) {
         result := ComCall(18, this, "int", lRetryDelay, "HRESULT")
@@ -250,9 +326,14 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_DiscountRateStart property is a value that indicates the time at which the discount period for transmitting faxes begins. The discount period applies to outgoing faxes.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountratestart
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountratestart
      */
     get_DiscountRateStart() {
         result := ComCall(19, this, "double*", &pdateDiscountRateStart := 0, "HRESULT")
@@ -260,10 +341,15 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_DiscountRateStart property is a value that indicates the time at which the discount period for transmitting faxes begins. The discount period applies to outgoing faxes.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Float} dateDiscountRateStart 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_discountratestart
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_discountratestart
      */
     put_DiscountRateStart(dateDiscountRateStart) {
         result := ComCall(20, this, "double", dateDiscountRateStart, "HRESULT")
@@ -271,9 +357,14 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_DiscountRateEnd property is a value that indicates the time at which the discount period for transmitting faxes ends. The discount period applies to outgoing faxes.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountrateend
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountrateend
      */
     get_DiscountRateEnd() {
         result := ComCall(21, this, "double*", &pdateDiscountRateEnd := 0, "HRESULT")
@@ -281,10 +372,15 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_DiscountRateEnd property is a value that indicates the time at which the discount period for transmitting faxes ends. The discount period applies to outgoing faxes.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Float} dateDiscountRateEnd 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_discountrateend
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_discountrateend
      */
     put_DiscountRateEnd(dateDiscountRateEnd) {
         result := ComCall(22, this, "double", dateDiscountRateEnd, "HRESULT")
@@ -292,9 +388,16 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_AgeLimit property is a value that indicates the number of days that the fax service retains an unsent job in the fax job queue.
+     * @remarks
+     * 
+     * If the fax job remains in the outbound job queue longer than the value specified, the fax service deletes the job. If the value of this property is zero, the fax service does not enforce an age limit.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_agelimit
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_agelimit
      */
     get_AgeLimit() {
         result := ComCall(23, this, "int*", &plAgeLimit := 0, "HRESULT")
@@ -302,10 +405,17 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_AgeLimit property is a value that indicates the number of days that the fax service retains an unsent job in the fax job queue.
+     * @remarks
+     * 
+     * If the fax job remains in the outbound job queue longer than the value specified, the fax service deletes the job. If the value of this property is zero, the fax service does not enforce an age limit.
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {Integer} lAgeLimit 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_agelimit
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_agelimit
      */
     put_AgeLimit(lAgeLimit) {
         result := ComCall(24, this, "int", lAgeLimit, "HRESULT")
@@ -313,9 +423,14 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Branding property is a Boolean value that indicates whether the fax service generates a brand (banner) at the top of outgoing fax transmissions.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_branding
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_branding
      */
     get_Branding() {
         result := ComCall(25, this, "short*", &pbBranding := 0, "HRESULT")
@@ -323,10 +438,15 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::get_Branding property is a Boolean value that indicates whether the fax service generates a brand (banner) at the top of outgoing fax transmissions.
+     * @remarks
+     * 
+     * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
+     * 
      * 
      * @param {VARIANT_BOOL} bBranding 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_branding
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_branding
      */
     put_Branding(bBranding) {
         result := ComCall(26, this, "short", bBranding, "HRESULT")
@@ -334,9 +454,11 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::Refresh method refreshes FaxOutgoingQueue object information from the fax server. When the IFaxOutgoingQueue::Refresh method is called, any configuration changes made after the last IFaxOutgoingQueue::Save method call are lost.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-refresh
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-refresh
      */
     Refresh() {
         result := ComCall(27, this, "HRESULT")
@@ -344,9 +466,11 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::Save method saves the FaxOutgoingQueue object data.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-save
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-save
      */
     Save() {
         result := ComCall(28, this, "HRESULT")
@@ -354,9 +478,11 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::GetJobs method returns a collection of the outbound fax jobs in the job queue.
+     * @returns {IFaxOutgoingJobs} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjobs">FaxOutgoingJobs</a>**</b>
      * 
-     * @returns {IFaxOutgoingJobs} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-getjobs
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjobs">FaxOutgoingJobs</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-getjobs
      */
     GetJobs() {
         result := ComCall(29, this, "ptr*", &pFaxOutgoingJobs := 0, "HRESULT")
@@ -364,10 +490,14 @@ class IFaxOutgoingQueue extends IDispatch{
     }
 
     /**
+     * The IFaxOutgoingQueue::GetJob method returns an outbound fax job in the job queue according to its ID.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrJobId 
-     * @returns {IFaxOutgoingJob} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-getjob
+     * Specifies the job ID.
+     * @returns {IFaxOutgoingJob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutgoingjob">IFaxOutgoingJob</a>**</b>
+     * 
+     * The address of a pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob">FaxOutgoingJob</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingqueue-getjob
      */
     GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId

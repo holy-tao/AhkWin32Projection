@@ -31,9 +31,9 @@ class IComTrackingInfoCollection extends IUnknown{
     static VTableNames => ["Type", "Count", "Item"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-type
+     * Retrieves the type of a tracking information collection.
+     * @returns {Integer} The type of tracking information. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-tracking_coll_type">TRACKING_COLL_TYPE</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfocollection-type
      */
     Type() {
         result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IComTrackingInfoCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-count
+     * Retrieves the number of objects in a tracking information collection.
+     * @returns {Integer} The number of objects in the tracking information collection.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfocollection-count
      */
     Count() {
         result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
@@ -51,11 +51,11 @@ class IComTrackingInfoCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulIndex 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-item
+     * Retrieves the specified interface from a specified member of a tracking information collection.
+     * @param {Integer} ulIndex The index of the object in the collection.
+     * @param {Pointer<Guid>} riid The identifier of the interface to be requested.
+     * @returns {Pointer<Void>} A pointer to the requested interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfocollection-item
      */
     Item(ulIndex, riid) {
         result := ComCall(5, this, "uint", ulIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

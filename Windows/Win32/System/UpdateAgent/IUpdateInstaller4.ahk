@@ -31,10 +31,12 @@ class IUpdateInstaller4 extends IUpdateInstaller3{
     static VTableNames => ["Commit"]
 
     /**
+     * Finalizes updates that were previously staged or installed.
+     * @param {Integer} dwFlags Reserved for future use.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows 
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller4-commit
+     * error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller4-commit
      */
     Commit(dwFlags) {
         result := ComCall(32, this, "uint", dwFlags, "HRESULT")

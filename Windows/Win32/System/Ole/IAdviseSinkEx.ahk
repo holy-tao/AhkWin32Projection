@@ -31,10 +31,10 @@ class IAdviseSinkEx extends IAdviseSink{
     static VTableNames => ["OnViewStatusChange"]
 
     /**
-     * 
-     * @param {Integer} dwViewStatus 
+     * Notifies the sink that a view status of an object has changed.
+     * @param {Integer} dwViewStatus The new view status. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-viewstatus">VIEWSTATUS</a> enumeration.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iadvisesinkex-onviewstatuschange
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iadvisesinkex-onviewstatuschange
      */
     OnViewStatusChange(dwViewStatus) {
         ComCall(8, this, "uint", dwViewStatus)

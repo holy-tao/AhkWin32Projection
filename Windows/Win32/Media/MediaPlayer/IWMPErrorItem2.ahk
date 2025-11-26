@@ -37,10 +37,28 @@ class IWMPErrorItem2 extends IWMPErrorItem{
     }
 
     /**
+     * The get_condition method retrieves a value indicating the condition for the error.
+     * @param {Pointer<Integer>} plCondition Pointer to a <b>long</b> containing the condition code.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCondition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem2-get_condition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem2-get_condition
      */
     get_condition(plCondition) {
         plConditionMarshal := plCondition is VarRef ? "int*" : "ptr"

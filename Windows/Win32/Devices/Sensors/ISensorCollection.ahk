@@ -38,10 +38,10 @@ class ISensorCollection extends IUnknown{
     static VTableNames => ["GetAt", "GetCount", "Add", "Remove", "RemoveByID", "Clear"]
 
     /**
-     * 
-     * @param {Integer} ulIndex 
-     * @returns {ISensor} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-getat
+     * Retrieves the sensor at the specified index in the collection.
+     * @param {Integer} ulIndex <b>ULONG</b> containing the index of the sensor to retrieve.
+     * @returns {ISensor} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> pointer that receives the pointer to the specified sensor.
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-getat
      */
     GetAt(ulIndex) {
         result := ComCall(3, this, "uint", ulIndex, "ptr*", &ppSensor := 0, "HRESULT")
@@ -49,9 +49,9 @@ class ISensorCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-getcount
+     * Retrieves the count of sensors in the collection.
+     * @returns {Integer} Address of a <b>ULONG</b> that receives the count.
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-getcount
      */
     GetCount() {
         result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
@@ -59,10 +59,40 @@ class ISensorCollection extends IUnknown{
     }
 
     /**
+     * Adds a sensor to the collection.
+     * @param {ISensor} pSensor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface for the sensor to add to the collection.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {ISensor} pSensor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-add
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The sensor collection already contains a sensor with the specified ID.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-add
      */
     Add(pSensor) {
         result := ComCall(5, this, "ptr", pSensor, "HRESULT")
@@ -70,10 +100,39 @@ class ISensorCollection extends IUnknown{
     }
 
     /**
+     * Removes a sensor from the collection. The sensor is specified by a pointer to the ISensor interface to be removed.
+     * @param {ISensor} pSensor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface to remove from the collection.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {ISensor} pSensor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-remove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified sensor is not part of the collection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-remove
      */
     Remove(pSensor) {
         result := ComCall(6, this, "ptr", pSensor, "HRESULT")
@@ -81,10 +140,39 @@ class ISensorCollection extends IUnknown{
     }
 
     /**
+     * Removes a sensor from the collection. The sensor to be removed is specified by its ID.
+     * @param {Pointer<Guid>} sensorID The <b>GUID</b> of the sensor to remove from the collection.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Guid>} sensorID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-removebyid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified sensor is not part of the collection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-removebyid
      */
     RemoveByID(sensorID) {
         result := ComCall(7, this, "ptr", sensorID, "HRESULT")
@@ -92,9 +180,27 @@ class ISensorCollection extends IUnknown{
     }
 
     /**
+     * Empties the sensor collection.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-clear
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-clear
      */
     Clear() {
         result := ComCall(8, this, "HRESULT")

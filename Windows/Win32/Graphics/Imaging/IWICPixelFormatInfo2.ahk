@@ -31,9 +31,11 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo{
     static VTableNames => ["SupportsTransparency", "GetNumericRepresentation"]
 
     /**
+     * Returns whether the format supports transparent pixels.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-supportstransparency
+     * Returns <b>TRUE</b> if the pixel format supports transparency; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo2-supportstransparency
      */
     SupportsTransparency() {
         result := ComCall(16, this, "int*", &pfSupportsTransparency := 0, "HRESULT")
@@ -41,9 +43,11 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo{
     }
 
     /**
+     * TBD
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation">WICPixelFormatNumericRepresentation</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-getnumericrepresentation
+     * The address of a <a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation">WICPixelFormatNumericRepresentation</a> variable that you've defined. On successful completion, the function sets your variable to the **WICPixelFormatNumericRepresentation** of the pixel format.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicpixelformatinfo2-getnumericrepresentation
      */
     GetNumericRepresentation() {
         result := ComCall(17, this, "int*", &pNumericRepresentation := 0, "HRESULT")

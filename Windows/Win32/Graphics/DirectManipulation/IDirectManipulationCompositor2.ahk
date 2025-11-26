@@ -45,13 +45,24 @@ class IDirectManipulationCompositor2 extends IDirectManipulationCompositor{
     static VTableNames => ["AddContentWithCrossProcessChaining"]
 
     /**
+     * Associates content (owned by the component host) with the compositor, assigns a composition device to the content, and specifies the position of the content in the composition tree relative to other composition visuals.
+     * @param {IDirectManipulationPrimaryContent} content The content to add to the composition tree.
      * 
-     * @param {IDirectManipulationPrimaryContent} content 
-     * @param {IUnknown} device 
-     * @param {IUnknown} parentVisual 
-     * @param {IUnknown} childVisual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor2-addcontentwithcrossprocesschaining
+     * <i>content</i> is placed  between <i>parentVisual</i> and <i>childVisual</i> in the composition tree. 
+     * 
+     * Only primary content, created at the same time as the viewport, is valid.
+     * @param {IUnknown} device The device used to compose the content. 
+     * 
+     * <div class="alert"><b>Note</b>  <i>device</i> is created by the application.</div>
+     * <div> </div>
+     * @param {IUnknown} parentVisual The parent visuals in the composition tree of the content being added.
+     * 
+     * <i>parentVisual</i> must also be a parent of <i>childVisual</i> in the composition tree.
+     * @param {IUnknown} childVisual The child visuals in the composition tree of the content being added.
+     * 
+     * <i>parentVisual</i> must also be a parent of <i>childVisual</i> in the composition tree.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationcompositor2-addcontentwithcrossprocesschaining
      */
     AddContentWithCrossProcessChaining(content, device, parentVisual, childVisual) {
         result := ComCall(7, this, "ptr", content, "ptr", device, "ptr", parentVisual, "ptr", childVisual, "HRESULT")

@@ -32,11 +32,51 @@ class ITfSystemLangBarItemText extends IUnknown{
     static VTableNames => ["SetItemText", "GetItemText"]
 
     /**
+     * The ITfSystemLangBarItemText::SetItemText method modifies the text displayed for the system language bar menu.
+     * @param {PWSTR} pch [in] A string that appears as a description.
+     * @param {Integer} cch [in] Size, in characters, of the string.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pch 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritemtext-setitemtext
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritemtext-setitemtext
      */
     SetItemText(pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch
@@ -46,9 +86,9 @@ class ITfSystemLangBarItemText extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritemtext-getitemtext
+     * The ITfSystemLangBarItemText::GetItemText method obtains the text displayed for the system language bar menu.
+     * @returns {BSTR} [out] A pointer to BSTR that contains the current description.
+     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritemtext-getitemtext
      */
     GetItemText() {
         pbstrText := BSTR()

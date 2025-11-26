@@ -31,9 +31,9 @@ class IMFSampleProtection extends IUnknown{
     static VTableNames => ["GetInputProtectionVersion", "GetOutputProtectionVersion", "GetProtectionCertificate", "InitOutputProtection", "InitInputProtection"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getinputprotectionversion
+     * Retrieves the version of sample protection that the component implements on input.
+     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-getinputprotectionversion
      */
     GetInputProtectionVersion() {
         result := ComCall(3, this, "uint*", &pdwVersion := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IMFSampleProtection extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getoutputprotectionversion
+     * Retrieves the version of sample protection that the component implements on output.
+     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-getoutputprotectionversion
      */
     GetOutputProtectionVersion() {
         result := ComCall(4, this, "uint*", &pdwVersion := 0, "HRESULT")
@@ -51,12 +51,41 @@ class IMFSampleProtection extends IUnknown{
     }
 
     /**
+     * Retrieves the sample protection certificate.
+     * @param {Integer} dwVersion Specifies the version number of the sample protection scheme for which to receive a certificate. The version number is specified as a <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration value.
+     * @param {Pointer<Pointer<Integer>>} ppCert Receives a pointer to a buffer containing the certificate. The caller must free the memory for the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcbCert Receives the size of the <i>ppCert</i> buffer, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwVersion 
-     * @param {Pointer<Pointer<Integer>>} ppCert 
-     * @param {Pointer<Integer>} pcbCert 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getprotectioncertificate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-getprotectioncertificate
      */
     GetProtectionCertificate(dwVersion, ppCert, pcbCert) {
         ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
@@ -67,15 +96,44 @@ class IMFSampleProtection extends IUnknown{
     }
 
     /**
+     * Retrieves initialization information for sample protection from the upstream component.
+     * @param {Integer} dwVersion Specifies the version number of the sample protection scheme. The version number is specified as a <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration value.
+     * @param {Integer} dwOutputId Identifier of the output stream. The identifier corresponds to the output stream identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nn-mftransform-imftransform">IMFTransform</a> interface.
+     * @param {Pointer<Integer>} pbCert Pointer to a certificate provided by the downstream component.
+     * @param {Integer} cbCert Size of the certificate, in bytes.
+     * @param {Pointer<Pointer<Integer>>} ppbSeed Receives a pointer to a buffer that contains the initialization information for downstream component. The caller must free the memory for the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcbSeed Receives the size of the <i>ppbSeed</i> buffer, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwVersion 
-     * @param {Integer} dwOutputId 
-     * @param {Pointer<Integer>} pbCert 
-     * @param {Integer} cbCert 
-     * @param {Pointer<Pointer<Integer>>} ppbSeed 
-     * @param {Pointer<Integer>} pcbSeed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-initoutputprotection
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-initoutputprotection
      */
     InitOutputProtection(dwVersion, dwOutputId, pbCert, cbCert, ppbSeed, pcbSeed) {
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
@@ -87,13 +145,31 @@ class IMFSampleProtection extends IUnknown{
     }
 
     /**
+     * Initializes sample protection on the downstream component.
+     * @param {Integer} dwVersion Specifies the version number of the sample protection scheme. The version number is specified as a <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-sample_protection_version">SAMPLE_PROTECTION_VERSION</a> enumeration value.
+     * @param {Integer} dwInputId Identifier of the input stream. The identifier corresponds to the output stream identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nn-mftransform-imftransform">IMFTransform</a> interface.
+     * @param {Pointer<Integer>} pbSeed Pointer to a buffer that contains the initialization data provided by the upstream component. To retrieve this buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsampleprotection-initoutputprotection">IMFSampleProtection::InitOutputProtection</a>.
+     * @param {Integer} cbSeed Size of the <i>pbSeed</i> buffer, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwVersion 
-     * @param {Integer} dwInputId 
-     * @param {Pointer<Integer>} pbSeed 
-     * @param {Integer} cbSeed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-initinputprotection
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsampleprotection-initinputprotection
      */
     InitInputProtection(dwVersion, dwInputId, pbSeed, cbSeed) {
         pbSeedMarshal := pbSeed is VarRef ? "char*" : "ptr"

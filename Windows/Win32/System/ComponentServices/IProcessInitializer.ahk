@@ -31,10 +31,12 @@ class IProcessInitializer extends IUnknown{
     static VTableNames => ["Startup", "Shutdown"]
 
     /**
+     * Called when Dllhost.exe starts.
+     * @param {IUnknown} punkProcessControl A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the COM component starting up.
      * 
-     * @param {IUnknown} punkProcessControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iprocessinitializer-startup
+     * <b>Windows XP/2000:  </b>This parameter is always <b>NULL</b>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iprocessinitializer-startup
      */
     Startup(punkProcessControl) {
         result := ComCall(3, this, "ptr", punkProcessControl, "HRESULT")
@@ -42,9 +44,9 @@ class IProcessInitializer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iprocessinitializer-shutdown
+     * Called when Dllhost.exe shuts down.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iprocessinitializer-shutdown
      */
     Shutdown() {
         result := ComCall(4, this, "HRESULT")

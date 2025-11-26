@@ -44,13 +44,13 @@ class IMbnPinEvents extends IUnknown{
     static VTableNames => ["OnEnableComplete", "OnDisableComplete", "OnEnterComplete", "OnChangeComplete", "OnUnblockComplete"]
 
     /**
-     * 
-     * @param {IMbnPin} pin 
-     * @param {Pointer<MBN_PIN_INFO>} pinInfo 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onenablecomplete
+     * Notification method called by the Mobile Broadband service to indicate that a PIN enable operation has completed.
+     * @param {IMbnPin} pin An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface that represents  the PIN type.
+     * @param {Pointer<MBN_PIN_INFO>} pinInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains information on remaining attempts, in case of failure operations.  The contents of <i>pinInfo</i> are meaningful only when <i>status</i> is <b>E_MBN_FAILURE</b>.
+     * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the PIN enable request.
+     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinevents-onenablecomplete
      */
     OnEnableComplete(pin, pinInfo, requestID, status) {
         result := ComCall(3, this, "ptr", pin, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")
@@ -58,13 +58,13 @@ class IMbnPinEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnPin} pin 
-     * @param {Pointer<MBN_PIN_INFO>} pinInfo 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-ondisablecomplete
+     * Notification method called by the Mobile Broadband service to indicate that a PIN disable operation has completed.
+     * @param {IMbnPin} pin An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface that the PIN type.
+     * @param {Pointer<MBN_PIN_INFO>} pinInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains information on remaining attempts, in case of failure operations.  The contents of <i>pinInfo</i> are meaningful only when <i>status</i> is <b>E_MBN_FAILURE</b>.
+     * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the PIN disable request.
+     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinevents-ondisablecomplete
      */
     OnDisableComplete(pin, pinInfo, requestID, status) {
         result := ComCall(4, this, "ptr", pin, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")
@@ -72,13 +72,13 @@ class IMbnPinEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnPin} Pin 
-     * @param {Pointer<MBN_PIN_INFO>} pinInfo 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onentercomplete
+     * Notification method called by the Mobile Broadband service to indicate that a PIN enter operation has completed.
+     * @param {IMbnPin} Pin An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface that represents the PIN type.
+     * @param {Pointer<MBN_PIN_INFO>} pinInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains information on remaining attempts, in case of failure operations.  The contents of <i>pinInfo</i> are meaningful only when <i>status</i> is <b>E_MBN_FAILURE</b>.
+     * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the PIN enter request.
+     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinevents-onentercomplete
      */
     OnEnterComplete(Pin, pinInfo, requestID, status) {
         result := ComCall(5, this, "ptr", Pin, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")
@@ -86,13 +86,13 @@ class IMbnPinEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnPin} Pin 
-     * @param {Pointer<MBN_PIN_INFO>} pinInfo 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onchangecomplete
+     * Notification method called by the Mobile Broadband service to indicate that a PIN change operation has completed.
+     * @param {IMbnPin} Pin An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface that represents the PIN type.
+     * @param {Pointer<MBN_PIN_INFO>} pinInfo A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains information on remaining attempts, in case of failure operations.  The contents of <i>pinInfo</i> are meaningful only when <i>status</i> is <b>E_MBN_FAILURE</b>.
+     * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the PIN change request.
+     * @param {HRESULT} status A status code that indicates the outcome of the PIN change operation.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinevents-onchangecomplete
      */
     OnChangeComplete(Pin, pinInfo, requestID, status) {
         result := ComCall(6, this, "ptr", Pin, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")
@@ -100,13 +100,13 @@ class IMbnPinEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMbnPin} Pin 
-     * @param {Pointer<MBN_PIN_INFO>} pinInfo 
-     * @param {Integer} requestID 
-     * @param {HRESULT} status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onunblockcomplete
+     * Notification method called by the Mobile Broadband service to indicate that a PIN unblock operation has completed.
+     * @param {IMbnPin} Pin An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface that represents the PIN type.
+     * @param {Pointer<MBN_PIN_INFO>} pinInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains information on remaining attempts, in case of failure operations.  The contents of <i>pinInfo</i> are meaningful only when <i>status</i> is <b>E_MBN_FAILURE</b>.
+     * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the PIN unblock request.
+     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinevents-onunblockcomplete
      */
     OnUnblockComplete(Pin, pinInfo, requestID, status) {
         result := ComCall(7, this, "ptr", Pin, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")

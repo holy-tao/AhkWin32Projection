@@ -33,12 +33,15 @@ class ITBasicCallControl2 extends ITBasicCallControl{
     static VTableNames => ["RequestTerminal", "SelectTerminalOnCall", "UnselectTerminalOnCall"]
 
     /**
-     * 
-     * @param {BSTR} bstrTerminalClassGUID 
-     * @param {Integer} lMediaType 
-     * @param {Integer} Direction 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal
+     * The RequestTerminal method gets a suitable terminal, given the class, media, and direction required.
+     * @param {BSTR} bstrTerminalClassGUID The terminal class required for the call.
+     * @param {Integer} lMediaType Bitwise ORed list of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the call.
+     * @param {Integer} Direction The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
+     * @returns {ITTerminal} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal
      */
     RequestTerminal(bstrTerminalClassGUID, lMediaType, Direction) {
         bstrTerminalClassGUID := bstrTerminalClassGUID is String ? BSTR.Alloc(bstrTerminalClassGUID).Value : bstrTerminalClassGUID
@@ -48,10 +51,11 @@ class ITBasicCallControl2 extends ITBasicCallControl{
     }
 
     /**
-     * 
-     * @param {ITTerminal} pTerminal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol2-selectterminaloncall
+     * The SelectTerminalOnCall method selects the terminal onto the call.
+     * @param {ITTerminal} pTerminal Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasiccallcontrol2-selectterminaloncall
      */
     SelectTerminalOnCall(pTerminal) {
         result := ComCall(26, this, "ptr", pTerminal, "HRESULT")
@@ -59,10 +63,11 @@ class ITBasicCallControl2 extends ITBasicCallControl{
     }
 
     /**
-     * 
-     * @param {ITTerminal} pTerminal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol2-unselectterminaloncall
+     * The UnselectTerminalOnCall method unselects a terminal from the call.
+     * @param {ITTerminal} pTerminal Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasiccallcontrol2-unselectterminaloncall
      */
     UnselectTerminalOnCall(pTerminal) {
         result := ComCall(27, this, "ptr", pTerminal, "HRESULT")

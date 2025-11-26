@@ -57,9 +57,9 @@ class ISystemInformation extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a hyperlink to technical support information for OEM hardware.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isysteminformation-get_oemhardwaresupportlink
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isysteminformation-get_oemhardwaresupportlink
      */
     get_OemHardwareSupportLink() {
         retval := BSTR()
@@ -68,9 +68,9 @@ class ISystemInformation extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether a system restart is required to complete the installation or uninstallation of one or more updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isysteminformation-get_rebootrequired
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isysteminformation-get_rebootrequired
      */
     get_RebootRequired() {
         result := ComCall(8, this, "short*", &retval := 0, "HRESULT")

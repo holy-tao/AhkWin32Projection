@@ -38,10 +38,39 @@ class IWMPSyncServices extends IUnknown{
     }
 
     /**
+     * The get_deviceCount method retrieves the number of available devices.
+     * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> that contains the device count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-get_devicecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_PDA_INITIALIZINGDEVICES (0xC00D118D)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Windows Media Player is currently busy initializing devices. Please try again later.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncservices-get_devicecount
      */
     get_deviceCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -51,10 +80,10 @@ class IWMPSyncServices extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lIndex 
-     * @returns {IWMPSyncDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-getdevice
+     * The getDevice method retrieves a pointer to a device interface.
+     * @param {Integer} lIndex <b>long</b> that contains the index of the device to retrieve. Device indexes are zero-based.
+     * @returns {IWMPSyncDevice} Pointer to a pointer to an <b>IWMPSyncDevice</b> interface that represents the device having the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncservices-getdevice
      */
     getDevice(lIndex) {
         result := ComCall(4, this, "int", lIndex, "ptr*", &ppDevice := 0, "HRESULT")

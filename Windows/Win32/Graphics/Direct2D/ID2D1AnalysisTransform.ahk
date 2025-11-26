@@ -35,11 +35,17 @@ class ID2D1AnalysisTransform extends IUnknown{
     static VTableNames => ["ProcessAnalysisResults"]
 
     /**
+     * Supplies the analysis data to an analysis transform.
+     * @param {Pointer<Integer>} analysisData Type: <b>const BYTE*</b>
      * 
-     * @param {Pointer<Integer>} analysisData 
-     * @param {Integer} analysisDataCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1analysistransform-processanalysisresults
+     * The data that the transform will analyze.
+     * @param {Integer} analysisDataCount Type: <b>UINT</b>
+     * 
+     * The size of the analysis data.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1analysistransform-processanalysisresults
      */
     ProcessAnalysisResults(analysisData, analysisDataCount) {
         analysisDataMarshal := analysisData is VarRef ? "char*" : "ptr"

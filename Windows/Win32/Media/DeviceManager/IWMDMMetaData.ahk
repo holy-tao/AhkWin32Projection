@@ -31,13 +31,20 @@ class IWMDMMetaData extends IUnknown{
     static VTableNames => ["AddItem", "QueryByName", "QueryByIndex", "GetItemCount"]
 
     /**
+     * The AddItem method adds a metadata property to the interface.
+     * @param {Integer} Type An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value specifying the type of metadata being saved.
+     * @param {PWSTR} pwszTagName Pointer to a wide-character, null-terminated string specifying the name of the property to set. A list of standard property name constants is given in <a href="https://docs.microsoft.com/windows/desktop/WMDM/metadata-constants">Metadata Constants</a>.
+     * @param {Pointer<Integer>} pValue Pointer to a byte array specifying the value to assign to the property. The submitted value is copied, so the memory can be freed after calling <b>AddItem</b>.
+     * @param {Integer} iLength Integer specifying the size of <i>pValue</i>, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} Type 
-     * @param {PWSTR} pwszTagName 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Integer} iLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-additem
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-additem
      */
     AddItem(Type, pwszTagName, pValue, iLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
@@ -49,13 +56,20 @@ class IWMDMMetaData extends IUnknown{
     }
 
     /**
+     * The QueryByName method retrieves the value of a property specified by name.
+     * @param {PWSTR} pwszTagName Pointer to a wide-character <b>null</b>-terminated string specifying the property name. A list of standard property name constants is given in <a href="https://docs.microsoft.com/windows/desktop/WMDM/metadata-constants">Metadata Constants</a>.
+     * @param {Pointer<Integer>} pType An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value describing the type of data retrieved by <i>pValue</i>.
+     * @param {Pointer<Pointer<Integer>>} pValue Pointer to a pointer to a byte array that receives the content of the value if the method succeeds. Windows Media Device Manager allocates this memory and the caller must free it using <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} pcbLength Pointer to the size, in bytes, of the byte array <i>ppValue</i>. If the value is a string, this includes the termination character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {PWSTR} pwszTagName 
-     * @param {Pointer<Integer>} pType 
-     * @param {Pointer<Pointer<Integer>>} pValue 
-     * @param {Pointer<Integer>} pcbLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyname
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-querybyname
      */
     QueryByName(pwszTagName, pType, pValue, pcbLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
@@ -69,14 +83,21 @@ class IWMDMMetaData extends IUnknown{
     }
 
     /**
+     * The QueryByIndex method retrieves the value of a property specified by index.
+     * @param {Integer} iIndex Integer specifying the zero-based index of the property. The number of items is obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount">GetItemCount</a> call.
+     * @param {Pointer<Pointer<Integer>>} ppwszName Name of the property. Windows Media Device Manager allocates this memory, and the caller must free it using <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} pType An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value describing the type of data returned in <i>ppValue</i>.
+     * @param {Pointer<Pointer<Integer>>} ppValue Pointer to a pointer to a byte array that receives the content of the value if the method succeeds. This memory is allocated by Windows Media Device Manager, and the caller must free it using <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} pcbLength Pointer to the size, in bytes, of the byte array <i>ppValue</i>. If the value is a string, this includes the termination character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} iIndex 
-     * @param {Pointer<Pointer<Integer>>} ppwszName 
-     * @param {Pointer<Integer>} pType 
-     * @param {Pointer<Pointer<Integer>>} ppValue 
-     * @param {Pointer<Integer>} pcbLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
      */
     QueryByIndex(iIndex, ppwszName, pType, ppValue, pcbLength) {
         ppwszNameMarshal := ppwszName is VarRef ? "ptr*" : "ptr"
@@ -89,9 +110,9 @@ class IWMDMMetaData extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount
+     * The GetItemCount method retrieves the total number of properties held by the interface.
+     * @returns {Integer} Pointer to an integer that receives the total number of metadata properties stored by the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount
      */
     GetItemCount() {
         result := ComCall(6, this, "uint*", &iCount := 0, "HRESULT")

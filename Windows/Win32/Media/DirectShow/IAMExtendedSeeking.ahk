@@ -62,10 +62,10 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pExCapabilities 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities
+     * The get_ExSeekCapabilities method retrieves the extended seeking capabilities of the filter.
+     * @param {Pointer<Integer>} pExCapabilities Pointer to a variable that receives a bitwise OR of <a href="https://docs.microsoft.com/windows/desktop/api/qnetwork/ne-qnetwork-amextendedseekingcapabilities">AMExtendedSeekingCapabilities</a> flags.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities
      */
     get_ExSeekCapabilities(pExCapabilities) {
         pExCapabilitiesMarshal := pExCapabilities is VarRef ? "int*" : "ptr"
@@ -75,10 +75,10 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pMarkerCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_markercount
+     * The get_MarkerCount method retrieves the number of markers in the current stream.
+     * @param {Pointer<Integer>} pMarkerCount Pointer to a variable that receives the marker count.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_markercount
      */
     get_MarkerCount(pMarkerCount) {
         pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
@@ -88,10 +88,10 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pCurrentMarker 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_currentmarker
+     * The get_CurrentMarker method retrieves the current marker.
+     * @param {Pointer<Integer>} pCurrentMarker Pointer to a variable that receives the current marker.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_currentmarker
      */
     get_CurrentMarker(pCurrentMarker) {
         pCurrentMarkerMarshal := pCurrentMarker is VarRef ? "int*" : "ptr"
@@ -101,11 +101,11 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} MarkerNum 
-     * @param {Pointer<Float>} pMarkerTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkertime
+     * The GetMarkerTime method retrieves the presentation time associated with the specified marker.
+     * @param {Integer} MarkerNum Specifies the marker number.
+     * @param {Pointer<Float>} pMarkerTime Pointer to a variable that receives the marker time.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-getmarkertime
      */
     GetMarkerTime(MarkerNum, pMarkerTime) {
         pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
@@ -115,11 +115,11 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} MarkerNum 
-     * @param {Pointer<BSTR>} pbstrMarkerName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkername
+     * The GetMarkerName method retrieves the name associated with the specified marker.
+     * @param {Integer} MarkerNum Specifies the marker number.
+     * @param {Pointer<BSTR>} pbstrMarkerName Pointer to a variable that receives the marker name.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-getmarkername
      */
     GetMarkerName(MarkerNum, pbstrMarkerName) {
         result := ComCall(11, this, "int", MarkerNum, "ptr", pbstrMarkerName, "HRESULT")
@@ -127,10 +127,10 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Float} Speed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-put_playbackspeed
+     * The put_PlaybackSpeed method specifies the playback speed.
+     * @param {Float} Speed Specifies the playback speed. The value may be positive or negative, but not zero.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-put_playbackspeed
      */
     put_PlaybackSpeed(Speed) {
         result := ComCall(12, this, "double", Speed, "HRESULT")
@@ -138,10 +138,10 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Float>} pSpeed 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_playbackspeed
+     * The get_PlaybackSpeed method retrieves the playback speed.
+     * @param {Pointer<Float>} pSpeed Pointer to a variable that receives the playback speed.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_playbackspeed
      */
     get_PlaybackSpeed(pSpeed) {
         pSpeedMarshal := pSpeed is VarRef ? "double*" : "ptr"

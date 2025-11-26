@@ -31,9 +31,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCopyControl", "GetCountOfRecords", "GetRecordCopyControl"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-gettag
+     * Gets the tag that identifies an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
+     * @returns {Integer} Receives the tag value. For a digital copy control descriptor, this value is 0xC1.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getlength
+     * Gets the body length of an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,13 +51,115 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     }
 
     /**
-     * 
+     * Gets copy control data from an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
      * @param {Pointer<Integer>} pbDigitalRecordingControlData 
-     * @param {Pointer<Integer>} pbCopyControlType 
-     * @param {Pointer<Integer>} pbAPSControlData 
-     * @param {Pointer<Integer>} pbMaximumBitrate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcopycontrol
+     * @param {Pointer<Integer>} pbCopyControlType Receives data that defines output control options for digital copying.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>00</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>01</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output by encoding to serial interface.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>10</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>11</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output by not encoding to serial interface.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} pbAPSControlData Receives data that defines output control options for analog copying when the value of the <i>pbCopyControlType</i> parameter is 01.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>00</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>01</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output with pseudosync pulse.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>10</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output with pseudosync pulse + two-line reversed division burst insertion.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>11</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output with pseudosync pulse + four-line reversed division burst insertion.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} pbMaximumBitrate Receives the maximum trasmission rate for transport stream packets, in units of 250 kbps.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcopycontrol
      */
     GetCopyControl(pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
         pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : "ptr"
@@ -70,9 +172,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords
+     * Gets the number of records in an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
+     * @returns {Integer} Receives the number of records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -80,15 +182,119 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pbComponentTag 
+     * Gets copy control data from a specified component in an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
+     * @param {Integer} bRecordIndex Specifies the record number for the component,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords">IIsdbDigitalCompyControlDescriptor::GetCountOfRecords</a>method to get the number of records in the digital copy control descriptor.
+     * @param {Pointer<Integer>} pbComponentTag Receives  the tag identifying the component. This value is the same as the 	component tag in the stream
+     * identifier descriptor and the component descriptor.
      * @param {Pointer<Integer>} pbDigitalRecordingControlData 
-     * @param {Pointer<Integer>} pbCopyControlType 
-     * @param {Pointer<Integer>} pbAPSControlData 
-     * @param {Pointer<Integer>} pbMaximumBitrate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getrecordcopycontrol
+     * @param {Pointer<Integer>} pbCopyControlType Receives data that defines output control options for digital copying.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>00</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>01</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output by encoding to serial interface.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>10</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>11</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output by not encoding to serial interface.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} pbAPSControlData Receives data that defines output control options for analog copying when the value of the <i>pbCopyControlType</i> parameter is 01.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>00</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>01</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output with pseudosync pulse
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>10</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output with pseudosync pulse + two-line reversed division burst insertion.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>11</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output with pseudosync pulse + four-line reversed division burst insertion.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} pbMaximumBitrate Receives the maximum trasmission rate for transport stream packets, in units of 250 kbps.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getrecordcopycontrol
      */
     GetRecordCopyControl(bRecordIndex, pbComponentTag, pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
         pbComponentTagMarshal := pbComponentTag is VarRef ? "char*" : "ptr"

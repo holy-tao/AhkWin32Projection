@@ -44,10 +44,14 @@ class ISearchManager2 extends ISearchManager{
     static VTableNames => ["CreateCatalog", "DeleteCatalog"]
 
     /**
+     * Creates a new custom catalog in the Windows Search indexer and returns a reference to it.
+     * @param {PWSTR} pszCatalog Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} pszCatalog 
-     * @returns {ISearchCatalogManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager2-createcatalog
+     * Name of catalog to create. Can be any name selected by the caller, must contain only standard alphanumeric characters and underscore.
+     * @returns {ISearchCatalogManager} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalogManager</a>**</b>
+     * 
+     * On success a reference to the created catalog is returned as an <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalogManager</a> interface pointer. The Release() must be called on this interface after the calling application has finished using it.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager2-createcatalog
      */
     CreateCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
@@ -57,10 +61,46 @@ class ISearchManager2 extends ISearchManager{
     }
 
     /**
+     * Deletes an existing catalog and all associated indexed data from the Windows Search indexer.
+     * @param {PWSTR} pszCatalog Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} pszCatalog 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager2-deletecatalog
+     * Name of catalog to delete. The catalog must at some prior time have been created with a call to CreateCatalog().
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * HRESULT indicating status of operation:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Catalog previously existed and has now been successfully deleted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Catalog did not previously existed, no change.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * FAILED HRESULT: Failure deleting catalog or invalid arguments passed.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager2-deletecatalog
      */
     DeleteCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog

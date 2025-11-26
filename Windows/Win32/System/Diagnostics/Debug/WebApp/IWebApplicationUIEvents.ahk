@@ -31,11 +31,15 @@ class IWebApplicationUIEvents extends IUnknown{
     static VTableNames => ["SecurityProblem"]
 
     /**
+     * Notifies the authoring app about an authentication problem.
+     * @param {Integer} securityProblem Type: <b>DWORD</b>
      * 
-     * @param {Integer} securityProblem 
-     * @param {Pointer<HRESULT>} result 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationuievents-securityproblem
+     * The security problem encountered.
+     * @param {Pointer<HRESULT>} result Type: <b>HRESULT*</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationuievents-securityproblem
      */
     SecurityProblem(securityProblem, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"

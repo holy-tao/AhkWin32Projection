@@ -31,9 +31,11 @@ class IUIAutomationTextRange2 extends IUIAutomationTextRange{
     static VTableNames => ["ShowContextMenu"]
 
     /**
+     * Programmatically invokes a context menu on the target text range.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange2-showcontextmenu
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextrange2-showcontextmenu
      */
     ShowContextMenu() {
         result := ComCall(21, this, "HRESULT")

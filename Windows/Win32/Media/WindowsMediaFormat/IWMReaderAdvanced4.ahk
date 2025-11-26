@@ -31,10 +31,10 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     static VTableNames => ["GetLanguageCount", "GetLanguage", "GetMaxSpeedFactor", "IsUsingFastCache", "AddLogParam", "SendLogParams", "CanSaveFileAs", "CancelSaveFileAs", "GetURL"]
 
     /**
-     * 
-     * @param {Integer} dwOutputNum 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguagecount
+     * The GetLanguageCount method retrieves the total number of languages supported by an output. Only outputs associated with streams mutually exclusive by language will have more than one supported language.
+     * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
+     * @returns {Integer} Pointer to a <b>WORD</b> containing the language count.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguagecount
      */
     GetLanguageCount(dwOutputNum) {
         result := ComCall(40, this, "uint", dwOutputNum, "ushort*", &pwLanguageCount := 0, "HRESULT")
@@ -42,13 +42,31 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
+     * The GetLanguage method retrieves information about a language supported by an output. You must specify an output number and a language index, and this method will supply the RFC1766-compliant language string.
+     * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number for which you want to identify the language.
+     * @param {Integer} wLanguage <b>WORD</b> containing the language index of the supported language for which you want the details.
+     * @param {PWSTR} pwszLanguageString Pointer to a wide-character <b>null</b>-terminated string containing the RFC1766-compliant language string. Pass <b>NULL</b> to retrieve the size of the string, which will be returned in <i>pcbLanguageStringLength</i>.
+     * @param {Pointer<Integer>} pcchLanguageStringLength Pointer to a <b>WORD</b> containing the size of <i>pwszLanguageString</i> in wide characters. This size includes the terminating <b>null</b> character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwOutputNum 
-     * @param {Integer} wLanguage 
-     * @param {PWSTR} pwszLanguageString 
-     * @param {Pointer<Integer>} pcchLanguageStringLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguage
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguage
      */
     GetLanguage(dwOutputNum, wLanguage, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
@@ -60,9 +78,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getmaxspeedfactor
+     * The GetMaxSpeedFactor method retrieves the maximum playback rate that can be delivered by the source. For network content, this value reflects the available bandwidth relative to the maximum bit rate of the content.
+     * @returns {Float} Pointer to a variable that receives the maximum playback rate.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getmaxspeedfactor
      */
     GetMaxSpeedFactor() {
         result := ComCall(42, this, "double*", &pdblFactor := 0, "HRESULT")
@@ -70,9 +88,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-isusingfastcache
+     * The IsUsingFastCache method queries whether the reader is using Fast Cache streaming.
+     * @returns {BOOL} Pointer to a variable that receives a Boolean value. The value is True if the reader is currently using Fast Cache streaming, or False otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-isusingfastcache
      */
     IsUsingFastCache() {
         result := ComCall(43, this, "int*", &pfUsingFastCache := 0, "HRESULT")
@@ -80,12 +98,52 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
+     * The AddLogParam method adds a named value to the logging information that the reader object will send to the sever.
+     * @param {PWSTR} wszNameSpace Optional wide-character string that contains the namespace for the log entry. This parameter can be <b>NULL</b>. Namespace names are limited to 1024 wide characters.
+     * @param {PWSTR} wszName Wide-character string that contains the name of the log entry. Log entry names are limited to 1024 wide characters.
+     * @param {PWSTR} wszValue Wide-character string that contains the value of the log entry. Log entry values are limited to 1024 wide characters.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} wszNameSpace 
-     * @param {PWSTR} wszName 
-     * @param {PWSTR} wszValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-addlogparam
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters exceeded the allowed string length.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-addlogparam
      */
     AddLogParam(wszNameSpace, wszName, wszValue) {
         wszNameSpace := wszNameSpace is String ? StrPtr(wszNameSpace) : wszNameSpace
@@ -97,9 +155,38 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
+     * The SendLogParams method sends log entries to the originating server. Call this method after calling AddLogParam.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-sendlogparams
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The reader is not streaming content from a remote server.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-sendlogparams
      */
     SendLogParams() {
         result := ComCall(45, this, "HRESULT")
@@ -107,9 +194,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-cansavefileas
+     * The CanSaveFileAs method ascertains whether the content being played by the reader can be saved using the IWMReaderAdvanced2::SaveFileAs method.
+     * @returns {BOOL} Pointer to a Boolean value that is set to True if that the content being read can be saved.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-cansavefileas
      */
     CanSaveFileAs() {
         result := ComCall(46, this, "int*", &pfCanSave := 0, "HRESULT")
@@ -117,9 +204,27 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
+     * The CancelSaveFileAs method cancels a file save resulting from a call to IWMReaderAdvanced2::SaveFileAs.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-cancelsavefileas
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-cancelsavefileas
      */
     CancelSaveFileAs() {
         result := ComCall(47, this, "HRESULT")
@@ -127,11 +232,40 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     }
 
     /**
+     * The GetURL method retrieves the URL of the file being read. This URL might be different from the URL that was passed to IWMReader::Open, because the reader might have been redirected.
+     * @param {PWSTR} pwszURL [ out ] Pointer to a wide-character <b>null</b>-terminated string containing the URL of the file.
+     * @param {Pointer<Integer>} pcchURL [ in, out ] Pointer to a variable containing the number of wide characters in <i>pwszURL</i>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pwszURL 
-     * @param {Pointer<Integer>} pcchURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-geturl
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-geturl
      */
     GetURL(pwszURL, pcchURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL

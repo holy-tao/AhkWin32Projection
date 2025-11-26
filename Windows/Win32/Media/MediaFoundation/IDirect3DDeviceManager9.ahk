@@ -44,11 +44,51 @@ class IDirect3DDeviceManager9 extends IUnknown{
     static VTableNames => ["ResetDevice", "OpenDeviceHandle", "CloseDeviceHandle", "TestDevice", "LockDevice", "UnlockDevice", "GetVideoService"]
 
     /**
+     * Sets the Direct3D device or notifies the device manager that the Direct3D device was reset.
+     * @param {IDirect3DDevice9} pDevice Pointer to the <b>IDirect3DDevice9</b> interface of the Direct3D device.
+     * @param {Integer} resetToken Token received in the <i>pResetToken</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-dxva2createdirect3ddevicemanager9">DXVA2CreateDirect3DDeviceManager9</a> function.
+     * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IDirect3DDevice9} pDevice 
-     * @param {Integer} resetToken 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-resetdevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid token
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>D3DERR_INVALIDCALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Direct3D device error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-resetdevice
      */
     ResetDevice(pDevice, resetToken) {
         result := ComCall(3, this, "ptr", pDevice, "uint", resetToken, "HRESULT")
@@ -56,9 +96,9 @@ class IDirect3DDeviceManager9 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle
+     * Gets a handle to the Direct3D device.
+     * @returns {HANDLE} Receives the device handle.
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle
      */
     OpenDeviceHandle() {
         phDevice := HANDLE()
@@ -67,10 +107,39 @@ class IDirect3DDeviceManager9 extends IUnknown{
     }
 
     /**
+     * Closes a Direct3D device handle.
+     * @param {HANDLE} hDevice Handle to the Direct3D device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HANDLE} hDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-closedevicehandle
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid handle.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-closedevicehandle
      */
     CloseDeviceHandle(hDevice) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -80,10 +149,50 @@ class IDirect3DDeviceManager9 extends IUnknown{
     }
 
     /**
+     * Tests whether a Direct3D device handle is valid.
+     * @param {HANDLE} hDevice Handle to a Direct3D device. To get a device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle">IDirect3DDeviceManager9::OpenDeviceHandle</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HANDLE} hDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-testdevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device handle is valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified handle is not a Direct3D device handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DXVA2_E_NEW_VIDEO_DEVICE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device handle is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-testdevice
      */
     TestDevice(hDevice) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -93,11 +202,11 @@ class IDirect3DDeviceManager9 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HANDLE} hDevice 
-     * @param {BOOL} fBlock 
-     * @returns {IDirect3DDevice9} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-lockdevice
+     * Gives the caller exclusive access to the Direct3D device.
+     * @param {HANDLE} hDevice A handle to the Direct3D device. To get the device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle">IDirect3DDeviceManager9::OpenDeviceHandle</a>.
+     * @param {BOOL} fBlock Specifies whether to wait for the device lock. If the device is already locked and this parameter is <b>TRUE</b>, the method blocks until the device is unlocked. Otherwise, if the device is locked and this parmater is <b>FALSE</b>, the method returns immediately with the error code <b>DXVA2_E_VIDEO_DEVICE_LOCKED</b>.
+     * @returns {IDirect3DDevice9} Receives a pointer to the device's <b>IDirect3DDevice9</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-lockdevice
      */
     LockDevice(hDevice, fBlock) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -107,11 +216,40 @@ class IDirect3DDeviceManager9 extends IUnknown{
     }
 
     /**
+     * Unlocks the Direct3D device.
+     * @param {HANDLE} hDevice Handle to the Direct3D device. To get the device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle">IDirect3DDeviceManager9::OpenDeviceHandle</a>.
+     * @param {BOOL} fSaveState If <b>TRUE</b>, the method saves the Direct3D device state in a state block. Internally, the method uses the Direct3D <b>IDirect3DStateBlock9</b> interface to save the device state. The next time you call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-lockdevice">LockDevice</a> with the same device handle, the state block is restored.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HANDLE} hDevice 
-     * @param {BOOL} fSaveState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-unlockdevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified device handle is not locked, or is not a valid handle.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-unlockdevice
      */
     UnlockDevice(hDevice, fSaveState) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
@@ -121,11 +259,21 @@ class IDirect3DDeviceManager9 extends IUnknown{
     }
 
     /**
+     * Gets a DirectX Video Acceleration (DXVA) service interface.
+     * @param {HANDLE} hDevice A handle to a Direct3D device. To get a device handle, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle">IDirect3DDeviceManager9::OpenDeviceHandle</a>.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the requested interface. The Direct3D device might support the following DXVA service interfaces:
+     *           
      * 
-     * @param {HANDLE} hDevice 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-getvideoservice
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideodecoderservice">IDirectXVideoDecoderService</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideoprocessorservice">IDirectXVideoProcessorService</a>
+     * </li>
+     * </ul>
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirect3ddevicemanager9-getvideoservice
      */
     GetVideoService(hDevice, riid) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice

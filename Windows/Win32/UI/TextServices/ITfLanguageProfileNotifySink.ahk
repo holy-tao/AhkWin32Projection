@@ -31,10 +31,10 @@ class ITfLanguageProfileNotifySink extends IUnknown{
     static VTableNames => ["OnLanguageChange", "OnLanguageChanged"]
 
     /**
-     * 
-     * @param {Integer} langid 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechange
+     * ITfLanguageProfileNotifySink::OnLanguageChange method
+     * @param {Integer} langid Contains a <b>LANGID</b> value the identifies the new language profile.
+     * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives a flag that permits or prevents the language profile change. Receives zero to prevent the language profile change or nonzero to permit the language profile change.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechange
      */
     OnLanguageChange(langid) {
         result := ComCall(3, this, "ushort", langid, "int*", &pfAccept := 0, "HRESULT")
@@ -42,9 +42,9 @@ class ITfLanguageProfileNotifySink extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechanged
+     * ITfLanguageProfileNotifySink::OnLanguageChanged method
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechanged
      */
     OnLanguageChanged() {
         result := ComCall(4, this, "HRESULT")

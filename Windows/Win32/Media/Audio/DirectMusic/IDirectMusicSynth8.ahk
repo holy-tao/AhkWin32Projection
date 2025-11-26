@@ -31,19 +31,19 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
     static VTableNames => ["PlayVoice", "StopVoice", "GetVoiceState", "Refresh", "AssignChannelToBuses"]
 
     /**
-     * 
+     * PlayVoice is unsupported and may be altered or unavailable in the future.
      * @param {Integer} rt 
      * @param {Integer} dwVoiceId 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannel 
      * @param {Integer} dwDLId 
-     * @param {Integer} prPitch 
-     * @param {Integer} vrVolume 
+     * @param {Integer} prPitch PREL not defined here.
+     * @param {Integer} vrVolume VREL not defined here.
      * @param {Integer} stVoiceStart 
      * @param {Integer} stLoopStart 
      * @param {Integer} stLoopEnd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-playvoice
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dmusics/nf-dmusics-idirectmusicsynth8-playvoice
      */
     PlayVoice(rt, dwVoiceId, dwChannelGroup, dwChannel, dwDLId, prPitch, vrVolume, stVoiceStart, stLoopStart, stLoopEnd) {
         result := ComCall(20, this, "int64", rt, "uint", dwVoiceId, "uint", dwChannelGroup, "uint", dwChannel, "uint", dwDLId, "int", prPitch, "int", vrVolume, "uint", stVoiceStart, "uint", stLoopStart, "uint", stLoopEnd, "HRESULT")
@@ -51,11 +51,11 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
     }
 
     /**
-     * 
+     * StopVoice is unsupported and may be altered or unavailable in the future.
      * @param {Integer} rt 
      * @param {Integer} dwVoiceId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-stopvoice
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dmusics/nf-dmusics-idirectmusicsynth8-stopvoice
      */
     StopVoice(rt, dwVoiceId) {
         result := ComCall(21, this, "int64", rt, "uint", dwVoiceId, "HRESULT")
@@ -63,12 +63,12 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
     }
 
     /**
-     * 
+     * GetVoiceState is unsupported and may be altered or unavailable in the future.
      * @param {Pointer<Integer>} dwVoice 
      * @param {Integer} cbVoice 
      * @param {Pointer<DMUS_VOICE_STATE>} dwVoiceState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-getvoicestate
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dmusics/nf-dmusics-idirectmusicsynth8-getvoicestate
      */
     GetVoiceState(dwVoice, cbVoice, dwVoiceState) {
         dwVoiceMarshal := dwVoice is VarRef ? "uint*" : "ptr"
@@ -78,11 +78,11 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
     }
 
     /**
-     * 
+     * Refresh is unsupported and may be altered or unavailable in the future.
      * @param {Integer} dwDownloadID 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-refresh
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dmusics/nf-dmusics-idirectmusicsynth8-refresh
      */
     Refresh(dwDownloadID, dwFlags) {
         result := ComCall(23, this, "uint", dwDownloadID, "uint", dwFlags, "HRESULT")
@@ -90,13 +90,13 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
     }
 
     /**
-     * 
+     * AssignChannelToBuses is unsupported and may be altered or unavailable in the future.
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannel 
      * @param {Pointer<Integer>} pdwBuses 
      * @param {Integer} cBuses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-assignchanneltobuses
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dmusics/nf-dmusics-idirectmusicsynth8-assignchanneltobuses
      */
     AssignChannelToBuses(dwChannelGroup, dwChannel, pdwBuses, cBuses) {
         pdwBusesMarshal := pdwBuses is VarRef ? "uint*" : "ptr"

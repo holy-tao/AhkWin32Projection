@@ -50,9 +50,9 @@ class IDVBTLocator2 extends IDVBTLocator{
     }
 
     /**
-     * 
+     * Identifies a Physical Layer Pipe (PLP) that carries a T2 logical data stream.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator2-get_physicallayerpipeid
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtlocator2-get_physicallayerpipeid
      */
     get_PhysicalLayerPipeId() {
         result := ComCall(36, this, "int*", &PhysicalLayerPipeIdVal := 0, "HRESULT")
@@ -60,10 +60,10 @@ class IDVBTLocator2 extends IDVBTLocator{
     }
 
     /**
-     * 
+     * Identifies a Physical Layer Pipe (PLP) that carries a T2 logical data stream.
      * @param {Integer} PhysicalLayerPipeIdVal 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator2-put_physicallayerpipeid
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtlocator2-put_physicallayerpipeid
      */
     put_PhysicalLayerPipeId(PhysicalLayerPipeIdVal) {
         result := ComCall(37, this, "int", PhysicalLayerPipeIdVal, "HRESULT")

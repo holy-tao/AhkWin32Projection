@@ -36,10 +36,14 @@ class IFileDialogEvents extends IUnknown{
     static VTableNames => ["OnFileOk", "OnFolderChanging", "OnFolderChange", "OnSelectionChange", "OnShareViolation", "OnTypeChange", "OnOverwrite"]
 
     /**
+     * Called just before the dialog is about to return with a result.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onfileok
+     * A pointer to the interface that represents the dialog.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Implementations should return <b>S_OK</b> to accept the current result in the dialog or <b>S_FALSE</b> to refuse it. In the case of <b>S_FALSE</b>, the dialog should remain open.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-onfileok
      */
     OnFileOk(pfd) {
         result := ComCall(3, this, "ptr", pfd, "HRESULT")
@@ -47,11 +51,17 @@ class IFileDialogEvents extends IUnknown{
     }
 
     /**
+     * Called before IFileDialogEvents::OnFolderChange. This allows the implementer to stop navigation to a particular location.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @param {IShellItem} psiFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onfolderchanging
+     * A pointer to the interface that represents the dialog.
+     * @param {IShellItem} psiFolder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * A pointer to an interface that represents the folder to which the dialog is about to navigate.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. A return value of S_OK or E_NOTIMPL indicates that the folder change can proceed.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-onfolderchanging
      */
     OnFolderChanging(pfd, psiFolder) {
         result := ComCall(4, this, "ptr", pfd, "ptr", psiFolder, "HRESULT")
@@ -59,10 +69,14 @@ class IFileDialogEvents extends IUnknown{
     }
 
     /**
+     * Called when the user navigates to a new folder.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onfolderchange
+     * A pointer to the interface that represents the dialog.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-onfolderchange
      */
     OnFolderChange(pfd) {
         result := ComCall(5, this, "ptr", pfd, "HRESULT")
@@ -70,10 +84,14 @@ class IFileDialogEvents extends IUnknown{
     }
 
     /**
+     * Called when the user changes the selection in the dialog's view.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onselectionchange
+     * A pointer to the interface that represents the dialog.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-onselectionchange
      */
     OnSelectionChange(pfd) {
         result := ComCall(6, this, "ptr", pfd, "HRESULT")
@@ -81,11 +99,17 @@ class IFileDialogEvents extends IUnknown{
     }
 
     /**
+     * Enables an application to respond to sharing violations that arise from Open or Save operations.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @param {IShellItem} psi 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onshareviolation
+     * A pointer to the interface that represents the dialog.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * A pointer to the interface that represents the item that has the sharing violation.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fde_shareviolation_response">FDE_SHAREVIOLATION_RESPONSE</a>*</b>
+     * 
+     * A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fde_shareviolation_response">FDE_SHAREVIOLATION_RESPONSE</a> enumeration indicating the response to the sharing violation.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-onshareviolation
      */
     OnShareViolation(pfd, psi) {
         result := ComCall(7, this, "ptr", pfd, "ptr", psi, "int*", &pResponse := 0, "HRESULT")
@@ -93,10 +117,14 @@ class IFileDialogEvents extends IUnknown{
     }
 
     /**
+     * Called when the dialog is opened to notify the application of the initial chosen filetype.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-ontypechange
+     * A pointer to the interface that represents the dialog.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-ontypechange
      */
     OnTypeChange(pfd) {
         result := ComCall(8, this, "ptr", pfd, "HRESULT")
@@ -104,11 +132,17 @@ class IFileDialogEvents extends IUnknown{
     }
 
     /**
+     * Called from the save dialog when the user chooses to overwrite a file.
+     * @param {IFileDialog} pfd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a>*</b>
      * 
-     * @param {IFileDialog} pfd 
-     * @param {IShellItem} psi 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onoverwrite
+     * A pointer to the interface that represents the dialog.
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * A pointer to the interface that represents the item that will be overwritten.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fde_shareviolation_response">FDE_SHAREVIOLATION_RESPONSE</a>*</b>
+     * 
+     * A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fde_overwrite_response">FDE_OVERWRITE_RESPONSE</a> enumeration indicating the response to the potential overwrite action.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogevents-onoverwrite
      */
     OnOverwrite(pfd, psi) {
         result := ComCall(9, this, "ptr", pfd, "ptr", psi, "int*", &pResponse := 0, "HRESULT")

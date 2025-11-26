@@ -31,15 +31,15 @@ class IUIAnimationPrimitiveInterpolation extends IUnknown{
     static VTableNames => ["AddCubic", "AddSinusoidal"]
 
     /**
-     * 
-     * @param {Integer} dimension 
-     * @param {Float} beginOffset 
-     * @param {Float} constantCoefficient 
-     * @param {Float} linearCoefficient 
-     * @param {Float} quadraticCoefficient 
-     * @param {Float} cubicCoefficient 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprimitiveinterpolation-addcubic
+     * Adds a cubic polynomial segment that describes the shape of a transition curve to the animation function.
+     * @param {Integer} dimension The dimension in which to apply the new segment.
+     * @param {Float} beginOffset The begin offset for the segment, where 0 corresponds to the start of the transition.
+     * @param {Float} constantCoefficient The cubic polynomial constant coefficient.
+     * @param {Float} linearCoefficient The cubic polynomial linear coefficient.
+     * @param {Float} quadraticCoefficient The cubic polynomial quadratic coefficient.
+     * @param {Float} cubicCoefficient The cubic polynomial cubic coefficient.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationprimitiveinterpolation-addcubic
      */
     AddCubic(dimension, beginOffset, constantCoefficient, linearCoefficient, quadraticCoefficient, cubicCoefficient) {
         result := ComCall(3, this, "uint", dimension, "double", beginOffset, "float", constantCoefficient, "float", linearCoefficient, "float", quadraticCoefficient, "float", cubicCoefficient, "HRESULT")
@@ -47,15 +47,15 @@ class IUIAnimationPrimitiveInterpolation extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dimension 
-     * @param {Float} beginOffset 
-     * @param {Float} bias 
-     * @param {Float} amplitude 
-     * @param {Float} frequency 
-     * @param {Float} phase 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprimitiveinterpolation-addsinusoidal
+     * Adds a sinusoidal segment that describes the shape of a transition curve to the animation function.
+     * @param {Integer} dimension The dimension in which to apply the new segment.
+     * @param {Float} beginOffset The begin offset for the segment, where 0 corresponds to the start of the transition.
+     * @param {Float} bias The bias constant in the sinusoidal function.
+     * @param {Float} amplitude The amplitude constant in the sinusoidal function.
+     * @param {Float} frequency The frequency constant in the sinusoidal function.
+     * @param {Float} phase The phase constant in the sinusoidal function.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationprimitiveinterpolation-addsinusoidal
      */
     AddSinusoidal(dimension, beginOffset, bias, amplitude, frequency, phase) {
         result := ComCall(4, this, "uint", dimension, "double", beginOffset, "float", bias, "float", amplitude, "float", frequency, "float", phase, "HRESULT")

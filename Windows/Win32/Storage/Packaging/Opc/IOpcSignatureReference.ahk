@@ -107,9 +107,11 @@ class IOpcSignatureReference extends IUnknown{
     static VTableNames => ["GetId", "GetUri", "GetType", "GetTransformMethod", "GetDigestMethod", "GetDigestValue"]
 
     /**
+     * Gets the identifier for the reference.
+     * @returns {PWSTR} An identifier for the reference.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getid
+     * If the identifier is not set, <i>referenceId</i> will be the empty string, "".
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-getid
      */
     GetId() {
         result := ComCall(3, this, "ptr*", &referenceId := 0, "HRESULT")
@@ -117,9 +119,13 @@ class IOpcSignatureReference extends IUnknown{
     }
 
     /**
+     * Gets the URI of the referenced XML element.
+     * @returns {IUri} A pointer to the  URI of the referenced element.
      * 
-     * @returns {IUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-geturi
+     * This URI represented by a string is  "#" followed by  the <b>Id</b> attribute value of the referenced element: "#<i>&lt;elementIdValue&gt;</i>".
+     * 
+     * For examples, see the Remarks section.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-geturi
      */
     GetUri() {
         result := ComCall(4, this, "ptr*", &referenceUri := 0, "HRESULT")
@@ -127,9 +133,11 @@ class IOpcSignatureReference extends IUnknown{
     }
 
     /**
+     * Gets a string that indicates the type of the referenced XML element.
+     * @returns {PWSTR} A string that indicates the type of the referenced XML  element.
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettype
+     * If the type  is not set, the <i>type</i> parameter will be the empty string "".
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-gettype
      */
     GetType() {
         result := ComCall(5, this, "ptr*", &type := 0, "HRESULT")
@@ -137,9 +145,9 @@ class IOpcSignatureReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettransformmethod
+     * Gets the canonicalization method to use on the referenced XML element, when the element is signed.
+     * @returns {Integer} The canonicalization method to use on the referenced XML element, when the element is signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-gettransformmethod
      */
     GetTransformMethod() {
         result := ComCall(6, this, "int*", &transformMethod := 0, "HRESULT")
@@ -147,9 +155,9 @@ class IOpcSignatureReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestmethod
+     * Gets the digest method to use on the referenced XML element, when the element is signed.
+     * @returns {PWSTR} The digest method to use on the referenced XML element.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-getdigestmethod
      */
     GetDigestMethod() {
         result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
@@ -157,11 +165,42 @@ class IOpcSignatureReference extends IUnknown{
     }
 
     /**
+     * Gets the digest value that is calculated for the referenced XML element when the element is signed.
+     * @param {Pointer<Pointer<Integer>>} digestValue A pointer to a buffer that contains the digest value calculated using the specified digest method when the referenced XML element is signed.
+     * @param {Pointer<Integer>} count The size of the <i>digestValue</i> buffer.
      * 
-     * @param {Pointer<Pointer<Integer>>} digestValue 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestvalue
+     * If the referenced XML element has not been signed yet, <i>count</i> is 0.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  At least one of the <i>digestValue</i>, and <i>count</i> parameters is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
         digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"

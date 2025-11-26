@@ -31,14 +31,58 @@ class IWMWriterAdvanced2 extends IWMWriterAdvanced{
     static VTableNames => ["GetInputSetting", "SetInputSetting"]
 
     /**
+     * The GetInputSetting method retrieves a setting for a particular input by name.
+     * @param {Integer} dwInputNum <b>DWORD</b> containing the input number.
+     * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the setting name. For a list of valid settings, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/input-settings">Input Settings</a>.
+     * @param {Pointer<Integer>} pType Pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type.
+     * @param {Pointer<Integer>} pValue Pointer to a byte array containing the setting. The type of date is determined by <i>pType</i>. Pass <b>NULL</b> to retrieve the size of array required.
+     * @param {Pointer<Integer>} pcbLength On input, pointer to the length of <i>pValue</i>. On output, pointer to a count of the bytes in <i>pValue</i> filled in by this method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwInputNum 
-     * @param {PWSTR} pszName 
-     * @param {Pointer<Integer>} pType 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Pointer<Integer>} pcbLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced2-getinputsetting
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_NOT_CONFIGURED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input profile has not yet been set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>dwInputNum</i> is larger than the number of existing inputs
+     * 
+     * OR
+     * 
+     * <i>pType</i>, <i>pcbLength</i>, or <i>pszName</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriteradvanced2-getinputsetting
      */
     GetInputSetting(dwInputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -52,14 +96,80 @@ class IWMWriterAdvanced2 extends IWMWriterAdvanced{
     }
 
     /**
+     * The SetInputSetting method specifies a named setting for a particular input.
+     * @param {Integer} dwInputNum <b>DWORD</b> containing the input number.
+     * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the setting name. For a list of valid settings, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/input-settings">Input Settings</a>.
+     * @param {Integer} Type Pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type.
+     * @param {Pointer<Integer>} pValue Pointer to a byte array containing the setting.
+     * @param {Integer} cbLength Size of <i>pValue</i>, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwInputNum 
-     * @param {PWSTR} pszName 
-     * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Integer} cbLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced2-setinputsetting
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_NOT_CONFIGURED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input profile has not yet been set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>dwInputNum</i> is larger than the number of existing inputs
+     * 
+     * OR
+     * 
+     * <i>pValue</i> or <i>pszName</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_INVALID_REQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This setting cannot be changed while the writer is running.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unspecified error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriteradvanced2-setinputsetting
      */
     SetInputSetting(dwInputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

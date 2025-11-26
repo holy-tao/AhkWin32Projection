@@ -35,10 +35,14 @@ class ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperation{
     static VTableNames => ["InitWizard"]
 
     /**
+     * Initializes the sync schedule wizard.
+     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszHandlerID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrschedulewizarduioperation-initwizard
+     * A pointer to a handler ID as a Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrschedulewizarduioperation-initwizard
      */
     InitWizard(pszHandlerID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID

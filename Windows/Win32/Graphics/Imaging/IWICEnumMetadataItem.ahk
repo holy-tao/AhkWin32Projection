@@ -32,13 +32,23 @@ class IWICEnumMetadataItem extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Advanced the current position in the enumeration.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<PROPVARIANT>} rgeltSchema 
-     * @param {Pointer<PROPVARIANT>} rgeltId 
-     * @param {Pointer<PROPVARIANT>} rgeltValue 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-next
+     * The number of items to be retrieved.
+     * @param {Pointer<PROPVARIANT>} rgeltSchema Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * An array of enumerated items. This parameter is optional.
+     * @param {Pointer<PROPVARIANT>} rgeltId Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * An array of enumerated items.
+     * @param {Pointer<PROPVARIANT>} rgeltValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * An array of enumerated items. This parameter is optional.
+     * @returns {Integer} Type: <b>ULONG*</b>
+     * 
+     * The number of items that were retrieved. This value is always less than or equal to the number of items requested.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-next
      */
     Next(celt, rgeltSchema, rgeltId, rgeltValue) {
         result := ComCall(3, this, "uint", celt, "ptr", rgeltSchema, "ptr", rgeltId, "ptr", rgeltValue, "uint*", &pceltFetched := 0, "HRESULT")
@@ -46,10 +56,14 @@ class IWICEnumMetadataItem extends IUnknown{
     }
 
     /**
+     * Skips to given number of objects.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-skip
+     * The number of objects to skip.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -57,9 +71,11 @@ class IWICEnumMetadataItem extends IUnknown{
     }
 
     /**
+     * Resets the current position to the beginning of the enumeration.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-reset
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -67,9 +83,11 @@ class IWICEnumMetadataItem extends IUnknown{
     }
 
     /**
+     * Creates a copy of the current IWICEnumMetadataItem.
+     * @returns {IWICEnumMetadataItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicenummetadataitem">IWICEnumMetadataItem</a>**</b>
      * 
-     * @returns {IWICEnumMetadataItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-clone
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicenummetadataitem">IWICEnumMetadataItem</a> copy.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppIEnumMetadataItem := 0, "HRESULT")

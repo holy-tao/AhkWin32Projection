@@ -35,9 +35,12 @@ class IMFTimedTextCue extends IUnknown{
     static VTableNames => ["GetId", "GetOriginalId", "GetCueKind", "GetStartTime", "GetDuration", "GetTrackId", "GetData", "GetRegion", "GetStyle", "GetLineCount", "GetLine"]
 
     /**
+     * Gets the identifier of a timed-text cue.
+     * @returns {Integer} Type: <b>DWORD
+     * </b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getid
+     * The identifier of a timed-text cue.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getid
      */
     GetId() {
         result := ComCall(3, this, "uint")
@@ -45,9 +48,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the cue identifier that is provided in the text-track data format, if available.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getoriginalid
+     * The cue identifier that is provided in the text-track data format.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getoriginalid
      */
     GetOriginalId() {
         result := ComCall(4, this, "ptr*", &originalId := 0, "HRESULT")
@@ -55,9 +60,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the kind of timed-text cue.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getcuekind
+     * Returns a <a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text cue.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getcuekind
      */
     GetCueKind() {
         result := ComCall(5, this, "int")
@@ -65,9 +72,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the start time of the cue in the track.
+     * @returns {Float} Type: <b>double</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getstarttime
+     * Returns the start time of the cue in the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getstarttime
      */
     GetStartTime() {
         result := ComCall(6, this, "double")
@@ -75,9 +84,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the duration time of the cue in the track.
+     * @returns {Float} Type: <b>double</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getduration
+     * Returns the duration time of the cue in the track.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getduration
      */
     GetDuration() {
         result := ComCall(7, this, "double")
@@ -85,9 +96,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the identifier of the timed-text cue.
+     * @returns {Integer} Type: <b>DWORD</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-gettrackid
+     * Returns the identifier of the timed-text cue.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-gettrackid
      */
     GetTrackId() {
         result := ComCall(8, this, "uint")
@@ -95,9 +108,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the data content of the timed-text cue.
+     * @returns {IMFTimedTextBinary} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextbinary">IMFTimedTextBinary</a>**</b>
      * 
-     * @returns {IMFTimedTextBinary} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getdata
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextbinary">IMFTimedTextBinary</a> interface for the data content of the timed-text cue. This parameter can be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getdata
      */
     GetData() {
         result := ComCall(9, this, "ptr*", &data := 0, "HRESULT")
@@ -105,9 +120,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets info about the display region of the timed-text cue.
+     * @returns {IMFTimedTextRegion} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion">IMFTimedTextRegion</a>**</b>
      * 
-     * @returns {IMFTimedTextRegion} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getregion
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion">IMFTimedTextRegion</a> interface for the timed-text region. This parameter can be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getregion
      */
     GetRegion() {
         result := ComCall(10, this, "ptr*", &region := 0, "HRESULT")
@@ -115,9 +132,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets info about the style of the timed-text cue.
+     * @returns {IMFTimedTextStyle} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextstyle">IMFTimedTextStyle</a>**</b>
      * 
-     * @returns {IMFTimedTextStyle} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getstyle
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextstyle">IMFTimedTextStyle</a> interface for the timed-text style. This parameter can be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getstyle
      */
     GetStyle() {
         result := ComCall(11, this, "ptr*", &style := 0, "HRESULT")
@@ -125,9 +144,11 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets the number of lines of text in the timed-text cue.
+     * @returns {Integer} Type: <b>DWORD</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getlinecount
+     * Returns the number of lines of text.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getlinecount
      */
     GetLineCount() {
         result := ComCall(12, this, "uint")
@@ -135,10 +156,14 @@ class IMFTimedTextCue extends IUnknown{
     }
 
     /**
+     * Gets a line of text in the cue from the index of the line.
+     * @param {Integer} index Type: <b>DWORD</b>
      * 
-     * @param {Integer} index 
-     * @returns {IMFTimedTextFormattedText} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getline
+     * The index of the line of text in the cue to retrieve.
+     * @returns {IMFTimedTextFormattedText} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextformattedtext">IMFTimedTextFormattedText</a>**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextformattedtext">IMFTimedTextFormattedText</a> interface for the line of text in the cue.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextcue-getline
      */
     GetLine(index) {
         result := ComCall(13, this, "uint", index, "ptr*", &line := 0, "HRESULT")

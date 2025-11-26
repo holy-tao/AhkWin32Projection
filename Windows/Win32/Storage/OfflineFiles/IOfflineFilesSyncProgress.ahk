@@ -31,10 +31,10 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress{
     static VTableNames => ["SyncItemBegin", "SyncItemResult"]
 
     /**
-     * 
-     * @param {PWSTR} pszFile 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncprogress-syncitembegin
+     * Reports that a synchronization operation on an item is beginning.
+     * @param {PWSTR} pszFile Receives the fully qualified UNC path of the file or directory to be processed.
+     * @returns {Integer} Your implementation of this method should set this parameter to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_op_response">OFFLINEFILES_OP_RESPONSE</a> enumeration that indicates how the operation is to proceed.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessyncprogress-syncitembegin
      */
     SyncItemBegin(pszFile) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
@@ -44,12 +44,12 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszFile 
-     * @param {HRESULT} hrResult 
-     * @param {IOfflineFilesSyncErrorInfo} pErrorInfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncprogress-syncitemresult
+     * Reports that an item has been processed during the synchronization operation.
+     * @param {PWSTR} pszFile Receives the fully qualified UNC path of the item that was processed.
+     * @param {HRESULT} hrResult Receives the result of the operation for the item.  Contains S_OK if the operation completed successfully or an error value otherwise.
+     * @param {IOfflineFilesSyncErrorInfo} pErrorInfo Receives a pointer to an instance of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilessyncerrorinfo">IOfflineFilesSyncErrorInfo</a> interface that provides detailed information about the result of the sync operation.
+     * @returns {Integer} Set this parameter to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_op_response">OFFLINEFILES_OP_RESPONSE</a> enumeration that indicates how the operation is to proceed.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessyncprogress-syncitemresult
      */
     SyncItemResult(pszFile, hrResult, pErrorInfo) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile

@@ -31,9 +31,9 @@ class IDCompositionDeviceDebug extends IUnknown{
     static VTableNames => ["EnableDebugCounters", "DisableDebugCounters"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevicedebug-enabledebugcounters
+     * Enables display of performance debugging counters.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevicedebug-enabledebugcounters
      */
     EnableDebugCounters() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IDCompositionDeviceDebug extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevicedebug-disabledebugcounters
+     * Disables display of performance debugging counters.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevicedebug-disabledebugcounters
      */
     DisableDebugCounters() {
         result := ComCall(4, this, "HRESULT")

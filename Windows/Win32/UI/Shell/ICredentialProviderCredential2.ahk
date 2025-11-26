@@ -49,9 +49,9 @@ class ICredentialProviderCredential2 extends ICredentialProviderCredential{
     static VTableNames => ["GetUserSid"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
+     * Retrieves the security identifier (SID) of the user that is associated with this credential.
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
      */
     GetUserSid() {
         result := ComCall(20, this, "ptr*", &sid := 0, "HRESULT")

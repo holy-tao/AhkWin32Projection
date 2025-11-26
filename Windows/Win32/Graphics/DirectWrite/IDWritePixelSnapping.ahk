@@ -44,10 +44,14 @@ class IDWritePixelSnapping extends IUnknown{
     }
 
     /**
+     * Gets a transform that maps abstract coordinates to DIPs.
+     * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
-     * @param {Pointer<Void>} clientDrawingContext 
-     * @returns {DWRITE_MATRIX} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
+     * The drawing context passed to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a>.
+     * @returns {DWRITE_MATRIX} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
+     * 
+     * When this method returns, contains a structure which has transform information for  pixel snapping.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
      */
     GetCurrentTransform(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
@@ -58,10 +62,14 @@ class IDWritePixelSnapping extends IUnknown{
     }
 
     /**
+     * Gets the number of physical pixels per DIP.
+     * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
-     * @param {Pointer<Void>} clientDrawingContext 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
+     * The drawing context passed to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a>.
+     * @returns {Float} Type: <b>FLOAT*</b>
+     * 
+     * When this method returns, contains the number of physical pixels per DIP.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
      */
     GetPixelsPerDip(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"

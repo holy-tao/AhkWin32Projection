@@ -39,9 +39,9 @@ class IXpsSignatureBlock extends IUnknown{
     static VTableNames => ["GetRequests", "GetPartName", "GetDocumentIndex", "GetDocumentName", "CreateRequest"]
 
     /**
-     * 
-     * @returns {IXpsSignatureRequestCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getrequests
+     * Gets a pointer to the IXpsSignatureRequestCollection interface that contains a collection of signature requests.
+     * @returns {IXpsSignatureRequestCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequestcollection">IXpsSignatureRequestCollection</a> interface that contains a collection of signature requests.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getrequests
      */
     GetRequests() {
         result := ComCall(3, this, "ptr*", &requests := 0, "HRESULT")
@@ -49,9 +49,9 @@ class IXpsSignatureBlock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getpartname
+     * Gets a pointer to the IOpcPartUri interface that contains the URI of the SignatureDefinitions part.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the URI of the SignatureDefinitions part.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getpartname
      */
     GetPartName() {
         result := ComCall(4, this, "ptr*", &partName := 0, "HRESULT")
@@ -59,9 +59,9 @@ class IXpsSignatureBlock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentindex
+     * Gets the index of the FixedDocument part that references the SignatureDefinitions part that corresponds to this signature block.
+     * @returns {Integer} The zero-based index of the FixedDocument part that references the SignatureDefinitions part that corresponds to this SignatureBlock.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentindex
      */
     GetDocumentIndex() {
         result := ComCall(5, this, "uint*", &fixedDocumentIndex := 0, "HRESULT")
@@ -69,9 +69,9 @@ class IXpsSignatureBlock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentname
+     * Gets a pointer to the IOpcPartUri interface that contains the URI of the document part.
+     * @returns {IOpcPartUri} A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the URI of the document part.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentname
      */
     GetDocumentName() {
         result := ComCall(6, this, "ptr*", &fixedDocumentName := 0, "HRESULT")
@@ -79,10 +79,10 @@ class IXpsSignatureBlock extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} requestId 
-     * @returns {IXpsSignatureRequest} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-createrequest
+     * Creates a new IXpsSignatureRequest interface and adds it to the signature block.
+     * @param {PWSTR} requestId A string that uniquely identifies the new signature request within the signature block. For the method to generate an ID string, set this parameter to <b>NULL</b>.
+     * @returns {IXpsSignatureRequest} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest">IXpsSignatureRequest</a> interface. If access to the new request interface is not  required, this parameter can be set to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-createrequest
      */
     CreateRequest(requestId) {
         requestId := requestId is String ? StrPtr(requestId) : requestId

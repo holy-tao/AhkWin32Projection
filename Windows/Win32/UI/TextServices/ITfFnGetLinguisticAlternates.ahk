@@ -32,10 +32,10 @@ class ITfFnGetLinguisticAlternates extends ITfFunction{
     static VTableNames => ["GetAlternates"]
 
     /**
-     * 
-     * @param {ITfRange} pRange 
-     * @returns {ITfCandidateList} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffngetlinguisticalternates-getalternates
+     * Returns a list of alternate strings for a given text range.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers the text to return alternates for.
+     * @returns {ITfCandidateList} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatelist">ITfCandidateList</a> pointer that receives the list object containing alternate strings.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffngetlinguisticalternates-getalternates
      */
     GetAlternates(pRange) {
         result := ComCall(4, this, "ptr", pRange, "ptr*", &ppCandidateList := 0, "HRESULT")

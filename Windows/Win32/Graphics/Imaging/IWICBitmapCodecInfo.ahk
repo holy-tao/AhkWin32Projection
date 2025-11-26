@@ -31,9 +31,11 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     static VTableNames => ["GetContainerFormat", "GetPixelFormats", "GetColorManagementVersion", "GetDeviceManufacturer", "GetDeviceModels", "GetMimeTypes", "GetFileExtensions", "DoesSupportAnimation", "DoesSupportChromakey", "DoesSupportLossless", "DoesSupportMultiframe", "MatchesMimeType"]
 
     /**
+     * Retrieves the container GUID associated with the codec.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getcontainerformat
+     * Receives the container GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getcontainerformat
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
@@ -42,11 +44,17 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves the pixel formats the codec supports.
+     * @param {Integer} cFormats Type: <b>UINT</b>
      * 
-     * @param {Integer} cFormats 
-     * @param {Pointer<Guid>} pguidPixelFormats 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getpixelformats
+     * The size of the <i>pguidPixelFormats</i> array. Use <c>0</c> on first call to determine the needed array size.
+     * @param {Pointer<Guid>} pguidPixelFormats Type: <b>GUID*</b>
+     * 
+     * Receives the supported pixel formats. Use <c>NULL</c> on first call to determine needed array size.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The array size needed to retrieve all supported pixel formats.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pguidPixelFormats) {
         result := ComCall(12, this, "uint", cFormats, "ptr", pguidPixelFormats, "uint*", &pcActual := 0, "HRESULT")
@@ -54,11 +62,17 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves the color manangement version number the codec supports.
+     * @param {Integer} cchColorManagementVersion Type: <b>UINT</b>
      * 
-     * @param {Integer} cchColorManagementVersion 
-     * @param {PWSTR} wzColorManagementVersion 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getcolormanagementversion
+     * The size of the version buffer. Use <c>0</c> on first call to determine needed buffer size.
+     * @param {PWSTR} wzColorManagementVersion Type: <b>WCHAR*</b>
+     * 
+     * Receives the color management version number. Use <c>NULL</c> on first call to determine needed buffer size.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual buffer size needed to retrieve the full color management version number.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getcolormanagementversion
      */
     GetColorManagementVersion(cchColorManagementVersion, wzColorManagementVersion) {
         wzColorManagementVersion := wzColorManagementVersion is String ? StrPtr(wzColorManagementVersion) : wzColorManagementVersion
@@ -68,11 +82,17 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves the name of the device manufacture associated with the codec.
+     * @param {Integer} cchDeviceManufacturer Type: <b>UINT</b>
      * 
-     * @param {Integer} cchDeviceManufacturer 
-     * @param {PWSTR} wzDeviceManufacturer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getdevicemanufacturer
+     * The size of the device manufacture's name. Use <c>0</c> on first call to determine needed buffer size.
+     * @param {PWSTR} wzDeviceManufacturer Type: <b>WCHAR*</b>
+     * 
+     * Receives the device manufacture's name. Use <c>NULL</c> on first call to determine needed buffer size.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual buffer size needed to retrieve the device manufacture's name.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getdevicemanufacturer
      */
     GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
@@ -82,11 +102,17 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a comma delimited list of device models associated with the codec.
+     * @param {Integer} cchDeviceModels Type: <b>UINT</b>
      * 
-     * @param {Integer} cchDeviceModels 
-     * @param {PWSTR} wzDeviceModels 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getdevicemodels
+     * The size of the device models buffer. Use <c>0</c> on first call to determine needed buffer size.
+     * @param {PWSTR} wzDeviceModels Type: <b>WCHAR*</b>
+     * 
+     * Receives a comma delimited list of device model names associated with the codec. Use <c>NULL</c> on first call to determine needed buffer size.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual buffer size needed to retrieve all of the device model names.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getdevicemodels
      */
     GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
@@ -96,11 +122,17 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a comma delimited sequence of mime types associated with the codec.
+     * @param {Integer} cchMimeTypes Type: <b>UINT</b>
      * 
-     * @param {Integer} cchMimeTypes 
-     * @param {PWSTR} wzMimeTypes 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getmimetypes
+     * The size of the mime types buffer.  Use <c>0</c> on first call to determine needed buffer size.
+     * @param {PWSTR} wzMimeTypes Type: <b>WCHAR*</b>
+     * 
+     * Receives the mime types associated with the codec. Use <c>NULL</c> on first call to determine needed buffer size.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual buffer size needed to retrieve all mime types associated with the codec.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getmimetypes
      */
     GetMimeTypes(cchMimeTypes, wzMimeTypes) {
         wzMimeTypes := wzMimeTypes is String ? StrPtr(wzMimeTypes) : wzMimeTypes
@@ -110,11 +142,17 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a comma delimited list of the file name extensions associated with the codec.
+     * @param {Integer} cchFileExtensions Type: <b>UINT</b>
      * 
-     * @param {Integer} cchFileExtensions 
-     * @param {PWSTR} wzFileExtensions 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getfileextensions
+     * The size of the file name extension buffer. Use <c>0</c> on first call to determine needed buffer size.
+     * @param {PWSTR} wzFileExtensions Type: <b>WCHAR*</b>
+     * 
+     * Receives a comma delimited list  of file name extensions associated with the codec. Use <c>NULL</c> on first call to determine needed buffer size.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual buffer size needed to retrieve all file name extensions associated with the codec.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-getfileextensions
      */
     GetFileExtensions(cchFileExtensions, wzFileExtensions) {
         wzFileExtensions := wzFileExtensions is String ? StrPtr(wzFileExtensions) : wzFileExtensions
@@ -124,9 +162,11 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a value indicating whether the codec supports animation.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportanimation
+     * Receives <b>TRUE</b> if the codec supports images with timing information; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportanimation
      */
     DoesSupportAnimation() {
         result := ComCall(18, this, "int*", &pfSupportAnimation := 0, "HRESULT")
@@ -134,9 +174,11 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a value indicating whether the codec supports chromakeys.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportchromakey
+     * Receives <b>TRUE</b> if the codec supports chromakeys; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportchromakey
      */
     DoesSupportChromakey() {
         result := ComCall(19, this, "int*", &pfSupportChromakey := 0, "HRESULT")
@@ -144,9 +186,11 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a value indicating whether the codec supports lossless formats.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportlossless
+     * Receives <b>TRUE</b> if the codec supports lossless formats; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportlossless
      */
     DoesSupportLossless() {
         result := ComCall(20, this, "int*", &pfSupportLossless := 0, "HRESULT")
@@ -154,9 +198,11 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a value indicating whether the codec supports multi frame images.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportmultiframe
+     * Receives <b>TRUE</b> if the codec supports multi frame images; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportmultiframe
      */
     DoesSupportMultiframe() {
         result := ComCall(21, this, "int*", &pfSupportMultiframe := 0, "HRESULT")
@@ -164,10 +210,14 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
     }
 
     /**
+     * Retrieves a value indicating whether the given mime type matches the mime type of the codec.
+     * @param {PWSTR} wzMimeType Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} wzMimeType 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-matchesmimetype
+     * The mime type to compare.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * Receives <b>TRUE</b> if the mime types match; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecinfo-matchesmimetype
      */
     MatchesMimeType(wzMimeType) {
         wzMimeType := wzMimeType is String ? StrPtr(wzMimeType) : wzMimeType

@@ -39,9 +39,11 @@ class IRelatedItem extends IUnknown{
     static VTableNames => ["GetItemIDList", "GetItem"]
 
     /**
+     * Gets the pointer to an item identifier list (PIDL) for the item that is related.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irelateditem-getitemidlist
+     * When this method returns, contains the PIDL.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irelateditem-getitemidlist
      */
     GetItemIDList() {
         result := ComCall(3, this, "ptr*", &ppidl := 0, "HRESULT")
@@ -49,9 +51,11 @@ class IRelatedItem extends IUnknown{
     }
 
     /**
+     * Gets the IShellItem that is related to this item.
+     * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
-     * @returns {IShellItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irelateditem-getitem
+     * When this method returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface for the item that is related to this item.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-irelateditem-getitem
      */
     GetItem() {
         result := ComCall(4, this, "ptr*", &ppsi := 0, "HRESULT")

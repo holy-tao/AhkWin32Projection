@@ -36,10 +36,14 @@ class ID3D10SwitchToRef extends IUnknown{
     static VTableNames => ["SetUseRef", "GetUseRef"]
 
     /**
+     * Switch between a hardware and a software device.
+     * @param {BOOL} UseRef Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @param {BOOL} UseRef 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10switchtoref-setuseref
+     * A boolean value. Set this to <b>TRUE</b> to change to a software device, set this to <b>FALSE</b> to change to a hardware device.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * The previous value of <i>UseRef</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10sdklayers/nf-d3d10sdklayers-id3d10switchtoref-setuseref
      */
     SetUseRef(UseRef) {
         result := ComCall(3, this, "int", UseRef, "int")
@@ -47,9 +51,11 @@ class ID3D10SwitchToRef extends IUnknown{
     }
 
     /**
+     * Get a boolean value that indicates the type of device being used.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10switchtoref-getuseref
+     * <b>TRUE</b> if the device is a software device, <b>FALSE</b> if the device is a hardware device. See remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10sdklayers/nf-d3d10sdklayers-id3d10switchtoref-getuseref
      */
     GetUseRef() {
         result := ComCall(4, this, "int")

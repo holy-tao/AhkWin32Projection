@@ -31,10 +31,39 @@ class ICallFrameEvents extends IUnknown{
     static VTableNames => ["OnCall"]
 
     /**
+     * Informs the event sink if it receives a method call on the interceptor. The sink is provided with an ICallFrame instance which is bound to the intercepted incoming method invocation. Through that sink the call frame can be manipulated in various ways.
+     * @param {ICallFrame} pFrame A call frame bound to the just-received invocation.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {ICallFrame} pFrame 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframeevents-oncall
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframeevents-oncall
      */
     OnCall(pFrame) {
         result := ComCall(3, this, "ptr", pFrame, "HRESULT")

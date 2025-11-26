@@ -31,10 +31,10 @@ class IWTSPluginServiceProvider extends IUnknown{
     static VTableNames => ["GetService"]
 
     /**
-     * 
-     * @param {Guid} ServiceId 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtspluginserviceprovider-getservice
+     * Obtains the specified service.
+     * @param {Guid} ServiceId Specifies the service to retrieve. This can be the following values.
+     * @returns {IUnknown} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that receives the service object.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtspluginserviceprovider-getservice
      */
     GetService(ServiceId) {
         result := ComCall(3, this, "ptr", ServiceId, "ptr*", &ppunkObject := 0, "HRESULT")

@@ -43,9 +43,11 @@ class ISearchContext extends IUnknown{
     }
 
     /**
+     * Retrieves the text that is in the browser's Address bar.
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a></b>
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchtext
+     * The <b>BSTR</b> that receives the text in the Address bar.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-isearchcontext-getsearchtext
      */
     GetSearchText() {
         pbstrSearchText := BSTR()
@@ -54,9 +56,11 @@ class ISearchContext extends IUnknown{
     }
 
     /**
+     * Overrides the registry settings that determine how an autosearch is performed.
+     * @returns {Integer} Type: <b>DWORD</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchstyle
+     * A pointer to a <b>DWORD</b> value that indicates how the search is performed.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-isearchcontext-getsearchstyle
      */
     GetSearchStyle() {
         result := ComCall(5, this, "uint*", &pdwSearchStyle := 0, "HRESULT")

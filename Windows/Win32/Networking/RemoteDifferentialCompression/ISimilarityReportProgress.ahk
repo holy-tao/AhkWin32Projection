@@ -37,10 +37,10 @@ class ISimilarityReportProgress extends IUnknown{
     static VTableNames => ["ReportProgress"]
 
     /**
-     * 
-     * @param {Integer} percentCompleted 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityreportprogress-reportprogress
+     * Reports the current completion percentage of a similarity operation in progress.
+     * @param {Integer} percentCompleted The current completion percentage of the task. The valid range is from 0 through 100.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilarityreportprogress-reportprogress
      */
     ReportProgress(percentCompleted) {
         result := ComCall(3, this, "uint", percentCompleted, "HRESULT")

@@ -31,10 +31,10 @@ class IWMPEffects2 extends IWMPEffects{
     static VTableNames => ["SetCore", "Create", "Destroy", "NotifyNewMedia", "OnWindowMessage", "RenderWindowed"]
 
     /**
-     * 
-     * @param {IWMPCore} pPlayer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-setcore
+     * The SetCore method is called by Windows Media Player to provide visualization access to the core Windows Media Player APIs.
+     * @param {IWMPCore} pPlayer Pointer to an <b>IWMPCore</b> interface.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects2-setcore
      */
     SetCore(pPlayer) {
         result := ComCall(14, this, "ptr", pPlayer, "HRESULT")
@@ -42,10 +42,10 @@ class IWMPEffects2 extends IWMPEffects{
     }
 
     /**
-     * 
-     * @param {HWND} hwndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-create
+     * The Create method is called by Windows Media Player to instantiate a visualization window.
+     * @param {HWND} hwndParent <b>HWND</b> handle to the parent window hosting the visualization window.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects2-create
      */
     Create(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -55,9 +55,9 @@ class IWMPEffects2 extends IWMPEffects{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-destroy
+     * The Destroy method is called by Windows Media Player to destroy a visualization window instantiated in the Create method.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects2-destroy
      */
     Destroy() {
         result := ComCall(16, this, "HRESULT")
@@ -65,10 +65,10 @@ class IWMPEffects2 extends IWMPEffects{
     }
 
     /**
-     * 
-     * @param {IWMPMedia} pMedia 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-notifynewmedia
+     * The NotifyNewMedia method is called by Windows Media Player to inform the visualization that a new media item has been loaded.
+     * @param {IWMPMedia} pMedia Pointer to an <b>IWMPMedia</b> interface that represents the new media item.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects2-notifynewmedia
      */
     NotifyNewMedia(pMedia) {
         result := ComCall(17, this, "ptr", pMedia, "HRESULT")
@@ -76,13 +76,13 @@ class IWMPEffects2 extends IWMPEffects{
     }
 
     /**
-     * 
-     * @param {Integer} msg 
-     * @param {WPARAM} WParam 
-     * @param {LPARAM} LParam 
-     * @param {Pointer<LRESULT>} plResultParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-onwindowmessage
+     * The OnWindowMessage method is called by Windows Media Player to pass window messages to a visualization.
+     * @param {Integer} msg <b>UINT</b> that identifies the window message.
+     * @param {WPARAM} WParam <b>WPARAM</b> specifying a window message parameter.
+     * @param {LPARAM} LParam <b>LPARAM</b> specifying a window message parameter.
+     * @param {Pointer<LRESULT>} plResultParam Pointer to an <b>LRESULT</b> specifying the result code for the window message.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects2-onwindowmessage
      */
     OnWindowMessage(msg, WParam, LParam, plResultParam) {
         plResultParamMarshal := plResultParam is VarRef ? "ptr*" : "ptr"
@@ -92,11 +92,11 @@ class IWMPEffects2 extends IWMPEffects{
     }
 
     /**
-     * 
-     * @param {Pointer<TimedLevel>} pData 
-     * @param {BOOL} fRequiredRender 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-renderwindowed
+     * The RenderWindowed method is called by Windows Media Player to render a windowed visualization.
+     * @param {Pointer<TimedLevel>} pData Pointer to a <b>TimedLevel</b> structure specifying rendering information.
+     * @param {BOOL} fRequiredRender <b>BOOL</b> indicating whether the visualization must paint itself.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects2-renderwindowed
      */
     RenderWindowed(pData, fRequiredRender) {
         result := ComCall(19, this, "ptr", pData, "int", fRequiredRender, "HRESULT")

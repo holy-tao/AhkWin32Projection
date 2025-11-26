@@ -265,9 +265,11 @@ class ID2D1Properties extends IUnknown{
     static VTableNames => ["GetPropertyCount", "GetPropertyName", "GetPropertyNameLength", "GetType", "GetPropertyIndex", "SetValueByName", "SetValue", "GetValueByName", "GetValue", "GetValueSize", "GetSubProperties"]
 
     /**
+     * Gets the number of top-level properties.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
+     * This method returns the number of custom (non-system) properties that can be accessed by the object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
      */
     GetPropertyCount() {
         result := ComCall(3, this, "uint")
@@ -312,10 +314,14 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
+     * Gets the index corresponding to the given property name.
+     * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} name 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertyindex
+     * The name of the property to retrieve.
+     * @returns {Integer} Type: <b>UINT32</b>
+     * 
+     * The index of the corresponding property name.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1properties-getpropertyindex
      */
     GetPropertyIndex(name) {
         name := name is String ? StrPtr(name) : name

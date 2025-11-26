@@ -32,9 +32,11 @@ class IRelationship extends IUnknown{
     static VTableNames => ["Name", "IsReal", "Destination", "MetaData", "DefaultPhrase"]
 
     /**
+     * Retrieves the name of the relationship.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-name
+     * Receives a pointer to the name of the relationship as a Unicode string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-irelationship-name
      */
     Name() {
         result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IRelationship extends IUnknown{
     }
 
     /**
+     * Reports whether a relationship is real.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-isreal
+     * Receives <b>TRUE</b> for a real relationship; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-irelationship-isreal
      */
     IsReal() {
         result := ComCall(4, this, "int*", &pIsReal := 0, "HRESULT")
@@ -52,9 +56,11 @@ class IRelationship extends IUnknown{
     }
 
     /**
+     * Retrieves the destination IEntity object of the relationship. The destination of a relationshipo corresponds to the type of a property.
+     * @returns {IEntity} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ientity">IEntity</a>**</b>
      * 
-     * @returns {IEntity} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-destination
+     * Receives the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ientity">IEntity</a> object, or <b>NULL</b> if the relationship is not real. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-irelationship-isreal">IRelationship::IsReal</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-irelationship-destination
      */
     Destination() {
         result := ComCall(5, this, "ptr*", &pDestinationEntity := 0, "HRESULT")
@@ -62,10 +68,14 @@ class IRelationship extends IUnknown{
     }
 
     /**
+     * Retrieves an enumeration of IMetaData objects for this relationship.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-metadata
+     * The desired IID of the result, either IID_IEnumUnknown or IID_IEnumVARIANT.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Receives a pointer to the enumeration of <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-imetadata">IMetaData</a> objects. There may be multiple pairs with the same key (or the same value).
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-irelationship-metadata
      */
     MetaData(riid) {
         result := ComCall(6, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
@@ -73,9 +83,11 @@ class IRelationship extends IUnknown{
     }
 
     /**
+     * Retrieves the default phrase to use for this relationship in restatements.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-defaultphrase
+     * Receives the default phrase as a Unicode string. The calling application must free the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-irelationship-defaultphrase
      */
     DefaultPhrase() {
         result := ComCall(7, this, "ptr*", &ppszPhrase := 0, "HRESULT")

@@ -32,10 +32,14 @@ class IExpDispSupportXP extends IUnknown{
     static VTableNames => ["FindCIE4ConnectionPoint", "OnTranslateAccelerator", "OnInvoke"]
 
     /**
+     * Deprecated. Gets a connection point for browser events.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {CIE4ConnectionPoint} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-findcie4connectionpoint
+     * Specifies an interface ID.
+     * @returns {CIE4ConnectionPoint} Type: <b>CIE4ConnectionPoint**</b>
+     * 
+     * Receives the address of pointer to connection point.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupportxp-findcie4connectionpoint
      */
     FindCIE4ConnectionPoint(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppccp := 0, "HRESULT")
@@ -43,11 +47,17 @@ class IExpDispSupportXP extends IUnknown{
     }
 
     /**
+     * Not implemented.
+     * @param {Pointer<MSG>} pMsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
-     * @param {Pointer<MSG>} pMsg 
-     * @param {Integer} grfModifiers 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-ontranslateaccelerator
+     * Specifies a pointer to the MSG structure describing the keystroke to be processed.
+     * @param {Integer} grfModifiers Type: <b>DWORD</b>
+     * 
+     * Specifies the flags describing the state of the Control, Alt, and Shift keys. The value of the flag can be any valid <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms683763(v=vs.85)">KEYMODIFIERS</a> enumeration values.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>E_NOTIMPL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupportxp-ontranslateaccelerator
      */
     OnTranslateAccelerator(pMsg, grfModifiers) {
         result := ComCall(4, this, "ptr", pMsg, "uint", grfModifiers, "HRESULT")
@@ -55,17 +65,35 @@ class IExpDispSupportXP extends IUnknown{
     }
 
     /**
+     * Not implemented.
+     * @param {Integer} dispidMember Type: <b>DISPID</b>
      * 
-     * @param {Integer} dispidMember 
-     * @param {Pointer<Guid>} iid 
-     * @param {Integer} lcid 
-     * @param {Integer} wFlags 
-     * @param {Pointer<DISPPARAMS>} pdispparams 
-     * @param {Pointer<VARIANT>} pVarResult 
-     * @param {Pointer<EXCEPINFO>} pexcepinfo 
-     * @param {Pointer<Integer>} puArgErr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-oninvoke
+     * Specifies a dispatch ID that identifies the member being invoked.
+     * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
+     * 
+     * Reserved. Must be IID_NULL.
+     * @param {Integer} lcid Type: <b>LCID</b>
+     * 
+     * Specifies a locale ID providing a locale context in which to interpret arguments. Applications that do not support multiple national languages can ignore this parameter.
+     * @param {Integer} wFlags Type: <b>WORD</b>
+     * 
+     * Specifies flags describing the context of the call.
+     * @param {Pointer<DISPPARAMS>} pdispparams Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-dispparams">DISPPARAMS</a>*</b>
+     * 
+     * Specifies a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-dispparams">DISPPARAMS</a> structure containing an array of arguments, an array of argument DISPIDs for named arguments, and counts for the number of elements in the arrays.
+     * @param {Pointer<VARIANT>} pVarResult Type: <b>VARIANT*</b>
+     * 
+     * Receives a pointer to the location where the result is to be stored, or <b>NULL</b> if the calling application expects no result. This argument is ignored if DISPATCH_PROPERTYPUT or DISPATCH_PROPERTYPUTREF is specified.
+     * @param {Pointer<EXCEPINFO>} pexcepinfo Type: <b>EXCEPINFO*</b>
+     * 
+     * Receives a pointer to a structure that contains exception information. This structure should be filled in if DISP_E_EXCEPTION is returned. Can be <b>NULL</b>.
+     * @param {Pointer<Integer>} puArgErr Type: <b>UINT*</b>
+     * 
+     * Receives the index within the <b>rgvarg</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-dispparams">DISPPARAMS</a> structure of the first argument that has an error.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupportxp-oninvoke
      */
     OnInvoke(dispidMember, iid, lcid, wFlags, pdispparams, pVarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"

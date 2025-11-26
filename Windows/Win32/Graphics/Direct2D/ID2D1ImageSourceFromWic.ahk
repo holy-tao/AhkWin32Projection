@@ -58,10 +58,12 @@ class ID2D1ImageSourceFromWic extends ID2D1ImageSource{
     }
 
     /**
+     * Retrieves the underlying bitmap image source from the Windows Imaging Component (WIC).
+     * @param {Pointer<IWICBitmapSource>} wicBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
-     * @param {Pointer<IWICBitmapSource>} wicBitmapSource 
+     * On return contains the bitmap image source.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-getsource
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-getsource
      */
     GetSource(wicBitmapSource) {
         ComCall(8, this, "ptr*", wicBitmapSource)

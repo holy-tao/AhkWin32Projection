@@ -63,9 +63,9 @@ class IKsJackDescription extends IUnknown{
     static VTableNames => ["GetJackCount", "GetJackDescription"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription-getjackcount
+     * The GetJackCount method gets the number of jacks required to connect to an audio endpoint device.
+     * @returns {Integer} Pointer to a <b>UINT</b> variable into which the method writes the number of jacks associated with the connector.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjackdescription-getjackcount
      */
     GetJackCount() {
         result := ComCall(3, this, "uint*", &pcJacks := 0, "HRESULT")
@@ -73,10 +73,10 @@ class IKsJackDescription extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nJack 
-     * @returns {KSJACK_DESCRIPTION} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription
+     * The GetJackDescription method gets a description of an audio jack.
+     * @param {Integer} nJack The jack index. If the connection consists of <i>n</i> jacks, the jacks are numbered from 0 to <i>n</i>– 1. To get the number of jacks, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackcount">IKsJackDescription::GetJackCount</a> method.
+     * @returns {KSJACK_DESCRIPTION} Pointer to a caller-allocated buffer into which the method writes a structure of type <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description">KSJACK_DESCRIPTION</a> that contains information about the jack. The buffer size must be at least sizeof(KSJACK_DESCRIPTION).
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjackdescription-getjackdescription
      */
     GetJackDescription(nJack) {
         pDescription := KSJACK_DESCRIPTION()

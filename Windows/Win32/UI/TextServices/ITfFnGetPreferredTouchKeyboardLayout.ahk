@@ -45,10 +45,10 @@ class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction{
     static VTableNames => ["GetLayout"]
 
     /**
-     * The GetLayout function returns the layout of a device context (DC).
-     * @param {Pointer<Integer>} pwPreferredLayoutId 
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getlayout
+     * Obtains the touch keyboard layout identifier of the layout that the IME directs the touch keyboard to show while the IME is active.
+     * @param {Pointer<Integer>} pwPreferredLayoutId Pointer to a <b>WORD</b> value that receives the layout identifier.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tkblayouttype">TKBLayoutType</a> enumeration that receives the layout type.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffngetpreferredtouchkeyboardlayout-getlayout
      */
     GetLayout(pwPreferredLayoutId) {
         pwPreferredLayoutIdMarshal := pwPreferredLayoutId is VarRef ? "ushort*" : "ptr"

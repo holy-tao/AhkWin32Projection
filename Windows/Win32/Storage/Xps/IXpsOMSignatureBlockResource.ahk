@@ -33,9 +33,9 @@ class IXpsOMSignatureBlockResource extends IXpsOMResource{
     static VTableNames => ["GetOwner", "GetStream", "SetContent"]
 
     /**
-     * 
-     * @returns {IXpsOMDocument} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresource-getowner
+     * Gets a pointer to the IXpsOMDocument interface that contains the resource.
+     * @returns {IXpsOMDocument} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface that contains the resource. If the resource is not part of a document, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresource-getowner
      */
     GetOwner() {
         result := ComCall(5, this, "ptr*", &owner := 0, "HRESULT")
@@ -43,9 +43,9 @@ class IXpsOMSignatureBlockResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresource-getstream
+     * Gets a new, read-only copy of the stream that is associated with this resource.
+     * @returns {IStream} A new, read-only copy of the stream that is associated with this resource.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresource-getstream
      */
     GetStream() {
         result := ComCall(6, this, "ptr*", &stream := 0, "HRESULT")
@@ -53,11 +53,11 @@ class IXpsOMSignatureBlockResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @param {IStream} sourceStream 
-     * @param {IOpcPartUri} partName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresource-setcontent
+     * Sets the read-only stream to be associated with this resource.
+     * @param {IStream} sourceStream The read-only stream to be associated with this resource.
+     * @param {IOpcPartUri} partName The part name to be assigned to this resource.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresource-setcontent
      */
     SetContent(sourceStream, partName) {
         result := ComCall(7, this, "ptr", sourceStream, "ptr", partName, "HRESULT")

@@ -31,9 +31,38 @@ class IDeferredCommand extends IUnknown{
     static VTableNames => ["Cancel", "Confidence", "Postpone", "GetHResult"]
 
     /**
+     * The Cancel method cancels a command that the application previously queued.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-cancel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_ALREADY_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The request was already canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-cancel
      */
     Cancel() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +70,9 @@ class IDeferredCommand extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-confidence
+     * The Confidence method retrieves a confidence value that indicates how likely it is for the command to be invoked at the requested time.
+     * @returns {Integer} Receives the confidence level, on a scale of 0 to 100.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-confidence
      */
     Confidence() {
         result := ComCall(4, this, "int*", &pConfidence := 0, "HRESULT")
@@ -51,10 +80,39 @@ class IDeferredCommand extends IUnknown{
     }
 
     /**
+     * The Postpone method specifies a new invocation time for the command.
+     * @param {Float} newtime New time at which to invoke the command.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Float} newtime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-postpone
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_TIME_ALREADY_PASSED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified time has already passed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-postpone
      */
     Postpone(newtime) {
         result := ComCall(5, this, "double", newtime, "HRESULT")
@@ -62,9 +120,9 @@ class IDeferredCommand extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-gethresult
+     * The GetHResult method retrieves the return value from the invoked command.
+     * @returns {HRESULT} Receives the <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-ideferredcommand-gethresult
      */
     GetHResult() {
         result := ComCall(6, this, "int*", &phrResult := 0, "HRESULT")

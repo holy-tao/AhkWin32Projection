@@ -37,9 +37,11 @@ class IScrollItemProvider extends IUnknown{
     static VTableNames => ["ScrollIntoView"]
 
     /**
+     * Scrolls the content area of a container object in order to display the control within the visible region (viewport) of the container.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollitemprovider-scrollintoview
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iscrollitemprovider-scrollintoview
      */
     ScrollIntoView() {
         result := ComCall(3, this, "HRESULT")

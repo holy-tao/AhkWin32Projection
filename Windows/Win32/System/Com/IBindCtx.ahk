@@ -47,10 +47,10 @@ class IBindCtx extends IUnknown{
     static VTableNames => ["RegisterObjectBound", "RevokeObjectBound", "ReleaseBoundObjects", "SetBindOptions", "GetBindOptions", "GetRunningObjectTable", "RegisterObjectParam", "GetObjectParam", "EnumObjectParam", "RevokeObjectParam"]
 
     /**
-     * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-registerobjectbound
+     * Registers an object with the bind context to ensure that the object remains active until the bind context is released.
+     * @param {IUnknown} punk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that is being registered as bound.
+     * @returns {HRESULT} This method can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-registerobjectbound
      */
     RegisterObjectBound(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")
@@ -58,10 +58,39 @@ class IBindCtx extends IUnknown{
     }
 
     /**
+     * Removes the object from the bind context, undoing a previous call to RegisterObjectBound.
+     * @param {IUnknown} punk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/iunknown-and-interface-inheritance">IUnknown</a> interface on the object to be removed.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-revokeobjectbound
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object was released successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MK_E_NOTBOUND</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object was not previously registered.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-revokeobjectbound
      */
     RevokeObjectBound(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")
@@ -69,9 +98,9 @@ class IBindCtx extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-releaseboundobjects
+     * Releases all pointers to all objects that were previously registered by calls to RegisterObjectBound.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-releaseboundobjects
      */
     ReleaseBoundObjects() {
         result := ComCall(5, this, "HRESULT")
@@ -79,10 +108,10 @@ class IBindCtx extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BIND_OPTS>} pbindopts 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-setbindoptions
+     * Sets new values for the binding parameters stored in the bind context.
+     * @param {Pointer<BIND_OPTS>} pbindopts A pointer to a [BIND_OPTS3](/windows/win32/api/objidl/ns-objidl-bind_opts3-r1) structure containing the binding parameters.
+     * @returns {HRESULT} This method can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-setbindoptions
      */
     SetBindOptions(pbindopts) {
         result := ComCall(6, this, "ptr", pbindopts, "HRESULT")
@@ -90,10 +119,10 @@ class IBindCtx extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BIND_OPTS>} pbindopts 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-getbindoptions
+     * Retrieves the binding options stored in this bind context.
+     * @param {Pointer<BIND_OPTS>} pbindopts A pointer to an initialized structure that receives the current binding parameters on return. See [BIND_OPTS3](/windows/win32/api/objidl/ns-objidl-bind_opts3-r1).
+     * @returns {HRESULT} This method can return the standard return values E_UNEXPECTED and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-getbindoptions
      */
     GetBindOptions(pbindopts) {
         result := ComCall(7, this, "ptr", pbindopts, "HRESULT")
@@ -101,9 +130,9 @@ class IBindCtx extends IUnknown{
     }
 
     /**
-     * Returns a pointer to the IRunningObjectTable interface on the local running object table (ROT).
-     * @returns {IRunningObjectTable} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-getrunningobjecttable
+     * Retrieves an interface pointer to the running object table (ROT) for the computer on which this bind context is running.
+     * @returns {IRunningObjectTable} The address of a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the running object table. If an error occurs, *<i>pprot</i> is set to <b>NULL</b>. If *<i>pprot</i> is non-<b>NULL</b>, the implementation calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the running table object; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-getrunningobjecttable
      */
     GetRunningObjectTable() {
         result := ComCall(8, this, "ptr*", &pprot := 0, "HRESULT")
@@ -111,11 +140,13 @@ class IBindCtx extends IUnknown{
     }
 
     /**
+     * Associates an object with a string key in the bind context's string-keyed table of pointers.
+     * @param {PWSTR} pszKey The <a href="https://docs.microsoft.com/windows/desktop/shell/str-constants">bind context string key</a> under which the object is being registered. Key string comparison is case-sensitive.
+     * @param {IUnknown} punk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that is to be registered.
      * 
-     * @param {PWSTR} pszKey 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-registerobjectparam
+     * The method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the pointer.
+     * @returns {HRESULT} This method can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-registerobjectparam
      */
     RegisterObjectParam(pszKey, punk) {
         pszKey := pszKey is String ? StrPtr(pszKey) : pszKey
@@ -125,10 +156,10 @@ class IBindCtx extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszKey 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-getobjectparam
+     * Retrieves an interface pointer to the object associated with the specified key in the bind context's string-keyed table of pointers.
+     * @param {PWSTR} pszKey The <a href="https://docs.microsoft.com/windows/desktop/shell/str-constants">bind context string key</a> to be searched for. Key string comparison is case-sensitive.
+     * @returns {IUnknown} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>* pointer variable that receives the interface pointer to the object associated with <i>pszKey</i>. When successful, the implementation calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on *<i>ppunk</i>. It is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the implementation sets *<i>ppunk</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-getobjectparam
      */
     GetObjectParam(pszKey) {
         pszKey := pszKey is String ? StrPtr(pszKey) : pszKey
@@ -138,9 +169,9 @@ class IBindCtx extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumString} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-enumobjectparam
+     * Retrieves a pointer to an interface that can be used to enumerate the keys of the bind context's string-keyed table of pointers.
+     * @returns {IEnumString} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a>* pointer variable that receives the interface pointer to the enumerator. If an error occurs, *<i>ppenum</i> is set to <b>NULL</b>. If *<i>ppenum</i> is non-<b>NULL</b>, the implementation calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on *<i>ppenum</i>; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-enumobjectparam
      */
     EnumObjectParam() {
         result := ComCall(11, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -148,10 +179,39 @@ class IBindCtx extends IUnknown{
     }
 
     /**
+     * Removes the specified key and its associated pointer from the bind context's string-keyed table of objects. The key must have previously been inserted into the table with a call to RegisterObjectParam.
+     * @param {PWSTR} pszKey The <a href="https://docs.microsoft.com/windows/desktop/shell/str-constants">bind context string key</a> to be removed. Key string comparison is case-sensitive.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {PWSTR} pszKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-revokeobjectparam
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified key was removed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object was not previously registered.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ibindctx-revokeobjectparam
      */
     RevokeObjectParam(pszKey) {
         pszKey := pszKey is String ? StrPtr(pszKey) : pszKey

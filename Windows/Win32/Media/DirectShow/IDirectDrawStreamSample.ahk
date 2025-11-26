@@ -31,11 +31,11 @@ class IDirectDrawStreamSample extends IStreamSample{
     static VTableNames => ["GetSurface", "SetRect"]
 
     /**
-     * 
-     * @param {Pointer<IDirectDrawSurface>} ppDirectDrawSurface 
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawstreamsample-getsurface
+     * Note  This interface is deprecated. New applications should not use it. Retrieves pointers to the current sample's DirectDraw surface and associated clipping rectangle.
+     * @param {Pointer<IDirectDrawSurface>} ppDirectDrawSurface Address of a pointer to an <b>IDirectDrawSurface</b> interface that specifies the sample's new surface. Set this parameter to <b>NULL</b> if you don't want to specify a new surface.
+     * @param {Pointer<RECT>} pRect Pointer to a <b>RECT</b> structure that will contain the current sample's clipping rectangle. Set this parameter to <b>NULL</b> if you don't want to retrieve the clipping rectangle.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawstreamsample-getsurface
      */
     GetSurface(ppDirectDrawSurface, pRect) {
         result := ComCall(8, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "HRESULT")
@@ -43,12 +43,83 @@ class IDirectDrawStreamSample extends IStreamSample{
     }
 
     /**
-     * The SetRect function sets the coordinates of the specified rectangle. This is equivalent to assigning the left, top, right, and bottom arguments to the appropriate members of the RECT structure.
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * Note  This interface is deprecated. New applications should not use it. Changes the clipping rectangle for a sample.
+     * @param {Pointer<RECT>} pRect Pointer to a <b>RECT</b> structure that specifies the stream's new clipping rectangle.
+     * @returns {HRESULT} Returns one of the following values.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setrect
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DDERR_INVALIDPIXELFORMAT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The stream isn't compatible with the pixel format.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DDERR_INVALIDRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified rectangle is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DDERR_INVALIDSURFACETYPE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The stream isn't compatible with the surface.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the pointers is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MS_E_SAMPLEALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The stream format doesn't match the surface and samples are currently allocated to the stream.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawstreamsample-setrect
      */
     SetRect(pRect) {
         result := ComCall(9, this, "ptr", pRect, "HRESULT")

@@ -32,12 +32,41 @@ class IEnumSTATPROPSTG extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Retrieves a specified number of STATPROPSTG structures, that follow subsequently in the enumeration sequence.
+     * @param {Integer} celt The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropstg">STATPROPSTG</a> structures requested.
+     * @param {Pointer<STATPROPSTG>} rgelt An array of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropstg">STATPROPSTG</a> structures returned.
+     * @param {Pointer<Integer>} pceltFetched The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropstg">STATPROPSTG</a> structures  retrieved in the <i>rgelt</i> parameter.
+     * @returns {HRESULT} This method supports the following return values.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<STATPROPSTG>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropstg-next
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The number of <a href="/windows/desktop/api/propidl/ns-propidl-statpropstg">STATPROPSTG</a> structures returned is equal to the number specified in the <i>celt</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The number of <a href="/windows/desktop/api/propidl/ns-propidl-statpropstg">STATPROPSTG</a> structures returned is less than the number specified in the <i>celt</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropstg-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +76,10 @@ class IEnumSTATPROPSTG extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropstg-skip
+     * Skips the specified number of STATPROPSTG structures in the enumeration sequence.
+     * @param {Integer} celt The number of <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropstg">STATPROPSTG</a> structures to skip.
+     * @returns {HRESULT} This method supports the following return values:
+     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropstg-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -58,9 +87,27 @@ class IEnumSTATPROPSTG extends IUnknown{
     }
 
     /**
+     * Resets the enumeration sequence to the beginning of the STATPROPSTG structure array.
+     * @returns {HRESULT} This method supports the S_OK return value.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropstg-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The enumeration sequence was successfully reset to the beginning of the enumeration.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropstg-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +115,11 @@ class IEnumSTATPROPSTG extends IUnknown{
     }
 
     /**
+     * Creates an enumerator that contains the same enumeration state as the current STATPROPSTG structure enumerator.
+     * @returns {IEnumSTATPROPSTG} A pointer to the variable that receives the  <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ienumstatpropstg">IEnumSTATPROPSTG</a> interface pointer. 
      * 
-     * @returns {IEnumSTATPROPSTG} 
-     * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropstg-clone
+     * If the method is unsuccessful, the value of the <i>ppenum</i> parameter is undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//propidlbase/nf-propidlbase-ienumstatpropstg-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

@@ -83,10 +83,11 @@ class ICertExit extends IDispatch{
     static VTableNames => ["Initialize", "Notify", "GetDescription"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {BSTR} strConfig 
+     * Called by the server engine when it initializes itself.
+     * @param {BSTR} strConfig Represents the name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig2">ICertConfig2</a>.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://docs.microsoft.com/windows/win32/api//certexit/nf-certexit-icertexit-initialize
      */
     Initialize(strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -96,11 +97,93 @@ class ICertExit extends IDispatch{
     }
 
     /**
+     * Called by the server engine to notify an exit module that an event has occurred.
+     * @param {Integer} ExitEvent A mask that indicates the kind of exit event that has occurred. The mask can have one of the following flag-bits set.
      * 
-     * @param {Integer} ExitEvent 
-     * @param {Integer} Context 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit-notify
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_CERTISSUED"></a><a id="exitevent_certissued"></a><dl>
+     * <dt><b>EXITEVENT_CERTISSUED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Certificate issued.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_CERTPENDING"></a><a id="exitevent_certpending"></a><dl>
+     * <dt><b>EXITEVENT_CERTPENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Certificate pending.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_CERTDENIED"></a><a id="exitevent_certdenied"></a><dl>
+     * <dt><b>EXITEVENT_CERTDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Certificate denied.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_CERTREVOKED"></a><a id="exitevent_certrevoked"></a><dl>
+     * <dt><b>EXITEVENT_CERTREVOKED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Certificate revoked.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_CERTRETRIEVEPENDING"></a><a id="exitevent_certretrievepending"></a><dl>
+     * <dt><b>EXITEVENT_CERTRETRIEVEPENDING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Successful call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-retrievepending">ICertRequest::RetrievePending</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_CRLISSUED"></a><a id="exitevent_crlissued"></a><dl>
+     * <dt><b>EXITEVENT_CRLISSUED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Certificate revocation list</a> (CRL) issued.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EXITEVENT_SHUTDOWN"></a><a id="exitevent_shutdown"></a><dl>
+     * <dt><b>EXITEVENT_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Certificate Services shutdown.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Integer} Context Specifies a context handle that can be used to get properties associated with the event from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nn-certif-icertserverexit">ICertServerExit</a> interface.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certexit/nf-certexit-icertexit-notify
      */
     Notify(ExitEvent, Context) {
         result := ComCall(8, this, "int", ExitEvent, "int", Context, "HRESULT")
@@ -108,9 +191,9 @@ class ICertExit extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit-getdescription
+     * Returns a human-readable description of the exit module and its function.
+     * @returns {BSTR} A pointer to the <b>BSTR</b> that describes the exit module.
+     * @see https://docs.microsoft.com/windows/win32/api//certexit/nf-certexit-icertexit-getdescription
      */
     GetDescription() {
         pstrDescription := BSTR()

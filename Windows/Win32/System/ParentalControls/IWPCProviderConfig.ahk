@@ -32,10 +32,10 @@ class IWPCProviderConfig extends IUnknown{
     static VTableNames => ["GetUserSummary", "Configure", "RequestOverride"]
 
     /**
-     * 
-     * @param {BSTR} bstrSID 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
+     * Retrieves the information for each user by using the Parental Controls Control Panel.
+     * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user whose settings you want to obtain.
+     * @returns {BSTR} A pointer to a string that contains the summary details for the user specified in the <i>bstrSID</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
      */
     GetUserSummary(bstrSID) {
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
@@ -46,11 +46,31 @@ class IWPCProviderConfig extends IUnknown{
     }
 
     /**
+     * Called for the current provider when you click a user tile in the Parental Controls Control Panel. This method allows for changes to the configuration.
+     * @param {HWND} hWnd A handle to the parent window.
+     * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user to configure.
+     * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
-     * @param {HWND} hWnd 
-     * @param {BSTR} bstrSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-configure
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Allows the provider to not handle the configuration user interface and instead to rely on the in-box Parental Controls configuration user interface.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-configure
      */
     Configure(hWnd, bstrSID) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -61,12 +81,14 @@ class IWPCProviderConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hWnd 
-     * @param {BSTR} bstrPath 
+     * Called for the current provider to enable configuration override.
+     * @param {HWND} hWnd A handle to the parent window.
+     * @param {BSTR} bstrPath Pointer to a string that contains the path.
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
+     * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
      */
     RequestOverride(hWnd, bstrPath, dwFlags) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd

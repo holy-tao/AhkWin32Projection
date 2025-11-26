@@ -32,12 +32,12 @@ class IPortableDeviceContent2 extends IPortableDeviceContent{
     static VTableNames => ["UpdateObjectWithPropertiesAndData"]
 
     /**
-     * 
-     * @param {PWSTR} pszObjectID 
-     * @param {IPortableDeviceValues} pProperties 
-     * @param {Pointer<Integer>} pdwOptimalWriteBufferSize 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent2-updateobjectwithpropertiesanddata
+     * Updates an object by using properties and data found on the device.
+     * @param {PWSTR} pszObjectID The identifier of the object to update.
+     * @param {IPortableDeviceValues} pProperties The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that specifies the object properties to be updated.
+     * @param {Pointer<Integer>} pdwOptimalWriteBufferSize The optimal buffer size for writing the object data to <i>ppData</i>, or <b>NULL</b> if the buffer size is ignored.
+     * @returns {IStream} The <b>IStream</b> interface through which the object data is sent to the device.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent2-updateobjectwithpropertiesanddata
      */
     UpdateObjectWithPropertiesAndData(pszObjectID, pProperties, pdwOptimalWriteBufferSize) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID

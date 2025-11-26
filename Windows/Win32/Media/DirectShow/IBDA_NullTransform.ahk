@@ -36,9 +36,9 @@ class IBDA_NullTransform extends IUnknown{
     static VTableNames => ["Start", "Stop"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_nulltransform-start
+     * The Start method restarts the transforms on data flowing through the control node.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_nulltransform-start
      */
     Start() {
         result := ComCall(3, this, "HRESULT")
@@ -46,9 +46,9 @@ class IBDA_NullTransform extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_nulltransform-stop
+     * The Stop method stops the transforms on data flowing through the control node.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_nulltransform-stop
      */
     Stop() {
         result := ComCall(4, this, "HRESULT")

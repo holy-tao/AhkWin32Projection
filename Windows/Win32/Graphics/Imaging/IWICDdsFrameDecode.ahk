@@ -36,11 +36,17 @@ class IWICDdsFrameDecode extends IUnknown{
     static VTableNames => ["GetSizeInBlocks", "GetFormatInfo", "CopyBlocks"]
 
     /**
+     * Gets the width and height, in blocks, of the DDS image.
+     * @param {Pointer<Integer>} pWidthInBlocks Type: <b>UINT*</b>
      * 
-     * @param {Pointer<Integer>} pWidthInBlocks 
-     * @param {Pointer<Integer>} pHeightInBlocks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-getsizeinblocks
+     * The width of the DDS image in blocks.
+     * @param {Pointer<Integer>} pHeightInBlocks Type: <b>UINT*</b>
+     * 
+     * The height of the DDS image in blocks.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsframedecode-getsizeinblocks
      */
     GetSizeInBlocks(pWidthInBlocks, pHeightInBlocks) {
         pWidthInBlocksMarshal := pWidthInBlocks is VarRef ? "uint*" : "ptr"
@@ -51,9 +57,11 @@ class IWICDdsFrameDecode extends IUnknown{
     }
 
     /**
+     * Gets information about the format in which the DDS image is stored.
+     * @returns {WICDdsFormatInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicddsformatinfo">WICDdsFormatInfo</a>*</b>
      * 
-     * @returns {WICDdsFormatInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-getformatinfo
+     * Information about the DDS format.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsframedecode-getformatinfo
      */
     GetFormatInfo() {
         pFormatInfo := WICDdsFormatInfo()
@@ -62,12 +70,22 @@ class IWICDdsFrameDecode extends IUnknown{
     }
 
     /**
+     * Requests pixel data as it is natively stored within the DDS file.
+     * @param {Pointer<WICRect>} prcBoundsInBlocks Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrect">WICRect</a>*</b>
      * 
-     * @param {Pointer<WICRect>} prcBoundsInBlocks 
-     * @param {Integer} cbStride 
-     * @param {Integer} cbBufferSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-copyblocks
+     * The rectangle to copy from the source. A NULL value specifies the entire texture.
+     * 
+     * If the texture uses a block-compressed <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>, all values of the rectangle are expressed in number of blocks, not pixels.
+     * @param {Integer} cbStride Type: <b>UINT</b>
+     * 
+     * The stride, in bytes, of the destination buffer. This represents the number of bytes from the buffer pointer to the next row of data. If the texture uses a block-compressed <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>, a "row of data" is defined as a row of blocks which contains multiple pixel scanlines.
+     * @param {Integer} cbBufferSize Type: <b>UINT</b>
+     * 
+     * The size, in bytes, of the destination buffer.
+     * @returns {Integer} Type: <b>BYTE*</b>
+     * 
+     * A pointer to the destination buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicddsframedecode-copyblocks
      */
     CopyBlocks(prcBoundsInBlocks, cbStride, cbBufferSize) {
         result := ComCall(5, this, "ptr", prcBoundsInBlocks, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")

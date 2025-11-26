@@ -42,9 +42,40 @@ class IOpcCertificateEnumerator extends IUnknown{
     static VTableNames => ["MoveNext", "MovePrevious", "GetCurrent", "Clone"]
 
     /**
+     * Moves the current position of the enumerator to the next CERT_CONTEXT structure.
+     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure at the current position.
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-movenext
+     * The value of <i>hasNext</i> is only valid when the method succeeds.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>TRUE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been advanced to the next pointer and that pointer is valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been advanced past the end of the collection and is no longer valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-movenext
      */
     MoveNext() {
         result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
@@ -52,9 +83,40 @@ class IOpcCertificateEnumerator extends IUnknown{
     }
 
     /**
+     * Moves the current position of the enumerator to the previous CERT_CONTEXT structure.
+     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure at the current position.
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-moveprevious
+     * The value of <i>hasPrevious</i> is only valid when the method succeeds.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>TRUE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been moved to the previous pointer in the collection, and that pointer is valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>FALSE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current position of the enumerator has been moved past the beginning of the collection and is no longer valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-moveprevious
      */
     MovePrevious() {
         result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
@@ -62,9 +124,10 @@ class IOpcCertificateEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<CERT_CONTEXT>} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-getcurrent
+     * Gets the CERT_CONTEXT structure at the current position of the enumerator.
+     * @returns {Pointer<CERT_CONTEXT>} A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure.
+     *             If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function to free the memory of the structure.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(5, this, "ptr*", &certificate := 0, "HRESULT")
@@ -72,9 +135,9 @@ class IOpcCertificateEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcCertificateEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-clone
+     * Creates a copy of the current IOpcCertificateEnumerator interface pointer and all its descendants.
+     * @returns {IOpcCertificateEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopccertificateenumerator">IOpcCertificateEnumerator</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")

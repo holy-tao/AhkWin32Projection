@@ -37,22 +37,12 @@ class IAppDomainHelper extends IDispatch{
     static VTableNames => ["Initialize", "DoCallback"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IUnknown} pUnkAD 
-     * @param {Pointer} __MIDL__IAppDomainHelper0000 
-     * @param {Pointer<Void>} pPool 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Binds the calling object to the current application domain and provides a callback function for shutdown that is executed when the application domain is unloaded.
+     * @param {IUnknown} pUnkAD Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the current application domain.
+     * @param {Pointer} __MIDL__IAppDomainHelper0000 Reference to the shutdown function that is executed when the application domain is unloaded. The parameter of this function, <i>pv</i>, comes from the <i>pPool</i> parameter, which is defined next.
+     * @param {Pointer<Void>} pPool This parameter is used to provide any data that the shutdown function might need.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iappdomainhelper-initialize
      */
     Initialize(pUnkAD, __MIDL__IAppDomainHelper0000, pPool) {
         pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
@@ -62,12 +52,12 @@ class IAppDomainHelper extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IUnknown} pUnkAD 
-     * @param {Pointer} __MIDL__IAppDomainHelper0001 
-     * @param {Pointer<Void>} pPool 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iappdomainhelper-docallback
+     * Switches into a given application domain (which the calling object must be bound to), executes the supplied callback function in that application domain, and then returns to the original application domain.
+     * @param {IUnknown} pUnkAD Reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the application domain that you want to switch to. The object calling <b>DoCallback</b> must be bound to that application domain.
+     * @param {Pointer} __MIDL__IAppDomainHelper0001 Reference to the callback function. This function is executed in the application domain that you switched to. The parameter of this function, <i>pv</i>, comes from the <i>pPool</i> parameter, which is defined next.
+     * @param {Pointer<Void>} pPool This parameter is used to provide any data that the callback function might need.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iappdomainhelper-docallback
      */
     DoCallback(pUnkAD, __MIDL__IAppDomainHelper0001, pPool) {
         pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"

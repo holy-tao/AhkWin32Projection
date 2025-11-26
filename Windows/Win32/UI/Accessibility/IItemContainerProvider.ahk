@@ -40,12 +40,20 @@ class IItemContainerProvider extends IUnknown{
     static VTableNames => ["FindItemByProperty"]
 
     /**
+     * Retrieves an element within a containing element, based on a specified property value.
+     * @param {IRawElementProviderSimple} pStartAfter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
-     * @param {IRawElementProviderSimple} pStartAfter 
-     * @param {Integer} propertyId 
-     * @param {VARIANT} value 
-     * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iitemcontainerprovider-finditembyproperty
+     * The UI Automation provider of the element after which the search begins, or <b>NULL</b> to search all elements.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * 
+     * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a></b>
+     * 
+     * The value of the property.
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * 
+     * Receives a pointer to the UI Automation provider of the element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iitemcontainerprovider-finditembyproperty
      */
     FindItemByProperty(pStartAfter, propertyId, value) {
         result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "HRESULT")

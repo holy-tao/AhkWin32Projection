@@ -47,9 +47,9 @@ class IInkRecognizer2 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer2-get_id
+     * Retrieves the ID for the InkRecognizer.
+     * @returns {BSTR} A BSTR containing the ID of the recognizer.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizer2-get_id
      */
     get_Id() {
         pbstrId := BSTR()
@@ -58,9 +58,9 @@ class IInkRecognizer2 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer2-get_unicoderanges
+     * Retrieves the Unicode ranges set for the current recognizer.
+     * @returns {VARIANT} A VARIANT array containing the Unicode ranges being used by the recognizer. An array (VT_ARRAY) of long integers (VT_ARRAY|VT_UI4). The array consists of alternating pairs for each range. For each pair in the array, the first value specifies the low Unicode code point in the range of supported Unicode points, and the second value specifies the number of Unicode points in the range.
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizer2-get_unicoderanges
      */
     get_UnicodeRanges() {
         UnicodeRanges := VARIANT()

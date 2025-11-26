@@ -32,10 +32,14 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     static VTableNames => ["SetOutputPixelFormat", "GetOutputPixelFormat", "SetUseSoftwareRenderer", "SetInitialTransform", "GetFinalTransform", "SetOutputDPI", "GetOutputDPI", "SetRegionOfInterest"]
 
     /**
+     * Sets the output pixel format.
+     * @param {Pointer<Guid>} format Type: <b>REFWICPixelFormatGUID</b>
      * 
-     * @param {Pointer<Guid>} format 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-setoutputpixelformat
+     * The GUID of the output pixel format.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-setoutputpixelformat
      */
     SetOutputPixelFormat(format) {
         result := ComCall(3, this, "ptr", format, "HRESULT")
@@ -43,9 +47,11 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Gets the output pixel format GUID.
+     * @returns {Guid} Type: <b>WICPixelFormatGUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputpixelformat
+     * The output pixel format GUID
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputpixelformat
      */
     GetOutputPixelFormat() {
         pFormat := Guid()
@@ -54,10 +60,14 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Sets a value to indicate whether to use software rendering.
+     * @param {VARIANT_BOOL} fSoftware Type: <b>VARIANT_BOOL</b>
      * 
-     * @param {VARIANT_BOOL} fSoftware 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-setusesoftwarerenderer
+     * A value indicating whether to use software rendering.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-setusesoftwarerenderer
      */
     SetUseSoftwareRenderer(fSoftware) {
         result := ComCall(5, this, "short", fSoftware, "HRESULT")
@@ -65,10 +75,14 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Gets the initial MILMatrixF transform.
+     * @param {Pointer<MILMatrixF>} pMatrix Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milmatrixf">MILMatrixF</a>*</b>
      * 
-     * @param {Pointer<MILMatrixF>} pMatrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-setinitialtransform
+     * The initial transform.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-setinitialtransform
      */
     SetInitialTransform(pMatrix) {
         result := ComCall(6, this, "ptr", pMatrix, "HRESULT")
@@ -76,9 +90,11 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Gets the final MILMatrixF transform.
+     * @returns {MILMatrixF} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milmatrixf">MILMatrixF</a>*</b>
      * 
-     * @returns {MILMatrixF} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getfinaltransform
+     * The final transform.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-getfinaltransform
      */
     GetFinalTransform() {
         pMatrix := MILMatrixF()
@@ -87,11 +103,17 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Sets the output dots per inch (dpi).
+     * @param {Float} dblDpiX Type: <b>double</b>
      * 
-     * @param {Float} dblDpiX 
-     * @param {Float} dblDpiY 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-setoutputdpi
+     * The horizontal resolution.
+     * @param {Float} dblDpiY Type: <b>double</b>
+     * 
+     * The vertical resolution.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-setoutputdpi
      */
     SetOutputDPI(dblDpiX, dblDpiY) {
         result := ComCall(8, this, "double", dblDpiX, "double", dblDpiY, "HRESULT")
@@ -99,11 +121,17 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Gets the output dots per inch (dpi).
+     * @param {Pointer<Float>} pdblDpiX Type: <b>double*</b>
      * 
-     * @param {Pointer<Float>} pdblDpiX 
-     * @param {Pointer<Float>} pdblDpiY 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputdpi
+     * A pointer that receives the horizontal resolution.
+     * @param {Pointer<Float>} pdblDpiY Type: <b>double*</b>
+     * 
+     * A pointer that receives the vertical resolution.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputdpi
      */
     GetOutputDPI(pdblDpiX, pdblDpiY) {
         pdblDpiXMarshal := pdblDpiX is VarRef ? "double*" : "ptr"
@@ -114,10 +142,14 @@ class IMILBitmapEffectRenderContext extends IUnknown{
     }
 
     /**
+     * Sets the region of interest for the effect.
+     * @param {Pointer<MilRectD>} pRect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milrectd">MIL_RECTD</a>*</b>
      * 
-     * @param {Pointer<MilRectD>} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-setregionofinterest
+     * The region of interest.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectrendercontext-setregionofinterest
      */
     SetRegionOfInterest(pRect) {
         result := ComCall(10, this, "ptr", pRect, "HRESULT")

@@ -38,10 +38,14 @@ class IEnumerableView extends IUnknown{
     static VTableNames => ["SetEnumReadyCallback", "CreateEnumIDListFromContents"]
 
     /**
+     * Sets a callback on the view that is notified when the initial view enumeration is complete.
+     * @param {IEnumReadyCallback} percb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ienumreadycallback">IEnumReadyCallback</a>*</b>
      * 
-     * @param {IEnumReadyCallback} percb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ienumerableview-setenumreadycallback
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ienumreadycallback">IEnumReadyCallback</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns a success value if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ienumerableview-setenumreadycallback
      */
     SetEnumReadyCallback(percb) {
         result := ComCall(3, this, "ptr", percb, "HRESULT")
@@ -49,11 +53,17 @@ class IEnumerableView extends IUnknown{
     }
 
     /**
+     * Creates an enumerator of ID lists from the contents of the view.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @param {Integer} dwEnumFlags 
-     * @returns {IEnumIDList} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ienumerableview-createenumidlistfromcontents
+     * A PIDL that is relative to the Desktop.
+     * @param {Integer} dwEnumFlags Type: <b>DWORD</b>
+     * 
+     * Specifies enumeration flags. See the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf">SHCONTF</a> enumerated type.
+     * @returns {IEnumIDList} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumidlist">IEnumIDList</a>**</b>
+     * 
+     * When this method returns, contains an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumidlist">IEnumIDList</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ienumerableview-createenumidlistfromcontents
      */
     CreateEnumIDListFromContents(pidlFolder, dwEnumFlags) {
         result := ComCall(4, this, "ptr", pidlFolder, "uint", dwEnumFlags, "ptr*", &ppEnumIDList := 0, "HRESULT")

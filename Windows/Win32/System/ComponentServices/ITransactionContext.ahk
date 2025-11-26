@@ -54,10 +54,10 @@ class ITransactionContext extends IDispatch{
     static VTableNames => ["CreateInstance", "Commit", "Abort"]
 
     /**
-     * 
-     * @param {BSTR} pszProgId 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontext-createinstance
+     * Creates a COM object that can execute within the scope of the transaction that was initiated by the transaction context object.
+     * @param {BSTR} pszProgId A reference to the ProgID of the type of object to be instantiated.
+     * @returns {VARIANT} A reference to the new object.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactioncontext-createinstance
      */
     CreateInstance(pszProgId) {
         pszProgId := pszProgId is String ? BSTR.Alloc(pszProgId).Value : pszProgId
@@ -68,9 +68,49 @@ class ITransactionContext extends IDispatch{
     }
 
     /**
+     * Attempts to commit the work of all COM objects participating in the current transaction. The transaction ends on return from this method.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontext-commit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transaction was committed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/windows/desktop/cossdk/transactioncontext">TransactionContext</a> object is not running under a COM+ process, possibly indicating a corrupted registry entry for the <b>TransactionContext</b> component.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_ABORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transaction was aborted.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactioncontext-commit
      */
     Commit() {
         result := ComCall(8, this, "HRESULT")
@@ -78,9 +118,39 @@ class ITransactionContext extends IDispatch{
     }
 
     /**
+     * Aborts the work of all COM objects participating in the current transaction. The transaction ends on return from this method.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontext-abort
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transaction was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/windows/desktop/cossdk/transactioncontext">TransactionContext</a> object is not running under a COM+ process, possibly indicating a corrupted registry entry for the <b>TransactionContext</b> component.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactioncontext-abort
      */
     Abort() {
         result := ComCall(9, this, "HRESULT")

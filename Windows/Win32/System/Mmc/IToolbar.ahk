@@ -31,14 +31,17 @@ class IToolbar extends IUnknown{
     static VTableNames => ["AddBitmap", "AddButtons", "InsertButton", "DeleteButton", "GetButtonState", "SetButtonState"]
 
     /**
+     * Enables a snap-in to add an image to the toolbar.
+     * @param {Integer} nImages An index of images that are available. A value that specifies the number of images in the bitmap being passed in hbmp.
+     * @param {HBITMAP} hbmp A handle to the bitmap to be added to the toolbar.
      * 
-     * @param {Integer} nImages 
-     * @param {HBITMAP} hbmp 
-     * @param {Integer} cxSize 
-     * @param {Integer} cySize 
-     * @param {COLORREF} crMask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-addbitmap
+     * <div class="alert"><b>Note</b>  The snap-in owns this resource and must free it. A memory leak will occur if the snap-in does not free hbmp.</div>
+     * <div> </div>
+     * @param {Integer} cxSize The height, in pixels, of the bitmap to be added. (In version 1.0, MMC only supported a cxSize of 16.)
+     * @param {Integer} cySize The width, in pixels, of the bitmap to be added. (In version 1.0, MMC only supported a cySize of 16.)
+     * @param {COLORREF} crMask The color used to generate a mask to overlay the images on the toolbar buttons.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-itoolbar-addbitmap
      */
     AddBitmap(nImages, hbmp, cxSize, cySize, crMask) {
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
@@ -48,11 +51,12 @@ class IToolbar extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nButtons 
-     * @param {Pointer<MMCBUTTON>} lpButtons 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-addbuttons
+     * Enables a snap-in to add an array of buttons to the toolbar.
+     * @param {Integer} nButtons The number of buttons in the array.
+     * @param {Pointer<MMCBUTTON>} lpButtons A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmcbutton">MMCBUTTON</a> structure that contains information necessary for creating a button on the toolbar.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-itoolbar-addbuttons
      */
     AddButtons(nButtons, lpButtons) {
         result := ComCall(4, this, "int", nButtons, "ptr", lpButtons, "HRESULT")
@@ -60,11 +64,13 @@ class IToolbar extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nIndex 
-     * @param {Pointer<MMCBUTTON>} lpButton 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-insertbutton
+     * Enables a snap-in to add a single button to the toolbar.
+     * @param {Integer} nIndex An internal index at which the button will be inserted. The button is always placed at the end of the toolbar; the internal index is required if the button is to be deleted (by means of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-itoolbar-deletebutton">IToolbar::DeleteButton</a>).
+     * @param {Pointer<MMCBUTTON>} lpButton A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmcbutton">MMCBUTTON</a> structure that defines the button to be inserted.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-itoolbar-insertbutton
      */
     InsertButton(nIndex, lpButton) {
         result := ComCall(5, this, "int", nIndex, "ptr", lpButton, "HRESULT")
@@ -72,10 +78,10 @@ class IToolbar extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-deletebutton
+     * Enables a snap-in to remove a specified toolbar button.
+     * @param {Integer} nIndex An index of the button to be removed from the toolbar.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-itoolbar-deletebutton
      */
     DeleteButton(nIndex) {
         result := ComCall(6, this, "int", nIndex, "HRESULT")
@@ -83,11 +89,11 @@ class IToolbar extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} idCommand 
-     * @param {Integer} nState 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-getbuttonstate
+     * Enables a snap-in to obtain an attribute of a button.
+     * @param {Integer} idCommand The command identifier of the toolbar button.
+     * @param {Integer} nState A value that identifies the possible states of the button. Can be one of the following:
+     * @returns {BOOL} A pointer to the state information that is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-itoolbar-getbuttonstate
      */
     GetButtonState(idCommand, nState) {
         result := ComCall(7, this, "int", idCommand, "int", nState, "int*", &pState := 0, "HRESULT")
@@ -95,12 +101,15 @@ class IToolbar extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} idCommand 
-     * @param {Integer} nState 
-     * @param {BOOL} bState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-setbuttonstate
+     * Enables a snap-in to set an attribute of a button.
+     * @param {Integer} idCommand A unique value that the snap-in has associated with a button using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-itoolbar-insertbutton">InsertButton</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-itoolbar-addbuttons">AddButtons</a> method using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmcbutton">MMCBUTTON</a> structure.
+     * @param {Integer} nState A value that specifies the state to be set for the button. Can be any one of the following:
+     * @param {BOOL} bState A value that specifies whether the state identified in nState is set to <b>TRUE</b> or <b>FALSE</b>. <b>TRUE</b> sets the button state to the state identified by nState and <b>FALSE</b> clears the state (if it is already set).
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-itoolbar-setbuttonstate
      */
     SetButtonState(idCommand, nState, bState) {
         result := ComCall(8, this, "int", idCommand, "int", nState, "int", bState, "HRESULT")

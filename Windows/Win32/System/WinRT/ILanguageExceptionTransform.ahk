@@ -32,9 +32,9 @@ class ILanguageExceptionTransform extends IUnknown{
     static VTableNames => ["GetTransformedRestrictedErrorInfo"]
 
     /**
-     * 
-     * @returns {IRestrictedErrorInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptiontransform-gettransformedrestrictederrorinfo
+     * Retrieves the transformed restricted error info.
+     * @returns {IRestrictedErrorInfo} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object that contains the restricted error info.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptiontransform-gettransformedrestrictederrorinfo
      */
     GetTransformedRestrictedErrorInfo() {
         result := ComCall(3, this, "ptr*", &restrictedErrorInfo := 0, "HRESULT")

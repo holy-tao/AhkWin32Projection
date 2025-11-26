@@ -46,9 +46,11 @@ class IWICFastMetadataEncoder extends IUnknown{
     static VTableNames => ["Commit", "GetMetadataQueryWriter"]
 
     /**
+     * Finalizes metadata changes to the image stream.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicfastmetadataencoder-commit
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicfastmetadataencoder-commit
      */
     Commit() {
         result := ComCall(3, this, "HRESULT")
@@ -56,9 +58,11 @@ class IWICFastMetadataEncoder extends IUnknown{
     }
 
     /**
+     * Retrieves a metadata query writer for fast metadata encoding.
+     * @returns {IWICMetadataQueryWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>**</b>
      * 
-     * @returns {IWICMetadataQueryWriter} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicfastmetadataencoder-getmetadataquerywriter
+     * When this method returns, contains a pointer to the fast metadata encoder's metadata query writer.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicfastmetadataencoder-getmetadataquerywriter
      */
     GetMetadataQueryWriter() {
         result := ComCall(4, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")

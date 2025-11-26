@@ -38,9 +38,11 @@ class IAppxManifestReader2 extends IAppxManifestReader{
     static VTableNames => ["GetQualifiedResources"]
 
     /**
+     * Gets an enumerator that iterates through the qualified resources that are defined in the manifest.
+     * @returns {IAppxManifestQualifiedResourcesEnumerator} Type: <b><a href="https://docs.microsoft.com/previous-versions/dn280306(v=vs.85)">IAppxManifestQualifiedResourcesEnumerator</a>**</b>
      * 
-     * @returns {IAppxManifestQualifiedResourcesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader2-getqualifiedresources
+     * The enumerator that iterates through the qualified resources.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader2-getqualifiedresources
      */
     GetQualifiedResources() {
         result := ComCall(12, this, "ptr*", &resources := 0, "HRESULT")

@@ -37,12 +37,30 @@ class IVMRSurfaceAllocator9 extends IUnknown{
     static VTableNames => ["InitializeDevice", "TerminateDevice", "GetSurface", "AdviseNotify"]
 
     /**
+     * The InitializeDevice method is called by the Video Mixing Renderer 9 (VMR-9) when it needs the allocator-presenter to allocate surfaces.
+     * @param {Pointer} dwUserID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter.
+     * @param {Pointer<VMR9AllocationInfo>} lpAllocInfo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9allocationinfo">VMR9AllocationInfo</a> structure that contains a description of the surfaces to create.
+     * @param {Pointer<Integer>} lpNumBuffers On input, specifies the number of surfaces to create. When the method returns, this parameter contains the number of buffers that were actually allocated.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer} dwUserID 
-     * @param {Pointer<VMR9AllocationInfo>} lpAllocInfo 
-     * @param {Pointer<Integer>} lpNumBuffers 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-initializedevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-initializedevice
      */
     InitializeDevice(dwUserID, lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
@@ -52,10 +70,28 @@ class IVMRSurfaceAllocator9 extends IUnknown{
     }
 
     /**
+     * The TerminateDevice method releases the Direct3D device.
+     * @param {Pointer} dwID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer} dwID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-terminatedevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-terminatedevice
      */
     TerminateDevice(dwID) {
         result := ComCall(4, this, "ptr", dwID, "HRESULT")
@@ -63,12 +99,12 @@ class IVMRSurfaceAllocator9 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} dwUserID 
-     * @param {Integer} SurfaceIndex 
-     * @param {Integer} SurfaceFlags 
-     * @returns {IDirect3DSurface9} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-getsurface
+     * The GetSurface method gets a Direct3D surface from the allocator-presenter.
+     * @param {Pointer} dwUserID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter.
+     * @param {Integer} SurfaceIndex Specifies the index of the surface to retrieve.
+     * @param {Integer} SurfaceFlags Reserved.
+     * @returns {IDirect3DSurface9} Receives a pointer to the <b>IDirect3DSurface9</b> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-getsurface
      */
     GetSurface(dwUserID, SurfaceIndex, SurfaceFlags) {
         result := ComCall(5, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", &lplpSurface := 0, "HRESULT")
@@ -76,10 +112,28 @@ class IVMRSurfaceAllocator9 extends IUnknown{
     }
 
     /**
+     * The AdviseNotify method provides the allocator-presenter with the VMR-9 filter's interface for notification callbacks.
+     * @param {IVMRSurfaceAllocatorNotify9} lpIVMRSurfAllocNotify Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/nn-vmr9-ivmrsurfaceallocatornotify9">IVMRSurfaceAllocatorNotify9</a> interface that the allocator-presenter will use to pass notifications back to the VMR.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {IVMRSurfaceAllocatorNotify9} lpIVMRSurfAllocNotify 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-advisenotify
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-advisenotify
      */
     AdviseNotify(lpIVMRSurfAllocNotify) {
         result := ComCall(6, this, "ptr", lpIVMRSurfAllocNotify, "HRESULT")

@@ -36,9 +36,9 @@ class IXpsOMNameCollection extends IUnknown{
     static VTableNames => ["GetCount", "GetAt"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getcount
+     * Gets the number of name strings in the collection.
+     * @returns {Integer} The number of name strings in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -46,10 +46,10 @@ class IXpsOMNameCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getat
+     * Gets the name string that is stored at a specified location in the collection.
+     * @param {Integer} index The zero-based index of the collection that contains the name string to be obtained.
+     * @returns {PWSTR} The name string at the location specified by <i>index</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomnamecollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &name := 0, "HRESULT")

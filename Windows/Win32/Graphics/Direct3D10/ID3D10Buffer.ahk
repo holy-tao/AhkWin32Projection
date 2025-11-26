@@ -40,11 +40,17 @@ class ID3D10Buffer extends ID3D10Resource{
     static VTableNames => ["Map", "Unmap", "GetDesc"]
 
     /**
+     * Get a pointer to the data contained in the resource and deny GPU access to the resource.
+     * @param {Integer} MapType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP</a></b>
      * 
-     * @param {Integer} MapType 
-     * @param {Integer} MapFlags 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10buffer-map
+     * Flag that specifies the CPU's permissions for the reading and writing of a resource. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP</a>.
+     * @param {Integer} MapFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Flag that specifies what the CPU should do when the GPU is busy (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map_flag">D3D10_MAP_FLAG</a>). This flag is optional.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Pointer to the buffer resource data.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10buffer-map
      */
     Map(MapType, MapFlags) {
         result := ComCall(10, this, "int", MapType, "uint", MapFlags, "ptr*", &ppData := 0, "HRESULT")
@@ -52,19 +58,35 @@ class ID3D10Buffer extends ID3D10Resource{
     }
 
     /**
+     * Invalidate the pointer to the resource retrieved by ID3D10Buffer::Map and reenable GPU access to the resource.
+     * @remarks
+     * 
+     * <table>
+     * <tr>
+     * <td>
+     * Differences between Direct3D 9 and Direct3D 10:
+     * 
+     * Unmap() in Direct3D 10 is analogous to resource Unlock() in Direct3D 9.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10buffer-unmap
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10buffer-unmap
      */
     Unmap() {
         ComCall(11, this)
     }
 
     /**
+     * Get the properties of a buffer resource.
+     * @param {Pointer<D3D10_BUFFER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_buffer_desc">D3D10_BUFFER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D10_BUFFER_DESC>} pDesc 
+     * Pointer to a resource description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_buffer_desc">D3D10_BUFFER_DESC</a>) filled in by the method. This pointer cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10buffer-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10buffer-getdesc
      */
     GetDesc(pDesc) {
         ComCall(12, this, "ptr", pDesc)

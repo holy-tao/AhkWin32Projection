@@ -32,9 +32,9 @@ class ITfCompositionView extends IUnknown{
     static VTableNames => ["GetOwnerClsid", "GetRange"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionview-getownerclsid
+     * ITfCompositionView::GetOwnerClsid method
+     * @returns {Guid} Pointer to a CLSID that receives the class identifier of the text service that owns the composition.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompositionview-getownerclsid
      */
     GetOwnerClsid() {
         pclsid := Guid()
@@ -43,9 +43,9 @@ class ITfCompositionView extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITfRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionview-getrange
+     * ITfCompositionView::GetRange method
+     * @returns {ITfRange} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcomposition">ITfRange</a> interface pointer that receives the range object. It is possible that the range will have zero length.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompositionview-getrange
      */
     GetRange() {
         result := ComCall(4, this, "ptr*", &ppRange := 0, "HRESULT")

@@ -38,9 +38,9 @@ class IUpdate3 extends IUpdate2{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether an update can be discovered only by browsing through the available updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate3-get_browseonly
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdate3-get_browseonly
      */
     get_BrowseOnly() {
         result := ComCall(56, this, "short*", &retval := 0, "HRESULT")

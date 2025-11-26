@@ -31,10 +31,14 @@ class ITokenCollection extends IUnknown{
     static VTableNames => ["NumberOfTokens", "GetToken"]
 
     /**
+     * Retrieves the number of tokens in the collection.
+     * @param {Pointer<Integer>} pCount Type: <b>ULONG*</b>
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-itokencollection-numberoftokens
+     * Receives the number of tokens within the collection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-itokencollection-numberoftokens
      */
     NumberOfTokens(pCount) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
@@ -44,13 +48,23 @@ class ITokenCollection extends IUnknown{
     }
 
     /**
+     * Retrieves the position, length, and any overriding string of an individual token.
+     * @param {Integer} i Type: <b>ULONG</b>
      * 
-     * @param {Integer} i 
-     * @param {Pointer<Integer>} pBegin 
-     * @param {Pointer<Integer>} pLength 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-itokencollection-gettoken
+     * The zero-based index of the desired token within the collection.
+     * @param {Pointer<Integer>} pBegin Type: <b>ULONG*</b>
+     * 
+     * Receives the zero-based starting position of the specified token, in characters. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pLength Type: <b>ULONG*</b>
+     * 
+     * Receives the number of characters spanned by the token. This parameter can be <b>NULL</b>.
+     * @param {Pointer<PWSTR>} ppsz Type: <b>LPWSTR*</b>
+     * 
+     * Receives the overriding text for this token if available, or <b>NULL</b> if there is none.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-itokencollection-gettoken
      */
     GetToken(i, pBegin, pLength, ppsz) {
         pBeginMarshal := pBegin is VarRef ? "uint*" : "ptr"

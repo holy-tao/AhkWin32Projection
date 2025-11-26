@@ -36,10 +36,14 @@ class IPublishedApp extends IShellApp{
     static VTableNames => ["Install", "GetPublishedAppInfo", "Unschedule"]
 
     /**
+     * Installs an application published by an application publisher. This method is invoked when the user selects Add or Add Later in Add/Remove Programs in Control Panel.
+     * @param {Pointer<SYSTEMTIME>} pstInstall Type: <b>LPSYSTEMTIME</b>
      * 
-     * @param {Pointer<SYSTEMTIME>} pstInstall 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ipublishedapp-install
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that specifies the time the user elected to schedule installation through the <b>Add Later</b> button in <b>Add/Remove Programs</b>. This option is only available if the application supports scheduled installation (compare <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getpossibleactions">GetPossibleActions</a>). If this parameter is <b>NULL</b>, the application should be installed immediately.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ipublishedapp-install
      */
     Install(pstInstall) {
         result := ComCall(8, this, "ptr", pstInstall, "HRESULT")
@@ -47,10 +51,14 @@ class IPublishedApp extends IShellApp{
     }
 
     /**
+     * Gets publishing-related information about an application published by an application publisher.
+     * @param {Pointer<PUBAPPINFO>} ppai Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-pubappinfo">PUBAPPINFO</a>*</b>
      * 
-     * @param {Pointer<PUBAPPINFO>} ppai 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ipublishedapp-getpublishedappinfo
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-pubappinfo">PUBAPPINFO</a> structure that returns the application information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ipublishedapp-getpublishedappinfo
      */
     GetPublishedAppInfo(ppai) {
         result := ComCall(9, this, "ptr", ppai, "HRESULT")
@@ -58,9 +66,11 @@ class IPublishedApp extends IShellApp{
     }
 
     /**
+     * Cancels the installation of an application published by an application publisher.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ipublishedapp-unschedule
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ipublishedapp-unschedule
      */
     Unschedule() {
         result := ComCall(10, this, "HRESULT")

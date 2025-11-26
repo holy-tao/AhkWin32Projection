@@ -36,9 +36,11 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface{
     static VTableNames => ["GetDesc", "GetVariableByIndex", "GetVariableByName"]
 
     /**
+     * Get a constant-buffer description.
+     * @returns {D3D10_SHADER_BUFFER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/ns-d3d10shader-d3d10_shader_buffer_desc">D3D10_SHADER_BUFFER_DESC</a>*</b>
      * 
-     * @returns {D3D10_SHADER_BUFFER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getdesc
+     * A pointer to a shader-buffer description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/ns-d3d10shader-d3d10_shader_buffer_desc">D3D10_SHADER_BUFFER_DESC</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getdesc
      */
     GetDesc() {
         pDesc := D3D10_SHADER_BUFFER_DESC()
@@ -47,10 +49,14 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface{
     }
 
     /**
+     * Get a shader-reflection variable by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getvariablebyindex
+     * Zero-based index.
+     * @returns {ID3D10ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable">ID3D10ShaderReflectionVariable</a>*</b>
+     * 
+     * A pointer to a shader-reflection variable interface (see <a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable">ID3D10ShaderReflectionVariable Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getvariablebyindex
      */
     GetVariableByIndex(Index) {
         result := ComCall(1, this, "uint", Index, "ptr")
@@ -58,10 +64,14 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface{
     }
 
     /**
+     * Get a shader-reflection variable by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getvariablebyname
+     * Variable name.
+     * @returns {ID3D10ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable">ID3D10ShaderReflectionVariable</a>*</b>
+     * 
+     * A pointer to a shader-reflection variable interface (see <a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable">ID3D10ShaderReflectionVariable Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name

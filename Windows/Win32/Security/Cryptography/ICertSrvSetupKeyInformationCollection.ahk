@@ -47,9 +47,14 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch{
     }
 
     /**
+     * Gets an enumerator for the information set.
+     * @remarks
+     * 
+     * This property is provided for internal use by the <c>For Each</c> statement in Visual Basic Scripting Edition (VBScript) and C#. To enumerate the collection of properties with C++, use the <a href="https://docs.microsoft.com/windows/desktop/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_count">Count</a> and <a href="https://docs.microsoft.com/windows/desktop/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_item">Item</a> properties defined by the <a href="https://docs.microsoft.com/windows/desktop/api/casetup/nn-casetup-icertsrvsetupkeyinformationcollection">ICertSrvSetupKeyInformationCollection</a> interface.
+     * 
      * 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -57,10 +62,10 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an ICertSrvSetupKeyInformation object that is identified by index in the collection.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_item
      */
     get_Item(Index) {
         pVal := VARIANT()
@@ -69,9 +74,9 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of ICertSrvSetupKeyInformation objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -79,10 +84,10 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {ICertSrvSetupKeyInformation} pIKeyInformation 
+     * Adds an ICertSrvSetupKeyInformation object to the collection.
+     * @param {ICertSrvSetupKeyInformation} pIKeyInformation A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/casetup/nn-casetup-icertsrvsetupkeyinformation">ICertSrvSetupKeyInformation</a> object.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-add
+     * @see https://docs.microsoft.com/windows/win32/api//casetup/nf-casetup-icertsrvsetupkeyinformationcollection-add
      */
     Add(pIKeyInformation) {
         result := ComCall(10, this, "ptr", pIKeyInformation, "HRESULT")

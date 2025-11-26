@@ -31,10 +31,10 @@ class IMixerPinConfig2 extends IMixerPinConfig{
     static VTableNames => ["SetOverlaySurfaceColorControls", "GetOverlaySurfaceColorControls"]
 
     /**
-     * 
-     * @param {Pointer<DDCOLORCONTROL>} pColorControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig2-setoverlaysurfacecolorcontrols
+     * Sets the color control settings associated with the specified overlay surface.
+     * @param {Pointer<DDCOLORCONTROL>} pColorControl Address of a pointer to the <b>DDCOLORCONTROL</b> structure containing the new values to be applied to the specified surface.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. If the allocator on the pin is not using an overlay surface, the method returns E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig2-setoverlaysurfacecolorcontrols
      */
     SetOverlaySurfaceColorControls(pColorControl) {
         result := ComCall(15, this, "ptr", pColorControl, "HRESULT")
@@ -42,10 +42,10 @@ class IMixerPinConfig2 extends IMixerPinConfig{
     }
 
     /**
-     * 
-     * @param {Pointer<DDCOLORCONTROL>} pColorControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig2-getoverlaysurfacecolorcontrols
+     * The GetOverlaySurfaceColorControls method retrieves the color control settings associated with the specified overlay surface.
+     * @param {Pointer<DDCOLORCONTROL>} pColorControl Address of a pointer to the <b>DDCOLORCONTROL</b> structure containing the color values currently applied to the specified surface.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. If the allocator on the pin is not using an overlay surface, the method returns E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig2-getoverlaysurfacecolorcontrols
      */
     GetOverlaySurfaceColorControls(pColorControl) {
         result := ComCall(16, this, "ptr", pColorControl, "HRESULT")

@@ -31,9 +31,11 @@ class IUrlAccessor4 extends IUrlAccessor3{
     static VTableNames => ["ShouldIndexItemContent", "ShouldIndexProperty"]
 
     /**
+     * Identifies whether the item's content should be indexed.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor4-shouldindexitemcontent
+     * A pointer to a <b>BOOL</b> value that indicates whether the item's content should be indexed.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor4-shouldindexitemcontent
      */
     ShouldIndexItemContent() {
         result := ComCall(20, this, "int*", &pfIndexContent := 0, "HRESULT")
@@ -41,10 +43,10 @@ class IUrlAccessor4 extends IUrlAccessor3{
     }
 
     /**
-     * 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor4-shouldindexproperty
+     * Identifies whether a property should be indexed.
+     * @param {Pointer<PROPERTYKEY>} key The property to index.
+     * @returns {BOOL} A pointer to a value that indicates whether a property should be indexed.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor4-shouldindexproperty
      */
     ShouldIndexProperty(key) {
         result := ComCall(21, this, "ptr", key, "int*", &pfIndexProperty := 0, "HRESULT")

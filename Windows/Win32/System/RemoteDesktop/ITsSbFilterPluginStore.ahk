@@ -33,10 +33,10 @@ class ITsSbFilterPluginStore extends IUnknown{
     static VTableNames => ["SaveProperties", "EnumerateProperties", "DeleteProperties"]
 
     /**
-     * 
+     * Saves a property set.
      * @param {ITsSbPropertySet} pPropertySet 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbfilterpluginstore-saveproperties
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbfilterpluginstore-saveproperties
      */
     SaveProperties(pPropertySet) {
         result := ComCall(3, this, "ptr", pPropertySet, "HRESULT")
@@ -44,9 +44,9 @@ class ITsSbFilterPluginStore extends IUnknown{
     }
 
     /**
-     * 
+     * Enumerates a property set.
      * @returns {ITsSbPropertySet} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbfilterpluginstore-enumerateproperties
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbfilterpluginstore-enumerateproperties
      */
     EnumerateProperties() {
         result := ComCall(4, this, "ptr*", &ppPropertySet := 0, "HRESULT")
@@ -54,10 +54,10 @@ class ITsSbFilterPluginStore extends IUnknown{
     }
 
     /**
-     * 
+     * Deletes a property.
      * @param {BSTR} propertyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbfilterpluginstore-deleteproperties
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbfilterpluginstore-deleteproperties
      */
     DeleteProperties(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName

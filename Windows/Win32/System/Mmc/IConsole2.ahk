@@ -31,11 +31,11 @@ class IConsole2 extends IConsole{
     static VTableNames => ["Expand", "IsTaskpadViewPreferred", "SetStatusText"]
 
     /**
-     * 
-     * @param {Pointer} hItem 
-     * @param {BOOL} bExpand 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole2-expand
+     * The IConsole2::Expand method enables the snap-in to expand or collapse an item in the scope pane.
+     * @param {Pointer} hItem A handle to the item to expand.
+     * @param {BOOL} bExpand A value that specifies whether to expand or collapse the item. <b>TRUE</b> expands the item. <b>FALSE</b> collapses the item.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsole2-expand
      */
     Expand(hItem, bExpand) {
         result := ComCall(14, this, "ptr", hItem, "int", bExpand, "HRESULT")
@@ -43,9 +43,9 @@ class IConsole2 extends IConsole{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole2-istaskpadviewpreferred
+     * The IConsole2::IsTaskpadViewPreferred method is obsolete. It always returns S_OK.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsole2-istaskpadviewpreferred
      */
     IsTaskpadViewPreferred() {
         result := ComCall(15, this, "HRESULT")
@@ -53,10 +53,10 @@ class IConsole2 extends IConsole{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszStatusText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole2-setstatustext
+     * The IConsole2::SetStatusText method enables the snap-in to change the text in the status bar. Be aware that this is used only by instances of IComponent.
+     * @param {PWSTR} pszStatusText A pointer to a null-terminated string that contains text to be displayed in the status bar.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsole2-setstatustext
      */
     SetStatusText(pszStatusText) {
         pszStatusText := pszStatusText is String ? StrPtr(pszStatusText) : pszStatusText

@@ -50,11 +50,19 @@ class IDXGIAdapter extends IDXGIObject{
     static VTableNames => ["EnumOutputs", "GetDesc", "CheckInterfaceSupport"]
 
     /**
+     * Enumerate adapter (video card) outputs.
+     * @param {Integer} Output Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Output 
-     * @param {Pointer<IDXGIOutput>} ppOutput 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-enumoutputs
+     * The index of the output.
+     * @param {Pointer<IDXGIOutput>} ppOutput Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgioutput">IDXGIOutput</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgioutput">IDXGIOutput</a> interface at the position specified by the <i>Output</i> parameter.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * A code that indicates success or failure (see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>). DXGI_ERROR_NOT_FOUND is returned if the index is greater than the number of outputs.
+     * 
+     * If the adapter came from a device created using D3D_DRIVER_TYPE_WARP, then the adapter has no outputs, so DXGI_ERROR_NOT_FOUND is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiadapter-enumoutputs
      */
     EnumOutputs(Output, ppOutput) {
         result := ComCall(7, this, "uint", Output, "ptr*", ppOutput, "int")
@@ -62,9 +70,11 @@ class IDXGIAdapter extends IDXGIObject{
     }
 
     /**
+     * Gets a DXGI 1.0 description of an adapter (or video card).
+     * @returns {DXGI_ADAPTER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc">DXGI_ADAPTER_DESC</a>*</b>
      * 
-     * @returns {DXGI_ADAPTER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-getdesc
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc">DXGI_ADAPTER_DESC</a> structure that describes the adapter. This parameter must not be <b>NULL</b>. On <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> 9 graphics hardware, <b>GetDesc</b> returns zeros for the PCI ID in the <b>VendorId</b>, <b>DeviceId</b>, <b>SubSysId</b>, and <b>Revision</b> members of <b>DXGI_ADAPTER_DESC</b> and “Software Adapter” for the description string in the <b>Description</b> member.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiadapter-getdesc
      */
     GetDesc() {
         pDesc := DXGI_ADAPTER_DESC()
@@ -73,10 +83,14 @@ class IDXGIAdapter extends IDXGIObject{
     }
 
     /**
+     * Checks whether the system supports a device interface for a graphics component.
+     * @param {Pointer<Guid>} InterfaceName Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
-     * @param {Pointer<Guid>} InterfaceName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-checkinterfacesupport
+     * The GUID of the interface of the device version for which support is being checked. This should usually be __uuidof(IDXGIDevice), which returns the version number of the Direct3D 9 UMD (user mode driver) binary. Since WDDM 2.3, all driver components within a driver package (D3D9, D3D11, and D3D12) have been required to share a single version number, so this is a good way to query the driver version regardless of which API is being used.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>*</b>
+     * 
+     * The user mode driver version of <i>InterfaceName</i>. This is  returned only if the interface is supported, otherwise this parameter will be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiadapter-checkinterfacesupport
      */
     CheckInterfaceSupport(InterfaceName) {
         result := ComCall(9, this, "ptr", InterfaceName, "int64*", &pUMDVersion := 0, "HRESULT")

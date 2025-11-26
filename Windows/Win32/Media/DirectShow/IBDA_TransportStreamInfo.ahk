@@ -43,9 +43,9 @@ class IBDA_TransportStreamInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_transportstreaminfo-get_pattabletickcount
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the tick count when the last PAT section was received.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_transportstreaminfo-get_pattabletickcount
      */
     get_PatTableTickCount() {
         result := ComCall(3, this, "uint*", &pPatTickCount := 0, "HRESULT")

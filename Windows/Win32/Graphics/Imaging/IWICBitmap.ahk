@@ -41,11 +41,44 @@ class IWICBitmap extends IWICBitmapSource{
     static VTableNames => ["Lock", "SetPalette", "SetResolution"]
 
     /**
+     * Provides access to a rectangular area of the bitmap.
+     * @param {Pointer<WICRect>} prcLock Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrect">WICRect</a>*</b>
      * 
-     * @param {Pointer<WICRect>} prcLock 
-     * @param {Integer} flags 
-     * @returns {IWICBitmapLock} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmap-lock
+     * The rectangle to be accessed.
+     * @param {Integer} flags Type: <b>DWORD</b>
+     * 
+     * The access mode you wish to obtain for the lock. This is a bitwise combination of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaplockflags">WICBitmapLockFlags</a> for read, write, or read and write access.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WICBitmapLockRead"></a><a id="wicbitmaplockread"></a><a id="WICBITMAPLOCKREAD"></a><dl>
+     * <dt><b>WICBitmapLockRead</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The read access lock.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WICBitmapLockWrite"></a><a id="wicbitmaplockwrite"></a><a id="WICBITMAPLOCKWRITE"></a><dl>
+     * <dt><b>WICBitmapLockWrite</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The write access lock.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {IWICBitmapLock} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmaplock">IWICBitmapLock</a>**</b>
+     * 
+     * A pointer that receives the locked memory location.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmap-lock
      */
     Lock(prcLock, flags) {
         result := ComCall(8, this, "ptr", prcLock, "uint", flags, "ptr*", &ppILock := 0, "HRESULT")
@@ -53,10 +86,14 @@ class IWICBitmap extends IWICBitmapSource{
     }
 
     /**
+     * Provides access for palette modifications.
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
      * 
-     * @param {IWICPalette} pIPalette 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmap-setpalette
+     * The palette to use for conversion.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmap-setpalette
      */
     SetPalette(pIPalette) {
         result := ComCall(9, this, "ptr", pIPalette, "HRESULT")
@@ -64,11 +101,17 @@ class IWICBitmap extends IWICBitmapSource{
     }
 
     /**
+     * Changes the physical resolution of the image.
+     * @param {Float} dpiX Type: <b>double</b>
      * 
-     * @param {Float} dpiX 
-     * @param {Float} dpiY 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmap-setresolution
+     * The horizontal resolution.
+     * @param {Float} dpiY Type: <b>double</b>
+     * 
+     * The vertical resolution.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmap-setresolution
      */
     SetResolution(dpiX, dpiY) {
         result := ComCall(10, this, "double", dpiX, "double", dpiY, "HRESULT")

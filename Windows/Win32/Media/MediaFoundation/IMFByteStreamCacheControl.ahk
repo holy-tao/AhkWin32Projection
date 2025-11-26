@@ -31,9 +31,9 @@ class IMFByteStreamCacheControl extends IUnknown{
     static VTableNames => ["StopBackgroundTransfer"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol-stopbackgroundtransfer
+     * Stops the background transfer of data to the local cache.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamcachecontrol-stopbackgroundtransfer
      */
     StopBackgroundTransfer() {
         result := ComCall(3, this, "HRESULT")

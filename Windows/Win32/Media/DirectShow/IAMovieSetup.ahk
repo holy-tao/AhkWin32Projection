@@ -31,9 +31,9 @@ class IAMovieSetup extends IUnknown{
     static VTableNames => ["Register", "Unregister"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamoviesetup-register
+     * Note  The IAMovieSetup interface is deprecated. Use the AMovieDllRegisterServer2 function instead. Adds the filter to the registry.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamoviesetup-register
      */
     Register() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IAMovieSetup extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamoviesetup-unregister
+     * Note  The IAMovieSetup interface is deprecated. Use the AMovieDllRegisterServer2 function instead. Removes the filter from the registry.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamoviesetup-unregister
      */
     Unregister() {
         result := ComCall(4, this, "HRESULT")

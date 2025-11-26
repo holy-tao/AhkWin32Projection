@@ -37,10 +37,14 @@ class IWICColorContext extends IUnknown{
     static VTableNames => ["InitializeFromFilename", "InitializeFromMemory", "InitializeFromExifColorSpace", "GetType", "GetProfileBytes", "GetExifColorSpace"]
 
     /**
+     * Initializes the color context from the given file.
+     * @param {PWSTR} wzFilename Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} wzFilename 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-initializefromfilename
+     * The name of the file.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolorcontext-initializefromfilename
      */
     InitializeFromFilename(wzFilename) {
         wzFilename := wzFilename is String ? StrPtr(wzFilename) : wzFilename
@@ -50,11 +54,17 @@ class IWICColorContext extends IUnknown{
     }
 
     /**
+     * Initializes the color context from a memory block.
+     * @param {Pointer<Integer>} pbBuffer Type: <b>const BYTE*</b>
      * 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @param {Integer} cbBufferSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-initializefrommemory
+     * The buffer used to initialize the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>.
+     * @param {Integer} cbBufferSize Type: <b>UINT</b>
+     * 
+     * The size of the <i>pbBuffer</i> buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolorcontext-initializefrommemory
      */
     InitializeFromMemory(pbBuffer, cbBufferSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
@@ -64,10 +74,43 @@ class IWICColorContext extends IUnknown{
     }
 
     /**
+     * Initializes the color context using an Exchangeable Image File (EXIF) color space.
+     * @param {Integer} value Type: <b>UINT</b>
      * 
-     * @param {Integer} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-initializefromexifcolorspace
+     * The value of the EXIF color space.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=""></a><dl>
+     * <dt><b></b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sRGB color space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=""></a><dl>
+     * <dt><b></b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An Adobe RGB color space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolorcontext-initializefromexifcolorspace
      */
     InitializeFromExifColorSpace(value) {
         result := ComCall(5, this, "uint", value, "HRESULT")
@@ -75,9 +118,11 @@ class IWICColorContext extends IUnknown{
     }
 
     /**
+     * Retrieves the color context type.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccolorcontexttype">WICColorContextType</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-gettype
+     * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccolorcontexttype">WICColorContextType</a> of the color context.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolorcontext-gettype
      */
     GetType() {
         result := ComCall(6, this, "int*", &pType := 0, "HRESULT")
@@ -85,11 +130,17 @@ class IWICColorContext extends IUnknown{
     }
 
     /**
+     * Retrieves the color context profile.
+     * @param {Integer} cbBuffer Type: <b>UINT</b>
      * 
-     * @param {Integer} cbBuffer 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getprofilebytes
+     * The size of the <i>pbBuffer</i> buffer.
+     * @param {Pointer<Integer>} pbBuffer Type: <b>BYTE*</b>
+     * 
+     * A pointer that receives the color context profile.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the actual buffer size needed to retrieve the entire color context profile.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolorcontext-getprofilebytes
      */
     GetProfileBytes(cbBuffer, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
@@ -99,9 +150,51 @@ class IWICColorContext extends IUnknown{
     }
 
     /**
+     * Retrieves the Exchangeable Image File (EXIF) color space color context.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getexifcolorspace
+     * A pointer that receives the EXIF color space color context.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=""></a><dl>
+     * <dt><b></b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sRGB color space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=""></a><dl>
+     * <dt><b></b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An Adobe RGB color space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=""></a><dl>
+     * <dt><b></b></dt>
+     * <dt>3 through 65534</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unused.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolorcontext-getexifcolorspace
      */
     GetExifColorSpace() {
         result := ComCall(8, this, "uint*", &pValue := 0, "HRESULT")

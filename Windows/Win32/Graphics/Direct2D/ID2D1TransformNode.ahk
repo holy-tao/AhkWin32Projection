@@ -36,9 +36,11 @@ class ID2D1TransformNode extends IUnknown{
     static VTableNames => ["GetInputCount"]
 
     /**
+     * Gets the number of inputs to the transform node.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformnode-getinputcount
+     * This method returns the number of inputs to this transform node.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1transformnode-getinputcount
      */
     GetInputCount() {
         result := ComCall(3, this, "uint")

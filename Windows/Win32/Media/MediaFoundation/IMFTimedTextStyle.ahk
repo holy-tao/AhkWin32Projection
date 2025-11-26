@@ -32,9 +32,11 @@ class IMFTimedTextStyle extends IUnknown{
     static VTableNames => ["GetName", "IsExternal", "GetFontFamily", "GetFontSize", "GetColor", "GetBackgroundColor", "GetShowBackgroundAlways", "GetFontStyle", "GetBold", "GetRightToLeft", "GetTextAlignment", "GetTextDecoration", "GetTextOutline"]
 
     /**
+     * Gets the name of the timed-text style.
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getname
+     * A pointer to a variable that receives the null-terminated wide-character string that contains the name of the style.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Determines whether the timed-text style is external.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-isexternal
+     * Returns whether the timed-text style is external. If <b>TRUE</b>, the timed-text style is external; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-isexternal
      */
     IsExternal() {
         result := ComCall(4, this, "int")
@@ -52,9 +56,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the font family of the timed-text style.
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontfamily
+     * A pointer to a variable that receives the null-terminated wide-character string that contains the font family of the style.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontfamily
      */
     GetFontFamily() {
         result := ComCall(5, this, "ptr*", &fontFamily := 0, "HRESULT")
@@ -62,11 +68,17 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the font size of the timed-text style.
+     * @param {Pointer<Float>} fontSize Type: <b>double*</b>
      * 
-     * @param {Pointer<Float>} fontSize 
-     * @param {Pointer<Integer>} unitType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontsize
+     * A pointer to a variable that receives the font size  of the timed-text style.
+     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * 
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text style is measured.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontsize
      */
     GetFontSize(fontSize, unitType) {
         fontSizeMarshal := fontSize is VarRef ? "double*" : "ptr"
@@ -77,9 +89,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the color of the timed-text style.
+     * @returns {MFARGB} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
      * 
-     * @returns {MFARGB} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getcolor
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the color.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getcolor
      */
     GetColor() {
         color := MFARGB()
@@ -88,9 +102,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the background color of the timed-text style.
+     * @returns {MFARGB} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
      * 
-     * @returns {MFARGB} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbackgroundcolor
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the background color.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbackgroundcolor
      */
     GetBackgroundColor() {
         bgColor := MFARGB()
@@ -99,9 +115,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Determines whether the style of timed text always shows the background.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getshowbackgroundalways
+     * A pointer to a variable that receives a value that specifies whether the style  of timed text always shows the background. The variable specifies <b>TRUE</b> if the background is always shown; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getshowbackgroundalways
      */
     GetShowBackgroundAlways() {
         result := ComCall(9, this, "int*", &showBackgroundAlways := 0, "HRESULT")
@@ -109,9 +127,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the font style of the timed-text style.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style">MF_TIMED_TEXT_FONT_STYLE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontstyle
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style">MF_TIMED_TEXT_FONT_STYLE</a>-typed value that specifies the font style.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontstyle
      */
     GetFontStyle() {
         result := ComCall(10, this, "int*", &fontStyle := 0, "HRESULT")
@@ -119,9 +139,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Determines whether the style of timed text is bold.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbold
+     * A pointer to a variable that receives a value that specifies whether the style  of timed text is bold. The variable specifies <b>TRUE</b> if the style is bold; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbold
      */
     GetBold() {
         result := ComCall(11, this, "int*", &bold := 0, "HRESULT")
@@ -129,9 +151,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Determines whether the right to left writing mode of the timed-text style is enabled.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getrighttoleft
+     * A pointer to a variable that receives a value that specifies whether the right to left writing mode is enabled. The variable specifies <b>TRUE</b> if the right to left writing mode is enabled; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getrighttoleft
      */
     GetRightToLeft() {
         result := ComCall(12, this, "int*", &rightToLeft := 0, "HRESULT")
@@ -139,9 +163,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the text alignment of the timed-text style.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment">MF_TIMED_TEXT_ALIGNMENT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextalignment
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment">MF_TIMED_TEXT_ALIGNMENT</a>-typed value that specifies the text alignment.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextalignment
      */
     GetTextAlignment() {
         result := ComCall(13, this, "int*", &textAlign := 0, "HRESULT")
@@ -149,9 +175,11 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets how text is decorated for the timed-text style.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextdecoration
+     * A pointer to a variable that receives a combination of <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_decoration">MF_TIMED_TEXT_DECORATION</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies how text is decorated.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextdecoration
      */
     GetTextDecoration() {
         result := ComCall(14, this, "uint*", &textDecoration := 0, "HRESULT")
@@ -159,13 +187,23 @@ class IMFTimedTextStyle extends IUnknown{
     }
 
     /**
+     * Gets the text outline for the timed-text style.
+     * @param {Pointer<MFARGB>} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
      * 
-     * @param {Pointer<MFARGB>} color 
-     * @param {Pointer<Float>} thickness 
-     * @param {Pointer<Float>} blurRadius 
-     * @param {Pointer<Integer>} unitType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextoutline
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the color.
+     * @param {Pointer<Float>} thickness Type: <b>double*</b>
+     * 
+     * A pointer to a variable that receives the thickness.
+     * @param {Pointer<Float>} blurRadius Type: <b>double*</b>
+     * 
+     * A pointer to a variable that receives the blur radius.
+     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * 
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text is measured.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextoutline
      */
     GetTextOutline(color, thickness, blurRadius, unitType) {
         thicknessMarshal := thickness is VarRef ? "double*" : "ptr"

@@ -52,10 +52,10 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an ICspInformation object from the collection by index number.
      * @param {Integer} Index 
      * @returns {ICspInformation} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-get_itembyindex
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -63,9 +63,9 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of ICspInformation objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -73,9 +73,9 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the enumerator for the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -83,10 +83,12 @@ class ICspInformations extends IDispatch{
     }
 
     /**
+     * Adds an ICspInformation object to the collection.
+     * @param {ICspInformation} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> object to add to the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {ICspInformation} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -94,10 +96,12 @@ class ICspInformations extends IDispatch{
     }
 
     /**
+     * Removes an ICspInformation object from the collection by index number.
+     * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -105,9 +109,11 @@ class ICspInformations extends IDispatch{
     }
 
     /**
+     * Removes all ICspInformation objects from the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -115,9 +121,30 @@ class ICspInformations extends IDispatch{
     }
 
     /**
+     * Adds the providers installed on the computer to the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-addavailablecsps
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>HRESULT_FROM_WIN32(ERROR_INVALID_OPERATION)</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The collection is not empty.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-addavailablecsps
      */
     AddAvailableCsps() {
         result := ComCall(13, this, "HRESULT")
@@ -125,10 +152,10 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an ICspInformation object from the collection by name.
      * @param {BSTR} strName 
      * @returns {ICspInformation} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-get_itembyname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-get_itembyname
      */
     get_ItemByName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -138,11 +165,11 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} strProviderName 
+     * Retrieves an ICspStatus object for a legacy provider by provider name and supported key operations.
+     * @param {BSTR} strProviderName A <b>BSTR</b> that contains the cryptographic provider name or the provider and algorithm names separated by a comma in the format <i>algorithm_name, provider_name</i>.
      * @param {Integer} LegacyKeySpec 
-     * @returns {ICspStatus} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getcspstatusfromprovidername
+     * @returns {ICspStatus} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> interface that contains information about a cryptographic provider and algorithm pair that satisfies the <i>strProviderName</i> and <i>LegacyKeySpec</i> parameter values.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-getcspstatusfromprovidername
      */
     GetCspStatusFromProviderName(strProviderName, LegacyKeySpec) {
         strProviderName := strProviderName is String ? BSTR.Alloc(strProviderName).Value : strProviderName
@@ -152,11 +179,26 @@ class ICspInformations extends IDispatch{
     }
 
     /**
+     * Retrieves an ICspStatuses collection by supported key operations and optional provider information.
+     * @param {Integer} Operations An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-algorithmoperationflags">AlgorithmOperationFlags</a> enumeration value that  specifies the supported operations. This can be a bitwise combination of the following flags:
      * 
-     * @param {Integer} Operations 
-     * @param {ICspInformation} pCspInformation 
-     * @returns {ICspStatuses} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getcspstatusesfromoperations
+     * <ul>
+     * <li>XCN_NCRYPT_NO_OPERATION</li>
+     * <li>XCN_NCRYPT_CIPHER_OPERATION</li>
+     * <li>XCN_NCRYPT_HASH_OPERATION</li>
+     * <li>XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION</li>
+     * <li>XCN_NCRYPT_SECRET_AGREEMENT_OPERATION</li>
+     * <li>XCN_NCRYPT_SIGNATURE_OPERATION</li>
+     * <li>XCN_NCRYPT_RNG_OPERATION</li>
+     * <li>XCN_NCRYPT_ANY_ASYMMETRIC_OPERATION</li>
+     * <li>XCN_NCRYPT_PREFER_SIGNATURE_ONLY_OPERATION</li>
+     * <li>XCN_NCRYPT_PREFER_NON_SIGNATURE_OPERATION</li>
+     * <li>XCN_NCRYPT_EXACT_MATCH_OPERATION</li>
+     * <li>XCN_NCRYPT_PREFERENCE_MASK_OPERATION</li>
+     * </ul>
+     * @param {ICspInformation} pCspInformation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface that represents information for a specific provider.
+     * @returns {ICspStatuses} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatuses">ICspStatuses</a> interface that contains the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-getcspstatusesfromoperations
      */
     GetCspStatusesFromOperations(Operations, pCspInformation) {
         result := ComCall(16, this, "int", Operations, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
@@ -164,10 +206,10 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
-     * @param {ICspInformation} pCspInformation 
-     * @returns {ICspAlgorithms} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getencryptioncspalgorithms
+     * Retrieves the collection of encryption algorithms supported by a provider.
+     * @param {ICspInformation} pCspInformation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface that represents the provider. This can be a legacy cryptographic service provider (CSP), a Cryptography API: Next Generation (CNG) provider, or <b>NULL</b>. If you specify <b>NULL</b>, this method returns the collection of all encryption algorithms supported by all CSPs and CNG providers.
+     * @returns {ICspAlgorithms} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithms">ICspAlgorithms</a> interface that represents the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-getencryptioncspalgorithms
      */
     GetEncryptionCspAlgorithms(pCspInformation) {
         result := ComCall(17, this, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
@@ -175,10 +217,10 @@ class ICspInformations extends IDispatch{
     }
 
     /**
-     * 
-     * @param {ICspInformation} pCspInformation 
-     * @returns {IObjectIds} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-gethashalgorithms
+     * Retrieves the collection of hash algorithms supported by a provider.
+     * @param {ICspInformation} pCspInformation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface that represents the provider. This can be a legacy cryptographic service provider (CSP), a Cryptography API: Next Generation (CNG) provider, or <b>NULL</b>. If you specify <b>NULL</b>, this method returns the collection of all hash algorithms supported by all CSPs and CNG providers.
+     * @returns {IObjectIds} Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> interface that represents the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformations-gethashalgorithms
      */
     GetHashAlgorithms(pCspInformation) {
         result := ComCall(18, this, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")

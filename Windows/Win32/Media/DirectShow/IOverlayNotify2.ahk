@@ -31,10 +31,10 @@ class IOverlayNotify2 extends IOverlayNotify{
     static VTableNames => ["OnDisplayChange"]
 
     /**
-     * 
-     * @param {HMONITOR} hMonitor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify2-ondisplaychange
+     * The OnDisplayChange method provides notification that the exposed window area has changed.
+     * @param {HMONITOR} hMonitor Handle to the monitor used for displaying the overlay.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ioverlaynotify2-ondisplaychange
      */
     OnDisplayChange(hMonitor) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor

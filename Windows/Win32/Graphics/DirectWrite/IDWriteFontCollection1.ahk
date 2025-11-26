@@ -33,9 +33,11 @@ class IDWriteFontCollection1 extends IDWriteFontCollection{
     static VTableNames => ["GetFontSet", "GetFontFamily"]
 
     /**
+     * Gets the underlying font set used by this collection.
+     * @returns {IDWriteFontSet} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
      * 
-     * @returns {IDWriteFontSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection1-getfontset
+     * Returns the font set used by the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontcollection1-getfontset
      */
     GetFontSet() {
         result := ComCall(7, this, "ptr*", &fontSet := 0, "HRESULT")

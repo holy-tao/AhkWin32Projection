@@ -44,9 +44,9 @@ class IUnknown extends Win32ComInterface{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-addref
+     * Increments the reference count for an interface pointer to a COM object. You should call this method whenever you make a copy of an interface pointer.
+     * @returns {Integer} The method returns the new reference count. This value is intended to be used only for test purposes.
+     * @see https://docs.microsoft.com/windows/win32/api//unknwn/nf-unknwn-iunknown-addref
      */
     AddRef() {
         result := ComCall(1, this, "uint")
@@ -54,9 +54,9 @@ class IUnknown extends Win32ComInterface{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-release
+     * Decrements the reference count for an interface on a COM object.
+     * @returns {Integer} The method returns the new reference count. This value is intended to be used only for test purposes.
+     * @see https://docs.microsoft.com/windows/win32/api//unknwn/nf-unknwn-iunknown-release
      */
     Release() {
         result := ComCall(2, this, "uint")

@@ -33,9 +33,9 @@ class ILocationReport extends IUnknown{
     static VTableNames => ["GetSensorID", "GetTimestamp", "GetValue"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationreport-getsensorid
+     * Retrieves the ID of the sensor that generated the location report.
+     * @returns {Guid} Address of a <b>SENSOR_ID</b> that receives the ID of the sensor that generated the location report.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocationreport-getsensorid
      */
     GetSensorID() {
         pSensorID := Guid()
@@ -44,9 +44,9 @@ class ILocationReport extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {SYSTEMTIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationreport-gettimestamp
+     * Retrieves the date and time when the report was generated.
+     * @returns {SYSTEMTIME} Address of a <b>SYSTEMTIME</b> that receives the date and time when the report was generated. Time stamps are provided as Coordinated Universal Time (UTC).
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocationreport-gettimestamp
      */
     GetTimestamp() {
         pCreationTime := SYSTEMTIME()
@@ -55,10 +55,10 @@ class ILocationReport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<PROPERTYKEY>} pKey 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationreport-getvalue
+     * Retrieves a property value from the location report.
+     * @param {Pointer<PROPERTYKEY>} pKey <b>REFPROPERTYKEY</b> that specifies the name of the property to retrieve.
+     * @returns {PROPVARIANT} Address of a <b>PROPVARIANT</b> that receives the property value.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocationreport-getvalue
      */
     GetValue(pKey) {
         pValue := PROPVARIANT()

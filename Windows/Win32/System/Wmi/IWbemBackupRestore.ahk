@@ -48,11 +48,11 @@ class IWbemBackupRestore extends IUnknown{
     static VTableNames => ["Backup", "Restore"]
 
     /**
-     * 
-     * @param {PWSTR} strBackupToFile 
-     * @param {Integer} lFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbembackuprestore-backup
+     * The IWbemBackupRestore::Backup method backs up the contents of the static repository to a separate file.
+     * @param {PWSTR} strBackupToFile Constant, null-terminated string of 16-bit Unicode characters that contains the file name to which to back up the contents of the repository.
+     * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbembackuprestore-backup
      */
     Backup(strBackupToFile, lFlags) {
         strBackupToFile := strBackupToFile is String ? StrPtr(strBackupToFile) : strBackupToFile
@@ -62,11 +62,12 @@ class IWbemBackupRestore extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} strRestoreFromFile 
-     * @param {Integer} lFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbembackuprestore-restore
+     * The IWbemBackupRestore::Restore method deletes the contents of the current repository and restores them with the contents of a previously specified backup.
+     * @param {PWSTR} strRestoreFromFile Constant, null-terminated string of 16-bit Unicode characters that contains the file name of the file to be restored. The specified file should point to a file previously created with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbembackuprestore-backup">IWbemBackupRestore::Backup</a>.
+     * @param {Integer} lFlags One of the following flags from the <a href="https://docs.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_backup_restore_flags">WBEM_BACKUP_RESTORE_FLAGS</a> enumeration.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained within the <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbembackuprestore-restore
      */
     Restore(strRestoreFromFile, lFlags) {
         strRestoreFromFile := strRestoreFromFile is String ? StrPtr(strRestoreFromFile) : strRestoreFromFile

@@ -31,10 +31,10 @@ class IServiceSysTxnConfig extends IServiceTransactionConfig{
     static VTableNames => ["ConfigureBYOTSysTxn"]
 
     /**
-     * 
-     * @param {ITransactionProxy} pTxProxy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesystxnconfig-configurebyotsystxn
+     * Enables you to run the enclosed code in the scope of an existing transaction that you specify with a transaction proxy.
+     * @param {ITransactionProxy} pTxProxy The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-itransactionproxy">ITransactionProxy</a> interface of the existing transaction in which you will run the enclosed code.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesystxnconfig-configurebyotsystxn
      */
     ConfigureBYOTSysTxn(pTxProxy) {
         result := ComCall(9, this, "ptr", pTxProxy, "HRESULT")

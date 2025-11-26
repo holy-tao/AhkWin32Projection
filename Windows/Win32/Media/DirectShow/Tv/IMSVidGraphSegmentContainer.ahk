@@ -97,9 +97,9 @@ class IMSVidGraphSegmentContainer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IGraphBuilder} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
+     * The get_Graph method returns a pointer to the Filter Graph Manager.
+     * @returns {IGraphBuilder} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
      */
     get_Graph() {
         result := ComCall(3, this, "ptr*", &ppGraph := 0, "HRESULT")

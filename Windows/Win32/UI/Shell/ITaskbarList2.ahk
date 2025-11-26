@@ -37,11 +37,17 @@ class ITaskbarList2 extends ITaskbarList{
     static VTableNames => ["MarkFullscreenWindow"]
 
     /**
+     * Marks a window as full-screen.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {BOOL} fFullscreen 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist2-markfullscreenwindow
+     * The handle of the window to be marked.
+     * @param {BOOL} fFullscreen Type: <b>BOOL</b>
+     * 
+     * A Boolean value marking the desired full-screen status of the window.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itaskbarlist2-markfullscreenwindow
      */
     MarkFullscreenWindow(hwnd, fFullscreen) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

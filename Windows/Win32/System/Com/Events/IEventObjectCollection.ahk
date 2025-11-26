@@ -56,9 +56,9 @@ class IEventObjectCollection extends IDispatch{
     }
 
     /**
-     * 
+     * An enumerator for the objects in the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnkEnum := 0, "HRESULT")
@@ -66,10 +66,10 @@ class IEventObjectCollection extends IDispatch{
     }
 
     /**
-     * 
+     * An item in the collection.
      * @param {BSTR} objectID 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get_item
      */
     get_Item(objectID) {
         objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
@@ -80,9 +80,9 @@ class IEventObjectCollection extends IDispatch{
     }
 
     /**
-     * 
+     * An enumeration object that implements IEnumEventObject.
      * @returns {IEnumEventObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_newenum
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get_newenum
      */
     get_NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -90,9 +90,9 @@ class IEventObjectCollection extends IDispatch{
     }
 
     /**
-     * 
+     * The number of objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get_count
      */
     get_Count() {
         result := ComCall(10, this, "int*", &pCount := 0, "HRESULT")
@@ -100,11 +100,11 @@ class IEventObjectCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} item 
-     * @param {BSTR} objectID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-add
+     * Adds an event object to the collection.
+     * @param {Pointer<VARIANT>} item A pointer to the event object to be added to the collection. This parameter cannot be <b>NULL</b>.
+     * @param {BSTR} objectID The ID property of the event object to be added. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be added to the collection.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-add
      */
     Add(item, objectID) {
         objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
@@ -114,10 +114,10 @@ class IEventObjectCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} objectID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-remove
+     * Removes an event object from the collection.
+     * @param {BSTR} objectID The ID property of the event object to be removed. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be removed from the collection.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-remove
      */
     Remove(objectID) {
         objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID

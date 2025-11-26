@@ -37,9 +37,9 @@ class ITfFunctionProvider extends IUnknown{
     static VTableNames => ["GetType", "GetDescription", "GetFunction"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-gettype
+     * ITfFunctionProvider::GetType method
+     * @returns {Guid} Pointer to a GUID value that receives the type identifier of the function provider.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunctionprovider-gettype
      */
     GetType() {
         pguid := Guid()
@@ -48,9 +48,9 @@ class ITfFunctionProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-getdescription
+     * ITfFunctionProvider::GetDescription method
+     * @returns {BSTR} Pointer to a BSTR that receives the description string. This value must be allocated using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunctionprovider-getdescription
      */
     GetDescription() {
         pbstrDesc := BSTR()
@@ -59,11 +59,11 @@ class ITfFunctionProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-getfunction
+     * ITfFunctionProvider::GetFunction method
+     * @param {Pointer<Guid>} rguid Contains a GUID value that identifies the function group that the requested function belongs to. This value can be GUID_NULL.
+     * @param {Pointer<Guid>} riid Contains an interface identifier that identifies the requested function within the group specified by <i>rguid</i>. This value can be specified by the application, text service, or one of the IID_ITfFn* values.
+     * @returns {IUnknown} Pointer to an <b>IUnknown</b> interface pointer that receives the requested function interface.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunctionprovider-getfunction
      */
     GetFunction(rguid, riid) {
         result := ComCall(5, this, "ptr", rguid, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")

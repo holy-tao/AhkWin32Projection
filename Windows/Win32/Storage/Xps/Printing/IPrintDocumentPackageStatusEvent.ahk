@@ -31,10 +31,10 @@ class IPrintDocumentPackageStatusEvent extends IDispatch{
     static VTableNames => ["PackageStatusUpdated"]
 
     /**
-     * 
-     * @param {Pointer<PrintDocumentPackageStatus>} packageStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagestatusevent-packagestatusupdated
+     * Updates the status of the package when the print job in progress raises an event, or the job completes.
+     * @param {Pointer<PrintDocumentPackageStatus>} packageStatus The status update.
+     * @returns {HRESULT} If the <b>PackageStatusUpdated</b> method completes successfully, it returns an S_OK. Otherwise it returns an appropriate HRESULT  error code.
+     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagestatusevent-packagestatusupdated
      */
     PackageStatusUpdated(packageStatus) {
         result := ComCall(7, this, "ptr", packageStatus, "HRESULT")

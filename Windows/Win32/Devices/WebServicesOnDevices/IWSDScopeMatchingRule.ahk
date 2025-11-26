@@ -31,9 +31,9 @@ class IWSDScopeMatchingRule extends IUnknown{
     static VTableNames => ["GetScopeRule", "MatchScopes"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdscopematchingrule-getscoperule
+     * Is called to return a URI defining the implemented scope matching rule.
+     * @returns {PWSTR} Pointer to the scope matching rule. The implementor must allocate memory using <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a> and the caller must release memory using <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdscopematchingrule-getscoperule
      */
     GetScopeRule() {
         result := ComCall(3, this, "ptr*", &ppszScopeMatchingRule := 0, "HRESULT")
@@ -41,11 +41,11 @@ class IWSDScopeMatchingRule extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszScope1 
-     * @param {PWSTR} pszScope2 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdscopematchingrule-matchscopes
+     * Is called to compare two scopes to determine if they match.
+     * @param {PWSTR} pszScope1 Pointer to the first scope matching rule.
+     * @param {PWSTR} pszScope2 Pointer to the second scope matching rule.
+     * @returns {BOOL} Set to <b>TRUE</b> if the scopes received via <i>pszScope1</i> and <i>pszScope2</i> match, <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdscopematchingrule-matchscopes
      */
     MatchScopes(pszScope1, pszScope2) {
         pszScope1 := pszScope1 is String ? StrPtr(pszScope1) : pszScope1

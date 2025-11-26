@@ -31,12 +31,41 @@ class IFilterGraph3 extends IFilterGraph2{
     static VTableNames => ["SetSyncSourceEx"]
 
     /**
+     * The SetSyncSourceEx method establishes two reference clocks for the filter graph:\_a primary clock that is used by most of the filters, and a secondary clock that is used only by one specified filter.
+     * @param {IReferenceClock} pClockForMostOfFilterGraph Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ireferenceclock">IReferenceClock</a> interface of the main reference clock. Every filter in the graph uses this clock, except for the filter specified by the <i>pFilter</i> parameter.
+     * @param {IReferenceClock} pClockForFilter Pointer to the <b>IReferenceClock</b> interface of the secondary clock. The filter specified by the <i>pFilter</i> parameter uses this clock.
+     * @param {IBaseFilter} pFilter Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of a filter in the graph. This filter uses the secondary reference clock.
+     * @returns {HRESULT} Returns and <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {IReferenceClock} pClockForMostOfFilterGraph 
-     * @param {IReferenceClock} pClockForFilter 
-     * @param {IBaseFilter} pFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph3-setsyncsourceex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_STOPPED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The filter graph is not stopped.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltergraph3-setsyncsourceex
      */
     SetSyncSourceEx(pClockForMostOfFilterGraph, pClockForFilter, pFilter) {
         result := ComCall(21, this, "ptr", pClockForMostOfFilterGraph, "ptr", pClockForFilter, "ptr", pFilter, "HRESULT")

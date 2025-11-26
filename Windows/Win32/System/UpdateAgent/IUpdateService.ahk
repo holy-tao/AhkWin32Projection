@@ -125,9 +125,14 @@ class IUpdateService extends IDispatch{
     }
 
     /**
+     * Gets the name of the service.
+     * @remarks
+     * 
+     * The localized properties of an update are returned in the language that corresponds to the user default user interface (UI) language of the caller. If a property of an update is unavailable in such language, it will be returned in the system default UI language on the specified computer. If the property is unavailable in either languages mentioned, then it will be returned in the language recommended, if any, by the provider of the Update. Otherwise the Update Service will choose a language as it sees fit for the property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_name
      */
     get_Name() {
         retval := BSTR()
@@ -136,9 +141,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an SHA-1 hash of the certificate that is used to sign the contents of the service.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_contentvalidationcert
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_contentvalidationcert
      */
     get_ContentValidationCert() {
         retval := VARIANT()
@@ -147,9 +152,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the date on which the authorization cabinet file expires.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_expirationdate
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_expirationdate
      */
     get_ExpirationDate() {
         result := ComCall(9, this, "double*", &retval := 0, "HRESULT")
@@ -157,9 +162,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether a service is a managed service.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_ismanaged
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_ismanaged
      */
     get_IsManaged() {
         result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
@@ -167,9 +172,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether a service is registered with Automatic Updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau
      */
     get_IsRegisteredWithAU() {
         result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
@@ -177,9 +182,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the date on which the authorization cabinet file was issued.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_issuedate
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_issuedate
      */
     get_IssueDate() {
         result := ComCall(12, this, "double*", &retval := 0, "HRESULT")
@@ -187,9 +192,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value indicates whether the current service offers updates from Windows Updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_offerswindowsupdates
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_offerswindowsupdates
      */
     get_OffersWindowsUpdates() {
         result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
@@ -197,9 +202,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Contains the URLs for the redirector cabinet file.
      * @returns {IStringCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_redirecturls
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_redirecturls
      */
     get_RedirectUrls() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
@@ -207,9 +212,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the identifier for a service.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_serviceid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_serviceid
      */
     get_ServiceID() {
         retval := BSTR()
@@ -218,9 +223,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether a service is based on a scan package.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_isscanpackageservice
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_isscanpackageservice
      */
     get_IsScanPackageService() {
         result := ComCall(16, this, "short*", &retval := 0, "HRESULT")
@@ -228,9 +233,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the service can register with Automatic Updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_canregisterwithau
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_canregisterwithau
      */
     get_CanRegisterWithAU() {
         result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
@@ -238,9 +243,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the URL for the service.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_serviceurl
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_serviceurl
      */
     get_ServiceUrl() {
         retval := BSTR()
@@ -249,9 +254,9 @@ class IUpdateService extends IDispatch{
     }
 
     /**
-     * 
+     * Identifies the prefix for the setup files.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_setupprefix
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_setupprefix
      */
     get_SetupPrefix() {
         retval := BSTR()

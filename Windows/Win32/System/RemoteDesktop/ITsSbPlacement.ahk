@@ -31,11 +31,11 @@ class ITsSbPlacement extends ITsSbPlugin{
     static VTableNames => ["QueryEnvironmentForTarget"]
 
     /**
-     * 
-     * @param {ITsSbClientConnection} pConnection 
-     * @param {ITsSbPlacementNotifySink} pPlacementSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbplacement-queryenvironmentfortarget
+     * Determines whether the specified environment is ready to host the target that was returned by load balancing.
+     * @param {ITsSbClientConnection} pConnection A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbclientconnection">ITsSbClientConnection</a> client connection object.
+     * @param {ITsSbPlacementNotifySink} pPlacementSink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbplacementnotifysink">ITsSbPlacementNotifySink</a> placement sink object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbplacement-queryenvironmentfortarget
      */
     QueryEnvironmentForTarget(pConnection, pPlacementSink) {
         result := ComCall(5, this, "ptr", pConnection, "ptr", pPlacementSink, "HRESULT")

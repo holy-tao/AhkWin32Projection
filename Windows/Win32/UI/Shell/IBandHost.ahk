@@ -31,13 +31,23 @@ class IBandHost extends IUnknown{
     static VTableNames => ["CreateBand", "SetBandAvailability", "DestroyBand"]
 
     /**
+     * Creates a specified band.
+     * @param {Pointer<Guid>} rclsidBand Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} rclsidBand 
-     * @param {BOOL} fAvailable 
-     * @param {BOOL} fVisible 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-createband
+     * A reference to a CLSID. Used to ensure a duplicate band is not created.
+     * @param {BOOL} fAvailable Type: <b>BOOL</b>
+     * 
+     * Specifies band availability.
+     * @param {BOOL} fVisible Type: <b>BOOL</b>
+     * 
+     * Specifies band visibility.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to a desired IID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Contains the address of a pointer to a band specified by <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ibandhost-createband
      */
     CreateBand(rclsidBand, fAvailable, fVisible, riid) {
         result := ComCall(3, this, "ptr", rclsidBand, "int", fAvailable, "int", fVisible, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -45,11 +55,17 @@ class IBandHost extends IUnknown{
     }
 
     /**
+     * Sets the availability of a specified band.
+     * @param {Pointer<Guid>} rclsidBand Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} rclsidBand 
-     * @param {BOOL} fAvailable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-setbandavailability
+     * A reference to a CLSID.
+     * @param {BOOL} fAvailable Type: <b>BOOL</b>
+     * 
+     * Specifies band availability.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ibandhost-setbandavailability
      */
     SetBandAvailability(rclsidBand, fAvailable) {
         result := ComCall(4, this, "ptr", rclsidBand, "int", fAvailable, "HRESULT")
@@ -57,10 +73,14 @@ class IBandHost extends IUnknown{
     }
 
     /**
+     * Destroys a specified band.
+     * @param {Pointer<Guid>} rclsidBand Type: <b>REFCLSID</b>
      * 
-     * @param {Pointer<Guid>} rclsidBand 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-destroyband
+     * A reference to the CLSID of a band.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ibandhost-destroyband
      */
     DestroyBand(rclsidBand) {
         result := ComCall(5, this, "ptr", rclsidBand, "HRESULT")

@@ -31,10 +31,36 @@ class IAsynchronousDataRetriever extends IUnknown{
     static VTableNames => ["GetIdParameters", "RegisterCallback", "RevokeCallback", "LoadChangeData"]
 
     /**
+     * Gets the ID format schema of the provider.
+     * @param {Pointer<ID_PARAMETERS>} pIdParameters Returns the ID format schema of the provider.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<ID_PARAMETERS>} pIdParameters 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iasynchronousdataretriever-getidparameters
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iasynchronousdataretriever-getidparameters
      */
     GetIdParameters(pIdParameters) {
         result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
@@ -42,10 +68,36 @@ class IAsynchronousDataRetriever extends IUnknown{
     }
 
     /**
+     * Registers a callback interface that will be called by the IAsynchronousDataRetriever object when an asynchronous method finishes processing.
+     * @param {IDataRetrieverCallback} pDataRetrieverCallback The callback interface to register.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {IDataRetrieverCallback} pDataRetrieverCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iasynchronousdataretriever-registercallback
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iasynchronousdataretriever-registercallback
      */
     RegisterCallback(pDataRetrieverCallback) {
         result := ComCall(4, this, "ptr", pDataRetrieverCallback, "HRESULT")
@@ -53,10 +105,36 @@ class IAsynchronousDataRetriever extends IUnknown{
     }
 
     /**
+     * Indicates that the IAsynchronousDataRetriever object must no longer use the specified callback interface and must release any references to it.
+     * @param {IDataRetrieverCallback} pDataRetrieverCallback The callback interface to release.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {IDataRetrieverCallback} pDataRetrieverCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iasynchronousdataretriever-revokecallback
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iasynchronousdataretriever-revokecallback
      */
     RevokeCallback(pDataRetrieverCallback) {
         result := ComCall(5, this, "ptr", pDataRetrieverCallback, "HRESULT")
@@ -64,10 +142,39 @@ class IAsynchronousDataRetriever extends IUnknown{
     }
 
     /**
+     * Retrieves item data for a change.
+     * @param {ILoadChangeContext} pLoadChangeContext Metadata that describes the change for which data should be retrieved.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {ILoadChangeContext} pLoadChangeContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iasynchronousdataretriever-loadchangedata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * See Remarks.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iasynchronousdataretriever-loadchangedata
      */
     LoadChangeData(pLoadChangeContext) {
         result := ComCall(6, this, "ptr", pLoadChangeContext, "HRESULT")

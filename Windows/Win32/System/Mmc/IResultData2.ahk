@@ -31,10 +31,10 @@ class IResultData2 extends IResultData{
     static VTableNames => ["RenameResultItem"]
 
     /**
-     * 
-     * @param {Pointer} itemID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata2-renameresultitem
+     * The RenameResultItem method programmatically places the specified result item into rename mode, after which, the user can manually enter the new name.
+     * @param {Pointer} itemID The result item being placed into rename mode. When applied to virtual lists, pass the item index instead of the result item.
+     * @returns {HRESULT} If successful, the return value is S_OK; otherwise, the return value is an error code.  The <a href="/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and/or <a href="/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros can be used to evaluate the return value. If the Rename verb is not enabled, this method returns E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iresultdata2-renameresultitem
      */
     RenameResultItem(itemID) {
         result := ComCall(18, this, "ptr", itemID, "HRESULT")

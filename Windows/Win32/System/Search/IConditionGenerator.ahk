@@ -39,20 +39,14 @@ class IConditionGenerator extends IUnknown{
     static VTableNames => ["Initialize", "RecognizeNamedEntities", "GenerateForLeaf", "DefaultPhrase"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {ISchemaProvider} pSchemaProvider 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Resets all states of the interface to default values and retrieves any necessary information from the schema.
+     * @param {ISchemaProvider} pSchemaProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ischemaprovider">ISchemaProvider</a>*</b>
+     * 
+     * Pointer to the schema to be used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditiongenerator-initialize
      */
     Initialize(pSchemaProvider) {
         result := ComCall(3, this, "ptr", pSchemaProvider, "HRESULT")
@@ -60,13 +54,23 @@ class IConditionGenerator extends IUnknown{
     }
 
     /**
+     * Identifies named entities in an input string, and creates a collection containing them.
+     * @param {PWSTR} pszInputString Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszInputString 
-     * @param {Integer} lcidUserLocale 
-     * @param {ITokenCollection} pTokenCollection 
-     * @param {INamedEntityCollector} pNamedEntities 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditiongenerator-recognizenamedentities
+     * The input string to be parsed.
+     * @param {Integer} lcidUserLocale Type: <b>LCID</b>
+     * 
+     * The LCID against which named entities should be recognized.
+     * @param {ITokenCollection} pTokenCollection Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-itokencollection">ITokenCollection</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-itokencollection">ITokenCollection</a> object that indicates how the input string was tokenized.
+     * @param {INamedEntityCollector} pNamedEntities Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-inamedentitycollector">INamedEntityCollector</a>*</b>
+     * 
+     * On input, contains an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-inamedentitycollector">INamedEntityCollector</a> or <b>NULL</b>. On return, contains an <b>INamedEntityCollector</b> collection of the named entities.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditiongenerator-recognizenamedentities
      */
     RecognizeNamedEntities(pszInputString, lcidUserLocale, pTokenCollection, pNamedEntities) {
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
@@ -76,20 +80,44 @@ class IConditionGenerator extends IUnknown{
     }
 
     /**
+     * Generates a special query expression for what would otherwise become a leaf query expression.
+     * @param {IConditionFactory} pConditionFactory Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iconditionfactory">IConditionFactory</a>*</b>
      * 
-     * @param {IConditionFactory} pConditionFactory 
-     * @param {PWSTR} pszPropertyName 
-     * @param {Integer} cop 
-     * @param {PWSTR} pszValueType 
-     * @param {PWSTR} pszValue 
-     * @param {PWSTR} pszValue2 
-     * @param {IRichChunk} pPropertyNameTerm 
-     * @param {IRichChunk} pOperationTerm 
-     * @param {IRichChunk} pValueTerm 
-     * @param {BOOL} automaticWildcard 
-     * @param {Pointer<BOOL>} pNoStringQuery 
-     * @returns {ICondition} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditiongenerator-generateforleaf
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iconditionfactory">IConditionFactory</a> object that can be used to create the necessary nodes.
+     * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
+     * 
+     * Property name, or <b>NULL</b> if there is no property name.
+     * @param {Integer} cop Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a></b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a> enumerated type identifying the operation.
+     * @param {PWSTR} pszValueType Type: <b>LPCWSTR</b>
+     * 
+     * Semantic type describing the values in <i>pszValue</i> and <i>pszValue2</i>.
+     * @param {PWSTR} pszValue Type: <b>LPCWSTR</b>
+     * 
+     * A string generated by <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iconditiongenerator-recognizenamedentities">IConditionGenerator::RecognizeNamedEntities</a> that represents the value. If <i>pszValue2</i> is not <b>NULL</b>, then this represents the beginning of the value's range.
+     * @param {PWSTR} pszValue2 Type: <b>LPCWSTR</b>
+     * 
+     * If not <b>NULL</b>, a string generated by <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iconditiongenerator-recognizenamedentities">IConditionGenerator::RecognizeNamedEntities</a> that represents the end of the value's range. If <b>NULL</b>, then <i>pszValue</i> represents a discrete value.
+     * @param {IRichChunk} pPropertyNameTerm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> object containing information about what part of an input string produced the property name.
+     * @param {IRichChunk} pOperationTerm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> object containing information about what part of an input string produced the operation.
+     * @param {IRichChunk} pValueTerm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> object containing information about what part of an input string produced the value.
+     * @param {BOOL} automaticWildcard Type: <b>BOOL</b>
+     * 
+     * <b>TRUE</b> if the generated condition should return results that begin with the specified value, if meaningful. <b>FALSE </b> if the generated condition should return results matching the specified value exactly.
+     * @param {Pointer<BOOL>} pNoStringQuery Type: <b>BOOL*</b>
+     * 
+     * <b>VARIANT_TRUE</b> if the condition tree in <i>ppQueryExpression</i> should be the full query, or <b>VARIANT_FALSE</b> if the full query should be a disjunction of the condition tree in <i>ppQueryExpression</i> and the condition tree that would have been used if this method had returned S_FALSE.
+     * @returns {ICondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>**</b>
+     * 
+     * Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> condition tree.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditiongenerator-generateforleaf
      */
     GenerateForLeaf(pConditionFactory, pszPropertyName, cop, pszValueType, pszValue, pszValue2, pPropertyNameTerm, pOperationTerm, pValueTerm, automaticWildcard, pNoStringQuery) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -104,12 +132,20 @@ class IConditionGenerator extends IUnknown{
     }
 
     /**
+     * This method attempts to produce a phrase that, when recognized by this instance of IConditionGenerator, represents the type and value pair for an entity, relationship, or named entity.
+     * @param {PWSTR} pszValueType Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszValueType 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @param {BOOL} fUseEnglish 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditiongenerator-defaultphrase
+     * The semantic type of the value in <i>ppropvar</i>.
+     * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT const</a>*</b>
+     * 
+     * The value to be processed.
+     * @param {BOOL} fUseEnglish Type: <b>BOOL</b>
+     * 
+     *  The parameter fUseEnglish is reserved: it should be ignored by implementors, and callers should pass <b>FALSE</b>.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * Receives a pointer to the phrase representing the value. If no phrase can be produced, this parameter is set to <b>NULL</b> and the method returns S_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditiongenerator-defaultphrase
      */
     DefaultPhrase(pszValueType, ppropvar, fUseEnglish) {
         pszValueType := pszValueType is String ? StrPtr(pszValueType) : pszValueType

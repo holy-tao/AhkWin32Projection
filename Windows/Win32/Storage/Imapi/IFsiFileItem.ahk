@@ -74,9 +74,9 @@ class IFsiFileItem extends IFsiItem{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize
+     * Retrieves the number of bytes in the file.
+     * @returns {Integer} Size, in bytes, of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize
      */
     get_DataSize() {
         result := ComCall(19, this, "int64*", &pVal := 0, "HRESULT")
@@ -84,9 +84,9 @@ class IFsiFileItem extends IFsiItem{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow
+     * Retrieves the least significant 32 bits of the IFsiFileItem::get_DataSize property.
+     * @returns {Integer} Least significant 32 bits of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize">IFsiFileItem::get_DataSize</a> property.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow
      */
     get_DataSize32BitLow() {
         result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
@@ -94,9 +94,9 @@ class IFsiFileItem extends IFsiItem{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh
+     * Retrieves the most significant 32 bits of the IFsiFileItem::get_DataSize property.
+     * @returns {Integer} Most significant 32 bits of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize">IFsiFileItem::get_DataSize</a> property.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh
      */
     get_DataSize32BitHigh() {
         result := ComCall(21, this, "int*", &pVal := 0, "HRESULT")
@@ -104,9 +104,9 @@ class IFsiFileItem extends IFsiItem{
     }
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_data
+     * Retrieves the data stream of the file's content.
+     * @returns {IStream} An <b>IStream</b> interface of the contents of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_data
      */
     get_Data() {
         result := ComCall(22, this, "ptr*", &pVal := 0, "HRESULT")
@@ -114,10 +114,43 @@ class IFsiFileItem extends IFsiItem{
     }
 
     /**
+     * Sets the data stream of the file's content.
+     * @param {IStream} newVal An <b>IStream</b> interface of the content of the file to add to the file system image.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {IStream} newVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-put_data
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Pointer is not valid.
+     * 
+     * Value: 0x80004003
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IMAPI_E_READONLY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * FileSystemImage object is in read only mode.
+     * 
+     * Value: 0xC0AAB102
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-put_data
      */
     put_Data(newVal) {
         result := ComCall(23, this, "ptr", newVal, "HRESULT")

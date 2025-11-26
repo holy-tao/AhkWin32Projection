@@ -58,9 +58,9 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * 
+     * Retrieves or sets the type of event that the action logs when it runs.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
      */
     get_EventType() {
         result := ComCall(12, this, "int*", &eventType := 0, "HRESULT")
@@ -68,10 +68,10 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * 
+     * Retrieves or sets the type of event that the action logs when it runs.
      * @param {Integer} eventType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-put_eventtype
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-put_eventtype
      */
     put_EventType(eventType) {
         result := ComCall(13, this, "int", eventType, "HRESULT")
@@ -79,9 +79,9 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * 
+     * Retrieves or sets the event text that is logged when the action runs.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext
      */
     get_MessageText() {
         messageText := BSTR()
@@ -90,10 +90,10 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * 
+     * Retrieves or sets the event text that is logged when the action runs.
      * @param {BSTR} messageText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-put_messagetext
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-put_messagetext
      */
     put_MessageText(messageText) {
         messageText := messageText is String ? BSTR.Alloc(messageText).Value : messageText

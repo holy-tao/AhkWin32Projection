@@ -31,11 +31,11 @@ class ITfMouseTrackerACP extends IUnknown{
     static VTableNames => ["AdviseMouseSink", "UnadviseMouseSink"]
 
     /**
-     * 
-     * @param {ITfRangeACP} range 
-     * @param {ITfMouseSink} pSink 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetrackeracp-advisemousesink
+     * ITfMouseTrackerACP::AdviseMouseSink method
+     * @param {ITfRangeACP} range Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that specifies the range of text that the mouse sink is installed for.
+     * @param {ITfMouseSink} pSink Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfmousesink">ITfMouseSink</a> interface. The application must increment this object reference count and save the interface.
+     * @returns {Integer} Pointer to a DWORD that receives a cookie that identifies the mouse event sink.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmousetrackeracp-advisemousesink
      */
     AdviseMouseSink(range, pSink) {
         result := ComCall(3, this, "ptr", range, "ptr", pSink, "uint*", &pdwCookie := 0, "HRESULT")
@@ -43,10 +43,39 @@ class ITfMouseTrackerACP extends IUnknown{
     }
 
     /**
+     * ITfMouseTrackerACP::UnadviseMouseSink method
+     * @param {Integer} dwCookie Specifies the mouse advise sink identifier. This value is obtained by a call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfmousetrackeracp-advisemousesink">ITfMouseTrackerACP::AdviseMouseSink</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetrackeracp-unadvisemousesink
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application does not support mouse event sinks.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmousetrackeracp-unadvisemousesink
      */
     UnadviseMouseSink(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")

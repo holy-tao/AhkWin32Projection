@@ -36,10 +36,10 @@ class IBDACreateTuneRequestEx extends IUnknown{
     static VTableNames => ["CreateTuneRequestEx"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} TuneRequestIID 
-     * @returns {ITuneRequest} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacreatetunerequestex-createtunerequestex
+     * Creates a new tuning request for a tuning space. This method enables the caller to specify a particular type of tuning request.
+     * @param {Pointer<Guid>} TuneRequestIID GUID that identifies the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> object expected by the caller. If this value is <b>NULL</b>, this method behaves the same as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ituningspace-createtunerequest">ITuningSpace::CreateTuneRequest</a> and creates an empty (uninitialized) <b>ITuneRequest</b> object.
+     * @returns {ITuneRequest} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the new tuning request object. The caller must release the interface. If the <i>TuneRequestIID</i> argument is <b>NULL</b>, this address is set to <b>NULL</b> also.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ibdacreatetunerequestex-createtunerequestex
      */
     CreateTuneRequestEx(TuneRequestIID) {
         result := ComCall(3, this, "ptr", TuneRequestIID, "ptr*", &TuneRequest := 0, "HRESULT")

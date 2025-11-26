@@ -40,9 +40,9 @@ class IWSManConnectionOptionsEx extends IWSManConnectionOptions{
     }
 
     /**
-     * 
+     * Sets or gets the certificate thumbprint to use when authenticating by using client certificate authentication.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-get_certificatethumbprint
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-get_certificatethumbprint
      */
     get_CertificateThumbprint() {
         thumbprint := BSTR()
@@ -51,10 +51,10 @@ class IWSManConnectionOptionsEx extends IWSManConnectionOptions{
     }
 
     /**
-     * 
+     * Sets or gets the certificate thumbprint to use when authenticating by using client certificate authentication.
      * @param {BSTR} thumbprint 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-put_certificatethumbprint
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-put_certificatethumbprint
      */
     put_CertificateThumbprint(thumbprint) {
         thumbprint := thumbprint is String ? BSTR.Alloc(thumbprint).Value : thumbprint

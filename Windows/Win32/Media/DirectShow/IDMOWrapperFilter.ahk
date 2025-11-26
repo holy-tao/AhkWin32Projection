@@ -31,11 +31,11 @@ class IDMOWrapperFilter extends IUnknown{
     static VTableNames => ["Init"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsidDMO 
-     * @param {Pointer<Guid>} catDMO 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dmodshow/nf-dmodshow-idmowrapperfilter-init
+     * The Init method initializes the DMO Wrapper filter with the specified DMO.
+     * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
+     * @param {Pointer<Guid>} catDMO CLSID that specifies the category of the DMO.
+     * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns an <b>HRESULT</b> value indicating the cause of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//dmodshow/nf-dmodshow-idmowrapperfilter-init
      */
     Init(clsidDMO, catDMO) {
         result := ComCall(3, this, "ptr", clsidDMO, "ptr", catDMO, "HRESULT")

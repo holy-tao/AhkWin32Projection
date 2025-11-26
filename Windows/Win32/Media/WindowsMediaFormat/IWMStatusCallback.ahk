@@ -57,14 +57,14 @@ class IWMStatusCallback extends IUnknown{
     static VTableNames => ["OnStatus"]
 
     /**
-     * 
-     * @param {Integer} Status 
-     * @param {HRESULT} hr 
-     * @param {Integer} dwType 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus
+     * The OnStatus method is called when status information must be communicated to the application.
+     * @param {Integer} Status One member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_status">WMT_STATUS</a> enumeration type. For a description of possible <b>WMT_STATUS</b> values, see the tables in the Remarks section.
+     * @param {HRESULT} hr <b>HRESULT</b> error code. If this indicates failure, you should not process the status as normal, as some error has occurred. Use <c>if (FAILED(hr))</c> to check for a failed value. See the topic <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a> for a list of possible results.
+     * @param {Integer} dwType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value specifies the type of data in the buffer at <i>pValue</i>.
+     * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value. The contents of this array depend on the value of <i>Status</i> and the value of <i>dwType</i>.
+     * @param {Pointer<Void>} pvContext Generic pointer provided by the application, for its own use. This pointer matches the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-open">IWMReader::Open</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing">IWMIndexer::StartIndexing</a>, and other methods. The SDK makes no assumptions about the use of this pointer; it is simply provided by the application and passed back to the application when a callback is made.
+     * @returns {HRESULT} This method is implemented by the application. It should always return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus
      */
     OnStatus(Status, hr, dwType, pValue, pvContext) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"

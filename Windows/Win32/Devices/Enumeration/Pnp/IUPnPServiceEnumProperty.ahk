@@ -31,10 +31,21 @@ class IUPnPServiceEnumProperty extends IUnknown{
     static VTableNames => ["SetServiceEnumProperty"]
 
     /**
+     * The SetServiceEnumProperty method is used to indicate opt-in to the delayed Service Control Protocol Description (SCPD) download and event subscription for the IUPnPService objects enumerated from the IUPnPServices object.
+     * @param {Integer} dwMask Specifies a bit-wise flag to indicate an opt-in to the delayed SCPD download and even subscription. Possible values include:
      * 
-     * @param {Integer} dwMask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceenumproperty-setserviceenumproperty
+     * <table>
+     * <tr>
+     * <th>Flag</th>
+     * <th>Value</th>
+     * </tr>
+     * <tr>
+     * <td>UPNP_SERVICE_DELAY_SCPD_AND_SUBSCRIPTION</td>
+     * <td>0x1</td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Returns <b>S_OK</b> on success. Otherwise, this method returns <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpserviceenumproperty-setserviceenumproperty
      */
     SetServiceEnumProperty(dwMask) {
         result := ComCall(3, this, "uint", dwMask, "HRESULT")

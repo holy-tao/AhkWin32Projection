@@ -31,11 +31,11 @@ class IDownloadProgressChangedCallback extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
-     * @param {IDownloadJob} downloadJob 
-     * @param {IDownloadProgressChangedCallbackArgs} callbackArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogresschangedcallback-invoke
+     * Handles the notification of a change in the progress of an asynchronous download that was initiated by calling the IUpdateDownloader.BeginDownload method.
+     * @param {IDownloadJob} downloadJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface that contains download information.
+     * @param {IDownloadProgressChangedCallbackArgs} callbackArgs An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadprogresschangedcallbackargs">IDownloadProgressChangedCallbackArgs</a> interface that contains download progress data.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns   a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogresschangedcallback-invoke
      */
     Invoke(downloadJob, callbackArgs) {
         result := ComCall(3, this, "ptr", downloadJob, "ptr", callbackArgs, "HRESULT")

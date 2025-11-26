@@ -31,9 +31,11 @@ class IAccessibleHostingElementProviders extends IUnknown{
     static VTableNames => ["GetEmbeddedFragmentRoots", "GetObjectIdForProvider"]
 
     /**
+     * Retrieves the Microsoft Active Accessibility providers of all windowless Microsoft ActiveX controls that have a Microsoft UI Automation provider implementation, and are hosted in a Microsoft Active Accessibility object that implements the IAccessibleHostingElementProviders interface.
+     * @returns {Pointer<SAFEARRAY>} Type: <b>SAFEARRAY**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getembeddedfragmentroots
+     * Receives the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getembeddedfragmentroots
      */
     GetEmbeddedFragmentRoots() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -41,10 +43,14 @@ class IAccessibleHostingElementProviders extends IUnknown{
     }
 
     /**
+     * Retrieves the object ID associated with a contained windowless Microsoft ActiveX control that implements Microsoft UI Automation.
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
-     * @param {IRawElementProviderSimple} pProvider 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getobjectidforprovider
+     * The provider for the windowless ActiveX control.
+     * @returns {Integer} Type: <b>long*</b>
+     * 
+     * The object ID of the contained windowless ActiveX control.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getobjectidforprovider
      */
     GetObjectIdForProvider(pProvider) {
         result := ComCall(4, this, "ptr", pProvider, "int*", &pidObject := 0, "HRESULT")

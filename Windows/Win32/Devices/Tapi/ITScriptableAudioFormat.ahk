@@ -79,9 +79,10 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_channels
+     * The get_Channels method returns the value for the nChannels member in the WAVEFORMATEX structure.
+     * @returns {Integer} Pointer to the value of the <b>nChannels</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_channels
      */
     get_Channels() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
@@ -89,10 +90,29 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
+     * The put_Channels method sets the nChannels member in the WAVEFORMATEX structure.
+     * @param {Integer} nNewVal New value for the <b>nChannels</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nNewVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_channels
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_channels
      */
     put_Channels(nNewVal) {
         result := ComCall(8, this, "int", nNewVal, "HRESULT")
@@ -100,9 +120,10 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_samplespersec
+     * The get_SamplesPerSec method returns the value for the nSamplesPerSec member in the WAVEFORMATEX structure.
+     * @returns {Integer} Pointer to the value of the <b>nSamplesPerSec</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_samplespersec
      */
     get_SamplesPerSec() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -110,10 +131,29 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
+     * The put_SamplesPerSec method sets the nSamplesPerSec member in the WAVEFORMATEX structure.
+     * @param {Integer} nNewVal New value for the <b>nSamplesPerSec</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nNewVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_samplespersec
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_samplespersec
      */
     put_SamplesPerSec(nNewVal) {
         result := ComCall(10, this, "int", nNewVal, "HRESULT")
@@ -121,9 +161,10 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_avgbytespersec
+     * The get_AvgBytesPerSec method returns the value for the nAvgBytesPerSec member in the WAVEFORMATEX structure.
+     * @returns {Integer} Pointer to the value for the <b>nAvgBytesPerSec</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_avgbytespersec
      */
     get_AvgBytesPerSec() {
         result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
@@ -131,10 +172,29 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
+     * The put_AvgBytesPerSec method sets the nAvgBytesPerSec member in the WAVEFORMATEX structure.
+     * @param {Integer} nNewVal New value for the <b>nAvgBytesPerSec</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nNewVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_avgbytespersec
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_avgbytespersec
      */
     put_AvgBytesPerSec(nNewVal) {
         result := ComCall(12, this, "int", nNewVal, "HRESULT")
@@ -142,9 +202,10 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_blockalign
+     * The get_BlockAlign method returns the value for the nBlockAlign member in the WAVEFORMATEX structure.
+     * @returns {Integer} Pointer to the value of the <b>nBlockAlign</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_blockalign
      */
     get_BlockAlign() {
         result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
@@ -152,10 +213,29 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
+     * The put_BlockAlign method sets the nBlockAlign member in the WAVEFORMATEX structure.
+     * @param {Integer} nNewVal New value for the <b>nBlockAlign</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nNewVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_blockalign
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_blockalign
      */
     put_BlockAlign(nNewVal) {
         result := ComCall(14, this, "int", nNewVal, "HRESULT")
@@ -163,9 +243,10 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_bitspersample
+     * The get_BitsPerSample method returns the value for the wBitsPerSample member in the WAVEFORMATEX structure.
+     * @returns {Integer} Pointer to the value of the <b>wBitsPerSample</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_bitspersample
      */
     get_BitsPerSample() {
         result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
@@ -173,10 +254,29 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
+     * The put_BitsPerSample method sets the wBitsPerSample member in the WAVEFORMATEX structure.
+     * @param {Integer} nNewVal New value for the <b>wBitsPerSample</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nNewVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_bitspersample
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_bitspersample
      */
     put_BitsPerSample(nNewVal) {
         result := ComCall(16, this, "int", nNewVal, "HRESULT")
@@ -184,9 +284,10 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_formattag
+     * The get_FormatTag method returns the value for the wFormatTag member in the WAVEFORMATEX structure.
+     * @returns {Integer} Pointer to the value of the <b>wFormatTag</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-get_formattag
      */
     get_FormatTag() {
         result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
@@ -194,10 +295,29 @@ class ITScriptableAudioFormat extends IDispatch{
     }
 
     /**
+     * The put_FormatTag method sets the wFormatTag member in the WAVEFORMATEX structure.
+     * @param {Integer} nNewVal New value for the <b>wFormatTag</b> member in the 
+     * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nNewVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_formattag
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itscriptableaudioformat-put_formattag
      */
     put_FormatTag(nNewVal) {
         result := ComCall(18, this, "int", nNewVal, "HRESULT")

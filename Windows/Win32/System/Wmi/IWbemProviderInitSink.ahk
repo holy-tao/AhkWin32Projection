@@ -31,11 +31,11 @@ class IWbemProviderInitSink extends IUnknown{
     static VTableNames => ["SetStatus"]
 
     /**
-     * 
+     * The IWbemProviderInitSink::SetStatus method indicates to Windows Management whether a provider is fully or partially initialized.
      * @param {Integer} lStatus 
-     * @param {Integer} lFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemproviderinitsink-setstatus
+     * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
+     * @returns {HRESULT} This method always returns <b>WBEM_S_NO_ERROR</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemproviderinitsink-setstatus
      */
     SetStatus(lStatus, lFlags) {
         result := ComCall(3, this, "int", lStatus, "int", lFlags, "HRESULT")
