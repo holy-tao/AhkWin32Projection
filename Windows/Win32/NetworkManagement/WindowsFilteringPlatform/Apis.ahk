@@ -2970,9 +2970,6 @@ class WindowsFilteringPlatform {
 
     /**
      * Opens a session to the filter engine.
-     * @param {PWSTR} serverName Type: <b>const wchar_t*</b>
-     * 
-     * This value must be <b>NULL</b>.
      * @param {Integer} authnService Type: <b>UINT32</b>
      * 
      * Specifies the authentication service to use. Allowed services are RPC_C_AUTHN_WINNT and RPC_C_AUTHN_DEFAULT.
@@ -3044,8 +3041,8 @@ class WindowsFilteringPlatform {
      * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmengineopen0
      * @since windows6.0.6000
      */
-    static FwpmEngineOpen0(serverName, authnService, authIdentity, session, engineHandle) {
-        serverName := serverName is String ? StrPtr(serverName) : serverName
+    static FwpmEngineOpen0(authnService, authIdentity, session, engineHandle) {
+        static serverName := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", "ptr", serverName, "uint", authnService, "ptr", authIdentity, "ptr", session, "ptr", engineHandle, "uint")
         return result
