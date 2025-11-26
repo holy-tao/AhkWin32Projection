@@ -7,6 +7,8 @@
 #Include ../Windows/Win32/System/Com/IUri.ahk
 #Include ../Windows/Win32/System/Com/IUriBuilder.ahk
 #Include ../Windows/Win32/Foundation/BSTR.ahk
+#Include ../Windows/Win32/Data/Xml/MsXML/IXMLDOMDocument2.ahk
+#Include ../Windows/Win32/Foundation/Apis.ahk
 #Include ../Guid.ahk
 
 #DllLoad Urlmon.dll
@@ -59,6 +61,35 @@ class GeneratedComInterfaceTests {
                 (*) => uriBuilder.CreateUri(-1, 0, 0),
                 OSError
             )
+        }
+    }
+
+    /**
+     * Smoke tests for [propget]/[propout] properties (get_* and put_* methods as properties)
+     */
+    class PropGetOut {
+
+        InterfaceProperty_Out_ReadOnlyInterface_ReturnsInterface(){
+            comObjUnknown := ComObject("MSXML2.DOMDocument.6.0", String(IXMLDOMDocument2.IID))
+            pUnk := comObjUnknown.ptr
+
+            ixmlDoc2 := IXMLDOMDocument2(pUnk)
+
+            Assert.IsType(ixmlDoc2.documentElement, IXMLDOMElement)
+        }
+
+        InterfaceProperty_Set_SetsValue(){
+            comObjUnknown := ComObject("MSXML2.DOMDocument.6.0", String(IXMLDOMDocument2.IID))
+            pUnk := comObjUnknown.ptr
+
+            ixmlDoc2 := IXMLDOMDocument2(pUnk)
+
+            ; Also tests the getter
+            ixmlDoc2.preserveWhiteSpace := Foundation.VARIANT_TRUE
+            Assert.Equals(ixmlDoc2.preserveWhiteSpace, Foundation.VARIANT_TRUE)
+
+            ixmlDoc2.preserveWhiteSpace := False
+            Assert.Equals(ixmlDoc2.preserveWhiteSpace, False)
         }
     }
 }
