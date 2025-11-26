@@ -3025,7 +3025,12 @@ class Security {
 
         lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
 
+        A_LastError := 0
+
         result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
+        if(A_LastError)
+            throw OSError()
+
         return result
     }
 
