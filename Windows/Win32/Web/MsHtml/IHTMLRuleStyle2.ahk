@@ -31,6 +31,246 @@ class IHTMLRuleStyle2 extends IDispatch{
     static VTableNames => ["put_tableLayout", "get_tableLayout", "put_borderCollapse", "get_borderCollapse", "put_direction", "get_direction", "put_behavior", "get_behavior", "put_position", "get_position", "put_unicodeBidi", "get_unicodeBidi", "put_bottom", "get_bottom", "put_right", "get_right", "put_pixelBottom", "get_pixelBottom", "put_pixelRight", "get_pixelRight", "put_posBottom", "get_posBottom", "put_posRight", "get_posRight", "put_imeMode", "get_imeMode", "put_rubyAlign", "get_rubyAlign", "put_rubyPosition", "get_rubyPosition", "put_rubyOverhang", "get_rubyOverhang", "put_layoutGridChar", "get_layoutGridChar", "put_layoutGridLine", "get_layoutGridLine", "put_layoutGridMode", "get_layoutGridMode", "put_layoutGridType", "get_layoutGridType", "put_layoutGrid", "get_layoutGrid", "put_textAutospace", "get_textAutospace", "put_wordBreak", "get_wordBreak", "put_lineBreak", "get_lineBreak", "put_textJustify", "get_textJustify", "put_textJustifyTrim", "get_textJustifyTrim", "put_textKashida", "get_textKashida", "put_overflowX", "get_overflowX", "put_overflowY", "get_overflowY", "put_accelerator", "get_accelerator"]
 
     /**
+     * @type {BSTR} 
+     */
+    tableLayout {
+        get => this.get_tableLayout()
+        set => this.put_tableLayout(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderCollapse {
+        get => this.get_borderCollapse()
+        set => this.put_borderCollapse(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    direction {
+        get => this.get_direction()
+        set => this.put_direction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    behavior {
+        get => this.get_behavior()
+        set => this.put_behavior(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    position {
+        get => this.get_position()
+        set => this.put_position(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    unicodeBidi {
+        get => this.get_unicodeBidi()
+        set => this.put_unicodeBidi(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bottom {
+        get => this.get_bottom()
+        set => this.put_bottom(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    right {
+        get => this.get_right()
+        set => this.put_right(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pixelBottom {
+        get => this.get_pixelBottom()
+        set => this.put_pixelBottom(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pixelRight {
+        get => this.get_pixelRight()
+        set => this.put_pixelRight(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    posBottom {
+        get => this.get_posBottom()
+        set => this.put_posBottom(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    posRight {
+        get => this.get_posRight()
+        set => this.put_posRight(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    imeMode {
+        get => this.get_imeMode()
+        set => this.put_imeMode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rubyAlign {
+        get => this.get_rubyAlign()
+        set => this.put_rubyAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rubyPosition {
+        get => this.get_rubyPosition()
+        set => this.put_rubyPosition(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rubyOverhang {
+        get => this.get_rubyOverhang()
+        set => this.put_rubyOverhang(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    layoutGridChar {
+        get => this.get_layoutGridChar()
+        set => this.put_layoutGridChar(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    layoutGridLine {
+        get => this.get_layoutGridLine()
+        set => this.put_layoutGridLine(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    layoutGridMode {
+        get => this.get_layoutGridMode()
+        set => this.put_layoutGridMode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    layoutGridType {
+        get => this.get_layoutGridType()
+        set => this.put_layoutGridType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    layoutGrid {
+        get => this.get_layoutGrid()
+        set => this.put_layoutGrid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAutospace {
+        get => this.get_textAutospace()
+        set => this.put_textAutospace(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    wordBreak {
+        get => this.get_wordBreak()
+        set => this.put_wordBreak(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lineBreak {
+        get => this.get_lineBreak()
+        set => this.put_lineBreak(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textJustify {
+        get => this.get_textJustify()
+        set => this.put_textJustify(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textJustifyTrim {
+        get => this.get_textJustifyTrim()
+        set => this.put_textJustifyTrim(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textKashida {
+        get => this.get_textKashida()
+        set => this.put_textKashida(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    overflowX {
+        get => this.get_overflowX()
+        set => this.put_overflowX(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    overflowY {
+        get => this.get_overflowY()
+        set => this.put_overflowY(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    accelerator {
+        get => this.get_accelerator()
+        set => this.put_accelerator(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

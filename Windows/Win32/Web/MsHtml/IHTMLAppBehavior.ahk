@@ -36,6 +36,109 @@ class IHTMLAppBehavior extends IDispatch{
     static VTableNames => ["put_applicationName", "get_applicationName", "put_version", "get_version", "put_icon", "get_icon", "put_singleInstance", "get_singleInstance", "put_minimizeButton", "get_minimizeButton", "put_maximizeButton", "get_maximizeButton", "put_border", "get_border", "put_borderStyle", "get_borderStyle", "put_sysMenu", "get_sysMenu", "put_caption", "get_caption", "put_windowState", "get_windowState", "put_showInTaskBar", "get_showInTaskBar", "get_commandLine"]
 
     /**
+     * @type {BSTR} 
+     */
+    applicationName {
+        get => this.get_applicationName()
+        set => this.put_applicationName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+        set => this.put_version(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    icon {
+        get => this.get_icon()
+        set => this.put_icon(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    singleInstance {
+        get => this.get_singleInstance()
+        set => this.put_singleInstance(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    minimizeButton {
+        get => this.get_minimizeButton()
+        set => this.put_minimizeButton(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    maximizeButton {
+        get => this.get_maximizeButton()
+        set => this.put_maximizeButton(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderStyle {
+        get => this.get_borderStyle()
+        set => this.put_borderStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    sysMenu {
+        get => this.get_sysMenu()
+        set => this.put_sysMenu(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    caption {
+        get => this.get_caption()
+        set => this.put_caption(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    windowState {
+        get => this.get_windowState()
+        set => this.put_windowState(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    showInTaskBar {
+        get => this.get_showInTaskBar()
+        set => this.put_showInTaskBar(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    commandLine {
+        get => this.get_commandLine()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

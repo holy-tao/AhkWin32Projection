@@ -29,6 +29,48 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
     static VTableNames => ["get_ImageableSizeWidthInMicrons", "get_ImageableSizeHeightInMicrons", "get_OriginWidthInMicrons", "get_OriginHeightInMicrons", "get_ExtentWidthInMicrons", "get_ExtentHeightInMicrons"]
 
     /**
+     * @type {Integer} 
+     */
+    ImageableSizeWidthInMicrons {
+        get => this.get_ImageableSizeWidthInMicrons()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ImageableSizeHeightInMicrons {
+        get => this.get_ImageableSizeHeightInMicrons()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OriginWidthInMicrons {
+        get => this.get_OriginWidthInMicrons()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OriginHeightInMicrons {
+        get => this.get_OriginHeightInMicrons()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExtentWidthInMicrons {
+        get => this.get_ExtentWidthInMicrons()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExtentHeightInMicrons {
+        get => this.get_ExtentHeightInMicrons()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

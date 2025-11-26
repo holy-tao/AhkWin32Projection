@@ -29,6 +29,74 @@ class IContactAggregationContact extends IUnknown{
     static VTableNames => ["Delete", "Save", "MoveToAggregate", "Unlink", "get_AccountId", "put_AccountId", "get_AggregateId", "get_Id", "get_IsMe", "get_IsExternal", "get_NetworkSourceId", "put_NetworkSourceId", "get_NetworkSourceIdString", "put_NetworkSourceIdString", "get_RemoteObjectId", "put_RemoteObjectId", "get_SyncIdentityHash", "put_SyncIdentityHash"]
 
     /**
+     * @type {PWSTR} 
+     */
+    AccountId {
+        get => this.get_AccountId()
+        set => this.put_AccountId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    AggregateId {
+        get => this.get_AggregateId()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsMe {
+        get => this.get_IsMe()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsExternal {
+        get => this.get_IsExternal()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NetworkSourceId {
+        get => this.get_NetworkSourceId()
+        set => this.put_NetworkSourceId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    NetworkSourceIdString {
+        get => this.get_NetworkSourceIdString()
+        set => this.put_NetworkSourceIdString(value)
+    }
+
+    /**
+     * @type {Pointer<CONTACT_AGGREGATION_BLOB>} 
+     */
+    RemoteObjectId {
+        get => this.get_RemoteObjectId()
+        set => this.put_RemoteObjectId(value)
+    }
+
+    /**
+     * @type {Pointer<CONTACT_AGGREGATION_BLOB>} 
+     */
+    SyncIdentityHash {
+        get => this.get_SyncIdentityHash()
+        set => this.put_SyncIdentityHash(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

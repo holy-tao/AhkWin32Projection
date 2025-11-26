@@ -36,6 +36,27 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
     static VTableNames => ["get_TVFormats", "get_TunerModes", "get_NumAuxInputs"]
 
     /**
+     * @type {Integer} 
+     */
+    TVFormats {
+        get => this.get_TVFormats()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TunerModes {
+        get => this.get_TunerModes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumAuxInputs {
+        get => this.get_NumAuxInputs()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tvformats

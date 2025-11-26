@@ -37,6 +37,78 @@ class IHTMLFrameBase extends IDispatch{
     static VTableNames => ["put_src", "get_src", "put_name", "get_name", "put_border", "get_border", "put_frameBorder", "get_frameBorder", "put_frameSpacing", "get_frameSpacing", "put_marginWidth", "get_marginWidth", "put_marginHeight", "get_marginHeight", "put_noResize", "get_noResize", "put_scrolling", "get_scrolling"]
 
     /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    frameBorder {
+        get => this.get_frameBorder()
+        set => this.put_frameBorder(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    frameSpacing {
+        get => this.get_frameSpacing()
+        set => this.put_frameSpacing(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginWidth {
+        get => this.get_marginWidth()
+        set => this.put_marginWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginHeight {
+        get => this.get_marginHeight()
+        set => this.put_marginHeight(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    noResize {
+        get => this.get_noResize()
+        set => this.put_noResize(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    scrolling {
+        get => this.get_scrolling()
+        set => this.put_scrolling(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

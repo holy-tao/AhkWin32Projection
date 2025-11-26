@@ -30,6 +30,46 @@ class IHTMLAnchorElement2 extends IDispatch{
     static VTableNames => ["put_charset", "get_charset", "put_coords", "get_coords", "put_hreflang", "get_hreflang", "put_shape", "get_shape", "put_type", "get_type"]
 
     /**
+     * @type {BSTR} 
+     */
+    charset {
+        get => this.get_charset()
+        set => this.put_charset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    coords {
+        get => this.get_coords()
+        set => this.put_coords(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hreflang {
+        get => this.get_hreflang()
+        set => this.put_hreflang(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    shape {
+        get => this.get_shape()
+        set => this.put_shape(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

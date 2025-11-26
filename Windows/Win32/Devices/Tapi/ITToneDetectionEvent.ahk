@@ -32,6 +32,34 @@ class ITToneDetectionEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_AppSpecific", "get_TickCount", "get_CallbackInstance"]
 
     /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppSpecific {
+        get => this.get_AppSpecific()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TickCount {
+        get => this.get_TickCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallbackInstance {
+        get => this.get_CallbackInstance()
+    }
+
+    /**
      * 
      * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_call

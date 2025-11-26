@@ -42,6 +42,14 @@ class IMPEG2ComponentType extends ILanguageComponentType{
     static VTableNames => ["get_StreamType", "put_StreamType"]
 
     /**
+     * @type {Integer} 
+     */
+    StreamType {
+        get => this.get_StreamType()
+        set => this.put_StreamType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2componenttype-get_streamtype

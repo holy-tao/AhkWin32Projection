@@ -32,6 +32,55 @@ class IWMPSyncDevice extends IUnknown{
     static VTableNames => ["get_friendlyName", "put_friendlyName", "get_deviceName", "get_deviceId", "get_partnershipIndex", "get_connected", "get_status", "get_syncState", "get_progress", "getItemInfo", "createPartnership", "deletePartnership", "start", "stop", "showSettings", "isIdentical"]
 
     /**
+     */
+    friendlyName {
+        get => this.get_friendlyName()
+        set => this.put_friendlyName(value)
+    }
+
+    /**
+     */
+    deviceName {
+        get => this.get_deviceName()
+    }
+
+    /**
+     */
+    deviceId {
+        get => this.get_deviceId()
+    }
+
+    /**
+     */
+    partnershipIndex {
+        get => this.get_partnershipIndex()
+    }
+
+    /**
+     */
+    connected {
+        get => this.get_connected()
+    }
+
+    /**
+     */
+    status {
+        get => this.get_status()
+    }
+
+    /**
+     */
+    syncState {
+        get => this.get_syncState()
+    }
+
+    /**
+     */
+    progress {
+        get => this.get_progress()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrName 
      * @returns {HRESULT} 

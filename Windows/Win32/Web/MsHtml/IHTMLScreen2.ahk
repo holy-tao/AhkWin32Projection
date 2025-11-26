@@ -29,6 +29,34 @@ class IHTMLScreen2 extends IDispatch{
     static VTableNames => ["get_logicalXDPI", "get_logicalYDPI", "get_deviceXDPI", "get_deviceYDPI"]
 
     /**
+     * @type {Integer} 
+     */
+    logicalXDPI {
+        get => this.get_logicalXDPI()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    logicalYDPI {
+        get => this.get_logicalYDPI()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    deviceXDPI {
+        get => this.get_deviceXDPI()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    deviceYDPI {
+        get => this.get_deviceYDPI()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

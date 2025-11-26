@@ -36,6 +36,51 @@ class IAMAnalogVideoDecoder extends IUnknown{
     static VTableNames => ["get_AvailableTVFormats", "put_TVFormat", "get_TVFormat", "get_HorizontalLocked", "put_VCRHorizontalLocking", "get_VCRHorizontalLocking", "get_NumberOfLines", "put_OutputEnable", "get_OutputEnable"]
 
     /**
+     * @type {Integer} 
+     */
+    AvailableTVFormats {
+        get => this.get_AvailableTVFormats()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TVFormat {
+        get => this.get_TVFormat()
+        set => this.put_TVFormat(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HorizontalLocked {
+        get => this.get_HorizontalLocked()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VCRHorizontalLocking {
+        get => this.get_VCRHorizontalLocking()
+        set => this.put_VCRHorizontalLocking(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfLines {
+        get => this.get_NumberOfLines()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OutputEnable {
+        get => this.get_OutputEnable()
+        set => this.put_OutputEnable(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_availabletvformats

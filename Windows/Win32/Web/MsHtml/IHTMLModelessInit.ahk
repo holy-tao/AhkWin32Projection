@@ -31,6 +31,34 @@ class IHTMLModelessInit extends IDispatch{
     static VTableNames => ["get_parameters", "get_optionString", "get_moniker", "get_document"]
 
     /**
+     * @type {VARIANT} 
+     */
+    parameters {
+        get => this.get_parameters()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    optionString {
+        get => this.get_optionString()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    moniker {
+        get => this.get_moniker()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    document {
+        get => this.get_document()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

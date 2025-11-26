@@ -40,6 +40,13 @@ class ITimeTrigger extends ITrigger{
     static VTableNames => ["get_RandomDelay", "put_RandomDelay"]
 
     /**
+     */
+    RandomDelay {
+        get => this.get_RandomDelay()
+        set => this.put_RandomDelay(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pRandomDelay 
      * @returns {HRESULT} 

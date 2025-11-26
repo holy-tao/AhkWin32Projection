@@ -36,6 +36,41 @@ class IMbnPin extends IUnknown{
     static VTableNames => ["get_PinType", "get_PinFormat", "get_PinLengthMin", "get_PinLengthMax", "get_PinMode", "Enable", "Disable", "Enter", "Change", "Unblock", "GetPinManager"]
 
     /**
+     * @type {Integer} 
+     */
+    PinType {
+        get => this.get_PinType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PinFormat {
+        get => this.get_PinFormat()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PinLengthMin {
+        get => this.get_PinLengthMin()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PinLengthMax {
+        get => this.get_PinLengthMax()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PinMode {
+        get => this.get_PinMode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pintype

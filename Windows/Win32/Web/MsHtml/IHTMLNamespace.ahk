@@ -37,6 +37,42 @@ class IHTMLNamespace extends IDispatch{
     static VTableNames => ["get_name", "get_urn", "get_tagNames", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "doImport", "attachEvent", "detachEvent"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    urn {
+        get => this.get_urn()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    tagNames {
+        get => this.get_tagNames()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -36,6 +36,60 @@ class ISystemMonitor2 extends ISystemMonitor{
     static VTableNames => ["put_EnableDigitGrouping", "get_EnableDigitGrouping", "put_EnableToolTips", "get_EnableToolTips", "put_ShowTimeAxisLabels", "get_ShowTimeAxisLabels", "put_ChartScroll", "get_ChartScroll", "put_DataPointCount", "get_DataPointCount", "ScaleToFit", "SaveAs", "Relog", "ClearData", "get_LogSourceStartTime", "get_LogSourceStopTime", "SetLogViewRange", "GetLogViewRange", "BatchingLock", "LoadSettings"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableDigitGrouping {
+        get => this.get_EnableDigitGrouping()
+        set => this.put_EnableDigitGrouping(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableToolTips {
+        get => this.get_EnableToolTips()
+        set => this.put_EnableToolTips(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowTimeAxisLabels {
+        get => this.get_ShowTimeAxisLabels()
+        set => this.put_ShowTimeAxisLabels(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ChartScroll {
+        get => this.get_ChartScroll()
+        set => this.put_ChartScroll(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataPointCount {
+        get => this.get_DataPointCount()
+        set => this.put_DataPointCount(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LogSourceStartTime {
+        get => this.get_LogSourceStartTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LogSourceStopTime {
+        get => this.get_LogSourceStopTime()
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 

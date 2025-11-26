@@ -33,6 +33,41 @@ class IAnnotationProvider extends IUnknown{
     static VTableNames => ["get_AnnotationTypeId", "get_AnnotationTypeName", "get_Author", "get_DateTime", "get_Target"]
 
     /**
+     * @type {Integer} 
+     */
+    AnnotationTypeId {
+        get => this.get_AnnotationTypeId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AnnotationTypeName {
+        get => this.get_AnnotationTypeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Author {
+        get => this.get_Author()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DateTime {
+        get => this.get_DateTime()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    Target {
+        get => this.get_Target()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypeid

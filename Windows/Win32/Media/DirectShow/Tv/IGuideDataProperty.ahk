@@ -38,6 +38,27 @@ class IGuideDataProperty extends IUnknown{
     static VTableNames => ["get_Name", "get_Language", "get_Value"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Language {
+        get => this.get_Language()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_name

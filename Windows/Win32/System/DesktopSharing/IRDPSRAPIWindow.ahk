@@ -39,6 +39,42 @@ class IRDPSRAPIWindow extends IDispatch{
     static VTableNames => ["get_Id", "get_Application", "get_Shared", "put_Shared", "get_Name", "Show", "get_Flags"]
 
     /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {IRDPSRAPIApplication} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Shared {
+        get => this.get_Shared()
+        set => this.put_Shared(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id

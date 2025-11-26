@@ -29,6 +29,34 @@ class IRTCIntensityEvent extends IDispatch{
     static VTableNames => ["get_Level", "get_Min", "get_Max", "get_Direction"]
 
     /**
+     * @type {Integer} 
+     */
+    Level {
+        get => this.get_Level()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Min {
+        get => this.get_Min()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Max {
+        get => this.get_Max()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

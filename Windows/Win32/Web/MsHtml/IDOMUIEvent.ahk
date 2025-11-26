@@ -37,6 +37,20 @@ class IDOMUIEvent extends IDispatch{
     static VTableNames => ["get_view", "get_detail", "initUIEvent"]
 
     /**
+     * @type {IHTMLWindow2} 
+     */
+    view {
+        get => this.get_view()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    detail {
+        get => this.get_detail()
+    }
+
+    /**
      * 
      * @returns {IHTMLWindow2} 
      */

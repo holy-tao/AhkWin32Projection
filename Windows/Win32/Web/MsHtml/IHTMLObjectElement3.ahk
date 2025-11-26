@@ -31,6 +31,54 @@ class IHTMLObjectElement3 extends IDispatch{
     static VTableNames => ["put_archive", "get_archive", "put_alt", "get_alt", "put_declare", "get_declare", "put_standby", "get_standby", "put_border", "get_border", "put_useMap", "get_useMap"]
 
     /**
+     * @type {BSTR} 
+     */
+    archive {
+        get => this.get_archive()
+        set => this.put_archive(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alt {
+        get => this.get_alt()
+        set => this.put_alt(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    declare {
+        get => this.get_declare()
+        set => this.put_declare(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    standby {
+        get => this.get_standby()
+        set => this.put_standby(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    useMap {
+        get => this.get_useMap()
+        set => this.put_useMap(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

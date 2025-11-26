@@ -32,6 +32,20 @@ class ISpeechGrammarRuleState extends IDispatch{
     static VTableNames => ["get_Rule", "get_Transitions", "AddWordTransition", "AddRuleTransition", "AddSpecialTransition"]
 
     /**
+     * @type {ISpeechGrammarRule} 
+     */
+    Rule {
+        get => this.get_Rule()
+    }
+
+    /**
+     * @type {ISpeechGrammarRuleStateTransitions} 
+     */
+    Transitions {
+        get => this.get_Transitions()
+    }
+
+    /**
      * 
      * @returns {ISpeechGrammarRule} 
      */

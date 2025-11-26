@@ -33,6 +33,34 @@ class IAccessible extends IDispatch{
     static VTableNames => ["get_accParent", "get_accChildCount", "get_accChild", "get_accName", "get_accValue", "get_accDescription", "get_accRole", "get_accState", "get_accHelp", "get_accHelpTopic", "get_accKeyboardShortcut", "get_accFocus", "get_accSelection", "get_accDefaultAction", "accSelect", "accLocation", "accNavigate", "accHitTest", "accDoDefaultAction", "put_accName", "put_accValue"]
 
     /**
+     * @type {IDispatch} 
+     */
+    accParent {
+        get => this.get_accParent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    accChildCount {
+        get => this.get_accChildCount()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    accFocus {
+        get => this.get_accFocus()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    accSelection {
+        get => this.get_accSelection()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accparent

@@ -39,6 +39,13 @@ class ICrmLogControl extends IUnknown{
     static VTableNames => ["get_TransactionUOW", "RegisterCompensator", "WriteLogRecordVariants", "ForceLog", "ForgetLogRecord", "ForceTransactionToAbort", "WriteLogRecord"]
 
     /**
+     * @type {BSTR} 
+     */
+    TransactionUOW {
+        get => this.get_TransactionUOW()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmlogcontrol-get_transactionuow

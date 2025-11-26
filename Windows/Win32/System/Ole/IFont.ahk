@@ -165,6 +165,77 @@ class IFont extends IUnknown{
     static VTableNames => ["get_Name", "put_Name", "get_Size", "put_Size", "get_Bold", "put_Bold", "get_Italic", "put_Italic", "get_Underline", "put_Underline", "get_Strikethrough", "put_Strikethrough", "get_Weight", "put_Weight", "get_Charset", "put_Charset", "get_hFont", "Clone", "IsEqual", "SetRatio", "QueryTextMetrics", "AddRefHfont", "ReleaseHfont", "SetHdc"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {CY} 
+     */
+    Size {
+        get => this.get_Size()
+        set => this.put_Size(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Bold {
+        get => this.get_Bold()
+        set => this.put_Bold(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Italic {
+        get => this.get_Italic()
+        set => this.put_Italic(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Underline {
+        get => this.get_Underline()
+        set => this.put_Underline(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Strikethrough {
+        get => this.get_Strikethrough()
+        set => this.put_Strikethrough(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Weight {
+        get => this.get_Weight()
+        set => this.put_Weight(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Charset {
+        get => this.get_Charset()
+        set => this.put_Charset(value)
+    }
+
+    /**
+     * @type {HFONT} 
+     */
+    hFont {
+        get => this.get_hFont()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_name

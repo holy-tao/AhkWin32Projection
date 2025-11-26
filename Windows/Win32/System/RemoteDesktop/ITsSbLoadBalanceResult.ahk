@@ -32,6 +32,13 @@ class ITsSbLoadBalanceResult extends IUnknown{
     static VTableNames => ["get_TargetName"]
 
     /**
+     * @type {BSTR} 
+     */
+    TargetName {
+        get => this.get_TargetName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbloadbalanceresult-get_targetname

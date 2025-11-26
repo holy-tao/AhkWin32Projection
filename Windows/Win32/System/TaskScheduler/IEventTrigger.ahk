@@ -41,6 +41,28 @@ class IEventTrigger extends ITrigger{
     static VTableNames => ["get_Subscription", "put_Subscription", "get_Delay", "put_Delay", "get_ValueQueries", "put_ValueQueries"]
 
     /**
+     */
+    Subscription {
+        get => this.get_Subscription()
+        set => this.put_Subscription(value)
+    }
+
+    /**
+     */
+    Delay {
+        get => this.get_Delay()
+        set => this.put_Delay(value)
+    }
+
+    /**
+     * @type {ITaskNamedValueCollection} 
+     */
+    ValueQueries {
+        get => this.get_ValueQueries()
+        set => this.put_ValueQueries(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pQuery 
      * @returns {HRESULT} 

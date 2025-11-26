@@ -32,6 +32,14 @@ class IAMTimecodeGenerator extends IUnknown{
     static VTableNames => ["GetTCGMode", "SetTCGMode", "put_VITCLine", "get_VITCLine", "SetTimecode", "GetTimecode"]
 
     /**
+     * @type {Integer} 
+     */
+    VITCLine {
+        get => this.get_VITCLine()
+        set => this.put_VITCLine(value)
+    }
+
+    /**
      * 
      * @param {Integer} Param 
      * @returns {Integer} 

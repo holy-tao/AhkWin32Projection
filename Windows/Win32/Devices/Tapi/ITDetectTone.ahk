@@ -31,6 +31,22 @@ class ITDetectTone extends IDispatch{
     static VTableNames => ["get_AppSpecific", "put_AppSpecific", "get_Duration", "put_Duration", "get_Frequency", "put_Frequency"]
 
     /**
+     * @type {Integer} 
+     */
+    AppSpecific {
+        get => this.get_AppSpecific()
+        set => this.put_AppSpecific(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Duration {
+        get => this.get_Duration()
+        set => this.put_Duration(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_appspecific

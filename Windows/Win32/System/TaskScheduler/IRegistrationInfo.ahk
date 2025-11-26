@@ -40,6 +40,69 @@ class IRegistrationInfo extends IDispatch{
     static VTableNames => ["get_Description", "put_Description", "get_Author", "put_Author", "get_Version", "put_Version", "get_Date", "put_Date", "get_Documentation", "put_Documentation", "get_XmlText", "put_XmlText", "get_URI", "put_URI", "get_SecurityDescriptor", "put_SecurityDescriptor", "get_Source", "put_Source"]
 
     /**
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     */
+    Author {
+        get => this.get_Author()
+        set => this.put_Author(value)
+    }
+
+    /**
+     */
+    Version {
+        get => this.get_Version()
+        set => this.put_Version(value)
+    }
+
+    /**
+     */
+    Date {
+        get => this.get_Date()
+        set => this.put_Date(value)
+    }
+
+    /**
+     */
+    Documentation {
+        get => this.get_Documentation()
+        set => this.put_Documentation(value)
+    }
+
+    /**
+     */
+    XmlText {
+        get => this.get_XmlText()
+        set => this.put_XmlText(value)
+    }
+
+    /**
+     */
+    URI {
+        get => this.get_URI()
+        set => this.put_URI(value)
+    }
+
+    /**
+     */
+    SecurityDescriptor {
+        get => this.get_SecurityDescriptor()
+        set => this.put_SecurityDescriptor(value)
+    }
+
+    /**
+     */
+    Source {
+        get => this.get_Source()
+        set => this.put_Source(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pDescription 
      * @returns {HRESULT} 

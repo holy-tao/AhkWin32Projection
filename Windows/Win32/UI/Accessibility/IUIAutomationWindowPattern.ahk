@@ -36,6 +36,90 @@ class IUIAutomationWindowPattern extends IUnknown{
     static VTableNames => ["Close", "WaitForInputIdle", "SetWindowVisualState", "get_CurrentCanMaximize", "get_CurrentCanMinimize", "get_CurrentIsModal", "get_CurrentIsTopmost", "get_CurrentWindowVisualState", "get_CurrentWindowInteractionState", "get_CachedCanMaximize", "get_CachedCanMinimize", "get_CachedIsModal", "get_CachedIsTopmost", "get_CachedWindowVisualState", "get_CachedWindowInteractionState"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentCanMaximize {
+        get => this.get_CurrentCanMaximize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentCanMinimize {
+        get => this.get_CurrentCanMinimize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsModal {
+        get => this.get_CurrentIsModal()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsTopmost {
+        get => this.get_CurrentIsTopmost()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWindowVisualState {
+        get => this.get_CurrentWindowVisualState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWindowInteractionState {
+        get => this.get_CurrentWindowInteractionState()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanMaximize {
+        get => this.get_CachedCanMaximize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanMinimize {
+        get => this.get_CachedCanMinimize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsModal {
+        get => this.get_CachedIsModal()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsTopmost {
+        get => this.get_CachedIsTopmost()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedWindowVisualState {
+        get => this.get_CachedWindowVisualState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedWindowInteractionState {
+        get => this.get_CachedWindowInteractionState()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-close

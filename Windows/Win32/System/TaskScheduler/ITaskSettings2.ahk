@@ -37,6 +37,20 @@ class ITaskSettings2 extends IDispatch{
     static VTableNames => ["get_DisallowStartOnRemoteAppSession", "put_DisallowStartOnRemoteAppSession", "get_UseUnifiedSchedulingEngine", "put_UseUnifiedSchedulingEngine"]
 
     /**
+     */
+    DisallowStartOnRemoteAppSession {
+        get => this.get_DisallowStartOnRemoteAppSession()
+        set => this.put_DisallowStartOnRemoteAppSession(value)
+    }
+
+    /**
+     */
+    UseUnifiedSchedulingEngine {
+        get => this.get_UseUnifiedSchedulingEngine()
+        set => this.put_UseUnifiedSchedulingEngine(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pDisallowStart 
      * @returns {HRESULT} 

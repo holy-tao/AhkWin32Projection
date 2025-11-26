@@ -36,6 +36,54 @@ class ISVGMatrix extends IDispatch{
     static VTableNames => ["put_a", "get_a", "put_b", "get_b", "put_c", "get_c", "put_d", "get_d", "put_e", "get_e", "put_f", "get_f", "multiply", "inverse", "translate", "scale", "scaleNonUniform", "rotate", "rotateFromVector", "flipX", "flipY", "skewX", "skewY"]
 
     /**
+     * @type {Float} 
+     */
+    a {
+        get => this.get_a()
+        set => this.put_a(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    b {
+        get => this.get_b()
+        set => this.put_b(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    c {
+        get => this.get_c()
+        set => this.put_c(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    d {
+        get => this.get_d()
+        set => this.put_d(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    e {
+        get => this.get_e()
+        set => this.put_e(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    f {
+        get => this.get_f()
+        set => this.put_f(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

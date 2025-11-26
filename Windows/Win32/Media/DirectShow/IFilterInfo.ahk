@@ -31,6 +31,49 @@ class IFilterInfo extends IDispatch{
     static VTableNames => ["FindPin", "get_Name", "get_VendorInfo", "get_Filter", "get_Pins", "get_IsFileSource", "get_Filename", "put_Filename"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VendorInfo {
+        get => this.get_VendorInfo()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    Filter {
+        get => this.get_Filter()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Pins {
+        get => this.get_Pins()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsFileSource {
+        get => this.get_IsFileSource()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Filename {
+        get => this.get_Filename()
+        set => this.put_Filename(value)
+    }
+
+    /**
      * 
      * @param {BSTR} strPinID 
      * @returns {IDispatch} 

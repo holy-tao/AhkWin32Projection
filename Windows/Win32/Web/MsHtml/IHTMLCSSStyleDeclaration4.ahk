@@ -31,6 +31,366 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
     static VTableNames => ["put_webkitAppearance", "get_webkitAppearance", "put_webkitUserSelect", "get_webkitUserSelect", "put_webkitBoxAlign", "get_webkitBoxAlign", "put_webkitBoxOrdinalGroup", "get_webkitBoxOrdinalGroup", "put_webkitBoxPack", "get_webkitBoxPack", "put_webkitBoxFlex", "get_webkitBoxFlex", "put_webkitBoxOrient", "get_webkitBoxOrient", "put_webkitBoxDirection", "get_webkitBoxDirection", "put_webkitTransform", "get_webkitTransform", "put_webkitBackgroundSize", "get_webkitBackgroundSize", "put_webkitBackfaceVisibility", "get_webkitBackfaceVisibility", "put_webkitAnimation", "get_webkitAnimation", "put_webkitTransition", "get_webkitTransition", "put_webkitAnimationName", "get_webkitAnimationName", "put_webkitAnimationDuration", "get_webkitAnimationDuration", "put_webkitAnimationTimingFunction", "get_webkitAnimationTimingFunction", "put_webkitAnimationDelay", "get_webkitAnimationDelay", "put_webkitAnimationIterationCount", "get_webkitAnimationIterationCount", "put_webkitAnimationDirection", "get_webkitAnimationDirection", "put_webkitAnimationPlayState", "get_webkitAnimationPlayState", "put_webkitTransitionProperty", "get_webkitTransitionProperty", "put_webkitTransitionDuration", "get_webkitTransitionDuration", "put_webkitTransitionTimingFunction", "get_webkitTransitionTimingFunction", "put_webkitTransitionDelay", "get_webkitTransitionDelay", "put_webkitBackgroundAttachment", "get_webkitBackgroundAttachment", "put_webkitBackgroundColor", "get_webkitBackgroundColor", "put_webkitBackgroundClip", "get_webkitBackgroundClip", "put_webkitBackgroundImage", "get_webkitBackgroundImage", "put_webkitBackgroundRepeat", "get_webkitBackgroundRepeat", "put_webkitBackgroundOrigin", "get_webkitBackgroundOrigin", "put_webkitBackgroundPosition", "get_webkitBackgroundPosition", "put_webkitBackgroundPositionX", "get_webkitBackgroundPositionX", "put_webkitBackgroundPositionY", "get_webkitBackgroundPositionY", "put_webkitBackground", "get_webkitBackground", "put_webkitTransformOrigin", "get_webkitTransformOrigin", "put_msTextSizeAdjust", "get_msTextSizeAdjust", "put_webkitTextSizeAdjust", "get_webkitTextSizeAdjust", "put_webkitBorderImage", "get_webkitBorderImage", "put_webkitBorderImageSource", "get_webkitBorderImageSource", "put_webkitBorderImageSlice", "get_webkitBorderImageSlice", "put_webkitBorderImageWidth", "get_webkitBorderImageWidth", "put_webkitBorderImageOutset", "get_webkitBorderImageOutset", "put_webkitBorderImageRepeat", "get_webkitBorderImageRepeat", "put_webkitBoxSizing", "get_webkitBoxSizing", "put_webkitAnimationFillMode", "get_webkitAnimationFillMode"]
 
     /**
+     * @type {BSTR} 
+     */
+    webkitAppearance {
+        get => this.get_webkitAppearance()
+        set => this.put_webkitAppearance(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitUserSelect {
+        get => this.get_webkitUserSelect()
+        set => this.put_webkitUserSelect(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBoxAlign {
+        get => this.get_webkitBoxAlign()
+        set => this.put_webkitBoxAlign(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    webkitBoxOrdinalGroup {
+        get => this.get_webkitBoxOrdinalGroup()
+        set => this.put_webkitBoxOrdinalGroup(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBoxPack {
+        get => this.get_webkitBoxPack()
+        set => this.put_webkitBoxPack(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    webkitBoxFlex {
+        get => this.get_webkitBoxFlex()
+        set => this.put_webkitBoxFlex(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBoxOrient {
+        get => this.get_webkitBoxOrient()
+        set => this.put_webkitBoxOrient(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBoxDirection {
+        get => this.get_webkitBoxDirection()
+        set => this.put_webkitBoxDirection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransform {
+        get => this.get_webkitTransform()
+        set => this.put_webkitTransform(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundSize {
+        get => this.get_webkitBackgroundSize()
+        set => this.put_webkitBackgroundSize(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackfaceVisibility {
+        get => this.get_webkitBackfaceVisibility()
+        set => this.put_webkitBackfaceVisibility(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimation {
+        get => this.get_webkitAnimation()
+        set => this.put_webkitAnimation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransition {
+        get => this.get_webkitTransition()
+        set => this.put_webkitTransition(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationName {
+        get => this.get_webkitAnimationName()
+        set => this.put_webkitAnimationName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationDuration {
+        get => this.get_webkitAnimationDuration()
+        set => this.put_webkitAnimationDuration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationTimingFunction {
+        get => this.get_webkitAnimationTimingFunction()
+        set => this.put_webkitAnimationTimingFunction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationDelay {
+        get => this.get_webkitAnimationDelay()
+        set => this.put_webkitAnimationDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationIterationCount {
+        get => this.get_webkitAnimationIterationCount()
+        set => this.put_webkitAnimationIterationCount(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationDirection {
+        get => this.get_webkitAnimationDirection()
+        set => this.put_webkitAnimationDirection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationPlayState {
+        get => this.get_webkitAnimationPlayState()
+        set => this.put_webkitAnimationPlayState(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransitionProperty {
+        get => this.get_webkitTransitionProperty()
+        set => this.put_webkitTransitionProperty(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransitionDuration {
+        get => this.get_webkitTransitionDuration()
+        set => this.put_webkitTransitionDuration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransitionTimingFunction {
+        get => this.get_webkitTransitionTimingFunction()
+        set => this.put_webkitTransitionTimingFunction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransitionDelay {
+        get => this.get_webkitTransitionDelay()
+        set => this.put_webkitTransitionDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundAttachment {
+        get => this.get_webkitBackgroundAttachment()
+        set => this.put_webkitBackgroundAttachment(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    webkitBackgroundColor {
+        get => this.get_webkitBackgroundColor()
+        set => this.put_webkitBackgroundColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundClip {
+        get => this.get_webkitBackgroundClip()
+        set => this.put_webkitBackgroundClip(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundImage {
+        get => this.get_webkitBackgroundImage()
+        set => this.put_webkitBackgroundImage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundRepeat {
+        get => this.get_webkitBackgroundRepeat()
+        set => this.put_webkitBackgroundRepeat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundOrigin {
+        get => this.get_webkitBackgroundOrigin()
+        set => this.put_webkitBackgroundOrigin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackgroundPosition {
+        get => this.get_webkitBackgroundPosition()
+        set => this.put_webkitBackgroundPosition(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    webkitBackgroundPositionX {
+        get => this.get_webkitBackgroundPositionX()
+        set => this.put_webkitBackgroundPositionX(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    webkitBackgroundPositionY {
+        get => this.get_webkitBackgroundPositionY()
+        set => this.put_webkitBackgroundPositionY(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBackground {
+        get => this.get_webkitBackground()
+        set => this.put_webkitBackground(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitTransformOrigin {
+        get => this.get_webkitTransformOrigin()
+        set => this.put_webkitTransformOrigin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msTextSizeAdjust {
+        get => this.get_msTextSizeAdjust()
+        set => this.put_msTextSizeAdjust(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    webkitTextSizeAdjust {
+        get => this.get_webkitTextSizeAdjust()
+        set => this.put_webkitTextSizeAdjust(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBorderImage {
+        get => this.get_webkitBorderImage()
+        set => this.put_webkitBorderImage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBorderImageSource {
+        get => this.get_webkitBorderImageSource()
+        set => this.put_webkitBorderImageSource(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBorderImageSlice {
+        get => this.get_webkitBorderImageSlice()
+        set => this.put_webkitBorderImageSlice(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBorderImageWidth {
+        get => this.get_webkitBorderImageWidth()
+        set => this.put_webkitBorderImageWidth(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBorderImageOutset {
+        get => this.get_webkitBorderImageOutset()
+        set => this.put_webkitBorderImageOutset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBorderImageRepeat {
+        get => this.get_webkitBorderImageRepeat()
+        set => this.put_webkitBorderImageRepeat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitBoxSizing {
+        get => this.get_webkitBoxSizing()
+        set => this.put_webkitBoxSizing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    webkitAnimationFillMode {
+        get => this.get_webkitAnimationFillMode()
+        set => this.put_webkitAnimationFillMode(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

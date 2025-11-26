@@ -47,6 +47,29 @@ class IGPMWMIFilter extends IDispatch{
     static VTableNames => ["get_Path", "put_Name", "get_Name", "put_Description", "get_Description", "GetQueryList", "GetSecurityInfo", "SetSecurityInfo"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -31,6 +31,14 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
     static VTableNames => ["put_headerFooterFont", "get_headerFooterFont", "getPageMarginTop", "getPageMarginRight", "getPageMarginBottom", "getPageMarginLeft", "getPageMarginTopImportant", "getPageMarginRightImportant", "getPageMarginBottomImportant", "getPageMarginLeftImportant"]
 
     /**
+     * @type {BSTR} 
+     */
+    headerFooterFont {
+        get => this.get_headerFooterFont()
+        set => this.put_headerFooterFont(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

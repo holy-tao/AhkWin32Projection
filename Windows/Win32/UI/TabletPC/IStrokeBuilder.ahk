@@ -52,6 +52,13 @@ class IStrokeBuilder extends IUnknown{
     static VTableNames => ["CreateStroke", "BeginStroke", "AppendPackets", "EndStroke", "get_Ink", "putref_Ink"]
 
     /**
+     * @type {IInkDisp} 
+     */
+    Ink {
+        get => this.get_Ink()
+    }
+
+    /**
      * 
      * @param {Integer} cPktBuffLength 
      * @param {Pointer<Integer>} pPackets 

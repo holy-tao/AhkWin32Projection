@@ -30,6 +30,41 @@ class IElementTraversal extends IDispatch{
     static VTableNames => ["get_firstElementChild", "get_lastElementChild", "get_previousElementSibling", "get_nextElementSibling", "get_childElementCount"]
 
     /**
+     * @type {IHTMLElement} 
+     */
+    firstElementChild {
+        get => this.get_firstElementChild()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    lastElementChild {
+        get => this.get_lastElementChild()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    previousElementSibling {
+        get => this.get_previousElementSibling()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    nextElementSibling {
+        get => this.get_nextElementSibling()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    childElementCount {
+        get => this.get_childElementCount()
+    }
+
+    /**
      * 
      * @returns {IHTMLElement} 
      */

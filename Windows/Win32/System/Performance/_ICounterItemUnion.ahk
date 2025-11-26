@@ -37,6 +37,68 @@ class _ICounterItemUnion extends IUnknown{
     static VTableNames => ["get_Value", "put_Color", "get_Color", "put_Width", "get_Width", "put_LineStyle", "get_LineStyle", "put_ScaleFactor", "get_ScaleFactor", "get_Path", "GetValue", "GetStatistics", "put_Selected", "get_Selected", "put_Visible", "get_Visible", "GetDataAt"]
 
     /**
+     * @type {Float} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Color {
+        get => this.get_Color()
+        set => this.put_Color(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+        set => this.put_Width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LineStyle {
+        get => this.get_LineStyle()
+        set => this.put_LineStyle(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScaleFactor {
+        get => this.get_ScaleFactor()
+        set => this.put_ScaleFactor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Selected {
+        get => this.get_Selected()
+        set => this.put_Selected(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
      * 
      * @returns {Float} 
      */

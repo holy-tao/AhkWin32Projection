@@ -50,6 +50,20 @@ class INetFwMgr extends IDispatch{
     static VTableNames => ["get_LocalPolicy", "get_CurrentProfileType", "RestoreDefaults", "IsPortAllowed", "IsIcmpTypeAllowed"]
 
     /**
+     * @type {INetFwPolicy} 
+     */
+    LocalPolicy {
+        get => this.get_LocalPolicy()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentProfileType {
+        get => this.get_CurrentProfileType()
+    }
+
+    /**
      * 
      * @returns {INetFwPolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwmgr-get_localpolicy

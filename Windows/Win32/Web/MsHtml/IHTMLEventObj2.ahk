@@ -35,6 +35,214 @@ class IHTMLEventObj2 extends IDispatch{
     static VTableNames => ["setAttribute", "getAttribute", "removeAttribute", "put_propertyName", "get_propertyName", "putref_bookmarks", "get_bookmarks", "putref_recordset", "get_recordset", "put_dataFld", "get_dataFld", "putref_boundElements", "get_boundElements", "put_repeat", "get_repeat", "put_srcUrn", "get_srcUrn", "putref_srcElement", "get_srcElement", "put_altKey", "get_altKey", "put_ctrlKey", "get_ctrlKey", "put_shiftKey", "get_shiftKey", "putref_fromElement", "get_fromElement", "putref_toElement", "get_toElement", "put_button", "get_button", "put_type", "get_type", "put_qualifier", "get_qualifier", "put_reason", "get_reason", "put_x", "get_x", "put_y", "get_y", "put_clientX", "get_clientX", "put_clientY", "get_clientY", "put_offsetX", "get_offsetX", "put_offsetY", "get_offsetY", "put_screenX", "get_screenX", "put_screenY", "get_screenY", "putref_srcFilter", "get_srcFilter", "get_dataTransfer"]
 
     /**
+     * @type {BSTR} 
+     */
+    propertyName {
+        get => this.get_propertyName()
+        set => this.put_propertyName(value)
+    }
+
+    /**
+     * @type {IHTMLBookmarkCollection} 
+     */
+    bookmarks {
+        get => this.get_bookmarks()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    recordset {
+        get => this.get_recordset()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dataFld {
+        get => this.get_dataFld()
+        set => this.put_dataFld(value)
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    boundElements {
+        get => this.get_boundElements()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    repeat {
+        get => this.get_repeat()
+        set => this.put_repeat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    srcUrn {
+        get => this.get_srcUrn()
+        set => this.put_srcUrn(value)
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    srcElement {
+        get => this.get_srcElement()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    altKey {
+        get => this.get_altKey()
+        set => this.put_altKey(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ctrlKey {
+        get => this.get_ctrlKey()
+        set => this.put_ctrlKey(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    shiftKey {
+        get => this.get_shiftKey()
+        set => this.put_shiftKey(value)
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    fromElement {
+        get => this.get_fromElement()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    toElement {
+        get => this.get_toElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    button {
+        get => this.get_button()
+        set => this.put_button(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    qualifier {
+        get => this.get_qualifier()
+        set => this.put_qualifier(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    reason {
+        get => this.get_reason()
+        set => this.put_reason(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    x {
+        get => this.get_x()
+        set => this.put_x(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    y {
+        get => this.get_y()
+        set => this.put_y(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientX {
+        get => this.get_clientX()
+        set => this.put_clientX(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientY {
+        get => this.get_clientY()
+        set => this.put_clientY(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetX {
+        get => this.get_offsetX()
+        set => this.put_offsetX(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetY {
+        get => this.get_offsetY()
+        set => this.put_offsetY(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenX {
+        get => this.get_screenX()
+        set => this.put_screenX(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenY {
+        get => this.get_screenY()
+        set => this.put_screenY(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    srcFilter {
+        get => this.get_srcFilter()
+    }
+
+    /**
+     * @type {IHTMLDataTransfer} 
+     */
+    dataTransfer {
+        get => this.get_dataTransfer()
+    }
+
+    /**
      * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 

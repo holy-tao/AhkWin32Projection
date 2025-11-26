@@ -45,6 +45,14 @@ class IADsSecurityUtility extends IDispatch{
     static VTableNames => ["GetSecurityDescriptor", "SetSecurityDescriptor", "ConvertSecurityDescriptor", "get_SecurityMask", "put_SecurityMask"]
 
     /**
+     * @type {Integer} 
+     */
+    SecurityMask {
+        get => this.get_SecurityMask()
+        set => this.put_SecurityMask(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} varPath 
      * @param {Integer} lPathFormat 

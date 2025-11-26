@@ -36,6 +36,48 @@ class IBDA_FrequencyFilter extends IUnknown{
     static VTableNames => ["put_Autotune", "get_Autotune", "put_Frequency", "get_Frequency", "put_Polarity", "get_Polarity", "put_Range", "get_Range", "put_Bandwidth", "get_Bandwidth", "put_FrequencyMultiplier", "get_FrequencyMultiplier"]
 
     /**
+     */
+    Autotune {
+        get => this.get_Autotune()
+        set => this.put_Autotune(value)
+    }
+
+    /**
+     */
+    Frequency {
+        get => this.get_Frequency()
+        set => this.put_Frequency(value)
+    }
+
+    /**
+     */
+    Polarity {
+        get => this.get_Polarity()
+        set => this.put_Polarity(value)
+    }
+
+    /**
+     */
+    Range {
+        get => this.get_Range()
+        set => this.put_Range(value)
+    }
+
+    /**
+     */
+    Bandwidth {
+        get => this.get_Bandwidth()
+        set => this.put_Bandwidth(value)
+    }
+
+    /**
+     */
+    FrequencyMultiplier {
+        get => this.get_FrequencyMultiplier()
+        set => this.put_FrequencyMultiplier(value)
+    }
+
+    /**
      * 
      * @param {Integer} ulTransponder 
      * @returns {HRESULT} 

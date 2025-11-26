@@ -29,6 +29,20 @@ class IHTMLImgElement4 extends IDispatch{
     static VTableNames => ["get_naturalWidth", "get_naturalHeight"]
 
     /**
+     * @type {Integer} 
+     */
+    naturalWidth {
+        get => this.get_naturalWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    naturalHeight {
+        get => this.get_naturalHeight()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

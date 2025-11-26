@@ -46,6 +46,29 @@ class IUpdateSession extends IDispatch{
     static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "get_ReadOnly", "get_WebProxy", "put_WebProxy", "CreateUpdateSearcher", "CreateUpdateDownloader", "CreateUpdateInstaller"]
 
     /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
+     * @type {IWebProxy} 
+     */
+    WebProxy {
+        get => this.get_WebProxy()
+        set => this.put_WebProxy(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_clientapplicationid

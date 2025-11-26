@@ -42,6 +42,101 @@ class IXMLDOMDocument extends IXMLDOMNode{
     static VTableNames => ["get_doctype", "get_implementation", "get_documentElement", "putref_documentElement", "createElement", "createDocumentFragment", "createTextNode", "createComment", "createCDATASection", "createProcessingInstruction", "createAttribute", "createEntityReference", "getElementsByTagName", "createNode", "nodeFromID", "load", "get_readyState", "get_parseError", "get_url", "get_async", "put_async", "abort", "loadXML", "save", "get_validateOnParse", "put_validateOnParse", "get_resolveExternals", "put_resolveExternals", "get_preserveWhiteSpace", "put_preserveWhiteSpace", "put_onreadystatechange", "put_ondataavailable", "put_ontransformnode"]
 
     /**
+     * @type {IXMLDOMDocumentType} 
+     */
+    doctype {
+        get => this.get_doctype()
+    }
+
+    /**
+     * @type {IXMLDOMImplementation} 
+     */
+    implementation {
+        get => this.get_implementation()
+    }
+
+    /**
+     * @type {IXMLDOMElement} 
+     */
+    documentElement {
+        get => this.get_documentElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {IXMLDOMParseError} 
+     */
+    parseError {
+        get => this.get_parseError()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    url {
+        get => this.get_url()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    async {
+        get => this.get_async()
+        set => this.put_async(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    validateOnParse {
+        get => this.get_validateOnParse()
+        set => this.put_validateOnParse(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    resolveExternals {
+        get => this.get_resolveExternals()
+        set => this.put_resolveExternals(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    preserveWhiteSpace {
+        get => this.get_preserveWhiteSpace()
+        set => this.put_preserveWhiteSpace(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    onreadystatechange {
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    ondataavailable {
+        set => this.put_ondataavailable(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    ontransformnode {
+        set => this.put_ontransformnode(value)
+    }
+
+    /**
      * 
      * @returns {IXMLDOMDocumentType} 
      */

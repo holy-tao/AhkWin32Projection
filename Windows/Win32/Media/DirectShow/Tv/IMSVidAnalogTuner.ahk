@@ -36,6 +36,44 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     static VTableNames => ["get_Channel", "put_Channel", "get_VideoFrequency", "get_AudioFrequency", "get_CountryCode", "put_CountryCode", "get_SAP", "put_SAP", "ChannelAvailable"]
 
     /**
+     * @type {Integer} 
+     */
+    Channel {
+        get => this.get_Channel()
+        set => this.put_Channel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VideoFrequency {
+        get => this.get_VideoFrequency()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioFrequency {
+        get => this.get_AudioFrequency()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SAP {
+        get => this.get_SAP()
+        set => this.put_SAP(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_channel

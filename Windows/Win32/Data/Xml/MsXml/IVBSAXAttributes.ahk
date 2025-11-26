@@ -30,6 +30,13 @@ class IVBSAXAttributes extends IDispatch{
     static VTableNames => ["get_length", "getURI", "getLocalName", "getQName", "getIndexFromName", "getIndexFromQName", "getType", "getTypeFromName", "getTypeFromQName", "getValue", "getValueFromName", "getValueFromQName"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

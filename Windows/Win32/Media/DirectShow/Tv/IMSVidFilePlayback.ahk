@@ -39,6 +39,14 @@ class IMSVidFilePlayback extends IMSVidPlayback{
     static VTableNames => ["get_FileName", "put_FileName"]
 
     /**
+     * @type {BSTR} 
+     */
+    FileName {
+        get => this.get_FileName()
+        set => this.put_FileName(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback-get_filename

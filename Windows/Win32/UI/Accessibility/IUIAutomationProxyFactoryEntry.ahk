@@ -33,6 +33,53 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
     static VTableNames => ["get_ProxyFactory", "get_ClassName", "get_ImageName", "get_AllowSubstringMatch", "get_CanCheckBaseClass", "get_NeedsAdviseEvents", "put_ClassName", "put_ImageName", "put_AllowSubstringMatch", "put_CanCheckBaseClass", "put_NeedsAdviseEvents", "SetWinEventsForAutomationEvent", "GetWinEventsForAutomationEvent"]
 
     /**
+     * @type {IUIAutomationProxyFactory} 
+     */
+    ProxyFactory {
+        get => this.get_ProxyFactory()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClassName {
+        get => this.get_ClassName()
+        set => this.put_ClassName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ImageName {
+        get => this.get_ImageName()
+        set => this.put_ImageName(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    AllowSubstringMatch {
+        get => this.get_AllowSubstringMatch()
+        set => this.put_AllowSubstringMatch(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CanCheckBaseClass {
+        get => this.get_CanCheckBaseClass()
+        set => this.put_CanCheckBaseClass(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    NeedsAdviseEvents {
+        get => this.get_NeedsAdviseEvents()
+        set => this.put_NeedsAdviseEvents(value)
+    }
+
+    /**
      * 
      * @returns {IUIAutomationProxyFactory} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_proxyfactory

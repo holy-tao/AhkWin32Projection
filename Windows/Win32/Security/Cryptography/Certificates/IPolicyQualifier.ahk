@@ -33,6 +33,27 @@ class IPolicyQualifier extends IDispatch{
     static VTableNames => ["InitializeEncode", "get_ObjectId", "get_Qualifier", "get_Type", "get_RawData"]
 
     /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Qualifier {
+        get => this.get_Qualifier()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @param {BSTR} strQualifier 
      * @param {Integer} Type 

@@ -32,6 +32,12 @@ class IWMPDVD extends IDispatch{
     static VTableNames => ["get_isAvailable", "get_domain", "topMenu", "titleMenu", "back", "resume"]
 
     /**
+     */
+    domain {
+        get => this.get_domain()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrItem 
      * @param {Pointer<VARIANT_BOOL>} pIsAvailable 

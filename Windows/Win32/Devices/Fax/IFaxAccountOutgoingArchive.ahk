@@ -40,6 +40,20 @@ class IFaxAccountOutgoingArchive extends IDispatch{
     static VTableNames => ["get_SizeLow", "get_SizeHigh", "Refresh", "GetMessages", "GetMessage"]
 
     /**
+     * @type {Integer} 
+     */
+    SizeLow {
+        get => this.get_SizeLow()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SizeHigh {
+        get => this.get_SizeHigh()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountoutgoingarchive-get_sizelow

@@ -42,6 +42,20 @@ class IBlockRange extends IDispatch{
     static VTableNames => ["get_StartLba", "get_EndLba"]
 
     /**
+     * @type {Integer} 
+     */
+    StartLba {
+        get => this.get_StartLba()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EndLba {
+        get => this.get_EndLba()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrange-get_startlba

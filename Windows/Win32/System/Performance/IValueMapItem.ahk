@@ -33,6 +33,46 @@ class IValueMapItem extends IDispatch{
     static VTableNames => ["get_Description", "put_Description", "get_Enabled", "put_Enabled", "get_Key", "put_Key", "get_Value", "put_Value", "get_ValueMapType", "put_ValueMapType"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Key {
+        get => this.get_Key()
+        set => this.put_Key(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ValueMapType {
+        get => this.get_ValueMapType()
+        set => this.put_ValueMapType(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_description

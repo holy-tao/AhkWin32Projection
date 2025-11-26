@@ -32,6 +32,13 @@ class IADsPrintQueueOperations extends IADs{
     static VTableNames => ["get_Status", "PrintJobs", "Pause", "Resume", "Purge"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

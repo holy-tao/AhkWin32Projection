@@ -31,6 +31,28 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
     static VTableNames => ["get_SelectedOption", "put_SelectedOption", "get_SelectionType", "GetOption", "get_DisplayUI"]
 
     /**
+     * @type {IPrintSchemaOption} 
+     */
+    SelectedOption {
+        get => this.get_SelectedOption()
+        set => this.put_SelectedOption(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SelectionType {
+        get => this.get_SelectionType()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    DisplayUI {
+        get => this.get_DisplayUI()
+    }
+
+    /**
      * 
      * @returns {IPrintSchemaOption} 
      */

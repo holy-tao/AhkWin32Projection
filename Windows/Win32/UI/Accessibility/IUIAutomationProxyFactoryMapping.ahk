@@ -32,6 +32,13 @@ class IUIAutomationProxyFactoryMapping extends IUnknown{
     static VTableNames => ["get_Count", "GetTable", "GetEntry", "SetTable", "InsertEntries", "InsertEntry", "RemoveEntry", "ClearTable", "RestoreDefaultTable"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-get_count

@@ -36,6 +36,20 @@ class IHTMLStyleSheetPage extends IDispatch{
     static VTableNames => ["get_selector", "get_pseudoClass"]
 
     /**
+     * @type {BSTR} 
+     */
+    selector {
+        get => this.get_selector()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pseudoClass {
+        get => this.get_pseudoClass()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

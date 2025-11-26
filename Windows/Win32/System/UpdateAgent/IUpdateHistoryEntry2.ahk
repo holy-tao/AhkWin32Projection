@@ -37,6 +37,13 @@ class IUpdateHistoryEntry2 extends IUpdateHistoryEntry{
     static VTableNames => ["get_Categories"]
 
     /**
+     * @type {ICategoryCollection} 
+     */
+    Categories {
+        get => this.get_Categories()
+    }
+
+    /**
      * 
      * @returns {ICategoryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry2-get_categories

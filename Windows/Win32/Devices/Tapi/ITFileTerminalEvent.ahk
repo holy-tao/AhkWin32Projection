@@ -34,6 +34,48 @@ class ITFileTerminalEvent extends IDispatch{
     static VTableNames => ["get_Terminal", "get_Track", "get_Call", "get_State", "get_Cause", "get_Error"]
 
     /**
+     * @type {ITTerminal} 
+     */
+    Terminal {
+        get => this.get_Terminal()
+    }
+
+    /**
+     * @type {ITFileTrack} 
+     */
+    Track {
+        get => this.get_Track()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Cause {
+        get => this.get_Cause()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
      * 
      * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_terminal

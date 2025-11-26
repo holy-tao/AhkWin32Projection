@@ -32,6 +32,142 @@ class IHTMLBodyElement extends IDispatch{
     static VTableNames => ["put_background", "get_background", "put_bgProperties", "get_bgProperties", "put_leftMargin", "get_leftMargin", "put_topMargin", "get_topMargin", "put_rightMargin", "get_rightMargin", "put_bottomMargin", "get_bottomMargin", "put_noWrap", "get_noWrap", "put_bgColor", "get_bgColor", "put_text", "get_text", "put_link", "get_link", "put_vLink", "get_vLink", "put_aLink", "get_aLink", "put_onload", "get_onload", "put_onunload", "get_onunload", "put_scroll", "get_scroll", "put_onselect", "get_onselect", "put_onbeforeunload", "get_onbeforeunload", "createTextRange"]
 
     /**
+     * @type {BSTR} 
+     */
+    background {
+        get => this.get_background()
+        set => this.put_background(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    bgProperties {
+        get => this.get_bgProperties()
+        set => this.put_bgProperties(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    leftMargin {
+        get => this.get_leftMargin()
+        set => this.put_leftMargin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    topMargin {
+        get => this.get_topMargin()
+        set => this.put_topMargin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    rightMargin {
+        get => this.get_rightMargin()
+        set => this.put_rightMargin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bottomMargin {
+        get => this.get_bottomMargin()
+        set => this.put_bottomMargin(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    noWrap {
+        get => this.get_noWrap()
+        set => this.put_noWrap(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    link {
+        get => this.get_link()
+        set => this.put_link(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    vLink {
+        get => this.get_vLink()
+        set => this.put_vLink(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    aLink {
+        get => this.get_aLink()
+        set => this.put_aLink(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onunload {
+        get => this.get_onunload()
+        set => this.put_onunload(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    scroll {
+        get => this.get_scroll()
+        set => this.put_scroll(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselect {
+        get => this.get_onselect()
+        set => this.put_onselect(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeunload {
+        get => this.get_onbeforeunload()
+        set => this.put_onbeforeunload(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

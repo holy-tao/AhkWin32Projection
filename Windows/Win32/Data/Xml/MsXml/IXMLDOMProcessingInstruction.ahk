@@ -30,6 +30,21 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode{
     static VTableNames => ["get_target", "get_data", "put_data"]
 
     /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

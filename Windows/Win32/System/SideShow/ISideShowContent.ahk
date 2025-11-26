@@ -29,6 +29,20 @@ class ISideShowContent extends IUnknown{
     static VTableNames => ["GetContent", "get_ContentId", "get_DifferentiateContent"]
 
     /**
+     * @type {Integer} 
+     */
+    ContentId {
+        get => this.get_ContentId()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    DifferentiateContent {
+        get => this.get_DifferentiateContent()
+    }
+
+    /**
      * 
      * @param {ISideShowCapabilities} in_pICapabilities 
      * @param {Pointer<Integer>} out_pdwSize 

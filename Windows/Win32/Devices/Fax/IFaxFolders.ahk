@@ -45,6 +45,34 @@ class IFaxFolders extends IDispatch{
     static VTableNames => ["get_OutgoingQueue", "get_IncomingQueue", "get_IncomingArchive", "get_OutgoingArchive"]
 
     /**
+     * @type {IFaxOutgoingQueue} 
+     */
+    OutgoingQueue {
+        get => this.get_OutgoingQueue()
+    }
+
+    /**
+     * @type {IFaxIncomingQueue} 
+     */
+    IncomingQueue {
+        get => this.get_IncomingQueue()
+    }
+
+    /**
+     * @type {IFaxIncomingArchive} 
+     */
+    IncomingArchive {
+        get => this.get_IncomingArchive()
+    }
+
+    /**
+     * @type {IFaxOutgoingArchive} 
+     */
+    OutgoingArchive {
+        get => this.get_OutgoingArchive()
+    }
+
+    /**
      * 
      * @returns {IFaxOutgoingQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingqueue

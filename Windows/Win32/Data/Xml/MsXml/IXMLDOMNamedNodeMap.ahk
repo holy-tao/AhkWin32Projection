@@ -32,6 +32,20 @@ class IXMLDOMNamedNodeMap extends IDispatch{
     static VTableNames => ["getNamedItem", "setNamedItem", "removeNamedItem", "get_item", "get_length", "getQualifiedItem", "removeQualifiedItem", "nextNode", "reset", "get__newEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {BSTR} name 
      * @returns {IXMLDOMNode} 

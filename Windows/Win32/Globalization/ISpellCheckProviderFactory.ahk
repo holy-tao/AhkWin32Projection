@@ -33,6 +33,13 @@ class ISpellCheckProviderFactory extends IUnknown{
     static VTableNames => ["get_SupportedLanguages", "IsSupported", "CreateSpellCheckProvider"]
 
     /**
+     * @type {IEnumString} 
+     */
+    SupportedLanguages {
+        get => this.get_SupportedLanguages()
+    }
+
+    /**
      * 
      * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-get_supportedlanguages

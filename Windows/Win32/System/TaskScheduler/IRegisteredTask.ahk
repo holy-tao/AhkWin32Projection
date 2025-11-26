@@ -35,6 +35,77 @@ class IRegisteredTask extends IDispatch{
     static VTableNames => ["get_Name", "get_Path", "get_State", "get_Enabled", "put_Enabled", "Run", "RunEx", "GetInstances", "get_LastRunTime", "get_LastTaskResult", "get_NumberOfMissedRuns", "get_NextRunTime", "get_Definition", "get_Xml", "GetSecurityDescriptor", "SetSecurityDescriptor", "Stop", "GetRunTimes"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastRunTime {
+        get => this.get_LastRunTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastTaskResult {
+        get => this.get_LastTaskResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfMissedRuns {
+        get => this.get_NumberOfMissedRuns()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    NextRunTime {
+        get => this.get_NextRunTime()
+    }
+
+    /**
+     * @type {ITaskDefinition} 
+     */
+    Definition {
+        get => this.get_Definition()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Xml {
+        get => this.get_Xml()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_name

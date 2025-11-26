@@ -37,6 +37,20 @@ class IUpdateIdentity extends IDispatch{
     static VTableNames => ["get_RevisionNumber", "get_UpdateID"]
 
     /**
+     * @type {Integer} 
+     */
+    RevisionNumber {
+        get => this.get_RevisionNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UpdateID {
+        get => this.get_UpdateID()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateidentity-get_revisionnumber

@@ -68,6 +68,183 @@ class IFsrmFileManagementJob extends IFsrmObject{
     static VTableNames => ["get_Name", "put_Name", "get_NamespaceRoots", "put_NamespaceRoots", "get_Enabled", "put_Enabled", "get_OperationType", "put_OperationType", "get_ExpirationDirectory", "put_ExpirationDirectory", "get_CustomAction", "get_Notifications", "get_Logging", "put_Logging", "get_ReportEnabled", "put_ReportEnabled", "get_Formats", "put_Formats", "get_MailTo", "put_MailTo", "get_DaysSinceFileCreated", "put_DaysSinceFileCreated", "get_DaysSinceFileLastAccessed", "put_DaysSinceFileLastAccessed", "get_DaysSinceFileLastModified", "put_DaysSinceFileLastModified", "get_PropertyConditions", "get_FromDate", "put_FromDate", "get_Task", "put_Task", "get_Parameters", "put_Parameters", "get_RunningStatus", "get_LastError", "get_LastReportPathWithoutExtension", "get_LastRun", "get_FileNamePattern", "put_FileNamePattern", "Run", "WaitForCompletion", "Cancel", "AddNotification", "DeleteNotification", "ModifyNotification", "CreateNotificationAction", "EnumNotificationActions", "CreatePropertyCondition", "CreateCustomAction"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    NamespaceRoots {
+        get => this.get_NamespaceRoots()
+        set => this.put_NamespaceRoots(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OperationType {
+        get => this.get_OperationType()
+        set => this.put_OperationType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExpirationDirectory {
+        get => this.get_ExpirationDirectory()
+        set => this.put_ExpirationDirectory(value)
+    }
+
+    /**
+     * @type {IFsrmActionCommand} 
+     */
+    CustomAction {
+        get => this.get_CustomAction()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Notifications {
+        get => this.get_Notifications()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Logging {
+        get => this.get_Logging()
+        set => this.put_Logging(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReportEnabled {
+        get => this.get_ReportEnabled()
+        set => this.put_ReportEnabled(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Formats {
+        get => this.get_Formats()
+        set => this.put_Formats(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailTo {
+        get => this.get_MailTo()
+        set => this.put_MailTo(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DaysSinceFileCreated {
+        get => this.get_DaysSinceFileCreated()
+        set => this.put_DaysSinceFileCreated(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DaysSinceFileLastAccessed {
+        get => this.get_DaysSinceFileLastAccessed()
+        set => this.put_DaysSinceFileLastAccessed(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DaysSinceFileLastModified {
+        get => this.get_DaysSinceFileLastModified()
+        set => this.put_DaysSinceFileLastModified(value)
+    }
+
+    /**
+     * @type {IFsrmCollection} 
+     */
+    PropertyConditions {
+        get => this.get_PropertyConditions()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    FromDate {
+        get => this.get_FromDate()
+        set => this.put_FromDate(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Task {
+        get => this.get_Task()
+        set => this.put_Task(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Parameters {
+        get => this.get_Parameters()
+        set => this.put_Parameters(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RunningStatus {
+        get => this.get_RunningStatus()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastError {
+        get => this.get_LastError()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastReportPathWithoutExtension {
+        get => this.get_LastReportPathWithoutExtension()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastRun {
+        get => this.get_LastRun()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FileNamePattern {
+        get => this.get_FileNamePattern()
+        set => this.put_FileNamePattern(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_name

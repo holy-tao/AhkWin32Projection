@@ -36,6 +36,13 @@ class IHTMLNamespaceCollection extends IDispatch{
     static VTableNames => ["get_length", "item", "add"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

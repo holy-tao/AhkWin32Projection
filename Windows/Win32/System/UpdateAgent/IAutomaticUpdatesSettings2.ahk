@@ -36,6 +36,14 @@ class IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettings{
     static VTableNames => ["get_IncludeRecommendedUpdates", "put_IncludeRecommendedUpdates", "CheckPermission"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IncludeRecommendedUpdates {
+        get => this.get_IncludeRecommendedUpdates()
+        set => this.put_IncludeRecommendedUpdates(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings2-get_includerecommendedupdates

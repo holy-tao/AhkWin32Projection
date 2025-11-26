@@ -36,6 +36,46 @@ class IHTMLMetaElement extends IDispatch{
     static VTableNames => ["put_httpEquiv", "get_httpEquiv", "put_content", "get_content", "put_name", "get_name", "put_url", "get_url", "put_charset", "get_charset"]
 
     /**
+     * @type {BSTR} 
+     */
+    httpEquiv {
+        get => this.get_httpEquiv()
+        set => this.put_httpEquiv(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    content {
+        get => this.get_content()
+        set => this.put_content(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    url {
+        get => this.get_url()
+        set => this.put_url(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    charset {
+        get => this.get_charset()
+        set => this.put_charset(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

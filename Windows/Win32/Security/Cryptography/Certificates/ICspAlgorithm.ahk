@@ -33,6 +33,69 @@ class ICspAlgorithm extends IDispatch{
     static VTableNames => ["GetAlgorithmOid", "get_DefaultLength", "get_IncrementLength", "get_LongName", "get_Valid", "get_MaxLength", "get_MinLength", "get_Name", "get_Type", "get_Operations"]
 
     /**
+     * @type {Integer} 
+     */
+    DefaultLength {
+        get => this.get_DefaultLength()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IncrementLength {
+        get => this.get_IncrementLength()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LongName {
+        get => this.get_LongName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Valid {
+        get => this.get_Valid()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxLength {
+        get => this.get_MaxLength()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinLength {
+        get => this.get_MinLength()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Operations {
+        get => this.get_Operations()
+    }
+
+    /**
      * 
      * @param {Integer} Length 
      * @param {Integer} AlgFlags 

@@ -32,6 +32,34 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     static VTableNames => ["get_CurrentLandmarkType", "get_CurrentLocalizedLandmarkType", "get_CachedLandmarkType", "get_CachedLocalizedLandmarkType"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentLandmarkType {
+        get => this.get_CurrentLandmarkType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentLocalizedLandmarkType {
+        get => this.get_CurrentLocalizedLandmarkType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedLandmarkType {
+        get => this.get_CachedLandmarkType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedLocalizedLandmarkType {
+        get => this.get_CachedLocalizedLandmarkType()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype

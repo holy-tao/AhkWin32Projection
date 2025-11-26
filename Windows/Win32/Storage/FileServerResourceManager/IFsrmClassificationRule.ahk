@@ -39,6 +39,30 @@ class IFsrmClassificationRule extends IFsrmRule{
     static VTableNames => ["get_ExecutionOption", "put_ExecutionOption", "get_PropertyAffected", "put_PropertyAffected", "get_Value", "put_Value"]
 
     /**
+     * @type {Integer} 
+     */
+    ExecutionOption {
+        get => this.get_ExecutionOption()
+        set => this.put_ExecutionOption(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PropertyAffected {
+        get => this.get_PropertyAffected()
+        set => this.put_PropertyAffected(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_executionoption

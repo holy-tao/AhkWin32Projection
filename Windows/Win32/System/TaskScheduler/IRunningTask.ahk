@@ -32,6 +32,48 @@ class IRunningTask extends IDispatch{
     static VTableNames => ["get_Name", "get_InstanceGuid", "get_Path", "get_State", "get_CurrentAction", "Stop", "Refresh", "get_EnginePID"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InstanceGuid {
+        get => this.get_InstanceGuid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAction {
+        get => this.get_CurrentAction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EnginePID {
+        get => this.get_EnginePID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_name

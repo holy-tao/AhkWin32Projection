@@ -38,6 +38,49 @@ class _Application extends IDispatch{
     static VTableNames => ["Help", "Quit", "get_Document", "Load", "get_Frame", "get_Visible", "Show", "Hide", "get_UserControl", "put_UserControl", "get_VersionMajor", "get_VersionMinor"]
 
     /**
+     * @type {Document} 
+     */
+    Document {
+        get => this.get_Document()
+    }
+
+    /**
+     * @type {Frame} 
+     */
+    Frame {
+        get => this.get_Frame()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    UserControl {
+        get => this.get_UserControl()
+        set => this.put_UserControl(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VersionMajor {
+        get => this.get_VersionMajor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VersionMinor {
+        get => this.get_VersionMinor()
+    }
+
+    /**
      * 
      * @returns {String} Nothing - always returns an empty string
      */

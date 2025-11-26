@@ -29,6 +29,22 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
     static VTableNames => ["get_ClaimType", "put_ClaimType", "get_AttestPrivateKeyPreferred", "put_AttestPrivateKeyPreferred"]
 
     /**
+     * @type {Integer} 
+     */
+    ClaimType {
+        get => this.get_ClaimType()
+        set => this.put_ClaimType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AttestPrivateKeyPreferred {
+        get => this.get_AttestPrivateKeyPreferred()
+        set => this.put_AttestPrivateKeyPreferred(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

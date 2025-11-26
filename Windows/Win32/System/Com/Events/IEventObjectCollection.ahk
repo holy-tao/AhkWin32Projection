@@ -35,6 +35,27 @@ class IEventObjectCollection extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_NewEnum", "get_Count", "Add", "Remove"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {IEnumEventObject} 
+     */
+    NewEnum {
+        get => this.get_NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get__newenum

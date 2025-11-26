@@ -42,6 +42,13 @@ class IInkDivisionResult extends IDispatch{
     static VTableNames => ["get_Strokes", "ResultByType"]
 
     /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
      * 
      * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionresult-get_strokes

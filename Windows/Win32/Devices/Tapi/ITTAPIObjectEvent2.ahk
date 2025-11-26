@@ -32,6 +32,13 @@ class ITTAPIObjectEvent2 extends ITTAPIObjectEvent{
     static VTableNames => ["get_Phone"]
 
     /**
+     * @type {ITPhone} 
+     */
+    Phone {
+        get => this.get_Phone()
+    }
+
+    /**
      * 
      * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent2-get_phone

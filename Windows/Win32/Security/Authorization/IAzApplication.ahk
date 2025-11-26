@@ -49,6 +49,146 @@ class IAzApplication extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_AuthzInterfaceClsid", "put_AuthzInterfaceClsid", "get_Version", "put_Version", "get_GenerateAudits", "put_GenerateAudits", "get_ApplyStoreSacl", "put_ApplyStoreSacl", "get_Writable", "GetProperty", "SetProperty", "get_PolicyAdministrators", "get_PolicyReaders", "AddPolicyAdministrator", "DeletePolicyAdministrator", "AddPolicyReader", "DeletePolicyReader", "get_Scopes", "OpenScope", "CreateScope", "DeleteScope", "get_Operations", "OpenOperation", "CreateOperation", "DeleteOperation", "get_Tasks", "OpenTask", "CreateTask", "DeleteTask", "get_ApplicationGroups", "OpenApplicationGroup", "CreateApplicationGroup", "DeleteApplicationGroup", "get_Roles", "OpenRole", "CreateRole", "DeleteRole", "InitializeClientContextFromToken", "AddPropertyItem", "DeletePropertyItem", "Submit", "InitializeClientContextFromName", "get_DelegatedPolicyUsers", "AddDelegatedPolicyUser", "DeleteDelegatedPolicyUser", "InitializeClientContextFromStringSid", "get_PolicyAdministratorsName", "get_PolicyReadersName", "AddPolicyAdministratorName", "DeletePolicyAdministratorName", "AddPolicyReaderName", "DeletePolicyReaderName", "get_DelegatedPolicyUsersName", "AddDelegatedPolicyUserName", "DeleteDelegatedPolicyUserName"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationData {
+        get => this.get_ApplicationData()
+        set => this.put_ApplicationData(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AuthzInterfaceClsid {
+        get => this.get_AuthzInterfaceClsid()
+        set => this.put_AuthzInterfaceClsid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Version {
+        get => this.get_Version()
+        set => this.put_Version(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    GenerateAudits {
+        get => this.get_GenerateAudits()
+        set => this.put_GenerateAudits(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ApplyStoreSacl {
+        get => this.get_ApplyStoreSacl()
+        set => this.put_ApplyStoreSacl(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyAdministrators {
+        get => this.get_PolicyAdministrators()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyReaders {
+        get => this.get_PolicyReaders()
+    }
+
+    /**
+     * @type {IAzScopes} 
+     */
+    Scopes {
+        get => this.get_Scopes()
+    }
+
+    /**
+     * @type {IAzOperations} 
+     */
+    Operations {
+        get => this.get_Operations()
+    }
+
+    /**
+     * @type {IAzTasks} 
+     */
+    Tasks {
+        get => this.get_Tasks()
+    }
+
+    /**
+     * @type {IAzApplicationGroups} 
+     */
+    ApplicationGroups {
+        get => this.get_ApplicationGroups()
+    }
+
+    /**
+     * @type {IAzRoles} 
+     */
+    Roles {
+        get => this.get_Roles()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DelegatedPolicyUsers {
+        get => this.get_DelegatedPolicyUsers()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyAdministratorsName {
+        get => this.get_PolicyAdministratorsName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyReadersName {
+        get => this.get_PolicyReadersName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DelegatedPolicyUsersName {
+        get => this.get_DelegatedPolicyUsersName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_name

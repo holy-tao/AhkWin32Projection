@@ -37,6 +37,48 @@ class IScrollProvider extends IUnknown{
     static VTableNames => ["Scroll", "SetScrollPercent", "get_HorizontalScrollPercent", "get_VerticalScrollPercent", "get_HorizontalViewSize", "get_VerticalViewSize", "get_HorizontallyScrollable", "get_VerticallyScrollable"]
 
     /**
+     * @type {Float} 
+     */
+    HorizontalScrollPercent {
+        get => this.get_HorizontalScrollPercent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    VerticalScrollPercent {
+        get => this.get_VerticalScrollPercent()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    HorizontalViewSize {
+        get => this.get_HorizontalViewSize()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    VerticalViewSize {
+        get => this.get_VerticalViewSize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    HorizontallyScrollable {
+        get => this.get_HorizontallyScrollable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    VerticallyScrollable {
+        get => this.get_VerticallyScrollable()
+    }
+
+    /**
      * 
      * @param {Integer} horizontalAmount 
      * @param {Integer} verticalAmount 

@@ -33,6 +33,27 @@ class IX509ExtensionTemplate extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_TemplateOid", "get_MajorVersion", "get_MinorVersion"]
 
     /**
+     * @type {IObjectId} 
+     */
+    TemplateOid {
+        get => this.get_TemplateOid()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
      * 
      * @param {IObjectId} pTemplateOid 
      * @param {Integer} MajorVersion 

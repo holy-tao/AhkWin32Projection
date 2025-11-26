@@ -40,6 +40,115 @@ class ITAutomatedPhoneControl extends IDispatch{
     static VTableNames => ["StartTone", "StopTone", "get_Tone", "StartRinger", "StopRinger", "get_Ringer", "put_PhoneHandlingEnabled", "get_PhoneHandlingEnabled", "put_AutoEndOfNumberTimeout", "get_AutoEndOfNumberTimeout", "put_AutoDialtone", "get_AutoDialtone", "put_AutoStopTonesOnOnHook", "get_AutoStopTonesOnOnHook", "put_AutoStopRingOnOffHook", "get_AutoStopRingOnOffHook", "put_AutoKeypadTones", "get_AutoKeypadTones", "put_AutoKeypadTonesMinimumDuration", "get_AutoKeypadTonesMinimumDuration", "put_AutoVolumeControl", "get_AutoVolumeControl", "put_AutoVolumeControlStep", "get_AutoVolumeControlStep", "put_AutoVolumeControlRepeatDelay", "get_AutoVolumeControlRepeatDelay", "put_AutoVolumeControlRepeatPeriod", "get_AutoVolumeControlRepeatPeriod", "SelectCall", "UnselectCall", "EnumerateSelectedCalls", "get_SelectedCalls"]
 
     /**
+     * @type {Integer} 
+     */
+    Tone {
+        get => this.get_Tone()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Ringer {
+        get => this.get_Ringer()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PhoneHandlingEnabled {
+        get => this.get_PhoneHandlingEnabled()
+        set => this.put_PhoneHandlingEnabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoEndOfNumberTimeout {
+        get => this.get_AutoEndOfNumberTimeout()
+        set => this.put_AutoEndOfNumberTimeout(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoDialtone {
+        get => this.get_AutoDialtone()
+        set => this.put_AutoDialtone(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoStopTonesOnOnHook {
+        get => this.get_AutoStopTonesOnOnHook()
+        set => this.put_AutoStopTonesOnOnHook(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoStopRingOnOffHook {
+        get => this.get_AutoStopRingOnOffHook()
+        set => this.put_AutoStopRingOnOffHook(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoKeypadTones {
+        get => this.get_AutoKeypadTones()
+        set => this.put_AutoKeypadTones(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoKeypadTonesMinimumDuration {
+        get => this.get_AutoKeypadTonesMinimumDuration()
+        set => this.put_AutoKeypadTonesMinimumDuration(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoVolumeControl {
+        get => this.get_AutoVolumeControl()
+        set => this.put_AutoVolumeControl(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoVolumeControlStep {
+        get => this.get_AutoVolumeControlStep()
+        set => this.put_AutoVolumeControlStep(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoVolumeControlRepeatDelay {
+        get => this.get_AutoVolumeControlRepeatDelay()
+        set => this.put_AutoVolumeControlRepeatDelay(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoVolumeControlRepeatPeriod {
+        get => this.get_AutoVolumeControlRepeatPeriod()
+        set => this.put_AutoVolumeControlRepeatPeriod(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelectedCalls {
+        get => this.get_SelectedCalls()
+    }
+
+    /**
      * 
      * @param {Integer} Tone 
      * @param {Integer} lDuration 

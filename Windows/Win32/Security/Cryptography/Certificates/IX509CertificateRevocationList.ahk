@@ -37,6 +37,104 @@ class IX509CertificateRevocationList extends IDispatch{
     static VTableNames => ["Initialize", "InitializeDecode", "Encode", "ResetForEncode", "CheckPublicKeySignature", "CheckSignature", "get_Issuer", "put_Issuer", "get_ThisUpdate", "put_ThisUpdate", "get_NextUpdate", "put_NextUpdate", "get_X509CRLEntries", "get_X509Extensions", "get_CriticalExtensions", "get_SignerCertificate", "put_SignerCertificate", "get_CRLNumber", "put_CRLNumber", "get_CAVersion", "put_CAVersion", "get_BaseCRL", "get_NullSigned", "get_HashAlgorithm", "put_HashAlgorithm", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_SignatureInformation", "get_RawData", "get_RawDataToBeSigned", "get_Signature"]
 
     /**
+     * @type {IX500DistinguishedName} 
+     */
+    Issuer {
+        get => this.get_Issuer()
+        set => this.put_Issuer(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ThisUpdate {
+        get => this.get_ThisUpdate()
+        set => this.put_ThisUpdate(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    NextUpdate {
+        get => this.get_NextUpdate()
+        set => this.put_NextUpdate(value)
+    }
+
+    /**
+     * @type {IX509CertificateRevocationListEntries} 
+     */
+    X509CRLEntries {
+        get => this.get_X509CRLEntries()
+    }
+
+    /**
+     * @type {IX509Extensions} 
+     */
+    X509Extensions {
+        get => this.get_X509Extensions()
+    }
+
+    /**
+     * @type {IObjectIds} 
+     */
+    CriticalExtensions {
+        get => this.get_CriticalExtensions()
+    }
+
+    /**
+     * @type {ISignerCertificate} 
+     */
+    SignerCertificate {
+        get => this.get_SignerCertificate()
+        set => this.put_SignerCertificate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CAVersion {
+        get => this.get_CAVersion()
+        set => this.put_CAVersion(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BaseCRL {
+        get => this.get_BaseCRL()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NullSigned {
+        get => this.get_NullSigned()
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AlternateSignatureAlgorithm {
+        get => this.get_AlternateSignatureAlgorithm()
+        set => this.put_AlternateSignatureAlgorithm(value)
+    }
+
+    /**
+     * @type {IX509SignatureInformation} 
+     */
+    SignatureInformation {
+        get => this.get_SignatureInformation()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>

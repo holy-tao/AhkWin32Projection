@@ -33,6 +33,22 @@ class IMultiInterfaceEventControl extends IUnknown{
     static VTableNames => ["SetMultiInterfacePublisherFilter", "GetSubscriptions", "SetDefaultQuery", "get_AllowInprocActivation", "put_AllowInprocActivation", "get_FireInParallel", "put_FireInParallel"]
 
     /**
+     * @type {BOOL} 
+     */
+    AllowInprocActivation {
+        get => this.get_AllowInprocActivation()
+        set => this.put_AllowInprocActivation(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    FireInParallel {
+        get => this.get_FireInParallel()
+        set => this.put_FireInParallel(value)
+    }
+
+    /**
      * 
      * @param {IMultiInterfacePublisherFilter} classFilter 
      * @returns {HRESULT} 

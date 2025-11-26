@@ -50,6 +50,46 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     static VTableNames => ["get_Name", "put_Name", "get_Type", "put_Type", "get_PossibleValues", "put_PossibleValues", "get_ValueDescriptions", "put_ValueDescriptions", "get_Parameters", "put_Parameters"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    PossibleValues {
+        get => this.get_PossibleValues()
+        set => this.put_PossibleValues(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ValueDescriptions {
+        get => this.get_ValueDescriptions()
+        set => this.put_ValueDescriptions(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Parameters {
+        get => this.get_Parameters()
+        set => this.put_Parameters(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_name

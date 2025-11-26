@@ -32,6 +32,44 @@ class IHTMLFrameBase2 extends IDispatch{
     static VTableNames => ["get_contentWindow", "put_onload", "get_onload", "put_onreadystatechange", "get_onreadystatechange", "get_readyState", "put_allowTransparency", "get_allowTransparency"]
 
     /**
+     * @type {IHTMLWindow2} 
+     */
+    contentWindow {
+        get => this.get_contentWindow()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    allowTransparency {
+        get => this.get_allowTransparency()
+        set => this.put_allowTransparency(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLWindow2} 
      */

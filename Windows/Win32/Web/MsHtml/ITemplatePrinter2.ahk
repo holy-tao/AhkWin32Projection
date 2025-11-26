@@ -31,6 +31,38 @@ class ITemplatePrinter2 extends ITemplatePrinter{
     static VTableNames => ["put_selectionEnabled", "get_selectionEnabled", "put_frameActiveEnabled", "get_frameActiveEnabled", "put_orientation", "get_orientation", "put_usePrinterCopyCollate", "get_usePrinterCopyCollate", "deviceSupports"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    selectionEnabled {
+        get => this.get_selectionEnabled()
+        set => this.put_selectionEnabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    frameActiveEnabled {
+        get => this.get_frameActiveEnabled()
+        set => this.put_frameActiveEnabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    orientation {
+        get => this.get_orientation()
+        set => this.put_orientation(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    usePrinterCopyCollate {
+        get => this.get_usePrinterCopyCollate()
+        set => this.put_usePrinterCopyCollate(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

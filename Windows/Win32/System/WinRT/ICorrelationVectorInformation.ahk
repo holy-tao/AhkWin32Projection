@@ -30,6 +30,21 @@ class ICorrelationVectorInformation extends IInspectable{
     static VTableNames => ["get_LastCorrelationVectorForThread", "get_NextCorrelationVectorForThread", "put_NextCorrelationVectorForThread"]
 
     /**
+     * @type {HSTRING} 
+     */
+    LastCorrelationVectorForThread {
+        get => this.get_LastCorrelationVectorForThread()
+    }
+
+    /**
+     * @type {HSTRING} 
+     */
+    NextCorrelationVectorForThread {
+        get => this.get_NextCorrelationVectorForThread()
+        set => this.put_NextCorrelationVectorForThread(value)
+    }
+
+    /**
      * 
      * @returns {HSTRING} 
      */

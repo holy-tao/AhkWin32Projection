@@ -30,6 +30,69 @@ class IFeedEnclosure extends IDispatch{
     static VTableNames => ["get_Url", "get_Type", "get_Length", "AsyncDownload", "CancelAsyncDownload", "get_DownloadStatus", "get_LastDownloadError", "get_LocalPath", "get_Parent", "get_DownloadUrl", "get_DownloadMimeType", "RemoveFile", "SetFile"]
 
     /**
+     * @type {BSTR} 
+     */
+    Url {
+        get => this.get_Url()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DownloadStatus {
+        get => this.get_DownloadStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastDownloadError {
+        get => this.get_LastDownloadError()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalPath {
+        get => this.get_LocalPath()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DownloadUrl {
+        get => this.get_DownloadUrl()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DownloadMimeType {
+        get => this.get_DownloadMimeType()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -44,6 +44,46 @@ class IFsrmSetting extends IDispatch{
     static VTableNames => ["get_SmtpServer", "put_SmtpServer", "get_MailFrom", "put_MailFrom", "get_AdminEmail", "put_AdminEmail", "get_DisableCommandLine", "put_DisableCommandLine", "get_EnableScreeningAudit", "put_EnableScreeningAudit", "EmailTest", "SetActionRunLimitInterval", "GetActionRunLimitInterval"]
 
     /**
+     * @type {BSTR} 
+     */
+    SmtpServer {
+        get => this.get_SmtpServer()
+        set => this.put_SmtpServer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailFrom {
+        get => this.get_MailFrom()
+        set => this.put_MailFrom(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AdminEmail {
+        get => this.get_AdminEmail()
+        set => this.put_AdminEmail(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DisableCommandLine {
+        get => this.get_DisableCommandLine()
+        set => this.put_DisableCommandLine(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableScreeningAudit {
+        get => this.get_EnableScreeningAudit()
+        set => this.put_EnableScreeningAudit(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver

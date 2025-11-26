@@ -32,6 +32,20 @@ class INetworkConnection extends IDispatch{
     static VTableNames => ["GetNetwork", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "GetConnectionId", "GetAdapterId", "GetDomainType"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnectedToInternet {
+        get => this.get_IsConnectedToInternet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnected {
+        get => this.get_IsConnected()
+    }
+
+    /**
      * 
      * @returns {INetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getnetwork

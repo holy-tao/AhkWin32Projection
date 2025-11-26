@@ -37,6 +37,13 @@ class IDOMDragEvent extends IDispatch{
     static VTableNames => ["get_dataTransfer", "initDragEvent"]
 
     /**
+     * @type {IHTMLDataTransfer} 
+     */
+    dataTransfer {
+        get => this.get_dataTransfer()
+    }
+
+    /**
      * 
      * @returns {IHTMLDataTransfer} 
      */

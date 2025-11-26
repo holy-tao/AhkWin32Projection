@@ -32,6 +32,62 @@ class IInkTransform extends IDispatch{
     static VTableNames => ["Reset", "Translate", "Rotate", "Reflect", "Shear", "ScaleTransform", "GetTransform", "SetTransform", "get_eM11", "put_eM11", "get_eM12", "put_eM12", "get_eM21", "put_eM21", "get_eM22", "put_eM22", "get_eDx", "put_eDx", "get_eDy", "put_eDy", "get_Data", "put_Data"]
 
     /**
+     * @type {Float} 
+     */
+    eM11 {
+        get => this.get_eM11()
+        set => this.put_eM11(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    eM12 {
+        get => this.get_eM12()
+        set => this.put_eM12(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    eM21 {
+        get => this.get_eM21()
+        set => this.put_eM21(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    eM22 {
+        get => this.get_eM22()
+        set => this.put_eM22(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    eDx {
+        get => this.get_eDx()
+        set => this.put_eDx(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    eDy {
+        get => this.get_eDy()
+        set => this.put_eDy(value)
+    }
+
+    /**
+     * @type {XFORM} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-reset

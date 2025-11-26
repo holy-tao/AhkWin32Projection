@@ -47,6 +47,20 @@ class IComponentTypes extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "EnumComponentTypes", "get_Item", "put_Item", "Add", "Remove", "Clone"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-get_count

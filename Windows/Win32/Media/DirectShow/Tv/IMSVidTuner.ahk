@@ -38,6 +38,22 @@ class IMSVidTuner extends IMSVidVideoInputDevice{
     static VTableNames => ["get_Tune", "put_Tune", "get_TuningSpace", "put_TuningSpace"]
 
     /**
+     * @type {ITuneRequest} 
+     */
+    Tune {
+        get => this.get_Tune()
+        set => this.put_Tune(value)
+    }
+
+    /**
+     * @type {ITuningSpace} 
+     */
+    TuningSpace {
+        get => this.get_TuningSpace()
+        set => this.put_TuningSpace(value)
+    }
+
+    /**
      * 
      * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidtuner-get_tune

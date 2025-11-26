@@ -33,6 +33,13 @@ class IAzBizRuleParameters extends IDispatch{
     static VTableNames => ["AddParameter", "AddParameters", "GetParameterValue", "Remove", "RemoveAll", "get_Count"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrParameterName 
      * @param {VARIANT} varParameterValue 

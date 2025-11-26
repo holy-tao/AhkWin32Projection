@@ -43,6 +43,34 @@ class IFaxActivity extends IDispatch{
     static VTableNames => ["get_IncomingMessages", "get_RoutingMessages", "get_OutgoingMessages", "get_QueuedMessages", "Refresh"]
 
     /**
+     * @type {Integer} 
+     */
+    IncomingMessages {
+        get => this.get_IncomingMessages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RoutingMessages {
+        get => this.get_RoutingMessages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OutgoingMessages {
+        get => this.get_OutgoingMessages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QueuedMessages {
+        get => this.get_QueuedMessages()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_incomingmessages

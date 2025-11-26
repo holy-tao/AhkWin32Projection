@@ -36,6 +36,22 @@ class IHTMLBaseElement extends IDispatch{
     static VTableNames => ["put_href", "get_href", "put_target", "get_target"]
 
     /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+        set => this.put_target(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

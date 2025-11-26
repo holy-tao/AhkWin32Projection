@@ -36,6 +36,34 @@ class ISearchScopeRule extends IUnknown{
     static VTableNames => ["get_PatternOrURL", "get_IsIncluded", "get_IsDefault", "get_FollowFlags"]
 
     /**
+     * @type {PWSTR} 
+     */
+    PatternOrURL {
+        get => this.get_PatternOrURL()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsIncluded {
+        get => this.get_IsIncluded()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsDefault {
+        get => this.get_IsDefault()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FollowFlags {
+        get => this.get_FollowFlags()
+    }
+
+    /**
      * 
      * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_patternorurl

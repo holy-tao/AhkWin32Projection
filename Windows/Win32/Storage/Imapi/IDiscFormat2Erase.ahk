@@ -38,6 +38,37 @@ class IDiscFormat2Erase extends IDiscFormat2{
     static VTableNames => ["put_Recorder", "get_Recorder", "put_FullErase", "get_FullErase", "get_CurrentPhysicalMediaType", "put_ClientName", "get_ClientName", "EraseMedia"]
 
     /**
+     * @type {IDiscRecorder2} 
+     */
+    Recorder {
+        get => this.get_Recorder()
+        set => this.put_Recorder(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FullErase {
+        get => this.get_FullErase()
+        set => this.put_FullErase(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPhysicalMediaType {
+        get => this.get_CurrentPhysicalMediaType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientName {
+        get => this.get_ClientName()
+        set => this.put_ClientName(value)
+    }
+
+    /**
      * 
      * @param {IDiscRecorder2} value 
      * @returns {HRESULT} 

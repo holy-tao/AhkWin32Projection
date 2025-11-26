@@ -37,6 +37,20 @@ class ICoreWindowInterop extends IUnknown{
     static VTableNames => ["get_WindowHandle", "put_MessageHandled"]
 
     /**
+     * @type {HWND} 
+     */
+    WindowHandle {
+        get => this.get_WindowHandle()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    MessageHandled {
+        set => this.put_MessageHandled(value)
+    }
+
+    /**
      * 
      * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-get_windowhandle

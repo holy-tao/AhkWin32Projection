@@ -30,6 +30,14 @@ class IHTMLHeadElement2 extends IDispatch{
     static VTableNames => ["put_profile", "get_profile"]
 
     /**
+     * @type {BSTR} 
+     */
+    profile {
+        get => this.get_profile()
+        set => this.put_profile(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

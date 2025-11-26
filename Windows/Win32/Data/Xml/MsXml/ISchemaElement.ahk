@@ -34,6 +34,83 @@ class ISchemaElement extends ISchemaParticle{
     static VTableNames => ["get_type", "get_scope", "get_defaultValue", "get_fixedValue", "get_isNillable", "get_identityConstraints", "get_substitutionGroup", "get_substitutionGroupExclusions", "get_disallowedSubstitutions", "get_isAbstract", "get_isReference"]
 
     /**
+     * @type {ISchemaType} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {ISchemaComplexType} 
+     */
+    scope {
+        get => this.get_scope()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultValue {
+        get => this.get_defaultValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fixedValue {
+        get => this.get_fixedValue()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isNillable {
+        get => this.get_isNillable()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    identityConstraints {
+        get => this.get_identityConstraints()
+    }
+
+    /**
+     * @type {ISchemaElement} 
+     */
+    substitutionGroup {
+        get => this.get_substitutionGroup()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    substitutionGroupExclusions {
+        get => this.get_substitutionGroupExclusions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    disallowedSubstitutions {
+        get => this.get_disallowedSubstitutions()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isAbstract {
+        get => this.get_isAbstract()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isReference {
+        get => this.get_isReference()
+    }
+
+    /**
      * 
      * @returns {ISchemaType} 
      */

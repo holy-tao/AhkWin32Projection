@@ -31,6 +31,90 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     static VTableNames => ["SetValue", "get_CurrentValue", "get_CurrentIsReadOnly", "get_CurrentMaximum", "get_CurrentMinimum", "get_CurrentLargeChange", "get_CurrentSmallChange", "get_CachedValue", "get_CachedIsReadOnly", "get_CachedMaximum", "get_CachedMinimum", "get_CachedLargeChange", "get_CachedSmallChange"]
 
     /**
+     * @type {Float} 
+     */
+    CurrentValue {
+        get => this.get_CurrentValue()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsReadOnly {
+        get => this.get_CurrentIsReadOnly()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentMaximum {
+        get => this.get_CurrentMaximum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentMinimum {
+        get => this.get_CurrentMinimum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentLargeChange {
+        get => this.get_CurrentLargeChange()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentSmallChange {
+        get => this.get_CurrentSmallChange()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedValue {
+        get => this.get_CachedValue()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsReadOnly {
+        get => this.get_CachedIsReadOnly()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedMaximum {
+        get => this.get_CachedMaximum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedMinimum {
+        get => this.get_CachedMinimum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedLargeChange {
+        get => this.get_CachedLargeChange()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CachedSmallChange {
+        get => this.get_CachedSmallChange()
+    }
+
+    /**
      * 
      * @param {Float} val 
      * @returns {HRESULT} 

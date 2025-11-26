@@ -43,6 +43,13 @@ class IMSVidDevice2 extends IUnknown{
     static VTableNames => ["get_DevicePath"]
 
     /**
+     * @type {BSTR} 
+     */
+    DevicePath {
+        get => this.get_DevicePath()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice2-get_devicepath

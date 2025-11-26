@@ -32,6 +32,34 @@ class IFsrmPropertyDefinitionValue extends IDispatch{
     static VTableNames => ["get_Name", "get_DisplayName", "get_Description", "get_UniqueID"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UniqueID {
+        get => this.get_UniqueID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_name

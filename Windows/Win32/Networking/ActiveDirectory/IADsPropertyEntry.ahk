@@ -33,6 +33,38 @@ class IADsPropertyEntry extends IDispatch{
     static VTableNames => ["Clear", "get_Name", "put_Name", "get_ADsType", "put_ADsType", "get_ControlCode", "put_ControlCode", "get_Values", "put_Values"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ADsType {
+        get => this.get_ADsType()
+        set => this.put_ADsType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ControlCode {
+        get => this.get_ControlCode()
+        set => this.put_ControlCode(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Values {
+        get => this.get_Values()
+        set => this.put_Values(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

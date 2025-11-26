@@ -65,6 +65,13 @@ class IAMStats extends IDispatch{
     static VTableNames => ["Reset", "get_Count", "GetValueByIndex", "GetValueByName", "GetIndex", "AddValue"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-reset

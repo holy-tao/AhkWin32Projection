@@ -34,6 +34,28 @@ class IInkDivider extends IDispatch{
     static VTableNames => ["get_Strokes", "putref_Strokes", "get_RecognizerContext", "putref_RecognizerContext", "get_LineHeight", "put_LineHeight", "Divide"]
 
     /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
+     * @type {IInkRecognizerContext} 
+     */
+    RecognizerContext {
+        get => this.get_RecognizerContext()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LineHeight {
+        get => this.get_LineHeight()
+        set => this.put_LineHeight(value)
+    }
+
+    /**
      * 
      * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-get_strokes

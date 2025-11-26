@@ -32,6 +32,20 @@ class ISearchJob extends IDispatch{
     static VTableNames => ["get_AsyncState", "get_IsCompleted", "CleanUp", "RequestAbort"]
 
     /**
+     * @type {VARIANT} 
+     */
+    AsyncState {
+        get => this.get_AsyncState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsCompleted {
+        get => this.get_IsCompleted()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchjob-get_asyncstate

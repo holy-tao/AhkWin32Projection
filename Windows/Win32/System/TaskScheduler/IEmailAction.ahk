@@ -43,6 +43,77 @@ class IEmailAction extends IAction{
     static VTableNames => ["get_Server", "put_Server", "get_Subject", "put_Subject", "get_To", "put_To", "get_Cc", "put_Cc", "get_Bcc", "put_Bcc", "get_ReplyTo", "put_ReplyTo", "get_From", "put_From", "get_HeaderFields", "put_HeaderFields", "get_Body", "put_Body", "get_Attachments", "put_Attachments"]
 
     /**
+     */
+    Server {
+        get => this.get_Server()
+        set => this.put_Server(value)
+    }
+
+    /**
+     */
+    Subject {
+        get => this.get_Subject()
+        set => this.put_Subject(value)
+    }
+
+    /**
+     */
+    To {
+        get => this.get_To()
+        set => this.put_To(value)
+    }
+
+    /**
+     */
+    Cc {
+        get => this.get_Cc()
+        set => this.put_Cc(value)
+    }
+
+    /**
+     */
+    Bcc {
+        get => this.get_Bcc()
+        set => this.put_Bcc(value)
+    }
+
+    /**
+     */
+    ReplyTo {
+        get => this.get_ReplyTo()
+        set => this.put_ReplyTo(value)
+    }
+
+    /**
+     */
+    From {
+        get => this.get_From()
+        set => this.put_From(value)
+    }
+
+    /**
+     * @type {ITaskNamedValueCollection} 
+     */
+    HeaderFields {
+        get => this.get_HeaderFields()
+        set => this.put_HeaderFields(value)
+    }
+
+    /**
+     */
+    Body {
+        get => this.get_Body()
+        set => this.put_Body(value)
+    }
+
+    /**
+     */
+    Attachments {
+        get => this.get_Attachments()
+        set => this.put_Attachments(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pServer 
      * @returns {HRESULT} 

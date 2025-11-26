@@ -31,6 +31,93 @@ class IXMLDocument2 extends IDispatch{
     static VTableNames => ["get_root", "get_fileSize", "get_fileModifiedDate", "get_fileUpdatedDate", "get_URL", "put_URL", "get_mimeType", "get_readyState", "get_charset", "put_charset", "get_version", "get_doctype", "get_dtdURL", "createElement", "get_async", "put_async"]
 
     /**
+     * @type {IXMLElement2} 
+     */
+    root {
+        get => this.get_root()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileSize {
+        get => this.get_fileSize()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileModifiedDate {
+        get => this.get_fileModifiedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileUpdatedDate {
+        get => this.get_fileUpdatedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    URL {
+        get => this.get_URL()
+        set => this.put_URL(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    mimeType {
+        get => this.get_mimeType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    charset {
+        get => this.get_charset()
+        set => this.put_charset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    doctype {
+        get => this.get_doctype()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dtdURL {
+        get => this.get_dtdURL()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    async {
+        get => this.get_async()
+        set => this.put_async(value)
+    }
+
+    /**
      * 
      * @returns {IXMLElement2} 
      */

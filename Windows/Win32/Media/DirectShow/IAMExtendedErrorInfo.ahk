@@ -37,6 +37,24 @@ class IAMExtendedErrorInfo extends IDispatch{
     static VTableNames => ["get_HasError", "get_ErrorDescription", "get_ErrorCode"]
 
     /**
+     */
+    HasError {
+        get => this.get_HasError()
+    }
+
+    /**
+     */
+    ErrorDescription {
+        get => this.get_ErrorDescription()
+    }
+
+    /**
+     */
+    ErrorCode {
+        get => this.get_ErrorCode()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pHasError 
      * @returns {HRESULT} 

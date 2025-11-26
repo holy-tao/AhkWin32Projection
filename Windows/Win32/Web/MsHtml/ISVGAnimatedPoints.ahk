@@ -30,6 +30,20 @@ class ISVGAnimatedPoints extends IDispatch{
     static VTableNames => ["putref_points", "get_points", "putref_animatedPoints", "get_animatedPoints"]
 
     /**
+     * @type {ISVGPointList} 
+     */
+    points {
+        get => this.get_points()
+    }
+
+    /**
+     * @type {ISVGPointList} 
+     */
+    animatedPoints {
+        get => this.get_animatedPoints()
+    }
+
+    /**
      * 
      * @param {ISVGPointList} v 
      * @returns {HRESULT} 

@@ -37,6 +37,153 @@ class IHTMLPerformanceTiming extends IDispatch{
     static VTableNames => ["get_navigationStart", "get_unloadEventStart", "get_unloadEventEnd", "get_redirectStart", "get_redirectEnd", "get_fetchStart", "get_domainLookupStart", "get_domainLookupEnd", "get_connectStart", "get_connectEnd", "get_requestStart", "get_responseStart", "get_responseEnd", "get_domLoading", "get_domInteractive", "get_domContentLoadedEventStart", "get_domContentLoadedEventEnd", "get_domComplete", "get_loadEventStart", "get_loadEventEnd", "get_msFirstPaint", "toString", "toJSON"]
 
     /**
+     * @type {Integer} 
+     */
+    navigationStart {
+        get => this.get_navigationStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    unloadEventStart {
+        get => this.get_unloadEventStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    unloadEventEnd {
+        get => this.get_unloadEventEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    redirectStart {
+        get => this.get_redirectStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    redirectEnd {
+        get => this.get_redirectEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    fetchStart {
+        get => this.get_fetchStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domainLookupStart {
+        get => this.get_domainLookupStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domainLookupEnd {
+        get => this.get_domainLookupEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    connectStart {
+        get => this.get_connectStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    connectEnd {
+        get => this.get_connectEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    requestStart {
+        get => this.get_requestStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    responseStart {
+        get => this.get_responseStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    responseEnd {
+        get => this.get_responseEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domLoading {
+        get => this.get_domLoading()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domInteractive {
+        get => this.get_domInteractive()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domContentLoadedEventStart {
+        get => this.get_domContentLoadedEventStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domContentLoadedEventEnd {
+        get => this.get_domContentLoadedEventEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    domComplete {
+        get => this.get_domComplete()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    loadEventStart {
+        get => this.get_loadEventStart()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    loadEventEnd {
+        get => this.get_loadEventEnd()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    msFirstPaint {
+        get => this.get_msFirstPaint()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

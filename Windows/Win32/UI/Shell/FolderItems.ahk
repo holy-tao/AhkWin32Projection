@@ -39,6 +39,27 @@ class FolderItems extends IDispatch{
     static VTableNames => ["get_Count", "get_Application", "get_Parent", "Item", "_NewEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

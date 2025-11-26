@@ -36,6 +36,38 @@ class IAMVideoCompression extends IUnknown{
     static VTableNames => ["put_KeyFrameRate", "get_KeyFrameRate", "put_PFramesPerKeyFrame", "get_PFramesPerKeyFrame", "put_Quality", "get_Quality", "put_WindowSize", "get_WindowSize", "GetInfo", "OverrideKeyFrame", "OverrideFrameSize"]
 
     /**
+     * @type {Integer} 
+     */
+    KeyFrameRate {
+        get => this.get_KeyFrameRate()
+        set => this.put_KeyFrameRate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PFramesPerKeyFrame {
+        get => this.get_PFramesPerKeyFrame()
+        set => this.put_PFramesPerKeyFrame(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Quality {
+        get => this.get_Quality()
+        set => this.put_Quality(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    WindowSize {
+        get => this.get_WindowSize()
+        set => this.put_WindowSize(value)
+    }
+
+    /**
      * 
      * @param {Integer} KeyFrameRate 
      * @returns {HRESULT} 

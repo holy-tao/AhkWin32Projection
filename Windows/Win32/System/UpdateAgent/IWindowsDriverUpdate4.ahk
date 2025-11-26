@@ -32,6 +32,20 @@ class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3{
     static VTableNames => ["get_WindowsDriverUpdateEntries", "get_PerUser"]
 
     /**
+     * @type {IWindowsDriverUpdateEntryCollection} 
+     */
+    WindowsDriverUpdateEntries {
+        get => this.get_WindowsDriverUpdateEntries()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PerUser {
+        get => this.get_PerUser()
+    }
+
+    /**
      * 
      * @returns {IWindowsDriverUpdateEntryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate4-get_windowsdriverupdateentries

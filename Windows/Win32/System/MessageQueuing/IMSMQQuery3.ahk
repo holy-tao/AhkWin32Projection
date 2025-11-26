@@ -30,6 +30,13 @@ class IMSMQQuery3 extends IDispatch{
     static VTableNames => ["LookupQueue_v2", "get_Properties", "LookupQueue"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 

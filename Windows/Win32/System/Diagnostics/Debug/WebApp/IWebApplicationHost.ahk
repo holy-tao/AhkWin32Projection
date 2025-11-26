@@ -32,6 +32,19 @@ class IWebApplicationHost extends IUnknown{
     static VTableNames => ["get_HWND", "get_Document", "Refresh", "Advise", "Unadvise"]
 
     /**
+     */
+    HWND {
+        get => this.get_HWND()
+    }
+
+    /**
+     * @type {IHTMLDocument2} 
+     */
+    Document {
+        get => this.get_Document()
+    }
+
+    /**
      * 
      * @param {Pointer<HWND>} hwnd 
      * @returns {HRESULT} 

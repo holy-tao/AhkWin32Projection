@@ -43,6 +43,85 @@ class ISearchQueryHelper extends IUnknown{
     static VTableNames => ["get_ConnectionString", "put_QueryContentLocale", "get_QueryContentLocale", "put_QueryKeywordLocale", "get_QueryKeywordLocale", "put_QueryTermExpansion", "get_QueryTermExpansion", "put_QuerySyntax", "get_QuerySyntax", "put_QueryContentProperties", "get_QueryContentProperties", "put_QuerySelectColumns", "get_QuerySelectColumns", "put_QueryWhereRestrictions", "get_QueryWhereRestrictions", "put_QuerySorting", "get_QuerySorting", "GenerateSQLFromUserQuery", "WriteProperties", "put_QueryMaxResults", "get_QueryMaxResults"]
 
     /**
+     * @type {PWSTR} 
+     */
+    ConnectionString {
+        get => this.get_ConnectionString()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QueryContentLocale {
+        get => this.get_QueryContentLocale()
+        set => this.put_QueryContentLocale(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QueryKeywordLocale {
+        get => this.get_QueryKeywordLocale()
+        set => this.put_QueryKeywordLocale(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QueryTermExpansion {
+        get => this.get_QueryTermExpansion()
+        set => this.put_QueryTermExpansion(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QuerySyntax {
+        get => this.get_QuerySyntax()
+        set => this.put_QuerySyntax(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    QueryContentProperties {
+        get => this.get_QueryContentProperties()
+        set => this.put_QueryContentProperties(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    QuerySelectColumns {
+        get => this.get_QuerySelectColumns()
+        set => this.put_QuerySelectColumns(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    QueryWhereRestrictions {
+        get => this.get_QueryWhereRestrictions()
+        set => this.put_QueryWhereRestrictions(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    QuerySorting {
+        get => this.get_QuerySorting()
+        set => this.put_QuerySorting(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QueryMaxResults {
+        get => this.get_QueryMaxResults()
+        set => this.put_QueryMaxResults(value)
+    }
+
+    /**
      * 
      * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_connectionstring

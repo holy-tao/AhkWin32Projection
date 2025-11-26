@@ -51,6 +51,27 @@ class IFsiNamedStreams extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_EnumNamedStreams"]
 
     /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumFsiItems} 
+     */
+    EnumNamedStreams {
+        get => this.get_EnumNamedStreams()
+    }
+
+    /**
      * 
      * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get__newenum

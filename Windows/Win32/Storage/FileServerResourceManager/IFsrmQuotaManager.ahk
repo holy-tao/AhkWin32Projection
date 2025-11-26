@@ -59,6 +59,20 @@ class IFsrmQuotaManager extends IDispatch{
     static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "CreateQuota", "CreateAutoApplyQuota", "GetQuota", "GetAutoApplyQuota", "GetRestrictiveQuota", "EnumQuotas", "EnumAutoApplyQuotas", "EnumEffectiveQuotas", "Scan", "CreateQuotaCollection"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariables {
+        get => this.get_ActionVariables()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariableDescriptions {
+        get => this.get_ActionVariableDescriptions()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariables

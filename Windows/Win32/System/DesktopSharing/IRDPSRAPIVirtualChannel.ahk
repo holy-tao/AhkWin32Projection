@@ -32,6 +32,27 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
     static VTableNames => ["SendData", "SetAccess", "get_Name", "get_Flags", "get_Priority"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrData 
      * @param {Integer} lAttendeeId 

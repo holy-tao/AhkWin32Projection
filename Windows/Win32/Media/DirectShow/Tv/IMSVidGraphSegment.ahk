@@ -32,6 +32,36 @@ class IMSVidGraphSegment extends IPersist{
     static VTableNames => ["get_Init", "put_Init", "EnumFilters", "get_Container", "put_Container", "get_Type", "get_Category", "Build", "PostBuild", "PreRun", "PostRun", "PreStop", "PostStop", "OnEventNotify", "Decompose"]
 
     /**
+     * @type {IUnknown} 
+     */
+    Init {
+        get => this.get_Init()
+        set => this.put_Init(value)
+    }
+
+    /**
+     * @type {IMSVidGraphSegmentContainer} 
+     */
+    Container {
+        get => this.get_Container()
+        set => this.put_Container(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    Category {
+        get => this.get_Category()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

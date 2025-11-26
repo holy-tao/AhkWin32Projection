@@ -32,6 +32,13 @@ class IMsmGetFiles extends IDispatch{
     static VTableNames => ["get_ModuleFiles"]
 
     /**
+     * @type {IMsmStrings} 
+     */
+    ModuleFiles {
+        get => this.get_ModuleFiles()
+    }
+
+    /**
      * 
      * @returns {IMsmStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmgetfiles-get_modulefiles

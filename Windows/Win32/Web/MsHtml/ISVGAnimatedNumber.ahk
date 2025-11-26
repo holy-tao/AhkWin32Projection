@@ -35,6 +35,22 @@ class ISVGAnimatedNumber extends IDispatch{
     static VTableNames => ["put_baseVal", "get_baseVal", "put_animVal", "get_animVal"]
 
     /**
+     * @type {Float} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+        set => this.put_baseVal(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    animVal {
+        get => this.get_animVal()
+        set => this.put_animVal(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

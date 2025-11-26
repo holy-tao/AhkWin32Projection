@@ -32,6 +32,172 @@ class IMSMQQueueInfo4 extends IDispatch{
     static VTableNames => ["get_QueueGuid", "get_ServiceTypeGuid", "put_ServiceTypeGuid", "get_Label", "put_Label", "get_PathName", "put_PathName", "get_FormatName", "put_FormatName", "get_IsTransactional", "get_PrivLevel", "put_PrivLevel", "get_Journal", "put_Journal", "get_Quota", "put_Quota", "get_BasePriority", "put_BasePriority", "get_CreateTime", "get_ModifyTime", "get_Authenticate", "put_Authenticate", "get_JournalQuota", "put_JournalQuota", "get_IsWorldReadable", "Create", "Delete", "Open", "Refresh", "Update", "get_PathNameDNS", "get_Properties", "get_Security", "put_Security", "get_IsTransactional2", "get_IsWorldReadable2", "get_MulticastAddress", "put_MulticastAddress", "get_ADsPath"]
 
     /**
+     * @type {BSTR} 
+     */
+    QueueGuid {
+        get => this.get_QueueGuid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceTypeGuid {
+        get => this.get_ServiceTypeGuid()
+        set => this.put_ServiceTypeGuid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Label {
+        get => this.get_Label()
+        set => this.put_Label(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PathName {
+        get => this.get_PathName()
+        set => this.put_PathName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FormatName {
+        get => this.get_FormatName()
+        set => this.put_FormatName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsTransactional {
+        get => this.get_IsTransactional()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PrivLevel {
+        get => this.get_PrivLevel()
+        set => this.put_PrivLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Journal {
+        get => this.get_Journal()
+        set => this.put_Journal(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Quota {
+        get => this.get_Quota()
+        set => this.put_Quota(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BasePriority {
+        get => this.get_BasePriority()
+        set => this.put_BasePriority(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CreateTime {
+        get => this.get_CreateTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ModifyTime {
+        get => this.get_ModifyTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Authenticate {
+        get => this.get_Authenticate()
+        set => this.put_Authenticate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    JournalQuota {
+        get => this.get_JournalQuota()
+        set => this.put_JournalQuota(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsWorldReadable {
+        get => this.get_IsWorldReadable()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PathNameDNS {
+        get => this.get_PathNameDNS()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Security {
+        get => this.get_Security()
+        set => this.put_Security(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsTransactional2 {
+        get => this.get_IsTransactional2()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsWorldReadable2 {
+        get => this.get_IsWorldReadable2()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MulticastAddress {
+        get => this.get_MulticastAddress()
+        set => this.put_MulticastAddress(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ADsPath {
+        get => this.get_ADsPath()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

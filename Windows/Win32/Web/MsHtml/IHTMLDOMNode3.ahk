@@ -32,6 +32,36 @@ class IHTMLDOMNode3 extends IDispatch{
     static VTableNames => ["put_prefix", "get_prefix", "get_localName", "get_namespaceURI", "put_textContent", "get_textContent", "isEqualNode", "lookupNamespaceURI", "lookupPrefix", "isDefaultNamespace", "appendChild", "insertBefore", "removeChild", "replaceChild", "isSameNode", "compareDocumentPosition", "isSupported"]
 
     /**
+     * @type {VARIANT} 
+     */
+    prefix {
+        get => this.get_prefix()
+        set => this.put_prefix(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    localName {
+        get => this.get_localName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    namespaceURI {
+        get => this.get_namespaceURI()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textContent {
+        get => this.get_textContent()
+        set => this.put_textContent(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

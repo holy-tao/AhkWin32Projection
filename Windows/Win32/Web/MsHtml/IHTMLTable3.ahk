@@ -30,6 +30,14 @@ class IHTMLTable3 extends IDispatch{
     static VTableNames => ["put_summary", "get_summary"]
 
     /**
+     * @type {BSTR} 
+     */
+    summary {
+        get => this.get_summary()
+        set => this.put_summary(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

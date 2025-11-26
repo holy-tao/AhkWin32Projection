@@ -43,6 +43,28 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
     static VTableNames => ["get_Allocator_ID", "SetAllocator", "put_SuppressEffects", "get_SuppressEffects", "get_Allocator"]
 
     /**
+     * @type {Integer} 
+     */
+    Allocator_ID {
+        get => this.get_Allocator_ID()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SuppressEffects {
+        get => this.get_SuppressEffects()
+        set => this.put_SuppressEffects(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    Allocator {
+        get => this.get_Allocator()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_allocator_id

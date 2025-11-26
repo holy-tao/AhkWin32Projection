@@ -32,6 +32,34 @@ class IWMPPlayer extends IWMPCore{
     static VTableNames => ["get_enabled", "put_enabled", "get_fullScreen", "put_fullScreen", "get_enableContextMenu", "put_enableContextMenu", "put_uiMode", "get_uiMode"]
 
     /**
+     */
+    enabled {
+        get => this.get_enabled()
+        set => this.put_enabled(value)
+    }
+
+    /**
+     */
+    fullScreen {
+        get => this.get_fullScreen()
+        set => this.put_fullScreen(value)
+    }
+
+    /**
+     */
+    enableContextMenu {
+        get => this.get_enableContextMenu()
+        set => this.put_enableContextMenu(value)
+    }
+
+    /**
+     */
+    uiMode {
+        get => this.get_uiMode()
+        set => this.put_uiMode(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 

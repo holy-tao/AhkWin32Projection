@@ -36,6 +36,22 @@ class IHTMLCommentElement extends IDispatch{
     static VTableNames => ["put_text", "get_text", "put_atomic", "get_atomic"]
 
     /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    atomic {
+        get => this.get_atomic()
+        set => this.put_atomic(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

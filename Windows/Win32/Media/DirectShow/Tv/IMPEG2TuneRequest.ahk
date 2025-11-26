@@ -42,6 +42,22 @@ class IMPEG2TuneRequest extends ITuneRequest{
     static VTableNames => ["get_TSID", "put_TSID", "get_ProgNo", "put_ProgNo"]
 
     /**
+     * @type {Integer} 
+     */
+    TSID {
+        get => this.get_TSID()
+        set => this.put_TSID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProgNo {
+        get => this.get_ProgNo()
+        set => this.put_ProgNo(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-get_tsid

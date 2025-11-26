@@ -31,6 +31,20 @@ class ISchemaAttributeGroup extends ISchemaItem{
     static VTableNames => ["get_anyAttribute", "get_attributes"]
 
     /**
+     * @type {ISchemaAny} 
+     */
+    anyAttribute {
+        get => this.get_anyAttribute()
+    }
+
+    /**
+     * @type {ISchemaItemCollection} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
      * 
      * @returns {ISchemaAny} 
      */

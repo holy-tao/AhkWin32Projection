@@ -31,6 +31,20 @@ class ISVGFitToViewBox extends IDispatch{
     static VTableNames => ["get_viewBox", "putref_preserveAspectRatio", "get_preserveAspectRatio"]
 
     /**
+     * @type {ISVGAnimatedRect} 
+     */
+    viewBox {
+        get => this.get_viewBox()
+    }
+
+    /**
+     * @type {ISVGAnimatedPreserveAspectRatio} 
+     */
+    preserveAspectRatio {
+        get => this.get_preserveAspectRatio()
+    }
+
+    /**
      * 
      * @returns {ISVGAnimatedRect} 
      */

@@ -37,6 +37,27 @@ class IFsrmQuota extends IFsrmQuotaObject{
     static VTableNames => ["get_QuotaUsed", "get_QuotaPeakUsage", "get_QuotaPeakUsageTime", "ResetPeakUsage", "RefreshUsageProperties"]
 
     /**
+     * @type {VARIANT} 
+     */
+    QuotaUsed {
+        get => this.get_QuotaUsed()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    QuotaPeakUsage {
+        get => this.get_QuotaPeakUsage()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    QuotaPeakUsageTime {
+        get => this.get_QuotaPeakUsageTime()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquota-get_quotaused

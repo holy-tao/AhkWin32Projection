@@ -33,6 +33,13 @@ class IUIAutomationProxyFactory extends IUnknown{
     static VTableNames => ["CreateProvider", "get_ProxyFactoryId"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProxyFactoryId {
+        get => this.get_ProxyFactoryId()
+    }
+
+    /**
      * 
      * @param {HWND} hwnd 
      * @param {Integer} idObject 

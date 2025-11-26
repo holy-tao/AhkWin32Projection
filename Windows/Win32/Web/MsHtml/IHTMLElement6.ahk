@@ -33,6 +33,244 @@ class IHTMLElement6 extends IDispatch{
     static VTableNames => ["getAttributeNS", "setAttributeNS", "removeAttributeNS", "getAttributeNodeNS", "setAttributeNodeNS", "hasAttributeNS", "getAttribute", "setAttribute", "removeAttribute", "getAttributeNode", "setAttributeNode", "removeAttributeNode", "hasAttribute", "getElementsByTagNameNS", "get_tagName", "get_nodeName", "getElementsByClassName", "msMatchesSelector", "put_onabort", "get_onabort", "put_oncanplay", "get_oncanplay", "put_oncanplaythrough", "get_oncanplaythrough", "put_onchange", "get_onchange", "put_ondurationchange", "get_ondurationchange", "put_onemptied", "get_onemptied", "put_onended", "get_onended", "put_onerror", "get_onerror", "put_oninput", "get_oninput", "put_onload", "get_onload", "put_onloadeddata", "get_onloadeddata", "put_onloadedmetadata", "get_onloadedmetadata", "put_onloadstart", "get_onloadstart", "put_onpause", "get_onpause", "put_onplay", "get_onplay", "put_onplaying", "get_onplaying", "put_onprogress", "get_onprogress", "put_onratechange", "get_onratechange", "put_onreset", "get_onreset", "put_onseeked", "get_onseeked", "put_onseeking", "get_onseeking", "put_onselect", "get_onselect", "put_onstalled", "get_onstalled", "put_onsubmit", "get_onsubmit", "put_onsuspend", "get_onsuspend", "put_ontimeupdate", "get_ontimeupdate", "put_onvolumechange", "get_onvolumechange", "put_onwaiting", "get_onwaiting", "hasAttributes"]
 
     /**
+     * @type {BSTR} 
+     */
+    tagName {
+        get => this.get_tagName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nodeName {
+        get => this.get_nodeName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onabort {
+        get => this.get_onabort()
+        set => this.put_onabort(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncanplay {
+        get => this.get_oncanplay()
+        set => this.put_oncanplay(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncanplaythrough {
+        get => this.get_oncanplaythrough()
+        set => this.put_oncanplaythrough(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondurationchange {
+        get => this.get_ondurationchange()
+        set => this.put_ondurationchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onemptied {
+        get => this.get_onemptied()
+        set => this.put_onemptied(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onended {
+        get => this.get_onended()
+        set => this.put_onended(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oninput {
+        get => this.get_oninput()
+        set => this.put_oninput(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onloadeddata {
+        get => this.get_onloadeddata()
+        set => this.put_onloadeddata(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onloadedmetadata {
+        get => this.get_onloadedmetadata()
+        set => this.put_onloadedmetadata(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onloadstart {
+        get => this.get_onloadstart()
+        set => this.put_onloadstart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpause {
+        get => this.get_onpause()
+        set => this.put_onpause(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onplay {
+        get => this.get_onplay()
+        set => this.put_onplay(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onplaying {
+        get => this.get_onplaying()
+        set => this.put_onplaying(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onprogress {
+        get => this.get_onprogress()
+        set => this.put_onprogress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onratechange {
+        get => this.get_onratechange()
+        set => this.put_onratechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreset {
+        get => this.get_onreset()
+        set => this.put_onreset(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onseeked {
+        get => this.get_onseeked()
+        set => this.put_onseeked(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onseeking {
+        get => this.get_onseeking()
+        set => this.put_onseeking(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselect {
+        get => this.get_onselect()
+        set => this.put_onselect(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstalled {
+        get => this.get_onstalled()
+        set => this.put_onstalled(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onsubmit {
+        get => this.get_onsubmit()
+        set => this.put_onsubmit(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onsuspend {
+        get => this.get_onsuspend()
+        set => this.put_onsuspend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ontimeupdate {
+        get => this.get_ontimeupdate()
+        set => this.put_ontimeupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onvolumechange {
+        get => this.get_onvolumechange()
+        set => this.put_onvolumechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onwaiting {
+        get => this.get_onwaiting()
+        set => this.put_onwaiting(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} strAttributeName 

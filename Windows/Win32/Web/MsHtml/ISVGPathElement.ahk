@@ -56,6 +56,13 @@ class ISVGPathElement extends IDispatch{
     static VTableNames => ["putref_pathLength", "get_pathLength", "getTotalLength", "getPointAtLength", "getPathSegAtLength", "createSVGPathSegClosePath", "createSVGPathSegMovetoAbs", "createSVGPathSegMovetoRel", "createSVGPathSegLinetoAbs", "createSVGPathSegLinetoRel", "createSVGPathSegCurvetoCubicAbs", "createSVGPathSegCurvetoCubicRel", "createSVGPathSegCurvetoQuadraticAbs", "createSVGPathSegCurvetoQuadraticRel", "createSVGPathSegArcAbs", "createSVGPathSegArcRel", "createSVGPathSegLinetoHorizontalAbs", "createSVGPathSegLinetoHorizontalRel", "createSVGPathSegLinetoVerticalAbs", "createSVGPathSegLinetoVerticalRel", "createSVGPathSegCurvetoCubicSmoothAbs", "createSVGPathSegCurvetoCubicSmoothRel", "createSVGPathSegCurvetoQuadraticSmoothAbs", "createSVGPathSegCurvetoQuadraticSmoothRel"]
 
     /**
+     * @type {ISVGAnimatedNumber} 
+     */
+    pathLength {
+        get => this.get_pathLength()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedNumber} v 
      * @returns {HRESULT} 

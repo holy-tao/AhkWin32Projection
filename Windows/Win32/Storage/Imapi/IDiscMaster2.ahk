@@ -39,6 +39,27 @@ class IDiscMaster2 extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_IsSupportedEnvironment"]
 
     /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsSupportedEnvironment {
+        get => this.get_IsSupportedEnvironment()
+    }
+
+    /**
      * 
      * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get__newenum

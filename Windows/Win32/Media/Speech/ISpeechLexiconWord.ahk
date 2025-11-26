@@ -31,6 +31,34 @@ class ISpeechLexiconWord extends IDispatch{
     static VTableNames => ["get_LangId", "get_Type", "get_Word", "get_Pronunciations"]
 
     /**
+     * @type {Integer} 
+     */
+    LangId {
+        get => this.get_LangId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Word {
+        get => this.get_Word()
+    }
+
+    /**
+     * @type {ISpeechLexiconPronunciations} 
+     */
+    Pronunciations {
+        get => this.get_Pronunciations()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

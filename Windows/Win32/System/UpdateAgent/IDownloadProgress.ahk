@@ -33,6 +33,62 @@ class IDownloadProgress extends IDispatch{
     static VTableNames => ["get_CurrentUpdateBytesDownloaded", "get_CurrentUpdateBytesToDownload", "get_CurrentUpdateIndex", "get_PercentComplete", "get_TotalBytesDownloaded", "get_TotalBytesToDownload", "GetUpdateResult", "get_CurrentUpdateDownloadPhase", "get_CurrentUpdatePercentComplete"]
 
     /**
+     * @type {DECIMAL} 
+     */
+    CurrentUpdateBytesDownloaded {
+        get => this.get_CurrentUpdateBytesDownloaded()
+    }
+
+    /**
+     * @type {DECIMAL} 
+     */
+    CurrentUpdateBytesToDownload {
+        get => this.get_CurrentUpdateBytesToDownload()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentUpdateIndex {
+        get => this.get_CurrentUpdateIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PercentComplete {
+        get => this.get_PercentComplete()
+    }
+
+    /**
+     * @type {DECIMAL} 
+     */
+    TotalBytesDownloaded {
+        get => this.get_TotalBytesDownloaded()
+    }
+
+    /**
+     * @type {DECIMAL} 
+     */
+    TotalBytesToDownload {
+        get => this.get_TotalBytesToDownload()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentUpdateDownloadPhase {
+        get => this.get_CurrentUpdateDownloadPhase()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentUpdatePercentComplete {
+        get => this.get_CurrentUpdatePercentComplete()
+    }
+
+    /**
      * 
      * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytesdownloaded

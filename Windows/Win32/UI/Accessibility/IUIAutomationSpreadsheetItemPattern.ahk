@@ -33,6 +33,20 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
     static VTableNames => ["get_CurrentFormula", "GetCurrentAnnotationObjects", "GetCurrentAnnotationTypes", "get_CachedFormula", "GetCachedAnnotationObjects", "GetCachedAnnotationTypes"]
 
     /**
+     * @type {BSTR} 
+     */
+    CurrentFormula {
+        get => this.get_CurrentFormula()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedFormula {
+        get => this.get_CachedFormula()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_currentformula

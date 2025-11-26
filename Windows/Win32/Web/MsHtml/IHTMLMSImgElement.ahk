@@ -29,6 +29,22 @@ class IHTMLMSImgElement extends IDispatch{
     static VTableNames => ["put_msPlayToDisabled", "get_msPlayToDisabled", "put_msPlayToPrimary", "get_msPlayToPrimary"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    msPlayToDisabled {
+        get => this.get_msPlayToDisabled()
+        set => this.put_msPlayToDisabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    msPlayToPrimary {
+        get => this.get_msPlayToPrimary()
+        set => this.put_msPlayToPrimary(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

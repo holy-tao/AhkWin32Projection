@@ -37,6 +37,48 @@ class IDOMDocumentType extends IDispatch{
     static VTableNames => ["get_name", "get_entities", "get_notations", "get_publicId", "get_systemId", "get_internalSubset"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    entities {
+        get => this.get_entities()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    notations {
+        get => this.get_notations()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    publicId {
+        get => this.get_publicId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    systemId {
+        get => this.get_systemId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    internalSubset {
+        get => this.get_internalSubset()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

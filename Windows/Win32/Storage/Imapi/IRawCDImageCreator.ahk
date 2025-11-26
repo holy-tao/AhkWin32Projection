@@ -43,6 +43,74 @@ class IRawCDImageCreator extends IDispatch{
     static VTableNames => ["CreateResultImage", "AddTrack", "AddSpecialPregap", "AddSubcodeRWGenerator", "put_ResultingImageType", "get_ResultingImageType", "get_StartOfLeadout", "put_StartOfLeadoutLimit", "get_StartOfLeadoutLimit", "put_DisableGaplessAudio", "get_DisableGaplessAudio", "put_MediaCatalogNumber", "get_MediaCatalogNumber", "put_StartingTrackNumber", "get_StartingTrackNumber", "get_TrackInfo", "get_NumberOfExistingTracks", "get_LastUsedUserSectorInImage", "get_ExpectedTableOfContents"]
 
     /**
+     * @type {Integer} 
+     */
+    ResultingImageType {
+        get => this.get_ResultingImageType()
+        set => this.put_ResultingImageType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartOfLeadout {
+        get => this.get_StartOfLeadout()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartOfLeadoutLimit {
+        get => this.get_StartOfLeadoutLimit()
+        set => this.put_StartOfLeadoutLimit(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DisableGaplessAudio {
+        get => this.get_DisableGaplessAudio()
+        set => this.put_DisableGaplessAudio(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MediaCatalogNumber {
+        get => this.get_MediaCatalogNumber()
+        set => this.put_MediaCatalogNumber(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartingTrackNumber {
+        get => this.get_StartingTrackNumber()
+        set => this.put_StartingTrackNumber(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfExistingTracks {
+        get => this.get_NumberOfExistingTracks()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastUsedUserSectorInImage {
+        get => this.get_LastUsedUserSectorInImage()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ExpectedTableOfContents {
+        get => this.get_ExpectedTableOfContents()
+    }
+
+    /**
      * 
      * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-createresultimage

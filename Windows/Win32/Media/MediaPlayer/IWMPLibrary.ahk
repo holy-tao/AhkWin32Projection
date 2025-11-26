@@ -32,6 +32,25 @@ class IWMPLibrary extends IUnknown{
     static VTableNames => ["get_name", "get_type", "get_mediaCollection", "isIdentical"]
 
     /**
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {IWMPMediaCollection} 
+     */
+    mediaCollection {
+        get => this.get_mediaCollection()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrName 
      * @returns {HRESULT} 

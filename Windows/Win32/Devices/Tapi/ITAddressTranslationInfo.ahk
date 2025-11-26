@@ -32,6 +32,41 @@ class ITAddressTranslationInfo extends IDispatch{
     static VTableNames => ["get_DialableString", "get_DisplayableString", "get_CurrentCountryCode", "get_DestinationCountryCode", "get_TranslationResults"]
 
     /**
+     * @type {BSTR} 
+     */
+    DialableString {
+        get => this.get_DialableString()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayableString {
+        get => this.get_DisplayableString()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentCountryCode {
+        get => this.get_CurrentCountryCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationCountryCode {
+        get => this.get_DestinationCountryCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TranslationResults {
+        get => this.get_TranslationResults()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_dialablestring

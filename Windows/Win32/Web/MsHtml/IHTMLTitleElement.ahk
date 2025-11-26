@@ -36,6 +36,14 @@ class IHTMLTitleElement extends IDispatch{
     static VTableNames => ["put_text", "get_text"]
 
     /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

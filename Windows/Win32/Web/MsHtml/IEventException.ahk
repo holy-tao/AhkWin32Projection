@@ -36,6 +36,21 @@ class IEventException extends IDispatch{
     static VTableNames => ["put_code", "get_code", "get_message"]
 
     /**
+     * @type {Integer} 
+     */
+    code {
+        get => this.get_code()
+        set => this.put_code(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    message {
+        get => this.get_message()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

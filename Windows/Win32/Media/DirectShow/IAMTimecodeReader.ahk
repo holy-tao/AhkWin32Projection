@@ -62,6 +62,14 @@ class IAMTimecodeReader extends IUnknown{
     static VTableNames => ["GetTCRMode", "SetTCRMode", "put_VITCLine", "get_VITCLine", "GetTimecode"]
 
     /**
+     * @type {Integer} 
+     */
+    VITCLine {
+        get => this.get_VITCLine()
+        set => this.put_VITCLine(value)
+    }
+
+    /**
      * 
      * @param {Integer} Param 
      * @returns {Integer} 

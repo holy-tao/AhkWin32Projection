@@ -32,6 +32,34 @@ class IImageInformation extends IDispatch{
     static VTableNames => ["get_AltText", "get_Height", "get_Source", "get_Width"]
 
     /**
+     * @type {BSTR} 
+     */
+    AltText {
+        get => this.get_AltText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Source {
+        get => this.get_Source()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_alttext

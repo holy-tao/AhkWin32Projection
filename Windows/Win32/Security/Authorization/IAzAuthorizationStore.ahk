@@ -52,6 +52,132 @@ class IAzAuthorizationStore extends IDispatch{
     static VTableNames => ["get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_DomainTimeout", "put_DomainTimeout", "get_ScriptEngineTimeout", "put_ScriptEngineTimeout", "get_MaxScriptEngines", "put_MaxScriptEngines", "get_GenerateAudits", "put_GenerateAudits", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "get_PolicyAdministrators", "get_PolicyReaders", "AddPolicyAdministrator", "DeletePolicyAdministrator", "AddPolicyReader", "DeletePolicyReader", "Initialize", "UpdateCache", "Delete", "get_Applications", "OpenApplication", "CreateApplication", "DeleteApplication", "get_ApplicationGroups", "CreateApplicationGroup", "OpenApplicationGroup", "DeleteApplicationGroup", "Submit", "get_DelegatedPolicyUsers", "AddDelegatedPolicyUser", "DeleteDelegatedPolicyUser", "get_TargetMachine", "get_ApplyStoreSacl", "put_ApplyStoreSacl", "get_PolicyAdministratorsName", "get_PolicyReadersName", "AddPolicyAdministratorName", "DeletePolicyAdministratorName", "AddPolicyReaderName", "DeletePolicyReaderName", "get_DelegatedPolicyUsersName", "AddDelegatedPolicyUserName", "DeleteDelegatedPolicyUserName", "CloseApplication"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationData {
+        get => this.get_ApplicationData()
+        set => this.put_ApplicationData(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DomainTimeout {
+        get => this.get_DomainTimeout()
+        set => this.put_DomainTimeout(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScriptEngineTimeout {
+        get => this.get_ScriptEngineTimeout()
+        set => this.put_ScriptEngineTimeout(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxScriptEngines {
+        get => this.get_MaxScriptEngines()
+        set => this.put_MaxScriptEngines(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    GenerateAudits {
+        get => this.get_GenerateAudits()
+        set => this.put_GenerateAudits(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyAdministrators {
+        get => this.get_PolicyAdministrators()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyReaders {
+        get => this.get_PolicyReaders()
+    }
+
+    /**
+     * @type {IAzApplications} 
+     */
+    Applications {
+        get => this.get_Applications()
+    }
+
+    /**
+     * @type {IAzApplicationGroups} 
+     */
+    ApplicationGroups {
+        get => this.get_ApplicationGroups()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DelegatedPolicyUsers {
+        get => this.get_DelegatedPolicyUsers()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetMachine {
+        get => this.get_TargetMachine()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ApplyStoreSacl {
+        get => this.get_ApplyStoreSacl()
+        set => this.put_ApplyStoreSacl(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyAdministratorsName {
+        get => this.get_PolicyAdministratorsName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyReadersName {
+        get => this.get_PolicyReadersName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DelegatedPolicyUsersName {
+        get => this.get_DelegatedPolicyUsersName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_description

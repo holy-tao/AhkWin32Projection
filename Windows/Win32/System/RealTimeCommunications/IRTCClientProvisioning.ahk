@@ -33,6 +33,20 @@ class IRTCClientProvisioning extends IUnknown{
     static VTableNames => ["CreateProfile", "EnableProfile", "DisableProfile", "EnumerateProfiles", "get_Profiles", "GetProfile", "get_SessionCapabilities"]
 
     /**
+     * @type {IRTCCollection} 
+     */
+    Profiles {
+        get => this.get_Profiles()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SessionCapabilities {
+        get => this.get_SessionCapabilities()
+    }
+
+    /**
      * Creates a new user profile.
      * @param {BSTR} bstrProfileXML 
      * @returns {IRTCProfile} 

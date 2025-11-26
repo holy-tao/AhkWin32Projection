@@ -36,6 +36,22 @@ class IHTMLIsIndexElement extends IDispatch{
     static VTableNames => ["put_prompt", "get_prompt", "put_action", "get_action"]
 
     /**
+     * @type {BSTR} 
+     */
+    prompt {
+        get => this.get_prompt()
+        set => this.put_prompt(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    action {
+        get => this.get_action()
+        set => this.put_action(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

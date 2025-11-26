@@ -33,6 +33,63 @@ class IAzClientContext extends IDispatch{
     static VTableNames => ["AccessCheck", "GetBusinessRuleString", "get_UserDn", "get_UserSamCompat", "get_UserDisplay", "get_UserGuid", "get_UserCanonical", "get_UserUpn", "get_UserDnsSamCompat", "GetProperty", "GetRoles", "get_RoleForAccessCheck", "put_RoleForAccessCheck"]
 
     /**
+     * @type {BSTR} 
+     */
+    UserDn {
+        get => this.get_UserDn()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserSamCompat {
+        get => this.get_UserSamCompat()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserDisplay {
+        get => this.get_UserDisplay()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserGuid {
+        get => this.get_UserGuid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserCanonical {
+        get => this.get_UserCanonical()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserUpn {
+        get => this.get_UserUpn()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserDnsSamCompat {
+        get => this.get_UserDnsSamCompat()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RoleForAccessCheck {
+        get => this.get_RoleForAccessCheck()
+        set => this.put_RoleForAccessCheck(value)
+    }
+
+    /**
      * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token.
      * @param {BSTR} bstrObjectName 
      * @param {VARIANT} varScopeNames 

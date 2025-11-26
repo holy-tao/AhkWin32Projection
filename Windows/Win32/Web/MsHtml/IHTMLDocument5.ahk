@@ -34,6 +34,83 @@ class IHTMLDocument5 extends IDispatch{
     static VTableNames => ["put_onmousewheel", "get_onmousewheel", "get_doctype", "get_implementation", "createAttribute", "createComment", "put_onfocusin", "get_onfocusin", "put_onfocusout", "get_onfocusout", "put_onactivate", "get_onactivate", "put_ondeactivate", "get_ondeactivate", "put_onbeforeactivate", "get_onbeforeactivate", "put_onbeforedeactivate", "get_onbeforedeactivate", "get_compatMode"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onmousewheel {
+        get => this.get_onmousewheel()
+        set => this.put_onmousewheel(value)
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    doctype {
+        get => this.get_doctype()
+    }
+
+    /**
+     * @type {IHTMLDOMImplementation} 
+     */
+    implementation {
+        get => this.get_implementation()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocusin {
+        get => this.get_onfocusin()
+        set => this.put_onfocusin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocusout {
+        get => this.get_onfocusout()
+        set => this.put_onfocusout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onactivate {
+        get => this.get_onactivate()
+        set => this.put_onactivate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondeactivate {
+        get => this.get_ondeactivate()
+        set => this.put_ondeactivate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeactivate {
+        get => this.get_onbeforeactivate()
+        set => this.put_onbeforeactivate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforedeactivate {
+        get => this.get_onbeforedeactivate()
+        set => this.put_onbeforedeactivate(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    compatMode {
+        get => this.get_compatMode()
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

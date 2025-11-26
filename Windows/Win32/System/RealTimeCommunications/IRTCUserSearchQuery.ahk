@@ -30,6 +30,21 @@ class IRTCUserSearchQuery extends IUnknown{
     static VTableNames => ["put_SearchTerm", "get_SearchTerm", "get_SearchTerms", "put_SearchPreference", "get_SearchPreference", "put_SearchDomain", "get_SearchDomain"]
 
     /**
+     * @type {BSTR} 
+     */
+    SearchTerms {
+        get => this.get_SearchTerms()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SearchDomain {
+        get => this.get_SearchDomain()
+        set => this.put_SearchDomain(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 

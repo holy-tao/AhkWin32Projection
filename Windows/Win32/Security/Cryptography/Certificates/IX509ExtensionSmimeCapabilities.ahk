@@ -33,6 +33,13 @@ class IX509ExtensionSmimeCapabilities extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_SmimeCapabilities"]
 
     /**
+     * @type {ISmimeCapabilities} 
+     */
+    SmimeCapabilities {
+        get => this.get_SmimeCapabilities()
+    }
+
+    /**
      * 
      * @param {ISmimeCapabilities} pValue 
      * @returns {HRESULT} 

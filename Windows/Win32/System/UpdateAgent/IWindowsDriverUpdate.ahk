@@ -37,6 +37,62 @@ class IWindowsDriverUpdate extends IUpdate{
     static VTableNames => ["get_DriverClass", "get_DriverHardwareID", "get_DriverManufacturer", "get_DriverModel", "get_DriverProvider", "get_DriverVerDate", "get_DeviceProblemNumber", "get_DeviceStatus"]
 
     /**
+     * @type {BSTR} 
+     */
+    DriverClass {
+        get => this.get_DriverClass()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverHardwareID {
+        get => this.get_DriverHardwareID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverManufacturer {
+        get => this.get_DriverManufacturer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverModel {
+        get => this.get_DriverModel()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverProvider {
+        get => this.get_DriverProvider()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DriverVerDate {
+        get => this.get_DriverVerDate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceProblemNumber {
+        get => this.get_DeviceProblemNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceStatus {
+        get => this.get_DeviceStatus()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverclass

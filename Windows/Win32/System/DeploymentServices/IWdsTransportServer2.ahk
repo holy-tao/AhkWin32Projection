@@ -32,6 +32,13 @@ class IWdsTransportServer2 extends IWdsTransportServer{
     static VTableNames => ["get_TftpManager"]
 
     /**
+     * @type {IWdsTransportTftpManager} 
+     */
+    TftpManager {
+        get => this.get_TftpManager()
+    }
+
+    /**
      * 
      * @returns {IWdsTransportTftpManager} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver2-get_tftpmanager

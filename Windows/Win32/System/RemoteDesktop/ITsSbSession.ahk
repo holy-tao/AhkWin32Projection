@@ -34,6 +34,83 @@ class ITsSbSession extends IUnknown{
     static VTableNames => ["get_SessionId", "get_TargetName", "put_TargetName", "get_Username", "get_Domain", "get_State", "put_State", "get_CreateTime", "put_CreateTime", "get_DisconnectTime", "put_DisconnectTime", "get_InitialProgram", "put_InitialProgram", "get_ClientDisplay", "put_ClientDisplay", "get_ProtocolType", "put_ProtocolType"]
 
     /**
+     * @type {Integer} 
+     */
+    SessionId {
+        get => this.get_SessionId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetName {
+        get => this.get_TargetName()
+        set => this.put_TargetName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Username {
+        get => this.get_Username()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Domain {
+        get => this.get_Domain()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    CreateTime {
+        get => this.get_CreateTime()
+        set => this.put_CreateTime(value)
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    DisconnectTime {
+        get => this.get_DisconnectTime()
+        set => this.put_DisconnectTime(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InitialProgram {
+        get => this.get_InitialProgram()
+        set => this.put_InitialProgram(value)
+    }
+
+    /**
+     * @type {CLIENT_DISPLAY} 
+     */
+    ClientDisplay {
+        get => this.get_ClientDisplay()
+        set => this.put_ClientDisplay(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProtocolType {
+        get => this.get_ProtocolType()
+        set => this.put_ProtocolType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_sessionid

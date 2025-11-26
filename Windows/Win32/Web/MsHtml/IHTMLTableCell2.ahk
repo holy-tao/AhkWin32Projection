@@ -30,6 +30,54 @@ class IHTMLTableCell2 extends IDispatch{
     static VTableNames => ["put_abbr", "get_abbr", "put_axis", "get_axis", "put_ch", "get_ch", "put_chOff", "get_chOff", "put_headers", "get_headers", "put_scope", "get_scope"]
 
     /**
+     * @type {BSTR} 
+     */
+    abbr {
+        get => this.get_abbr()
+        set => this.put_abbr(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    axis {
+        get => this.get_axis()
+        set => this.put_axis(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ch {
+        get => this.get_ch()
+        set => this.put_ch(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    chOff {
+        get => this.get_chOff()
+        set => this.put_chOff(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    headers {
+        get => this.get_headers()
+        set => this.put_headers(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    scope {
+        get => this.get_scope()
+        set => this.put_scope(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

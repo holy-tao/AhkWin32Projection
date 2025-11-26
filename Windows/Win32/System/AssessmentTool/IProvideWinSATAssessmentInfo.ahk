@@ -37,6 +37,27 @@ class IProvideWinSATAssessmentInfo extends IDispatch{
     static VTableNames => ["get_Score", "get_Title", "get_Description"]
 
     /**
+     * @type {Float} 
+     */
+    Score {
+        get => this.get_Score()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
      * 
      * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_score

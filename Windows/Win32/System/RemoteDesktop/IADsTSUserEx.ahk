@@ -38,6 +38,126 @@ class IADsTSUserEx extends IDispatch{
     static VTableNames => ["get_TerminalServicesProfilePath", "put_TerminalServicesProfilePath", "get_TerminalServicesHomeDirectory", "put_TerminalServicesHomeDirectory", "get_TerminalServicesHomeDrive", "put_TerminalServicesHomeDrive", "get_AllowLogon", "put_AllowLogon", "get_EnableRemoteControl", "put_EnableRemoteControl", "get_MaxDisconnectionTime", "put_MaxDisconnectionTime", "get_MaxConnectionTime", "put_MaxConnectionTime", "get_MaxIdleTime", "put_MaxIdleTime", "get_ReconnectionAction", "put_ReconnectionAction", "get_BrokenConnectionAction", "put_BrokenConnectionAction", "get_ConnectClientDrivesAtLogon", "put_ConnectClientDrivesAtLogon", "get_ConnectClientPrintersAtLogon", "put_ConnectClientPrintersAtLogon", "get_DefaultToMainPrinter", "put_DefaultToMainPrinter", "get_TerminalServicesWorkDirectory", "put_TerminalServicesWorkDirectory", "get_TerminalServicesInitialProgram", "put_TerminalServicesInitialProgram"]
 
     /**
+     * @type {BSTR} 
+     */
+    TerminalServicesProfilePath {
+        get => this.get_TerminalServicesProfilePath()
+        set => this.put_TerminalServicesProfilePath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalServicesHomeDirectory {
+        get => this.get_TerminalServicesHomeDirectory()
+        set => this.put_TerminalServicesHomeDirectory(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalServicesHomeDrive {
+        get => this.get_TerminalServicesHomeDrive()
+        set => this.put_TerminalServicesHomeDrive(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AllowLogon {
+        get => this.get_AllowLogon()
+        set => this.put_AllowLogon(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EnableRemoteControl {
+        get => this.get_EnableRemoteControl()
+        set => this.put_EnableRemoteControl(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxDisconnectionTime {
+        get => this.get_MaxDisconnectionTime()
+        set => this.put_MaxDisconnectionTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxConnectionTime {
+        get => this.get_MaxConnectionTime()
+        set => this.put_MaxConnectionTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxIdleTime {
+        get => this.get_MaxIdleTime()
+        set => this.put_MaxIdleTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReconnectionAction {
+        get => this.get_ReconnectionAction()
+        set => this.put_ReconnectionAction(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BrokenConnectionAction {
+        get => this.get_BrokenConnectionAction()
+        set => this.put_BrokenConnectionAction(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectClientDrivesAtLogon {
+        get => this.get_ConnectClientDrivesAtLogon()
+        set => this.put_ConnectClientDrivesAtLogon(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectClientPrintersAtLogon {
+        get => this.get_ConnectClientPrintersAtLogon()
+        set => this.put_ConnectClientPrintersAtLogon(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultToMainPrinter {
+        get => this.get_DefaultToMainPrinter()
+        set => this.put_DefaultToMainPrinter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalServicesWorkDirectory {
+        get => this.get_TerminalServicesWorkDirectory()
+        set => this.put_TerminalServicesWorkDirectory(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalServicesInitialProgram {
+        get => this.get_TerminalServicesInitialProgram()
+        set => this.put_TerminalServicesInitialProgram(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesprofilepath

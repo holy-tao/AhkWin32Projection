@@ -35,6 +35,34 @@ class ITCallInfo extends IDispatch{
     static VTableNames => ["get_Address", "get_CallState", "get_Privilege", "get_CallHub", "get_CallInfoLong", "put_CallInfoLong", "get_CallInfoString", "put_CallInfoString", "get_CallInfoBuffer", "put_CallInfoBuffer", "GetCallInfoBuffer", "SetCallInfoBuffer", "ReleaseUserUserInfo"]
 
     /**
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallState {
+        get => this.get_CallState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Privilege {
+        get => this.get_Privilege()
+    }
+
+    /**
+     * @type {ITCallHub} 
+     */
+    CallHub {
+        get => this.get_CallHub()
+    }
+
+    /**
      * 
      * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_address

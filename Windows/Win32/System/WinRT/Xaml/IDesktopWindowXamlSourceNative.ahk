@@ -32,6 +32,13 @@ class IDesktopWindowXamlSourceNative extends IUnknown{
     static VTableNames => ["AttachToWindow", "get_WindowHandle"]
 
     /**
+     * @type {HWND} 
+     */
+    WindowHandle {
+        get => this.get_WindowHandle()
+    }
+
+    /**
      * 
      * @param {HWND} parentWnd 
      * @returns {HRESULT} 

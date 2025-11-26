@@ -32,6 +32,54 @@ class INetFwRule3 extends INetFwRule2{
     static VTableNames => ["get_LocalAppPackageId", "put_LocalAppPackageId", "get_LocalUserOwner", "put_LocalUserOwner", "get_LocalUserAuthorizedList", "put_LocalUserAuthorizedList", "get_RemoteUserAuthorizedList", "put_RemoteUserAuthorizedList", "get_RemoteMachineAuthorizedList", "put_RemoteMachineAuthorizedList", "get_SecureFlags", "put_SecureFlags"]
 
     /**
+     * @type {BSTR} 
+     */
+    LocalAppPackageId {
+        get => this.get_LocalAppPackageId()
+        set => this.put_LocalAppPackageId(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalUserOwner {
+        get => this.get_LocalUserOwner()
+        set => this.put_LocalUserOwner(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalUserAuthorizedList {
+        get => this.get_LocalUserAuthorizedList()
+        set => this.put_LocalUserAuthorizedList(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteUserAuthorizedList {
+        get => this.get_RemoteUserAuthorizedList()
+        set => this.put_RemoteUserAuthorizedList(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteMachineAuthorizedList {
+        get => this.get_RemoteMachineAuthorizedList()
+        set => this.put_RemoteMachineAuthorizedList(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SecureFlags {
+        get => this.get_SecureFlags()
+        set => this.put_SecureFlags(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localapppackageid

@@ -33,6 +33,46 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     static VTableNames => ["get_PropertyName", "put_PropertyName", "get_PropertyId", "put_PropertyId", "get_Operator", "put_Operator", "get_ValueType", "put_ValueType", "get_Value", "put_Value"]
 
     /**
+     * @type {BSTR} 
+     */
+    PropertyName {
+        get => this.get_PropertyName()
+        set => this.put_PropertyName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PropertyId {
+        get => this.get_PropertyId()
+        set => this.put_PropertyId(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Operator {
+        get => this.get_Operator()
+        set => this.put_Operator(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ValueType {
+        get => this.get_ValueType()
+        set => this.put_ValueType(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyname

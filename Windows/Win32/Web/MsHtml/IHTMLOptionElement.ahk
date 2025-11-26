@@ -37,6 +37,53 @@ class IHTMLOptionElement extends IDispatch{
     static VTableNames => ["put_selected", "get_selected", "put_value", "get_value", "put_defaultSelected", "get_defaultSelected", "put_index", "get_index", "put_text", "get_text", "get_form"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    selected {
+        get => this.get_selected()
+        set => this.put_selected(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    defaultSelected {
+        get => this.get_defaultSelected()
+        set => this.put_defaultSelected(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    index {
+        get => this.get_index()
+        set => this.put_index(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

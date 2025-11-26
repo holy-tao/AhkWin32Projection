@@ -33,6 +33,13 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_EnhancedKeyUsage"]
 
     /**
+     * @type {IObjectIds} 
+     */
+    EnhancedKeyUsage {
+        get => this.get_EnhancedKeyUsage()
+    }
+
+    /**
      * 
      * @param {IObjectIds} pValue 
      * @returns {HRESULT} 

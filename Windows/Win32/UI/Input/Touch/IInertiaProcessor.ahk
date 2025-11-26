@@ -31,6 +31,182 @@ class IInertiaProcessor extends IUnknown{
     static VTableNames => ["get_InitialOriginX", "put_InitialOriginX", "get_InitialOriginY", "put_InitialOriginY", "get_InitialVelocityX", "put_InitialVelocityX", "get_InitialVelocityY", "put_InitialVelocityY", "get_InitialAngularVelocity", "put_InitialAngularVelocity", "get_InitialExpansionVelocity", "put_InitialExpansionVelocity", "get_InitialRadius", "put_InitialRadius", "get_BoundaryLeft", "put_BoundaryLeft", "get_BoundaryTop", "put_BoundaryTop", "get_BoundaryRight", "put_BoundaryRight", "get_BoundaryBottom", "put_BoundaryBottom", "get_ElasticMarginLeft", "put_ElasticMarginLeft", "get_ElasticMarginTop", "put_ElasticMarginTop", "get_ElasticMarginRight", "put_ElasticMarginRight", "get_ElasticMarginBottom", "put_ElasticMarginBottom", "get_DesiredDisplacement", "put_DesiredDisplacement", "get_DesiredRotation", "put_DesiredRotation", "get_DesiredExpansion", "put_DesiredExpansion", "get_DesiredDeceleration", "put_DesiredDeceleration", "get_DesiredAngularDeceleration", "put_DesiredAngularDeceleration", "get_DesiredExpansionDeceleration", "put_DesiredExpansionDeceleration", "get_InitialTimestamp", "put_InitialTimestamp", "Reset", "Process", "ProcessTime", "Complete", "CompleteTime"]
 
     /**
+     * @type {Float} 
+     */
+    InitialOriginX {
+        get => this.get_InitialOriginX()
+        set => this.put_InitialOriginX(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    InitialOriginY {
+        get => this.get_InitialOriginY()
+        set => this.put_InitialOriginY(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    InitialVelocityX {
+        get => this.get_InitialVelocityX()
+        set => this.put_InitialVelocityX(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    InitialVelocityY {
+        get => this.get_InitialVelocityY()
+        set => this.put_InitialVelocityY(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    InitialAngularVelocity {
+        get => this.get_InitialAngularVelocity()
+        set => this.put_InitialAngularVelocity(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    InitialExpansionVelocity {
+        get => this.get_InitialExpansionVelocity()
+        set => this.put_InitialExpansionVelocity(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    InitialRadius {
+        get => this.get_InitialRadius()
+        set => this.put_InitialRadius(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    BoundaryLeft {
+        get => this.get_BoundaryLeft()
+        set => this.put_BoundaryLeft(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    BoundaryTop {
+        get => this.get_BoundaryTop()
+        set => this.put_BoundaryTop(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    BoundaryRight {
+        get => this.get_BoundaryRight()
+        set => this.put_BoundaryRight(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    BoundaryBottom {
+        get => this.get_BoundaryBottom()
+        set => this.put_BoundaryBottom(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ElasticMarginLeft {
+        get => this.get_ElasticMarginLeft()
+        set => this.put_ElasticMarginLeft(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ElasticMarginTop {
+        get => this.get_ElasticMarginTop()
+        set => this.put_ElasticMarginTop(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ElasticMarginRight {
+        get => this.get_ElasticMarginRight()
+        set => this.put_ElasticMarginRight(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ElasticMarginBottom {
+        get => this.get_ElasticMarginBottom()
+        set => this.put_ElasticMarginBottom(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DesiredDisplacement {
+        get => this.get_DesiredDisplacement()
+        set => this.put_DesiredDisplacement(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DesiredRotation {
+        get => this.get_DesiredRotation()
+        set => this.put_DesiredRotation(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DesiredExpansion {
+        get => this.get_DesiredExpansion()
+        set => this.put_DesiredExpansion(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DesiredDeceleration {
+        get => this.get_DesiredDeceleration()
+        set => this.put_DesiredDeceleration(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DesiredAngularDeceleration {
+        get => this.get_DesiredAngularDeceleration()
+        set => this.put_DesiredAngularDeceleration(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DesiredExpansionDeceleration {
+        get => this.get_DesiredExpansionDeceleration()
+        set => this.put_DesiredExpansionDeceleration(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InitialTimestamp {
+        get => this.get_InitialTimestamp()
+        set => this.put_InitialTimestamp(value)
+    }
+
+    /**
      * 
      * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialoriginx

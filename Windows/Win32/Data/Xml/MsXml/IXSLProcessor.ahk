@@ -33,6 +33,57 @@ class IXSLProcessor extends IDispatch{
     static VTableNames => ["put_input", "get_input", "get_ownerTemplate", "setStartMode", "get_startMode", "get_startModeURI", "put_output", "get_output", "transform", "reset", "get_readyState", "addParameter", "addObject", "get_stylesheet"]
 
     /**
+     * @type {VARIANT} 
+     */
+    input {
+        get => this.get_input()
+        set => this.put_input(value)
+    }
+
+    /**
+     * @type {IXSLTemplate} 
+     */
+    ownerTemplate {
+        get => this.get_ownerTemplate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    startMode {
+        get => this.get_startMode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    startModeURI {
+        get => this.get_startModeURI()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    output {
+        get => this.get_output()
+        set => this.put_output(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    stylesheet {
+        get => this.get_stylesheet()
+    }
+
+    /**
      * 
      * @param {VARIANT} var 
      * @returns {HRESULT} 

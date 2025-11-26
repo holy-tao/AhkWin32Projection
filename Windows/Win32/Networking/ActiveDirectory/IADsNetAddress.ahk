@@ -32,6 +32,22 @@ class IADsNetAddress extends IDispatch{
     static VTableNames => ["get_AddressType", "put_AddressType", "get_Address", "put_Address"]
 
     /**
+     * @type {Integer} 
+     */
+    AddressType {
+        get => this.get_AddressType()
+        set => this.put_AddressType(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Address {
+        get => this.get_Address()
+        set => this.put_Address(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

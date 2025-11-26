@@ -30,6 +30,13 @@ class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown{
     static VTableNames => ["StartXpsOMGeneration", "get_ObjectFactory"]
 
     /**
+     * @type {IXpsOMObjectFactory1} 
+     */
+    ObjectFactory {
+        get => this.get_ObjectFactory()
+    }
+
+    /**
      * 
      * @param {IPrintWorkflowXpsReceiver} receiver 
      * @returns {HRESULT} 

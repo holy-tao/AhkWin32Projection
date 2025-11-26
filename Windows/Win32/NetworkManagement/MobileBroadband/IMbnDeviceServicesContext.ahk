@@ -37,6 +37,20 @@ class IMbnDeviceServicesContext extends IUnknown{
     static VTableNames => ["EnumerateDeviceServices", "GetDeviceService", "get_MaxCommandSize", "get_MaxDataSize"]
 
     /**
+     * @type {Integer} 
+     */
+    MaxCommandSize {
+        get => this.get_MaxCommandSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxDataSize {
+        get => this.get_MaxDataSize()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-enumeratedeviceservices

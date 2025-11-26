@@ -37,6 +37,38 @@ class Frame extends IDispatch{
     static VTableNames => ["Maximize", "Minimize", "Restore", "get_Top", "put_Top", "get_Bottom", "put_Bottom", "get_Left", "put_Left", "get_Right", "put_Right"]
 
     /**
+     * @type {Integer} 
+     */
+    Top {
+        get => this.get_Top()
+        set => this.put_Top(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Bottom {
+        get => this.get_Bottom()
+        set => this.put_Bottom(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Left {
+        get => this.get_Left()
+        set => this.put_Left(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Right {
+        get => this.get_Right()
+        set => this.put_Right(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

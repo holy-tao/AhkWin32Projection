@@ -37,6 +37,62 @@ class IMSMQManagement extends IDispatch{
     static VTableNames => ["Init", "get_FormatName", "get_Machine", "get_MessageCount", "get_ForeignStatus", "get_QueueType", "get_IsLocal", "get_TransactionalStatus", "get_BytesInQueue"]
 
     /**
+     * @type {BSTR} 
+     */
+    FormatName {
+        get => this.get_FormatName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Machine {
+        get => this.get_Machine()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MessageCount {
+        get => this.get_MessageCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ForeignStatus {
+        get => this.get_ForeignStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QueueType {
+        get => this.get_QueueType()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsLocal {
+        get => this.get_IsLocal()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TransactionalStatus {
+        get => this.get_TransactionalStatus()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    BytesInQueue {
+        get => this.get_BytesInQueue()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} Machine 
      * @param {Pointer<VARIANT>} Pathname 

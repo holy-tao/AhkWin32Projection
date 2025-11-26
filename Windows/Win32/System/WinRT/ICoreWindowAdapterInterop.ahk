@@ -30,6 +30,55 @@ class ICoreWindowAdapterInterop extends IInspectable{
     static VTableNames => ["get_AppActivationClientAdapter", "get_ApplicationViewClientAdapter", "get_CoreApplicationViewClientAdapter", "get_HoloViewClientAdapter", "get_PositionerClientAdapter", "get_SystemNavigationClientAdapter", "get_TitleBarClientAdapter", "SetWindowClientAdapter"]
 
     /**
+     * @type {IUnknown} 
+     */
+    AppActivationClientAdapter {
+        get => this.get_AppActivationClientAdapter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ApplicationViewClientAdapter {
+        get => this.get_ApplicationViewClientAdapter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    CoreApplicationViewClientAdapter {
+        get => this.get_CoreApplicationViewClientAdapter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    HoloViewClientAdapter {
+        get => this.get_HoloViewClientAdapter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    PositionerClientAdapter {
+        get => this.get_PositionerClientAdapter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    SystemNavigationClientAdapter {
+        get => this.get_SystemNavigationClientAdapter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    TitleBarClientAdapter {
+        get => this.get_TitleBarClientAdapter()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

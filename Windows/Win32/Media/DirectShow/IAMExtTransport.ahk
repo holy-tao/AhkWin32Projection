@@ -44,6 +44,54 @@ class IAMExtTransport extends IUnknown{
     static VTableNames => ["GetCapability", "put_MediaState", "get_MediaState", "put_LocalControl", "get_LocalControl", "GetStatus", "GetTransportBasicParameters", "SetTransportBasicParameters", "GetTransportVideoParameters", "SetTransportVideoParameters", "GetTransportAudioParameters", "SetTransportAudioParameters", "put_Mode", "get_Mode", "put_Rate", "get_Rate", "GetChase", "SetChase", "GetBump", "SetBump", "get_AntiClogControl", "put_AntiClogControl", "GetEditPropertySet", "SetEditPropertySet", "GetEditProperty", "SetEditProperty", "get_EditStart", "put_EditStart"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaState {
+        get => this.get_MediaState()
+        set => this.put_MediaState(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalControl {
+        get => this.get_LocalControl()
+        set => this.put_LocalControl(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+        set => this.put_Mode(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Rate {
+        get => this.get_Rate()
+        set => this.put_Rate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AntiClogControl {
+        get => this.get_AntiClogControl()
+        set => this.put_AntiClogControl(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EditStart {
+        get => this.get_EditStart()
+        set => this.put_EditStart(value)
+    }
+
+    /**
      * 
      * @param {Integer} Capability 
      * @param {Pointer<Integer>} pValue 

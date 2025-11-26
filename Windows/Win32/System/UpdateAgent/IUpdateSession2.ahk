@@ -36,6 +36,14 @@ class IUpdateSession2 extends IUpdateSession{
     static VTableNames => ["get_UserLocale", "put_UserLocale"]
 
     /**
+     * @type {Integer} 
+     */
+    UserLocale {
+        get => this.get_UserLocale()
+        set => this.put_UserLocale(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-get_userlocale

@@ -30,6 +30,63 @@ class IPicture2 extends IUnknown{
     static VTableNames => ["get_Handle", "get_hPal", "get_Type", "get_Width", "get_Height", "Render", "set_hPal", "get_CurDC", "SelectPicture", "get_KeepOriginalFormat", "put_KeepOriginalFormat", "PictureChanged", "SaveAsFile", "get_Attributes"]
 
     /**
+     * @type {Pointer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    hPal {
+        get => this.get_hPal()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+    }
+
+    /**
+     * @type {HDC} 
+     */
+    CurDC {
+        get => this.get_CurDC()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    KeepOriginalFormat {
+        get => this.get_KeepOriginalFormat()
+        set => this.put_KeepOriginalFormat(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Attributes {
+        get => this.get_Attributes()
+    }
+
+    /**
      * 
      * @returns {Pointer} 
      */

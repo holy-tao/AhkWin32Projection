@@ -41,6 +41,62 @@ class IMSVidGraphSegmentContainer extends IUnknown{
     static VTableNames => ["get_Graph", "get_Input", "get_Outputs", "get_VideoRenderer", "get_AudioRenderer", "get_Features", "get_Composites", "get_ParentContainer", "Decompose", "IsWindowless", "GetFocus"]
 
     /**
+     * @type {IGraphBuilder} 
+     */
+    Graph {
+        get => this.get_Graph()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    Input {
+        get => this.get_Input()
+    }
+
+    /**
+     * @type {IEnumMSVidGraphSegment} 
+     */
+    Outputs {
+        get => this.get_Outputs()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    VideoRenderer {
+        get => this.get_VideoRenderer()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    AudioRenderer {
+        get => this.get_AudioRenderer()
+    }
+
+    /**
+     * @type {IEnumMSVidGraphSegment} 
+     */
+    Features {
+        get => this.get_Features()
+    }
+
+    /**
+     * @type {IEnumMSVidGraphSegment} 
+     */
+    Composites {
+        get => this.get_Composites()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ParentContainer {
+        get => this.get_ParentContainer()
+    }
+
+    /**
      * 
      * @returns {IGraphBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgraphsegmentcontainer-get_graph

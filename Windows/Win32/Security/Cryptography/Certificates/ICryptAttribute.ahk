@@ -33,6 +33,20 @@ class ICryptAttribute extends IDispatch{
     static VTableNames => ["InitializeFromObjectId", "InitializeFromValues", "get_ObjectId", "get_Values"]
 
     /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
+     * @type {IX509Attributes} 
+     */
+    Values {
+        get => this.get_Values()
+    }
+
+    /**
      * 
      * @param {IObjectId} pObjectId 
      * @returns {HRESULT} 

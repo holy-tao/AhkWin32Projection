@@ -31,6 +31,48 @@ class IQualProp extends IUnknown{
     static VTableNames => ["get_FramesDroppedInRenderer", "get_FramesDrawn", "get_AvgFrameRate", "get_Jitter", "get_AvgSyncOffset", "get_DevSyncOffset"]
 
     /**
+     * @type {Integer} 
+     */
+    FramesDroppedInRenderer {
+        get => this.get_FramesDroppedInRenderer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FramesDrawn {
+        get => this.get_FramesDrawn()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AvgFrameRate {
+        get => this.get_AvgFrameRate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Jitter {
+        get => this.get_Jitter()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AvgSyncOffset {
+        get => this.get_AvgSyncOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DevSyncOffset {
+        get => this.get_DevSyncOffset()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdroppedinrenderer

@@ -32,6 +32,20 @@ class ISmimeCapability extends IDispatch{
     static VTableNames => ["Initialize", "get_ObjectId", "get_BitCount"]
 
     /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BitCount {
+        get => this.get_BitCount()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IObjectId} pObjectId 
      * @param {Integer} BitCount 

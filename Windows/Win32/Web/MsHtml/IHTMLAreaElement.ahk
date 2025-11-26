@@ -37,6 +37,134 @@ class IHTMLAreaElement extends IDispatch{
     static VTableNames => ["put_shape", "get_shape", "put_coords", "get_coords", "put_href", "get_href", "put_target", "get_target", "put_alt", "get_alt", "put_noHref", "get_noHref", "put_host", "get_host", "put_hostname", "get_hostname", "put_pathname", "get_pathname", "put_port", "get_port", "put_protocol", "get_protocol", "put_search", "get_search", "put_hash", "get_hash", "put_onblur", "get_onblur", "put_onfocus", "get_onfocus", "put_tabIndex", "get_tabIndex", "focus", "blur"]
 
     /**
+     * @type {BSTR} 
+     */
+    shape {
+        get => this.get_shape()
+        set => this.put_shape(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    coords {
+        get => this.get_coords()
+        set => this.put_coords(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+        set => this.put_target(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alt {
+        get => this.get_alt()
+        set => this.put_alt(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    noHref {
+        get => this.get_noHref()
+        set => this.put_noHref(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    host {
+        get => this.get_host()
+        set => this.put_host(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hostname {
+        get => this.get_hostname()
+        set => this.put_hostname(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pathname {
+        get => this.get_pathname()
+        set => this.put_pathname(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    port {
+        get => this.get_port()
+        set => this.put_port(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    protocol {
+        get => this.get_protocol()
+        set => this.put_protocol(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    search {
+        get => this.get_search()
+        set => this.put_search(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hash {
+        get => this.get_hash()
+        set => this.put_hash(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onblur {
+        get => this.get_onblur()
+        set => this.put_onblur(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocus {
+        get => this.get_onfocus()
+        set => this.put_onfocus(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    tabIndex {
+        get => this.get_tabIndex()
+        set => this.put_tabIndex(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

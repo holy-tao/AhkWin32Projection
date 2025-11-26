@@ -46,6 +46,74 @@ class ITraceDataProvider extends IDispatch{
     static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Guid", "put_Guid", "get_Level", "get_KeywordsAny", "get_KeywordsAll", "get_Properties", "get_FilterEnabled", "put_FilterEnabled", "get_FilterType", "put_FilterType", "get_FilterData", "put_FilterData", "Query", "Resolve", "SetSecurity", "GetSecurity", "GetRegisteredProcesses"]
 
     /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    Guid {
+        get => this.get_Guid()
+        set => this.put_Guid(value)
+    }
+
+    /**
+     * @type {IValueMap} 
+     */
+    Level {
+        get => this.get_Level()
+    }
+
+    /**
+     * @type {IValueMap} 
+     */
+    KeywordsAny {
+        get => this.get_KeywordsAny()
+    }
+
+    /**
+     * @type {IValueMap} 
+     */
+    KeywordsAll {
+        get => this.get_KeywordsAll()
+    }
+
+    /**
+     * @type {IValueMap} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FilterEnabled {
+        get => this.get_FilterEnabled()
+        set => this.put_FilterEnabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FilterType {
+        get => this.get_FilterType()
+        set => this.put_FilterType(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    FilterData {
+        get => this.get_FilterData()
+        set => this.put_FilterData(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_displayname

@@ -43,6 +43,28 @@ class IFsiFileItem2 extends IFsiFileItem{
     static VTableNames => ["get_FsiNamedStreams", "get_IsNamedStream", "AddStream", "RemoveStream", "get_IsRealTime", "put_IsRealTime"]
 
     /**
+     * @type {IFsiNamedStreams} 
+     */
+    FsiNamedStreams {
+        get => this.get_FsiNamedStreams()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsNamedStream {
+        get => this.get_IsNamedStream()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsRealTime {
+        get => this.get_IsRealTime()
+        set => this.put_IsRealTime(value)
+    }
+
+    /**
      * 
      * @returns {IFsiNamedStreams} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-get_fsinamedstreams

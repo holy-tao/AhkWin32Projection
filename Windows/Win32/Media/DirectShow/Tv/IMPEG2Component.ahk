@@ -42,6 +42,30 @@ class IMPEG2Component extends IComponent{
     static VTableNames => ["get_PID", "put_PID", "get_PCRPID", "put_PCRPID", "get_ProgramNumber", "put_ProgramNumber"]
 
     /**
+     * @type {Integer} 
+     */
+    PID {
+        get => this.get_PID()
+        set => this.put_PID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PCRPID {
+        get => this.get_PCRPID()
+        set => this.put_PCRPID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProgramNumber {
+        get => this.get_ProgramNumber()
+        set => this.put_ProgramNumber(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-get_pid

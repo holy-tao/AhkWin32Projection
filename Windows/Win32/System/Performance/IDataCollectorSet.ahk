@@ -173,6 +173,243 @@ class IDataCollectorSet extends IDispatch{
     static VTableNames => ["get_DataCollectors", "get_Duration", "put_Duration", "get_Description", "put_Description", "get_DescriptionUnresolved", "get_DisplayName", "put_DisplayName", "get_DisplayNameUnresolved", "get_Keywords", "put_Keywords", "get_LatestOutputLocation", "put_LatestOutputLocation", "get_Name", "get_OutputLocation", "get_RootPath", "put_RootPath", "get_Segment", "put_Segment", "get_SegmentMaxDuration", "put_SegmentMaxDuration", "get_SegmentMaxSize", "put_SegmentMaxSize", "get_SerialNumber", "put_SerialNumber", "get_Server", "get_Status", "get_Subdirectory", "put_Subdirectory", "get_SubdirectoryFormat", "put_SubdirectoryFormat", "get_SubdirectoryFormatPattern", "put_SubdirectoryFormatPattern", "get_Task", "put_Task", "get_TaskRunAsSelf", "put_TaskRunAsSelf", "get_TaskArguments", "put_TaskArguments", "get_TaskUserTextArguments", "put_TaskUserTextArguments", "get_Schedules", "get_SchedulesEnabled", "put_SchedulesEnabled", "get_UserAccount", "get_Xml", "get_Security", "put_Security", "get_StopOnCompletion", "put_StopOnCompletion", "get_DataManager", "SetCredentials", "Query", "Commit", "Delete", "Start", "Stop", "SetXml", "SetValue", "GetValue"]
 
     /**
+     * @type {IDataCollectorCollection} 
+     */
+    DataCollectors {
+        get => this.get_DataCollectors()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Duration {
+        get => this.get_Duration()
+        set => this.put_Duration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DescriptionUnresolved {
+        get => this.get_DescriptionUnresolved()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayNameUnresolved {
+        get => this.get_DisplayNameUnresolved()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Keywords {
+        get => this.get_Keywords()
+        set => this.put_Keywords(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LatestOutputLocation {
+        get => this.get_LatestOutputLocation()
+        set => this.put_LatestOutputLocation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OutputLocation {
+        get => this.get_OutputLocation()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RootPath {
+        get => this.get_RootPath()
+        set => this.put_RootPath(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Segment {
+        get => this.get_Segment()
+        set => this.put_Segment(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SegmentMaxDuration {
+        get => this.get_SegmentMaxDuration()
+        set => this.put_SegmentMaxDuration(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SegmentMaxSize {
+        get => this.get_SegmentMaxSize()
+        set => this.put_SegmentMaxSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SerialNumber {
+        get => this.get_SerialNumber()
+        set => this.put_SerialNumber(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Server {
+        get => this.get_Server()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Subdirectory {
+        get => this.get_Subdirectory()
+        set => this.put_Subdirectory(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SubdirectoryFormat {
+        get => this.get_SubdirectoryFormat()
+        set => this.put_SubdirectoryFormat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubdirectoryFormatPattern {
+        get => this.get_SubdirectoryFormatPattern()
+        set => this.put_SubdirectoryFormatPattern(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Task {
+        get => this.get_Task()
+        set => this.put_Task(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    TaskRunAsSelf {
+        get => this.get_TaskRunAsSelf()
+        set => this.put_TaskRunAsSelf(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TaskArguments {
+        get => this.get_TaskArguments()
+        set => this.put_TaskArguments(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TaskUserTextArguments {
+        get => this.get_TaskUserTextArguments()
+        set => this.put_TaskUserTextArguments(value)
+    }
+
+    /**
+     * @type {IScheduleCollection} 
+     */
+    Schedules {
+        get => this.get_Schedules()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SchedulesEnabled {
+        get => this.get_SchedulesEnabled()
+        set => this.put_SchedulesEnabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserAccount {
+        get => this.get_UserAccount()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Xml {
+        get => this.get_Xml()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Security {
+        get => this.get_Security()
+        set => this.put_Security(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    StopOnCompletion {
+        get => this.get_StopOnCompletion()
+        set => this.put_StopOnCompletion(value)
+    }
+
+    /**
+     * @type {IDataManager} 
+     */
+    DataManager {
+        get => this.get_DataManager()
+    }
+
+    /**
      * 
      * @returns {IDataCollectorCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_datacollectors

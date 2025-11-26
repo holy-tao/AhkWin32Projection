@@ -36,6 +36,41 @@ class ISVGRadialGradientElement extends IDispatch{
     static VTableNames => ["putref_cx", "get_cx", "putref_cy", "get_cy", "putref_r", "get_r", "putref_fx", "get_fx", "putref_fy", "get_fy"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    cx {
+        get => this.get_cx()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    cy {
+        get => this.get_cy()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    r {
+        get => this.get_r()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    fx {
+        get => this.get_fx()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    fy {
+        get => this.get_fy()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

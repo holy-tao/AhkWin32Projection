@@ -33,6 +33,13 @@ class IXMLDOMElement extends IXMLDOMNode{
     static VTableNames => ["get_tagName", "getAttribute", "setAttribute", "removeAttribute", "getAttributeNode", "setAttributeNode", "removeAttributeNode", "getElementsByTagName", "normalize"]
 
     /**
+     * @type {BSTR} 
+     */
+    tagName {
+        get => this.get_tagName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

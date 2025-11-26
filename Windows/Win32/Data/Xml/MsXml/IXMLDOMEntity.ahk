@@ -31,6 +31,27 @@ class IXMLDOMEntity extends IXMLDOMNode{
     static VTableNames => ["get_publicId", "get_systemId", "get_notationName"]
 
     /**
+     * @type {VARIANT} 
+     */
+    publicId {
+        get => this.get_publicId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    systemId {
+        get => this.get_systemId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    notationName {
+        get => this.get_notationName()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

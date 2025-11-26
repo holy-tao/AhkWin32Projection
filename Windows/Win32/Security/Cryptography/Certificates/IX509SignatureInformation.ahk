@@ -33,6 +33,45 @@ class IX509SignatureInformation extends IDispatch{
     static VTableNames => ["get_HashAlgorithm", "put_HashAlgorithm", "get_PublicKeyAlgorithm", "put_PublicKeyAlgorithm", "get_Parameters", "put_Parameters", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_AlternateSignatureAlgorithmSet", "get_NullSigned", "put_NullSigned", "GetSignatureAlgorithm", "SetDefaultValues"]
 
     /**
+     * @type {IObjectId} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    PublicKeyAlgorithm {
+        get => this.get_PublicKeyAlgorithm()
+        set => this.put_PublicKeyAlgorithm(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AlternateSignatureAlgorithm {
+        get => this.get_AlternateSignatureAlgorithm()
+        set => this.put_AlternateSignatureAlgorithm(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AlternateSignatureAlgorithmSet {
+        get => this.get_AlternateSignatureAlgorithmSet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NullSigned {
+        get => this.get_NullSigned()
+        set => this.put_NullSigned(value)
+    }
+
+    /**
      * 
      * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_hashalgorithm

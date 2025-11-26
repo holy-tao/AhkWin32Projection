@@ -34,6 +34,20 @@ class ITSubStream extends IDispatch{
     static VTableNames => ["StartSubStream", "PauseSubStream", "StopSubStream", "SelectTerminal", "UnselectTerminal", "EnumerateTerminals", "get_Terminals", "get_Stream"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Terminals {
+        get => this.get_Terminals()
+    }
+
+    /**
+     * @type {ITStream} 
+     */
+    Stream {
+        get => this.get_Stream()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-startsubstream

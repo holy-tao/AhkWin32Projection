@@ -36,6 +36,27 @@ class Node extends IDispatch{
     static VTableNames => ["get_Name", "get_Property", "get_Bookmark", "IsScopeNode", "get_Nodetype"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Bookmark {
+        get => this.get_Bookmark()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Nodetype {
+        get => this.get_Nodetype()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

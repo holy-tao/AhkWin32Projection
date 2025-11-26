@@ -32,6 +32,55 @@ class ITCallingCard extends IDispatch{
     static VTableNames => ["get_PermanentCardID", "get_NumberOfDigits", "get_Options", "get_CardName", "get_SameAreaDialingRule", "get_LongDistanceDialingRule", "get_InternationalDialingRule"]
 
     /**
+     * @type {Integer} 
+     */
+    PermanentCardID {
+        get => this.get_PermanentCardID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfDigits {
+        get => this.get_NumberOfDigits()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Options {
+        get => this.get_Options()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CardName {
+        get => this.get_CardName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SameAreaDialingRule {
+        get => this.get_SameAreaDialingRule()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LongDistanceDialingRule {
+        get => this.get_LongDistanceDialingRule()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InternationalDialingRule {
+        get => this.get_InternationalDialingRule()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid

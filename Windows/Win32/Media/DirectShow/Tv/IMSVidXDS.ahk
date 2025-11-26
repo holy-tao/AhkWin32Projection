@@ -43,6 +43,13 @@ class IMSVidXDS extends IMSVidFeature{
     static VTableNames => ["get_ChannelChangeInterface"]
 
     /**
+     * @type {IUnknown} 
+     */
+    ChannelChangeInterface {
+        get => this.get_ChannelChangeInterface()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidxds-get_channelchangeinterface

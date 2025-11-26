@@ -30,6 +30,14 @@ class IHTMLScriptElement3 extends IDispatch{
     static VTableNames => ["put_src", "get_src"]
 
     /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

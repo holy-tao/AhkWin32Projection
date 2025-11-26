@@ -33,6 +33,28 @@ class IX509EndorsementKey extends IDispatch{
     static VTableNames => ["get_ProviderName", "put_ProviderName", "get_Length", "get_Opened", "AddCertificate", "RemoveCertificate", "GetCertificateByIndex", "GetCertificateCount", "ExportPublicKey", "Open", "Close"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProviderName {
+        get => this.get_ProviderName()
+        set => this.put_ProviderName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Opened {
+        get => this.get_Opened()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_providername

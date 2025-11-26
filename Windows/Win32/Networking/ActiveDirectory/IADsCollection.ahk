@@ -39,6 +39,13 @@ class IADsCollection extends IDispatch{
     static VTableNames => ["get__NewEnum", "Add", "Remove", "GetObject"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscollection-get__newenum

@@ -37,6 +37,22 @@ class IADsFileService extends IADsService{
     static VTableNames => ["get_Description", "put_Description", "get_MaxUserCount", "put_MaxUserCount"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxUserCount {
+        get => this.get_MaxUserCount()
+        set => this.put_MaxUserCount(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

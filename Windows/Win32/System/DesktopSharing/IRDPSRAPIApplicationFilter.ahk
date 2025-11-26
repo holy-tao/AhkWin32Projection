@@ -39,6 +39,28 @@ class IRDPSRAPIApplicationFilter extends IDispatch{
     static VTableNames => ["get_Applications", "get_Windows", "get_Enabled", "put_Enabled"]
 
     /**
+     * @type {IRDPSRAPIApplicationList} 
+     */
+    Applications {
+        get => this.get_Applications()
+    }
+
+    /**
+     * @type {IRDPSRAPIWindowList} 
+     */
+    Windows {
+        get => this.get_Windows()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
      * 
      * @returns {IRDPSRAPIApplicationList} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_applications

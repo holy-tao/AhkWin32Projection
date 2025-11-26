@@ -30,6 +30,13 @@ class IHTMLIsIndexElement2 extends IDispatch{
     static VTableNames => ["get_form"]
 
     /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
      * 
      * @returns {IHTMLFormElement} 
      */

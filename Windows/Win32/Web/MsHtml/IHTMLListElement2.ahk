@@ -29,6 +29,14 @@ class IHTMLListElement2 extends IDispatch{
     static VTableNames => ["put_compact", "get_compact"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    compact {
+        get => this.get_compact()
+        set => this.put_compact(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

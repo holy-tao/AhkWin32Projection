@@ -37,6 +37,34 @@ class ISpeechRecoResultDispatch extends IDispatch{
     static VTableNames => ["get_RecoContext", "get_Times", "putref_AudioFormat", "get_AudioFormat", "get_PhraseInfo", "Alternates", "Audio", "SpeakAudio", "SaveToMemory", "DiscardResultInfo", "GetXMLResult", "GetXMLErrorInfo", "SetTextFeedback"]
 
     /**
+     * @type {ISpeechRecoContext} 
+     */
+    RecoContext {
+        get => this.get_RecoContext()
+    }
+
+    /**
+     * @type {ISpeechRecoResultTimes} 
+     */
+    Times {
+        get => this.get_Times()
+    }
+
+    /**
+     * @type {ISpeechAudioFormat} 
+     */
+    AudioFormat {
+        get => this.get_AudioFormat()
+    }
+
+    /**
+     * @type {ISpeechPhraseInfo} 
+     */
+    PhraseInfo {
+        get => this.get_PhraseInfo()
+    }
+
+    /**
      * 
      * @returns {ISpeechRecoContext} 
      */

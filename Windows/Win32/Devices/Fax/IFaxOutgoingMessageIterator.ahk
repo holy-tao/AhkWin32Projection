@@ -42,6 +42,28 @@ class IFaxOutgoingMessageIterator extends IDispatch{
     static VTableNames => ["get_Message", "get_AtEOF", "get_PrefetchSize", "put_PrefetchSize", "MoveFirst", "MoveNext"]
 
     /**
+     * @type {IFaxOutgoingMessage} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AtEOF {
+        get => this.get_AtEOF()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PrefetchSize {
+        get => this.get_PrefetchSize()
+        set => this.put_PrefetchSize(value)
+    }
+
+    /**
      * 
      * @returns {IFaxOutgoingMessage} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessageiterator-get_message

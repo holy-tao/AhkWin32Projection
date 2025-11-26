@@ -42,6 +42,20 @@ class IFaxDeviceIds extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Add", "Remove", "SetOrder"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get__newenum

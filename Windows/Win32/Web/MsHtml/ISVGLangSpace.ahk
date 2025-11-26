@@ -30,6 +30,22 @@ class ISVGLangSpace extends IDispatch{
     static VTableNames => ["put_xmllang", "get_xmllang", "put_xmlspace", "get_xmlspace"]
 
     /**
+     * @type {BSTR} 
+     */
+    xmllang {
+        get => this.get_xmllang()
+        set => this.put_xmllang(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    xmlspace {
+        get => this.get_xmlspace()
+        set => this.put_xmlspace(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

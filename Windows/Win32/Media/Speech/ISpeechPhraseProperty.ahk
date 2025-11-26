@@ -33,6 +33,69 @@ class ISpeechPhraseProperty extends IDispatch{
     static VTableNames => ["get_Name", "get_Id", "get_Value", "get_FirstElement", "get_NumberOfElements", "get_EngineConfidence", "get_Confidence", "get_Parent", "get_Children"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirstElement {
+        get => this.get_FirstElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfElements {
+        get => this.get_NumberOfElements()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    EngineConfidence {
+        get => this.get_EngineConfidence()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Confidence {
+        get => this.get_Confidence()
+    }
+
+    /**
+     * @type {ISpeechPhraseProperty} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {ISpeechPhraseProperties} 
+     */
+    Children {
+        get => this.get_Children()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

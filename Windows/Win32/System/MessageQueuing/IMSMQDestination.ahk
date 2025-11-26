@@ -36,6 +36,58 @@ class IMSMQDestination extends IDispatch{
     static VTableNames => ["Open", "Close", "get_IsOpen", "get_IADs", "putref_IADs", "get_ADsPath", "put_ADsPath", "get_PathName", "put_PathName", "get_FormatName", "put_FormatName", "get_Destinations", "putref_Destinations", "get_Properties"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsOpen {
+        get => this.get_IsOpen()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    IADs {
+        get => this.get_IADs()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ADsPath {
+        get => this.get_ADsPath()
+        set => this.put_ADsPath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PathName {
+        get => this.get_PathName()
+        set => this.put_PathName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FormatName {
+        get => this.get_FormatName()
+        set => this.put_FormatName(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Destinations {
+        get => this.get_Destinations()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

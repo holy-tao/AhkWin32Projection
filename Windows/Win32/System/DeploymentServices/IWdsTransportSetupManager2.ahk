@@ -32,6 +32,20 @@ class IWdsTransportSetupManager2 extends IWdsTransportSetupManager{
     static VTableNames => ["get_TftpCapabilities", "get_ContentProviders"]
 
     /**
+     * @type {Integer} 
+     */
+    TftpCapabilities {
+        get => this.get_TftpCapabilities()
+    }
+
+    /**
+     * @type {IWdsTransportCollection} 
+     */
+    ContentProviders {
+        get => this.get_ContentProviders()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_tftpcapabilities

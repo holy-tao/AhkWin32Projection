@@ -30,6 +30,13 @@ class ISpeechCustomStream extends ISpeechBaseStream{
     static VTableNames => ["get_BaseStream", "putref_BaseStream"]
 
     /**
+     * @type {IUnknown} 
+     */
+    BaseStream {
+        get => this.get_BaseStream()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

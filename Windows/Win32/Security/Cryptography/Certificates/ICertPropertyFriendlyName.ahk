@@ -32,6 +32,13 @@ class ICertPropertyFriendlyName extends ICertProperty{
     static VTableNames => ["Initialize", "get_FriendlyName"]
 
     /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} strFriendlyName 
      * @returns {HRESULT} <ul>

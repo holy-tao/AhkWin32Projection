@@ -34,6 +34,55 @@ class ICatalogCollection extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Remove", "Add", "Populate", "SaveChanges", "GetCollection", "get_Name", "get_AddEnabled", "get_RemoveEnabled", "GetUtilInterface", "get_DataStoreMajorVersion", "get_DataStoreMinorVersion", "PopulateByKey", "PopulateByQuery"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AddEnabled {
+        get => this.get_AddEnabled()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RemoveEnabled {
+        get => this.get_RemoveEnabled()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataStoreMajorVersion {
+        get => this.get_DataStoreMajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataStoreMinorVersion {
+        get => this.get_DataStoreMinorVersion()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get__newenum

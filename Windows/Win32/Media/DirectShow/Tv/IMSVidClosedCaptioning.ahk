@@ -42,6 +42,14 @@ class IMSVidClosedCaptioning extends IMSVidFeature{
     static VTableNames => ["get_Enable", "put_Enable"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enable {
+        get => this.get_Enable()
+        set => this.put_Enable(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning-get_enable

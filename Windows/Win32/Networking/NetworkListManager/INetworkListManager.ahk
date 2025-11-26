@@ -41,6 +41,20 @@ class INetworkListManager extends IDispatch{
     static VTableNames => ["GetNetworks", "GetNetwork", "GetNetworkConnections", "GetNetworkConnection", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "SetSimulatedProfileInfo", "ClearSimulatedProfileInfo"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnectedToInternet {
+        get => this.get_IsConnectedToInternet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnected {
+        get => this.get_IsConnected()
+    }
+
+    /**
      * 
      * @param {Integer} Flags 
      * @returns {IEnumNetworks} 

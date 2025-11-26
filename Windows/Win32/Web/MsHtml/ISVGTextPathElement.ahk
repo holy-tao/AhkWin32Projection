@@ -37,6 +37,27 @@ class ISVGTextPathElement extends IDispatch{
     static VTableNames => ["putref_startOffset", "get_startOffset", "putref_method", "get_method", "putref_spacing", "get_spacing"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    startOffset {
+        get => this.get_startOffset()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    method {
+        get => this.get_method()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    spacing {
+        get => this.get_spacing()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

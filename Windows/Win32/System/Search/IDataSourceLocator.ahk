@@ -30,6 +30,14 @@ class IDataSourceLocator extends IDispatch{
     static VTableNames => ["get_hWnd", "put_hWnd", "PromptNew", "PromptEdit"]
 
     /**
+     * @type {HWND} 
+     */
+    hWnd {
+        get => this.get_hWnd()
+        set => this.put_hWnd(value)
+    }
+
+    /**
      * 
      * @returns {HWND} 
      */

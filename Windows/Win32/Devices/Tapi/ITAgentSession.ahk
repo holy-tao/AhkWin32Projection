@@ -35,6 +35,119 @@ class ITAgentSession extends IDispatch{
     static VTableNames => ["get_Agent", "get_Address", "get_ACDGroup", "put_State", "get_State", "get_SessionStartTime", "get_SessionDuration", "get_NumberOfCalls", "get_TotalTalkTime", "get_AverageTalkTime", "get_TotalCallTime", "get_AverageCallTime", "get_TotalWrapUpTime", "get_AverageWrapUpTime", "get_ACDCallRate", "get_LongestTimeToAnswer", "get_AverageTimeToAnswer"]
 
     /**
+     * @type {ITAgent} 
+     */
+    Agent {
+        get => this.get_Agent()
+    }
+
+    /**
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {ITACDGroup} 
+     */
+    ACDGroup {
+        get => this.get_ACDGroup()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    SessionStartTime {
+        get => this.get_SessionStartTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SessionDuration {
+        get => this.get_SessionDuration()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfCalls {
+        get => this.get_NumberOfCalls()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalTalkTime {
+        get => this.get_TotalTalkTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AverageTalkTime {
+        get => this.get_AverageTalkTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalCallTime {
+        get => this.get_TotalCallTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AverageCallTime {
+        get => this.get_AverageCallTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalWrapUpTime {
+        get => this.get_TotalWrapUpTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AverageWrapUpTime {
+        get => this.get_AverageWrapUpTime()
+    }
+
+    /**
+     * @type {CY} 
+     */
+    ACDCallRate {
+        get => this.get_ACDCallRate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LongestTimeToAnswer {
+        get => this.get_LongestTimeToAnswer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AverageTimeToAnswer {
+        get => this.get_AverageTimeToAnswer()
+    }
+
+    /**
      * 
      * @returns {ITAgent} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_agent

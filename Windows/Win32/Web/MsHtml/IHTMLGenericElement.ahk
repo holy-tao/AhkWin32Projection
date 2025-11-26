@@ -36,6 +36,13 @@ class IHTMLGenericElement extends IDispatch{
     static VTableNames => ["get_recordset", "namedRecordset"]
 
     /**
+     * @type {IDispatch} 
+     */
+    recordset {
+        get => this.get_recordset()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

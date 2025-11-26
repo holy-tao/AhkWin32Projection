@@ -36,6 +36,14 @@ class IHTMLFrameElement extends IDispatch{
     static VTableNames => ["put_borderColor", "get_borderColor"]
 
     /**
+     * @type {VARIANT} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+        set => this.put_borderColor(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

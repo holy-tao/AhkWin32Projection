@@ -30,6 +30,69 @@ class IDynamicPortMapping extends IDispatch{
     static VTableNames => ["get_ExternalIPAddress", "get_RemoteHost", "get_ExternalPort", "get_Protocol", "get_InternalPort", "get_InternalClient", "get_Enabled", "get_Description", "get_LeaseDuration", "RenewLease", "EditInternalClient", "Enable", "EditDescription", "EditInternalPort"]
 
     /**
+     * @type {BSTR} 
+     */
+    ExternalIPAddress {
+        get => this.get_ExternalIPAddress()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteHost {
+        get => this.get_RemoteHost()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExternalPort {
+        get => this.get_ExternalPort()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Protocol {
+        get => this.get_Protocol()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InternalPort {
+        get => this.get_InternalPort()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InternalClient {
+        get => this.get_InternalClient()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LeaseDuration {
+        get => this.get_LeaseDuration()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

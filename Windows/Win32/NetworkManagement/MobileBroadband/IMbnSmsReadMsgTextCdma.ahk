@@ -38,6 +38,62 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
     static VTableNames => ["get_Index", "get_Status", "get_Address", "get_Timestamp", "get_EncodingID", "get_LanguageID", "get_SizeInCharacters", "get_Message"]
 
     /**
+     * @type {Integer} 
+     */
+    Index {
+        get => this.get_Index()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Timestamp {
+        get => this.get_Timestamp()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EncodingID {
+        get => this.get_EncodingID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LanguageID {
+        get => this.get_LanguageID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SizeInCharacters {
+        get => this.get_SizeInCharacters()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_index

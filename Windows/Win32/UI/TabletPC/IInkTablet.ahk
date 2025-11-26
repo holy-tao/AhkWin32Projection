@@ -48,6 +48,34 @@ class IInkTablet extends IDispatch{
     static VTableNames => ["get_Name", "get_PlugAndPlayId", "get_MaximumInputRectangle", "get_HardwareCapabilities", "IsPacketPropertySupported", "GetPropertyMetrics"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PlugAndPlayId {
+        get => this.get_PlugAndPlayId()
+    }
+
+    /**
+     * @type {IInkRectangle} 
+     */
+    MaximumInputRectangle {
+        get => this.get_MaximumInputRectangle()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HardwareCapabilities {
+        get => this.get_HardwareCapabilities()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_name

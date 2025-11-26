@@ -42,6 +42,134 @@ class IFaxSender extends IDispatch{
     static VTableNames => ["get_BillingCode", "put_BillingCode", "get_City", "put_City", "get_Company", "put_Company", "get_Country", "put_Country", "get_Department", "put_Department", "get_Email", "put_Email", "get_FaxNumber", "put_FaxNumber", "get_HomePhone", "put_HomePhone", "get_Name", "put_Name", "get_TSID", "put_TSID", "get_OfficePhone", "put_OfficePhone", "get_OfficeLocation", "put_OfficeLocation", "get_State", "put_State", "get_StreetAddress", "put_StreetAddress", "get_Title", "put_Title", "get_ZipCode", "put_ZipCode", "LoadDefaultSender", "SaveDefaultSender"]
 
     /**
+     * @type {BSTR} 
+     */
+    BillingCode {
+        get => this.get_BillingCode()
+        set => this.put_BillingCode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    City {
+        get => this.get_City()
+        set => this.put_City(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Company {
+        get => this.get_Company()
+        set => this.put_Company(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Country {
+        get => this.get_Country()
+        set => this.put_Country(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Department {
+        get => this.get_Department()
+        set => this.put_Department(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Email {
+        get => this.get_Email()
+        set => this.put_Email(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FaxNumber {
+        get => this.get_FaxNumber()
+        set => this.put_FaxNumber(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HomePhone {
+        get => this.get_HomePhone()
+        set => this.put_HomePhone(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+        set => this.put_TSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OfficePhone {
+        get => this.get_OfficePhone()
+        set => this.put_OfficePhone(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OfficeLocation {
+        get => this.get_OfficeLocation()
+        set => this.put_OfficeLocation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StreetAddress {
+        get => this.get_StreetAddress()
+        set => this.put_StreetAddress(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+        set => this.put_Title(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ZipCode {
+        get => this.get_ZipCode()
+        set => this.put_ZipCode(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_billingcode

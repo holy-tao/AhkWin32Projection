@@ -31,6 +31,34 @@ class IEnroll2 extends IEnroll{
     static VTableNames => ["InstallPKCS7Blob", "Reset", "GetSupportedKeySpec", "GetKeyLen", "EnumAlgs", "GetAlgNameWStr", "put_ReuseHardwareKeyIfUnableToGenNew", "get_ReuseHardwareKeyIfUnableToGenNew", "put_HashAlgID", "get_HashAlgID", "SetHStoreMy", "SetHStoreCA", "SetHStoreROOT", "SetHStoreRequest", "put_LimitExchangeKeyToEncipherment", "get_LimitExchangeKeyToEncipherment", "put_EnableSMIMECapabilities", "get_EnableSMIMECapabilities"]
 
     /**
+     */
+    ReuseHardwareKeyIfUnableToGenNew {
+        get => this.get_ReuseHardwareKeyIfUnableToGenNew()
+        set => this.put_ReuseHardwareKeyIfUnableToGenNew(value)
+    }
+
+    /**
+     */
+    HashAlgID {
+        get => this.get_HashAlgID()
+        set => this.put_HashAlgID(value)
+    }
+
+    /**
+     */
+    LimitExchangeKeyToEncipherment {
+        get => this.get_LimitExchangeKeyToEncipherment()
+        set => this.put_LimitExchangeKeyToEncipherment(value)
+    }
+
+    /**
+     */
+    EnableSMIMECapabilities {
+        get => this.get_EnableSMIMECapabilities()
+        set => this.put_EnableSMIMECapabilities(value)
+    }
+
+    /**
      * 
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pBlobPKCS7 
      * @returns {HRESULT} 

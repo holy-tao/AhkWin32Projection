@@ -37,6 +37,27 @@ class IUpdateException extends IDispatch{
     static VTableNames => ["get_Message", "get_HResult", "get_Context"]
 
     /**
+     * @type {BSTR} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HResult {
+        get => this.get_HResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Context {
+        get => this.get_Context()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_message

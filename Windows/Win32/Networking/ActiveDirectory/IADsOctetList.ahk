@@ -32,6 +32,14 @@ class IADsOctetList extends IDispatch{
     static VTableNames => ["get_OctetList", "put_OctetList"]
 
     /**
+     * @type {VARIANT} 
+     */
+    OctetList {
+        get => this.get_OctetList()
+        set => this.put_OctetList(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

@@ -34,6 +34,35 @@ class ITDirectory extends IDispatch{
     static VTableNames => ["get_DirectoryType", "get_DisplayName", "get_IsDynamic", "get_DefaultObjectTTL", "put_DefaultObjectTTL", "EnableAutoRefresh", "Connect", "Bind", "AddDirectoryObject", "ModifyDirectoryObject", "RefreshDirectoryObject", "DeleteDirectoryObject", "get_DirectoryObjects", "EnumerateDirectoryObjects"]
 
     /**
+     * @type {Integer} 
+     */
+    DirectoryType {
+        get => this.get_DirectoryType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsDynamic {
+        get => this.get_IsDynamic()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultObjectTTL {
+        get => this.get_DefaultObjectTTL()
+        set => this.put_DefaultObjectTTL(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_directorytype

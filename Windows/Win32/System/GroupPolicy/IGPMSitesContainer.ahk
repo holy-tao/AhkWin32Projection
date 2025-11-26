@@ -40,6 +40,27 @@ class IGPMSitesContainer extends IDispatch{
     static VTableNames => ["get_DomainController", "get_Domain", "get_Forest", "GetSite", "SearchSites"]
 
     /**
+     * @type {BSTR} 
+     */
+    DomainController {
+        get => this.get_DomainController()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Domain {
+        get => this.get_Domain()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Forest {
+        get => this.get_Forest()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -36,6 +36,14 @@ class IStreamPseudoRandomBased extends IStream{
     static VTableNames => ["put_Seed", "get_Seed", "put_ExtendedSeed", "get_ExtendedSeed"]
 
     /**
+     * @type {Integer} 
+     */
+    Seed {
+        get => this.get_Seed()
+        set => this.put_Seed(value)
+    }
+
+    /**
      * 
      * @param {Integer} value 
      * @returns {HRESULT} 

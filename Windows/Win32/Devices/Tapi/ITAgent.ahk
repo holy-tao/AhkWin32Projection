@@ -36,6 +36,92 @@ class ITAgent extends IDispatch{
     static VTableNames => ["EnumerateAgentSessions", "CreateSession", "CreateSessionWithPIN", "get_ID", "get_User", "put_State", "get_State", "put_MeasurementPeriod", "get_MeasurementPeriod", "get_OverallCallRate", "get_NumberOfACDCalls", "get_NumberOfIncomingCalls", "get_NumberOfOutgoingCalls", "get_TotalACDTalkTime", "get_TotalACDCallTime", "get_TotalWrapUpTime", "get_AgentSessions"]
 
     /**
+     * @type {BSTR} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    User {
+        get => this.get_User()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MeasurementPeriod {
+        get => this.get_MeasurementPeriod()
+        set => this.put_MeasurementPeriod(value)
+    }
+
+    /**
+     * @type {CY} 
+     */
+    OverallCallRate {
+        get => this.get_OverallCallRate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfACDCalls {
+        get => this.get_NumberOfACDCalls()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfIncomingCalls {
+        get => this.get_NumberOfIncomingCalls()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfOutgoingCalls {
+        get => this.get_NumberOfOutgoingCalls()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalACDTalkTime {
+        get => this.get_TotalACDTalkTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalACDCallTime {
+        get => this.get_TotalACDCallTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalWrapUpTime {
+        get => this.get_TotalWrapUpTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AgentSessions {
+        get => this.get_AgentSessions()
+    }
+
+    /**
      * 
      * @returns {IEnumAgentSession} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-enumerateagentsessions

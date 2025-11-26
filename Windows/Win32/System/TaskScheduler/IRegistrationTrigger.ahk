@@ -40,6 +40,13 @@ class IRegistrationTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay"]
 
     /**
+     */
+    Delay {
+        get => this.get_Delay()
+        set => this.put_Delay(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 

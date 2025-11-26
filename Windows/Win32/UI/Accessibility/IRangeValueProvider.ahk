@@ -36,6 +36,48 @@ class IRangeValueProvider extends IUnknown{
     static VTableNames => ["SetValue", "get_Value", "get_IsReadOnly", "get_Maximum", "get_Minimum", "get_LargeChange", "get_SmallChange"]
 
     /**
+     * @type {Float} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsReadOnly {
+        get => this.get_IsReadOnly()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Maximum {
+        get => this.get_Maximum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Minimum {
+        get => this.get_Minimum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LargeChange {
+        get => this.get_LargeChange()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    SmallChange {
+        get => this.get_SmallChange()
+    }
+
+    /**
      * 
      * @param {Float} val 
      * @returns {HRESULT} 

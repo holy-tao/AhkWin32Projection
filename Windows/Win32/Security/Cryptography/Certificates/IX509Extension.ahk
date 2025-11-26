@@ -33,6 +33,21 @@ class IX509Extension extends IDispatch{
     static VTableNames => ["Initialize", "get_ObjectId", "get_RawData", "get_Critical", "put_Critical"]
 
     /**
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Critical {
+        get => this.get_Critical()
+        set => this.put_Critical(value)
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {IObjectId} pObjectId 
      * @param {Integer} Encoding 

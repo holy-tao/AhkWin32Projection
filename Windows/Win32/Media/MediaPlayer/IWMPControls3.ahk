@@ -32,6 +32,33 @@ class IWMPControls3 extends IWMPControls2{
     static VTableNames => ["get_audioLanguageCount", "getAudioLanguageID", "getAudioLanguageDescription", "get_currentAudioLanguage", "put_currentAudioLanguage", "get_currentAudioLanguageIndex", "put_currentAudioLanguageIndex", "getLanguageName", "get_currentPositionTimecode", "put_currentPositionTimecode"]
 
     /**
+     */
+    audioLanguageCount {
+        get => this.get_audioLanguageCount()
+    }
+
+    /**
+     */
+    currentAudioLanguage {
+        get => this.get_currentAudioLanguage()
+        set => this.put_currentAudioLanguage(value)
+    }
+
+    /**
+     */
+    currentAudioLanguageIndex {
+        get => this.get_currentAudioLanguageIndex()
+        set => this.put_currentAudioLanguageIndex(value)
+    }
+
+    /**
+     */
+    currentPositionTimecode {
+        get => this.get_currentPositionTimecode()
+        set => this.put_currentPositionTimecode(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

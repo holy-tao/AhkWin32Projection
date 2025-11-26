@@ -33,6 +33,13 @@ class IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession{
     static VTableNames => ["ConnectUsingTransportStream", "get_FrameBuffer", "SendControlLevelChangeResponse"]
 
     /**
+     * @type {IRDPSRAPIFrameBuffer} 
+     */
+    FrameBuffer {
+        get => this.get_FrameBuffer()
+    }
+
+    /**
      * 
      * @param {IRDPSRAPITransportStream} pStream 
      * @param {BSTR} bstrGroup 

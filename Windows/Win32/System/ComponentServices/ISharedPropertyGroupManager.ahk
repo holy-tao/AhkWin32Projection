@@ -40,6 +40,13 @@ class ISharedPropertyGroupManager extends IDispatch{
     static VTableNames => ["CreatePropertyGroup", "get_Group", "get__NewEnum"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @param {BSTR} Name 
      * @param {Pointer<Integer>} dwIsoMode 

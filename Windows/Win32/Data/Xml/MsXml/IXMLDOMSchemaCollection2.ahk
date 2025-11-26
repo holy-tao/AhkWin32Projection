@@ -32,6 +32,14 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
     static VTableNames => ["validate", "put_validateOnLoad", "get_validateOnLoad", "getSchema", "getDeclaration"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    validateOnLoad {
+        get => this.get_validateOnLoad()
+        set => this.put_validateOnLoad(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

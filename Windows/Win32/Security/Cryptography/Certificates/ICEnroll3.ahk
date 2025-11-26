@@ -32,6 +32,38 @@ class ICEnroll3 extends ICEnroll2{
     static VTableNames => ["InstallPKCS7", "Reset", "GetSupportedKeySpec", "GetKeyLen", "EnumAlgs", "GetAlgName", "put_ReuseHardwareKeyIfUnableToGenNew", "get_ReuseHardwareKeyIfUnableToGenNew", "put_HashAlgID", "get_HashAlgID", "put_LimitExchangeKeyToEncipherment", "get_LimitExchangeKeyToEncipherment", "put_EnableSMIMECapabilities", "get_EnableSMIMECapabilities"]
 
     /**
+     * @type {BOOL} 
+     */
+    ReuseHardwareKeyIfUnableToGenNew {
+        get => this.get_ReuseHardwareKeyIfUnableToGenNew()
+        set => this.put_ReuseHardwareKeyIfUnableToGenNew(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HashAlgID {
+        get => this.get_HashAlgID()
+        set => this.put_HashAlgID(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    LimitExchangeKeyToEncipherment {
+        get => this.get_LimitExchangeKeyToEncipherment()
+        set => this.put_LimitExchangeKeyToEncipherment(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    EnableSMIMECapabilities {
+        get => this.get_EnableSMIMECapabilities()
+        set => this.put_EnableSMIMECapabilities(value)
+    }
+
+    /**
      * 
      * @param {BSTR} PKCS7 
      * @returns {HRESULT} 

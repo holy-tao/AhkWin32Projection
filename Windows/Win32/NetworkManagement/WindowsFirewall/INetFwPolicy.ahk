@@ -43,6 +43,13 @@ class INetFwPolicy extends IDispatch{
     static VTableNames => ["get_CurrentProfile", "GetProfileByType"]
 
     /**
+     * @type {INetFwProfile} 
+     */
+    CurrentProfile {
+        get => this.get_CurrentProfile()
+    }
+
+    /**
      * 
      * @returns {INetFwProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-get_currentprofile

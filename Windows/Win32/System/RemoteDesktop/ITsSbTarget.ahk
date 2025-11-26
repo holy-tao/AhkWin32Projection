@@ -34,6 +34,83 @@ class ITsSbTarget extends IUnknown{
     static VTableNames => ["get_TargetName", "put_TargetName", "get_FarmName", "put_FarmName", "get_TargetFQDN", "put_TargetFQDN", "get_TargetNetbios", "put_TargetNetbios", "get_IpAddresses", "put_IpAddresses", "get_TargetState", "put_TargetState", "get_TargetPropertySet", "put_TargetPropertySet", "get_EnvironmentName", "put_EnvironmentName", "get_NumSessions", "get_NumPendingConnections", "get_TargetLoad"]
 
     /**
+     * @type {BSTR} 
+     */
+    TargetName {
+        get => this.get_TargetName()
+        set => this.put_TargetName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FarmName {
+        get => this.get_FarmName()
+        set => this.put_FarmName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetFQDN {
+        get => this.get_TargetFQDN()
+        set => this.put_TargetFQDN(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TargetNetbios {
+        get => this.get_TargetNetbios()
+        set => this.put_TargetNetbios(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TargetState {
+        get => this.get_TargetState()
+        set => this.put_TargetState(value)
+    }
+
+    /**
+     * @type {ITsSbTargetPropertySet} 
+     */
+    TargetPropertySet {
+        get => this.get_TargetPropertySet()
+        set => this.put_TargetPropertySet(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EnvironmentName {
+        get => this.get_EnvironmentName()
+        set => this.put_EnvironmentName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumSessions {
+        get => this.get_NumSessions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumPendingConnections {
+        get => this.get_NumPendingConnections()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TargetLoad {
+        get => this.get_TargetLoad()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetname

@@ -48,6 +48,48 @@ class IInkCursor extends IDispatch{
     static VTableNames => ["get_Name", "get_Id", "get_Inverted", "get_DrawingAttributes", "putref_DrawingAttributes", "get_Tablet", "get_Buttons"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Inverted {
+        get => this.get_Inverted()
+    }
+
+    /**
+     * @type {IInkDrawingAttributes} 
+     */
+    DrawingAttributes {
+        get => this.get_DrawingAttributes()
+    }
+
+    /**
+     * @type {IInkTablet} 
+     */
+    Tablet {
+        get => this.get_Tablet()
+    }
+
+    /**
+     * @type {IInkCursorButtons} 
+     */
+    Buttons {
+        get => this.get_Buttons()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_name

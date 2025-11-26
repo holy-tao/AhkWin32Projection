@@ -41,6 +41,36 @@ class IAMExtDevice extends IUnknown{
     static VTableNames => ["GetCapability", "get_ExternalDeviceID", "get_ExternalDeviceVersion", "put_DevicePower", "get_DevicePower", "Calibrate", "put_DevicePort", "get_DevicePort"]
 
     /**
+     * @type {PWSTR} 
+     */
+    ExternalDeviceID {
+        get => this.get_ExternalDeviceID()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    ExternalDeviceVersion {
+        get => this.get_ExternalDeviceVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DevicePower {
+        get => this.get_DevicePower()
+        set => this.put_DevicePower(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DevicePort {
+        get => this.get_DevicePort()
+        set => this.put_DevicePort(value)
+    }
+
+    /**
      * 
      * @param {Integer} Capability 
      * @param {Pointer<Integer>} pValue 

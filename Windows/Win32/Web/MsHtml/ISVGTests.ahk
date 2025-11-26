@@ -31,6 +31,27 @@ class ISVGTests extends IDispatch{
     static VTableNames => ["get_requiredFeatures", "get_requiredExtensions", "get_systemLanguage", "hasExtension"]
 
     /**
+     * @type {ISVGStringList} 
+     */
+    requiredFeatures {
+        get => this.get_requiredFeatures()
+    }
+
+    /**
+     * @type {ISVGStringList} 
+     */
+    requiredExtensions {
+        get => this.get_requiredExtensions()
+    }
+
+    /**
+     * @type {ISVGStringList} 
+     */
+    systemLanguage {
+        get => this.get_systemLanguage()
+    }
+
+    /**
      * 
      * @returns {ISVGStringList} 
      */

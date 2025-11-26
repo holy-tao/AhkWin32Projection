@@ -47,6 +47,119 @@ class ISVGSVGElement extends IDispatch{
     static VTableNames => ["putref_x", "get_x", "putref_y", "get_y", "putref_width", "get_width", "putref_height", "get_height", "put_contentScriptType", "get_contentScriptType", "put_contentStyleType", "get_contentStyleType", "putref_viewport", "get_viewport", "put_pixelUnitToMillimeterX", "get_pixelUnitToMillimeterX", "put_pixelUnitToMillimeterY", "get_pixelUnitToMillimeterY", "put_screenPixelToMillimeterX", "get_screenPixelToMillimeterX", "put_screenPixelToMillimeterY", "get_screenPixelToMillimeterY", "put_useCurrentView", "get_useCurrentView", "putref_currentView", "get_currentView", "put_currentScale", "get_currentScale", "putref_currentTranslate", "get_currentTranslate", "suspendRedraw", "unsuspendRedraw", "unsuspendRedrawAll", "forceRedraw", "pauseAnimations", "unpauseAnimations", "animationsPaused", "getCurrentTime", "setCurrentTime", "getIntersectionList", "getEnclosureList", "checkIntersection", "checkEnclosure", "deselectAll", "createSVGNumber", "createSVGLength", "createSVGAngle", "createSVGPoint", "createSVGMatrix", "createSVGRect", "createSVGTransform", "createSVGTransformFromMatrix", "getElementById"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    x {
+        get => this.get_x()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    y {
+        get => this.get_y()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    contentScriptType {
+        get => this.get_contentScriptType()
+        set => this.put_contentScriptType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    contentStyleType {
+        get => this.get_contentStyleType()
+        set => this.put_contentStyleType(value)
+    }
+
+    /**
+     * @type {ISVGRect} 
+     */
+    viewport {
+        get => this.get_viewport()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    pixelUnitToMillimeterX {
+        get => this.get_pixelUnitToMillimeterX()
+        set => this.put_pixelUnitToMillimeterX(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    pixelUnitToMillimeterY {
+        get => this.get_pixelUnitToMillimeterY()
+        set => this.put_pixelUnitToMillimeterY(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    screenPixelToMillimeterX {
+        get => this.get_screenPixelToMillimeterX()
+        set => this.put_screenPixelToMillimeterX(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    screenPixelToMillimeterY {
+        get => this.get_screenPixelToMillimeterY()
+        set => this.put_screenPixelToMillimeterY(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    useCurrentView {
+        get => this.get_useCurrentView()
+        set => this.put_useCurrentView(value)
+    }
+
+    /**
+     * @type {ISVGViewSpec} 
+     */
+    currentView {
+        get => this.get_currentView()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    currentScale {
+        get => this.get_currentScale()
+        set => this.put_currentScale(value)
+    }
+
+    /**
+     * @type {ISVGPoint} 
+     */
+    currentTranslate {
+        get => this.get_currentTranslate()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

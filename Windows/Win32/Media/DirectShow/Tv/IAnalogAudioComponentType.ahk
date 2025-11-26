@@ -42,6 +42,14 @@ class IAnalogAudioComponentType extends IComponentType{
     static VTableNames => ["get_AnalogAudioMode", "put_AnalogAudioMode"]
 
     /**
+     * @type {Integer} 
+     */
+    AnalogAudioMode {
+        get => this.get_AnalogAudioMode()
+        set => this.put_AnalogAudioMode(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-get_analogaudiomode

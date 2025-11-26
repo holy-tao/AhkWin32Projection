@@ -37,6 +37,90 @@ class IDOMKeyboardEvent extends IDispatch{
     static VTableNames => ["get_key", "get_location", "get_ctrlKey", "get_shiftKey", "get_altKey", "get_metaKey", "get_repeat", "getModifierState", "initKeyboardEvent", "get_keyCode", "get_charCode", "get_which", "get_ie9_char", "get_locale"]
 
     /**
+     * @type {BSTR} 
+     */
+    key {
+        get => this.get_key()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    location {
+        get => this.get_location()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ctrlKey {
+        get => this.get_ctrlKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    shiftKey {
+        get => this.get_shiftKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    altKey {
+        get => this.get_altKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    metaKey {
+        get => this.get_metaKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    repeat {
+        get => this.get_repeat()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    keyCode {
+        get => this.get_keyCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    charCode {
+        get => this.get_charCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    which {
+        get => this.get_which()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ie9_char {
+        get => this.get_ie9_char()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    locale {
+        get => this.get_locale()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

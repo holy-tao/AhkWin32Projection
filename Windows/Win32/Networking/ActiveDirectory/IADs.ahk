@@ -33,6 +33,48 @@ class IADs extends IDispatch{
     static VTableNames => ["get_Name", "get_Class", "get_GUID", "get_ADsPath", "get_Parent", "get_Schema", "GetInfo", "SetInfo", "Get", "Put", "GetEx", "PutEx", "GetInfoEx"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Class {
+        get => this.get_Class()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GUID {
+        get => this.get_GUID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ADsPath {
+        get => this.get_ADsPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Schema {
+        get => this.get_Schema()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

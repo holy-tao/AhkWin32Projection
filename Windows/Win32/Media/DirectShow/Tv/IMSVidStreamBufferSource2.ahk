@@ -37,6 +37,34 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     static VTableNames => ["put_RateEx", "get_AudioCounter", "get_VideoCounter", "get_CCCounter", "get_WSTCounter"]
 
     /**
+     * @type {IUnknown} 
+     */
+    AudioCounter {
+        get => this.get_AudioCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    VideoCounter {
+        get => this.get_VideoCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    CCCounter {
+        get => this.get_CCCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    WSTCounter {
+        get => this.get_WSTCounter()
+    }
+
+    /**
      * 
      * @param {Float} dwRate 
      * @param {Integer} dwFramesPerSecond 

@@ -32,6 +32,34 @@ class IWMPClosedCaption extends IDispatch{
     static VTableNames => ["get_SAMIStyle", "put_SAMIStyle", "get_SAMILang", "put_SAMILang", "get_SAMIFileName", "put_SAMIFileName", "get_captioningId", "put_captioningId"]
 
     /**
+     */
+    SAMIStyle {
+        get => this.get_SAMIStyle()
+        set => this.put_SAMIStyle(value)
+    }
+
+    /**
+     */
+    SAMILang {
+        get => this.get_SAMILang()
+        set => this.put_SAMILang(value)
+    }
+
+    /**
+     */
+    SAMIFileName {
+        get => this.get_SAMIFileName()
+        set => this.put_SAMIFileName(value)
+    }
+
+    /**
+     */
+    captioningId {
+        get => this.get_captioningId()
+        set => this.put_captioningId(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrSAMIStyle 
      * @returns {HRESULT} 

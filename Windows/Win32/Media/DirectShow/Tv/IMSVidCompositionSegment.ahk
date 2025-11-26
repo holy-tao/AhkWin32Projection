@@ -29,6 +29,20 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment{
     static VTableNames => ["Compose", "get_Up", "get_Down"]
 
     /**
+     * @type {IMSVidGraphSegment} 
+     */
+    Up {
+        get => this.get_Up()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    Down {
+        get => this.get_Down()
+    }
+
+    /**
      * 
      * @param {IMSVidGraphSegment} upstream 
      * @param {IMSVidGraphSegment} downstream 

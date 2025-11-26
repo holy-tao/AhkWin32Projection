@@ -40,6 +40,46 @@ class IADsProperty extends IADs{
     static VTableNames => ["get_OID", "put_OID", "get_Syntax", "put_Syntax", "get_MaxRange", "put_MaxRange", "get_MinRange", "put_MinRange", "get_MultiValued", "put_MultiValued", "Qualifiers"]
 
     /**
+     * @type {BSTR} 
+     */
+    OID {
+        get => this.get_OID()
+        set => this.put_OID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Syntax {
+        get => this.get_Syntax()
+        set => this.put_Syntax(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxRange {
+        get => this.get_MaxRange()
+        set => this.put_MaxRange(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinRange {
+        get => this.get_MinRange()
+        set => this.put_MinRange(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MultiValued {
+        get => this.get_MultiValued()
+        set => this.put_MultiValued(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

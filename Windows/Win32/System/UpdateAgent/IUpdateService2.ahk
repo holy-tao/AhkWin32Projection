@@ -31,6 +31,13 @@ class IUpdateService2 extends IUpdateService{
     static VTableNames => ["get_IsDefaultAUService"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsDefaultAUService {
+        get => this.get_IsDefaultAUService()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice2-get_isdefaultauservice

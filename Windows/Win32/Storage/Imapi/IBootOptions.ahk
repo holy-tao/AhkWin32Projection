@@ -49,6 +49,44 @@ class IBootOptions extends IDispatch{
     static VTableNames => ["get_BootImage", "get_Manufacturer", "put_Manufacturer", "get_PlatformId", "put_PlatformId", "get_Emulation", "put_Emulation", "get_ImageSize", "AssignBootImage"]
 
     /**
+     * @type {IStream} 
+     */
+    BootImage {
+        get => this.get_BootImage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Manufacturer {
+        get => this.get_Manufacturer()
+        set => this.put_Manufacturer(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PlatformId {
+        get => this.get_PlatformId()
+        set => this.put_PlatformId(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Emulation {
+        get => this.get_Emulation()
+        set => this.put_Emulation(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ImageSize {
+        get => this.get_ImageSize()
+    }
+
+    /**
      * 
      * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_bootimage

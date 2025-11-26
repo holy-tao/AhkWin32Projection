@@ -36,6 +36,49 @@ class ISearchManager extends IUnknown{
     static VTableNames => ["GetIndexerVersionStr", "GetIndexerVersion", "GetParameter", "SetParameter", "get_ProxyName", "get_BypassList", "SetProxy", "GetCatalog", "get_UserAgent", "put_UserAgent", "get_UseProxy", "get_LocalBypass", "get_PortNumber"]
 
     /**
+     * @type {PWSTR} 
+     */
+    ProxyName {
+        get => this.get_ProxyName()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    BypassList {
+        get => this.get_BypassList()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    UserAgent {
+        get => this.get_UserAgent()
+        set => this.put_UserAgent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UseProxy {
+        get => this.get_UseProxy()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    LocalBypass {
+        get => this.get_LocalBypass()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PortNumber {
+        get => this.get_PortNumber()
+    }
+
+    /**
      * 
      * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversionstr

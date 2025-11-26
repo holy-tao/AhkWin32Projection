@@ -32,6 +32,14 @@ class IADsPathname extends IDispatch{
     static VTableNames => ["Set", "SetDisplayType", "Retrieve", "GetNumElements", "GetElement", "AddLeafElement", "RemoveLeafElement", "CopyPath", "GetEscapedElement", "get_EscapedMode", "put_EscapedMode"]
 
     /**
+     * @type {Integer} 
+     */
+    EscapedMode {
+        get => this.get_EscapedMode()
+        set => this.put_EscapedMode(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrADsPath 
      * @param {Integer} lnSetType 

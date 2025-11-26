@@ -38,6 +38,55 @@ class ISVGMarkerElement extends IDispatch{
     static VTableNames => ["putref_refX", "get_refX", "putref_refY", "get_refY", "putref_markerUnits", "get_markerUnits", "putref_markerWidth", "get_markerWidth", "putref_markerHeight", "get_markerHeight", "putref_orientType", "get_orientType", "putref_orientAngle", "get_orientAngle", "setOrientToAuto", "setOrientToAngle"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    refX {
+        get => this.get_refX()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    refY {
+        get => this.get_refY()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    markerUnits {
+        get => this.get_markerUnits()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    markerWidth {
+        get => this.get_markerWidth()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    markerHeight {
+        get => this.get_markerHeight()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    orientType {
+        get => this.get_orientType()
+    }
+
+    /**
+     * @type {ISVGAnimatedAngle} 
+     */
+    orientAngle {
+        get => this.get_orientAngle()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

@@ -32,6 +32,55 @@ class ITPluggableTerminalClassInfo extends IDispatch{
     static VTableNames => ["get_Name", "get_Company", "get_Version", "get_TerminalClass", "get_CLSID", "get_Direction", "get_MediaTypes"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Company {
+        get => this.get_Company()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalClass {
+        get => this.get_TerminalClass()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CLSID {
+        get => this.get_CLSID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaTypes {
+        get => this.get_MediaTypes()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_name

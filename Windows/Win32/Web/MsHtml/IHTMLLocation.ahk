@@ -36,6 +36,70 @@ class IHTMLLocation extends IDispatch{
     static VTableNames => ["put_href", "get_href", "put_protocol", "get_protocol", "put_host", "get_host", "put_hostname", "get_hostname", "put_port", "get_port", "put_pathname", "get_pathname", "put_search", "get_search", "put_hash", "get_hash", "reload", "replace", "assign", "toString"]
 
     /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    protocol {
+        get => this.get_protocol()
+        set => this.put_protocol(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    host {
+        get => this.get_host()
+        set => this.put_host(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hostname {
+        get => this.get_hostname()
+        set => this.put_hostname(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    port {
+        get => this.get_port()
+        set => this.put_port(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pathname {
+        get => this.get_pathname()
+        set => this.put_pathname(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    search {
+        get => this.get_search()
+        set => this.put_search(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hash {
+        get => this.get_hash()
+        set => this.put_hash(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

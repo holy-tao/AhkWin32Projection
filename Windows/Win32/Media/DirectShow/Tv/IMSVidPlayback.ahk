@@ -36,6 +36,45 @@ class IMSVidPlayback extends IMSVidInputDevice{
     static VTableNames => ["get_EnableResetOnStop", "put_EnableResetOnStop", "Run", "Pause", "Stop", "get_CanStep", "Step", "put_Rate", "get_Rate", "put_CurrentPosition", "get_CurrentPosition", "put_PositionMode", "get_PositionMode", "get_Length"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableResetOnStop {
+        get => this.get_EnableResetOnStop()
+        set => this.put_EnableResetOnStop(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Rate {
+        get => this.get_Rate()
+        set => this.put_Rate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPosition {
+        get => this.get_CurrentPosition()
+        set => this.put_CurrentPosition(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PositionMode {
+        get => this.get_PositionMode()
+        set => this.put_PositionMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_enableresetonstop

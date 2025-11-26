@@ -30,6 +30,34 @@ class IRTCPresencePropertyEvent extends IDispatch{
     static VTableNames => ["get_StatusCode", "get_StatusText", "get_PresenceProperty", "get_Value"]
 
     /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PresenceProperty {
+        get => this.get_PresenceProperty()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

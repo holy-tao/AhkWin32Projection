@@ -41,6 +41,41 @@ class IGridItemProvider extends IUnknown{
     static VTableNames => ["get_Row", "get_Column", "get_RowSpan", "get_ColumnSpan", "get_ContainingGrid"]
 
     /**
+     * @type {Integer} 
+     */
+    Row {
+        get => this.get_Row()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Column {
+        get => this.get_Column()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RowSpan {
+        get => this.get_RowSpan()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ColumnSpan {
+        get => this.get_ColumnSpan()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    ContainingGrid {
+        get => this.get_ContainingGrid()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_row

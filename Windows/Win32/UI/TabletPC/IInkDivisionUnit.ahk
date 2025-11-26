@@ -41,6 +41,34 @@ class IInkDivisionUnit extends IDispatch{
     static VTableNames => ["get_Strokes", "get_DivisionType", "get_RecognizedString", "get_RotationTransform"]
 
     /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DivisionType {
+        get => this.get_DivisionType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RecognizedString {
+        get => this.get_RecognizedString()
+    }
+
+    /**
+     * @type {IInkTransform} 
+     */
+    RotationTransform {
+        get => this.get_RotationTransform()
+    }
+
+    /**
      * 
      * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunit-get_strokes

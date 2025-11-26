@@ -31,6 +31,12 @@ class IWMPStringCollection extends IDispatch{
     static VTableNames => ["get_count", "item"]
 
     /**
+     */
+    count {
+        get => this.get_count()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 

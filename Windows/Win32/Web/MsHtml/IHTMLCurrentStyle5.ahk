@@ -31,6 +31,97 @@ class IHTMLCurrentStyle5 extends IDispatch{
     static VTableNames => ["get_captionSide", "get_outline", "get_outlineWidth", "get_outlineStyle", "get_outlineColor", "get_boxSizing", "get_borderSpacing", "get_orphans", "get_widows", "get_pageBreakInside", "get_emptyCells", "get_msBlockProgression", "get_quotes"]
 
     /**
+     * @type {BSTR} 
+     */
+    captionSide {
+        get => this.get_captionSide()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    outline {
+        get => this.get_outline()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    outlineWidth {
+        get => this.get_outlineWidth()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    outlineStyle {
+        get => this.get_outlineStyle()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    outlineColor {
+        get => this.get_outlineColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    boxSizing {
+        get => this.get_boxSizing()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderSpacing {
+        get => this.get_borderSpacing()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    orphans {
+        get => this.get_orphans()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    widows {
+        get => this.get_widows()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pageBreakInside {
+        get => this.get_pageBreakInside()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    emptyCells {
+        get => this.get_emptyCells()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msBlockProgression {
+        get => this.get_msBlockProgression()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    quotes {
+        get => this.get_quotes()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

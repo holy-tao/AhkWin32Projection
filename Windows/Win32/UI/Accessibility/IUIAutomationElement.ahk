@@ -37,6 +37,454 @@ class IUIAutomationElement extends IUnknown{
     static VTableNames => ["SetFocus", "GetRuntimeId", "FindFirst", "FindAll", "FindFirstBuildCache", "FindAllBuildCache", "BuildUpdatedCache", "GetCurrentPropertyValue", "GetCurrentPropertyValueEx", "GetCachedPropertyValue", "GetCachedPropertyValueEx", "GetCurrentPatternAs", "GetCachedPatternAs", "GetCurrentPattern", "GetCachedPattern", "GetCachedParent", "GetCachedChildren", "get_CurrentProcessId", "get_CurrentControlType", "get_CurrentLocalizedControlType", "get_CurrentName", "get_CurrentAcceleratorKey", "get_CurrentAccessKey", "get_CurrentHasKeyboardFocus", "get_CurrentIsKeyboardFocusable", "get_CurrentIsEnabled", "get_CurrentAutomationId", "get_CurrentClassName", "get_CurrentHelpText", "get_CurrentCulture", "get_CurrentIsControlElement", "get_CurrentIsContentElement", "get_CurrentIsPassword", "get_CurrentNativeWindowHandle", "get_CurrentItemType", "get_CurrentIsOffscreen", "get_CurrentOrientation", "get_CurrentFrameworkId", "get_CurrentIsRequiredForForm", "get_CurrentItemStatus", "get_CurrentBoundingRectangle", "get_CurrentLabeledBy", "get_CurrentAriaRole", "get_CurrentAriaProperties", "get_CurrentIsDataValidForForm", "get_CurrentControllerFor", "get_CurrentDescribedBy", "get_CurrentFlowsTo", "get_CurrentProviderDescription", "get_CachedProcessId", "get_CachedControlType", "get_CachedLocalizedControlType", "get_CachedName", "get_CachedAcceleratorKey", "get_CachedAccessKey", "get_CachedHasKeyboardFocus", "get_CachedIsKeyboardFocusable", "get_CachedIsEnabled", "get_CachedAutomationId", "get_CachedClassName", "get_CachedHelpText", "get_CachedCulture", "get_CachedIsControlElement", "get_CachedIsContentElement", "get_CachedIsPassword", "get_CachedNativeWindowHandle", "get_CachedItemType", "get_CachedIsOffscreen", "get_CachedOrientation", "get_CachedFrameworkId", "get_CachedIsRequiredForForm", "get_CachedItemStatus", "get_CachedBoundingRectangle", "get_CachedLabeledBy", "get_CachedAriaRole", "get_CachedAriaProperties", "get_CachedIsDataValidForForm", "get_CachedControllerFor", "get_CachedDescribedBy", "get_CachedFlowsTo", "get_CachedProviderDescription", "GetClickablePoint"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentProcessId {
+        get => this.get_CurrentProcessId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentControlType {
+        get => this.get_CurrentControlType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentLocalizedControlType {
+        get => this.get_CurrentLocalizedControlType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentName {
+        get => this.get_CurrentName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAcceleratorKey {
+        get => this.get_CurrentAcceleratorKey()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAccessKey {
+        get => this.get_CurrentAccessKey()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentHasKeyboardFocus {
+        get => this.get_CurrentHasKeyboardFocus()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsKeyboardFocusable {
+        get => this.get_CurrentIsKeyboardFocusable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsEnabled {
+        get => this.get_CurrentIsEnabled()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAutomationId {
+        get => this.get_CurrentAutomationId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentClassName {
+        get => this.get_CurrentClassName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentHelpText {
+        get => this.get_CurrentHelpText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentCulture {
+        get => this.get_CurrentCulture()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsControlElement {
+        get => this.get_CurrentIsControlElement()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsContentElement {
+        get => this.get_CurrentIsContentElement()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsPassword {
+        get => this.get_CurrentIsPassword()
+    }
+
+    /**
+     * @type {HWND} 
+     */
+    CurrentNativeWindowHandle {
+        get => this.get_CurrentNativeWindowHandle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentItemType {
+        get => this.get_CurrentItemType()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsOffscreen {
+        get => this.get_CurrentIsOffscreen()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentOrientation {
+        get => this.get_CurrentOrientation()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentFrameworkId {
+        get => this.get_CurrentFrameworkId()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsRequiredForForm {
+        get => this.get_CurrentIsRequiredForForm()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentItemStatus {
+        get => this.get_CurrentItemStatus()
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    CurrentBoundingRectangle {
+        get => this.get_CurrentBoundingRectangle()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CurrentLabeledBy {
+        get => this.get_CurrentLabeledBy()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAriaRole {
+        get => this.get_CurrentAriaRole()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAriaProperties {
+        get => this.get_CurrentAriaProperties()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsDataValidForForm {
+        get => this.get_CurrentIsDataValidForForm()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CurrentControllerFor {
+        get => this.get_CurrentControllerFor()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CurrentDescribedBy {
+        get => this.get_CurrentDescribedBy()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CurrentFlowsTo {
+        get => this.get_CurrentFlowsTo()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentProviderDescription {
+        get => this.get_CurrentProviderDescription()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedProcessId {
+        get => this.get_CachedProcessId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedControlType {
+        get => this.get_CachedControlType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedLocalizedControlType {
+        get => this.get_CachedLocalizedControlType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedName {
+        get => this.get_CachedName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedAcceleratorKey {
+        get => this.get_CachedAcceleratorKey()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedAccessKey {
+        get => this.get_CachedAccessKey()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedHasKeyboardFocus {
+        get => this.get_CachedHasKeyboardFocus()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsKeyboardFocusable {
+        get => this.get_CachedIsKeyboardFocusable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsEnabled {
+        get => this.get_CachedIsEnabled()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedAutomationId {
+        get => this.get_CachedAutomationId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedClassName {
+        get => this.get_CachedClassName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedHelpText {
+        get => this.get_CachedHelpText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedCulture {
+        get => this.get_CachedCulture()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsControlElement {
+        get => this.get_CachedIsControlElement()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsContentElement {
+        get => this.get_CachedIsContentElement()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsPassword {
+        get => this.get_CachedIsPassword()
+    }
+
+    /**
+     * @type {HWND} 
+     */
+    CachedNativeWindowHandle {
+        get => this.get_CachedNativeWindowHandle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedItemType {
+        get => this.get_CachedItemType()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsOffscreen {
+        get => this.get_CachedIsOffscreen()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedOrientation {
+        get => this.get_CachedOrientation()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedFrameworkId {
+        get => this.get_CachedFrameworkId()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsRequiredForForm {
+        get => this.get_CachedIsRequiredForForm()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedItemStatus {
+        get => this.get_CachedItemStatus()
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    CachedBoundingRectangle {
+        get => this.get_CachedBoundingRectangle()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CachedLabeledBy {
+        get => this.get_CachedLabeledBy()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedAriaRole {
+        get => this.get_CachedAriaRole()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedAriaProperties {
+        get => this.get_CachedAriaProperties()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsDataValidForForm {
+        get => this.get_CachedIsDataValidForForm()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CachedControllerFor {
+        get => this.get_CachedControllerFor()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CachedDescribedBy {
+        get => this.get_CachedDescribedBy()
+    }
+
+    /**
+     * @type {IUIAutomationElementArray} 
+     */
+    CachedFlowsTo {
+        get => this.get_CachedFlowsTo()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedProviderDescription {
+        get => this.get_CachedProviderDescription()
+    }
+
+    /**
      * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
      * @returns {HRESULT} Type: **HWND**
      * 

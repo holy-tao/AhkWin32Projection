@@ -36,6 +36,14 @@ class IUpdateSearcher2 extends IUpdateSearcher{
     static VTableNames => ["get_IgnoreDownloadPriority", "put_IgnoreDownloadPriority"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IgnoreDownloadPriority {
+        get => this.get_IgnoreDownloadPriority()
+        set => this.put_IgnoreDownloadPriority(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority

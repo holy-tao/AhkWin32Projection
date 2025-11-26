@@ -42,6 +42,66 @@ class INetFwService extends IDispatch{
     static VTableNames => ["get_Name", "get_Type", "get_Customized", "get_IpVersion", "put_IpVersion", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled", "get_GloballyOpenPorts"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Customized {
+        get => this.get_Customized()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IpVersion {
+        get => this.get_IpVersion()
+        set => this.put_IpVersion(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Scope {
+        get => this.get_Scope()
+        set => this.put_Scope(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteAddresses {
+        get => this.get_RemoteAddresses()
+        set => this.put_RemoteAddresses(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {INetFwOpenPorts} 
+     */
+    GloballyOpenPorts {
+        get => this.get_GloballyOpenPorts()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_name

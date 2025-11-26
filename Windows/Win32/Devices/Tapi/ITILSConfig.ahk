@@ -31,6 +31,14 @@ class ITILSConfig extends IDispatch{
     static VTableNames => ["get_Port", "put_Port"]
 
     /**
+     * @type {Integer} 
+     */
+    Port {
+        get => this.get_Port()
+        set => this.put_Port(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itilsconfig-get_port

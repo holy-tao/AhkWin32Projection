@@ -34,6 +34,20 @@ class IAzRoleAssignment extends IAzRole{
     static VTableNames => ["AddRoleDefinition", "DeleteRoleDefinition", "get_RoleDefinitions", "get_Scope"]
 
     /**
+     * @type {IAzRoleDefinitions} 
+     */
+    RoleDefinitions {
+        get => this.get_RoleDefinitions()
+    }
+
+    /**
+     * @type {IAzScope} 
+     */
+    Scope {
+        get => this.get_Scope()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrRoleDefinition 
      * @returns {HRESULT} 

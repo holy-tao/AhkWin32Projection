@@ -32,6 +32,20 @@ class IUIAutomationElement6 extends IUIAutomationElement5{
     static VTableNames => ["get_CurrentFullDescription", "get_CachedFullDescription"]
 
     /**
+     * @type {BSTR} 
+     */
+    CurrentFullDescription {
+        get => this.get_CurrentFullDescription()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedFullDescription {
+        get => this.get_CachedFullDescription()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription

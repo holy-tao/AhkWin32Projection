@@ -36,6 +36,94 @@ class ISearchRoot extends IUnknown{
     static VTableNames => ["put_Schedule", "get_Schedule", "put_RootURL", "get_RootURL", "put_IsHierarchical", "get_IsHierarchical", "put_ProvidesNotifications", "get_ProvidesNotifications", "put_UseNotificationsOnly", "get_UseNotificationsOnly", "put_EnumerationDepth", "get_EnumerationDepth", "put_HostDepth", "get_HostDepth", "put_FollowDirectories", "get_FollowDirectories", "put_AuthenticationType", "get_AuthenticationType", "put_User", "get_User", "put_Password", "get_Password"]
 
     /**
+     * @type {PWSTR} 
+     */
+    Schedule {
+        get => this.get_Schedule()
+        set => this.put_Schedule(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    RootURL {
+        get => this.get_RootURL()
+        set => this.put_RootURL(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsHierarchical {
+        get => this.get_IsHierarchical()
+        set => this.put_IsHierarchical(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ProvidesNotifications {
+        get => this.get_ProvidesNotifications()
+        set => this.put_ProvidesNotifications(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    UseNotificationsOnly {
+        get => this.get_UseNotificationsOnly()
+        set => this.put_UseNotificationsOnly(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EnumerationDepth {
+        get => this.get_EnumerationDepth()
+        set => this.put_EnumerationDepth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HostDepth {
+        get => this.get_HostDepth()
+        set => this.put_HostDepth(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    FollowDirectories {
+        get => this.get_FollowDirectories()
+        set => this.put_FollowDirectories(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AuthenticationType {
+        get => this.get_AuthenticationType()
+        set => this.put_AuthenticationType(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    User {
+        get => this.get_User()
+        set => this.put_User(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Password {
+        get => this.get_Password()
+        set => this.put_Password(value)
+    }
+
+    /**
      * 
      * @param {PWSTR} pszTaskArg 
      * @returns {HRESULT} 

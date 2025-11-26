@@ -31,6 +31,30 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
     static VTableNames => ["get_PropertiesAffected", "put_PropertiesAffected", "get_PropertiesUsed", "put_PropertiesUsed", "get_NeedsExplicitValue", "put_NeedsExplicitValue"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    PropertiesAffected {
+        get => this.get_PropertiesAffected()
+        set => this.put_PropertiesAffected(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    PropertiesUsed {
+        get => this.get_PropertiesUsed()
+        set => this.put_PropertiesUsed(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NeedsExplicitValue {
+        get => this.get_NeedsExplicitValue()
+        set => this.put_NeedsExplicitValue(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesaffected

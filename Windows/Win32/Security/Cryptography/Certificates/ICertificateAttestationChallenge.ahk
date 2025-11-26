@@ -36,6 +36,13 @@ class ICertificateAttestationChallenge extends IDispatch{
     static VTableNames => ["Initialize", "DecryptChallenge", "get_RequestID"]
 
     /**
+     * @type {BSTR} 
+     */
+    RequestID {
+        get => this.get_RequestID()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} Encoding 
      * @param {BSTR} strPendingFullCmcResponseWithChallenge 

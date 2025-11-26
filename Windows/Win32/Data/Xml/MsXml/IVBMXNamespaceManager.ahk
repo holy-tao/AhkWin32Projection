@@ -32,6 +32,14 @@ class IVBMXNamespaceManager extends IDispatch{
     static VTableNames => ["put_allowOverride", "get_allowOverride", "reset", "pushContext", "pushNodeContext", "popContext", "declarePrefix", "getDeclaredPrefixes", "getPrefixes", "getURI", "getURIFromNode"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    allowOverride {
+        get => this.get_allowOverride()
+        set => this.put_allowOverride(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} fOverride 
      * @returns {HRESULT} 

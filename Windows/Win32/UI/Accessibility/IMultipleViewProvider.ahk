@@ -38,6 +38,13 @@ class IMultipleViewProvider extends IUnknown{
     static VTableNames => ["GetViewName", "SetCurrentView", "get_CurrentView", "GetSupportedViews"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentView {
+        get => this.get_CurrentView()
+    }
+
+    /**
      * 
      * @param {Integer} viewId 
      * @returns {BSTR} 

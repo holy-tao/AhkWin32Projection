@@ -32,6 +32,27 @@ class ITCallInfoChangeEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_Cause", "get_CallbackInstance"]
 
     /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Cause {
+        get => this.get_Cause()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallbackInstance {
+        get => this.get_CallbackInstance()
+    }
+
+    /**
      * 
      * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_call

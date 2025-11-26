@@ -29,6 +29,13 @@ class IHTMLStyleSheetRuleApplied extends IDispatch{
     static VTableNames => ["get_msSpecificity", "msGetSpecificity"]
 
     /**
+     * @type {Integer} 
+     */
+    msSpecificity {
+        get => this.get_msSpecificity()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

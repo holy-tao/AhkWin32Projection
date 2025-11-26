@@ -38,6 +38,20 @@ class ISelectionItemProvider extends IUnknown{
     static VTableNames => ["Select", "AddToSelection", "RemoveFromSelection", "get_IsSelected", "get_SelectionContainer"]
 
     /**
+     * @type {BOOL} 
+     */
+    IsSelected {
+        get => this.get_IsSelected()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    SelectionContainer {
+        get => this.get_SelectionContainer()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionitemprovider-select

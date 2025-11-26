@@ -33,6 +33,13 @@ class IX509ExtensionMSApplicationPolicies extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_Policies"]
 
     /**
+     * @type {ICertificatePolicies} 
+     */
+    Policies {
+        get => this.get_Policies()
+    }
+
+    /**
      * 
      * @param {ICertificatePolicies} pValue 
      * @returns {HRESULT} 

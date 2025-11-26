@@ -39,6 +39,20 @@ class IComHandlerAction extends IAction{
     static VTableNames => ["get_ClassId", "put_ClassId", "get_Data", "put_Data"]
 
     /**
+     */
+    ClassId {
+        get => this.get_ClassId()
+        set => this.put_ClassId(value)
+    }
+
+    /**
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pClsid 
      * @returns {HRESULT} 

@@ -33,6 +33,34 @@ class IWMPControls extends IDispatch{
     static VTableNames => ["get_isAvailable", "play", "stop", "pause", "fastForward", "fastReverse", "get_currentPosition", "put_currentPosition", "get_currentPositionString", "next", "previous", "get_currentItem", "put_currentItem", "get_currentMarker", "put_currentMarker", "playItem"]
 
     /**
+     */
+    currentPosition {
+        get => this.get_currentPosition()
+        set => this.put_currentPosition(value)
+    }
+
+    /**
+     */
+    currentPositionString {
+        get => this.get_currentPositionString()
+    }
+
+    /**
+     * @type {IWMPMedia} 
+     */
+    currentItem {
+        get => this.get_currentItem()
+        set => this.put_currentItem(value)
+    }
+
+    /**
+     */
+    currentMarker {
+        get => this.get_currentMarker()
+        set => this.put_currentMarker(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrItem 
      * @param {Pointer<VARIANT_BOOL>} pIsAvailable 

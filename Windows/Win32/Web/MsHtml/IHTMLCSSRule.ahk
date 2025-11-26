@@ -38,6 +38,35 @@ class IHTMLCSSRule extends IDispatch{
     static VTableNames => ["get_type", "put_cssText", "get_cssText", "get_parentRule", "get_parentStyleSheet"]
 
     /**
+     * @type {Integer} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cssText {
+        get => this.get_cssText()
+        set => this.put_cssText(value)
+    }
+
+    /**
+     * @type {IHTMLCSSRule} 
+     */
+    parentRule {
+        get => this.get_parentRule()
+    }
+
+    /**
+     * @type {IHTMLStyleSheet} 
+     */
+    parentStyleSheet {
+        get => this.get_parentStyleSheet()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -38,6 +38,105 @@ class IPenInputPanel extends IDispatch{
     static VTableNames => ["get_Busy", "get_Factoid", "put_Factoid", "get_AttachedEditWindow", "put_AttachedEditWindow", "get_CurrentPanel", "put_CurrentPanel", "get_DefaultPanel", "put_DefaultPanel", "get_Visible", "put_Visible", "get_Top", "get_Left", "get_Width", "get_Height", "get_VerticalOffset", "put_VerticalOffset", "get_HorizontalOffset", "put_HorizontalOffset", "get_AutoShow", "put_AutoShow", "MoveTo", "CommitPendingInput", "Refresh", "EnableTsf"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Busy {
+        get => this.get_Busy()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Factoid {
+        get => this.get_Factoid()
+        set => this.put_Factoid(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AttachedEditWindow {
+        get => this.get_AttachedEditWindow()
+        set => this.put_AttachedEditWindow(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentPanel {
+        get => this.get_CurrentPanel()
+        set => this.put_CurrentPanel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultPanel {
+        get => this.get_DefaultPanel()
+        set => this.put_DefaultPanel(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Top {
+        get => this.get_Top()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Left {
+        get => this.get_Left()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VerticalOffset {
+        get => this.get_VerticalOffset()
+        set => this.put_VerticalOffset(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HorizontalOffset {
+        get => this.get_HorizontalOffset()
+        set => this.put_HorizontalOffset(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoShow {
+        get => this.get_AutoShow()
+        set => this.put_AutoShow(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_busy

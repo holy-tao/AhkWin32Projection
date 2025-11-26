@@ -36,6 +36,34 @@ class IMbnDeviceService extends IUnknown{
     static VTableNames => ["QuerySupportedCommands", "OpenCommandSession", "CloseCommandSession", "SetCommand", "QueryCommand", "OpenDataSession", "CloseDataSession", "WriteData", "get_InterfaceID", "get_DeviceServiceID", "get_IsCommandSessionOpen", "get_IsDataSessionOpen"]
 
     /**
+     * @type {BSTR} 
+     */
+    InterfaceID {
+        get => this.get_InterfaceID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceServiceID {
+        get => this.get_DeviceServiceID()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsCommandSessionOpen {
+        get => this.get_IsCommandSessionOpen()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsDataSessionOpen {
+        get => this.get_IsDataSessionOpen()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querysupportedcommands

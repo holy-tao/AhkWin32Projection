@@ -44,6 +44,125 @@ class IFaxOutgoingMessage extends IDispatch{
     static VTableNames => ["get_SubmissionId", "get_Id", "get_Subject", "get_DocumentName", "get_Retries", "get_Pages", "get_Size", "get_OriginalScheduledTime", "get_SubmissionTime", "get_Priority", "get_Sender", "get_Recipient", "get_DeviceName", "get_TransmissionStart", "get_TransmissionEnd", "get_CSID", "get_TSID", "CopyTiff", "Delete"]
 
     /**
+     * @type {BSTR} 
+     */
+    SubmissionId {
+        get => this.get_SubmissionId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Subject {
+        get => this.get_Subject()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DocumentName {
+        get => this.get_DocumentName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Pages {
+        get => this.get_Pages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    OriginalScheduledTime {
+        get => this.get_OriginalScheduledTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    SubmissionTime {
+        get => this.get_SubmissionTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+    }
+
+    /**
+     * @type {IFaxSender} 
+     */
+    Sender {
+        get => this.get_Sender()
+    }
+
+    /**
+     * @type {IFaxRecipient} 
+     */
+    Recipient {
+        get => this.get_Recipient()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceName {
+        get => this.get_DeviceName()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionStart {
+        get => this.get_TransmissionStart()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionEnd {
+        get => this.get_TransmissionEnd()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSID {
+        get => this.get_CSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissionid

@@ -32,6 +32,104 @@ class IUIAutomationStylesPattern extends IUnknown{
     static VTableNames => ["get_CurrentStyleId", "get_CurrentStyleName", "get_CurrentFillColor", "get_CurrentFillPatternStyle", "get_CurrentShape", "get_CurrentFillPatternColor", "get_CurrentExtendedProperties", "GetCurrentExtendedPropertiesAsArray", "get_CachedStyleId", "get_CachedStyleName", "get_CachedFillColor", "get_CachedFillPatternStyle", "get_CachedShape", "get_CachedFillPatternColor", "get_CachedExtendedProperties", "GetCachedExtendedPropertiesAsArray"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentStyleId {
+        get => this.get_CurrentStyleId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentStyleName {
+        get => this.get_CurrentStyleName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentFillColor {
+        get => this.get_CurrentFillColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentFillPatternStyle {
+        get => this.get_CurrentFillPatternStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentShape {
+        get => this.get_CurrentShape()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentFillPatternColor {
+        get => this.get_CurrentFillPatternColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentExtendedProperties {
+        get => this.get_CurrentExtendedProperties()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedStyleId {
+        get => this.get_CachedStyleId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedStyleName {
+        get => this.get_CachedStyleName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedFillColor {
+        get => this.get_CachedFillColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedFillPatternStyle {
+        get => this.get_CachedFillPatternStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedShape {
+        get => this.get_CachedShape()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedFillPatternColor {
+        get => this.get_CachedFillPatternColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CachedExtendedProperties {
+        get => this.get_CachedExtendedProperties()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstyleid

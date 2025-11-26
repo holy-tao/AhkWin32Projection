@@ -57,6 +57,78 @@ class IConfigurationDataCollector extends IDataCollector{
     static VTableNames => ["get_FileMaxCount", "put_FileMaxCount", "get_FileMaxRecursiveDepth", "put_FileMaxRecursiveDepth", "get_FileMaxTotalSize", "put_FileMaxTotalSize", "get_Files", "put_Files", "get_ManagementQueries", "put_ManagementQueries", "get_QueryNetworkAdapters", "put_QueryNetworkAdapters", "get_RegistryKeys", "put_RegistryKeys", "get_RegistryMaxRecursiveDepth", "put_RegistryMaxRecursiveDepth", "get_SystemStateFile", "put_SystemStateFile"]
 
     /**
+     * @type {Integer} 
+     */
+    FileMaxCount {
+        get => this.get_FileMaxCount()
+        set => this.put_FileMaxCount(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileMaxRecursiveDepth {
+        get => this.get_FileMaxRecursiveDepth()
+        set => this.put_FileMaxRecursiveDepth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileMaxTotalSize {
+        get => this.get_FileMaxTotalSize()
+        set => this.put_FileMaxTotalSize(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Files {
+        get => this.get_Files()
+        set => this.put_Files(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ManagementQueries {
+        get => this.get_ManagementQueries()
+        set => this.put_ManagementQueries(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    QueryNetworkAdapters {
+        get => this.get_QueryNetworkAdapters()
+        set => this.put_QueryNetworkAdapters(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    RegistryKeys {
+        get => this.get_RegistryKeys()
+        set => this.put_RegistryKeys(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RegistryMaxRecursiveDepth {
+        get => this.get_RegistryMaxRecursiveDepth()
+        set => this.put_RegistryMaxRecursiveDepth(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SystemStateFile {
+        get => this.get_SystemStateFile()
+        set => this.put_SystemStateFile(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxcount

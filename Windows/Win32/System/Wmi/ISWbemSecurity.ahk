@@ -36,6 +36,29 @@ class ISWbemSecurity extends IDispatch{
     static VTableNames => ["get_ImpersonationLevel", "put_ImpersonationLevel", "get_AuthenticationLevel", "put_AuthenticationLevel", "get_Privileges"]
 
     /**
+     * @type {Integer} 
+     */
+    ImpersonationLevel {
+        get => this.get_ImpersonationLevel()
+        set => this.put_ImpersonationLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AuthenticationLevel {
+        get => this.get_AuthenticationLevel()
+        set => this.put_AuthenticationLevel(value)
+    }
+
+    /**
+     * @type {ISWbemPrivilegeSet} 
+     */
+    Privileges {
+        get => this.get_Privileges()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

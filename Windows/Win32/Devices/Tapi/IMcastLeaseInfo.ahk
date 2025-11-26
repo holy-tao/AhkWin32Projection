@@ -34,6 +34,57 @@ class IMcastLeaseInfo extends IDispatch{
     static VTableNames => ["get_RequestID", "get_LeaseStartTime", "put_LeaseStartTime", "get_LeaseStopTime", "put_LeaseStopTime", "get_AddressCount", "get_ServerAddress", "get_TTL", "get_Addresses", "EnumerateAddresses"]
 
     /**
+     * @type {BSTR} 
+     */
+    RequestID {
+        get => this.get_RequestID()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LeaseStartTime {
+        get => this.get_LeaseStartTime()
+        set => this.put_LeaseStartTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LeaseStopTime {
+        get => this.get_LeaseStopTime()
+        set => this.put_LeaseStopTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AddressCount {
+        get => this.get_AddressCount()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServerAddress {
+        get => this.get_ServerAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TTL {
+        get => this.get_TTL()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Addresses {
+        get => this.get_Addresses()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_requestid

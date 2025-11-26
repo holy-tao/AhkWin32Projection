@@ -32,6 +32,104 @@ class IWMPNetwork extends IDispatch{
     static VTableNames => ["get_bandWidth", "get_recoveredPackets", "get_sourceProtocol", "get_receivedPackets", "get_lostPackets", "get_receptionQuality", "get_bufferingCount", "get_bufferingProgress", "get_bufferingTime", "put_bufferingTime", "get_frameRate", "get_maxBitRate", "get_bitRate", "getProxySettings", "setProxySettings", "getProxyName", "setProxyName", "getProxyPort", "setProxyPort", "getProxyExceptionList", "setProxyExceptionList", "getProxyBypassForLocal", "setProxyBypassForLocal", "get_maxBandwidth", "put_maxBandwidth", "get_downloadProgress", "get_encodedFrameRate", "get_framesSkipped"]
 
     /**
+     */
+    bandWidth {
+        get => this.get_bandWidth()
+    }
+
+    /**
+     */
+    recoveredPackets {
+        get => this.get_recoveredPackets()
+    }
+
+    /**
+     */
+    sourceProtocol {
+        get => this.get_sourceProtocol()
+    }
+
+    /**
+     */
+    receivedPackets {
+        get => this.get_receivedPackets()
+    }
+
+    /**
+     */
+    lostPackets {
+        get => this.get_lostPackets()
+    }
+
+    /**
+     */
+    receptionQuality {
+        get => this.get_receptionQuality()
+    }
+
+    /**
+     */
+    bufferingCount {
+        get => this.get_bufferingCount()
+    }
+
+    /**
+     */
+    bufferingProgress {
+        get => this.get_bufferingProgress()
+    }
+
+    /**
+     */
+    bufferingTime {
+        get => this.get_bufferingTime()
+        set => this.put_bufferingTime(value)
+    }
+
+    /**
+     */
+    frameRate {
+        get => this.get_frameRate()
+    }
+
+    /**
+     */
+    maxBitRate {
+        get => this.get_maxBitRate()
+    }
+
+    /**
+     */
+    bitRate {
+        get => this.get_bitRate()
+    }
+
+    /**
+     */
+    maxBandwidth {
+        get => this.get_maxBandwidth()
+        set => this.put_maxBandwidth(value)
+    }
+
+    /**
+     */
+    downloadProgress {
+        get => this.get_downloadProgress()
+    }
+
+    /**
+     */
+    encodedFrameRate {
+        get => this.get_encodedFrameRate()
+    }
+
+    /**
+     */
+    framesSkipped {
+        get => this.get_framesSkipped()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plBandwidth 
      * @returns {HRESULT} 

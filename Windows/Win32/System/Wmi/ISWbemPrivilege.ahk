@@ -36,6 +36,35 @@ class ISWbemPrivilege extends IDispatch{
     static VTableNames => ["get_IsEnabled", "put_IsEnabled", "get_Name", "get_DisplayName", "get_Identifier"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsEnabled {
+        get => this.get_IsEnabled()
+        set => this.put_IsEnabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Identifier {
+        get => this.get_Identifier()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

@@ -35,6 +35,44 @@ class IValueMap extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "get_Description", "put_Description", "get_Value", "put_Value", "get_ValueMapType", "put_ValueMapType", "Add", "Remove", "Clear", "AddRange", "CreateValueMapItem"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ValueMapType {
+        get => this.get_ValueMapType()
+        set => this.put_ValueMapType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_count

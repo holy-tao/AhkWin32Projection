@@ -36,6 +36,21 @@ class ISVGPathSeg extends IDispatch{
     static VTableNames => ["put_pathSegType", "get_pathSegType", "get_pathSegTypeAsLetter"]
 
     /**
+     * @type {Integer} 
+     */
+    pathSegType {
+        get => this.get_pathSegType()
+        set => this.put_pathSegType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pathSegTypeAsLetter {
+        get => this.get_pathSegTypeAsLetter()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

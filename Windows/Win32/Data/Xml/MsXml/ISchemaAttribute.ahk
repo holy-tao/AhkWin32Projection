@@ -32,6 +32,48 @@ class ISchemaAttribute extends ISchemaItem{
     static VTableNames => ["get_type", "get_scope", "get_defaultValue", "get_fixedValue", "get_use", "get_isReference"]
 
     /**
+     * @type {ISchemaType} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {ISchemaComplexType} 
+     */
+    scope {
+        get => this.get_scope()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultValue {
+        get => this.get_defaultValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fixedValue {
+        get => this.get_fixedValue()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    use {
+        get => this.get_use()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isReference {
+        get => this.get_isReference()
+    }
+
+    /**
      * 
      * @returns {ISchemaType} 
      */

@@ -37,6 +37,20 @@ class IUIAutomationTablePattern extends IUnknown{
     static VTableNames => ["GetCurrentRowHeaders", "GetCurrentColumnHeaders", "get_CurrentRowOrColumnMajor", "GetCachedRowHeaders", "GetCachedColumnHeaders", "get_CachedRowOrColumnMajor"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentRowOrColumnMajor {
+        get => this.get_CurrentRowOrColumnMajor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedRowOrColumnMajor {
+        get => this.get_CachedRowOrColumnMajor()
+    }
+
+    /**
      * 
      * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcurrentrowheaders

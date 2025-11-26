@@ -37,6 +37,60 @@ class IHTMLDialog extends IDispatch{
     static VTableNames => ["put_dialogTop", "get_dialogTop", "put_dialogLeft", "get_dialogLeft", "put_dialogWidth", "get_dialogWidth", "put_dialogHeight", "get_dialogHeight", "get_dialogArguments", "get_menuArguments", "put_returnValue", "get_returnValue", "close", "toString"]
 
     /**
+     * @type {VARIANT} 
+     */
+    dialogTop {
+        get => this.get_dialogTop()
+        set => this.put_dialogTop(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    dialogLeft {
+        get => this.get_dialogLeft()
+        set => this.put_dialogLeft(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    dialogWidth {
+        get => this.get_dialogWidth()
+        set => this.put_dialogWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    dialogHeight {
+        get => this.get_dialogHeight()
+        set => this.put_dialogHeight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    dialogArguments {
+        get => this.get_dialogArguments()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    menuArguments {
+        get => this.get_menuArguments()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    returnValue {
+        get => this.get_returnValue()
+        set => this.put_returnValue(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

@@ -33,6 +33,30 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
     static VTableNames => ["get_BizRule", "put_BizRule", "get_BizRuleLanguage", "put_BizRuleLanguage", "get_BizRuleImportedPath", "put_BizRuleImportedPath", "RoleAssignments"]
 
     /**
+     * @type {BSTR} 
+     */
+    BizRule {
+        get => this.get_BizRule()
+        set => this.put_BizRule(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BizRuleLanguage {
+        get => this.get_BizRuleLanguage()
+        set => this.put_BizRuleLanguage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BizRuleImportedPath {
+        get => this.get_BizRuleImportedPath()
+        set => this.put_BizRuleImportedPath(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrule

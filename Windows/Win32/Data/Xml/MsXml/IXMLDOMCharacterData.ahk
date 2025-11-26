@@ -30,6 +30,21 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
     static VTableNames => ["get_data", "put_data", "get_length", "substringData", "appendData", "insertData", "deleteData", "replaceData"]
 
     /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

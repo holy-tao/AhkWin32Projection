@@ -34,6 +34,19 @@ class ITaskNamedValueCollection extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "Create", "Remove", "Clear"]
 
     /**
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 

@@ -32,6 +32,21 @@ class IFsrmObject extends IDispatch{
     static VTableNames => ["get_Id", "get_Description", "put_Description", "Delete", "Commit"]
 
     /**
+     * @type {Guid} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-get_id

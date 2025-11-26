@@ -36,6 +36,13 @@ class ILatLongReportFactory extends ILocationReportFactory{
     static VTableNames => ["get_LatLongReport"]
 
     /**
+     * @type {IDispLatLongReport} 
+     */
+    LatLongReport {
+        get => this.get_LatLongReport()
+    }
+
+    /**
      * 
      * @returns {IDispLatLongReport} 
      */

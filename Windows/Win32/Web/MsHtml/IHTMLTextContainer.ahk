@@ -30,6 +30,44 @@ class IHTMLTextContainer extends IDispatch{
     static VTableNames => ["createControlRange", "get_scrollHeight", "get_scrollWidth", "put_scrollTop", "get_scrollTop", "put_scrollLeft", "get_scrollLeft", "put_onscroll", "get_onscroll"]
 
     /**
+     * @type {Integer} 
+     */
+    scrollHeight {
+        get => this.get_scrollHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollWidth {
+        get => this.get_scrollWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollTop {
+        get => this.get_scrollTop()
+        set => this.put_scrollTop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollLeft {
+        get => this.get_scrollLeft()
+        set => this.put_scrollLeft(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onscroll {
+        get => this.get_onscroll()
+        set => this.put_onscroll(value)
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

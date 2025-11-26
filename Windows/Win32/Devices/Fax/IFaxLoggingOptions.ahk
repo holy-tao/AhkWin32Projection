@@ -44,6 +44,20 @@ class IFaxLoggingOptions extends IDispatch{
     static VTableNames => ["get_EventLogging", "get_ActivityLogging"]
 
     /**
+     * @type {IFaxEventLogging} 
+     */
+    EventLogging {
+        get => this.get_EventLogging()
+    }
+
+    /**
+     * @type {IFaxActivityLogging} 
+     */
+    ActivityLogging {
+        get => this.get_ActivityLogging()
+    }
+
+    /**
      * 
      * @returns {IFaxEventLogging} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxloggingoptions-get_eventlogging

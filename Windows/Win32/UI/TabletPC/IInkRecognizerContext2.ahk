@@ -32,6 +32,14 @@ class IInkRecognizerContext2 extends IDispatch{
     static VTableNames => ["get_EnabledUnicodeRanges", "put_EnabledUnicodeRanges"]
 
     /**
+     * @type {VARIANT} 
+     */
+    EnabledUnicodeRanges {
+        get => this.get_EnabledUnicodeRanges()
+        set => this.put_EnabledUnicodeRanges(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext2-get_enabledunicoderanges

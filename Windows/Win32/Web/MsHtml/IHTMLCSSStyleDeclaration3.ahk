@@ -31,6 +31,166 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
     static VTableNames => ["put_flex", "get_flex", "put_flexDirection", "get_flexDirection", "put_flexWrap", "get_flexWrap", "put_flexFlow", "get_flexFlow", "put_flexGrow", "get_flexGrow", "put_flexShrink", "get_flexShrink", "put_flexBasis", "get_flexBasis", "put_justifyContent", "get_justifyContent", "put_alignItems", "get_alignItems", "put_alignSelf", "get_alignSelf", "put_alignContent", "get_alignContent", "put_borderImage", "get_borderImage", "put_borderImageSource", "get_borderImageSource", "put_borderImageSlice", "get_borderImageSlice", "put_borderImageWidth", "get_borderImageWidth", "put_borderImageOutset", "get_borderImageOutset", "put_borderImageRepeat", "get_borderImageRepeat", "put_msImeAlign", "get_msImeAlign", "put_msTextCombineHorizontal", "get_msTextCombineHorizontal", "put_touchAction", "get_touchAction"]
 
     /**
+     * @type {BSTR} 
+     */
+    flex {
+        get => this.get_flex()
+        set => this.put_flex(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    flexDirection {
+        get => this.get_flexDirection()
+        set => this.put_flexDirection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    flexWrap {
+        get => this.get_flexWrap()
+        set => this.put_flexWrap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    flexFlow {
+        get => this.get_flexFlow()
+        set => this.put_flexFlow(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    flexGrow {
+        get => this.get_flexGrow()
+        set => this.put_flexGrow(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    flexShrink {
+        get => this.get_flexShrink()
+        set => this.put_flexShrink(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    flexBasis {
+        get => this.get_flexBasis()
+        set => this.put_flexBasis(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    justifyContent {
+        get => this.get_justifyContent()
+        set => this.put_justifyContent(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alignItems {
+        get => this.get_alignItems()
+        set => this.put_alignItems(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alignSelf {
+        get => this.get_alignSelf()
+        set => this.put_alignSelf(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alignContent {
+        get => this.get_alignContent()
+        set => this.put_alignContent(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderImage {
+        get => this.get_borderImage()
+        set => this.put_borderImage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderImageSource {
+        get => this.get_borderImageSource()
+        set => this.put_borderImageSource(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderImageSlice {
+        get => this.get_borderImageSlice()
+        set => this.put_borderImageSlice(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderImageWidth {
+        get => this.get_borderImageWidth()
+        set => this.put_borderImageWidth(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderImageOutset {
+        get => this.get_borderImageOutset()
+        set => this.put_borderImageOutset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderImageRepeat {
+        get => this.get_borderImageRepeat()
+        set => this.put_borderImageRepeat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msImeAlign {
+        get => this.get_msImeAlign()
+        set => this.put_msImeAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTextCombineHorizontal {
+        get => this.get_msTextCombineHorizontal()
+        set => this.put_msTextCombineHorizontal(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    touchAction {
+        get => this.get_touchAction()
+        set => this.put_touchAction(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -40,6 +40,41 @@ class IMultisessionSequential extends IMultisession{
     static VTableNames => ["get_IsFirstDataSession", "get_StartAddressOfPreviousSession", "get_LastWrittenAddressOfPreviousSession", "get_NextWritableAddress", "get_FreeSectorsOnMedia"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsFirstDataSession {
+        get => this.get_IsFirstDataSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartAddressOfPreviousSession {
+        get => this.get_StartAddressOfPreviousSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastWrittenAddressOfPreviousSession {
+        get => this.get_LastWrittenAddressOfPreviousSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NextWritableAddress {
+        get => this.get_NextWritableAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeSectorsOnMedia {
+        get => this.get_FreeSectorsOnMedia()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_isfirstdatasession

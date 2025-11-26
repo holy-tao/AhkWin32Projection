@@ -73,6 +73,53 @@ class IDynamicRenderer extends IUnknown{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_HWND", "put_HWND", "get_ClipRectangle", "put_ClipRectangle", "get_ClipRegion", "put_ClipRegion", "get_DrawingAttributes", "putref_DrawingAttributes", "get_DataCacheEnabled", "put_DataCacheEnabled", "ReleaseCachedData", "Refresh", "Draw"]
 
     /**
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {HANDLE_PTR} 
+     */
+    HWND {
+        get => this.get_HWND()
+        set => this.put_HWND(value)
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    ClipRectangle {
+        get => this.get_ClipRectangle()
+        set => this.put_ClipRectangle(value)
+    }
+
+    /**
+     * @type {HANDLE_PTR} 
+     */
+    ClipRegion {
+        get => this.get_ClipRegion()
+        set => this.put_ClipRegion(value)
+    }
+
+    /**
+     * @type {IInkDrawingAttributes} 
+     */
+    DrawingAttributes {
+        get => this.get_DrawingAttributes()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    DataCacheEnabled {
+        get => this.get_DataCacheEnabled()
+        set => this.put_DataCacheEnabled(value)
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_enabled

@@ -29,6 +29,14 @@ class IIntelliForms extends IDispatch{
     static VTableNames => ["get_enabled", "put_enabled"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    enabled {
+        get => this.get_enabled()
+        set => this.put_enabled(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

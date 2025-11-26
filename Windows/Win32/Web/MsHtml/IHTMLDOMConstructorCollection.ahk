@@ -29,6 +29,748 @@ class IHTMLDOMConstructorCollection extends IDispatch{
     static VTableNames => ["get_Attr", "get_BehaviorUrnsCollection", "get_BookmarkCollection", "get_CompatibleInfo", "get_CompatibleInfoCollection", "get_ControlRangeCollection", "get_CSSCurrentStyleDeclaration", "get_CSSRuleList", "get_CSSRuleStyleDeclaration", "get_CSSStyleDeclaration", "get_CSSStyleRule", "get_CSSStyleSheet", "get_DataTransfer", "get_DOMImplementation", "get_Element", "get_Event", "get_History", "get_HTCElementBehaviorDefaults", "get_HTMLAnchorElement", "get_HTMLAreaElement", "get_HTMLAreasCollection", "get_HTMLBaseElement", "get_HTMLBaseFontElement", "get_HTMLBGSoundElement", "get_HTMLBlockElement", "get_HTMLBodyElement", "get_HTMLBRElement", "get_HTMLButtonElement", "get_HTMLCollection", "get_HTMLCommentElement", "get_HTMLDDElement", "get_HTMLDivElement", "get_HTMLDocument", "get_HTMLDListElement", "get_HTMLDTElement", "get_HTMLEmbedElement", "get_HTMLFieldSetElement", "get_HTMLFontElement", "get_HTMLFormElement", "get_HTMLFrameElement", "get_HTMLFrameSetElement", "get_HTMLGenericElement", "get_HTMLHeadElement", "get_HTMLHeadingElement", "get_HTMLHRElement", "get_HTMLHtmlElement", "get_HTMLIFrameElement", "get_HTMLImageElement", "get_HTMLInputElement", "get_HTMLIsIndexElement", "get_HTMLLabelElement", "get_HTMLLegendElement", "get_HTMLLIElement", "get_HTMLLinkElement", "get_HTMLMapElement", "get_HTMLMarqueeElement", "get_HTMLMetaElement", "get_HTMLModelessDialog", "get_HTMLNamespaceInfo", "get_HTMLNamespaceInfoCollection", "get_HTMLNextIdElement", "get_HTMLNoShowElement", "get_HTMLObjectElement", "get_HTMLOListElement", "get_HTMLOptionElement", "get_HTMLParagraphElement", "get_HTMLParamElement", "get_HTMLPhraseElement", "get_HTMLPluginsCollection", "get_HTMLPopup", "get_HTMLScriptElement", "get_HTMLSelectElement", "get_HTMLSpanElement", "get_HTMLStyleElement", "get_HTMLTableCaptionElement", "get_HTMLTableCellElement", "get_HTMLTableColElement", "get_HTMLTableElement", "get_HTMLTableRowElement", "get_HTMLTableSectionElement", "get_HTMLTextAreaElement", "get_HTMLTextElement", "get_HTMLTitleElement", "get_HTMLUListElement", "get_HTMLUnknownElement", "get_Image", "get_Location", "get_NamedNodeMap", "get_Navigator", "get_NodeList", "get_Option", "get_Screen", "get_Selection", "get_StaticNodeList", "get_Storage", "get_StyleSheetList", "get_StyleSheetPage", "get_StyleSheetPageList", "get_Text", "get_TextRange", "get_TextRangeCollection", "get_TextRectangle", "get_TextRectangleList", "get_Window", "get_XDomainRequest", "get_XMLHttpRequest"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Attr {
+        get => this.get_Attr()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    BehaviorUrnsCollection {
+        get => this.get_BehaviorUrnsCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    BookmarkCollection {
+        get => this.get_BookmarkCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CompatibleInfo {
+        get => this.get_CompatibleInfo()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CompatibleInfoCollection {
+        get => this.get_CompatibleInfoCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    ControlRangeCollection {
+        get => this.get_ControlRangeCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CSSCurrentStyleDeclaration {
+        get => this.get_CSSCurrentStyleDeclaration()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CSSRuleList {
+        get => this.get_CSSRuleList()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CSSRuleStyleDeclaration {
+        get => this.get_CSSRuleStyleDeclaration()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CSSStyleDeclaration {
+        get => this.get_CSSStyleDeclaration()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CSSStyleRule {
+        get => this.get_CSSStyleRule()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    CSSStyleSheet {
+        get => this.get_CSSStyleSheet()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    DataTransfer {
+        get => this.get_DataTransfer()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    DOMImplementation {
+        get => this.get_DOMImplementation()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Element {
+        get => this.get_Element()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    History {
+        get => this.get_History()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTCElementBehaviorDefaults {
+        get => this.get_HTCElementBehaviorDefaults()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLAnchorElement {
+        get => this.get_HTMLAnchorElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLAreaElement {
+        get => this.get_HTMLAreaElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLAreasCollection {
+        get => this.get_HTMLAreasCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLBaseElement {
+        get => this.get_HTMLBaseElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLBaseFontElement {
+        get => this.get_HTMLBaseFontElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLBGSoundElement {
+        get => this.get_HTMLBGSoundElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLBlockElement {
+        get => this.get_HTMLBlockElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLBodyElement {
+        get => this.get_HTMLBodyElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLBRElement {
+        get => this.get_HTMLBRElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLButtonElement {
+        get => this.get_HTMLButtonElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLCollection {
+        get => this.get_HTMLCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLCommentElement {
+        get => this.get_HTMLCommentElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLDDElement {
+        get => this.get_HTMLDDElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLDivElement {
+        get => this.get_HTMLDivElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLDocument {
+        get => this.get_HTMLDocument()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLDListElement {
+        get => this.get_HTMLDListElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLDTElement {
+        get => this.get_HTMLDTElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLEmbedElement {
+        get => this.get_HTMLEmbedElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLFieldSetElement {
+        get => this.get_HTMLFieldSetElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLFontElement {
+        get => this.get_HTMLFontElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLFormElement {
+        get => this.get_HTMLFormElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLFrameElement {
+        get => this.get_HTMLFrameElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLFrameSetElement {
+        get => this.get_HTMLFrameSetElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLGenericElement {
+        get => this.get_HTMLGenericElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLHeadElement {
+        get => this.get_HTMLHeadElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLHeadingElement {
+        get => this.get_HTMLHeadingElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLHRElement {
+        get => this.get_HTMLHRElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLHtmlElement {
+        get => this.get_HTMLHtmlElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLIFrameElement {
+        get => this.get_HTMLIFrameElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLImageElement {
+        get => this.get_HTMLImageElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLInputElement {
+        get => this.get_HTMLInputElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLIsIndexElement {
+        get => this.get_HTMLIsIndexElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLLabelElement {
+        get => this.get_HTMLLabelElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLLegendElement {
+        get => this.get_HTMLLegendElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLLIElement {
+        get => this.get_HTMLLIElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLLinkElement {
+        get => this.get_HTMLLinkElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLMapElement {
+        get => this.get_HTMLMapElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLMarqueeElement {
+        get => this.get_HTMLMarqueeElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLMetaElement {
+        get => this.get_HTMLMetaElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLModelessDialog {
+        get => this.get_HTMLModelessDialog()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLNamespaceInfo {
+        get => this.get_HTMLNamespaceInfo()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLNamespaceInfoCollection {
+        get => this.get_HTMLNamespaceInfoCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLNextIdElement {
+        get => this.get_HTMLNextIdElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLNoShowElement {
+        get => this.get_HTMLNoShowElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLObjectElement {
+        get => this.get_HTMLObjectElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLOListElement {
+        get => this.get_HTMLOListElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLOptionElement {
+        get => this.get_HTMLOptionElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLParagraphElement {
+        get => this.get_HTMLParagraphElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLParamElement {
+        get => this.get_HTMLParamElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLPhraseElement {
+        get => this.get_HTMLPhraseElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLPluginsCollection {
+        get => this.get_HTMLPluginsCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLPopup {
+        get => this.get_HTMLPopup()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLScriptElement {
+        get => this.get_HTMLScriptElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLSelectElement {
+        get => this.get_HTMLSelectElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLSpanElement {
+        get => this.get_HTMLSpanElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLStyleElement {
+        get => this.get_HTMLStyleElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTableCaptionElement {
+        get => this.get_HTMLTableCaptionElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTableCellElement {
+        get => this.get_HTMLTableCellElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTableColElement {
+        get => this.get_HTMLTableColElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTableElement {
+        get => this.get_HTMLTableElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTableRowElement {
+        get => this.get_HTMLTableRowElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTableSectionElement {
+        get => this.get_HTMLTableSectionElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTextAreaElement {
+        get => this.get_HTMLTextAreaElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTextElement {
+        get => this.get_HTMLTextElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLTitleElement {
+        get => this.get_HTMLTitleElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLUListElement {
+        get => this.get_HTMLUListElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    HTMLUnknownElement {
+        get => this.get_HTMLUnknownElement()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Image {
+        get => this.get_Image()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Location {
+        get => this.get_Location()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    NamedNodeMap {
+        get => this.get_NamedNodeMap()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Navigator {
+        get => this.get_Navigator()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    NodeList {
+        get => this.get_NodeList()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Option {
+        get => this.get_Option()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Screen {
+        get => this.get_Screen()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Selection {
+        get => this.get_Selection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    StaticNodeList {
+        get => this.get_StaticNodeList()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Storage {
+        get => this.get_Storage()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    StyleSheetList {
+        get => this.get_StyleSheetList()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    StyleSheetPage {
+        get => this.get_StyleSheetPage()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    StyleSheetPageList {
+        get => this.get_StyleSheetPageList()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Text {
+        get => this.get_Text()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    TextRange {
+        get => this.get_TextRange()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    TextRangeCollection {
+        get => this.get_TextRangeCollection()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    TextRectangle {
+        get => this.get_TextRectangle()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    TextRectangleList {
+        get => this.get_TextRectangleList()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Window {
+        get => this.get_Window()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    XDomainRequest {
+        get => this.get_XDomainRequest()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    XMLHttpRequest {
+        get => this.get_XMLHttpRequest()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

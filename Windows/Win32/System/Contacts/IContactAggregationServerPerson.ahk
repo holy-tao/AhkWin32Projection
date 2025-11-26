@@ -29,6 +29,93 @@ class IContactAggregationServerPerson extends IUnknown{
     static VTableNames => ["Delete", "Save", "get_AggregateId", "put_AggregateId", "get_AntiLink", "put_AntiLink", "get_AntiLinkBaseline", "put_AntiLinkBaseline", "get_FavoriteOrder", "put_FavoriteOrder", "get_FavoriteOrderBaseline", "put_FavoriteOrderBaseline", "get_Groups", "put_Groups", "get_GroupsBaseline", "put_GroupsBaseline", "get_Id", "get_IsTombstone", "put_IsTombstone", "get_LinkedAggregateId", "put_LinkedAggregateId", "get_ObjectId", "put_ObjectId"]
 
     /**
+     * @type {PWSTR} 
+     */
+    AggregateId {
+        get => this.get_AggregateId()
+        set => this.put_AggregateId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    AntiLink {
+        get => this.get_AntiLink()
+        set => this.put_AntiLink(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    AntiLinkBaseline {
+        get => this.get_AntiLinkBaseline()
+        set => this.put_AntiLinkBaseline(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FavoriteOrder {
+        get => this.get_FavoriteOrder()
+        set => this.put_FavoriteOrder(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FavoriteOrderBaseline {
+        get => this.get_FavoriteOrderBaseline()
+        set => this.put_FavoriteOrderBaseline(value)
+    }
+
+    /**
+     * @type {Pointer<CONTACT_AGGREGATION_BLOB>} 
+     */
+    Groups {
+        get => this.get_Groups()
+        set => this.put_Groups(value)
+    }
+
+    /**
+     * @type {Pointer<CONTACT_AGGREGATION_BLOB>} 
+     */
+    GroupsBaseline {
+        get => this.get_GroupsBaseline()
+        set => this.put_GroupsBaseline(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsTombstone {
+        get => this.get_IsTombstone()
+        set => this.put_IsTombstone(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    LinkedAggregateId {
+        get => this.get_LinkedAggregateId()
+        set => this.put_LinkedAggregateId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+        set => this.put_ObjectId(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

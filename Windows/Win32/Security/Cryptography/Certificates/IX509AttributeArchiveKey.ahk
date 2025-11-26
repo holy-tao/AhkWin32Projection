@@ -33,6 +33,20 @@ class IX509AttributeArchiveKey extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_EncryptedKeyBlob", "get_EncryptionAlgorithm", "get_EncryptionStrength"]
 
     /**
+     * @type {IObjectId} 
+     */
+    EncryptionAlgorithm {
+        get => this.get_EncryptionAlgorithm()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EncryptionStrength {
+        get => this.get_EncryptionStrength()
+    }
+
+    /**
      * 
      * @param {IX509PrivateKey} pKey 
      * @param {Integer} Encoding 

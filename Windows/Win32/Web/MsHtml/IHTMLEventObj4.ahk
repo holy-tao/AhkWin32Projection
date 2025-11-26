@@ -29,6 +29,13 @@ class IHTMLEventObj4 extends IDispatch{
     static VTableNames => ["get_wheelDelta"]
 
     /**
+     * @type {Integer} 
+     */
+    wheelDelta {
+        get => this.get_wheelDelta()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

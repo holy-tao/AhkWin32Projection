@@ -37,6 +37,27 @@ class IFileSearchBand extends IDispatch{
     static VTableNames => ["SetFocus", "SetSearchParameters", "get_SearchID", "get_Scope", "get_QueryFile"]
 
     /**
+     * @type {BSTR} 
+     */
+    SearchID {
+        get => this.get_SearchID()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Scope {
+        get => this.get_Scope()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    QueryFile {
+        get => this.get_QueryFile()
+    }
+
+    /**
      * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
      * @returns {HRESULT} Type: **HWND**
      * 

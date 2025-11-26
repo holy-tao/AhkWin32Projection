@@ -33,6 +33,14 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
     static VTableNames => ["get_Name", "put_Name", "CopyTemplate", "CommitAndUpdateDerived"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-get_name

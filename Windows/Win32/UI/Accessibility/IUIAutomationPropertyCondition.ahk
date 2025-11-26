@@ -32,6 +32,27 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
     static VTableNames => ["get_PropertyId", "get_PropertyValue", "get_PropertyConditionFlags"]
 
     /**
+     * @type {Integer} 
+     */
+    PropertyId {
+        get => this.get_PropertyId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PropertyValue {
+        get => this.get_PropertyValue()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PropertyConditionFlags {
+        get => this.get_PropertyConditionFlags()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyid

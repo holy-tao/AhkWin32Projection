@@ -37,6 +37,28 @@ class IFsrmAction extends IDispatch{
     static VTableNames => ["get_Id", "get_ActionType", "get_RunLimitInterval", "put_RunLimitInterval", "Delete"]
 
     /**
+     * @type {Guid} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ActionType {
+        get => this.get_ActionType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RunLimitInterval {
+        get => this.get_RunLimitInterval()
+        set => this.put_RunLimitInterval(value)
+    }
+
+    /**
      * 
      * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_id

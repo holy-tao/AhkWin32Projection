@@ -45,6 +45,20 @@ class IGridProvider extends IUnknown{
     static VTableNames => ["GetItem", "get_RowCount", "get_ColumnCount"]
 
     /**
+     * @type {Integer} 
+     */
+    RowCount {
+        get => this.get_RowCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ColumnCount {
+        get => this.get_ColumnCount()
+    }
+
+    /**
      * 
      * @param {Integer} row 
      * @param {Integer} column 

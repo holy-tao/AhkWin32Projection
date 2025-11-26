@@ -42,6 +42,22 @@ class IFaxRecipient extends IDispatch{
     static VTableNames => ["get_FaxNumber", "put_FaxNumber", "get_Name", "put_Name"]
 
     /**
+     * @type {BSTR} 
+     */
+    FaxNumber {
+        get => this.get_FaxNumber()
+        set => this.put_FaxNumber(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipient-get_faxnumber

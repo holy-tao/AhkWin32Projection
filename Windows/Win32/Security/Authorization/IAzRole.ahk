@@ -33,6 +33,72 @@ class IAzRole extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "AddAppMember", "DeleteAppMember", "AddTask", "DeleteTask", "AddOperation", "DeleteOperation", "AddMember", "DeleteMember", "get_Writable", "GetProperty", "SetProperty", "get_AppMembers", "get_Members", "get_Operations", "get_Tasks", "AddPropertyItem", "DeletePropertyItem", "Submit", "AddMemberName", "DeleteMemberName", "get_MembersName"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationData {
+        get => this.get_ApplicationData()
+        set => this.put_ApplicationData(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AppMembers {
+        get => this.get_AppMembers()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Members {
+        get => this.get_Members()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Operations {
+        get => this.get_Operations()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Tasks {
+        get => this.get_Tasks()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    MembersName {
+        get => this.get_MembersName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_name

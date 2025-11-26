@@ -43,6 +43,83 @@ class IFaxIncomingMessage extends IDispatch{
     static VTableNames => ["get_Id", "get_Pages", "get_Size", "get_DeviceName", "get_Retries", "get_TransmissionStart", "get_TransmissionEnd", "get_CSID", "get_TSID", "get_CallerId", "get_RoutingInformation", "CopyTiff", "Delete"]
 
     /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Pages {
+        get => this.get_Pages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceName {
+        get => this.get_DeviceName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionStart {
+        get => this.get_TransmissionStart()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionEnd {
+        get => this.get_TransmissionEnd()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSID {
+        get => this.get_CSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CallerId {
+        get => this.get_CallerId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RoutingInformation {
+        get => this.get_RoutingInformation()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_id

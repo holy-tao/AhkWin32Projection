@@ -40,6 +40,20 @@ class IShowMessageAction extends IAction{
     static VTableNames => ["get_Title", "put_Title", "get_MessageBody", "put_MessageBody"]
 
     /**
+     */
+    Title {
+        get => this.get_Title()
+        set => this.put_Title(value)
+    }
+
+    /**
+     */
+    MessageBody {
+        get => this.get_MessageBody()
+        set => this.put_MessageBody(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pTitle 
      * @returns {HRESULT} 

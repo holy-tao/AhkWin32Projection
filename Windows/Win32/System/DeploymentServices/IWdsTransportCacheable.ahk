@@ -37,6 +37,13 @@ class IWdsTransportCacheable extends IDispatch{
     static VTableNames => ["get_Dirty", "Discard", "Refresh", "Commit"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Dirty {
+        get => this.get_Dirty()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcacheable-get_dirty

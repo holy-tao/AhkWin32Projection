@@ -46,6 +46,22 @@ class IGestureRecognizer extends IUnknown{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_MaxStrokeCount", "put_MaxStrokeCount", "EnableGestures", "Reset"]
 
     /**
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxStrokeCount {
+        get => this.get_MaxStrokeCount()
+        set => this.put_MaxStrokeCount(value)
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_enabled

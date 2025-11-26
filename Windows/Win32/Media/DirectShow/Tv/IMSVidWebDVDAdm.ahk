@@ -36,6 +36,38 @@ class IMSVidWebDVDAdm extends IDispatch{
     static VTableNames => ["ChangePassword", "SaveParentalLevel", "SaveParentalCountry", "ConfirmPassword", "GetParentalLevel", "GetParentalCountry", "get_DefaultAudioLCID", "put_DefaultAudioLCID", "get_DefaultSubpictureLCID", "put_DefaultSubpictureLCID", "get_DefaultMenuLCID", "put_DefaultMenuLCID", "get_BookmarkOnStop", "put_BookmarkOnStop"]
 
     /**
+     * @type {Integer} 
+     */
+    DefaultAudioLCID {
+        get => this.get_DefaultAudioLCID()
+        set => this.put_DefaultAudioLCID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultSubpictureLCID {
+        get => this.get_DefaultSubpictureLCID()
+        set => this.put_DefaultSubpictureLCID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultMenuLCID {
+        get => this.get_DefaultMenuLCID()
+        set => this.put_DefaultMenuLCID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BookmarkOnStop {
+        get => this.get_BookmarkOnStop()
+        set => this.put_BookmarkOnStop(value)
+    }
+
+    /**
      * 
      * @param {BSTR} strUserName 
      * @param {BSTR} strOld 

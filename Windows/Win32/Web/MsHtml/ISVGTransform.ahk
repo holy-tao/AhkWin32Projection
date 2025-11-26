@@ -36,6 +36,29 @@ class ISVGTransform extends IDispatch{
     static VTableNames => ["put_type", "get_type", "putref_matrix", "get_matrix", "put_angle", "get_angle", "setMatrix", "setTranslate", "setScale", "setRotate", "setSkewX", "setSkewY"]
 
     /**
+     * @type {Integer} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {ISVGMatrix} 
+     */
+    matrix {
+        get => this.get_matrix()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    angle {
+        get => this.get_angle()
+        set => this.put_angle(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

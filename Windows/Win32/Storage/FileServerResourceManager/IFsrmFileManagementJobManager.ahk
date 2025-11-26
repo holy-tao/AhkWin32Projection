@@ -50,6 +50,20 @@ class IFsrmFileManagementJobManager extends IDispatch{
     static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "EnumFileManagementJobs", "CreateFileManagementJob", "GetFileManagementJob"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariables {
+        get => this.get_ActionVariables()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariableDescriptions {
+        get => this.get_ActionVariableDescriptions()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariables

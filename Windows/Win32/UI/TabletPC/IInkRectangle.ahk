@@ -32,6 +32,46 @@ class IInkRectangle extends IDispatch{
     static VTableNames => ["get_Top", "put_Top", "get_Left", "put_Left", "get_Bottom", "put_Bottom", "get_Right", "put_Right", "get_Data", "put_Data", "GetRectangle", "SetRectangle"]
 
     /**
+     * @type {Integer} 
+     */
+    Top {
+        get => this.get_Top()
+        set => this.put_Top(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Left {
+        get => this.get_Left()
+        set => this.put_Left(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Bottom {
+        get => this.get_Bottom()
+        set => this.put_Bottom(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Right {
+        get => this.get_Right()
+        set => this.put_Right(value)
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_top

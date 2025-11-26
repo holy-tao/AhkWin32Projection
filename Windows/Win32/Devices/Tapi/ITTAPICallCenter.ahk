@@ -33,6 +33,13 @@ class ITTAPICallCenter extends IDispatch{
     static VTableNames => ["EnumerateAgentHandlers", "get_AgentHandlers"]
 
     /**
+     * @type {VARIANT} 
+     */
+    AgentHandlers {
+        get => this.get_AgentHandlers()
+    }
+
+    /**
      * 
      * @returns {IEnumAgentHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ittapicallcenter-enumerateagenthandlers

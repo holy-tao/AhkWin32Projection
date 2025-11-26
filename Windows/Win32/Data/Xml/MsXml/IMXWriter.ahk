@@ -31,6 +31,70 @@ class IMXWriter extends IDispatch{
     static VTableNames => ["put_output", "get_output", "put_encoding", "get_encoding", "put_byteOrderMark", "get_byteOrderMark", "put_indent", "get_indent", "put_standalone", "get_standalone", "put_omitXMLDeclaration", "get_omitXMLDeclaration", "put_version", "get_version", "put_disableOutputEscaping", "get_disableOutputEscaping", "flush"]
 
     /**
+     * @type {VARIANT} 
+     */
+    output {
+        get => this.get_output()
+        set => this.put_output(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    encoding {
+        get => this.get_encoding()
+        set => this.put_encoding(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    byteOrderMark {
+        get => this.get_byteOrderMark()
+        set => this.put_byteOrderMark(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    indent {
+        get => this.get_indent()
+        set => this.put_indent(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    standalone {
+        get => this.get_standalone()
+        set => this.put_standalone(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    omitXMLDeclaration {
+        get => this.get_omitXMLDeclaration()
+        set => this.put_omitXMLDeclaration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+        set => this.put_version(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disableOutputEscaping {
+        get => this.get_disableOutputEscaping()
+        set => this.put_disableOutputEscaping(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} varDestination 
      * @returns {HRESULT} 

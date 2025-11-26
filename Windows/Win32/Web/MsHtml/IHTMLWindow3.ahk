@@ -33,6 +33,43 @@ class IHTMLWindow3 extends IDispatch{
     static VTableNames => ["get_screenLeft", "get_screenTop", "attachEvent", "detachEvent", "setTimeout", "setInterval", "print", "put_onbeforeprint", "get_onbeforeprint", "put_onafterprint", "get_onafterprint", "get_clipboardData", "showModelessDialog"]
 
     /**
+     * @type {Integer} 
+     */
+    screenLeft {
+        get => this.get_screenLeft()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenTop {
+        get => this.get_screenTop()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeprint {
+        get => this.get_onbeforeprint()
+        set => this.put_onbeforeprint(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onafterprint {
+        get => this.get_onafterprint()
+        set => this.put_onafterprint(value)
+    }
+
+    /**
+     * @type {IHTMLDataTransfer} 
+     */
+    clipboardData {
+        get => this.get_clipboardData()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

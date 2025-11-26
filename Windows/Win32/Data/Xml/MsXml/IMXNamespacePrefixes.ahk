@@ -31,6 +31,20 @@ class IMXNamespacePrefixes extends IDispatch{
     static VTableNames => ["get_item", "get_length", "get__newEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {BSTR} 

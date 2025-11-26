@@ -32,6 +32,22 @@ class IADsEmail extends IDispatch{
     static VTableNames => ["get_Type", "put_Type", "get_Address", "put_Address"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Address {
+        get => this.get_Address()
+        set => this.put_Address(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

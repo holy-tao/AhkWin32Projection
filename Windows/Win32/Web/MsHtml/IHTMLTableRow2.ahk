@@ -30,6 +30,14 @@ class IHTMLTableRow2 extends IDispatch{
     static VTableNames => ["put_height", "get_height"]
 
     /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

@@ -30,6 +30,14 @@ class IHeaderFooter2 extends IHeaderFooter{
     static VTableNames => ["put_font", "get_font"]
 
     /**
+     * @type {BSTR} 
+     */
+    font {
+        get => this.get_font()
+        set => this.put_font(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

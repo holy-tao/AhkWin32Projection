@@ -32,6 +32,14 @@ class ITDirectoryObjectUser extends IDispatch{
     static VTableNames => ["get_IPPhonePrimary", "put_IPPhonePrimary"]
 
     /**
+     * @type {BSTR} 
+     */
+    IPPhonePrimary {
+        get => this.get_IPPhonePrimary()
+        set => this.put_IPPhonePrimary(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectuser-get_ipphoneprimary

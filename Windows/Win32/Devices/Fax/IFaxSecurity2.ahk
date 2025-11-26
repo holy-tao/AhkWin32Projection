@@ -46,6 +46,29 @@ class IFaxSecurity2 extends IDispatch{
     static VTableNames => ["get_Descriptor", "put_Descriptor", "get_GrantedRights", "Refresh", "Save", "get_InformationType", "put_InformationType"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Descriptor {
+        get => this.get_Descriptor()
+        set => this.put_Descriptor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GrantedRights {
+        get => this.get_GrantedRights()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InformationType {
+        get => this.get_InformationType()
+        set => this.put_InformationType(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity2-get_descriptor

@@ -44,6 +44,27 @@ class IStringCollection extends IDispatch{
     static VTableNames => ["get_Item", "put_Item", "get__NewEnum", "get_Count", "get_ReadOnly", "Add", "Clear", "Copy", "Insert", "RemoveAt"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {BSTR} 

@@ -83,6 +83,59 @@ class IFsrmClassificationManager extends IDispatch{
     static VTableNames => ["get_ClassificationReportFormats", "put_ClassificationReportFormats", "get_Logging", "put_Logging", "get_ClassificationReportMailTo", "put_ClassificationReportMailTo", "get_ClassificationReportEnabled", "put_ClassificationReportEnabled", "get_ClassificationLastReportPathWithoutExtension", "get_ClassificationLastError", "get_ClassificationRunningStatus", "EnumPropertyDefinitions", "CreatePropertyDefinition", "GetPropertyDefinition", "EnumRules", "CreateRule", "GetRule", "EnumModuleDefinitions", "CreateModuleDefinition", "GetModuleDefinition", "RunClassification", "WaitForClassificationCompletion", "CancelClassification", "EnumFileProperties", "GetFileProperty", "SetFileProperty", "ClearFileProperty"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ClassificationReportFormats {
+        get => this.get_ClassificationReportFormats()
+        set => this.put_ClassificationReportFormats(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Logging {
+        get => this.get_Logging()
+        set => this.put_Logging(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClassificationReportMailTo {
+        get => this.get_ClassificationReportMailTo()
+        set => this.put_ClassificationReportMailTo(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ClassificationReportEnabled {
+        get => this.get_ClassificationReportEnabled()
+        set => this.put_ClassificationReportEnabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClassificationLastReportPathWithoutExtension {
+        get => this.get_ClassificationLastReportPathWithoutExtension()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClassificationLastError {
+        get => this.get_ClassificationLastError()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClassificationRunningStatus {
+        get => this.get_ClassificationRunningStatus()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportformats

@@ -37,6 +37,83 @@ class ITsSbClientConnection extends IUnknown{
     static VTableNames => ["get_UserName", "get_Domain", "get_InitialProgram", "get_LoadBalanceResult", "get_FarmName", "PutContext", "GetContext", "get_Environment", "get_ConnectionError", "get_SamUserAccount", "get_ClientConnectionPropertySet", "get_IsFirstAssignment", "get_RdFarmType", "get_UserSidString", "GetDisconnectedSession"]
 
     /**
+     * @type {BSTR} 
+     */
+    UserName {
+        get => this.get_UserName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Domain {
+        get => this.get_Domain()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InitialProgram {
+        get => this.get_InitialProgram()
+    }
+
+    /**
+     * @type {ITsSbLoadBalanceResult} 
+     */
+    LoadBalanceResult {
+        get => this.get_LoadBalanceResult()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FarmName {
+        get => this.get_FarmName()
+    }
+
+    /**
+     * @type {ITsSbEnvironment} 
+     */
+    Environment {
+        get => this.get_Environment()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SamUserAccount {
+        get => this.get_SamUserAccount()
+    }
+
+    /**
+     * @type {ITsSbClientConnectionPropertySet} 
+     */
+    ClientConnectionPropertySet {
+        get => this.get_ClientConnectionPropertySet()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsFirstAssignment {
+        get => this.get_IsFirstAssignment()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RdFarmType {
+        get => this.get_RdFarmType()
+    }
+
+    /**
+     * @type {Pointer<Integer>} 
+     */
+    UserSidString {
+        get => this.get_UserSidString()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_username

@@ -32,6 +32,34 @@ class IRTCInfoEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_Participant", "get_Info", "get_InfoHeader"]
 
     /**
+     * @type {IRTCSession2} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {IRTCParticipant} 
+     */
+    Participant {
+        get => this.get_Participant()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Info {
+        get => this.get_Info()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InfoHeader {
+        get => this.get_InfoHeader()
+    }
+
+    /**
      * 
      * @returns {IRTCSession2} 
      */

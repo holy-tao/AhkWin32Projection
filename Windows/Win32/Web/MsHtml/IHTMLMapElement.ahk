@@ -37,6 +37,21 @@ class IHTMLMapElement extends IDispatch{
     static VTableNames => ["get_areas", "put_name", "get_name"]
 
     /**
+     * @type {IHTMLAreasCollection} 
+     */
+    areas {
+        get => this.get_areas()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLAreasCollection} 
      */

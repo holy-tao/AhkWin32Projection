@@ -32,6 +32,13 @@ class IWMPMedia2 extends IWMPMedia{
     static VTableNames => ["get_error"]
 
     /**
+     * @type {IWMPErrorItem} 
+     */
+    error {
+        get => this.get_error()
+    }
+
+    /**
      * 
      * @returns {IWMPErrorItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia2-get_error

@@ -39,6 +39,22 @@ class IFsrmActionReport extends IFsrmAction{
     static VTableNames => ["get_ReportTypes", "put_ReportTypes", "get_MailTo", "put_MailTo"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ReportTypes {
+        get => this.get_ReportTypes()
+        set => this.put_ReportTypes(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailTo {
+        get => this.get_MailTo()
+        set => this.put_MailTo(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes

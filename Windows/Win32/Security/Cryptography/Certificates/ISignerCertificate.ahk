@@ -34,6 +34,51 @@ class ISignerCertificate extends IDispatch{
     static VTableNames => ["Initialize", "get_Certificate", "get_PrivateKey", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "put_Pin", "get_SignatureInformation"]
 
     /**
+     * @type {IX509PrivateKey} 
+     */
+    PrivateKey {
+        get => this.get_PrivateKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Silent {
+        get => this.get_Silent()
+        set => this.put_Silent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ParentWindow {
+        get => this.get_ParentWindow()
+        set => this.put_ParentWindow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UIContextMessage {
+        get => this.get_UIContextMessage()
+        set => this.put_UIContextMessage(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Pin {
+        set => this.put_Pin(value)
+    }
+
+    /**
+     * @type {IX509SignatureInformation} 
+     */
+    SignatureInformation {
+        get => this.get_SignatureInformation()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {VARIANT_BOOL} MachineContext 
      * @param {Integer} VerifyType 

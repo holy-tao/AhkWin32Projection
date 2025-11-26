@@ -32,6 +32,12 @@ class IWMPError extends IDispatch{
     static VTableNames => ["clearErrorQueue", "get_errorCount", "get_item", "webHelp"]
 
     /**
+     */
+    errorCount {
+        get => this.get_errorCount()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-clearerrorqueue

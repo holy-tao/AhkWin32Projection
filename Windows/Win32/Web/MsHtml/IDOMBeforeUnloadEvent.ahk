@@ -36,6 +36,14 @@ class IDOMBeforeUnloadEvent extends IDispatch{
     static VTableNames => ["put_returnValue", "get_returnValue"]
 
     /**
+     * @type {VARIANT} 
+     */
+    returnValue {
+        get => this.get_returnValue()
+        set => this.put_returnValue(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

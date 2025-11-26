@@ -44,6 +44,86 @@ class IFaxOutgoingQueue extends IDispatch{
     static VTableNames => ["get_Blocked", "put_Blocked", "get_Paused", "put_Paused", "get_AllowPersonalCoverPages", "put_AllowPersonalCoverPages", "get_UseDeviceTSID", "put_UseDeviceTSID", "get_Retries", "put_Retries", "get_RetryDelay", "put_RetryDelay", "get_DiscountRateStart", "put_DiscountRateStart", "get_DiscountRateEnd", "put_DiscountRateEnd", "get_AgeLimit", "put_AgeLimit", "get_Branding", "put_Branding", "Refresh", "Save", "GetJobs", "GetJob"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Blocked {
+        get => this.get_Blocked()
+        set => this.put_Blocked(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Paused {
+        get => this.get_Paused()
+        set => this.put_Paused(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AllowPersonalCoverPages {
+        get => this.get_AllowPersonalCoverPages()
+        set => this.put_AllowPersonalCoverPages(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseDeviceTSID {
+        get => this.get_UseDeviceTSID()
+        set => this.put_UseDeviceTSID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+        set => this.put_Retries(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RetryDelay {
+        get => this.get_RetryDelay()
+        set => this.put_RetryDelay(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DiscountRateStart {
+        get => this.get_DiscountRateStart()
+        set => this.put_DiscountRateStart(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DiscountRateEnd {
+        get => this.get_DiscountRateEnd()
+        set => this.put_DiscountRateEnd(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AgeLimit {
+        get => this.get_AgeLimit()
+        set => this.put_AgeLimit(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Branding {
+        get => this.get_Branding()
+        set => this.put_Branding(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_blocked

@@ -31,6 +31,20 @@ class IUIAutomationTogglePattern extends IUnknown{
     static VTableNames => ["Toggle", "get_CurrentToggleState", "get_CachedToggleState"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentToggleState {
+        get => this.get_CurrentToggleState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedToggleState {
+        get => this.get_CachedToggleState()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-toggle

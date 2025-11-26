@@ -30,6 +30,14 @@ class IHTMLScriptElement2 extends IDispatch{
     static VTableNames => ["put_charset", "get_charset"]
 
     /**
+     * @type {BSTR} 
+     */
+    charset {
+        get => this.get_charset()
+        set => this.put_charset(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

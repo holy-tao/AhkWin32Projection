@@ -30,6 +30,14 @@ class IHTMLSelectElement6 extends IDispatch{
     static VTableNames => ["add", "put_value", "get_value"]
 
     /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
      * 
      * @param {IHTMLOptionElement} pElem 
      * @param {Pointer<VARIANT>} pvarBefore 

@@ -30,6 +30,13 @@ class IVBSAXXMLFilter extends IDispatch{
     static VTableNames => ["get_parent", "putref_parent"]
 
     /**
+     * @type {IVBSAXXMLReader} 
+     */
+    parent {
+        get => this.get_parent()
+    }
+
+    /**
      * 
      * @returns {IVBSAXXMLReader} 
      */

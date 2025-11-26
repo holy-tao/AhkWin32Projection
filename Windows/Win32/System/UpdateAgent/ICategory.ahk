@@ -36,6 +36,69 @@ class ICategory extends IDispatch{
     static VTableNames => ["get_Name", "get_CategoryID", "get_Children", "get_Description", "get_Image", "get_Order", "get_Parent", "get_Type", "get_Updates"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CategoryID {
+        get => this.get_CategoryID()
+    }
+
+    /**
+     * @type {ICategoryCollection} 
+     */
+    Children {
+        get => this.get_Children()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {IImageInformation} 
+     */
+    Image {
+        get => this.get_Image()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Order {
+        get => this.get_Order()
+    }
+
+    /**
+     * @type {ICategory} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    Updates {
+        get => this.get_Updates()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_name

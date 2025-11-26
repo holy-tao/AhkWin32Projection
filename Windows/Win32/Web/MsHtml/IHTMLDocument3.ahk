@@ -35,6 +35,146 @@ class IHTMLDocument3 extends IDispatch{
     static VTableNames => ["releaseCapture", "recalc", "createTextNode", "get_documentElement", "get_uniqueID", "attachEvent", "detachEvent", "put_onrowsdelete", "get_onrowsdelete", "put_onrowsinserted", "get_onrowsinserted", "put_oncellchange", "get_oncellchange", "put_ondatasetchanged", "get_ondatasetchanged", "put_ondataavailable", "get_ondataavailable", "put_ondatasetcomplete", "get_ondatasetcomplete", "put_onpropertychange", "get_onpropertychange", "put_dir", "get_dir", "put_oncontextmenu", "get_oncontextmenu", "put_onstop", "get_onstop", "createDocumentFragment", "get_parentDocument", "put_enableDownload", "get_enableDownload", "put_baseUrl", "get_baseUrl", "get_childNodes", "put_inheritStyleSheets", "get_inheritStyleSheets", "put_onbeforeeditfocus", "get_onbeforeeditfocus", "getElementsByName", "getElementById", "getElementsByTagName"]
 
     /**
+     * @type {IHTMLElement} 
+     */
+    documentElement {
+        get => this.get_documentElement()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    uniqueID {
+        get => this.get_uniqueID()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowsdelete {
+        get => this.get_onrowsdelete()
+        set => this.put_onrowsdelete(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowsinserted {
+        get => this.get_onrowsinserted()
+        set => this.put_onrowsinserted(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncellchange {
+        get => this.get_oncellchange()
+        set => this.put_oncellchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondatasetchanged {
+        get => this.get_ondatasetchanged()
+        set => this.put_ondatasetchanged(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondataavailable {
+        get => this.get_ondataavailable()
+        set => this.put_ondataavailable(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondatasetcomplete {
+        get => this.get_ondatasetcomplete()
+        set => this.put_ondatasetcomplete(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpropertychange {
+        get => this.get_onpropertychange()
+        set => this.put_onpropertychange(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dir {
+        get => this.get_dir()
+        set => this.put_dir(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncontextmenu {
+        get => this.get_oncontextmenu()
+        set => this.put_oncontextmenu(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstop {
+        get => this.get_onstop()
+        set => this.put_onstop(value)
+    }
+
+    /**
+     * @type {IHTMLDocument2} 
+     */
+    parentDocument {
+        get => this.get_parentDocument()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    enableDownload {
+        get => this.get_enableDownload()
+        set => this.put_enableDownload(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    baseUrl {
+        get => this.get_baseUrl()
+        set => this.put_baseUrl(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    childNodes {
+        get => this.get_childNodes()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    inheritStyleSheets {
+        get => this.get_inheritStyleSheets()
+        set => this.put_inheritStyleSheets(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeeditfocus {
+        get => this.get_onbeforeeditfocus()
+        set => this.put_onbeforeeditfocus(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

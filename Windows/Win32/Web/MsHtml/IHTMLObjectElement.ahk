@@ -38,6 +38,159 @@ class IHTMLObjectElement extends IDispatch{
     static VTableNames => ["get_object", "get_classid", "get_data", "putref_recordset", "get_recordset", "put_align", "get_align", "put_name", "get_name", "put_codeBase", "get_codeBase", "put_codeType", "get_codeType", "put_code", "get_code", "get_BaseHref", "put_type", "get_type", "get_form", "put_width", "get_width", "put_height", "get_height", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "put_onerror", "get_onerror", "put_altHtml", "get_altHtml", "put_vspace", "get_vspace", "put_hspace", "get_hspace"]
 
     /**
+     * @type {IDispatch} 
+     */
+    object {
+        get => this.get_object()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    classid {
+        get => this.get_classid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    recordset {
+        get => this.get_recordset()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    codeBase {
+        get => this.get_codeBase()
+        set => this.put_codeBase(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    codeType {
+        get => this.get_codeType()
+        set => this.put_codeType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    code {
+        get => this.get_code()
+        set => this.put_code(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BaseHref {
+        get => this.get_BaseHref()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    altHtml {
+        get => this.get_altHtml()
+        set => this.put_altHtml(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    vspace {
+        get => this.get_vspace()
+        set => this.put_vspace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    hspace {
+        get => this.get_hspace()
+        set => this.put_hspace(value)
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

@@ -31,6 +31,37 @@ class IAMAnalogVideoEncoder extends IUnknown{
     static VTableNames => ["get_AvailableTVFormats", "put_TVFormat", "get_TVFormat", "put_CopyProtection", "get_CopyProtection", "put_CCEnable", "get_CCEnable"]
 
     /**
+     * @type {Integer} 
+     */
+    AvailableTVFormats {
+        get => this.get_AvailableTVFormats()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TVFormat {
+        get => this.get_TVFormat()
+        set => this.put_TVFormat(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CopyProtection {
+        get => this.get_CopyProtection()
+        set => this.put_CopyProtection(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CCEnable {
+        get => this.get_CCEnable()
+        set => this.put_CCEnable(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_availabletvformats

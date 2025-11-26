@@ -31,6 +31,49 @@ class IMSMQApplication3 extends IMSMQApplication2{
     static VTableNames => ["get_ActiveQueues", "get_PrivateQueues", "get_DirectoryServiceServer", "get_IsConnected", "get_BytesInAllQueues", "put_Machine", "get_Machine", "Connect", "Disconnect", "Tidy"]
 
     /**
+     * @type {VARIANT} 
+     */
+    ActiveQueues {
+        get => this.get_ActiveQueues()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PrivateQueues {
+        get => this.get_PrivateQueues()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DirectoryServiceServer {
+        get => this.get_DirectoryServiceServer()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnected {
+        get => this.get_IsConnected()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    BytesInAllQueues {
+        get => this.get_BytesInAllQueues()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Machine {
+        get => this.get_Machine()
+        set => this.put_Machine(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

@@ -36,6 +36,13 @@ class ICoreInputInterop extends IUnknown{
     static VTableNames => ["SetInputSource", "put_MessageHandled"]
 
     /**
+     * @type {HRESULT} 
+     */
+    MessageHandled {
+        set => this.put_MessageHandled(value)
+    }
+
+    /**
      * 
      * @param {IUnknown} value 
      * @returns {HRESULT} 

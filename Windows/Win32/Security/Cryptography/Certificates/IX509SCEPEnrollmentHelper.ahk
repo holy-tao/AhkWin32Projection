@@ -31,6 +31,20 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
     static VTableNames => ["Initialize", "InitializeForPending", "Enroll", "FetchPending", "get_X509SCEPEnrollment", "get_ResultMessageText"]
 
     /**
+     * @type {IX509SCEPEnrollment} 
+     */
+    X509SCEPEnrollment {
+        get => this.get_X509SCEPEnrollment()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ResultMessageText {
+        get => this.get_ResultMessageText()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} strServerUrl 
      * @param {BSTR} strRequestHeaders 

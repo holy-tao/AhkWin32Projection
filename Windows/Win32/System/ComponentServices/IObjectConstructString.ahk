@@ -31,6 +31,12 @@ class IObjectConstructString extends IDispatch{
     static VTableNames => ["get_ConstructString"]
 
     /**
+     */
+    ConstructString {
+        get => this.get_ConstructString()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pVal 
      * @returns {HRESULT} 

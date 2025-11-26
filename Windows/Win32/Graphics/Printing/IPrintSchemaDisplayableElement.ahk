@@ -30,6 +30,13 @@ class IPrintSchemaDisplayableElement extends IPrintSchemaElement{
     static VTableNames => ["get_DisplayName"]
 
     /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

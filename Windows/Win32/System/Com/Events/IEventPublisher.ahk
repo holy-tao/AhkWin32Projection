@@ -34,6 +34,46 @@ class IEventPublisher extends IDispatch{
     static VTableNames => ["get_PublisherID", "put_PublisherID", "get_PublisherName", "put_PublisherName", "get_PublisherType", "put_PublisherType", "get_OwnerSID", "put_OwnerSID", "get_Description", "put_Description", "GetDefaultProperty", "PutDefaultProperty", "RemoveDefaultProperty", "GetDefaultPropertyCollection"]
 
     /**
+     * @type {BSTR} 
+     */
+    PublisherID {
+        get => this.get_PublisherID()
+        set => this.put_PublisherID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PublisherName {
+        get => this.get_PublisherName()
+        set => this.put_PublisherName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PublisherType {
+        get => this.get_PublisherType()
+        set => this.put_PublisherType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSID {
+        get => this.get_OwnerSID()
+        set => this.put_OwnerSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

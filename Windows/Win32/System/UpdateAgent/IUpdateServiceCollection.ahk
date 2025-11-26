@@ -33,6 +33,20 @@ class IUpdateServiceCollection extends IDispatch{
     static VTableNames => ["get_Item", "get__NewEnum", "get_Count"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {IUpdateService} 

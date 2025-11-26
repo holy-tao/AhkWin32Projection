@@ -36,6 +36,34 @@ class IDOMWheelEvent extends IDispatch{
     static VTableNames => ["get_deltaX", "get_deltaY", "get_deltaZ", "get_deltaMode", "initWheelEvent"]
 
     /**
+     * @type {Integer} 
+     */
+    deltaX {
+        get => this.get_deltaX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    deltaY {
+        get => this.get_deltaY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    deltaZ {
+        get => this.get_deltaZ()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    deltaMode {
+        get => this.get_deltaMode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

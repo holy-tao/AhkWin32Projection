@@ -36,6 +36,36 @@ class IMbnSmsConfiguration extends IUnknown{
     static VTableNames => ["get_ServiceCenterAddress", "put_ServiceCenterAddress", "get_MaxMessageIndex", "get_CdmaShortMsgSize", "get_SmsFormat", "put_SmsFormat"]
 
     /**
+     * @type {BSTR} 
+     */
+    ServiceCenterAddress {
+        get => this.get_ServiceCenterAddress()
+        set => this.put_ServiceCenterAddress(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxMessageIndex {
+        get => this.get_MaxMessageIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CdmaShortMsgSize {
+        get => this.get_CdmaShortMsgSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SmsFormat {
+        get => this.get_SmsFormat()
+        set => this.put_SmsFormat(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_servicecenteraddress

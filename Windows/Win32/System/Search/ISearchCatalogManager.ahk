@@ -35,6 +35,37 @@ class ISearchCatalogManager extends IUnknown{
     static VTableNames => ["get_Name", "GetParameter", "SetParameter", "GetCatalogStatus", "Reset", "Reindex", "ReindexMatchingURLs", "ReindexSearchRoot", "put_ConnectTimeout", "get_ConnectTimeout", "put_DataTimeout", "get_DataTimeout", "NumberOfItems", "NumberOfItemsToIndex", "URLBeingIndexed", "GetURLIndexingState", "GetPersistentItemsChangedSink", "RegisterViewForNotification", "GetItemsChangedSink", "UnregisterViewForNotification", "SetExtensionClusion", "EnumerateExcludedExtensions", "GetQueryHelper", "put_DiacriticSensitivity", "get_DiacriticSensitivity", "GetCrawlScopeManager"]
 
     /**
+     * @type {PWSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectTimeout {
+        get => this.get_ConnectTimeout()
+        set => this.put_ConnectTimeout(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataTimeout {
+        get => this.get_DataTimeout()
+        set => this.put_DataTimeout(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    DiacriticSensitivity {
+        get => this.get_DiacriticSensitivity()
+        set => this.put_DiacriticSensitivity(value)
+    }
+
+    /**
      * 
      * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_name

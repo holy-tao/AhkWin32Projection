@@ -34,6 +34,38 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
     static VTableNames => ["CheckPublicKeySignature", "get_Issuer", "put_Issuer", "get_NotBefore", "put_NotBefore", "get_NotAfter", "put_NotAfter", "get_SerialNumber", "put_SerialNumber", "get_SignerCertificate", "put_SignerCertificate"]
 
     /**
+     * @type {IX500DistinguishedName} 
+     */
+    Issuer {
+        get => this.get_Issuer()
+        set => this.put_Issuer(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    NotBefore {
+        get => this.get_NotBefore()
+        set => this.put_NotBefore(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    NotAfter {
+        get => this.get_NotAfter()
+        set => this.put_NotAfter(value)
+    }
+
+    /**
+     * @type {ISignerCertificate} 
+     */
+    SignerCertificate {
+        get => this.get_SignerCertificate()
+        set => this.put_SignerCertificate(value)
+    }
+
+    /**
      * 
      * @param {IX509PublicKey} pPublicKey 
      * @returns {HRESULT} 

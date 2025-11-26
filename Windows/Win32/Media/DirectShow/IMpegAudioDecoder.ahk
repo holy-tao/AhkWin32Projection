@@ -32,6 +32,60 @@ class IMpegAudioDecoder extends IUnknown{
     static VTableNames => ["get_FrequencyDivider", "put_FrequencyDivider", "get_DecoderAccuracy", "put_DecoderAccuracy", "get_Stereo", "put_Stereo", "get_DecoderWordSize", "put_DecoderWordSize", "get_IntegerDecode", "put_IntegerDecode", "get_DualMode", "put_DualMode", "get_AudioFormat"]
 
     /**
+     * @type {Integer} 
+     */
+    FrequencyDivider {
+        get => this.get_FrequencyDivider()
+        set => this.put_FrequencyDivider(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DecoderAccuracy {
+        get => this.get_DecoderAccuracy()
+        set => this.put_DecoderAccuracy(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Stereo {
+        get => this.get_Stereo()
+        set => this.put_Stereo(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DecoderWordSize {
+        get => this.get_DecoderWordSize()
+        set => this.put_DecoderWordSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IntegerDecode {
+        get => this.get_IntegerDecode()
+        set => this.put_IntegerDecode(value)
+    }
+
+    /**
+     */
+    DualMode {
+        get => this.get_DualMode()
+        set => this.put_DualMode(value)
+    }
+
+    /**
+     * @type {MPEG1WAVEFORMAT} 
+     */
+    AudioFormat {
+        get => this.get_AudioFormat()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_frequencydivider

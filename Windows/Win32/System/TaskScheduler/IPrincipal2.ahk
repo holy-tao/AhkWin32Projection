@@ -38,6 +38,19 @@ class IPrincipal2 extends IDispatch{
     static VTableNames => ["get_ProcessTokenSidType", "put_ProcessTokenSidType", "get_RequiredPrivilegeCount", "get_RequiredPrivilege", "AddRequiredPrivilege"]
 
     /**
+     */
+    ProcessTokenSidType {
+        get => this.get_ProcessTokenSidType()
+        set => this.put_ProcessTokenSidType(value)
+    }
+
+    /**
+     */
+    RequiredPrivilegeCount {
+        get => this.get_RequiredPrivilegeCount()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pProcessTokenSidType 
      * @returns {HRESULT} 

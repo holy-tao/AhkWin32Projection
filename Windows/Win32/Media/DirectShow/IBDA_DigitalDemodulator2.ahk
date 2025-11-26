@@ -35,6 +35,34 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     static VTableNames => ["put_GuardInterval", "get_GuardInterval", "put_TransmissionMode", "get_TransmissionMode", "put_RollOff", "get_RollOff", "put_Pilot", "get_Pilot"]
 
     /**
+     */
+    GuardInterval {
+        get => this.get_GuardInterval()
+        set => this.put_GuardInterval(value)
+    }
+
+    /**
+     */
+    TransmissionMode {
+        get => this.get_TransmissionMode()
+        set => this.put_TransmissionMode(value)
+    }
+
+    /**
+     */
+    RollOff {
+        get => this.get_RollOff()
+        set => this.put_RollOff(value)
+    }
+
+    /**
+     */
+    Pilot {
+        get => this.get_Pilot()
+        set => this.put_Pilot(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pGuardInterval 
      * @returns {HRESULT} 

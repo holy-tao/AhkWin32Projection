@@ -30,6 +30,14 @@ class IMSMQPrivateDestination extends IDispatch{
     static VTableNames => ["get_Handle", "put_Handle"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Handle {
+        get => this.get_Handle()
+        set => this.put_Handle(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

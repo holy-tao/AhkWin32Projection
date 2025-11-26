@@ -30,6 +30,18 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
     static VTableNames => ["get_Name", "get_DisplayName", "get_Logo", "get_ContentType", "get_FileType", "get_InvocationInfo", "get_AllFileTypes"]
 
     /**
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 

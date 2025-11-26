@@ -31,6 +31,13 @@ class IWindowsDriverUpdate3 extends IWindowsDriverUpdate2{
     static VTableNames => ["get_BrowseOnly"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    BrowseOnly {
+        get => this.get_BrowseOnly()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate3-get_browseonly

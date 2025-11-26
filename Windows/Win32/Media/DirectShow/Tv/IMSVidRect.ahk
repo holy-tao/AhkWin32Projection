@@ -43,6 +43,53 @@ class IMSVidRect extends IDispatch{
     static VTableNames => ["get_Top", "put_Top", "get_Left", "put_Left", "get_Width", "put_Width", "get_Height", "put_Height", "get_HWnd", "put_HWnd", "put_Rect"]
 
     /**
+     * @type {Integer} 
+     */
+    Top {
+        get => this.get_Top()
+        set => this.put_Top(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Left {
+        get => this.get_Left()
+        set => this.put_Left(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+        set => this.put_Width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+        set => this.put_Height(value)
+    }
+
+    /**
+     * @type {HWND} 
+     */
+    HWnd {
+        get => this.get_HWnd()
+        set => this.put_HWnd(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Rect {
+        set => this.put_Rect(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_top

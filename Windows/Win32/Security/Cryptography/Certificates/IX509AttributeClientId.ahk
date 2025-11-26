@@ -32,6 +32,34 @@ class IX509AttributeClientId extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_ClientId", "get_MachineDnsName", "get_UserSamName", "get_ProcessName"]
 
     /**
+     * @type {Integer} 
+     */
+    ClientId {
+        get => this.get_ClientId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MachineDnsName {
+        get => this.get_MachineDnsName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserSamName {
+        get => this.get_UserSamName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProcessName {
+        get => this.get_ProcessName()
+    }
+
+    /**
      * 
      * @param {Integer} ClientId 
      * @param {BSTR} strMachineDnsName 

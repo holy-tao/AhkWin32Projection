@@ -38,6 +38,13 @@ class IMtsGrp extends IDispatch{
     static VTableNames => ["get_Count", "Item", "Refresh"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-get_count

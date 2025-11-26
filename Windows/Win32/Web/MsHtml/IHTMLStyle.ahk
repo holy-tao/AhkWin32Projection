@@ -37,6 +37,709 @@ class IHTMLStyle extends IDispatch{
     static VTableNames => ["put_fontFamily", "get_fontFamily", "put_fontStyle", "get_fontStyle", "put_fontVariant", "get_fontVariant", "put_fontWeight", "get_fontWeight", "put_fontSize", "get_fontSize", "put_font", "get_font", "put_color", "get_color", "put_background", "get_background", "put_backgroundColor", "get_backgroundColor", "put_backgroundImage", "get_backgroundImage", "put_backgroundRepeat", "get_backgroundRepeat", "put_backgroundAttachment", "get_backgroundAttachment", "put_backgroundPosition", "get_backgroundPosition", "put_backgroundPositionX", "get_backgroundPositionX", "put_backgroundPositionY", "get_backgroundPositionY", "put_wordSpacing", "get_wordSpacing", "put_letterSpacing", "get_letterSpacing", "put_textDecoration", "get_textDecoration", "put_textDecorationNone", "get_textDecorationNone", "put_textDecorationUnderline", "get_textDecorationUnderline", "put_textDecorationOverline", "get_textDecorationOverline", "put_textDecorationLineThrough", "get_textDecorationLineThrough", "put_textDecorationBlink", "get_textDecorationBlink", "put_verticalAlign", "get_verticalAlign", "put_textTransform", "get_textTransform", "put_textAlign", "get_textAlign", "put_textIndent", "get_textIndent", "put_lineHeight", "get_lineHeight", "put_marginTop", "get_marginTop", "put_marginRight", "get_marginRight", "put_marginBottom", "get_marginBottom", "put_marginLeft", "get_marginLeft", "put_margin", "get_margin", "put_paddingTop", "get_paddingTop", "put_paddingRight", "get_paddingRight", "put_paddingBottom", "get_paddingBottom", "put_paddingLeft", "get_paddingLeft", "put_padding", "get_padding", "put_border", "get_border", "put_borderTop", "get_borderTop", "put_borderRight", "get_borderRight", "put_borderBottom", "get_borderBottom", "put_borderLeft", "get_borderLeft", "put_borderColor", "get_borderColor", "put_borderTopColor", "get_borderTopColor", "put_borderRightColor", "get_borderRightColor", "put_borderBottomColor", "get_borderBottomColor", "put_borderLeftColor", "get_borderLeftColor", "put_borderWidth", "get_borderWidth", "put_borderTopWidth", "get_borderTopWidth", "put_borderRightWidth", "get_borderRightWidth", "put_borderBottomWidth", "get_borderBottomWidth", "put_borderLeftWidth", "get_borderLeftWidth", "put_borderStyle", "get_borderStyle", "put_borderTopStyle", "get_borderTopStyle", "put_borderRightStyle", "get_borderRightStyle", "put_borderBottomStyle", "get_borderBottomStyle", "put_borderLeftStyle", "get_borderLeftStyle", "put_width", "get_width", "put_height", "get_height", "put_styleFloat", "get_styleFloat", "put_clear", "get_clear", "put_display", "get_display", "put_visibility", "get_visibility", "put_listStyleType", "get_listStyleType", "put_listStylePosition", "get_listStylePosition", "put_listStyleImage", "get_listStyleImage", "put_listStyle", "get_listStyle", "put_whiteSpace", "get_whiteSpace", "put_top", "get_top", "put_left", "get_left", "get_position", "put_zIndex", "get_zIndex", "put_overflow", "get_overflow", "put_pageBreakBefore", "get_pageBreakBefore", "put_pageBreakAfter", "get_pageBreakAfter", "put_cssText", "get_cssText", "put_pixelTop", "get_pixelTop", "put_pixelLeft", "get_pixelLeft", "put_pixelWidth", "get_pixelWidth", "put_pixelHeight", "get_pixelHeight", "put_posTop", "get_posTop", "put_posLeft", "get_posLeft", "put_posWidth", "get_posWidth", "put_posHeight", "get_posHeight", "put_cursor", "get_cursor", "put_clip", "get_clip", "put_filter", "get_filter", "setAttribute", "getAttribute", "removeAttribute", "toString"]
 
     /**
+     * @type {BSTR} 
+     */
+    fontFamily {
+        get => this.get_fontFamily()
+        set => this.put_fontFamily(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontStyle {
+        get => this.get_fontStyle()
+        set => this.put_fontStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontVariant {
+        get => this.get_fontVariant()
+        set => this.put_fontVariant(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontWeight {
+        get => this.get_fontWeight()
+        set => this.put_fontWeight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    fontSize {
+        get => this.get_fontSize()
+        set => this.put_fontSize(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    font {
+        get => this.get_font()
+        set => this.put_font(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    color {
+        get => this.get_color()
+        set => this.put_color(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    background {
+        get => this.get_background()
+        set => this.put_background(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    backgroundColor {
+        get => this.get_backgroundColor()
+        set => this.put_backgroundColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundImage {
+        get => this.get_backgroundImage()
+        set => this.put_backgroundImage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundRepeat {
+        get => this.get_backgroundRepeat()
+        set => this.put_backgroundRepeat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundAttachment {
+        get => this.get_backgroundAttachment()
+        set => this.put_backgroundAttachment(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundPosition {
+        get => this.get_backgroundPosition()
+        set => this.put_backgroundPosition(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    backgroundPositionX {
+        get => this.get_backgroundPositionX()
+        set => this.put_backgroundPositionX(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    backgroundPositionY {
+        get => this.get_backgroundPositionY()
+        set => this.put_backgroundPositionY(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    wordSpacing {
+        get => this.get_wordSpacing()
+        set => this.put_wordSpacing(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    letterSpacing {
+        get => this.get_letterSpacing()
+        set => this.put_letterSpacing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textDecoration {
+        get => this.get_textDecoration()
+        set => this.put_textDecoration(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    textDecorationNone {
+        get => this.get_textDecorationNone()
+        set => this.put_textDecorationNone(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    textDecorationUnderline {
+        get => this.get_textDecorationUnderline()
+        set => this.put_textDecorationUnderline(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    textDecorationOverline {
+        get => this.get_textDecorationOverline()
+        set => this.put_textDecorationOverline(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    textDecorationLineThrough {
+        get => this.get_textDecorationLineThrough()
+        set => this.put_textDecorationLineThrough(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    textDecorationBlink {
+        get => this.get_textDecorationBlink()
+        set => this.put_textDecorationBlink(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    verticalAlign {
+        get => this.get_verticalAlign()
+        set => this.put_verticalAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textTransform {
+        get => this.get_textTransform()
+        set => this.put_textTransform(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAlign {
+        get => this.get_textAlign()
+        set => this.put_textAlign(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textIndent {
+        get => this.get_textIndent()
+        set => this.put_textIndent(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    lineHeight {
+        get => this.get_lineHeight()
+        set => this.put_lineHeight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginTop {
+        get => this.get_marginTop()
+        set => this.put_marginTop(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginRight {
+        get => this.get_marginRight()
+        set => this.put_marginRight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginBottom {
+        get => this.get_marginBottom()
+        set => this.put_marginBottom(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginLeft {
+        get => this.get_marginLeft()
+        set => this.put_marginLeft(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    margin {
+        get => this.get_margin()
+        set => this.put_margin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingTop {
+        get => this.get_paddingTop()
+        set => this.put_paddingTop(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingRight {
+        get => this.get_paddingRight()
+        set => this.put_paddingRight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingBottom {
+        get => this.get_paddingBottom()
+        set => this.put_paddingBottom(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingLeft {
+        get => this.get_paddingLeft()
+        set => this.put_paddingLeft(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    padding {
+        get => this.get_padding()
+        set => this.put_padding(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderTop {
+        get => this.get_borderTop()
+        set => this.put_borderTop(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderRight {
+        get => this.get_borderRight()
+        set => this.put_borderRight(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderBottom {
+        get => this.get_borderBottom()
+        set => this.put_borderBottom(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderLeft {
+        get => this.get_borderLeft()
+        set => this.put_borderLeft(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+        set => this.put_borderColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderTopColor {
+        get => this.get_borderTopColor()
+        set => this.put_borderTopColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderRightColor {
+        get => this.get_borderRightColor()
+        set => this.put_borderRightColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderBottomColor {
+        get => this.get_borderBottomColor()
+        set => this.put_borderBottomColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderLeftColor {
+        get => this.get_borderLeftColor()
+        set => this.put_borderLeftColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderWidth {
+        get => this.get_borderWidth()
+        set => this.put_borderWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderTopWidth {
+        get => this.get_borderTopWidth()
+        set => this.put_borderTopWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderRightWidth {
+        get => this.get_borderRightWidth()
+        set => this.put_borderRightWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderBottomWidth {
+        get => this.get_borderBottomWidth()
+        set => this.put_borderBottomWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderLeftWidth {
+        get => this.get_borderLeftWidth()
+        set => this.put_borderLeftWidth(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderStyle {
+        get => this.get_borderStyle()
+        set => this.put_borderStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderTopStyle {
+        get => this.get_borderTopStyle()
+        set => this.put_borderTopStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderRightStyle {
+        get => this.get_borderRightStyle()
+        set => this.put_borderRightStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderBottomStyle {
+        get => this.get_borderBottomStyle()
+        set => this.put_borderBottomStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderLeftStyle {
+        get => this.get_borderLeftStyle()
+        set => this.put_borderLeftStyle(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    styleFloat {
+        get => this.get_styleFloat()
+        set => this.put_styleFloat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    clear {
+        get => this.get_clear()
+        set => this.put_clear(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    display {
+        get => this.get_display()
+        set => this.put_display(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    visibility {
+        get => this.get_visibility()
+        set => this.put_visibility(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStyleType {
+        get => this.get_listStyleType()
+        set => this.put_listStyleType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStylePosition {
+        get => this.get_listStylePosition()
+        set => this.put_listStylePosition(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStyleImage {
+        get => this.get_listStyleImage()
+        set => this.put_listStyleImage(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStyle {
+        get => this.get_listStyle()
+        set => this.put_listStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    whiteSpace {
+        get => this.get_whiteSpace()
+        set => this.put_whiteSpace(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    top {
+        get => this.get_top()
+        set => this.put_top(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    left {
+        get => this.get_left()
+        set => this.put_left(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    position {
+        get => this.get_position()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    zIndex {
+        get => this.get_zIndex()
+        set => this.put_zIndex(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    overflow {
+        get => this.get_overflow()
+        set => this.put_overflow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pageBreakBefore {
+        get => this.get_pageBreakBefore()
+        set => this.put_pageBreakBefore(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pageBreakAfter {
+        get => this.get_pageBreakAfter()
+        set => this.put_pageBreakAfter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cssText {
+        get => this.get_cssText()
+        set => this.put_cssText(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pixelTop {
+        get => this.get_pixelTop()
+        set => this.put_pixelTop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pixelLeft {
+        get => this.get_pixelLeft()
+        set => this.put_pixelLeft(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pixelWidth {
+        get => this.get_pixelWidth()
+        set => this.put_pixelWidth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pixelHeight {
+        get => this.get_pixelHeight()
+        set => this.put_pixelHeight(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    posTop {
+        get => this.get_posTop()
+        set => this.put_posTop(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    posLeft {
+        get => this.get_posLeft()
+        set => this.put_posLeft(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    posWidth {
+        get => this.get_posWidth()
+        set => this.put_posWidth(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    posHeight {
+        get => this.get_posHeight()
+        set => this.put_posHeight(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cursor {
+        get => this.get_cursor()
+        set => this.put_cursor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    clip {
+        get => this.get_clip()
+        set => this.put_clip(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    filter {
+        get => this.get_filter()
+        set => this.put_filter(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

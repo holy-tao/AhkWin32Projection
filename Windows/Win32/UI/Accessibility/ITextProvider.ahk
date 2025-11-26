@@ -37,6 +37,20 @@ class ITextProvider extends IUnknown{
     static VTableNames => ["GetSelection", "GetVisibleRanges", "RangeFromChild", "RangeFromPoint", "get_DocumentRange", "get_SupportedTextSelection"]
 
     /**
+     * @type {ITextRangeProvider} 
+     */
+    DocumentRange {
+        get => this.get_DocumentRange()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SupportedTextSelection {
+        get => this.get_SupportedTextSelection()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-getselection

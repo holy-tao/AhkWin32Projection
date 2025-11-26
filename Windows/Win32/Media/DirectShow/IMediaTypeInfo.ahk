@@ -30,6 +30,20 @@ class IMediaTypeInfo extends IDispatch{
     static VTableNames => ["get_Type", "get_Subtype"]
 
     /**
+     * @type {BSTR} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Subtype {
+        get => this.get_Subtype()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

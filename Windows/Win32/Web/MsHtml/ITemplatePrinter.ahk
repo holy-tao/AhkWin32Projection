@@ -30,6 +30,207 @@ class ITemplatePrinter extends IDispatch{
     static VTableNames => ["startDoc", "stopDoc", "printBlankPage", "printPage", "ensurePrintDialogDefaults", "showPrintDialog", "showPageSetupDialog", "printNonNative", "printNonNativeFrames", "put_framesetDocument", "get_framesetDocument", "put_frameActive", "get_frameActive", "put_frameAsShown", "get_frameAsShown", "put_selection", "get_selection", "put_selectedPages", "get_selectedPages", "put_currentPage", "get_currentPage", "put_currentPageAvail", "get_currentPageAvail", "put_collate", "get_collate", "get_duplex", "put_copies", "get_copies", "put_pageFrom", "get_pageFrom", "put_pageTo", "get_pageTo", "put_tableOfLinks", "get_tableOfLinks", "put_allLinkedDocuments", "get_allLinkedDocuments", "put_header", "get_header", "put_footer", "get_footer", "put_marginLeft", "get_marginLeft", "put_marginRight", "get_marginRight", "put_marginTop", "get_marginTop", "put_marginBottom", "get_marginBottom", "get_pageWidth", "get_pageHeight", "get_unprintableLeft", "get_unprintableTop", "get_unprintableRight", "get_unprintableBottom", "updatePageStatus"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    framesetDocument {
+        get => this.get_framesetDocument()
+        set => this.put_framesetDocument(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    frameActive {
+        get => this.get_frameActive()
+        set => this.put_frameActive(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    frameAsShown {
+        get => this.get_frameAsShown()
+        set => this.put_frameAsShown(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    selection {
+        get => this.get_selection()
+        set => this.put_selection(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    selectedPages {
+        get => this.get_selectedPages()
+        set => this.put_selectedPages(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    currentPage {
+        get => this.get_currentPage()
+        set => this.put_currentPage(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    currentPageAvail {
+        get => this.get_currentPageAvail()
+        set => this.put_currentPageAvail(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    collate {
+        get => this.get_collate()
+        set => this.put_collate(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    duplex {
+        get => this.get_duplex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    copies {
+        get => this.get_copies()
+        set => this.put_copies(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageFrom {
+        get => this.get_pageFrom()
+        set => this.put_pageFrom(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageTo {
+        get => this.get_pageTo()
+        set => this.put_pageTo(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    tableOfLinks {
+        get => this.get_tableOfLinks()
+        set => this.put_tableOfLinks(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    allLinkedDocuments {
+        get => this.get_allLinkedDocuments()
+        set => this.put_allLinkedDocuments(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    header {
+        get => this.get_header()
+        set => this.put_header(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    footer {
+        get => this.get_footer()
+        set => this.put_footer(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    marginLeft {
+        get => this.get_marginLeft()
+        set => this.put_marginLeft(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    marginRight {
+        get => this.get_marginRight()
+        set => this.put_marginRight(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    marginTop {
+        get => this.get_marginTop()
+        set => this.put_marginTop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    marginBottom {
+        get => this.get_marginBottom()
+        set => this.put_marginBottom(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageWidth {
+        get => this.get_pageWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageHeight {
+        get => this.get_pageHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    unprintableLeft {
+        get => this.get_unprintableLeft()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    unprintableTop {
+        get => this.get_unprintableTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    unprintableRight {
+        get => this.get_unprintableRight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    unprintableBottom {
+        get => this.get_unprintableBottom()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrTitle 
      * @returns {VARIANT_BOOL} 

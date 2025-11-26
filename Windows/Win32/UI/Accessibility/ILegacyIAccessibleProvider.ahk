@@ -37,6 +37,69 @@ class ILegacyIAccessibleProvider extends IUnknown{
     static VTableNames => ["Select", "DoDefaultAction", "SetValue", "GetIAccessible", "get_ChildId", "get_Name", "get_Value", "get_Description", "get_Role", "get_State", "get_Help", "get_KeyboardShortcut", "GetSelection", "get_DefaultAction"]
 
     /**
+     * @type {Integer} 
+     */
+    ChildId {
+        get => this.get_ChildId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Role {
+        get => this.get_Role()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Help {
+        get => this.get_Help()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    KeyboardShortcut {
+        get => this.get_KeyboardShortcut()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DefaultAction {
+        get => this.get_DefaultAction()
+    }
+
+    /**
      * 
      * @param {Integer} flagsSelect 
      * @returns {HRESULT} 

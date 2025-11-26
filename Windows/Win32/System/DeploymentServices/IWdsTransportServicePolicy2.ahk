@@ -31,6 +31,30 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     static VTableNames => ["get_UdpPortPolicy", "put_UdpPortPolicy", "get_TftpMaximumBlockSize", "put_TftpMaximumBlockSize", "get_EnableTftpVariableWindowExtension", "put_EnableTftpVariableWindowExtension"]
 
     /**
+     * @type {Integer} 
+     */
+    UdpPortPolicy {
+        get => this.get_UdpPortPolicy()
+        set => this.put_UdpPortPolicy(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TftpMaximumBlockSize {
+        get => this.get_TftpMaximumBlockSize()
+        set => this.put_TftpMaximumBlockSize(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableTftpVariableWindowExtension {
+        get => this.get_EnableTftpVariableWindowExtension()
+        set => this.put_EnableTftpVariableWindowExtension(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_udpportpolicy

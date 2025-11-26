@@ -38,6 +38,92 @@ class IHTMLFormElement extends IDispatch{
     static VTableNames => ["put_action", "get_action", "put_dir", "get_dir", "put_encoding", "get_encoding", "put_method", "get_method", "get_elements", "put_target", "get_target", "put_name", "get_name", "put_onsubmit", "get_onsubmit", "put_onreset", "get_onreset", "submit", "reset", "put_length", "get_length", "get__newEnum", "item", "tags"]
 
     /**
+     * @type {BSTR} 
+     */
+    action {
+        get => this.get_action()
+        set => this.put_action(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dir {
+        get => this.get_dir()
+        set => this.put_dir(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    encoding {
+        get => this.get_encoding()
+        set => this.put_encoding(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    method {
+        get => this.get_method()
+        set => this.put_method(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    elements {
+        get => this.get_elements()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+        set => this.put_target(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onsubmit {
+        get => this.get_onsubmit()
+        set => this.put_onsubmit(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreset {
+        get => this.get_onreset()
+        set => this.put_onreset(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+        set => this.put_length(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

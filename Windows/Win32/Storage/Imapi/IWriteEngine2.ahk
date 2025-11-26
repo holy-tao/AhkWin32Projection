@@ -39,6 +39,53 @@ class IWriteEngine2 extends IDispatch{
     static VTableNames => ["WriteSection", "CancelWrite", "put_Recorder", "get_Recorder", "put_UseStreamingWrite12", "get_UseStreamingWrite12", "put_StartingSectorsPerSecond", "get_StartingSectorsPerSecond", "put_EndingSectorsPerSecond", "get_EndingSectorsPerSecond", "put_BytesPerSector", "get_BytesPerSector", "get_WriteInProgress"]
 
     /**
+     * @type {IDiscRecorder2Ex} 
+     */
+    Recorder {
+        get => this.get_Recorder()
+        set => this.put_Recorder(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseStreamingWrite12 {
+        get => this.get_UseStreamingWrite12()
+        set => this.put_UseStreamingWrite12(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartingSectorsPerSecond {
+        get => this.get_StartingSectorsPerSecond()
+        set => this.put_StartingSectorsPerSecond(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EndingSectorsPerSecond {
+        get => this.get_EndingSectorsPerSecond()
+        set => this.put_EndingSectorsPerSecond(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BytesPerSector {
+        get => this.get_BytesPerSector()
+        set => this.put_BytesPerSector(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    WriteInProgress {
+        get => this.get_WriteInProgress()
+    }
+
+    /**
      * 
      * @param {IStream} data 
      * @param {Integer} startingBlockAddress 

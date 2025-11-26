@@ -32,6 +32,22 @@ class IADsHold extends IDispatch{
     static VTableNames => ["get_ObjectName", "put_ObjectName", "get_Amount", "put_Amount"]
 
     /**
+     * @type {BSTR} 
+     */
+    ObjectName {
+        get => this.get_ObjectName()
+        set => this.put_ObjectName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Amount {
+        get => this.get_Amount()
+        set => this.put_Amount(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

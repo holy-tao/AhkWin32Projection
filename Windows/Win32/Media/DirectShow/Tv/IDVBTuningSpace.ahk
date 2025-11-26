@@ -42,6 +42,14 @@ class IDVBTuningSpace extends ITuningSpace{
     static VTableNames => ["get_SystemType", "put_SystemType"]
 
     /**
+     * @type {Integer} 
+     */
+    SystemType {
+        get => this.get_SystemType()
+        set => this.put_SystemType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-get_systemtype

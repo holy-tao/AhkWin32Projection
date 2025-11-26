@@ -30,6 +30,14 @@ class IPrintSchemaParameterInitializer extends IPrintSchemaElement{
     static VTableNames => ["get_Value", "put_Value"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

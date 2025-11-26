@@ -36,6 +36,21 @@ class IDOMProcessingInstruction extends IDispatch{
     static VTableNames => ["get_target", "put_data", "get_data"]
 
     /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

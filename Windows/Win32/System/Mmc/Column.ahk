@@ -36,6 +36,30 @@ class Column extends IDispatch{
     static VTableNames => ["Name", "get_Width", "put_Width", "get_DisplayPosition", "put_DisplayPosition", "get_Hidden", "put_Hidden", "SetAsSortColumn", "IsSortColumn"]
 
     /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+        set => this.put_Width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DisplayPosition {
+        get => this.get_DisplayPosition()
+        set => this.put_DisplayPosition(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Hidden {
+        get => this.get_Hidden()
+        set => this.put_Hidden(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

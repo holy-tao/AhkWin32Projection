@@ -31,6 +31,27 @@ class ISClusterNames extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "Refresh", "get_Item", "get_DomainName"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DomainName {
+        get => this.get_DomainName()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

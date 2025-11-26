@@ -72,6 +72,19 @@ class IAction extends IDispatch{
     static VTableNames => ["get_Id", "put_Id", "get_Type"]
 
     /**
+     */
+    Id {
+        get => this.get_Id()
+        set => this.put_Id(value)
+    }
+
+    /**
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pId 
      * @returns {HRESULT} 

@@ -31,6 +31,14 @@ class IAMTVAudio extends IUnknown{
     static VTableNames => ["GetHardwareSupportedTVAudioModes", "GetAvailableTVAudioModes", "get_TVAudioMode", "put_TVAudioMode", "RegisterNotificationCallBack", "UnRegisterNotificationCallBack"]
 
     /**
+     * @type {Integer} 
+     */
+    TVAudioMode {
+        get => this.get_TVAudioMode()
+        set => this.put_TVAudioMode(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-gethardwaresupportedtvaudiomodes

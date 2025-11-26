@@ -36,6 +36,13 @@ class ITRendezvous extends IDispatch{
     static VTableNames => ["get_DefaultDirectories", "EnumerateDefaultDirectories", "CreateDirectory", "CreateDirectoryObject"]
 
     /**
+     * @type {VARIANT} 
+     */
+    DefaultDirectories {
+        get => this.get_DefaultDirectories()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-get_defaultdirectories

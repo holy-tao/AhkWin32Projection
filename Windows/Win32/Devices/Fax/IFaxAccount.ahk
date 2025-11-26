@@ -43,6 +43,27 @@ class IFaxAccount extends IDispatch{
     static VTableNames => ["get_AccountName", "get_Folders", "ListenToAccountEvents", "get_RegisteredEvents"]
 
     /**
+     * @type {BSTR} 
+     */
+    AccountName {
+        get => this.get_AccountName()
+    }
+
+    /**
+     * @type {IFaxAccountFolders} 
+     */
+    Folders {
+        get => this.get_Folders()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RegisteredEvents {
+        get => this.get_RegisteredEvents()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_accountname

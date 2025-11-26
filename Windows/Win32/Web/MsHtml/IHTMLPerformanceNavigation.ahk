@@ -37,6 +37,20 @@ class IHTMLPerformanceNavigation extends IDispatch{
     static VTableNames => ["get_type", "get_redirectCount", "toString", "toJSON"]
 
     /**
+     * @type {Integer} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    redirectCount {
+        get => this.get_redirectCount()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

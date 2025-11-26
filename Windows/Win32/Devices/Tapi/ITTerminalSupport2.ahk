@@ -35,6 +35,13 @@ class ITTerminalSupport2 extends ITTerminalSupport{
     static VTableNames => ["get_PluggableSuperclasses", "EnumeratePluggableSuperclasses", "get_PluggableTerminalClasses", "EnumeratePluggableTerminalClasses"]
 
     /**
+     * @type {VARIANT} 
+     */
+    PluggableSuperclasses {
+        get => this.get_PluggableSuperclasses()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-get_pluggablesuperclasses

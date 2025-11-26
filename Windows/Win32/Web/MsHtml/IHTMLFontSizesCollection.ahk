@@ -31,6 +31,27 @@ class IHTMLFontSizesCollection extends IDispatch{
     static VTableNames => ["get_length", "get__newEnum", "get_forFont", "item"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    forFont {
+        get => this.get_forFont()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -36,6 +36,13 @@ class ICivicAddressReportFactory extends ILocationReportFactory{
     static VTableNames => ["get_CivicAddressReport"]
 
     /**
+     * @type {IDispCivicAddressReport} 
+     */
+    CivicAddressReport {
+        get => this.get_CivicAddressReport()
+    }
+
+    /**
      * 
      * @returns {IDispCivicAddressReport} 
      */

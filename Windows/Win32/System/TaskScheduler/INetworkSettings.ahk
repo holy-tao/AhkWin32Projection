@@ -37,6 +37,20 @@ class INetworkSettings extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Id", "put_Id"]
 
     /**
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     */
+    Id {
+        get => this.get_Id()
+        set => this.put_Id(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 

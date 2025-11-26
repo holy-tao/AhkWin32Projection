@@ -34,6 +34,27 @@ class ITAddressCapabilities extends IDispatch{
     static VTableNames => ["get_AddressCapability", "get_AddressCapabilityString", "get_CallTreatments", "EnumerateCallTreatments", "get_CompletionMessages", "EnumerateCompletionMessages", "get_DeviceClasses", "EnumerateDeviceClasses"]
 
     /**
+     * @type {VARIANT} 
+     */
+    CallTreatments {
+        get => this.get_CallTreatments()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CompletionMessages {
+        get => this.get_CompletionMessages()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DeviceClasses {
+        get => this.get_DeviceClasses()
+    }
+
+    /**
      * 
      * @param {Integer} AddressCap 
      * @returns {Integer} 

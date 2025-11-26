@@ -32,6 +32,55 @@ class IWscProduct extends IDispatch{
     static VTableNames => ["get_ProductName", "get_ProductState", "get_SignatureStatus", "get_RemediationPath", "get_ProductStateTimestamp", "get_ProductGuid", "get_ProductIsDefault"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProductName {
+        get => this.get_ProductName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProductState {
+        get => this.get_ProductState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SignatureStatus {
+        get => this.get_SignatureStatus()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemediationPath {
+        get => this.get_RemediationPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProductStateTimestamp {
+        get => this.get_ProductStateTimestamp()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProductGuid {
+        get => this.get_ProductGuid()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ProductIsDefault {
+        get => this.get_ProductIsDefault()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productname

@@ -39,6 +39,27 @@ class IInkTablets extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_DefaultTablet", "Item", "IsPacketPropertySupported"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {IInkTablet} 
+     */
+    DefaultTablet {
+        get => this.get_DefaultTablet()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-get_count

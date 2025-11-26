@@ -32,6 +32,34 @@ class IADsWinNTSystemInfo extends IDispatch{
     static VTableNames => ["get_UserName", "get_ComputerName", "get_DomainName", "get_PDC"]
 
     /**
+     * @type {BSTR} 
+     */
+    UserName {
+        get => this.get_UserName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ComputerName {
+        get => this.get_ComputerName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DomainName {
+        get => this.get_DomainName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PDC {
+        get => this.get_PDC()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

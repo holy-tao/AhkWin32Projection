@@ -39,6 +39,122 @@ class ISCluster extends IDispatch{
     static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Handle", "Open", "get_Name", "put_Name", "get_Version", "put_QuorumResource", "get_QuorumResource", "get_QuorumLogSize", "put_QuorumLogSize", "get_QuorumPath", "put_QuorumPath", "get_Nodes", "get_ResourceGroups", "get_Resources", "get_ResourceTypes", "get_Networks", "get_NetInterfaces"]
 
     /**
+     * @type {ISClusProperties} 
+     */
+    CommonProperties {
+        get => this.get_CommonProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateProperties {
+        get => this.get_PrivateProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    CommonROProperties {
+        get => this.get_CommonROProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateROProperties {
+        get => this.get_PrivateROProperties()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {ISClusVersion} 
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {ISClusResource} 
+     */
+    QuorumResource {
+        get => this.get_QuorumResource()
+        set => this.put_QuorumResource(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QuorumLogSize {
+        get => this.get_QuorumLogSize()
+        set => this.put_QuorumLogSize(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    QuorumPath {
+        get => this.get_QuorumPath()
+        set => this.put_QuorumPath(value)
+    }
+
+    /**
+     * @type {ISClusNodes} 
+     */
+    Nodes {
+        get => this.get_Nodes()
+    }
+
+    /**
+     * @type {ISClusResGroups} 
+     */
+    ResourceGroups {
+        get => this.get_ResourceGroups()
+    }
+
+    /**
+     * @type {ISClusResources} 
+     */
+    Resources {
+        get => this.get_Resources()
+    }
+
+    /**
+     * @type {ISClusResTypes} 
+     */
+    ResourceTypes {
+        get => this.get_ResourceTypes()
+    }
+
+    /**
+     * @type {ISClusNetworks} 
+     */
+    Networks {
+        get => this.get_Networks()
+    }
+
+    /**
+     * @type {ISClusNetInterfaces} 
+     */
+    NetInterfaces {
+        get => this.get_NetInterfaces()
+    }
+
+    /**
      * 
      * @returns {ISClusProperties} 
      */

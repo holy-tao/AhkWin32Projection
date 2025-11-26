@@ -36,6 +36,20 @@ class IMSMQQueueManagement extends IMSMQManagement{
     static VTableNames => ["get_JournalMessageCount", "get_BytesInJournal", "EodGetReceiveInfo"]
 
     /**
+     * @type {Integer} 
+     */
+    JournalMessageCount {
+        get => this.get_JournalMessageCount()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    BytesInJournal {
+        get => this.get_BytesInJournal()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

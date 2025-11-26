@@ -30,6 +30,13 @@ class IPMExtensionInfoEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMExtensionInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMExtensionInfo} 
      */

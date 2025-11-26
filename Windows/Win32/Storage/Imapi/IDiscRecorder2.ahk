@@ -41,6 +41,104 @@ class IDiscRecorder2 extends IDispatch{
     static VTableNames => ["EjectMedia", "CloseTray", "AcquireExclusiveAccess", "ReleaseExclusiveAccess", "DisableMcn", "EnableMcn", "InitializeDiscRecorder", "get_ActiveDiscRecorder", "get_VendorId", "get_ProductId", "get_ProductRevision", "get_VolumeName", "get_VolumePathNames", "get_DeviceCanLoadMedia", "get_LegacyDeviceNumber", "get_SupportedFeaturePages", "get_CurrentFeaturePages", "get_SupportedProfiles", "get_CurrentProfiles", "get_SupportedModePages", "get_ExclusiveAccessOwner"]
 
     /**
+     * @type {BSTR} 
+     */
+    ActiveDiscRecorder {
+        get => this.get_ActiveDiscRecorder()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VendorId {
+        get => this.get_VendorId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProductId {
+        get => this.get_ProductId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProductRevision {
+        get => this.get_ProductRevision()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeName {
+        get => this.get_VolumeName()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    VolumePathNames {
+        get => this.get_VolumePathNames()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DeviceCanLoadMedia {
+        get => this.get_DeviceCanLoadMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LegacyDeviceNumber {
+        get => this.get_LegacyDeviceNumber()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedFeaturePages {
+        get => this.get_SupportedFeaturePages()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CurrentFeaturePages {
+        get => this.get_CurrentFeaturePages()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedProfiles {
+        get => this.get_SupportedProfiles()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    CurrentProfiles {
+        get => this.get_CurrentProfiles()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedModePages {
+        get => this.get_SupportedModePages()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExclusiveAccessOwner {
+        get => this.get_ExclusiveAccessOwner()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-ejectmedia

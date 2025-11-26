@@ -34,6 +34,27 @@ class IDownloadJob extends IDispatch{
     static VTableNames => ["get_AsyncState", "get_IsCompleted", "get_Updates", "CleanUp", "GetProgress", "RequestAbort"]
 
     /**
+     * @type {VARIANT} 
+     */
+    AsyncState {
+        get => this.get_AsyncState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsCompleted {
+        get => this.get_IsCompleted()
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    Updates {
+        get => this.get_Updates()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadjob-get_asyncstate

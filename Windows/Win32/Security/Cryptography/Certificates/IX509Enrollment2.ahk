@@ -34,6 +34,27 @@ class IX509Enrollment2 extends IX509Enrollment{
     static VTableNames => ["InitializeFromTemplate", "InstallResponse2", "get_PolicyServer", "get_Template", "get_RequestIdString"]
 
     /**
+     * @type {IX509EnrollmentPolicyServer} 
+     */
+    PolicyServer {
+        get => this.get_PolicyServer()
+    }
+
+    /**
+     * @type {IX509CertificateTemplate} 
+     */
+    Template {
+        get => this.get_Template()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RequestIdString {
+        get => this.get_RequestIdString()
+    }
+
+    /**
      * 
      * @param {Integer} context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer 

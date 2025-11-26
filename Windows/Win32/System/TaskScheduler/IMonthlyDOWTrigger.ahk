@@ -39,6 +39,41 @@ class IMonthlyDOWTrigger extends ITrigger{
     static VTableNames => ["get_DaysOfWeek", "put_DaysOfWeek", "get_WeeksOfMonth", "put_WeeksOfMonth", "get_MonthsOfYear", "put_MonthsOfYear", "get_RunOnLastWeekOfMonth", "put_RunOnLastWeekOfMonth", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     */
+    DaysOfWeek {
+        get => this.get_DaysOfWeek()
+        set => this.put_DaysOfWeek(value)
+    }
+
+    /**
+     */
+    WeeksOfMonth {
+        get => this.get_WeeksOfMonth()
+        set => this.put_WeeksOfMonth(value)
+    }
+
+    /**
+     */
+    MonthsOfYear {
+        get => this.get_MonthsOfYear()
+        set => this.put_MonthsOfYear(value)
+    }
+
+    /**
+     */
+    RunOnLastWeekOfMonth {
+        get => this.get_RunOnLastWeekOfMonth()
+        set => this.put_RunOnLastWeekOfMonth(value)
+    }
+
+    /**
+     */
+    RandomDelay {
+        get => this.get_RandomDelay()
+        set => this.put_RandomDelay(value)
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 

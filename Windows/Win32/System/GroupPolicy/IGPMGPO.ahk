@@ -41,6 +41,77 @@ class IGPMGPO extends IDispatch{
     static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Path", "get_ID", "get_DomainName", "get_CreationTime", "get_ModificationTime", "get_UserDSVersionNumber", "get_ComputerDSVersionNumber", "get_UserSysvolVersionNumber", "get_ComputerSysvolVersionNumber", "GetWMIFilter", "SetWMIFilter", "SetUserEnabled", "SetComputerEnabled", "IsUserEnabled", "IsComputerEnabled", "GetSecurityInfo", "SetSecurityInfo", "Delete", "Backup", "Import", "GenerateReport", "GenerateReportToFile", "CopyTo", "SetSecurityDescriptor", "GetSecurityDescriptor", "IsACLConsistent", "MakeACLConsistent"]
 
     /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DomainName {
+        get => this.get_DomainName()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CreationTime {
+        get => this.get_CreationTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ModificationTime {
+        get => this.get_ModificationTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UserDSVersionNumber {
+        get => this.get_UserDSVersionNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ComputerDSVersionNumber {
+        get => this.get_ComputerDSVersionNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UserSysvolVersionNumber {
+        get => this.get_UserSysvolVersionNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ComputerSysvolVersionNumber {
+        get => this.get_ComputerSysvolVersionNumber()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

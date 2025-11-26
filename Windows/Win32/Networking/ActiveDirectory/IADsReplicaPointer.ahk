@@ -33,6 +33,46 @@ class IADsReplicaPointer extends IDispatch{
     static VTableNames => ["get_ServerName", "put_ServerName", "get_ReplicaType", "put_ReplicaType", "get_ReplicaNumber", "put_ReplicaNumber", "get_Count", "put_Count", "get_ReplicaAddressHints", "put_ReplicaAddressHints"]
 
     /**
+     * @type {BSTR} 
+     */
+    ServerName {
+        get => this.get_ServerName()
+        set => this.put_ServerName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReplicaType {
+        get => this.get_ReplicaType()
+        set => this.put_ReplicaType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReplicaNumber {
+        get => this.get_ReplicaNumber()
+        set => this.put_ReplicaNumber(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+        set => this.put_Count(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ReplicaAddressHints {
+        get => this.get_ReplicaAddressHints()
+        set => this.put_ReplicaAddressHints(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

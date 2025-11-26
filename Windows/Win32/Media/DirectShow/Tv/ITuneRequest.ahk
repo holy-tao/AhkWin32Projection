@@ -46,6 +46,28 @@ class ITuneRequest extends IDispatch{
     static VTableNames => ["get_TuningSpace", "get_Components", "Clone", "get_Locator", "put_Locator"]
 
     /**
+     * @type {ITuningSpace} 
+     */
+    TuningSpace {
+        get => this.get_TuningSpace()
+    }
+
+    /**
+     * @type {IComponents} 
+     */
+    Components {
+        get => this.get_Components()
+    }
+
+    /**
+     * @type {ILocator} 
+     */
+    Locator {
+        get => this.get_Locator()
+        set => this.put_Locator(value)
+    }
+
+    /**
      * 
      * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_tuningspace

@@ -31,6 +31,55 @@ class IWriteEngine2EventArgs extends IDispatch{
     static VTableNames => ["get_StartLba", "get_SectorCount", "get_LastReadLba", "get_LastWrittenLba", "get_TotalSystemBuffer", "get_UsedSystemBuffer", "get_FreeSystemBuffer"]
 
     /**
+     * @type {Integer} 
+     */
+    StartLba {
+        get => this.get_StartLba()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SectorCount {
+        get => this.get_SectorCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastReadLba {
+        get => this.get_LastReadLba()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastWrittenLba {
+        get => this.get_LastWrittenLba()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalSystemBuffer {
+        get => this.get_TotalSystemBuffer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UsedSystemBuffer {
+        get => this.get_UsedSystemBuffer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeSystemBuffer {
+        get => this.get_FreeSystemBuffer()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_startlba

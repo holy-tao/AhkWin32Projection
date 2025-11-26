@@ -34,6 +34,20 @@ class ITACDGroup extends IDispatch{
     static VTableNames => ["get_Name", "EnumerateQueues", "get_Queues"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Queues {
+        get => this.get_Queues()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-get_name

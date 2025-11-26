@@ -52,6 +52,20 @@ class ItsPubPlugin extends IUnknown{
     static VTableNames => ["GetResourceList", "GetResource", "GetCacheLastUpdateTime", "get_pluginName", "get_pluginVersion", "ResolveResource"]
 
     /**
+     * @type {BSTR} 
+     */
+    pluginName {
+        get => this.get_pluginName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pluginVersion {
+        get => this.get_pluginVersion()
+    }
+
+    /**
      * 
      * @param {PWSTR} userID 
      * @param {Pointer<Integer>} pceAppListSize 

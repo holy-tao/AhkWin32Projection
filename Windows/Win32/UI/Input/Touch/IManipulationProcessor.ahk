@@ -37,6 +37,46 @@ class IManipulationProcessor extends IUnknown{
     static VTableNames => ["get_SupportedManipulations", "put_SupportedManipulations", "get_PivotPointX", "put_PivotPointX", "get_PivotPointY", "put_PivotPointY", "get_PivotRadius", "put_PivotRadius", "CompleteManipulation", "ProcessDown", "ProcessMove", "ProcessUp", "ProcessDownWithTime", "ProcessMoveWithTime", "ProcessUpWithTime", "GetVelocityX", "GetVelocityY", "GetExpansionVelocity", "GetAngularVelocity", "get_MinimumScaleRotateRadius", "put_MinimumScaleRotateRadius"]
 
     /**
+     * @type {Integer} 
+     */
+    SupportedManipulations {
+        get => this.get_SupportedManipulations()
+        set => this.put_SupportedManipulations(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PivotPointX {
+        get => this.get_PivotPointX()
+        set => this.put_PivotPointX(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PivotPointY {
+        get => this.get_PivotPointY()
+        set => this.put_PivotPointY(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PivotRadius {
+        get => this.get_PivotRadius()
+        set => this.put_PivotRadius(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    MinimumScaleRotateRadius {
+        get => this.get_MinimumScaleRotateRadius()
+        set => this.put_MinimumScaleRotateRadius(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_supportedmanipulations

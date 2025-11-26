@@ -45,6 +45,49 @@ class IRDPSRAPIAttendee extends IDispatch{
     static VTableNames => ["get_Id", "get_RemoteName", "get_ControlLevel", "put_ControlLevel", "get_Invitation", "TerminateConnection", "get_Flags", "get_ConnectivityInfo"]
 
     /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteName {
+        get => this.get_RemoteName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ControlLevel {
+        get => this.get_ControlLevel()
+        set => this.put_ControlLevel(value)
+    }
+
+    /**
+     * @type {IRDPSRAPIInvitation} 
+     */
+    Invitation {
+        get => this.get_Invitation()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ConnectivityInfo {
+        get => this.get_ConnectivityInfo()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_id

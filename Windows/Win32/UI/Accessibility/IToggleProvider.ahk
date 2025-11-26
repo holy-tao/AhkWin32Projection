@@ -36,6 +36,13 @@ class IToggleProvider extends IUnknown{
     static VTableNames => ["Toggle", "get_ToggleState"]
 
     /**
+     * @type {Integer} 
+     */
+    ToggleState {
+        get => this.get_ToggleState()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-toggle

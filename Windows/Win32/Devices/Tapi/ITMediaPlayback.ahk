@@ -32,6 +32,14 @@ class ITMediaPlayback extends IDispatch{
     static VTableNames => ["put_PlayList", "get_PlayList"]
 
     /**
+     * @type {VARIANT} 
+     */
+    PlayList {
+        get => this.get_PlayList()
+        set => this.put_PlayList(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} PlayListVariant 
      * @returns {HRESULT} 

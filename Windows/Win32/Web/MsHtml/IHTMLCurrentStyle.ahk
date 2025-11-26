@@ -37,6 +37,636 @@ class IHTMLCurrentStyle extends IDispatch{
     static VTableNames => ["get_position", "get_styleFloat", "get_color", "get_backgroundColor", "get_fontFamily", "get_fontStyle", "get_fontVariant", "get_fontWeight", "get_fontSize", "get_backgroundImage", "get_backgroundPositionX", "get_backgroundPositionY", "get_backgroundRepeat", "get_borderLeftColor", "get_borderTopColor", "get_borderRightColor", "get_borderBottomColor", "get_borderTopStyle", "get_borderRightStyle", "get_borderBottomStyle", "get_borderLeftStyle", "get_borderTopWidth", "get_borderRightWidth", "get_borderBottomWidth", "get_borderLeftWidth", "get_left", "get_top", "get_width", "get_height", "get_paddingLeft", "get_paddingTop", "get_paddingRight", "get_paddingBottom", "get_textAlign", "get_textDecoration", "get_display", "get_visibility", "get_zIndex", "get_letterSpacing", "get_lineHeight", "get_textIndent", "get_verticalAlign", "get_backgroundAttachment", "get_marginTop", "get_marginRight", "get_marginBottom", "get_marginLeft", "get_clear", "get_listStyleType", "get_listStylePosition", "get_listStyleImage", "get_clipTop", "get_clipRight", "get_clipBottom", "get_clipLeft", "get_overflow", "get_pageBreakBefore", "get_pageBreakAfter", "get_cursor", "get_tableLayout", "get_borderCollapse", "get_direction", "get_behavior", "getAttribute", "get_unicodeBidi", "get_right", "get_bottom", "get_imeMode", "get_rubyAlign", "get_rubyPosition", "get_rubyOverhang", "get_textAutospace", "get_lineBreak", "get_wordBreak", "get_textJustify", "get_textJustifyTrim", "get_textKashida", "get_blockDirection", "get_layoutGridChar", "get_layoutGridLine", "get_layoutGridMode", "get_layoutGridType", "get_borderStyle", "get_borderColor", "get_borderWidth", "get_padding", "get_margin", "get_accelerator", "get_overflowX", "get_overflowY", "get_textTransform"]
 
     /**
+     * @type {BSTR} 
+     */
+    position {
+        get => this.get_position()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    styleFloat {
+        get => this.get_styleFloat()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    color {
+        get => this.get_color()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    backgroundColor {
+        get => this.get_backgroundColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontFamily {
+        get => this.get_fontFamily()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontStyle {
+        get => this.get_fontStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontVariant {
+        get => this.get_fontVariant()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    fontWeight {
+        get => this.get_fontWeight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    fontSize {
+        get => this.get_fontSize()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundImage {
+        get => this.get_backgroundImage()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    backgroundPositionX {
+        get => this.get_backgroundPositionX()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    backgroundPositionY {
+        get => this.get_backgroundPositionY()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundRepeat {
+        get => this.get_backgroundRepeat()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderLeftColor {
+        get => this.get_borderLeftColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderTopColor {
+        get => this.get_borderTopColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderRightColor {
+        get => this.get_borderRightColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderBottomColor {
+        get => this.get_borderBottomColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderTopStyle {
+        get => this.get_borderTopStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderRightStyle {
+        get => this.get_borderRightStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderBottomStyle {
+        get => this.get_borderBottomStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderLeftStyle {
+        get => this.get_borderLeftStyle()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderTopWidth {
+        get => this.get_borderTopWidth()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderRightWidth {
+        get => this.get_borderRightWidth()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderBottomWidth {
+        get => this.get_borderBottomWidth()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderLeftWidth {
+        get => this.get_borderLeftWidth()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    left {
+        get => this.get_left()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    top {
+        get => this.get_top()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingLeft {
+        get => this.get_paddingLeft()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingTop {
+        get => this.get_paddingTop()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingRight {
+        get => this.get_paddingRight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    paddingBottom {
+        get => this.get_paddingBottom()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAlign {
+        get => this.get_textAlign()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textDecoration {
+        get => this.get_textDecoration()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    display {
+        get => this.get_display()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    visibility {
+        get => this.get_visibility()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    zIndex {
+        get => this.get_zIndex()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    letterSpacing {
+        get => this.get_letterSpacing()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    lineHeight {
+        get => this.get_lineHeight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textIndent {
+        get => this.get_textIndent()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    verticalAlign {
+        get => this.get_verticalAlign()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backgroundAttachment {
+        get => this.get_backgroundAttachment()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginTop {
+        get => this.get_marginTop()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginRight {
+        get => this.get_marginRight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginBottom {
+        get => this.get_marginBottom()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    marginLeft {
+        get => this.get_marginLeft()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    clear {
+        get => this.get_clear()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStyleType {
+        get => this.get_listStyleType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStylePosition {
+        get => this.get_listStylePosition()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    listStyleImage {
+        get => this.get_listStyleImage()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    clipTop {
+        get => this.get_clipTop()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    clipRight {
+        get => this.get_clipRight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    clipBottom {
+        get => this.get_clipBottom()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    clipLeft {
+        get => this.get_clipLeft()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    overflow {
+        get => this.get_overflow()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pageBreakBefore {
+        get => this.get_pageBreakBefore()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pageBreakAfter {
+        get => this.get_pageBreakAfter()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cursor {
+        get => this.get_cursor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    tableLayout {
+        get => this.get_tableLayout()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderCollapse {
+        get => this.get_borderCollapse()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    direction {
+        get => this.get_direction()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    behavior {
+        get => this.get_behavior()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    unicodeBidi {
+        get => this.get_unicodeBidi()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    right {
+        get => this.get_right()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bottom {
+        get => this.get_bottom()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    imeMode {
+        get => this.get_imeMode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rubyAlign {
+        get => this.get_rubyAlign()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rubyPosition {
+        get => this.get_rubyPosition()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rubyOverhang {
+        get => this.get_rubyOverhang()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAutospace {
+        get => this.get_textAutospace()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lineBreak {
+        get => this.get_lineBreak()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    wordBreak {
+        get => this.get_wordBreak()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textJustify {
+        get => this.get_textJustify()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textJustifyTrim {
+        get => this.get_textJustifyTrim()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textKashida {
+        get => this.get_textKashida()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    blockDirection {
+        get => this.get_blockDirection()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    layoutGridChar {
+        get => this.get_layoutGridChar()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    layoutGridLine {
+        get => this.get_layoutGridLine()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    layoutGridMode {
+        get => this.get_layoutGridMode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    layoutGridType {
+        get => this.get_layoutGridType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderStyle {
+        get => this.get_borderStyle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    borderWidth {
+        get => this.get_borderWidth()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    padding {
+        get => this.get_padding()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    margin {
+        get => this.get_margin()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    accelerator {
+        get => this.get_accelerator()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    overflowX {
+        get => this.get_overflowX()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    overflowY {
+        get => this.get_overflowY()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textTransform {
+        get => this.get_textTransform()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

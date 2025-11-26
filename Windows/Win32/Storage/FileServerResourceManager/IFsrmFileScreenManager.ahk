@@ -62,6 +62,20 @@ class IFsrmFileScreenManager extends IDispatch{
     static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "CreateFileScreen", "GetFileScreen", "EnumFileScreens", "CreateFileScreenException", "GetFileScreenException", "EnumFileScreenExceptions", "CreateFileScreenCollection"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariables {
+        get => this.get_ActionVariables()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariableDescriptions {
+        get => this.get_ActionVariableDescriptions()
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariables

@@ -30,6 +30,54 @@ class IShellLinkDual extends IDispatch{
     static VTableNames => ["get_Path", "put_Path", "get_Description", "put_Description", "get_WorkingDirectory", "put_WorkingDirectory", "get_Arguments", "put_Arguments", "get_Hotkey", "put_Hotkey", "get_ShowCommand", "put_ShowCommand", "Resolve", "GetIconLocation", "SetIconLocation", "Save"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    WorkingDirectory {
+        get => this.get_WorkingDirectory()
+        set => this.put_WorkingDirectory(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Arguments {
+        get => this.get_Arguments()
+        set => this.put_Arguments(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Hotkey {
+        get => this.get_Hotkey()
+        set => this.put_Hotkey(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ShowCommand {
+        get => this.get_ShowCommand()
+        set => this.put_ShowCommand(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

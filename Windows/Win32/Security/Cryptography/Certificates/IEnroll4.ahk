@@ -31,6 +31,27 @@ class IEnroll4 extends IEnroll2{
     static VTableNames => ["put_ThumbPrintWStr", "get_ThumbPrintWStr", "SetPrivateKeyArchiveCertificate", "GetPrivateKeyArchiveCertificate", "binaryBlobToString", "stringToBinaryBlob", "addExtensionToRequestWStr", "addAttributeToRequestWStr", "addNameValuePairToRequestWStr", "resetExtensions", "resetAttributes", "createRequestWStr", "createFileRequestWStr", "acceptResponseBlob", "acceptFileResponseWStr", "getCertContextFromResponseBlob", "getCertContextFromFileResponseWStr", "createPFXWStr", "createFilePFXWStr", "setPendingRequestInfoWStr", "enumPendingRequestWStr", "removePendingRequestWStr", "GetKeyLenEx", "InstallPKCS7BlobEx", "AddCertTypeToRequestWStrEx", "getProviderTypeWStr", "addBlobPropertyToCertificateWStr", "SetSignerCertificate", "put_ClientId", "get_ClientId", "put_IncludeSubjectKeyID", "get_IncludeSubjectKeyID"]
 
     /**
+     */
+    ThumbPrintWStr {
+        get => this.get_ThumbPrintWStr()
+        set => this.put_ThumbPrintWStr(value)
+    }
+
+    /**
+     */
+    ClientId {
+        get => this.get_ClientId()
+        set => this.put_ClientId(value)
+    }
+
+    /**
+     */
+    IncludeSubjectKeyID {
+        get => this.get_IncludeSubjectKeyID()
+        set => this.put_IncludeSubjectKeyID(value)
+    }
+
+    /**
      * 
      * @param {CRYPT_INTEGER_BLOB} thumbPrintBlob 
      * @returns {HRESULT} 

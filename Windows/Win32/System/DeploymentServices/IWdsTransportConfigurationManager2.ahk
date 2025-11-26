@@ -32,6 +32,13 @@ class IWdsTransportConfigurationManager2 extends IWdsTransportConfigurationManag
     static VTableNames => ["get_MulticastSessionPolicy"]
 
     /**
+     * @type {IWdsTransportMulticastSessionPolicy} 
+     */
+    MulticastSessionPolicy {
+        get => this.get_MulticastSessionPolicy()
+    }
+
+    /**
      * 
      * @returns {IWdsTransportMulticastSessionPolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager2-get_multicastsessionpolicy

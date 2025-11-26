@@ -31,6 +31,14 @@ class IFsrmFileGroupImported extends IFsrmFileGroup{
     static VTableNames => ["get_OverwriteOnCommit", "put_OverwriteOnCommit"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    OverwriteOnCommit {
+        get => this.get_OverwriteOnCommit()
+        set => this.put_OverwriteOnCommit(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-get_overwriteoncommit

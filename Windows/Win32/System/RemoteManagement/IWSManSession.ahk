@@ -32,6 +32,29 @@ class IWSManSession extends IDispatch{
     static VTableNames => ["Get", "Put", "Create", "Delete", "Invoke", "Enumerate", "Identify", "get_Error", "get_BatchItems", "put_BatchItems", "get_Timeout", "put_Timeout"]
 
     /**
+     * @type {BSTR} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BatchItems {
+        get => this.get_BatchItems()
+        set => this.put_BatchItems(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Timeout {
+        get => this.get_Timeout()
+        set => this.put_Timeout(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} resourceUri 
      * @param {Integer} flags 

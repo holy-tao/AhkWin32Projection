@@ -31,6 +31,18 @@ class IWMPDownloadCollection extends IDispatch{
     static VTableNames => ["get_id", "get_count", "item", "startDownload", "removeItem", "Clear"]
 
     /**
+     */
+    id {
+        get => this.get_id()
+    }
+
+    /**
+     */
+    count {
+        get => this.get_count()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plId 
      * @returns {HRESULT} 

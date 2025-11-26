@@ -38,6 +38,43 @@ class IRDPSRAPIInvitation extends IDispatch{
     static VTableNames => ["get_ConnectionString", "get_GroupName", "get_Password", "get_AttendeeLimit", "put_AttendeeLimit", "get_Revoked", "put_Revoked"]
 
     /**
+     * @type {BSTR} 
+     */
+    ConnectionString {
+        get => this.get_ConnectionString()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GroupName {
+        get => this.get_GroupName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Password {
+        get => this.get_Password()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AttendeeLimit {
+        get => this.get_AttendeeLimit()
+        set => this.put_AttendeeLimit(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Revoked {
+        get => this.get_Revoked()
+        set => this.put_Revoked(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_connectionstring

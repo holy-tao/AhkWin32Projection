@@ -32,6 +32,48 @@ class ITTerminal extends IDispatch{
     static VTableNames => ["get_Name", "get_State", "get_TerminalType", "get_TerminalClass", "get_MediaType", "get_Direction"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TerminalType {
+        get => this.get_TerminalType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalClass {
+        get => this.get_TerminalClass()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_name

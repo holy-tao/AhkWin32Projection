@@ -36,6 +36,21 @@ class IHTMLCSSMediaList extends IDispatch{
     static VTableNames => ["put_mediaText", "get_mediaText", "get_length", "item", "appendMedium", "deleteMedium"]
 
     /**
+     * @type {BSTR} 
+     */
+    mediaText {
+        get => this.get_mediaText()
+        set => this.put_mediaText(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

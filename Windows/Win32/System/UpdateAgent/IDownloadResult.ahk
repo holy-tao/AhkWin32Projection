@@ -32,6 +32,20 @@ class IDownloadResult extends IDispatch{
     static VTableNames => ["get_HResult", "get_ResultCode", "GetUpdateResult"]
 
     /**
+     * @type {Integer} 
+     */
+    HResult {
+        get => this.get_HResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ResultCode {
+        get => this.get_ResultCode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-get_hresult

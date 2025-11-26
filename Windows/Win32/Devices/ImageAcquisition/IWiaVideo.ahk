@@ -67,6 +67,22 @@ class IWiaVideo extends IUnknown{
     static VTableNames => ["get_PreviewVisible", "put_PreviewVisible", "get_ImagesDirectory", "put_ImagesDirectory", "CreateVideoByWiaDevID", "CreateVideoByDevNum", "CreateVideoByName", "DestroyVideo", "Play", "Pause", "TakePicture", "ResizeVideo", "GetCurrentState"]
 
     /**
+     * @type {BOOL} 
+     */
+    PreviewVisible {
+        get => this.get_PreviewVisible()
+        set => this.put_PreviewVisible(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ImagesDirectory {
+        get => this.get_ImagesDirectory()
+        set => this.put_ImagesDirectory(value)
+    }
+
+    /**
      * 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-get_previewvisible

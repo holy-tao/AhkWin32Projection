@@ -37,6 +37,20 @@ class ITaskNamedValuePair extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Value", "put_Value"]
 
     /**
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 

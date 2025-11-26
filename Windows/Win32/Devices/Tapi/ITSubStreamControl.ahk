@@ -34,6 +34,13 @@ class ITSubStreamControl extends IDispatch{
     static VTableNames => ["CreateSubStream", "RemoveSubStream", "EnumerateSubStreams", "get_SubStreams"]
 
     /**
+     * @type {VARIANT} 
+     */
+    SubStreams {
+        get => this.get_SubStreams()
+    }
+
+    /**
      * 
      * @returns {ITSubStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-createsubstream

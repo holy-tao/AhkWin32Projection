@@ -45,6 +45,20 @@ class IGPMDomain extends IDispatch{
     static VTableNames => ["get_DomainController", "get_Domain", "CreateGPO", "GetGPO", "SearchGPOs", "RestoreGPO", "GetSOM", "SearchSOMs", "GetWMIFilter", "SearchWMIFilters"]
 
     /**
+     * @type {BSTR} 
+     */
+    DomainController {
+        get => this.get_DomainController()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Domain {
+        get => this.get_Domain()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

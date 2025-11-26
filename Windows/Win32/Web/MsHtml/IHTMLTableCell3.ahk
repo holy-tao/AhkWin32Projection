@@ -30,6 +30,22 @@ class IHTMLTableCell3 extends IDispatch{
     static VTableNames => ["put_ch", "get_ch", "put_chOff", "get_chOff"]
 
     /**
+     * @type {BSTR} 
+     */
+    ch {
+        get => this.get_ch()
+        set => this.put_ch(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    chOff {
+        get => this.get_chOff()
+        set => this.put_chOff(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

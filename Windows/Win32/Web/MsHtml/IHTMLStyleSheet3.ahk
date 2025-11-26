@@ -30,6 +30,28 @@ class IHTMLStyleSheet3 extends IDispatch{
     static VTableNames => ["put_href", "get_href", "get_isAlternate", "get_isPrefAlternate"]
 
     /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isAlternate {
+        get => this.get_isAlternate()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isPrefAlternate {
+        get => this.get_isPrefAlternate()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

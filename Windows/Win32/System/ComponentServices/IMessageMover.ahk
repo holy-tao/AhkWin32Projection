@@ -38,6 +38,30 @@ class IMessageMover extends IDispatch{
     static VTableNames => ["get_SourcePath", "put_SourcePath", "get_DestPath", "put_DestPath", "get_CommitBatchSize", "put_CommitBatchSize", "MoveMessages"]
 
     /**
+     * @type {BSTR} 
+     */
+    SourcePath {
+        get => this.get_SourcePath()
+        set => this.put_SourcePath(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DestPath {
+        get => this.get_DestPath()
+        set => this.put_DestPath(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CommitBatchSize {
+        get => this.get_CommitBatchSize()
+        set => this.put_CommitBatchSize(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-get_sourcepath

@@ -42,6 +42,13 @@ class IUIAutomationTreeWalker extends IUnknown{
     static VTableNames => ["GetParentElement", "GetFirstChildElement", "GetLastChildElement", "GetNextSiblingElement", "GetPreviousSiblingElement", "NormalizeElement", "GetParentElementBuildCache", "GetFirstChildElementBuildCache", "GetLastChildElementBuildCache", "GetNextSiblingElementBuildCache", "GetPreviousSiblingElementBuildCache", "NormalizeElementBuildCache", "get_Condition"]
 
     /**
+     * @type {IUIAutomationCondition} 
+     */
+    Condition {
+        get => this.get_Condition()
+    }
+
+    /**
      * 
      * @param {IUIAutomationElement} element 
      * @returns {IUIAutomationElement} 

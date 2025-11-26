@@ -31,6 +31,22 @@ class ISpeechAudioFormat extends IDispatch{
     static VTableNames => ["get_Type", "put_Type", "get_Guid", "put_Guid", "GetWaveFormatEx", "SetWaveFormatEx"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Guid {
+        get => this.get_Guid()
+        set => this.put_Guid(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

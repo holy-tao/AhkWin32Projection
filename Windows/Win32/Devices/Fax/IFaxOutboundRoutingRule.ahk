@@ -42,6 +42,51 @@ class IFaxOutboundRoutingRule extends IDispatch{
     static VTableNames => ["get_CountryCode", "get_AreaCode", "get_Status", "get_UseDevice", "put_UseDevice", "get_DeviceId", "put_DeviceId", "get_GroupName", "put_GroupName", "Refresh", "Save"]
 
     /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AreaCode {
+        get => this.get_AreaCode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseDevice {
+        get => this.get_UseDevice()
+        set => this.put_UseDevice(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceId {
+        get => this.get_DeviceId()
+        set => this.put_DeviceId(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GroupName {
+        get => this.get_GroupName()
+        set => this.put_GroupName(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_countrycode

@@ -32,6 +32,14 @@ class ICertProperty extends IDispatch{
     static VTableNames => ["InitializeFromCertificate", "InitializeDecode", "get_PropertyId", "put_PropertyId", "get_RawData", "RemoveFromCertificate", "SetValueOnCertificate"]
 
     /**
+     * @type {Integer} 
+     */
+    PropertyId {
+        get => this.get_PropertyId()
+        set => this.put_PropertyId(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} MachineContext 
      * @param {Integer} Encoding 

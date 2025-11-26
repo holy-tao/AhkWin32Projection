@@ -31,6 +31,20 @@ class IInkTablet3 extends IDispatch{
     static VTableNames => ["get_IsMultiTouch", "get_MaximumCursors"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsMultiTouch {
+        get => this.get_IsMultiTouch()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaximumCursors {
+        get => this.get_MaximumCursors()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet3-get_ismultitouch

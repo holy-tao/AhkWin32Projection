@@ -33,6 +33,14 @@ class IAzClientContext2 extends IAzClientContext{
     static VTableNames => ["GetAssignedScopesPage", "AddRoles", "AddApplicationGroups", "AddStringSids", "put_LDAPQueryDN", "get_LDAPQueryDN"]
 
     /**
+     * @type {BSTR} 
+     */
+    LDAPQueryDN {
+        get => this.get_LDAPQueryDN()
+        set => this.put_LDAPQueryDN(value)
+    }
+
+    /**
      * 
      * @param {Integer} lOptions 
      * @param {Integer} PageSize 

@@ -30,6 +30,22 @@ class IHTMLBodyElement4 extends IDispatch{
     static VTableNames => ["put_onmessage", "get_onmessage", "put_onstorage", "get_onstorage"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onmessage {
+        get => this.get_onmessage()
+        set => this.put_onmessage(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstorage {
+        get => this.get_onstorage()
+        set => this.put_onstorage(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

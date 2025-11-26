@@ -37,6 +37,38 @@ class IHTMLBGsound extends IDispatch{
     static VTableNames => ["put_src", "get_src", "put_loop", "get_loop", "put_volume", "get_volume", "put_balance", "get_balance"]
 
     /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    loop {
+        get => this.get_loop()
+        set => this.put_loop(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    volume {
+        get => this.get_volume()
+        set => this.put_volume(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    balance {
+        get => this.get_balance()
+        set => this.put_balance(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

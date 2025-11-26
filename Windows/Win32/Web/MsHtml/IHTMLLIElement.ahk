@@ -36,6 +36,22 @@ class IHTMLLIElement extends IDispatch{
     static VTableNames => ["put_type", "get_type", "put_value", "get_value"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

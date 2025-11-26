@@ -38,6 +38,297 @@ class IInkEdit extends IDispatch{
     static VTableNames => ["get_Status", "get_UseMouseForInput", "put_UseMouseForInput", "get_InkMode", "put_InkMode", "get_InkInsertMode", "put_InkInsertMode", "get_DrawingAttributes", "putref_DrawingAttributes", "get_RecognitionTimeout", "put_RecognitionTimeout", "get_Recognizer", "putref_Recognizer", "get_Factoid", "put_Factoid", "get_SelInks", "put_SelInks", "get_SelInksDisplayMode", "put_SelInksDisplayMode", "Recognize", "GetGestureStatus", "SetGestureStatus", "put_BackColor", "get_BackColor", "get_Appearance", "put_Appearance", "get_BorderStyle", "put_BorderStyle", "get_Hwnd", "get_Font", "putref_Font", "get_Text", "put_Text", "get_MouseIcon", "put_MouseIcon", "putref_MouseIcon", "get_MousePointer", "put_MousePointer", "get_Locked", "put_Locked", "get_Enabled", "put_Enabled", "get_MaxLength", "put_MaxLength", "get_MultiLine", "put_MultiLine", "get_ScrollBars", "put_ScrollBars", "get_DisableNoScroll", "put_DisableNoScroll", "get_SelAlignment", "put_SelAlignment", "get_SelBold", "put_SelBold", "get_SelItalic", "put_SelItalic", "get_SelUnderline", "put_SelUnderline", "get_SelColor", "put_SelColor", "get_SelFontName", "put_SelFontName", "get_SelFontSize", "put_SelFontSize", "get_SelCharOffset", "put_SelCharOffset", "get_TextRTF", "put_TextRTF", "get_SelStart", "put_SelStart", "get_SelLength", "put_SelLength", "get_SelText", "put_SelText", "get_SelRTF", "put_SelRTF", "Refresh"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UseMouseForInput {
+        get => this.get_UseMouseForInput()
+        set => this.put_UseMouseForInput(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InkMode {
+        get => this.get_InkMode()
+        set => this.put_InkMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InkInsertMode {
+        get => this.get_InkInsertMode()
+        set => this.put_InkInsertMode(value)
+    }
+
+    /**
+     * @type {IInkDrawingAttributes} 
+     */
+    DrawingAttributes {
+        get => this.get_DrawingAttributes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecognitionTimeout {
+        get => this.get_RecognitionTimeout()
+        set => this.put_RecognitionTimeout(value)
+    }
+
+    /**
+     * @type {IInkRecognizer} 
+     */
+    Recognizer {
+        get => this.get_Recognizer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Factoid {
+        get => this.get_Factoid()
+        set => this.put_Factoid(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelInks {
+        get => this.get_SelInks()
+        set => this.put_SelInks(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SelInksDisplayMode {
+        get => this.get_SelInksDisplayMode()
+        set => this.put_SelInksDisplayMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackColor {
+        get => this.get_BackColor()
+        set => this.put_BackColor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Appearance {
+        get => this.get_Appearance()
+        set => this.put_Appearance(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BorderStyle {
+        get => this.get_BorderStyle()
+        set => this.put_BorderStyle(value)
+    }
+
+    /**
+     * @type {OLE_HANDLE} 
+     */
+    Hwnd {
+        get => this.get_Hwnd()
+    }
+
+    /**
+     * @type {IFontDisp} 
+     */
+    Font {
+        get => this.get_Font()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Text {
+        get => this.get_Text()
+        set => this.put_Text(value)
+    }
+
+    /**
+     * @type {IPictureDisp} 
+     */
+    MouseIcon {
+        get => this.get_MouseIcon()
+        set => this.put_MouseIcon(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MousePointer {
+        get => this.get_MousePointer()
+        set => this.put_MousePointer(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Locked {
+        get => this.get_Locked()
+        set => this.put_Locked(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxLength {
+        get => this.get_MaxLength()
+        set => this.put_MaxLength(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MultiLine {
+        get => this.get_MultiLine()
+        set => this.put_MultiLine(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ScrollBars {
+        get => this.get_ScrollBars()
+        set => this.put_ScrollBars(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DisableNoScroll {
+        get => this.get_DisableNoScroll()
+        set => this.put_DisableNoScroll(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelAlignment {
+        get => this.get_SelAlignment()
+        set => this.put_SelAlignment(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelBold {
+        get => this.get_SelBold()
+        set => this.put_SelBold(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelItalic {
+        get => this.get_SelItalic()
+        set => this.put_SelItalic(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelUnderline {
+        get => this.get_SelUnderline()
+        set => this.put_SelUnderline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelColor {
+        get => this.get_SelColor()
+        set => this.put_SelColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelFontName {
+        get => this.get_SelFontName()
+        set => this.put_SelFontName(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelFontSize {
+        get => this.get_SelFontSize()
+        set => this.put_SelFontSize(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SelCharOffset {
+        get => this.get_SelCharOffset()
+        set => this.put_SelCharOffset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TextRTF {
+        get => this.get_TextRTF()
+        set => this.put_TextRTF(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SelStart {
+        get => this.get_SelStart()
+        set => this.put_SelStart(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SelLength {
+        get => this.get_SelLength()
+        set => this.put_SelLength(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SelText {
+        get => this.get_SelText()
+        set => this.put_SelText(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SelRTF {
+        get => this.get_SelRTF()
+        set => this.put_SelRTF(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_status

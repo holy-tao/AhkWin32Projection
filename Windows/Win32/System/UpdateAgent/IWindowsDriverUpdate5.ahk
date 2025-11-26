@@ -31,6 +31,20 @@ class IWindowsDriverUpdate5 extends IWindowsDriverUpdate4{
     static VTableNames => ["get_AutoSelection", "get_AutoDownload"]
 
     /**
+     * @type {Integer} 
+     */
+    AutoSelection {
+        get => this.get_AutoSelection()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoDownload {
+        get => this.get_AutoDownload()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate5-get_autoselection

@@ -33,6 +33,120 @@ class IOCSPCAConfiguration extends IDispatch{
     static VTableNames => ["get_Identifier", "get_CACertificate", "get_HashAlgorithm", "put_HashAlgorithm", "get_SigningFlags", "put_SigningFlags", "get_SigningCertificate", "put_SigningCertificate", "get_ReminderDuration", "put_ReminderDuration", "get_ErrorCode", "get_CSPName", "get_KeySpec", "get_ProviderCLSID", "put_ProviderCLSID", "get_ProviderProperties", "put_ProviderProperties", "get_Modified", "get_LocalRevocationInformation", "put_LocalRevocationInformation", "get_SigningCertificateTemplate", "put_SigningCertificateTemplate", "get_CAConfig", "put_CAConfig"]
 
     /**
+     * @type {BSTR} 
+     */
+    Identifier {
+        get => this.get_Identifier()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CACertificate {
+        get => this.get_CACertificate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SigningFlags {
+        get => this.get_SigningFlags()
+        set => this.put_SigningFlags(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SigningCertificate {
+        get => this.get_SigningCertificate()
+        set => this.put_SigningCertificate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReminderDuration {
+        get => this.get_ReminderDuration()
+        set => this.put_ReminderDuration(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ErrorCode {
+        get => this.get_ErrorCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSPName {
+        get => this.get_CSPName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KeySpec {
+        get => this.get_KeySpec()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderCLSID {
+        get => this.get_ProviderCLSID()
+        set => this.put_ProviderCLSID(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ProviderProperties {
+        get => this.get_ProviderProperties()
+        set => this.put_ProviderProperties(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Modified {
+        get => this.get_Modified()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LocalRevocationInformation {
+        get => this.get_LocalRevocationInformation()
+        set => this.put_LocalRevocationInformation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SigningCertificateTemplate {
+        get => this.get_SigningCertificateTemplate()
+        set => this.put_SigningCertificateTemplate(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAConfig {
+        get => this.get_CAConfig()
+        set => this.put_CAConfig(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_identifier

@@ -42,6 +42,155 @@ class ISClusResource extends IDispatch{
     static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Handle", "get_Name", "put_Name", "get_State", "get_CoreFlag", "BecomeQuorumResource", "Delete", "Fail", "Online", "Offline", "ChangeResourceGroup", "AddResourceNode", "RemoveResourceNode", "CanResourceBeDependent", "get_PossibleOwnerNodes", "get_Dependencies", "get_Dependents", "get_Group", "get_OwnerNode", "get_Cluster", "get_ClassInfo", "get_Disk", "get_RegistryKeys", "get_CryptoKeys", "get_TypeName", "get_Type", "get_MaintenanceMode", "put_MaintenanceMode"]
 
     /**
+     * @type {ISClusProperties} 
+     */
+    CommonProperties {
+        get => this.get_CommonProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateProperties {
+        get => this.get_PrivateProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    CommonROProperties {
+        get => this.get_CommonROProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateROProperties {
+        get => this.get_PrivateROProperties()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CoreFlag {
+        get => this.get_CoreFlag()
+    }
+
+    /**
+     * @type {ISClusResPossibleOwnerNodes} 
+     */
+    PossibleOwnerNodes {
+        get => this.get_PossibleOwnerNodes()
+    }
+
+    /**
+     * @type {ISClusResDependencies} 
+     */
+    Dependencies {
+        get => this.get_Dependencies()
+    }
+
+    /**
+     * @type {ISClusResDependents} 
+     */
+    Dependents {
+        get => this.get_Dependents()
+    }
+
+    /**
+     * @type {ISClusResGroup} 
+     */
+    Group {
+        get => this.get_Group()
+    }
+
+    /**
+     * @type {ISClusNode} 
+     */
+    OwnerNode {
+        get => this.get_OwnerNode()
+    }
+
+    /**
+     * @type {ISCluster} 
+     */
+    Cluster {
+        get => this.get_Cluster()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClassInfo {
+        get => this.get_ClassInfo()
+    }
+
+    /**
+     * @type {ISClusDisk} 
+     */
+    Disk {
+        get => this.get_Disk()
+    }
+
+    /**
+     * @type {ISClusRegistryKeys} 
+     */
+    RegistryKeys {
+        get => this.get_RegistryKeys()
+    }
+
+    /**
+     * @type {ISClusCryptoKeys} 
+     */
+    CryptoKeys {
+        get => this.get_CryptoKeys()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TypeName {
+        get => this.get_TypeName()
+    }
+
+    /**
+     * @type {ISClusResType} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    MaintenanceMode {
+        get => this.get_MaintenanceMode()
+        set => this.put_MaintenanceMode(value)
+    }
+
+    /**
      * 
      * @returns {ISClusProperties} 
      */

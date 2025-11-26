@@ -35,6 +35,164 @@ class IXMLDOMNode extends IDispatch{
     static VTableNames => ["get_nodeName", "get_nodeValue", "put_nodeValue", "get_nodeType", "get_parentNode", "get_childNodes", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling", "get_attributes", "insertBefore", "replaceChild", "removeChild", "appendChild", "hasChildNodes", "get_ownerDocument", "cloneNode", "get_nodeTypeString", "get_text", "put_text", "get_specified", "get_definition", "get_nodeTypedValue", "put_nodeTypedValue", "get_dataType", "put_dataType", "get_xml", "transformNode", "selectNodes", "selectSingleNode", "get_parsed", "get_namespaceURI", "get_prefix", "get_baseName", "transformNodeToObject"]
 
     /**
+     * @type {BSTR} 
+     */
+    nodeName {
+        get => this.get_nodeName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    nodeValue {
+        get => this.get_nodeValue()
+        set => this.put_nodeValue(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    nodeType {
+        get => this.get_nodeType()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    parentNode {
+        get => this.get_parentNode()
+    }
+
+    /**
+     * @type {IXMLDOMNodeList} 
+     */
+    childNodes {
+        get => this.get_childNodes()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    firstChild {
+        get => this.get_firstChild()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    lastChild {
+        get => this.get_lastChild()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    previousSibling {
+        get => this.get_previousSibling()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    nextSibling {
+        get => this.get_nextSibling()
+    }
+
+    /**
+     * @type {IXMLDOMNamedNodeMap} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
+     * @type {IXMLDOMDocument} 
+     */
+    ownerDocument {
+        get => this.get_ownerDocument()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nodeTypeString {
+        get => this.get_nodeTypeString()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    specified {
+        get => this.get_specified()
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    definition {
+        get => this.get_definition()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    nodeTypedValue {
+        get => this.get_nodeTypedValue()
+        set => this.put_nodeTypedValue(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    dataType {
+        get => this.get_dataType()
+        set => this.put_dataType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    xml {
+        get => this.get_xml()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    parsed {
+        get => this.get_parsed()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    namespaceURI {
+        get => this.get_namespaceURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    prefix {
+        get => this.get_prefix()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    baseName {
+        get => this.get_baseName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

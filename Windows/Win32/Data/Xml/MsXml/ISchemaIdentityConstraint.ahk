@@ -32,6 +32,27 @@ class ISchemaIdentityConstraint extends ISchemaItem{
     static VTableNames => ["get_selector", "get_fields", "get_referencedKey"]
 
     /**
+     * @type {BSTR} 
+     */
+    selector {
+        get => this.get_selector()
+    }
+
+    /**
+     * @type {ISchemaStringCollection} 
+     */
+    fields {
+        get => this.get_fields()
+    }
+
+    /**
+     * @type {ISchemaIdentityConstraint} 
+     */
+    referencedKey {
+        get => this.get_referencedKey()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

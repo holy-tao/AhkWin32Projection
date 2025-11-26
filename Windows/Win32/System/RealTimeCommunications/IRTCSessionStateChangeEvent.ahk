@@ -31,6 +31,34 @@ class IRTCSessionStateChangeEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_State", "get_StatusCode", "get_StatusText"]
 
     /**
+     * @type {IRTCSession} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
      * 
      * @returns {IRTCSession} 
      */

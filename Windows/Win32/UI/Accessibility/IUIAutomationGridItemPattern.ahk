@@ -32,6 +32,76 @@ class IUIAutomationGridItemPattern extends IUnknown{
     static VTableNames => ["get_CurrentContainingGrid", "get_CurrentRow", "get_CurrentColumn", "get_CurrentRowSpan", "get_CurrentColumnSpan", "get_CachedContainingGrid", "get_CachedRow", "get_CachedColumn", "get_CachedRowSpan", "get_CachedColumnSpan"]
 
     /**
+     * @type {IUIAutomationElement} 
+     */
+    CurrentContainingGrid {
+        get => this.get_CurrentContainingGrid()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentRow {
+        get => this.get_CurrentRow()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentColumn {
+        get => this.get_CurrentColumn()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentRowSpan {
+        get => this.get_CurrentRowSpan()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentColumnSpan {
+        get => this.get_CurrentColumnSpan()
+    }
+
+    /**
+     * @type {IUIAutomationElement} 
+     */
+    CachedContainingGrid {
+        get => this.get_CachedContainingGrid()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedRow {
+        get => this.get_CachedRow()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedColumn {
+        get => this.get_CachedColumn()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedRowSpan {
+        get => this.get_CachedRowSpan()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedColumnSpan {
+        get => this.get_CachedColumnSpan()
+    }
+
+    /**
      * 
      * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgriditempattern-get_currentcontaininggrid

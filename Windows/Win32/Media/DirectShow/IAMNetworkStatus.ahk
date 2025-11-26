@@ -37,6 +37,48 @@ class IAMNetworkStatus extends IDispatch{
     static VTableNames => ["get_ReceivedPackets", "get_RecoveredPackets", "get_LostPackets", "get_ReceptionQuality", "get_BufferingCount", "get_IsBroadcast", "get_BufferingProgress"]
 
     /**
+     */
+    ReceivedPackets {
+        get => this.get_ReceivedPackets()
+    }
+
+    /**
+     */
+    RecoveredPackets {
+        get => this.get_RecoveredPackets()
+    }
+
+    /**
+     */
+    LostPackets {
+        get => this.get_LostPackets()
+    }
+
+    /**
+     */
+    ReceptionQuality {
+        get => this.get_ReceptionQuality()
+    }
+
+    /**
+     */
+    BufferingCount {
+        get => this.get_BufferingCount()
+    }
+
+    /**
+     */
+    IsBroadcast {
+        get => this.get_IsBroadcast()
+    }
+
+    /**
+     */
+    BufferingProgress {
+        get => this.get_BufferingProgress()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pReceivedPackets 
      * @returns {HRESULT} 

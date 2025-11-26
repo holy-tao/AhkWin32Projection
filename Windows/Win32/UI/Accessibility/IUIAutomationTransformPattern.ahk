@@ -31,6 +31,48 @@ class IUIAutomationTransformPattern extends IUnknown{
     static VTableNames => ["Move", "Resize", "Rotate", "get_CurrentCanMove", "get_CurrentCanResize", "get_CurrentCanRotate", "get_CachedCanMove", "get_CachedCanResize", "get_CachedCanRotate"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentCanMove {
+        get => this.get_CurrentCanMove()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentCanResize {
+        get => this.get_CurrentCanResize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentCanRotate {
+        get => this.get_CurrentCanRotate()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanMove {
+        get => this.get_CachedCanMove()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanResize {
+        get => this.get_CachedCanResize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanRotate {
+        get => this.get_CachedCanRotate()
+    }
+
+    /**
      * 
      * @param {Float} x 
      * @param {Float} y 

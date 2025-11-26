@@ -37,6 +37,20 @@ class IHtmlDlgSafeHelper extends IDispatch{
     static VTableNames => ["choosecolordlg", "getCharset", "get_Fonts", "get_BlockFormats"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Fonts {
+        get => this.get_Fonts()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    BlockFormats {
+        get => this.get_BlockFormats()
+    }
+
+    /**
      * 
      * @param {VARIANT} initColor 
      * @returns {VARIANT} 

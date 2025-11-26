@@ -40,6 +40,27 @@ class IWdsTransportContent extends IDispatch{
     static VTableNames => ["get_Namespace", "get_Id", "get_Name", "RetrieveSessions", "Terminate"]
 
     /**
+     * @type {IWdsTransportNamespace} 
+     */
+    Namespace {
+        get => this.get_Namespace()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @returns {IWdsTransportNamespace} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_namespace

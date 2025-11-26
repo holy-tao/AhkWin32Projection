@@ -30,6 +30,29 @@ class IHTMLObjectElement4 extends IDispatch{
     static VTableNames => ["get_contentDocument", "put_codeBase", "get_codeBase", "put_data", "get_data"]
 
     /**
+     * @type {IDispatch} 
+     */
+    contentDocument {
+        get => this.get_contentDocument()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    codeBase {
+        get => this.get_codeBase()
+        set => this.put_codeBase(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+        set => this.put_data(value)
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

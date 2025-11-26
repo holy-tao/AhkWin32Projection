@@ -36,6 +36,14 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     static VTableNames => ["Initialize", "LoadPolicy", "GetTemplates", "GetCAsForTemplate", "GetCAs", "Validate", "GetCustomOids", "GetNextUpdateTime", "GetLastUpdateTime", "GetPolicyServerUrl", "GetPolicyServerId", "GetFriendlyName", "GetIsDefaultCEP", "GetUseClientId", "GetAllowUnTrustedCA", "GetCachePath", "GetCacheDir", "GetAuthFlags", "SetCredential", "QueryChanges", "InitializeImport", "Export", "get_Cost", "put_Cost"]
 
     /**
+     * @type {Integer} 
+     */
+    Cost {
+        get => this.get_Cost()
+        set => this.put_Cost(value)
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {BSTR} bstrPolicyServerUrl 
      * @param {BSTR} bstrPolicyServerId 

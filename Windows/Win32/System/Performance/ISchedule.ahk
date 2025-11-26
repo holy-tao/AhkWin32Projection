@@ -40,6 +40,38 @@ class ISchedule extends IDispatch{
     static VTableNames => ["get_StartDate", "put_StartDate", "get_EndDate", "put_EndDate", "get_StartTime", "put_StartTime", "get_Days", "put_Days"]
 
     /**
+     * @type {VARIANT} 
+     */
+    StartDate {
+        get => this.get_StartDate()
+        set => this.put_StartDate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    EndDate {
+        get => this.get_EndDate()
+        set => this.put_EndDate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Days {
+        get => this.get_Days()
+        set => this.put_Days(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_startdate

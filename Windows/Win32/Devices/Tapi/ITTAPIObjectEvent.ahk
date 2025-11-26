@@ -33,6 +33,34 @@ class ITTAPIObjectEvent extends IDispatch{
     static VTableNames => ["get_TAPIObject", "get_Event", "get_Address", "get_CallbackInstance"]
 
     /**
+     * @type {ITTAPI} 
+     */
+    TAPIObject {
+        get => this.get_TAPIObject()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallbackInstance {
+        get => this.get_CallbackInstance()
+    }
+
+    /**
      * 
      * @returns {ITTAPI} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent-get_tapiobject

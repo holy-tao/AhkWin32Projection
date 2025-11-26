@@ -46,6 +46,38 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
     static VTableNames => ["get_MinMinorChannel", "put_MinMinorChannel", "get_MaxMinorChannel", "put_MaxMinorChannel", "get_MinPhysicalChannel", "put_MinPhysicalChannel", "get_MaxPhysicalChannel", "put_MaxPhysicalChannel"]
 
     /**
+     * @type {Integer} 
+     */
+    MinMinorChannel {
+        get => this.get_MinMinorChannel()
+        set => this.put_MinMinorChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxMinorChannel {
+        get => this.get_MaxMinorChannel()
+        set => this.put_MaxMinorChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinPhysicalChannel {
+        get => this.get_MinPhysicalChannel()
+        set => this.put_MinPhysicalChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxPhysicalChannel {
+        get => this.get_MaxPhysicalChannel()
+        set => this.put_MaxPhysicalChannel(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minminorchannel

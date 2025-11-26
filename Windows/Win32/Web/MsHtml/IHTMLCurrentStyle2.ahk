@@ -31,6 +31,132 @@ class IHTMLCurrentStyle2 extends IDispatch{
     static VTableNames => ["get_layoutFlow", "get_wordWrap", "get_textUnderlinePosition", "get_hasLayout", "get_scrollbarBaseColor", "get_scrollbarFaceColor", "get_scrollbar3dLightColor", "get_scrollbarShadowColor", "get_scrollbarHighlightColor", "get_scrollbarDarkShadowColor", "get_scrollbarArrowColor", "get_scrollbarTrackColor", "get_writingMode", "get_zoom", "get_filter", "get_textAlignLast", "get_textKashidaSpace", "get_isBlock"]
 
     /**
+     * @type {BSTR} 
+     */
+    layoutFlow {
+        get => this.get_layoutFlow()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    wordWrap {
+        get => this.get_wordWrap()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textUnderlinePosition {
+        get => this.get_textUnderlinePosition()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    hasLayout {
+        get => this.get_hasLayout()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarBaseColor {
+        get => this.get_scrollbarBaseColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarFaceColor {
+        get => this.get_scrollbarFaceColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbar3dLightColor {
+        get => this.get_scrollbar3dLightColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarShadowColor {
+        get => this.get_scrollbarShadowColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarHighlightColor {
+        get => this.get_scrollbarHighlightColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarDarkShadowColor {
+        get => this.get_scrollbarDarkShadowColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarArrowColor {
+        get => this.get_scrollbarArrowColor()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarTrackColor {
+        get => this.get_scrollbarTrackColor()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    writingMode {
+        get => this.get_writingMode()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    zoom {
+        get => this.get_zoom()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    filter {
+        get => this.get_filter()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAlignLast {
+        get => this.get_textAlignLast()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textKashidaSpace {
+        get => this.get_textKashidaSpace()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isBlock {
+        get => this.get_isBlock()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -31,6 +31,34 @@ class IDiscFormat2DataEventArgs extends IWriteEngine2EventArgs{
     static VTableNames => ["get_ElapsedTime", "get_RemainingTime", "get_TotalTime", "get_CurrentAction"]
 
     /**
+     * @type {Integer} 
+     */
+    ElapsedTime {
+        get => this.get_ElapsedTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RemainingTime {
+        get => this.get_RemainingTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalTime {
+        get => this.get_TotalTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentAction {
+        get => this.get_CurrentAction()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2dataeventargs-get_elapsedtime

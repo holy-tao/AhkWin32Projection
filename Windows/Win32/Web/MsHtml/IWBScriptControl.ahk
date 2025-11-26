@@ -31,6 +31,51 @@ class IWBScriptControl extends IDispatch{
     static VTableNames => ["raiseEvent", "bubbleEvent", "setContextMenu", "put_selectableContent", "get_selectableContent", "get_frozen", "put_scrollbar", "get_scrollbar", "get_version", "get_visibility", "put_onvisibilitychange", "get_onvisibilitychange"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    selectableContent {
+        get => this.get_selectableContent()
+        set => this.put_selectableContent(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    frozen {
+        get => this.get_frozen()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    scrollbar {
+        get => this.get_scrollbar()
+        set => this.put_scrollbar(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    visibility {
+        get => this.get_visibility()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onvisibilitychange {
+        get => this.get_onvisibilitychange()
+        set => this.put_onvisibilitychange(value)
+    }
+
+    /**
      * 
      * @param {BSTR} name 
      * @param {VARIANT} eventData 

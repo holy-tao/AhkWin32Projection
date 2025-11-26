@@ -33,6 +33,20 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
     static VTableNames => ["get_namespaces", "get_schemas", "putref_schemas", "validate", "setProperty", "getProperty"]
 
     /**
+     * @type {IXMLDOMSchemaCollection} 
+     */
+    namespaces {
+        get => this.get_namespaces()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    schemas {
+        get => this.get_schemas()
+    }
+
+    /**
      * 
      * @returns {IXMLDOMSchemaCollection} 
      */

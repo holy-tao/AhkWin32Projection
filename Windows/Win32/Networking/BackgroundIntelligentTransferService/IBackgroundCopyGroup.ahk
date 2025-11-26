@@ -34,6 +34,20 @@ class IBackgroundCopyGroup extends IUnknown{
     static VTableNames => ["GetProp", "SetProp", "GetProgress", "GetStatus", "GetJob", "SuspendGroup", "ResumeGroup", "CancelGroup", "get_Size", "get_GroupID", "CreateJob", "EnumJobs", "SwitchToForeground", "QueryNewJobInterface", "SetNotificationPointer"]
 
     /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    GroupID {
+        get => this.get_GroupID()
+    }
+
+    /**
      * 
      * @param {Integer} propID 
      * @returns {VARIANT} 

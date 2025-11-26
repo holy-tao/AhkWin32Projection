@@ -38,6 +38,20 @@ class ICspInformations extends IDispatch{
     static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "AddAvailableCsps", "get_ItemByName", "GetCspStatusFromProviderName", "GetCspStatusesFromOperations", "GetEncryptionCspAlgorithms", "GetHashAlgorithms"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @param {Integer} Index 
      * @returns {ICspInformation} 

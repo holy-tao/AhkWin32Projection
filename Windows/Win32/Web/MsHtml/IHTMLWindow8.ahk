@@ -31,6 +31,133 @@ class IHTMLWindow8 extends IDispatch{
     static VTableNames => ["put_onmspointerdown", "get_onmspointerdown", "put_onmspointermove", "get_onmspointermove", "put_onmspointerup", "get_onmspointerup", "put_onmspointerover", "get_onmspointerover", "put_onmspointerout", "get_onmspointerout", "put_onmspointercancel", "get_onmspointercancel", "put_onmspointerhover", "get_onmspointerhover", "put_onmsgesturestart", "get_onmsgesturestart", "put_onmsgesturechange", "get_onmsgesturechange", "put_onmsgestureend", "get_onmsgestureend", "put_onmsgesturehold", "get_onmsgesturehold", "put_onmsgesturetap", "get_onmsgesturetap", "put_onmsgesturedoubletap", "get_onmsgesturedoubletap", "put_onmsinertiastart", "get_onmsinertiastart", "get_applicationCache", "put_onpopstate", "get_onpopstate"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onmspointerdown {
+        get => this.get_onmspointerdown()
+        set => this.put_onmspointerdown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointermove {
+        get => this.get_onmspointermove()
+        set => this.put_onmspointermove(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerup {
+        get => this.get_onmspointerup()
+        set => this.put_onmspointerup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerover {
+        get => this.get_onmspointerover()
+        set => this.put_onmspointerover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerout {
+        get => this.get_onmspointerout()
+        set => this.put_onmspointerout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointercancel {
+        get => this.get_onmspointercancel()
+        set => this.put_onmspointercancel(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerhover {
+        get => this.get_onmspointerhover()
+        set => this.put_onmspointerhover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturestart {
+        get => this.get_onmsgesturestart()
+        set => this.put_onmsgesturestart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturechange {
+        get => this.get_onmsgesturechange()
+        set => this.put_onmsgesturechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgestureend {
+        get => this.get_onmsgestureend()
+        set => this.put_onmsgestureend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturehold {
+        get => this.get_onmsgesturehold()
+        set => this.put_onmsgesturehold(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturetap {
+        get => this.get_onmsgesturetap()
+        set => this.put_onmsgesturetap(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturedoubletap {
+        get => this.get_onmsgesturedoubletap()
+        set => this.put_onmsgesturedoubletap(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsinertiastart {
+        get => this.get_onmsinertiastart()
+        set => this.put_onmsinertiastart(value)
+    }
+
+    /**
+     * @type {IHTMLApplicationCache} 
+     */
+    applicationCache {
+        get => this.get_applicationCache()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpopstate {
+        get => this.get_onpopstate()
+        set => this.put_onpopstate(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

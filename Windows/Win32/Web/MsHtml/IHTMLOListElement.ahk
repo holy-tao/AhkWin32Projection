@@ -36,6 +36,30 @@ class IHTMLOListElement extends IDispatch{
     static VTableNames => ["put_compact", "get_compact", "put_start", "get_start", "put_type", "get_type"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    compact {
+        get => this.get_compact()
+        set => this.put_compact(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    start {
+        get => this.get_start()
+        set => this.put_start(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

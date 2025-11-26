@@ -38,6 +38,20 @@ class IMbnConnection extends IUnknown{
     static VTableNames => ["get_ConnectionID", "get_InterfaceID", "Connect", "Disconnect", "GetConnectionState", "GetVoiceCallState", "GetActivationNetworkError"]
 
     /**
+     * @type {BSTR} 
+     */
+    ConnectionID {
+        get => this.get_ConnectionID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InterfaceID {
+        get => this.get_InterfaceID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_connectionid

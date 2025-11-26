@@ -30,6 +30,13 @@ class IPMBackgroundServiceAgentInfoEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMBackgroundServiceAgentInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMBackgroundServiceAgentInfo} 
      */

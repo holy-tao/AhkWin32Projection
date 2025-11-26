@@ -43,6 +43,14 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
     static VTableNames => ["SetSinkFilter", "get_SinkStreams", "put_SinkStreams"]
 
     /**
+     * @type {Integer} 
+     */
+    SinkStreams {
+        get => this.get_SinkStreams()
+        set => this.put_SinkStreams(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 

@@ -30,6 +30,38 @@ class IHTMLParamElement2 extends IDispatch{
     static VTableNames => ["put_name", "get_name", "put_type", "get_type", "put_value", "get_value", "put_valueType", "get_valueType"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    valueType {
+        get => this.get_valueType()
+        set => this.put_valueType(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -32,6 +32,20 @@ class ITAgentEvent extends IDispatch{
     static VTableNames => ["get_Agent", "get_Event"]
 
     /**
+     * @type {ITAgent} 
+     */
+    Agent {
+        get => this.get_Agent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
      * 
      * @returns {ITAgent} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentevent-get_agent

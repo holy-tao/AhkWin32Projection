@@ -30,6 +30,24 @@ class IPMTilePropertyInfo extends IUnknown{
     static VTableNames => ["get_PropertyID", "get_PropertyValue", "set_Property"]
 
     /**
+     * @type {Integer} 
+     */
+    PropertyID {
+        get => this.get_PropertyID()
+    }
+
+    /**
+     */
+    PropertyValue {
+        get => this.get_PropertyValue()
+    }
+
+    /**
+     */
+    Property {
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

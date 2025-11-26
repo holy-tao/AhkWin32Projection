@@ -38,6 +38,34 @@ class IGPMMapEntry extends IDispatch{
     static VTableNames => ["get_Source", "get_Destination", "get_DestinationOption", "get_EntryType"]
 
     /**
+     * @type {BSTR} 
+     */
+    Source {
+        get => this.get_Source()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Destination {
+        get => this.get_Destination()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DestinationOption {
+        get => this.get_DestinationOption()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EntryType {
+        get => this.get_EntryType()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

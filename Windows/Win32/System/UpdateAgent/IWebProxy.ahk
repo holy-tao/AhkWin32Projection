@@ -46,6 +46,53 @@ class IWebProxy extends IDispatch{
     static VTableNames => ["get_Address", "put_Address", "get_BypassList", "put_BypassList", "get_BypassProxyOnLocal", "put_BypassProxyOnLocal", "get_ReadOnly", "get_UserName", "put_UserName", "SetPassword", "PromptForCredentials", "PromptForCredentialsFromHwnd", "get_AutoDetect", "put_AutoDetect"]
 
     /**
+     * @type {BSTR} 
+     */
+    Address {
+        get => this.get_Address()
+        set => this.put_Address(value)
+    }
+
+    /**
+     * @type {IStringCollection} 
+     */
+    BypassList {
+        get => this.get_BypassList()
+        set => this.put_BypassList(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    BypassProxyOnLocal {
+        get => this.get_BypassProxyOnLocal()
+        set => this.put_BypassProxyOnLocal(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserName {
+        get => this.get_UserName()
+        set => this.put_UserName(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoDetect {
+        get => this.get_AutoDetect()
+        set => this.put_AutoDetect(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_address

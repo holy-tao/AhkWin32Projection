@@ -38,6 +38,21 @@ class IFaxDocument2 extends IFaxDocument{
     static VTableNames => ["get_SubmissionId", "get_Bodies", "put_Bodies", "Submit2", "ConnectedSubmit2"]
 
     /**
+     * @type {BSTR} 
+     */
+    SubmissionId {
+        get => this.get_SubmissionId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Bodies {
+        get => this.get_Bodies()
+        set => this.put_Bodies(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_submissionid

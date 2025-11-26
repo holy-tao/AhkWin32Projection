@@ -41,6 +41,27 @@ class ITuningSpaces extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Item", "get_EnumTuningSpaces"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {IEnumTuningSpaces} 
+     */
+    EnumTuningSpaces {
+        get => this.get_EnumTuningSpaces()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_count

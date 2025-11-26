@@ -36,6 +36,13 @@ class ISVGAElement extends IDispatch{
     static VTableNames => ["putref_target", "get_target"]
 
     /**
+     * @type {ISVGAnimatedString} 
+     */
+    target {
+        get => this.get_target()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedString} v 
      * @returns {HRESULT} 

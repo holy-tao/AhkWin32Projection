@@ -35,6 +35,84 @@ class IX509CertificateRequest extends IDispatch{
     static VTableNames => ["Initialize", "Encode", "ResetForEncode", "GetInnerRequest", "get_Type", "get_EnrollmentContext", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "get_SuppressDefaults", "put_SuppressDefaults", "get_RenewalCertificate", "put_RenewalCertificate", "get_ClientId", "put_ClientId", "get_CspInformations", "put_CspInformations", "get_HashAlgorithm", "put_HashAlgorithm", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_RawData"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EnrollmentContext {
+        get => this.get_EnrollmentContext()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Silent {
+        get => this.get_Silent()
+        set => this.put_Silent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ParentWindow {
+        get => this.get_ParentWindow()
+        set => this.put_ParentWindow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UIContextMessage {
+        get => this.get_UIContextMessage()
+        set => this.put_UIContextMessage(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SuppressDefaults {
+        get => this.get_SuppressDefaults()
+        set => this.put_SuppressDefaults(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ClientId {
+        get => this.get_ClientId()
+        set => this.put_ClientId(value)
+    }
+
+    /**
+     * @type {ICspInformations} 
+     */
+    CspInformations {
+        get => this.get_CspInformations()
+        set => this.put_CspInformations(value)
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AlternateSignatureAlgorithm {
+        get => this.get_AlternateSignatureAlgorithm()
+        set => this.put_AlternateSignatureAlgorithm(value)
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} Context 
      * @returns {HRESULT} <ul>

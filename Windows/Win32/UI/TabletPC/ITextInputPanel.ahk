@@ -54,6 +54,103 @@ class ITextInputPanel extends IUnknown{
     static VTableNames => ["get_AttachedEditWindow", "put_AttachedEditWindow", "get_CurrentInteractionMode", "get_DefaultInPlaceState", "put_DefaultInPlaceState", "get_CurrentInPlaceState", "get_DefaultInputArea", "put_DefaultInputArea", "get_CurrentInputArea", "get_CurrentCorrectionMode", "get_PreferredInPlaceDirection", "put_PreferredInPlaceDirection", "get_ExpandPostInsertionCorrection", "put_ExpandPostInsertionCorrection", "get_InPlaceVisibleOnFocus", "put_InPlaceVisibleOnFocus", "get_InPlaceBoundingRectangle", "get_PopUpCorrectionHeight", "get_PopDownCorrectionHeight", "CommitPendingInput", "SetInPlaceVisibility", "SetInPlacePosition", "SetInPlaceHoverTargetPosition", "Advise", "Unadvise"]
 
     /**
+     * @type {HWND} 
+     */
+    AttachedEditWindow {
+        get => this.get_AttachedEditWindow()
+        set => this.put_AttachedEditWindow(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentInteractionMode {
+        get => this.get_CurrentInteractionMode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultInPlaceState {
+        get => this.get_DefaultInPlaceState()
+        set => this.put_DefaultInPlaceState(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentInPlaceState {
+        get => this.get_CurrentInPlaceState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultInputArea {
+        get => this.get_DefaultInputArea()
+        set => this.put_DefaultInputArea(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentInputArea {
+        get => this.get_CurrentInputArea()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentCorrectionMode {
+        get => this.get_CurrentCorrectionMode()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PreferredInPlaceDirection {
+        get => this.get_PreferredInPlaceDirection()
+        set => this.put_PreferredInPlaceDirection(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ExpandPostInsertionCorrection {
+        get => this.get_ExpandPostInsertionCorrection()
+        set => this.put_ExpandPostInsertionCorrection(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    InPlaceVisibleOnFocus {
+        get => this.get_InPlaceVisibleOnFocus()
+        set => this.put_InPlaceVisibleOnFocus(value)
+    }
+
+    /**
+     * @type {RECT} 
+     */
+    InPlaceBoundingRectangle {
+        get => this.get_InPlaceBoundingRectangle()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PopUpCorrectionHeight {
+        get => this.get_PopUpCorrectionHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PopDownCorrectionHeight {
+        get => this.get_PopDownCorrectionHeight()
+    }
+
+    /**
      * 
      * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_attachededitwindow

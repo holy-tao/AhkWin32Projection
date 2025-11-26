@@ -32,6 +32,20 @@ class IAutomaticUpdatesResults extends IDispatch{
     static VTableNames => ["get_LastSearchSuccessDate", "get_LastInstallationSuccessDate"]
 
     /**
+     * @type {VARIANT} 
+     */
+    LastSearchSuccessDate {
+        get => this.get_LastSearchSuccessDate()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LastInstallationSuccessDate {
+        get => this.get_LastInstallationSuccessDate()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatesresults-get_lastsearchsuccessdate

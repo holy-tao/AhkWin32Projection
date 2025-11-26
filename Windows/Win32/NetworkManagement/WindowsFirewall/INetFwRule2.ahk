@@ -31,6 +31,14 @@ class INetFwRule2 extends INetFwRule{
     static VTableNames => ["get_EdgeTraversalOptions", "put_EdgeTraversalOptions"]
 
     /**
+     * @type {Integer} 
+     */
+    EdgeTraversalOptions {
+        get => this.get_EdgeTraversalOptions()
+        set => this.put_EdgeTraversalOptions(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule2-get_edgetraversaloptions

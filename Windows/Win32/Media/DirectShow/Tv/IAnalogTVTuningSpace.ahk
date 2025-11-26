@@ -42,6 +42,38 @@ class IAnalogTVTuningSpace extends ITuningSpace{
     static VTableNames => ["get_MinChannel", "put_MinChannel", "get_MaxChannel", "put_MaxChannel", "get_InputType", "put_InputType", "get_CountryCode", "put_CountryCode"]
 
     /**
+     * @type {Integer} 
+     */
+    MinChannel {
+        get => this.get_MinChannel()
+        set => this.put_MinChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxChannel {
+        get => this.get_MaxChannel()
+        set => this.put_MaxChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InputType {
+        get => this.get_InputType()
+        set => this.put_InputType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_minchannel

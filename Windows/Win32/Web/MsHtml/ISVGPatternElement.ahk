@@ -38,6 +38,55 @@ class ISVGPatternElement extends IDispatch{
     static VTableNames => ["putref_patternUnits", "get_patternUnits", "putref_patternContentUnits", "get_patternContentUnits", "putref_patternTransform", "get_patternTransform", "putref_x", "get_x", "putref_y", "get_y", "putref_width", "get_width", "putref_height", "get_height"]
 
     /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    patternUnits {
+        get => this.get_patternUnits()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    patternContentUnits {
+        get => this.get_patternContentUnits()
+    }
+
+    /**
+     * @type {ISVGAnimatedTransformList} 
+     */
+    patternTransform {
+        get => this.get_patternTransform()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    x {
+        get => this.get_x()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    y {
+        get => this.get_y()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 

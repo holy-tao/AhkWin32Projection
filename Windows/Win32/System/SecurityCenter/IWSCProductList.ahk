@@ -38,6 +38,13 @@ class IWSCProductList extends IDispatch{
     static VTableNames => ["Initialize", "get_Count", "get_Item"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} provider 
      * @returns {HRESULT} <ul>

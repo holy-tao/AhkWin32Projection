@@ -36,6 +36,20 @@ class IDOMSiteModeEvent extends IDispatch{
     static VTableNames => ["get_buttonID", "get_actionURL"]
 
     /**
+     * @type {Integer} 
+     */
+    buttonID {
+        get => this.get_buttonID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    actionURL {
+        get => this.get_actionURL()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

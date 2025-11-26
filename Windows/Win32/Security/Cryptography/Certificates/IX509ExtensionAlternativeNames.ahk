@@ -33,6 +33,13 @@ class IX509ExtensionAlternativeNames extends IX509Extension{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_AlternativeNames"]
 
     /**
+     * @type {IAlternativeNames} 
+     */
+    AlternativeNames {
+        get => this.get_AlternativeNames()
+    }
+
+    /**
      * 
      * @param {IAlternativeNames} pValue 
      * @returns {HRESULT} 

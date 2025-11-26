@@ -41,6 +41,30 @@ class IFsrmFileGroup extends IFsrmObject{
     static VTableNames => ["get_Name", "put_Name", "get_Members", "put_Members", "get_NonMembers", "put_NonMembers"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {IFsrmMutableCollection} 
+     */
+    Members {
+        get => this.get_Members()
+        set => this.put_Members(value)
+    }
+
+    /**
+     * @type {IFsrmMutableCollection} 
+     */
+    NonMembers {
+        get => this.get_NonMembers()
+        set => this.put_NonMembers(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_name

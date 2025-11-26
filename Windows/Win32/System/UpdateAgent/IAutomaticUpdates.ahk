@@ -43,6 +43,20 @@ class IAutomaticUpdates extends IDispatch{
     static VTableNames => ["DetectNow", "Pause", "Resume", "ShowSettingsDialog", "get_Settings", "get_ServiceEnabled", "EnableService"]
 
     /**
+     * @type {IAutomaticUpdatesSettings} 
+     */
+    Settings {
+        get => this.get_Settings()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ServiceEnabled {
+        get => this.get_ServiceEnabled()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates-detectnow

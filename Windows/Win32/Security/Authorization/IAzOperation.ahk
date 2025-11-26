@@ -33,6 +33,45 @@ class IAzOperation extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_OperationID", "put_OperationID", "get_Writable", "GetProperty", "SetProperty", "Submit"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationData {
+        get => this.get_ApplicationData()
+        set => this.put_ApplicationData(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OperationID {
+        get => this.get_OperationID()
+        set => this.put_OperationID(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_name

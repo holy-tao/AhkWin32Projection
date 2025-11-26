@@ -37,6 +37,42 @@ class IAMNetShowExProps extends IDispatch{
     static VTableNames => ["get_SourceProtocol", "get_Bandwidth", "get_ErrorCorrection", "get_CodecCount", "GetCodecInstalled", "GetCodecDescription", "GetCodecURL", "get_CreationDate", "get_SourceLink"]
 
     /**
+     */
+    SourceProtocol {
+        get => this.get_SourceProtocol()
+    }
+
+    /**
+     */
+    Bandwidth {
+        get => this.get_Bandwidth()
+    }
+
+    /**
+     */
+    ErrorCorrection {
+        get => this.get_ErrorCorrection()
+    }
+
+    /**
+     */
+    CodecCount {
+        get => this.get_CodecCount()
+    }
+
+    /**
+     */
+    CreationDate {
+        get => this.get_CreationDate()
+    }
+
+    /**
+     */
+    SourceLink {
+        get => this.get_SourceLink()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pSourceProtocol 
      * @returns {HRESULT} 

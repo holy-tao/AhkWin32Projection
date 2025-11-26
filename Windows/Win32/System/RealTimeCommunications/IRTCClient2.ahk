@@ -31,6 +31,27 @@ class IRTCClient2 extends IRTCClient{
     static VTableNames => ["put_AnswerMode", "get_AnswerMode", "InvokeTuningWizardEx", "get_Version", "put_ClientName", "put_ClientCurVer", "InitializeEx", "CreateSessionWithDescription", "SetSessionDescriptionManager", "put_PreferredSecurityLevel", "get_PreferredSecurityLevel", "put_AllowedPorts", "get_AllowedPorts"]
 
     /**
+     * @type {Integer} 
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    ClientName {
+        set => this.put_ClientName(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    ClientCurVer {
+        set => this.put_ClientCurVer(value)
+    }
+
+    /**
      * 
      * @param {Integer} enType 
      * @param {Integer} enMode 

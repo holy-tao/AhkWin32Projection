@@ -58,6 +58,34 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     static VTableNames => ["get_ModuleImplementation", "get_ModuleName", "get_HostingUserAccount", "get_HostingProcessPid", "Bind"]
 
     /**
+     * @type {IFsrmPipelineModuleImplementation} 
+     */
+    ModuleImplementation {
+        get => this.get_ModuleImplementation()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ModuleName {
+        get => this.get_ModuleName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HostingUserAccount {
+        get => this.get_HostingUserAccount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HostingProcessPid {
+        get => this.get_HostingProcessPid()
+    }
+
+    /**
      * 
      * @returns {IFsrmPipelineModuleImplementation} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_moduleimplementation

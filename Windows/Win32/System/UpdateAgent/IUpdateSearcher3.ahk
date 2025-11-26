@@ -31,6 +31,14 @@ class IUpdateSearcher3 extends IUpdateSearcher2{
     static VTableNames => ["get_SearchScope", "put_SearchScope"]
 
     /**
+     * @type {Integer} 
+     */
+    SearchScope {
+        get => this.get_SearchScope()
+        set => this.put_SearchScope(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

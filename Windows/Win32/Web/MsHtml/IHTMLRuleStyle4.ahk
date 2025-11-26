@@ -31,6 +31,22 @@ class IHTMLRuleStyle4 extends IDispatch{
     static VTableNames => ["put_textOverflow", "get_textOverflow", "put_minHeight", "get_minHeight"]
 
     /**
+     * @type {BSTR} 
+     */
+    textOverflow {
+        get => this.get_textOverflow()
+        set => this.put_textOverflow(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    minHeight {
+        get => this.get_minHeight()
+        set => this.put_minHeight(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

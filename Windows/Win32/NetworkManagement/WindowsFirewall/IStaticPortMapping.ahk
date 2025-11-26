@@ -37,6 +37,55 @@ class IStaticPortMapping extends IDispatch{
     static VTableNames => ["get_ExternalIPAddress", "get_ExternalPort", "get_InternalPort", "get_Protocol", "get_InternalClient", "get_Enabled", "get_Description", "EditInternalClient", "Enable", "EditDescription", "EditInternalPort"]
 
     /**
+     * @type {BSTR} 
+     */
+    ExternalIPAddress {
+        get => this.get_ExternalIPAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExternalPort {
+        get => this.get_ExternalPort()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InternalPort {
+        get => this.get_InternalPort()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Protocol {
+        get => this.get_Protocol()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InternalClient {
+        get => this.get_InternalClient()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalipaddress

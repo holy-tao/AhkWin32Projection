@@ -31,6 +31,20 @@ class ICertPropertyBackedUp extends ICertProperty{
     static VTableNames => ["InitializeFromCurrentTime", "Initialize", "get_BackedUpValue", "get_BackedUpTime"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    BackedUpValue {
+        get => this.get_BackedUpValue()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    BackedUpTime {
+        get => this.get_BackedUpTime()
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} BackedUpValue 
      * @returns {HRESULT} 

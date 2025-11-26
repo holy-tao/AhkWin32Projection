@@ -36,6 +36,22 @@ class IHTMLDivElement extends IDispatch{
     static VTableNames => ["put_align", "get_align", "put_noWrap", "get_noWrap"]
 
     /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    noWrap {
+        get => this.get_noWrap()
+        set => this.put_noWrap(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

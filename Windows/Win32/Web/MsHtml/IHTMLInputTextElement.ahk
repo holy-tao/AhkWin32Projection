@@ -39,6 +39,100 @@ class IHTMLInputTextElement extends IDispatch{
     static VTableNames => ["get_type", "put_value", "get_value", "put_name", "get_name", "put_status", "get_status", "put_disabled", "get_disabled", "get_form", "put_defaultValue", "get_defaultValue", "put_size", "get_size", "put_maxLength", "get_maxLength", "select", "put_onchange", "get_onchange", "put_onselect", "get_onselect", "put_readOnly", "get_readOnly", "createTextRange"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    status {
+        get => this.get_status()
+        set => this.put_status(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultValue {
+        get => this.get_defaultValue()
+        set => this.put_defaultValue(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    size {
+        get => this.get_size()
+        set => this.put_size(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    maxLength {
+        get => this.get_maxLength()
+        set => this.put_maxLength(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselect {
+        get => this.get_onselect()
+        set => this.put_onselect(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    readOnly {
+        get => this.get_readOnly()
+        set => this.put_readOnly(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

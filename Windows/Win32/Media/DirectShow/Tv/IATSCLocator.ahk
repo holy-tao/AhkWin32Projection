@@ -42,6 +42,22 @@ class IATSCLocator extends IDigitalLocator{
     static VTableNames => ["get_PhysicalChannel", "put_PhysicalChannel", "get_TSID", "put_TSID"]
 
     /**
+     * @type {Integer} 
+     */
+    PhysicalChannel {
+        get => this.get_PhysicalChannel()
+        set => this.put_PhysicalChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TSID {
+        get => this.get_TSID()
+        set => this.put_TSID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-get_physicalchannel

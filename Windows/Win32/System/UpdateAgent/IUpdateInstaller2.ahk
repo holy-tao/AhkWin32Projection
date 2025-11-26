@@ -36,6 +36,14 @@ class IUpdateInstaller2 extends IUpdateInstaller{
     static VTableNames => ["get_ForceQuiet", "put_ForceQuiet"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    ForceQuiet {
+        get => this.get_ForceQuiet()
+        set => this.put_ForceQuiet(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller2-get_forcequiet

@@ -30,6 +30,13 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
     static VTableNames => ["get_KeyStatuses", "Load", "GenerateRequest", "get_Expiration", "Remove", "Shutdown"]
 
     /**
+     * @type {Float} 
+     */
+    Expiration {
+        get => this.get_Expiration()
+    }
+
+    /**
      * 
      * @param {Pointer<Pointer<MFMediaKeyStatus>>} pKeyStatusesArray 
      * @param {Pointer<Integer>} puSize 

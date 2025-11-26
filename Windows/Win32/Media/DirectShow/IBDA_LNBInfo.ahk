@@ -36,6 +36,27 @@ class IBDA_LNBInfo extends IUnknown{
     static VTableNames => ["put_LocalOscilatorFrequencyLowBand", "get_LocalOscilatorFrequencyLowBand", "put_LocalOscilatorFrequencyHighBand", "get_LocalOscilatorFrequencyHighBand", "put_HighLowSwitchFrequency", "get_HighLowSwitchFrequency"]
 
     /**
+     */
+    LocalOscilatorFrequencyLowBand {
+        get => this.get_LocalOscilatorFrequencyLowBand()
+        set => this.put_LocalOscilatorFrequencyLowBand(value)
+    }
+
+    /**
+     */
+    LocalOscilatorFrequencyHighBand {
+        get => this.get_LocalOscilatorFrequencyHighBand()
+        set => this.put_LocalOscilatorFrequencyHighBand(value)
+    }
+
+    /**
+     */
+    HighLowSwitchFrequency {
+        get => this.get_HighLowSwitchFrequency()
+        set => this.put_HighLowSwitchFrequency(value)
+    }
+
+    /**
      * 
      * @param {Integer} ulLOFLow 
      * @returns {HRESULT} 

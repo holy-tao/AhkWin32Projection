@@ -31,6 +31,20 @@ class IHTMLRectCollection extends IDispatch{
     static VTableNames => ["get_length", "get__newEnum", "item"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

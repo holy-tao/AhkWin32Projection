@@ -36,6 +36,13 @@ class IUpdateDownloadContent2 extends IUpdateDownloadContent{
     static VTableNames => ["get_IsDeltaCompressedContent"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsDeltaCompressedContent {
+        get => this.get_IsDeltaCompressedContent()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent2-get_isdeltacompressedcontent

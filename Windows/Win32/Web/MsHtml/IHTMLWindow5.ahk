@@ -30,6 +30,14 @@ class IHTMLWindow5 extends IDispatch{
     static VTableNames => ["put_XMLHttpRequest", "get_XMLHttpRequest"]
 
     /**
+     * @type {VARIANT} 
+     */
+    XMLHttpRequest {
+        get => this.get_XMLHttpRequest()
+        set => this.put_XMLHttpRequest(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

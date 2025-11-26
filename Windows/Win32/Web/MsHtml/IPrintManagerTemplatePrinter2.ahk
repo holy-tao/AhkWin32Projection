@@ -29,6 +29,27 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter{
     static VTableNames => ["get_showHeaderFooter", "get_shrinkToFit", "get_percentScale"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    showHeaderFooter {
+        get => this.get_showHeaderFooter()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    shrinkToFit {
+        get => this.get_shrinkToFit()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    percentScale {
+        get => this.get_percentScale()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

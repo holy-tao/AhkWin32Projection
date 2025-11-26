@@ -31,6 +31,14 @@ class IIPDVDec extends IUnknown{
     static VTableNames => ["get_IPDisplay", "put_IPDisplay"]
 
     /**
+     * @type {Integer} 
+     */
+    IPDisplay {
+        get => this.get_IPDisplay()
+        set => this.put_IPDisplay(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-get_ipdisplay

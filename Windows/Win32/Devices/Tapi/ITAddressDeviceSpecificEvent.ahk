@@ -33,6 +33,41 @@ class ITAddressDeviceSpecificEvent extends IDispatch{
     static VTableNames => ["get_Address", "get_Call", "get_lParam1", "get_lParam2", "get_lParam3"]
 
     /**
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lParam1 {
+        get => this.get_lParam1()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lParam2 {
+        get => this.get_lParam2()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lParam3 {
+        get => this.get_lParam3()
+    }
+
+    /**
      * 
      * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_address

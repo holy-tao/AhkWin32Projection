@@ -32,6 +32,20 @@ class ITAgentSessionEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_Event"]
 
     /**
+     * @type {ITAgentSession} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
      * 
      * @returns {ITAgentSession} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_session

@@ -40,6 +40,48 @@ class IHTMLDOMRange extends IDispatch{
     static VTableNames => ["get_startContainer", "get_startOffset", "get_endContainer", "get_endOffset", "get_collapsed", "get_commonAncestorContainer", "setStart", "setEnd", "setStartBefore", "setStartAfter", "setEndBefore", "setEndAfter", "collapse", "selectNode", "selectNodeContents", "compareBoundaryPoints", "deleteContents", "extractContents", "cloneContents", "insertNode", "surroundContents", "cloneRange", "toString", "detach", "getClientRects", "getBoundingClientRect"]
 
     /**
+     * @type {IHTMLDOMNode} 
+     */
+    startContainer {
+        get => this.get_startContainer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    startOffset {
+        get => this.get_startOffset()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    endContainer {
+        get => this.get_endContainer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    endOffset {
+        get => this.get_endOffset()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    collapsed {
+        get => this.get_collapsed()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    commonAncestorContainer {
+        get => this.get_commonAncestorContainer()
+    }
+
+    /**
      * 
      * @returns {IHTMLDOMNode} 
      */

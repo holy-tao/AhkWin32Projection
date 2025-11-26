@@ -32,6 +32,34 @@ class IOptionDescription extends IUnknown{
     static VTableNames => ["get_Id", "get_Heading", "get_Description", "get_Labels"]
 
     /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Heading {
+        get => this.get_Heading()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {IEnumString} 
+     */
+    Labels {
+        get => this.get_Labels()
+    }
+
+    /**
      * 
      * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ioptiondescription-get_id

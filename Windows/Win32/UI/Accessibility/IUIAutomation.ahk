@@ -62,6 +62,69 @@ class IUIAutomation extends IUnknown{
     static VTableNames => ["CompareElements", "CompareRuntimeIds", "GetRootElement", "ElementFromHandle", "ElementFromPoint", "GetFocusedElement", "GetRootElementBuildCache", "ElementFromHandleBuildCache", "ElementFromPointBuildCache", "GetFocusedElementBuildCache", "CreateTreeWalker", "get_ControlViewWalker", "get_ContentViewWalker", "get_RawViewWalker", "get_RawViewCondition", "get_ControlViewCondition", "get_ContentViewCondition", "CreateCacheRequest", "CreateTrueCondition", "CreateFalseCondition", "CreatePropertyCondition", "CreatePropertyConditionEx", "CreateAndCondition", "CreateAndConditionFromArray", "CreateAndConditionFromNativeArray", "CreateOrCondition", "CreateOrConditionFromArray", "CreateOrConditionFromNativeArray", "CreateNotCondition", "AddAutomationEventHandler", "RemoveAutomationEventHandler", "AddPropertyChangedEventHandlerNativeArray", "AddPropertyChangedEventHandler", "RemovePropertyChangedEventHandler", "AddStructureChangedEventHandler", "RemoveStructureChangedEventHandler", "AddFocusChangedEventHandler", "RemoveFocusChangedEventHandler", "RemoveAllEventHandlers", "IntNativeArrayToSafeArray", "IntSafeArrayToNativeArray", "RectToVariant", "VariantToRect", "SafeArrayToRectNativeArray", "CreateProxyFactoryEntry", "get_ProxyFactoryMapping", "GetPropertyProgrammaticName", "GetPatternProgrammaticName", "PollForPotentialSupportedPatterns", "PollForPotentialSupportedProperties", "CheckNotSupported", "get_ReservedNotSupportedValue", "get_ReservedMixedAttributeValue", "ElementFromIAccessible", "ElementFromIAccessibleBuildCache"]
 
     /**
+     * @type {IUIAutomationTreeWalker} 
+     */
+    ControlViewWalker {
+        get => this.get_ControlViewWalker()
+    }
+
+    /**
+     * @type {IUIAutomationTreeWalker} 
+     */
+    ContentViewWalker {
+        get => this.get_ContentViewWalker()
+    }
+
+    /**
+     * @type {IUIAutomationTreeWalker} 
+     */
+    RawViewWalker {
+        get => this.get_RawViewWalker()
+    }
+
+    /**
+     * @type {IUIAutomationCondition} 
+     */
+    RawViewCondition {
+        get => this.get_RawViewCondition()
+    }
+
+    /**
+     * @type {IUIAutomationCondition} 
+     */
+    ControlViewCondition {
+        get => this.get_ControlViewCondition()
+    }
+
+    /**
+     * @type {IUIAutomationCondition} 
+     */
+    ContentViewCondition {
+        get => this.get_ContentViewCondition()
+    }
+
+    /**
+     * @type {IUIAutomationProxyFactoryMapping} 
+     */
+    ProxyFactoryMapping {
+        get => this.get_ProxyFactoryMapping()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ReservedNotSupportedValue {
+        get => this.get_ReservedNotSupportedValue()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ReservedMixedAttributeValue {
+        get => this.get_ReservedMixedAttributeValue()
+    }
+
+    /**
      * 
      * @param {IUIAutomationElement} el1 
      * @param {IUIAutomationElement} el2 

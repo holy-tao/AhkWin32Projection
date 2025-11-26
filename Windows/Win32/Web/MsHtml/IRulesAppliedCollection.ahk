@@ -38,6 +38,27 @@ class IRulesAppliedCollection extends IDispatch{
     static VTableNames => ["item", "get_length", "get_element", "propertyInheritedFrom", "get_propertyCount", "property", "propertyInheritedTrace", "propertyInheritedTraceLength"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    element {
+        get => this.get_element()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    propertyCount {
+        get => this.get_propertyCount()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {IRulesApplied} 

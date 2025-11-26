@@ -32,6 +32,38 @@ class IHTMLElement4 extends IDispatch{
     static VTableNames => ["put_onmousewheel", "get_onmousewheel", "normalize", "getAttributeNode", "setAttributeNode", "removeAttributeNode", "put_onbeforeactivate", "get_onbeforeactivate", "put_onfocusin", "get_onfocusin", "put_onfocusout", "get_onfocusout"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onmousewheel {
+        get => this.get_onmousewheel()
+        set => this.put_onmousewheel(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeactivate {
+        get => this.get_onbeforeactivate()
+        set => this.put_onbeforeactivate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocusin {
+        get => this.get_onfocusin()
+        set => this.put_onfocusin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocusout {
+        get => this.get_onfocusout()
+        set => this.put_onfocusout(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

@@ -39,6 +39,207 @@ class IInkPicture extends IDispatch{
     static VTableNames => ["get_hWnd", "get_DefaultDrawingAttributes", "putref_DefaultDrawingAttributes", "get_Renderer", "putref_Renderer", "get_Ink", "putref_Ink", "get_AutoRedraw", "put_AutoRedraw", "get_CollectingInk", "get_CollectionMode", "put_CollectionMode", "get_DynamicRendering", "put_DynamicRendering", "get_DesiredPacketDescription", "put_DesiredPacketDescription", "get_MouseIcon", "put_MouseIcon", "putref_MouseIcon", "get_MousePointer", "put_MousePointer", "get_EditingMode", "put_EditingMode", "get_Selection", "put_Selection", "get_EraserMode", "put_EraserMode", "get_EraserWidth", "put_EraserWidth", "putref_Picture", "put_Picture", "get_Picture", "put_SizeMode", "get_SizeMode", "put_BackColor", "get_BackColor", "get_Cursors", "get_MarginX", "put_MarginX", "get_MarginY", "put_MarginY", "get_Tablet", "get_SupportHighContrastInk", "put_SupportHighContrastInk", "get_SupportHighContrastSelectionUI", "put_SupportHighContrastSelectionUI", "HitTestSelection", "SetGestureStatus", "GetGestureStatus", "GetWindowInputRectangle", "SetWindowInputRectangle", "SetAllTabletsMode", "SetSingleTabletIntegratedMode", "GetEventInterest", "SetEventInterest", "get_InkEnabled", "put_InkEnabled", "get_Enabled", "put_Enabled"]
 
     /**
+     * @type {Pointer} 
+     */
+    hWnd {
+        get => this.get_hWnd()
+    }
+
+    /**
+     * @type {IInkDrawingAttributes} 
+     */
+    DefaultDrawingAttributes {
+        get => this.get_DefaultDrawingAttributes()
+    }
+
+    /**
+     * @type {IInkRenderer} 
+     */
+    Renderer {
+        get => this.get_Renderer()
+    }
+
+    /**
+     * @type {IInkDisp} 
+     */
+    Ink {
+        get => this.get_Ink()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AutoRedraw {
+        get => this.get_AutoRedraw()
+        set => this.put_AutoRedraw(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CollectingInk {
+        get => this.get_CollectingInk()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CollectionMode {
+        get => this.get_CollectionMode()
+        set => this.put_CollectionMode(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DynamicRendering {
+        get => this.get_DynamicRendering()
+        set => this.put_DynamicRendering(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DesiredPacketDescription {
+        get => this.get_DesiredPacketDescription()
+        set => this.put_DesiredPacketDescription(value)
+    }
+
+    /**
+     * @type {IPictureDisp} 
+     */
+    MouseIcon {
+        get => this.get_MouseIcon()
+        set => this.put_MouseIcon(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MousePointer {
+        get => this.get_MousePointer()
+        set => this.put_MousePointer(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EditingMode {
+        get => this.get_EditingMode()
+        set => this.put_EditingMode(value)
+    }
+
+    /**
+     * @type {IInkStrokes} 
+     */
+    Selection {
+        get => this.get_Selection()
+        set => this.put_Selection(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EraserMode {
+        get => this.get_EraserMode()
+        set => this.put_EraserMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EraserWidth {
+        get => this.get_EraserWidth()
+        set => this.put_EraserWidth(value)
+    }
+
+    /**
+     * @type {IPictureDisp} 
+     */
+    Picture {
+        get => this.get_Picture()
+        set => this.put_Picture(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SizeMode {
+        get => this.get_SizeMode()
+        set => this.put_SizeMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackColor {
+        get => this.get_BackColor()
+        set => this.put_BackColor(value)
+    }
+
+    /**
+     * @type {IInkCursors} 
+     */
+    Cursors {
+        get => this.get_Cursors()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MarginX {
+        get => this.get_MarginX()
+        set => this.put_MarginX(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MarginY {
+        get => this.get_MarginY()
+        set => this.put_MarginY(value)
+    }
+
+    /**
+     * @type {IInkTablet} 
+     */
+    Tablet {
+        get => this.get_Tablet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SupportHighContrastInk {
+        get => this.get_SupportHighContrastInk()
+        set => this.put_SupportHighContrastInk(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SupportHighContrastSelectionUI {
+        get => this.get_SupportHighContrastSelectionUI()
+        set => this.put_SupportHighContrastSelectionUI(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    InkEnabled {
+        get => this.get_InkEnabled()
+        set => this.put_InkEnabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
      * 
      * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_hwnd

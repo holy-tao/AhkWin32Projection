@@ -31,6 +31,34 @@ class ISpellingError extends IUnknown{
     static VTableNames => ["get_StartIndex", "get_Length", "get_CorrectiveAction", "get_Replacement"]
 
     /**
+     * @type {Integer} 
+     */
+    StartIndex {
+        get => this.get_StartIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CorrectiveAction {
+        get => this.get_CorrectiveAction()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Replacement {
+        get => this.get_Replacement()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_startindex

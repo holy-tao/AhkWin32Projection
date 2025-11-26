@@ -36,6 +36,14 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
     static VTableNames => ["get_CurrentViewMode", "put_CurrentViewMode", "SelectItemRelative"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentViewMode {
+        get => this.get_CurrentViewMode()
+        set => this.put_CurrentViewMode(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-get_currentviewmode

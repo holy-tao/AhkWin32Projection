@@ -32,6 +32,55 @@ class IWMPMedia extends IDispatch{
     static VTableNames => ["get_isIdentical", "get_sourceURL", "get_name", "put_name", "get_imageSourceWidth", "get_imageSourceHeight", "get_markerCount", "getMarkerTime", "getMarkerName", "get_duration", "get_durationString", "get_attributeCount", "getAttributeName", "getItemInfo", "setItemInfo", "getItemInfoByAtom", "isMemberOf", "isReadOnlyItem"]
 
     /**
+     */
+    sourceURL {
+        get => this.get_sourceURL()
+    }
+
+    /**
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     */
+    imageSourceWidth {
+        get => this.get_imageSourceWidth()
+    }
+
+    /**
+     */
+    imageSourceHeight {
+        get => this.get_imageSourceHeight()
+    }
+
+    /**
+     */
+    markerCount {
+        get => this.get_markerCount()
+    }
+
+    /**
+     */
+    duration {
+        get => this.get_duration()
+    }
+
+    /**
+     */
+    durationString {
+        get => this.get_durationString()
+    }
+
+    /**
+     */
+    attributeCount {
+        get => this.get_attributeCount()
+    }
+
+    /**
      * 
      * @param {IWMPMedia} pIWMPMedia 
      * @param {Pointer<VARIANT_BOOL>} pvbool 

@@ -30,6 +30,14 @@ class IHTMLObjectElement5 extends IDispatch{
     static VTableNames => ["put_object", "get_object"]
 
     /**
+     * @type {BSTR} 
+     */
+    object {
+        get => this.get_object()
+        set => this.put_object(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -46,6 +46,80 @@ class INetFwProfile extends IDispatch{
     static VTableNames => ["get_Type", "get_FirewallEnabled", "put_FirewallEnabled", "get_ExceptionsNotAllowed", "put_ExceptionsNotAllowed", "get_NotificationsDisabled", "put_NotificationsDisabled", "get_UnicastResponsesToMulticastBroadcastDisabled", "put_UnicastResponsesToMulticastBroadcastDisabled", "get_RemoteAdminSettings", "get_IcmpSettings", "get_GloballyOpenPorts", "get_Services", "get_AuthorizedApplications"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FirewallEnabled {
+        get => this.get_FirewallEnabled()
+        set => this.put_FirewallEnabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ExceptionsNotAllowed {
+        get => this.get_ExceptionsNotAllowed()
+        set => this.put_ExceptionsNotAllowed(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    NotificationsDisabled {
+        get => this.get_NotificationsDisabled()
+        set => this.put_NotificationsDisabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UnicastResponsesToMulticastBroadcastDisabled {
+        get => this.get_UnicastResponsesToMulticastBroadcastDisabled()
+        set => this.put_UnicastResponsesToMulticastBroadcastDisabled(value)
+    }
+
+    /**
+     * @type {INetFwRemoteAdminSettings} 
+     */
+    RemoteAdminSettings {
+        get => this.get_RemoteAdminSettings()
+    }
+
+    /**
+     * @type {INetFwIcmpSettings} 
+     */
+    IcmpSettings {
+        get => this.get_IcmpSettings()
+    }
+
+    /**
+     * @type {INetFwOpenPorts} 
+     */
+    GloballyOpenPorts {
+        get => this.get_GloballyOpenPorts()
+    }
+
+    /**
+     * @type {INetFwServices} 
+     */
+    Services {
+        get => this.get_Services()
+    }
+
+    /**
+     * @type {INetFwAuthorizedApplications} 
+     */
+    AuthorizedApplications {
+        get => this.get_AuthorizedApplications()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_type

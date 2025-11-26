@@ -31,6 +31,53 @@ class ILayoutRect extends IDispatch{
     static VTableNames => ["put_nextRect", "get_nextRect", "put_contentSrc", "get_contentSrc", "put_honorPageBreaks", "get_honorPageBreaks", "put_honorPageRules", "get_honorPageRules", "put_nextRectElement", "get_nextRectElement", "get_contentDocument"]
 
     /**
+     * @type {BSTR} 
+     */
+    nextRect {
+        get => this.get_nextRect()
+        set => this.put_nextRect(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    contentSrc {
+        get => this.get_contentSrc()
+        set => this.put_contentSrc(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    honorPageBreaks {
+        get => this.get_honorPageBreaks()
+        set => this.put_honorPageBreaks(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    honorPageRules {
+        get => this.get_honorPageRules()
+        set => this.put_honorPageRules(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    nextRectElement {
+        get => this.get_nextRectElement()
+        set => this.put_nextRectElement(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    contentDocument {
+        get => this.get_contentDocument()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrElementId 
      * @returns {HRESULT} 

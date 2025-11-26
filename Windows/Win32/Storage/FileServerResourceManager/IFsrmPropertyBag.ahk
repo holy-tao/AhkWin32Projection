@@ -51,6 +51,125 @@ class IFsrmPropertyBag extends IDispatch{
     static VTableNames => ["get_Name", "get_RelativePath", "get_VolumeName", "get_RelativeNamespaceRoot", "get_VolumeIndex", "get_FileId", "get_ParentDirectoryId", "get_Size", "get_SizeAllocated", "get_CreationTime", "get_LastAccessTime", "get_LastModificationTime", "get_Attributes", "get_OwnerSid", "get_FilePropertyNames", "get_Messages", "get_PropertyBagFlags", "GetFileProperty", "SetFileProperty", "AddMessage", "GetFileStreamInterface"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RelativePath {
+        get => this.get_RelativePath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeName {
+        get => this.get_VolumeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RelativeNamespaceRoot {
+        get => this.get_RelativeNamespaceRoot()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VolumeIndex {
+        get => this.get_VolumeIndex()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    FileId {
+        get => this.get_FileId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ParentDirectoryId {
+        get => this.get_ParentDirectoryId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SizeAllocated {
+        get => this.get_SizeAllocated()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CreationTime {
+        get => this.get_CreationTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LastAccessTime {
+        get => this.get_LastAccessTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LastModificationTime {
+        get => this.get_LastModificationTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Attributes {
+        get => this.get_Attributes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSid {
+        get => this.get_OwnerSid()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    FilePropertyNames {
+        get => this.get_FilePropertyNames()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Messages {
+        get => this.get_Messages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PropertyBagFlags {
+        get => this.get_PropertyBagFlags()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_name

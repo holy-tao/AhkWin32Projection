@@ -30,6 +30,13 @@ class IRTCWatcherEvent extends IDispatch{
     static VTableNames => ["get_Watcher"]
 
     /**
+     * @type {IRTCWatcher} 
+     */
+    Watcher {
+        get => this.get_Watcher()
+    }
+
+    /**
      * 
      * @returns {IRTCWatcher} 
      */

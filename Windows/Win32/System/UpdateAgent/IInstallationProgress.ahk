@@ -32,6 +32,27 @@ class IInstallationProgress extends IDispatch{
     static VTableNames => ["get_CurrentUpdateIndex", "get_CurrentUpdatePercentComplete", "get_PercentComplete", "GetUpdateResult"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentUpdateIndex {
+        get => this.get_CurrentUpdateIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentUpdatePercentComplete {
+        get => this.get_CurrentUpdatePercentComplete()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PercentComplete {
+        get => this.get_PercentComplete()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogress-get_currentupdateindex

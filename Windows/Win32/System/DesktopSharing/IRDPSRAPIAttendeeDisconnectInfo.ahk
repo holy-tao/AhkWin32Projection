@@ -38,6 +38,27 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
     static VTableNames => ["get_Attendee", "get_Reason", "get_Code"]
 
     /**
+     * @type {IRDPSRAPIAttendee} 
+     */
+    Attendee {
+        get => this.get_Attendee()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Reason {
+        get => this.get_Reason()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Code {
+        get => this.get_Code()
+    }
+
+    /**
      * 
      * @returns {IRDPSRAPIAttendee} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_attendee

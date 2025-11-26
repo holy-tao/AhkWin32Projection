@@ -60,6 +60,20 @@ class IOCSPPropertyCollection extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_ItemByName", "CreateProperty", "DeleteProperty", "InitializeFromProperties", "GetAllProperties"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get__newenum

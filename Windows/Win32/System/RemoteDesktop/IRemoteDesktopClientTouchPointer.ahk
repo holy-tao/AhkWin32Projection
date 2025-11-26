@@ -31,6 +31,30 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
     static VTableNames => ["put_Enabled", "get_Enabled", "put_EventsEnabled", "get_EventsEnabled", "put_PointerSpeed", "get_PointerSpeed"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EventsEnabled {
+        get => this.get_EventsEnabled()
+        set => this.put_EventsEnabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PointerSpeed {
+        get => this.get_PointerSpeed()
+        set => this.put_PointerSpeed(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 

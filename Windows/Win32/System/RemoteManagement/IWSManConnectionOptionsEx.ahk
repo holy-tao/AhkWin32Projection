@@ -32,6 +32,14 @@ class IWSManConnectionOptionsEx extends IWSManConnectionOptions{
     static VTableNames => ["get_CertificateThumbprint", "put_CertificateThumbprint"]
 
     /**
+     * @type {BSTR} 
+     */
+    CertificateThumbprint {
+        get => this.get_CertificateThumbprint()
+        set => this.put_CertificateThumbprint(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-get_certificatethumbprint

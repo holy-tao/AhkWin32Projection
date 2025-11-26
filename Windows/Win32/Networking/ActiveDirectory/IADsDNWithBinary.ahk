@@ -33,6 +33,22 @@ class IADsDNWithBinary extends IDispatch{
     static VTableNames => ["get_BinaryValue", "put_BinaryValue", "get_DNString", "put_DNString"]
 
     /**
+     * @type {VARIANT} 
+     */
+    BinaryValue {
+        get => this.get_BinaryValue()
+        set => this.put_BinaryValue(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DNString {
+        get => this.get_DNString()
+        set => this.put_DNString(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

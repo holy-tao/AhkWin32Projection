@@ -31,6 +31,27 @@ class IDiscFormat2 extends IDispatch{
     static VTableNames => ["IsRecorderSupported", "IsCurrentMediaSupported", "get_MediaPhysicallyBlank", "get_MediaHeuristicallyBlank", "get_SupportedMediaTypes"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    MediaPhysicallyBlank {
+        get => this.get_MediaPhysicallyBlank()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MediaHeuristicallyBlank {
+        get => this.get_MediaHeuristicallyBlank()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    SupportedMediaTypes {
+        get => this.get_SupportedMediaTypes()
+    }
+
+    /**
      * 
      * @param {IDiscRecorder2} recorder 
      * @returns {VARIANT_BOOL} 

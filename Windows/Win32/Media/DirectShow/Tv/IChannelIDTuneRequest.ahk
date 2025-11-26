@@ -43,6 +43,14 @@ class IChannelIDTuneRequest extends ITuneRequest{
     static VTableNames => ["get_ChannelID", "put_ChannelID"]
 
     /**
+     * @type {BSTR} 
+     */
+    ChannelID {
+        get => this.get_ChannelID()
+        set => this.put_ChannelID(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichannelidtunerequest-get_channelid

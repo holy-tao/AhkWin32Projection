@@ -30,6 +30,13 @@ class IHTMLStyleFontFace2 extends IDispatch{
     static VTableNames => ["get_style"]
 
     /**
+     * @type {IHTMLRuleStyle} 
+     */
+    style {
+        get => this.get_style()
+    }
+
+    /**
      * 
      * @returns {IHTMLRuleStyle} 
      */

@@ -32,6 +32,38 @@ class IEventClass2 extends IEventClass{
     static VTableNames => ["get_PublisherID", "put_PublisherID", "get_MultiInterfacePublisherFilterCLSID", "put_MultiInterfacePublisherFilterCLSID", "get_AllowInprocActivation", "put_AllowInprocActivation", "get_FireInParallel", "put_FireInParallel"]
 
     /**
+     * @type {BSTR} 
+     */
+    PublisherID {
+        get => this.get_PublisherID()
+        set => this.put_PublisherID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MultiInterfacePublisherFilterCLSID {
+        get => this.get_MultiInterfacePublisherFilterCLSID()
+        set => this.put_MultiInterfacePublisherFilterCLSID(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    AllowInprocActivation {
+        get => this.get_AllowInprocActivation()
+        set => this.put_AllowInprocActivation(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    FireInParallel {
+        get => this.get_FireInParallel()
+        set => this.put_FireInParallel(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_publisherid

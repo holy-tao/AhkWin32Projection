@@ -31,6 +31,51 @@ class ISClusPropertyValue extends IDispatch{
     static VTableNames => ["get_Value", "put_Value", "get_Type", "put_Type", "get_Format", "put_Format", "get_Length", "get_DataCount", "get_Data"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Format {
+        get => this.get_Format()
+        set => this.put_Format(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataCount {
+        get => this.get_DataCount()
+    }
+
+    /**
+     * @type {ISClusPropertyValueData} 
+     */
+    Data {
+        get => this.get_Data()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

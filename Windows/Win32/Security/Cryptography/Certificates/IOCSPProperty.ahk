@@ -33,6 +33,28 @@ class IOCSPProperty extends IDispatch{
     static VTableNames => ["get_Name", "get_Value", "put_Value", "get_Modified"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Modified {
+        get => this.get_Modified()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_name

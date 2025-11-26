@@ -36,6 +36,64 @@ class ISpeechRecognizer extends IDispatch{
     static VTableNames => ["putref_Recognizer", "get_Recognizer", "put_AllowAudioInputFormatChangesOnNextSet", "get_AllowAudioInputFormatChangesOnNextSet", "putref_AudioInput", "get_AudioInput", "putref_AudioInputStream", "get_AudioInputStream", "get_IsShared", "put_State", "get_State", "get_Status", "putref_Profile", "get_Profile", "EmulateRecognition", "CreateRecoContext", "GetFormat", "SetPropertyNumber", "GetPropertyNumber", "SetPropertyString", "GetPropertyString", "IsUISupported", "DisplayUI", "GetRecognizers", "GetAudioInputs", "GetProfiles"]
 
     /**
+     * @type {ISpeechObjectToken} 
+     */
+    Recognizer {
+        get => this.get_Recognizer()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AllowAudioInputFormatChangesOnNextSet {
+        get => this.get_AllowAudioInputFormatChangesOnNextSet()
+        set => this.put_AllowAudioInputFormatChangesOnNextSet(value)
+    }
+
+    /**
+     * @type {ISpeechObjectToken} 
+     */
+    AudioInput {
+        get => this.get_AudioInput()
+    }
+
+    /**
+     * @type {ISpeechBaseStream} 
+     */
+    AudioInputStream {
+        get => this.get_AudioInputStream()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsShared {
+        get => this.get_IsShared()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {ISpeechRecognizerStatus} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {ISpeechObjectToken} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
      * 
      * @param {ISpeechObjectToken} Recognizer 
      * @returns {HRESULT} 

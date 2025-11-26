@@ -32,6 +32,92 @@ class IHTMLElementDefaults extends IDispatch{
     static VTableNames => ["get_style", "put_tabStop", "get_tabStop", "put_viewInheritStyle", "get_viewInheritStyle", "put_viewMasterTab", "get_viewMasterTab", "put_scrollSegmentX", "get_scrollSegmentX", "put_scrollSegmentY", "get_scrollSegmentY", "put_isMultiLine", "get_isMultiLine", "put_contentEditable", "get_contentEditable", "put_canHaveHTML", "get_canHaveHTML", "putref_viewLink", "get_viewLink", "put_frozen", "get_frozen"]
 
     /**
+     * @type {IHTMLStyle} 
+     */
+    style {
+        get => this.get_style()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    tabStop {
+        get => this.get_tabStop()
+        set => this.put_tabStop(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    viewInheritStyle {
+        get => this.get_viewInheritStyle()
+        set => this.put_viewInheritStyle(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    viewMasterTab {
+        get => this.get_viewMasterTab()
+        set => this.put_viewMasterTab(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollSegmentX {
+        get => this.get_scrollSegmentX()
+        set => this.put_scrollSegmentX(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollSegmentY {
+        get => this.get_scrollSegmentY()
+        set => this.put_scrollSegmentY(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isMultiLine {
+        get => this.get_isMultiLine()
+        set => this.put_isMultiLine(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    contentEditable {
+        get => this.get_contentEditable()
+        set => this.put_contentEditable(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    canHaveHTML {
+        get => this.get_canHaveHTML()
+        set => this.put_canHaveHTML(value)
+    }
+
+    /**
+     * @type {IHTMLDocument} 
+     */
+    viewLink {
+        get => this.get_viewLink()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    frozen {
+        get => this.get_frozen()
+        set => this.put_frozen(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLStyle} 
      */

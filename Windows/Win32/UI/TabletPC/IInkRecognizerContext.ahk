@@ -38,6 +38,74 @@ class IInkRecognizerContext extends IDispatch{
     static VTableNames => ["get_Strokes", "putref_Strokes", "get_CharacterAutoCompletionMode", "put_CharacterAutoCompletionMode", "get_Factoid", "put_Factoid", "get_Guide", "putref_Guide", "get_PrefixText", "put_PrefixText", "get_SuffixText", "put_SuffixText", "get_RecognitionFlags", "put_RecognitionFlags", "get_WordList", "putref_WordList", "get_Recognizer", "Recognize", "StopBackgroundRecognition", "EndInkInput", "BackgroundRecognize", "BackgroundRecognizeWithAlternates", "Clone", "IsStringSupported"]
 
     /**
+     * @type {IInkStrokes} 
+     */
+    Strokes {
+        get => this.get_Strokes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CharacterAutoCompletionMode {
+        get => this.get_CharacterAutoCompletionMode()
+        set => this.put_CharacterAutoCompletionMode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Factoid {
+        get => this.get_Factoid()
+        set => this.put_Factoid(value)
+    }
+
+    /**
+     * @type {IInkRecognizerGuide} 
+     */
+    Guide {
+        get => this.get_Guide()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PrefixText {
+        get => this.get_PrefixText()
+        set => this.put_PrefixText(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SuffixText {
+        get => this.get_SuffixText()
+        set => this.put_SuffixText(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecognitionFlags {
+        get => this.get_RecognitionFlags()
+        set => this.put_RecognitionFlags(value)
+    }
+
+    /**
+     * @type {IInkWordList} 
+     */
+    WordList {
+        get => this.get_WordList()
+    }
+
+    /**
+     * @type {IInkRecognizer} 
+     */
+    Recognizer {
+        get => this.get_Recognizer()
+    }
+
+    /**
      * 
      * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_strokes

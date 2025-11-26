@@ -32,6 +32,13 @@ class IWebApplicationAuthoringMode extends IServiceProvider{
     static VTableNames => ["get_AuthoringClientBinary"]
 
     /**
+     * @type {BSTR} 
+     */
+    AuthoringClientBinary {
+        get => this.get_AuthoringClientBinary()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationauthoringmode-get_authoringclientbinary

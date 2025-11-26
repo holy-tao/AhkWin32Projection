@@ -31,6 +31,30 @@ class IWMPMetadataPicture extends IDispatch{
     static VTableNames => ["get_mimeType", "get_pictureType", "get_description", "get_URL"]
 
     /**
+     */
+    mimeType {
+        get => this.get_mimeType()
+    }
+
+    /**
+     */
+    pictureType {
+        get => this.get_pictureType()
+    }
+
+    /**
+     */
+    description {
+        get => this.get_description()
+    }
+
+    /**
+     */
+    URL {
+        get => this.get_URL()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrMimeType 
      * @returns {HRESULT} 

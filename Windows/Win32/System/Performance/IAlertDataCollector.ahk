@@ -58,6 +58,70 @@ class IAlertDataCollector extends IDataCollector{
     static VTableNames => ["get_AlertThresholds", "put_AlertThresholds", "get_EventLog", "put_EventLog", "get_SampleInterval", "put_SampleInterval", "get_Task", "put_Task", "get_TaskRunAsSelf", "put_TaskRunAsSelf", "get_TaskArguments", "put_TaskArguments", "get_TaskUserTextArguments", "put_TaskUserTextArguments", "get_TriggerDataCollectorSet", "put_TriggerDataCollectorSet"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    AlertThresholds {
+        get => this.get_AlertThresholds()
+        set => this.put_AlertThresholds(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EventLog {
+        get => this.get_EventLog()
+        set => this.put_EventLog(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SampleInterval {
+        get => this.get_SampleInterval()
+        set => this.put_SampleInterval(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Task {
+        get => this.get_Task()
+        set => this.put_Task(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    TaskRunAsSelf {
+        get => this.get_TaskRunAsSelf()
+        set => this.put_TaskRunAsSelf(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TaskArguments {
+        get => this.get_TaskArguments()
+        set => this.put_TaskArguments(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TaskUserTextArguments {
+        get => this.get_TaskUserTextArguments()
+        set => this.put_TaskUserTextArguments(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TriggerDataCollectorSet {
+        get => this.get_TriggerDataCollectorSet()
+        set => this.put_TriggerDataCollectorSet(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_alertthresholds

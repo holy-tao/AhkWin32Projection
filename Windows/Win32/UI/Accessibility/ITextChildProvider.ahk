@@ -40,6 +40,20 @@ class ITextChildProvider extends IUnknown{
     static VTableNames => ["get_TextContainer", "get_TextRange"]
 
     /**
+     * @type {IRawElementProviderSimple} 
+     */
+    TextContainer {
+        get => this.get_TextContainer()
+    }
+
+    /**
+     * @type {ITextRangeProvider} 
+     */
+    TextRange {
+        get => this.get_TextRange()
+    }
+
+    /**
      * 
      * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textcontainer

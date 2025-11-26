@@ -36,6 +36,29 @@ class IXMLDSOControl extends IDispatch{
     static VTableNames => ["get_XMLDocument", "put_XMLDocument", "get_JavaDSOCompatible", "put_JavaDSOCompatible", "get_readyState"]
 
     /**
+     * @type {IXMLDOMDocument} 
+     */
+    XMLDocument {
+        get => this.get_XMLDocument()
+        set => this.put_XMLDocument(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    JavaDSOCompatible {
+        get => this.get_JavaDSOCompatible()
+        set => this.put_JavaDSOCompatible(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
      * 
      * @returns {IXMLDOMDocument} 
      */

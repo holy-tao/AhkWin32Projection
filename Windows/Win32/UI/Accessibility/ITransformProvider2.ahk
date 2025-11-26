@@ -31,6 +31,34 @@ class ITransformProvider2 extends ITransformProvider{
     static VTableNames => ["Zoom", "get_CanZoom", "get_ZoomLevel", "get_ZoomMinimum", "get_ZoomMaximum", "ZoomByUnit"]
 
     /**
+     * @type {BOOL} 
+     */
+    CanZoom {
+        get => this.get_CanZoom()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ZoomLevel {
+        get => this.get_ZoomLevel()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ZoomMinimum {
+        get => this.get_ZoomMinimum()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ZoomMaximum {
+        get => this.get_ZoomMaximum()
+    }
+
+    /**
      * 
      * @param {Float} zoom 
      * @returns {HRESULT} 

@@ -42,6 +42,34 @@ class ObjectContext extends IDispatch{
     static VTableNames => ["CreateInstance", "SetComplete", "SetAbort", "EnableCommit", "DisableCommit", "IsInTransaction", "IsSecurityEnabled", "IsCallerInRole", "get_Count", "get_Item", "get__NewEnum", "get_Security", "get_ContextInfo"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {SecurityProperty} 
+     */
+    Security {
+        get => this.get_Security()
+    }
+
+    /**
+     * @type {ContextInfo} 
+     */
+    ContextInfo {
+        get => this.get_ContextInfo()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrProgID 
      * @returns {VARIANT} 

@@ -39,6 +39,99 @@ class FolderItem extends IDispatch{
     static VTableNames => ["get_Application", "get_Parent", "get_Name", "put_Name", "get_Path", "get_GetLink", "get_GetFolder", "get_IsLink", "get_IsFolder", "get_IsFileSystem", "get_IsBrowsable", "get_ModifyDate", "put_ModifyDate", "get_Size", "get_Type", "Verbs", "InvokeVerb"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    GetLink {
+        get => this.get_GetLink()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    GetFolder {
+        get => this.get_GetFolder()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsLink {
+        get => this.get_IsLink()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsFolder {
+        get => this.get_IsFolder()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsFileSystem {
+        get => this.get_IsFileSystem()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsBrowsable {
+        get => this.get_IsBrowsable()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ModifyDate {
+        get => this.get_ModifyDate()
+        set => this.put_ModifyDate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

@@ -40,6 +40,37 @@ class ITuner extends IUnknown{
     static VTableNames => ["get_TuningSpace", "put_TuningSpace", "EnumTuningSpaces", "get_TuneRequest", "put_TuneRequest", "Validate", "get_PreferredComponentTypes", "put_PreferredComponentTypes", "get_SignalStrength", "TriggerSignalEvents"]
 
     /**
+     * @type {ITuningSpace} 
+     */
+    TuningSpace {
+        get => this.get_TuningSpace()
+        set => this.put_TuningSpace(value)
+    }
+
+    /**
+     * @type {ITuneRequest} 
+     */
+    TuneRequest {
+        get => this.get_TuneRequest()
+        set => this.put_TuneRequest(value)
+    }
+
+    /**
+     * @type {IComponentTypes} 
+     */
+    PreferredComponentTypes {
+        get => this.get_PreferredComponentTypes()
+        set => this.put_PreferredComponentTypes(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SignalStrength {
+        get => this.get_SignalStrength()
+    }
+
+    /**
      * 
      * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tuningspace

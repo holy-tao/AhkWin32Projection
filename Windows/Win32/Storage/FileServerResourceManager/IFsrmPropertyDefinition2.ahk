@@ -33,6 +33,35 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
     static VTableNames => ["get_PropertyDefinitionFlags", "get_DisplayName", "put_DisplayName", "get_AppliesTo", "get_ValueDefinitions"]
 
     /**
+     * @type {Integer} 
+     */
+    PropertyDefinitionFlags {
+        get => this.get_PropertyDefinitionFlags()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppliesTo {
+        get => this.get_AppliesTo()
+    }
+
+    /**
+     * @type {IFsrmCollection} 
+     */
+    ValueDefinitions {
+        get => this.get_ValueDefinitions()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags

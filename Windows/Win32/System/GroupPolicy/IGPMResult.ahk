@@ -39,6 +39,20 @@ class IGPMResult extends IDispatch{
     static VTableNames => ["get_Status", "get_Result", "OverallStatus"]
 
     /**
+     * @type {IGPMStatusMsgCollection} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Result {
+        get => this.get_Result()
+    }
+
+    /**
      * 
      * @returns {IGPMStatusMsgCollection} 
      */

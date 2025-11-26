@@ -36,6 +36,210 @@ class IX509PrivateKey extends IDispatch{
     static VTableNames => ["Open", "Create", "Close", "Delete", "Verify", "Import", "Export", "ExportPublicKey", "get_ContainerName", "put_ContainerName", "get_ContainerNamePrefix", "put_ContainerNamePrefix", "get_ReaderName", "put_ReaderName", "get_CspInformations", "put_CspInformations", "get_CspStatus", "put_CspStatus", "get_ProviderName", "put_ProviderName", "get_ProviderType", "put_ProviderType", "get_LegacyCsp", "put_LegacyCsp", "get_Algorithm", "put_Algorithm", "get_KeySpec", "put_KeySpec", "get_Length", "put_Length", "get_ExportPolicy", "put_ExportPolicy", "get_KeyUsage", "put_KeyUsage", "get_KeyProtection", "put_KeyProtection", "get_MachineContext", "put_MachineContext", "get_SecurityDescriptor", "put_SecurityDescriptor", "get_Certificate", "put_Certificate", "get_UniqueContainerName", "get_Opened", "get_DefaultContainer", "get_Existing", "put_Existing", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "put_Pin", "get_FriendlyName", "put_FriendlyName", "get_Description", "put_Description"]
 
     /**
+     * @type {BSTR} 
+     */
+    ContainerName {
+        get => this.get_ContainerName()
+        set => this.put_ContainerName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ContainerNamePrefix {
+        get => this.get_ContainerNamePrefix()
+        set => this.put_ContainerNamePrefix(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReaderName {
+        get => this.get_ReaderName()
+        set => this.put_ReaderName(value)
+    }
+
+    /**
+     * @type {ICspInformations} 
+     */
+    CspInformations {
+        get => this.get_CspInformations()
+        set => this.put_CspInformations(value)
+    }
+
+    /**
+     * @type {ICspStatus} 
+     */
+    CspStatus {
+        get => this.get_CspStatus()
+        set => this.put_CspStatus(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderName {
+        get => this.get_ProviderName()
+        set => this.put_ProviderName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProviderType {
+        get => this.get_ProviderType()
+        set => this.put_ProviderType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LegacyCsp {
+        get => this.get_LegacyCsp()
+        set => this.put_LegacyCsp(value)
+    }
+
+    /**
+     * @type {IObjectId} 
+     */
+    Algorithm {
+        get => this.get_Algorithm()
+        set => this.put_Algorithm(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KeySpec {
+        get => this.get_KeySpec()
+        set => this.put_KeySpec(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+        set => this.put_Length(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExportPolicy {
+        get => this.get_ExportPolicy()
+        set => this.put_ExportPolicy(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KeyUsage {
+        get => this.get_KeyUsage()
+        set => this.put_KeyUsage(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    KeyProtection {
+        get => this.get_KeyProtection()
+        set => this.put_KeyProtection(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MachineContext {
+        get => this.get_MachineContext()
+        set => this.put_MachineContext(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SecurityDescriptor {
+        get => this.get_SecurityDescriptor()
+        set => this.put_SecurityDescriptor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UniqueContainerName {
+        get => this.get_UniqueContainerName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Opened {
+        get => this.get_Opened()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DefaultContainer {
+        get => this.get_DefaultContainer()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Existing {
+        get => this.get_Existing()
+        set => this.put_Existing(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Silent {
+        get => this.get_Silent()
+        set => this.put_Silent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ParentWindow {
+        get => this.get_ParentWindow()
+        set => this.put_ParentWindow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UIContextMessage {
+        get => this.get_UIContextMessage()
+        set => this.put_UIContextMessage(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Pin {
+        set => this.put_Pin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+        set => this.put_FriendlyName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-open

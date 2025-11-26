@@ -31,6 +31,45 @@ class IMediaPosition extends IDispatch{
     static VTableNames => ["get_Duration", "put_CurrentPosition", "get_CurrentPosition", "get_StopTime", "put_StopTime", "get_PrerollTime", "put_PrerollTime", "put_Rate", "get_Rate", "CanSeekForward", "CanSeekBackward"]
 
     /**
+     * @type {Float} 
+     */
+    Duration {
+        get => this.get_Duration()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CurrentPosition {
+        get => this.get_CurrentPosition()
+        set => this.put_CurrentPosition(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StopTime {
+        get => this.get_StopTime()
+        set => this.put_StopTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PrerollTime {
+        get => this.get_PrerollTime()
+        set => this.put_PrerollTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Rate {
+        get => this.get_Rate()
+        set => this.put_Rate(value)
+    }
+
+    /**
      * 
      * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_duration

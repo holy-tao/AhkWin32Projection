@@ -34,6 +34,22 @@ class IFsrmFileScreenBase extends IFsrmObject{
     static VTableNames => ["get_BlockedFileGroups", "put_BlockedFileGroups", "get_FileScreenFlags", "put_FileScreenFlags", "CreateAction", "EnumActions"]
 
     /**
+     * @type {IFsrmMutableCollection} 
+     */
+    BlockedFileGroups {
+        get => this.get_BlockedFileGroups()
+        set => this.put_BlockedFileGroups(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileScreenFlags {
+        get => this.get_FileScreenFlags()
+        set => this.put_FileScreenFlags(value)
+    }
+
+    /**
      * 
      * @returns {IFsrmMutableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-get_blockedfilegroups

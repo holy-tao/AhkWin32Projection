@@ -32,6 +32,34 @@ class IFsrmProperty extends IDispatch{
     static VTableNames => ["get_Name", "get_Value", "get_Sources", "get_PropertyFlags"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Sources {
+        get => this.get_Sources()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PropertyFlags {
+        get => this.get_PropertyFlags()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_name

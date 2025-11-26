@@ -30,6 +30,13 @@ class IMSMQTransaction2 extends IMSMQTransaction{
     static VTableNames => ["InitNew", "get_Properties"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @param {VARIANT} varTransaction 
      * @returns {HRESULT} 

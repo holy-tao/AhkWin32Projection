@@ -42,6 +42,30 @@ class IFaxActivityLogging extends IDispatch{
     static VTableNames => ["get_LogIncoming", "put_LogIncoming", "get_LogOutgoing", "put_LogOutgoing", "get_DatabasePath", "put_DatabasePath", "Refresh", "Save"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogIncoming {
+        get => this.get_LogIncoming()
+        set => this.put_LogIncoming(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    LogOutgoing {
+        get => this.get_LogOutgoing()
+        set => this.put_LogOutgoing(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DatabasePath {
+        get => this.get_DatabasePath()
+        set => this.put_DatabasePath(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivitylogging-get_logincoming

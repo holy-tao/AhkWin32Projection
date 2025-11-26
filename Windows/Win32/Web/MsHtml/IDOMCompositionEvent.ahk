@@ -36,6 +36,20 @@ class IDOMCompositionEvent extends IDispatch{
     static VTableNames => ["get_data", "initCompositionEvent", "get_locale"]
 
     /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    locale {
+        get => this.get_locale()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

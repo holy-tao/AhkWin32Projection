@@ -32,6 +32,27 @@ class IMtsEvents extends IDispatch{
     static VTableNames => ["get_PackageName", "get_PackageGuid", "PostEvent", "get_FireEvents", "GetProcessID"]
 
     /**
+     * @type {BSTR} 
+     */
+    PackageName {
+        get => this.get_PackageName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PackageGuid {
+        get => this.get_PackageGuid()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FireEvents {
+        get => this.get_FireEvents()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-get_packagename

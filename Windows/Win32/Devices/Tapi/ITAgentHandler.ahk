@@ -36,6 +36,27 @@ class ITAgentHandler extends IDispatch{
     static VTableNames => ["get_Name", "CreateAgent", "CreateAgentWithID", "EnumerateACDGroups", "EnumerateUsableAddresses", "get_ACDGroups", "get_UsableAddresses"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ACDGroups {
+        get => this.get_ACDGroups()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    UsableAddresses {
+        get => this.get_UsableAddresses()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagenthandler-get_name

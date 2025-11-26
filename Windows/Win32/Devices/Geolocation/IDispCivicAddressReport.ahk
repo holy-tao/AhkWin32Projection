@@ -36,6 +36,62 @@ class IDispCivicAddressReport extends IDispatch{
     static VTableNames => ["get_AddressLine1", "get_AddressLine2", "get_City", "get_StateProvince", "get_PostalCode", "get_CountryRegion", "get_DetailLevel", "get_Timestamp"]
 
     /**
+     * @type {BSTR} 
+     */
+    AddressLine1 {
+        get => this.get_AddressLine1()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AddressLine2 {
+        get => this.get_AddressLine2()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    City {
+        get => this.get_City()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StateProvince {
+        get => this.get_StateProvince()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PostalCode {
+        get => this.get_PostalCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CountryRegion {
+        get => this.get_CountryRegion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DetailLevel {
+        get => this.get_DetailLevel()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Timestamp {
+        get => this.get_Timestamp()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

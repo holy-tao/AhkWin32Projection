@@ -38,6 +38,13 @@ class IWMIExtension extends IDispatch{
     static VTableNames => ["get_WMIObjectPath", "GetWMIObject", "GetWMIServices"]
 
     /**
+     * @type {BSTR} 
+     */
+    WMIObjectPath {
+        get => this.get_WMIObjectPath()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

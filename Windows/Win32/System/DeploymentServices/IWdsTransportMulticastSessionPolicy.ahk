@@ -37,6 +37,38 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
     static VTableNames => ["get_SlowClientHandling", "put_SlowClientHandling", "get_AutoDisconnectThreshold", "put_AutoDisconnectThreshold", "get_MultistreamStreamCount", "put_MultistreamStreamCount", "get_SlowClientFallback", "put_SlowClientFallback"]
 
     /**
+     * @type {Integer} 
+     */
+    SlowClientHandling {
+        get => this.get_SlowClientHandling()
+        set => this.put_SlowClientHandling(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoDisconnectThreshold {
+        get => this.get_AutoDisconnectThreshold()
+        set => this.put_AutoDisconnectThreshold(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MultistreamStreamCount {
+        get => this.get_MultistreamStreamCount()
+        set => this.put_MultistreamStreamCount(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SlowClientFallback {
+        get => this.get_SlowClientFallback()
+        set => this.put_SlowClientFallback(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-get_slowclienthandling

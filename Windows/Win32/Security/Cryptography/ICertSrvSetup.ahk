@@ -35,6 +35,20 @@ class ICertSrvSetup extends IDispatch{
     static VTableNames => ["get_CAErrorId", "get_CAErrorString", "InitializeDefaults", "GetCASetupProperty", "SetCASetupProperty", "IsPropertyEditable", "GetSupportedCATypes", "GetProviderNameList", "GetKeyLengthList", "GetHashAlgorithmList", "GetPrivateKeyContainerList", "GetExistingCACertificates", "CAImportPFX", "SetCADistinguishedName", "SetDatabaseInformation", "SetParentCAInformation", "SetWebCAInformation", "Install", "PreUnInstall", "PostUnInstall"]
 
     /**
+     * @type {Integer} 
+     */
+    CAErrorId {
+        get => this.get_CAErrorId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAErrorString {
+        get => this.get_CAErrorString()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-get_caerrorid

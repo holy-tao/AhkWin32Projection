@@ -33,6 +33,20 @@ class IMILBitmapEffects extends IUnknown{
     static VTableNames => ["_NewEnum", "get_Parent", "Item", "get_Count"]
 
     /**
+     * @type {IMILBitmapEffectGroup} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-_newenum

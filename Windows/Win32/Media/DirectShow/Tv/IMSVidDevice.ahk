@@ -43,6 +43,56 @@ class IMSVidDevice extends IDispatch{
     static VTableNames => ["get_Name", "get_Status", "put_Power", "get_Power", "get_Category", "get_ClassID", "get__Category", "get__ClassID", "IsEqualDevice"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Power {
+        get => this.get_Power()
+        set => this.put_Power(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Category {
+        get => this.get_Category()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClassID {
+        get => this.get_ClassID()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _Category {
+        get => this.get__Category()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _ClassID {
+        get => this.get__ClassID()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_name

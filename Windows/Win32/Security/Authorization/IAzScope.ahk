@@ -39,6 +39,100 @@ class IAzScope extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "get_PolicyAdministrators", "get_PolicyReaders", "AddPolicyAdministrator", "DeletePolicyAdministrator", "AddPolicyReader", "DeletePolicyReader", "get_ApplicationGroups", "OpenApplicationGroup", "CreateApplicationGroup", "DeleteApplicationGroup", "get_Roles", "OpenRole", "CreateRole", "DeleteRole", "get_Tasks", "OpenTask", "CreateTask", "DeleteTask", "Submit", "get_CanBeDelegated", "get_BizrulesWritable", "get_PolicyAdministratorsName", "get_PolicyReadersName", "AddPolicyAdministratorName", "DeletePolicyAdministratorName", "AddPolicyReaderName", "DeletePolicyReaderName"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ApplicationData {
+        get => this.get_ApplicationData()
+        set => this.put_ApplicationData(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Writable {
+        get => this.get_Writable()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyAdministrators {
+        get => this.get_PolicyAdministrators()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyReaders {
+        get => this.get_PolicyReaders()
+    }
+
+    /**
+     * @type {IAzApplicationGroups} 
+     */
+    ApplicationGroups {
+        get => this.get_ApplicationGroups()
+    }
+
+    /**
+     * @type {IAzRoles} 
+     */
+    Roles {
+        get => this.get_Roles()
+    }
+
+    /**
+     * @type {IAzTasks} 
+     */
+    Tasks {
+        get => this.get_Tasks()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CanBeDelegated {
+        get => this.get_CanBeDelegated()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    BizrulesWritable {
+        get => this.get_BizrulesWritable()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyAdministratorsName {
+        get => this.get_PolicyAdministratorsName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PolicyReadersName {
+        get => this.get_PolicyReadersName()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-get_name

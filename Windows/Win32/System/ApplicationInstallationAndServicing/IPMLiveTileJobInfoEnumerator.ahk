@@ -30,6 +30,13 @@ class IPMLiveTileJobInfoEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMLiveTileJobInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMLiveTileJobInfo} 
      */

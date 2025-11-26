@@ -45,6 +45,41 @@ class IFileSystemImageResult extends IDispatch{
     static VTableNames => ["get_ImageStream", "get_ProgressItems", "get_TotalBlocks", "get_BlockSize", "get_DiscId"]
 
     /**
+     * @type {IStream} 
+     */
+    ImageStream {
+        get => this.get_ImageStream()
+    }
+
+    /**
+     * @type {IProgressItems} 
+     */
+    ProgressItems {
+        get => this.get_ProgressItems()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalBlocks {
+        get => this.get_TotalBlocks()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BlockSize {
+        get => this.get_BlockSize()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DiscId {
+        get => this.get_DiscId()
+    }
+
+    /**
      * 
      * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_imagestream

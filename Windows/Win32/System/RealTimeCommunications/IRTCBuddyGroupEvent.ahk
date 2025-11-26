@@ -31,6 +31,34 @@ class IRTCBuddyGroupEvent extends IDispatch{
     static VTableNames => ["get_EventType", "get_Group", "get_Buddy", "get_StatusCode"]
 
     /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
+     * @type {IRTCBuddyGroup} 
+     */
+    Group {
+        get => this.get_Group()
+    }
+
+    /**
+     * @type {IRTCBuddy2} 
+     */
+    Buddy {
+        get => this.get_Buddy()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

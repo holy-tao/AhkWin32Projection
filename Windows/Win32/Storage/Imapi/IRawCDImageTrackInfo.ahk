@@ -37,6 +37,65 @@ class IRawCDImageTrackInfo extends IDispatch{
     static VTableNames => ["get_StartingLba", "get_SectorCount", "get_TrackNumber", "get_SectorType", "get_ISRC", "put_ISRC", "get_DigitalAudioCopySetting", "put_DigitalAudioCopySetting", "get_AudioHasPreemphasis", "put_AudioHasPreemphasis", "get_TrackIndexes", "AddTrackIndex", "ClearTrackIndex"]
 
     /**
+     * @type {Integer} 
+     */
+    StartingLba {
+        get => this.get_StartingLba()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SectorCount {
+        get => this.get_SectorCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TrackNumber {
+        get => this.get_TrackNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SectorType {
+        get => this.get_SectorType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ISRC {
+        get => this.get_ISRC()
+        set => this.put_ISRC(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DigitalAudioCopySetting {
+        get => this.get_DigitalAudioCopySetting()
+        set => this.put_DigitalAudioCopySetting(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AudioHasPreemphasis {
+        get => this.get_AudioHasPreemphasis()
+        set => this.put_AudioHasPreemphasis(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    TrackIndexes {
+        get => this.get_TrackIndexes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba

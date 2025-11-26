@@ -40,6 +40,20 @@ class IMsmMerge extends IDispatch{
     static VTableNames => ["OpenDatabase", "OpenModule", "CloseDatabase", "CloseModule", "OpenLog", "CloseLog", "Log", "get_Errors", "get_Dependencies", "Merge", "Connect", "ExtractCAB", "ExtractFiles"]
 
     /**
+     * @type {IMsmErrors} 
+     */
+    Errors {
+        get => this.get_Errors()
+    }
+
+    /**
+     * @type {IMsmDependencies} 
+     */
+    Dependencies {
+        get => this.get_Dependencies()
+    }
+
+    /**
      * 
      * @param {BSTR} Path 
      * @returns {HRESULT} 

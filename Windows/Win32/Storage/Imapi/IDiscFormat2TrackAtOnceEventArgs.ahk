@@ -31,6 +31,34 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
     static VTableNames => ["get_CurrentTrackNumber", "get_CurrentAction", "get_ElapsedTime", "get_RemainingTime"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentTrackNumber {
+        get => this.get_CurrentTrackNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentAction {
+        get => this.get_CurrentAction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ElapsedTime {
+        get => this.get_ElapsedTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RemainingTime {
+        get => this.get_RemainingTime()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currenttracknumber

@@ -38,6 +38,35 @@ class IMSVidVideoRenderer2 extends IMSVidVideoRenderer{
     static VTableNames => ["get_Allocator", "get__Allocator", "get_Allocator_ID", "SetAllocator", "_SetAllocator2", "put_SuppressEffects", "get_SuppressEffects"]
 
     /**
+     * @type {IUnknown} 
+     */
+    Allocator {
+        get => this.get_Allocator()
+    }
+
+    /**
+     * @type {IVMRSurfaceAllocator} 
+     */
+    _Allocator {
+        get => this.get__Allocator()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Allocator_ID {
+        get => this.get_Allocator_ID()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SuppressEffects {
+        get => this.get_SuppressEffects()
+        set => this.put_SuppressEffects(value)
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer2-get_allocator

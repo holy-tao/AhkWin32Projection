@@ -34,6 +34,83 @@ class ISClusNode extends IDispatch{
     static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Name", "get_Handle", "get_NodeID", "get_State", "Pause", "Resume", "Evict", "get_ResourceGroups", "get_Cluster", "get_NetInterfaces"]
 
     /**
+     * @type {ISClusProperties} 
+     */
+    CommonProperties {
+        get => this.get_CommonProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateProperties {
+        get => this.get_PrivateProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    CommonROProperties {
+        get => this.get_CommonROProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateROProperties {
+        get => this.get_PrivateROProperties()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NodeID {
+        get => this.get_NodeID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {ISClusResGroups} 
+     */
+    ResourceGroups {
+        get => this.get_ResourceGroups()
+    }
+
+    /**
+     * @type {ISCluster} 
+     */
+    Cluster {
+        get => this.get_Cluster()
+    }
+
+    /**
+     * @type {ISClusNodeNetInterfaces} 
+     */
+    NetInterfaces {
+        get => this.get_NetInterfaces()
+    }
+
+    /**
      * 
      * @returns {ISClusProperties} 
      */

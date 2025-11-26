@@ -36,6 +36,20 @@ class IAzScope2 extends IAzScope{
     static VTableNames => ["get_RoleDefinitions", "CreateRoleDefinition", "OpenRoleDefinition", "DeleteRoleDefinition", "get_RoleAssignments", "CreateRoleAssignment", "OpenRoleAssignment", "DeleteRoleAssignment"]
 
     /**
+     * @type {IAzRoleDefinitions} 
+     */
+    RoleDefinitions {
+        get => this.get_RoleDefinitions()
+    }
+
+    /**
+     * @type {IAzRoleAssignments} 
+     */
+    RoleAssignments {
+        get => this.get_RoleAssignments()
+    }
+
+    /**
      * 
      * @returns {IAzRoleDefinitions} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-get_roledefinitions

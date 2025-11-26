@@ -37,6 +37,22 @@ class IHTMLCanvasElement extends IDispatch{
     static VTableNames => ["put_width", "get_width", "put_height", "get_height", "getContext", "toDataURL"]
 
     /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

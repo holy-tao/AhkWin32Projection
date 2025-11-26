@@ -31,6 +31,34 @@ class ISpeechPhraseAlternate extends IDispatch{
     static VTableNames => ["get_RecoResult", "get_StartElementInResult", "get_NumberOfElementsInResult", "get_PhraseInfo", "Commit"]
 
     /**
+     * @type {ISpeechRecoResult} 
+     */
+    RecoResult {
+        get => this.get_RecoResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartElementInResult {
+        get => this.get_StartElementInResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfElementsInResult {
+        get => this.get_NumberOfElementsInResult()
+    }
+
+    /**
+     * @type {ISpeechPhraseInfo} 
+     */
+    PhraseInfo {
+        get => this.get_PhraseInfo()
+    }
+
+    /**
      * 
      * @returns {ISpeechRecoResult} 
      */

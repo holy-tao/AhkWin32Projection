@@ -31,6 +31,13 @@ class IXSLTemplate extends IDispatch{
     static VTableNames => ["putref_stylesheet", "get_stylesheet", "createProcessor"]
 
     /**
+     * @type {IXMLDOMNode} 
+     */
+    stylesheet {
+        get => this.get_stylesheet()
+    }
+
+    /**
      * 
      * @param {IXMLDOMNode} stylesheet 
      * @returns {HRESULT} 

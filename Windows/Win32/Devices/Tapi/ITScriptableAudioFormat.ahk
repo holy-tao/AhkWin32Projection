@@ -31,6 +31,54 @@ class ITScriptableAudioFormat extends IDispatch{
     static VTableNames => ["get_Channels", "put_Channels", "get_SamplesPerSec", "put_SamplesPerSec", "get_AvgBytesPerSec", "put_AvgBytesPerSec", "get_BlockAlign", "put_BlockAlign", "get_BitsPerSample", "put_BitsPerSample", "get_FormatTag", "put_FormatTag"]
 
     /**
+     * @type {Integer} 
+     */
+    Channels {
+        get => this.get_Channels()
+        set => this.put_Channels(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SamplesPerSec {
+        get => this.get_SamplesPerSec()
+        set => this.put_SamplesPerSec(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AvgBytesPerSec {
+        get => this.get_AvgBytesPerSec()
+        set => this.put_AvgBytesPerSec(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BlockAlign {
+        get => this.get_BlockAlign()
+        set => this.put_BlockAlign(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BitsPerSample {
+        get => this.get_BitsPerSample()
+        set => this.put_BitsPerSample(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FormatTag {
+        get => this.get_FormatTag()
+        set => this.put_FormatTag(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_channels

@@ -29,6 +29,13 @@ class IHTMLPluginsCollection extends IDispatch{
     static VTableNames => ["get_length", "refresh"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

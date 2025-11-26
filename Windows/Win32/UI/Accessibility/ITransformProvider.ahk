@@ -41,6 +41,27 @@ class ITransformProvider extends IUnknown{
     static VTableNames => ["Move", "Resize", "Rotate", "get_CanMove", "get_CanResize", "get_CanRotate"]
 
     /**
+     * @type {BOOL} 
+     */
+    CanMove {
+        get => this.get_CanMove()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CanResize {
+        get => this.get_CanResize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CanRotate {
+        get => this.get_CanRotate()
+    }
+
+    /**
      * 
      * @param {Float} x 
      * @param {Float} y 

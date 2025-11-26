@@ -34,6 +34,29 @@ class IFsrmQuotaBase extends IFsrmObject{
     static VTableNames => ["get_QuotaLimit", "put_QuotaLimit", "get_QuotaFlags", "put_QuotaFlags", "get_Thresholds", "AddThreshold", "DeleteThreshold", "ModifyThreshold", "CreateThresholdAction", "EnumThresholdActions"]
 
     /**
+     * @type {VARIANT} 
+     */
+    QuotaLimit {
+        get => this.get_QuotaLimit()
+        set => this.put_QuotaLimit(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    QuotaFlags {
+        get => this.get_QuotaFlags()
+        set => this.put_QuotaFlags(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Thresholds {
+        get => this.get_Thresholds()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotalimit

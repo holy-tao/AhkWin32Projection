@@ -31,6 +31,18 @@ class IWMPMetadataText extends IDispatch{
     static VTableNames => ["get_description", "get_text"]
 
     /**
+     */
+    description {
+        get => this.get_description()
+    }
+
+    /**
+     */
+    text {
+        get => this.get_text()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrDescription 
      * @returns {HRESULT} 

@@ -34,6 +34,34 @@ class IProvideWinSATResultsInfo extends IDispatch{
     static VTableNames => ["GetAssessmentInfo", "get_AssessmentState", "get_AssessmentDateTime", "get_SystemRating", "get_RatingStateDesc"]
 
     /**
+     * @type {Integer} 
+     */
+    AssessmentState {
+        get => this.get_AssessmentState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AssessmentDateTime {
+        get => this.get_AssessmentDateTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    SystemRating {
+        get => this.get_SystemRating()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RatingStateDesc {
+        get => this.get_RatingStateDesc()
+    }
+
+    /**
      * 
      * @param {Integer} assessment 
      * @returns {IProvideWinSATAssessmentInfo} 
