@@ -3851,7 +3851,7 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3887,7 +3887,7 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3923,7 +3923,7 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", hMonitor, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3941,7 +3941,7 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DestroyPhysicalMonitors", "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

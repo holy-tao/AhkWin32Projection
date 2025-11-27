@@ -532,7 +532,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RefreshPolicy", "int", bMachine, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -553,7 +553,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RefreshPolicyEx", "int", bMachine, "uint", dwOptions, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -596,7 +596,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LeaveCriticalPolicySection", "ptr", hSection, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -620,7 +620,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RegisterGPNotification", "ptr", hEvent, "int", bMachine, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -643,7 +643,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\UnregisterGPNotification", "ptr", hEvent, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -691,7 +691,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -739,7 +739,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -762,7 +762,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\FreeGPOListA", "ptr", pGPOList, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -785,7 +785,7 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\FreeGPOListW", "ptr", pGPOList, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

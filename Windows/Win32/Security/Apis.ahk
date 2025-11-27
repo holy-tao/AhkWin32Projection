@@ -583,7 +583,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheck", "ptr", pSecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "ptr", GenericMapping, "ptr", PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -683,7 +683,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByType", "ptr", pSecurityDescriptor, "ptr", PrincipalSelfSid, "ptr", ClientToken, "uint", DesiredAccess, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "ptr", PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -741,7 +741,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultList", "ptr", pSecurityDescriptor, "ptr", PrincipalSelfSid, "ptr", ClientToken, "uint", DesiredAccess, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "ptr", PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -975,7 +975,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAccessAllowedAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AccessMask, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1075,7 +1075,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAccessAllowedAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1178,7 +1178,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1268,7 +1268,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAccessDeniedAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AccessMask, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1368,7 +1368,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAccessDeniedAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1471,7 +1471,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1540,7 +1540,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAce", "ptr", pAcl, "uint", dwAceRevision, "uint", dwStartingAceIndex, "ptr", pAceList, "uint", nAceListLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1633,7 +1633,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAuditAccessAce", "ptr", pAcl, "uint", dwAceRevision, "uint", dwAccessMask, "ptr", pSid, "int", bAuditSuccess, "int", bAuditFailure, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1735,7 +1735,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAuditAccessAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", dwAccessMask, "ptr", pSid, "int", bAuditSuccess, "int", bAuditFailure, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1840,7 +1840,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid, "int", bAuditSuccess, "int", bAuditFailure, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1926,7 +1926,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddMandatoryAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", MandatoryPolicy, "ptr", pLabelSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1956,7 +1956,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddResourceAttributeAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "ptr", pAttributeInfo, pReturnLengthMarshal, pReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1982,7 +1982,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddScopedPolicyIDAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2018,7 +2018,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AdjustTokenGroups", "ptr", TokenHandle, "int", ResetToDefault, "ptr", NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2136,7 +2136,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AdjustTokenPrivileges", "ptr", TokenHandle, "int", DisableAllPrivileges, "ptr", NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2175,7 +2175,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AllocateAndInitializeSid", "ptr", pIdentifierAuthority, "char", nSubAuthorityCount, "uint", nSubAuthority0, "uint", nSubAuthority1, "uint", nSubAuthority2, "uint", nSubAuthority3, "uint", nSubAuthority4, "uint", nSubAuthority5, "uint", nSubAuthority6, "uint", nSubAuthority7, pSidMarshal, pSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2195,7 +2195,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AllocateLocallyUniqueId", "ptr", Luid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2259,7 +2259,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CheckTokenMembership", "ptr", TokenHandle, "ptr", SidToCheck, IsMemberMarshal, IsMember, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2287,7 +2287,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CheckTokenCapability", "ptr", TokenHandle, "ptr", CapabilitySidToCheck, HasCapabilityMarshal, HasCapability, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2330,7 +2330,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CheckTokenMembershipEx", "ptr", TokenHandle, "ptr", SidToCheck, "uint", Flags, IsMemberMarshal, IsMember, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2361,7 +2361,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertToAutoInheritPrivateObjectSecurity", "ptr", ParentDescriptor, "ptr", CurrentSecurityDescriptor, "ptr", NewSecurityDescriptor, "ptr", ObjectType, "char", IsDirectoryObject, "ptr", GenericMapping, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2384,7 +2384,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CopySid", "uint", nDestinationSidLength, "ptr", pDestinationSid, "ptr", pSourceSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2431,7 +2431,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurity", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "int", IsDirectoryObject, "ptr", Token, "ptr", GenericMapping, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2531,7 +2531,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityEx", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "ptr", ObjectType, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2633,7 +2633,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, ObjectTypesMarshal, ObjectTypes, "uint", GuidCount, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2696,7 +2696,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateRestrictedToken", "ptr", ExistingTokenHandle, "uint", Flags, "uint", DisableSidCount, "ptr", SidsToDisable, "uint", DeletePrivilegeCount, "ptr", PrivilegesToDelete, "uint", RestrictedSidCount, "ptr", SidsToRestrict, "ptr", NewTokenHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2721,7 +2721,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateWellKnownSid", "int", WellKnownSidType, "ptr", DomainSid, "ptr", pSid, cbSidMarshal, cbSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2744,7 +2744,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EqualDomainSid", "ptr", pSid1, "ptr", pSid2, pfEqualMarshal, pfEqual, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2766,7 +2766,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DeleteAce", "ptr", pAcl, "uint", dwAceIndex, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2788,7 +2788,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DestroyPrivateObjectSecurity", "ptr", ObjectDescriptor, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2815,7 +2815,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DuplicateToken", "ptr", ExistingTokenHandle, "int", ImpersonationLevel, "ptr", DuplicateTokenHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2854,7 +2854,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DuplicateTokenEx", "ptr", hExistingToken, "uint", dwDesiredAccess, "ptr", lpTokenAttributes, "int", ImpersonationLevel, "int", TokenType, "ptr", phNewToken, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2876,7 +2876,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EqualPrefixSid", "ptr", pSid1, "ptr", pSid2, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2901,7 +2901,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EqualSid", "ptr", pSid1, "ptr", pSid2, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2926,7 +2926,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\FindFirstFreeAce", "ptr", pAcl, pAceMarshal, pAce, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2966,7 +2966,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetAce", "ptr", pAcl, "uint", dwAceIndex, pAceMarshal, pAce, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2999,7 +2999,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetAclInformation", "ptr", pAcl, "ptr", pAclInformation, "uint", nAclInformationLength, "int", dwAclInformationClass, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3028,7 +3028,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3058,7 +3058,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", "ptr", Handle, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3105,7 +3105,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", "ptr", ObjectDescriptor, "uint", SecurityInformation, "ptr", ResultantDescriptor, "uint", DescriptorLength, ReturnLengthMarshal, ReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3134,7 +3134,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetSecurityDescriptorControl", "ptr", pSecurityDescriptor, pControlMarshal, pControl, lpdwRevisionMarshal, lpdwRevision, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3175,7 +3175,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetSecurityDescriptorDacl", "ptr", pSecurityDescriptor, lpbDaclPresentMarshal, lpbDaclPresent, pDaclMarshal, pDacl, lpbDaclDefaultedMarshal, lpbDaclDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3205,7 +3205,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetSecurityDescriptorGroup", "ptr", pSecurityDescriptor, pGroupMarshal, pGroup, lpbGroupDefaultedMarshal, lpbGroupDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3253,7 +3253,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetSecurityDescriptorOwner", "ptr", pSecurityDescriptor, pOwnerMarshal, pOwner, lpbOwnerDefaultedMarshal, lpbOwnerDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3330,7 +3330,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetSecurityDescriptorSacl", "ptr", pSecurityDescriptor, lpbSaclPresentMarshal, lpbSaclPresent, pSaclMarshal, pSacl, lpbSaclDefaultedMarshal, lpbSaclDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3446,7 +3446,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetTokenInformation", "ptr", TokenHandle, "int", TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3470,7 +3470,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", "ptr", pSid, "ptr", pDomainSid, cbDomainSidMarshal, cbDomainSid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3496,7 +3496,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ImpersonateAnonymousToken", "ptr", ThreadHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3524,7 +3524,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ImpersonateLoggedOnUser", "ptr", hToken, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3545,7 +3545,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ImpersonateSelf", "int", ImpersonationLevel, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3572,7 +3572,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitializeAcl", "ptr", pAcl, "uint", nAclLength, "uint", dwAclRevision, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3597,7 +3597,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitializeSecurityDescriptor", "ptr", pSecurityDescriptor, "uint", dwRevision, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3622,7 +3622,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitializeSid", "ptr", Sid, "ptr", pIdentifierAuthority, "char", nSubAuthorityCount, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3646,7 +3646,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\IsTokenRestricted", "ptr", TokenHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3771,7 +3771,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\MakeAbsoluteSD", "ptr", pSelfRelativeSecurityDescriptor, "ptr", pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSizeMarshal, lpdwAbsoluteSecurityDescriptorSize, "ptr", pDacl, lpdwDaclSizeMarshal, lpdwDaclSize, "ptr", pSacl, lpdwSaclSizeMarshal, lpdwSaclSize, "ptr", pOwner, lpdwOwnerSizeMarshal, lpdwOwnerSize, "ptr", pPrimaryGroup, lpdwPrimaryGroupSizeMarshal, lpdwPrimaryGroupSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3819,7 +3819,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\MakeSelfRelativeSD", "ptr", pAbsoluteSecurityDescriptor, "ptr", pSelfRelativeSecurityDescriptor, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3972,7 +3972,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\PrivilegeCheck", "ptr", ClientToken, "ptr", RequiredPrivileges, pfResultMarshal, pfResult, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4028,7 +4028,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RevertToSelf", "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4061,7 +4061,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetAclInformation", "ptr", pAcl, "ptr", pAclInformation, "uint", nAclInformationLength, "int", dwAclInformationClass, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4110,7 +4110,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetKernelObjectSecurity", "ptr", Handle, "uint", SecurityInformation, "ptr", SecurityDescriptor, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4145,7 +4145,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetPrivateObjectSecurity", "uint", SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "ptr", GenericMapping, "ptr", Token, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4182,7 +4182,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetPrivateObjectSecurityEx", "uint", SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "uint", AutoInheritFlags, "ptr", GenericMapping, "ptr", Token, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4222,7 +4222,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetSecurityDescriptorControl", "ptr", pSecurityDescriptor, "ushort", ControlBitsOfInterest, "ushort", ControlBitsToSet, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4250,7 +4250,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetSecurityDescriptorDacl", "ptr", pSecurityDescriptor, "int", bDaclPresent, "ptr", pDacl, "int", bDaclDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4277,7 +4277,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetSecurityDescriptorGroup", "ptr", pSecurityDescriptor, "ptr", pGroup, "int", bGroupDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4304,7 +4304,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetSecurityDescriptorOwner", "ptr", pSecurityDescriptor, "ptr", pOwner, "int", bOwnerDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4350,7 +4350,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetSecurityDescriptorSacl", "ptr", pSecurityDescriptor, "int", bSaclPresent, "ptr", pSacl, "int", bSaclDefaulted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4376,7 +4376,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetTokenInformation", "ptr", TokenHandle, "int", TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4445,7 +4445,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("api-ms-win-security-base-l1-2-2.dll\DeriveCapabilitySidsFromName", "ptr", CapName, CapabilityGroupSidsMarshal, CapabilityGroupSids, CapabilityGroupSidCountMarshal, CapabilityGroupSidCount, CapabilitySidsMarshal, CapabilitySids, CapabilitySidCountMarshal, CapabilitySidCount, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4494,7 +4494,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetUserObjectSecurity", "ptr", hObj, pSIRequestedMarshal, pSIRequested, "ptr", pSID, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4526,7 +4526,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetUserObjectSecurity", "ptr", hObj, pSIRequestedMarshal, pSIRequested, "ptr", pSID, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4575,7 +4575,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4644,7 +4644,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4702,7 +4702,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4762,7 +4762,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4810,7 +4810,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", pSecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "int", ObjectCreation, "int", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4842,7 +4842,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "uint", DesiredAccess, "ptr", Privileges, "int", AccessGranted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4869,7 +4869,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectCloseAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "int", GenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4899,7 +4899,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectDeleteAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "int", GenerateOnClose, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4928,7 +4928,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\PrivilegedServiceAuditAlarmA", "ptr", SubsystemName, "ptr", ServiceName, "ptr", ClientToken, "ptr", Privileges, "int", AccessGranted, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4982,7 +4982,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddConditionalAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "char", AceType, "uint", AccessMask, "ptr", pSid, "ptr", ConditionStr, ReturnLengthMarshal, ReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5009,7 +5009,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetFileSecurityA", "ptr", lpFileName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5039,7 +5039,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetFileSecurityA", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5082,7 +5082,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountSidA", "ptr", lpSystemName, "ptr", Sid, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5125,7 +5125,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountSidW", "ptr", lpSystemName, "ptr", Sid, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5163,7 +5163,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5201,7 +5201,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5227,7 +5227,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeValueA", "ptr", lpSystemName, "ptr", lpName, "ptr", lpLuid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5253,7 +5253,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeValueW", "ptr", lpSystemName, "ptr", lpName, "ptr", lpLuid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5282,7 +5282,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeNameA", "ptr", lpSystemName, "ptr", lpLuid, "ptr", lpName, cchNameMarshal, cchName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5311,7 +5311,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeNameW", "ptr", lpSystemName, "ptr", lpLuid, "ptr", lpName, cchNameMarshal, cchName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5343,7 +5343,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameA", "ptr", lpSystemName, "ptr", lpName, "ptr", lpDisplayName, cchDisplayNameMarshal, cchDisplayName, lpLanguageIdMarshal, lpLanguageId, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5375,7 +5375,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameW", "ptr", lpSystemName, "ptr", lpName, "ptr", lpDisplayName, cchDisplayNameMarshal, cchDisplayName, lpLanguageIdMarshal, lpLanguageId, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5413,7 +5413,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5451,7 +5451,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5499,7 +5499,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, ppLogonSidMarshal, ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, "ptr", pQuotaLimits, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5547,7 +5547,7 @@ class Security {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, ppLogonSidMarshal, ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, "ptr", pQuotaLimits, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

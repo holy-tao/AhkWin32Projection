@@ -28785,7 +28785,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("sfc.dll\SfcGetNextProtectedFile", "ptr", RpcHandle, "ptr", ProtFileData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29719,7 +29719,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ZombifyActCtx", "ptr", hActCtx, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29747,7 +29747,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, lpCookieMarshal, lpCookie, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29819,7 +29819,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeactivateActCtx", "uint", dwFlags, "ptr", ulCookie, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29842,7 +29842,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCurrentActCtx", "ptr", lphActCtx, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29905,7 +29905,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29968,7 +29968,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionStringW", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -30033,7 +30033,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionGuid", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpGuidToFind, "ptr", ReturnedData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -30242,7 +30242,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, pvSubInstanceMarshal, pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, pcbWrittenOrRequiredMarshal, pcbWrittenOrRequired, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -30279,7 +30279,7 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, pdwWrittenOrRequiredMarshal, pdwWrittenOrRequired, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

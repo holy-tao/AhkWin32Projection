@@ -23,7 +23,7 @@ class SetupAndMigration {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OOBEComplete", isOOBECompleteMarshal, isOOBEComplete, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44,7 +44,7 @@ class SetupAndMigration {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", "ptr", OOBECompletedCallback, CallbackContextMarshal, CallbackContext, WaitHandleMarshal, WaitHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -62,7 +62,7 @@ class SetupAndMigration {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UnregisterWaitUntilOOBECompleted", WaitHandleMarshal, WaitHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

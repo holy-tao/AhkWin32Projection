@@ -35355,7 +35355,7 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CloseHandle", "ptr", hObject, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35405,7 +35405,7 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DuplicateHandle", "ptr", hSourceProcessHandle, "ptr", hSourceHandle, "ptr", hTargetProcessHandle, "ptr", lpTargetHandle, "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwOptions, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35484,7 +35484,7 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, lpdwFlagsMarshal, lpdwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35513,7 +35513,7 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetHandleInformation", "ptr", hObject, "uint", dwMask, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35537,7 +35537,7 @@ class Foundation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

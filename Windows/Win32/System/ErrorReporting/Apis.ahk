@@ -1564,7 +1564,7 @@ class ErrorReporting {
         A_LastError := 0
 
         result := DllCall("faultrep.dll\AddERExcludedApplicationA", "ptr", szApplication, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1585,7 +1585,7 @@ class ErrorReporting {
         A_LastError := 0
 
         result := DllCall("faultrep.dll\AddERExcludedApplicationW", "ptr", wszApplication, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

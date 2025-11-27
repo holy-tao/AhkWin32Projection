@@ -4661,7 +4661,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterGroupSet", "ptr", hGroupSet, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5499,7 +5499,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNode", "ptr", hNode, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6906,7 +6906,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterGroup", "ptr", hGroup, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7606,7 +7606,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterResource", "ptr", hResource, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9512,7 +9512,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10010,7 +10010,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNetwork", "ptr", hNetwork, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10661,7 +10661,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNetInterface", "ptr", hNetInterface, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16150,7 +16150,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ClusterGetVolumePathName", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16185,7 +16185,7 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ClusterGetVolumeNameForVolumeMountPoint", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

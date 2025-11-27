@@ -184,7 +184,7 @@ class Mailslots {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetMailslotInfo", "ptr", hMailslot, lpMaxMessageSizeMarshal, lpMaxMessageSize, lpNextSizeMarshal, lpNextSize, lpMessageCountMarshal, lpMessageCount, lpReadTimeoutMarshal, lpReadTimeout, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -240,7 +240,7 @@ class Mailslots {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetMailslotInfo", "ptr", hMailslot, "uint", lReadTimeout, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

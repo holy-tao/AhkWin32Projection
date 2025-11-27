@@ -4467,7 +4467,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\TranslateCharsetInfo", lpSrcMarshal, lpSrc, "ptr", lpCs, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5151,7 +5151,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStringTypeExW", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5217,7 +5217,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStringTypeW", "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5532,7 +5532,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCPInfo", "uint", CodePage, "ptr", lpCPInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5603,7 +5603,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCPInfoExA", "uint", CodePage, "uint", dwFlags, "ptr", lpCPInfoEx, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5674,7 +5674,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCPInfoExW", "uint", CodePage, "uint", dwFlags, "ptr", lpCPInfoEx, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6114,7 +6114,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6169,7 +6169,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6350,7 +6350,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6409,7 +6409,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6428,7 +6428,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsDBCSLeadByte", "char", TestChar, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6493,7 +6493,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsDBCSLeadByteEx", "uint", CodePage, "char", TestChar, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -6957,7 +6957,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumCalendarInfoA", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7003,7 +7003,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumCalendarInfoW", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7053,7 +7053,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7103,7 +7103,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7148,7 +7148,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumTimeFormatsA", "ptr", lpTimeFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7193,7 +7193,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumTimeFormatsW", "ptr", lpTimeFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7238,7 +7238,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumDateFormatsA", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7283,7 +7283,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumDateFormatsW", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7332,7 +7332,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumDateFormatsExA", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7381,7 +7381,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumDateFormatsExW", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7447,7 +7447,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNLSVersion", "uint", Function, "uint", Locale, "ptr", lpVersionInformation, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7677,7 +7677,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemGeoID", "uint", GeoClass, "int", ParentGeoId, "ptr", lpGeoEnumProc, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7725,7 +7725,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemGeoNames", "uint", geoClass, "ptr", geoEnumProc, "ptr", data, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7829,7 +7829,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetUserGeoID", "int", GeoId, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -7890,7 +7890,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetUserGeoName", "ptr", geoName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8141,7 +8141,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetProcessPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8200,7 +8200,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetProcessPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, pulNumLanguagesMarshal, pulNumLanguages, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8238,7 +8238,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetUserPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8321,7 +8321,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8433,7 +8433,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetThreadPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8575,7 +8575,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileMUIInfo", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pFileMUIInfo, pcbFileMUIInfoMarshal, pcbFileMUIInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8717,7 +8717,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileMUIPath", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pwszLanguage, pcchLanguageMarshal, pcchLanguage, "ptr", pwszFileMUIPath, pcchFileMUIPathMarshal, pcchFileMUIPath, pululEnumeratorMarshal, pululEnumerator, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8850,7 +8850,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetUILanguageInfo", "uint", dwFlags, "ptr", pwmszLanguage, "ptr", pwszFallbackLanguages, pcchFallbackLanguagesMarshal, pcchFallbackLanguages, pAttributesMarshal, pAttributes, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8971,7 +8971,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStringTypeA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9070,7 +9070,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemLocalesA", "ptr", lpLocaleEnumProc, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9131,7 +9131,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemLocalesW", "ptr", lpLocaleEnumProc, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9156,7 +9156,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9181,7 +9181,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9207,7 +9207,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9233,7 +9233,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9331,7 +9331,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9429,7 +9429,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9453,7 +9453,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", "ptr", lpCodePageEnumProc, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9477,7 +9477,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", "ptr", lpCodePageEnumProc, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9708,7 +9708,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsNormalizedString", "int", NormForm, "ptr", lpString, "int", cwLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -9757,7 +9757,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VerifyScripts", "uint", dwFlags, "ptr", lpLocaleScripts, "int", cchLocaleScripts, "ptr", lpTestScripts, "int", cchTestScripts, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10120,7 +10120,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsNLSDefinedString", "uint", Function, "uint", dwFlags, "ptr", lpVersionInformation, "ptr", lpString, "int", cchStr, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10162,7 +10162,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNLSVersionEx", "uint", function, "ptr", lpLocaleName, "ptr", lpVersionInformation, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10668,7 +10668,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10708,7 +10708,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10747,7 +10747,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -10792,7 +10792,7 @@ class Globalization {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, "uint", dwFlags, "ptr", lParam, "ptr", lpReserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

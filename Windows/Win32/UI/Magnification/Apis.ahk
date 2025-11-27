@@ -387,7 +387,7 @@ class Magnification {
         A_LastError := 0
 
         result := DllCall("MAGNIFICATION.dll\MagSetInputTransform", "int", fEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

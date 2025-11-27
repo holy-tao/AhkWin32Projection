@@ -1432,7 +1432,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxConnectFaxServerA", "ptr", MachineName, "ptr", FaxHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1500,7 +1500,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxConnectFaxServerW", "ptr", MachineName, "ptr", FaxHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1692,7 +1692,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentA", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, FaxJobIdMarshal, FaxJobId, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1809,7 +1809,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentW", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, FaxJobIdMarshal, FaxJobId, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1907,7 +1907,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2005,7 +2005,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2079,7 +2079,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, JobEntryMarshal, JobEntry, JobsReturnedMarshal, JobsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2153,7 +2153,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, JobEntryMarshal, JobEntry, JobsReturnedMarshal, JobsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2226,7 +2226,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetJobA", "ptr", FaxHandle, "uint", JobId, JobEntryMarshal, JobEntry, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2299,7 +2299,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetJobW", "ptr", FaxHandle, "uint", JobId, JobEntryMarshal, JobEntry, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2360,7 +2360,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetJobA", "ptr", FaxHandle, "uint", JobId, "uint", Command, "ptr", JobEntry, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2421,7 +2421,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetJobW", "ptr", FaxHandle, "uint", JobId, "uint", Command, "ptr", JobEntry, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2513,7 +2513,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetDeviceStatusA", "ptr", FaxPortHandle, DeviceStatusMarshal, DeviceStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2583,7 +2583,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetDeviceStatusW", "ptr", FaxPortHandle, DeviceStatusMarshal, DeviceStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2666,7 +2666,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetConfigurationA", "ptr", FaxHandle, FaxConfigMarshal, FaxConfig, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2736,7 +2736,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetConfigurationW", "ptr", FaxHandle, FaxConfigMarshal, FaxConfig, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2804,7 +2804,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetConfigurationA", "ptr", FaxHandle, "ptr", FaxConfig, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2872,7 +2872,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetConfigurationW", "ptr", FaxHandle, "ptr", FaxConfig, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2950,7 +2950,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, CategoriesMarshal, Categories, NumberCategoriesMarshal, NumberCategories, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3028,7 +3028,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, CategoriesMarshal, Categories, NumberCategoriesMarshal, NumberCategories, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3110,7 +3110,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetLoggingCategoriesA", "ptr", FaxHandle, "ptr", Categories, "uint", NumberCategories, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3192,7 +3192,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetLoggingCategoriesW", "ptr", FaxHandle, "ptr", Categories, "uint", NumberCategories, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3266,7 +3266,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, PortInfoMarshal, PortInfo, PortsReturnedMarshal, PortsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3340,7 +3340,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, PortInfoMarshal, PortInfo, PortsReturnedMarshal, PortsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3410,7 +3410,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetPortA", "ptr", FaxPortHandle, PortInfoMarshal, PortInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3480,7 +3480,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetPortW", "ptr", FaxPortHandle, PortInfoMarshal, PortInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3548,7 +3548,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetPortA", "ptr", FaxPortHandle, "ptr", PortInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3616,7 +3616,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetPortW", "ptr", FaxPortHandle, "ptr", PortInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3694,7 +3694,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, RoutingMethodMarshal, RoutingMethod, MethodsReturnedMarshal, MethodsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3772,7 +3772,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, RoutingMethodMarshal, RoutingMethod, MethodsReturnedMarshal, MethodsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3848,7 +3848,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnableRoutingMethodA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "int", Enabled, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3924,7 +3924,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnableRoutingMethodW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "int", Enabled, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3998,7 +3998,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, RoutingInfoMarshal, RoutingInfo, MethodsReturnedMarshal, MethodsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4072,7 +4072,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, RoutingInfoMarshal, RoutingInfo, MethodsReturnedMarshal, MethodsReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4140,7 +4140,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetGlobalRoutingInfoA", "ptr", FaxHandle, "ptr", RoutingInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4208,7 +4208,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetGlobalRoutingInfoW", "ptr", FaxHandle, "ptr", RoutingInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4301,7 +4301,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, RoutingInfoBufferSizeMarshal, RoutingInfoBufferSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4394,7 +4394,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, RoutingInfoBufferSizeMarshal, RoutingInfoBufferSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4475,7 +4475,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4556,7 +4556,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4693,7 +4693,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxStartPrintJobA", "ptr", PrinterName, "ptr", PrintInfo, FaxJobIdMarshal, FaxJobId, "ptr", FaxContextInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4801,7 +4801,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxStartPrintJobW", "ptr", PrinterName, "ptr", PrintInfo, FaxJobIdMarshal, FaxJobId, "ptr", FaxContextInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4867,7 +4867,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxPrintCoverPageA", "ptr", FaxContextInfo, "ptr", CoverPageInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4933,7 +4933,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxPrintCoverPageW", "ptr", FaxContextInfo, "ptr", CoverPageInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4988,7 +4988,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxRegisterServiceProviderW", "ptr", DeviceProvider, "ptr", FriendlyName, "ptr", ImageName, "ptr", TspName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5074,7 +5074,7 @@ class Fax {
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, ContextMarshal, Context, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

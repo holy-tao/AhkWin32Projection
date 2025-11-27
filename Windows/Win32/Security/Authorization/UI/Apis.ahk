@@ -192,7 +192,7 @@ class UI {
         A_LastError := 0
 
         result := DllCall("ACLUI.dll\EditSecurity", "ptr", hwndOwner, "ptr", psi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

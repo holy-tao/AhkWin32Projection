@@ -510,7 +510,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ClearCommBreak", "ptr", hFile, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -538,7 +538,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, lpErrorsMarshal, lpErrors, "ptr", lpStat, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -563,7 +563,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetupComm", "ptr", hFile, "uint", dwInQueue, "uint", dwOutQueue, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -587,7 +587,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EscapeCommFunction", "ptr", hFile, "uint", dwFunc, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -615,7 +615,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -641,7 +641,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, lpEvtMaskMarshal, lpEvtMask, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -669,7 +669,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCommProperties", "ptr", hFile, "ptr", lpCommProp, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -695,7 +695,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, lpModemStatMarshal, lpModemStat, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -720,7 +720,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCommState", "ptr", hFile, "ptr", lpDCB, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -745,7 +745,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCommTimeouts", "ptr", hFile, "ptr", lpCommTimeouts, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -769,7 +769,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PurgeComm", "ptr", hFile, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -792,7 +792,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCommBreak", "ptr", hFile, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -818,7 +818,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint", dwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -842,7 +842,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCommMask", "ptr", hFile, "uint", dwEvtMask, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -867,7 +867,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCommState", "ptr", hFile, "ptr", lpDCB, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -892,7 +892,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCommTimeouts", "ptr", hFile, "ptr", lpCommTimeouts, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -916,7 +916,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\TransmitCommChar", "ptr", hFile, "char", cChar, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -956,7 +956,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, lpEvtMaskMarshal, lpEvtMask, "ptr", lpOverlapped, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1089,7 +1089,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBA", "ptr", lpDef, "ptr", lpDCB, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1127,7 +1127,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBW", "ptr", lpDef, "ptr", lpDCB, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1176,7 +1176,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsA", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1225,7 +1225,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsW", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1251,7 +1251,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1277,7 +1277,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1304,7 +1304,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1331,7 +1331,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1356,7 +1356,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1381,7 +1381,7 @@ class Communication {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

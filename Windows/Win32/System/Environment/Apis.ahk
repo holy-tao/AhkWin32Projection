@@ -178,7 +178,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -201,7 +201,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -286,7 +286,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -316,7 +316,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -499,7 +499,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\CreateEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, "ptr", hToken, "int", bInherit, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -523,7 +523,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\DestroyEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -561,7 +561,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -599,7 +599,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -665,7 +665,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsEnclaveTypeSupported", "uint", flEnclaveType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -841,7 +841,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, lpEnclaveErrorMarshal, lpEnclaveError, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -919,7 +919,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, lpEnclaveErrorMarshal, lpEnclaveError, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -960,7 +960,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", lpEnclaveAddressMarshal, lpEnclaveAddress, "ptr", lpImageName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -988,7 +988,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, lpParameterMarshal, lpParameter, "int", fWaitForThread, lpReturnValueMarshal, lpReturnValue, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1009,7 +1009,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("vertdll.dll\TerminateEnclave", lpAddressMarshal, lpAddress, "int", fWait, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1049,7 +1049,7 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", lpAddressMarshal, lpAddress, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

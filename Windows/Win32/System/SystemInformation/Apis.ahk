@@ -616,7 +616,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalMemoryStatusEx", "ptr", lpBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -742,7 +742,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetLocalTime", "ptr", lpSystemTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -796,7 +796,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, lpTimeAdjustmentDisabledMarshal, lpTimeAdjustmentDisabled, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -825,7 +825,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, lpTimeAdjustmentDisabledMarshal, lpTimeAdjustmentDisabled, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1138,7 +1138,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1289,7 +1289,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1312,7 +1312,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameExW", "int", NameType, "ptr", lpBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1339,7 +1339,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemTime", "ptr", lpSystemTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1369,7 +1369,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVersionExA", "ptr", lpVersionInformation, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1399,7 +1399,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVersionExW", "ptr", lpVersionInformation, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1422,7 +1422,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1519,7 +1519,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1743,7 +1743,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", TotalMemoryInKilobytesMarshal, TotalMemoryInKilobytes, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1790,7 +1790,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemTimeAdjustment", "uint", dwTimeAdjustment, "int", bTimeAdjustmentDisabled, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1815,7 +1815,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\SetSystemTimeAdjustmentPrecise", "uint", dwTimeAdjustment, "int", bTimeAdjustmentDisabled, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1840,7 +1840,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1894,7 +1894,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameA", "ptr", lpComputerName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1922,7 +1922,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameW", "ptr", lpComputerName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1945,7 +1945,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameExA", "int", NameType, "ptr", lpBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2293,7 +2293,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFirmwareType", FirmwareTypeMarshal, FirmwareType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2326,7 +2326,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VerifyVersionInfoA", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2359,7 +2359,7 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VerifyVersionInfoW", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

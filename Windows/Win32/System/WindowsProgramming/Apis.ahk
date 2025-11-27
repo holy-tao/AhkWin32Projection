@@ -3051,7 +3051,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryThreadCycleTime", "ptr", ThreadHandle, CycleTimeMarshal, CycleTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3077,7 +3077,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryProcessCycleTime", "ptr", ProcessHandle, CycleTimeMarshal, CycleTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3102,7 +3102,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", BufferLengthMarshal, BufferLength, "ptr", ProcessorIdleCycleTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3544,7 +3544,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", pdwQuotaAllowedMarshal, pdwQuotaAllowed, pdwQuotaUsedMarshal, pdwQuotaUsed, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3612,7 +3612,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", "ptr", lpFileTime, lpFatDateMarshal, lpFatDate, lpFatTimeMarshal, lpFatTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3677,7 +3677,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DosDateTimeToFileTime", "ushort", wFatDate, "ushort", wFatTime, "ptr", lpFileTime, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3960,7 +3960,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3986,7 +3986,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4105,7 +4105,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4224,7 +4224,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4246,7 +4246,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsNativeVhdBoot", NativeVhdBootMarshal, NativeVhdBoot, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4370,7 +4370,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4396,7 +4396,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4468,7 +4468,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileSectionA", "ptr", lpAppName, "ptr", lpString, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4494,7 +4494,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileSectionW", "ptr", lpAppName, "ptr", lpString, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4646,7 +4646,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4676,7 +4676,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4748,7 +4748,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4776,7 +4776,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4884,7 +4884,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4914,7 +4914,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4970,7 +4970,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5000,7 +5000,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5050,7 +5050,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5100,7 +5100,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5130,7 +5130,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5160,7 +5160,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5193,7 +5193,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetCurrentHwProfileA", "ptr", lpHwProfileInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5214,7 +5214,7 @@ class WindowsProgramming {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetCurrentHwProfileW", "ptr", lpHwProfileInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
