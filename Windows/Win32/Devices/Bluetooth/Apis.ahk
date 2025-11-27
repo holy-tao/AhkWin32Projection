@@ -4296,7 +4296,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("BluetoothApis.dll\BluetoothFindNextRadio", "ptr", hFind, "ptr", phRadio, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4315,7 +4315,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("BluetoothApis.dll\BluetoothFindRadioClose", "ptr", hFind, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4484,7 +4484,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("BluetoothApis.dll\BluetoothFindNextDevice", "ptr", hFind, "ptr", pbtdi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4503,7 +4503,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("BluetoothApis.dll\BluetoothFindDeviceClose", "ptr", hFind, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4672,7 +4672,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("bthprops.cpl\BluetoothSelectDevices", "ptr", pbtsdp, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4705,7 +4705,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("bthprops.cpl\BluetoothDisplayDeviceProperties", "ptr", hwndParent, "ptr", pbtdi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5176,7 +5176,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("BluetoothApis.dll\BluetoothUnregisterAuthentication", "ptr", hRegHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -5508,7 +5508,7 @@ class Bluetooth {
         A_LastError := 0
 
         result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", pfnCallback, pvParamMarshal, pvParam, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

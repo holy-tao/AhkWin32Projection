@@ -17062,7 +17062,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CheckDlgButton", "ptr", hDlg, "int", nIDButton, "uint", uCheck, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17096,7 +17096,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CheckRadioButton", "ptr", hDlg, "int", nIDFirstButton, "int", nIDLastButton, "int", nIDCheckButton, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17204,7 +17204,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterTouchHitTestingWindow", "ptr", hwnd, "uint", value, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17225,7 +17225,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EvaluateProximityToRect", "ptr", controlBoundingBox, "ptr", pHitTestingInput, "ptr", pProximityEval, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17251,7 +17251,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EvaluateProximityToPolygon", "uint", numVertices, "ptr", controlPolygon, "ptr", pHitTestingInput, "ptr", pProximityEval, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17381,7 +17381,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetScrollRange", "ptr", hWnd, "int", nBar, "int", nMinPos, "int", nMaxPos, "int", bRedraw, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17411,7 +17411,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShowScrollBar", "ptr", hWnd, "int", wBar, "int", bShow, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17439,7 +17439,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnableScrollBar", "ptr", hWnd, "uint", wSBflags, "uint", wArrows, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17553,7 +17553,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectExA", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17590,7 +17590,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectExW", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17715,7 +17715,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectComboBoxExA", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17752,7 +17752,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectComboBoxExW", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17811,7 +17811,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetComboBoxInfo", "ptr", hwndCombo, "ptr", pcbi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17854,7 +17854,7 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterPointerDeviceNotifications", "ptr", window, "int", notifyRange, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

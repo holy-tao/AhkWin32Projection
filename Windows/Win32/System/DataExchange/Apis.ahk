@@ -419,7 +419,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DdeSetQualityOfService", "ptr", hwndClient, "ptr", pqosNew, "ptr", pqosPrev, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -449,7 +449,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ImpersonateDdeClientWindow", "ptr", hWndClient, "ptr", hWndServer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -976,7 +976,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1787,7 +1787,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenClipboard", "ptr", hWndNewOwner, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1807,7 +1807,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseClipboard", "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2147,7 +2147,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EmptyClipboard", "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2170,7 +2170,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2238,7 +2238,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2261,7 +2261,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -2291,7 +2291,7 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetUpdatedClipboardFormats", lpuiFormatsMarshal, lpuiFormats, "uint", cFormats, pcFormatsOutMarshal, pcFormatsOut, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

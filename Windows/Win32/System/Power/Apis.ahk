@@ -3827,7 +3827,7 @@ class Power {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterPowerSettingNotification", "ptr", Handle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3876,7 +3876,7 @@ class Power {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterSuspendResumeNotification", "ptr", Handle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3985,7 +3985,7 @@ class Power {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PowerSetRequest", "ptr", PowerRequest, "int", RequestType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4008,7 +4008,7 @@ class Power {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PowerClearRequest", "ptr", PowerRequest, "int", RequestType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4050,7 +4050,7 @@ class Power {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemPowerState", "int", fSuspend, "int", fForce, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4071,7 +4071,7 @@ class Power {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemPowerStatus", "ptr", lpSystemPowerStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

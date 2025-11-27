@@ -990,7 +990,7 @@ class Snmp {
         A_LastError := 0
 
         result := DllCall("mgmtapi.dll\SnmpMgrCtl", sessionMarshal, session, "uint", dwCtlCode, lpvInBufferMarshal, lpvInBuffer, "uint", cbInBuffer, lpvOUTBufferMarshal, lpvOUTBuffer, "uint", cbOUTBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1175,7 +1175,7 @@ class Snmp {
         A_LastError := 0
 
         result := DllCall("mgmtapi.dll\SnmpMgrTrapListen", "ptr", phTrapAvailable, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

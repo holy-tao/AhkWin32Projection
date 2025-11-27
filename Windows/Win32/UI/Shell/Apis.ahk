@@ -8102,7 +8102,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LoadUserProfileA", "ptr", hToken, "ptr", lpProfileInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8132,7 +8132,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LoadUserProfileW", "ptr", hToken, "ptr", lpProfileInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8159,7 +8159,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\UnloadUserProfile", "ptr", hToken, "ptr", hProfile, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8191,7 +8191,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetProfilesDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8223,7 +8223,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetProfilesDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8244,7 +8244,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetProfileType", dwFlagsMarshal, dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8281,7 +8281,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\DeleteProfileA", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8318,7 +8318,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\DeleteProfileW", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8411,7 +8411,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8443,7 +8443,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8475,7 +8475,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8507,7 +8507,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8543,7 +8543,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetUserProfileDirectoryA", "ptr", hToken, "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8579,7 +8579,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetUserProfileDirectoryW", "ptr", hToken, "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8831,7 +8831,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowContextHelpId", "ptr", param0, "uint", param1, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8871,7 +8871,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuContextHelpId", "ptr", param0, "uint", param1, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8924,7 +8924,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\WinHelpA", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8961,7 +8961,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\WinHelpW", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16013,7 +16013,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\ShellExecuteExA", "ptr", pExecInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16034,7 +16034,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\ShellExecuteExW", "ptr", pExecInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16055,7 +16055,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\SHCreateProcessAsUserW", "ptr", pscpi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19499,7 +19499,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathCanonicalizeA", "ptr", pszBuf, "ptr", pszPath, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19526,7 +19526,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathCanonicalizeW", "ptr", pszBuf, "ptr", pszPath, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19755,7 +19755,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathFileExistsA", "ptr", pszPath, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19778,7 +19778,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathFileExistsW", "ptr", pszPath, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -26227,7 +26227,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHFreeShared", "ptr", hData, "uint", dwProcessId, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -26269,7 +26269,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHUnlockShared", pvDataMarshal, pvData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -26571,7 +26571,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -26606,7 +26606,7 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "ptr", pHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

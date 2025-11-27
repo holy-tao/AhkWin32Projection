@@ -11217,7 +11217,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAIsBlocking", "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -12733,7 +12733,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSACloseEvent", "ptr", hEvent, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -13133,7 +13133,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, "ptr", LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -13238,7 +13238,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, "ptr", LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -13365,7 +13365,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, LocalAddressLengthMarshal, LocalAddressLength, "ptr", LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -14372,7 +14372,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, lpcbTransferMarshal, lpcbTransfer, "int", fWait, lpdwFlagsMarshal, lpdwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -14449,7 +14449,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAGetQOSByName", "ptr", s, "ptr", lpQOSName, "ptr", lpQOS, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -15805,7 +15805,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAResetEvent", "ptr", hEvent, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16807,7 +16807,7 @@ class WinSock {
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSASetEvent", "ptr", hEvent, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

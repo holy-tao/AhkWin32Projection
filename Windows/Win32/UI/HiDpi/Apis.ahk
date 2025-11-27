@@ -70,7 +70,7 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDialogControlDpiChangeBehavior", "ptr", hWnd, "int", mask, "int", values, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -112,7 +112,7 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDialogDpiChangeBehavior", "ptr", hDlg, "int", mask, "int", values, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -174,7 +174,7 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\AdjustWindowRectExForDpi", "ptr", lpRect, "uint", dwStyle, "int", bMenu, "uint", dwExStyle, "uint", dpi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -229,7 +229,7 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, pvParamMarshal, pvParam, "uint", fWinIni, "uint", dpi, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -384,7 +384,7 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnableNonClientDpiScaling", "ptr", hwnd, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -405,7 +405,7 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetProcessDpiAwarenessContext", "ptr", value, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

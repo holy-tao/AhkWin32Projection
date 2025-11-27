@@ -679,7 +679,7 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -702,7 +702,7 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -733,7 +733,7 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, pvoidMarshal, pvoid, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -761,7 +761,7 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIWizImport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pImportSrc, "ptr", hDestCertStore, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

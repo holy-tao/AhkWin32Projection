@@ -16597,7 +16597,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptAcquireContextA", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -16999,7 +16999,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptAcquireContextW", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17083,7 +17083,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptReleaseContext", "ptr", hProv, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17385,7 +17385,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGenKey", "ptr", hProv, "uint", Algid, "uint", dwFlags, phKeyMarshal, phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17611,7 +17611,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptDeriveKey", "ptr", hProv, "uint", Algid, "ptr", hBaseData, "uint", dwFlags, phKeyMarshal, phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17695,7 +17695,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptDestroyKey", "ptr", hKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17818,7 +17818,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -17936,7 +17936,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -18058,7 +18058,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetHashParam", "ptr", hHash, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -18231,7 +18231,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -18350,7 +18350,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetProvParam", "ptr", hProv, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19030,7 +19030,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19111,7 +19111,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGenRandom", "ptr", hProv, "uint", dwLen, "ptr", pbBuffer, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19206,7 +19206,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGetUserKey", "ptr", hProv, "uint", dwKeySpec, phUserKeyMarshal, phUserKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19452,7 +19452,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19598,7 +19598,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptImportKey", "ptr", hProv, "ptr", pbData, "uint", dwDataLen, "ptr", hPubKey, "uint", dwFlags, phKeyMarshal, phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -19822,7 +19822,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -20037,7 +20037,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -20172,7 +20172,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, phHashMarshal, phHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -20354,7 +20354,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptHashData", "ptr", hHash, "ptr", pbData, "uint", dwDataLen, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -20507,7 +20507,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptHashSessionKey", "ptr", hHash, "ptr", hKey, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -20602,7 +20602,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptDestroyHash", "ptr", hHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -20807,7 +20807,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSignHashA", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, pdwSigLenMarshal, pdwSigLen, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21012,7 +21012,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSignHashW", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, pdwSigLenMarshal, pdwSigLen, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21187,7 +21187,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptVerifySignatureA", "ptr", hHash, "ptr", pbSignature, "uint", dwSigLen, "ptr", hPubKey, "ptr", szDescription, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21362,7 +21362,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptVerifySignatureW", "ptr", hHash, "ptr", pbSignature, "uint", dwSigLen, "ptr", hPubKey, "ptr", szDescription, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21429,7 +21429,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetProviderA", "ptr", pszProvName, "uint", dwProvType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21496,7 +21496,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetProviderW", "ptr", pszProvName, "uint", dwProvType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21592,7 +21592,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetProviderExA", "ptr", pszProvName, "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21688,7 +21688,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptSetProviderExW", "ptr", pszProvName, "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21836,7 +21836,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, pcbProvNameMarshal, pcbProvName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -21984,7 +21984,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, pcbProvNameMarshal, pcbProvName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22078,7 +22078,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szTypeName, pcbTypeNameMarshal, pcbTypeName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22172,7 +22172,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szTypeName, pcbTypeNameMarshal, pcbTypeName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22271,7 +22271,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szProvName, pcbProvNameMarshal, pcbProvName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22370,7 +22370,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szProvName, pcbProvNameMarshal, pcbProvName, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22412,7 +22412,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptContextAddRef", "ptr", hProv, "uint*", pdwReserved, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22480,7 +22480,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -22548,7 +22548,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CryptDuplicateHash", "ptr", hHash, "uint*", pdwReserved, "uint", dwFlags, phHashMarshal, phHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -28509,7 +28509,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptFormatObject", "uint", dwCertEncodingType, "uint", dwFormatType, "uint", dwFormatStrType, pFormatStructMarshal, pFormatStruct, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbFormat, pcbFormatMarshal, pcbFormat, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -28603,7 +28603,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptEncodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "uint", dwFlags, "ptr", pEncodePara, pvEncodedMarshal, pvEncoded, pcbEncodedMarshal, pcbEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -28697,7 +28697,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptEncodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -28882,7 +28882,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pDecodePara, pvStructInfoMarshal, pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29036,7 +29036,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptDecodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29141,7 +29141,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptGetOIDFunctionAddress", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pszOID, "uint", dwFlags, ppvFuncAddrMarshal, ppvFuncAddr, phFuncAddrMarshal, phFuncAddr, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29208,7 +29208,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pwszDllList, pcchDllListMarshal, pcchDllList, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29503,7 +29503,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, pdwValueTypeMarshal, pdwValueType, "ptr", pbValueData, pcbValueDataMarshal, pcbValueData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -29545,7 +29545,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptEnumOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumOIDFunc, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -30352,7 +30352,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgClose", hCryptMsgMarshal, hCryptMsg, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -30506,7 +30506,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgUpdate", hCryptMsgMarshal, hCryptMsg, "ptr", pbData, "uint", cbData, "int", fFinal, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -31106,7 +31106,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgGetParam", hCryptMsgMarshal, hCryptMsg, "uint", dwParamType, "uint", dwIndex, "ptr", pvData, pcbDataMarshal, pcbData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -31666,7 +31666,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgControl", hCryptMsgMarshal, hCryptMsg, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -31800,7 +31800,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncoded", "ptr", hCryptProv, "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "ptr", pbSignerInfoCountersignature, "uint", cbSignerInfoCountersignature, "ptr", pciCountersigner, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -32001,7 +32001,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncodedEx", "ptr", hCryptProv, "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "ptr", pbSignerInfoCountersignature, "uint", cbSignerInfoCountersignature, "uint", dwSignerType, pvSignerMarshal, pvSigner, "uint", dwFlags, pvExtraMarshal, pvExtra, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -32078,7 +32078,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgCountersign", hCryptMsgMarshal, hCryptMsg, "uint", dwIndex, "uint", cCountersigners, "ptr", rgCountersigners, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -32184,7 +32184,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "uint", cCountersigners, "ptr", rgCountersigners, "ptr", pbCountersignature, pcbCountersignatureMarshal, pcbCountersignature, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -32542,7 +32542,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", hCertStore, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -32604,7 +32604,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertCloseStore", "ptr", hCertStore, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -33038,7 +33038,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertVerifySubjectCertificateContext", "ptr", pSubject, "ptr", pIssuer, pdwFlagsMarshal, pdwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -33170,7 +33170,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -33243,7 +33243,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -33292,7 +33292,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", "ptr", pCertContext, "uint", cOptAttr, "ptr", rgOptAttr, "uint", dwFlags, "ptr", pvReserved, "ptr", pCtlEntry, pcbCtlEntryMarshal, pcbCtlEntry, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -33314,7 +33314,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSetCertificateContextPropertiesFromCTLEntry", "ptr", pCertContext, "ptr", pCtlEntry, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -34176,7 +34176,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -34596,7 +34596,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -34783,7 +34783,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, "uint", dwAddDisposition, ppCertContextMarshal, ppCertContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -34955,7 +34955,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", "ptr", hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35199,7 +35199,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35239,7 +35239,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertDeleteCertificateFromStore", "ptr", pCertContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35396,7 +35396,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, "uint", dwAddDisposition, ppCrlContextMarshal, ppCrlContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35544,7 +35544,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", "ptr", hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35583,7 +35583,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertDeleteCRLFromStore", "ptr", pCrlContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35621,7 +35621,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", "ptr", pCertContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -35659,7 +35659,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", "ptr", pCrlContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -36042,7 +36042,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -36364,7 +36364,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -36786,7 +36786,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, "uint", dwAddDisposition, ppCtlContextMarshal, ppCtlContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -36931,7 +36931,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", "ptr", hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -36969,7 +36969,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", "ptr", pCtlContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -37008,7 +37008,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertDeleteCTLFromStore", "ptr", pCtlContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -37119,7 +37119,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", "ptr", hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -37241,7 +37241,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", "ptr", hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -37385,7 +37385,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", "ptr", hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -37522,7 +37522,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertControlStore", "ptr", hCertStore, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -37587,7 +37587,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38143,7 +38143,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertEnumPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnum, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38206,7 +38206,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", "ptr", pCertContext, "uint", dwFlags, "ptr", pUsage, pcbUsageMarshal, pcbUsage, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38229,7 +38229,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSetEnhancedKeyUsage", "ptr", pCertContext, "ptr", pUsage, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38253,7 +38253,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddEnhancedKeyUsageIdentifier", "ptr", pCertContext, "ptr", pszUsageIdentifier, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38277,7 +38277,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertRemoveEnhancedKeyUsageIdentifier", "ptr", pCertContext, "ptr", pszUsageIdentifier, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38304,7 +38304,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetValidUsages", "uint", cCerts, rghCertsMarshal, rghCerts, cNumOIDsMarshal, cNumOIDs, "ptr", rghOIDs, pcbOIDsMarshal, pcbOIDs, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38375,7 +38375,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", hCryptMsgMarshal, hCryptMsg, "uint", cSignerStore, "ptr", rghSignerStore, "uint", dwFlags, ppSignerMarshal, ppSigner, pdwSignerIndexMarshal, pdwSignerIndex, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38424,7 +38424,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgSignCTL", "uint", dwMsgEncodingType, "ptr", pbCtlContent, "uint", cbCtlContent, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38475,7 +38475,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", "uint", dwMsgEncodingType, "ptr", pCtlInfo, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38628,7 +38628,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertVerifyCTLUsage", "uint", dwEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, "ptr", pSubjectUsage, "uint", dwFlags, "ptr", pVerifyUsagePara, "ptr", pVerifyUsageStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38799,7 +38799,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertVerifyRevocation", "uint", dwEncodingType, "uint", dwRevType, "uint", cContext, rgpvContextMarshal, rgpvContext, "uint", dwFlags, "ptr", pRevPara, "ptr", pRevStatus, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38821,7 +38821,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertCompareIntegerBlob", "ptr", pInt1, "ptr", pInt2, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -38948,7 +38948,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertIsRDNAttrsInCertificateName", "uint", dwCertEncodingType, "uint", dwFlags, "ptr", pCertName, "ptr", pRDN, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39106,7 +39106,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignature", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pPublicKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39332,7 +39332,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignatureEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, "uint", dwIssuerType, pvIssuerMarshal, pvIssuer, "uint", dwFlags, pvExtraMarshal, pvExtra, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39401,7 +39401,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertIsStrongHashToSign", "ptr", pStrongSignPara, "ptr", pwszCNGHashAlgid, "ptr", pSigningCert, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39500,7 +39500,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptHashToBeSigned", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39557,7 +39557,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptHashCertificate", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39604,7 +39604,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, "uint", dwFlags, "ptr", pvReserved, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39698,7 +39698,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSignCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pbEncodedToBeSigned, "uint", cbEncodedToBeSigned, "ptr", pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, "ptr", pbSignature, pcbSignatureMarshal, pcbSignature, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -39877,7 +39877,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "ptr", pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40074,7 +40074,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetIntendedKeyUsage", "uint", dwCertEncodingType, "ptr", pCertInfo, "ptr", pbKeyUsage, "uint", cbKeyUsage, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40102,7 +40102,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptInstallDefaultContext", "ptr", hCryptProv, "uint", dwDefaultType, pvDefaultParaMarshal, pvDefaultPara, "uint", dwFlags, "ptr", pvReserved, phDefaultContextMarshal, phDefaultContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40125,7 +40125,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptUninstallDefaultContext", hDefaultContextMarshal, hDefaultContext, "uint", dwFlags, "ptr", pvReserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40209,7 +40209,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pInfo, pcbInfoMarshal, pcbInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40330,7 +40330,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pInfo, pcbInfoMarshal, pcbInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40463,7 +40463,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, phKeyMarshal, phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40532,7 +40532,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "uint", aiKeyAlg, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, phKeyMarshal, phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40612,7 +40612,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx2", "uint", dwCertEncodingType, "ptr", pInfo, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", phKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40685,7 +40685,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptAcquireCertificatePrivateKey", "ptr", pCert, "uint", dwFlags, pvParametersMarshal, pvParameters, "ptr", phCryptProvOrNCryptKey, pdwKeySpecMarshal, pdwKeySpec, pfCallerFreeProvOrNCryptKeyMarshal, pfCallerFreeProvOrNCryptKey, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40727,7 +40727,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptFindCertificateKeyProvInfo", "ptr", pCert, "uint", dwFlags, "ptr", pvReserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40783,7 +40783,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptImportPKCS8", "ptr", sPrivateKeyAndParams, "uint", dwFlags, phCryptProvMarshal, phCryptProv, pvAuxInfoMarshal, pvAuxInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40884,7 +40884,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptExportPKCS8", "ptr", hCryptProv, "uint", dwKeySpec, "ptr", pszPrivateKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pbPrivateKeyBlob, pcbPrivateKeyBlobMarshal, pcbPrivateKeyBlob, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -40973,7 +40973,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -41186,7 +41186,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertStrToNameA", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, ppszErrorMarshal, ppszError, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -41275,7 +41275,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertStrToNameW", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, ppszErrorMarshal, ppszError, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -41780,7 +41780,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSignMessage", "ptr", pSignPara, "int", fDetachedSignature, "uint", cToBeSigned, rgpbToBeSignedMarshal, rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, "ptr", pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -41909,7 +41909,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, ppSignerCertMarshal, ppSignerCert, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42138,7 +42138,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbDetachedSignBlob, "uint", cbDetachedSignBlob, "uint", cToBeSigned, rgpbToBeSignedMarshal, rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, ppSignerCertMarshal, ppSignerCert, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42224,7 +42224,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptEncryptMessage", "ptr", pEncryptPara, "uint", cRecipientCert, rgpRecipientCertMarshal, rgpRecipientCert, "ptr", pbToBeEncrypted, "uint", cbToBeEncrypted, "ptr", pbEncryptedBlob, pcbEncryptedBlobMarshal, pcbEncryptedBlob, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42336,7 +42336,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptDecryptMessage", "ptr", pDecryptPara, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, ppXchgCertMarshal, ppXchgCert, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42410,7 +42410,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", "ptr", pSignPara, "ptr", pEncryptPara, "uint", cRecipientCert, rgpRecipientCertMarshal, rgpRecipientCert, "ptr", pbToBeSignedAndEncrypted, "uint", cbToBeSignedAndEncrypted, "ptr", pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlobMarshal, pcbSignedAndEncryptedBlob, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42481,7 +42481,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, ppXchgCertMarshal, ppXchgCert, ppSignerCertMarshal, ppSignerCert, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42589,7 +42589,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptDecodeMessage", "uint", dwMsgTypeFlags, "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncodedBlob, "uint", cbEncodedBlob, "uint", dwPrevInnerContentType, pdwMsgTypeMarshal, pdwMsgType, pdwInnerContentTypeMarshal, pdwInnerContentType, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, ppXchgCertMarshal, ppXchgCert, ppSignerCertMarshal, ppSignerCert, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42682,7 +42682,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptHashMessage", "ptr", pHashPara, "int", fDetachedHash, "uint", cToBeHashed, rgpbToBeHashedMarshal, rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, "ptr", pbHashedBlob, pcbHashedBlobMarshal, pcbHashedBlob, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42786,7 +42786,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", "ptr", pHashPara, "ptr", pbHashedBlob, "uint", cbHashedBlob, "ptr", pbToBeHashed, pcbToBeHashedMarshal, pcbToBeHashed, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42885,7 +42885,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", "ptr", pHashPara, "ptr", pbDetachedHashBlob, "uint", cbDetachedHashBlob, "uint", cToBeHashed, rgpbToBeHashedMarshal, rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -42969,7 +42969,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", "ptr", pSignPara, "ptr", pbToBeSigned, "uint", cbToBeSigned, "ptr", pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -43086,7 +43086,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", "ptr", pVerifyPara, "ptr", pPublicKeyInfo, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -43259,7 +43259,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToSystemStoreA", "ptr", szCertStoreName, "ptr", pbCertEncoded, "uint", cbCertEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -43282,7 +43282,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToSystemStoreW", "ptr", szCertStoreName, "ptr", pbCertEncoded, "uint", cbCertEncoded, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -43444,7 +43444,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptQueryObject", "uint", dwObjectType, pvObjectMarshal, pvObject, "uint", dwExpectedContentTypeFlags, "uint", dwExpectedFormatTypeFlags, "uint", dwFlags, pdwMsgAndCertEncodingTypeMarshal, pdwMsgAndCertEncodingType, pdwContentTypeMarshal, pdwContentType, pdwFormatTypeMarshal, pdwFormatType, "ptr", phCertStore, phMsgMarshal, phMsg, ppvContextMarshal, ppvContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44101,7 +44101,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, pvParaMarshal, pvPara, "uint", dwFlags, "ptr", pUrlArray, pcbUrlArrayMarshal, pcbUrlArray, "ptr", pUrlInfo, pcbUrlInfoMarshal, pcbUrlInfo, "ptr", pvReserved, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44220,7 +44220,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, pcbDataMarshal, pcbData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44299,7 +44299,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvDataMarshal, pvData, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44353,7 +44353,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptEnumKeyIdentifierProperties", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvArgMarshal, pvArg, "ptr", pfnEnum, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44399,7 +44399,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", "uint", dwCertEncodingType, "ptr", pszPubKeyOID, "ptr", pPubKeyStruc, "uint", cbPubKeyStruc, "uint", dwFlags, "ptr", pvReserved, "ptr", pbHash, pcbHashMarshal, pcbHash, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44423,7 +44423,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertCreateCertificateChainEngine", "ptr", pConfig, "ptr", phChainEngine, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44458,7 +44458,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertResyncCertificateChainEngine", "ptr", hChainEngine, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -44705,7 +44705,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertGetCertificateChain", "ptr", hChainEngine, "ptr", pCertContext, "ptr", pTime, "ptr", hAdditionalStore, "ptr", pChainPara, "uint", dwFlags, "ptr", pvReserved, ppChainContextMarshal, ppChainContext, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45001,7 +45001,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45049,7 +45049,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45256,7 +45256,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\PFXExportCertStoreEx", "ptr", hStore, "ptr", pPFX, "ptr", szPassword, pvParaMarshal, pvPara, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45317,7 +45317,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\PFXExportCertStore", "ptr", hStore, "ptr", pPFX, "ptr", szPassword, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45625,7 +45625,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", "ptr", pCertContext, "ptr", lpszLogoOrBiometricType, "uint", dwRetrievalFlags, "uint", dwTimeout, "uint", dwFlags, "ptr", pvReserved, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, ppwszMimeTypeMarshal, ppwszMimeType, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45765,7 +45765,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CertSelectCertificateChains", "ptr", pSelectionContext, "uint", dwFlags, "ptr", pChainParameters, "uint", cCriteria, "ptr", rgpCriteria, "ptr", hStore, pcSelectionMarshal, pcSelection, pprgpSelectionMarshal, pprgpSelection, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45867,7 +45867,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptRetrieveTimeStamp", "ptr", wszUrl, "uint", dwRetrievalFlags, "uint", dwTimeout, "ptr", pszHashId, "ptr", pPara, "ptr", pbData, "uint", cbData, ppTsContextMarshal, ppTsContext, ppTsSignerMarshal, ppTsSigner, "ptr", phStore, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45905,7 +45905,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptVerifyTimeStampSignature", "ptr", pbTSContentInfo, "uint", cbTSContentInfo, "ptr", pbData, "uint", cbData, "ptr", hAdditionalStore, ppTsContextMarshal, ppTsContext, ppTsSignerMarshal, ppTsSigner, "ptr", phStore, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -45995,7 +45995,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptProtectData", "ptr", pDataIn, "ptr", szDataDescr, "ptr", pOptionalEntropy, "ptr", pvReserved, "ptr", pPromptStruct, "uint", dwFlags, "ptr", pDataOut, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -46053,7 +46053,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptUnprotectData", "ptr", pDataIn, ppszDataDescrMarshal, ppszDataDescr, "ptr", pOptionalEntropy, "ptr", pvReserved, "ptr", pPromptStruct, "uint", dwFlags, "ptr", pDataOut, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -46128,7 +46128,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", "ptr", pOldSid, "ptr", pwszOldPassword, "uint", dwFlags, pdwSuccessCountMarshal, pdwSuccessCount, pdwFailureCountMarshal, pdwFailureCount, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -46188,7 +46188,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptProtectMemory", pDataInMarshal, pDataIn, "uint", cbDataIn, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -46248,7 +46248,7 @@ class Cryptography {
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptUnprotectMemory", pDataInMarshal, pDataIn, "uint", cbDataIn, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

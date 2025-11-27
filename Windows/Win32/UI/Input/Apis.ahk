@@ -177,7 +177,7 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterRawInputDevices", "ptr", pRawInputDevices, "uint", uiNumDevices, "uint", cbSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -285,7 +285,7 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetCurrentInputMessageSource", "ptr", inputMessageSource, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

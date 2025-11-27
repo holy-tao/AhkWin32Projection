@@ -2437,7 +2437,7 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpCloseHandle", "ptr", IcmpHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -8272,7 +8272,7 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, HopCountMarshal, HopCount, "uint", MaxHops, RTTMarshal, RTT, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

@@ -217,7 +217,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATPersistStore", "ptr", hCatalog, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -838,7 +838,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", phCatAdminMarshal, phCatAdmin, "ptr", pgSubsystem, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -911,7 +911,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", phCatAdminMarshal, phCatAdmin, "ptr", pgSubsystem, "ptr", pwszHashAlgorithm, "ptr", pStrongHashPolicy, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1061,7 +1061,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", "ptr", hCatAdmin, "ptr", hFile, pcbHashMarshal, pcbHash, "ptr", pbHash, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1109,7 +1109,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminRemoveCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1130,7 +1130,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATCatalogInfoFromContext", "ptr", hCatInfo, "ptr", psCatInfo, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1154,7 +1154,7 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminResolveCatalogPath", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", psCatInfo, "uint", dwFlags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

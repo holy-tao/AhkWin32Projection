@@ -99,7 +99,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, lpCompletionKeyMarshal, lpCompletionKey, lpOverlappedMarshal, lpOverlapped, "uint", dwMilliseconds, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -154,7 +154,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetQueuedCompletionStatusEx", "ptr", CompletionPort, "ptr", lpCompletionPortEntries, "uint", ulCount, ulNumEntriesRemovedMarshal, ulNumEntriesRemoved, "uint", dwMilliseconds, "int", fAlertable, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -182,7 +182,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PostQueuedCompletionStatus", "ptr", CompletionPort, "uint", dwNumberOfBytesTransferred, "ptr", dwCompletionKey, "ptr", lpOverlapped, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -271,7 +271,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeviceIoControl", "ptr", hDevice, "uint", dwIoControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -314,7 +314,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetOverlappedResult", "ptr", hFile, "ptr", lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "int", bWait, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -356,7 +356,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CancelIoEx", "ptr", hFile, "ptr", lpOverlapped, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -380,7 +380,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CancelIo", "ptr", hFile, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -435,7 +435,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetOverlappedResultEx", "ptr", hFile, "ptr", lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "uint", dwMilliseconds, "int", bAlertable, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -461,7 +461,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CancelSynchronousIo", "ptr", hThread, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -490,7 +490,7 @@ class IO {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BindIoCompletionCallback", "ptr", FileHandle, "ptr", Function, "uint", Flags, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

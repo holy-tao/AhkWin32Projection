@@ -1399,7 +1399,7 @@ class WinTrust {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustAddActionID", "ptr", pgActionID, "uint", fdwFlags, "ptr", psProvInfo, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1526,7 +1526,7 @@ class WinTrust {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustAddDefaultForUsage", "ptr", pszUsageOID, "ptr", psDefUsage, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1547,7 +1547,7 @@ class WinTrust {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustGetDefaultForUsage", "uint", dwAction, "ptr", pszUsageOID, "ptr", psUsage, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

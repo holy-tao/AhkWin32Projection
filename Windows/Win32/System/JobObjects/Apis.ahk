@@ -37,7 +37,7 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsProcessInJob", "ptr", ProcessHandle, "ptr", JobHandle, ResultMarshal, Result, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -151,7 +151,7 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AssignProcessToJobObject", "ptr", hJob, "ptr", hProcess, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -182,7 +182,7 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\TerminateJobObject", "ptr", hJob, "uint", uExitCode, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -211,7 +211,7 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetInformationJobObject", "ptr", hJob, "int", JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -270,7 +270,7 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryInformationJobObject", "ptr", hJob, "int", JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -328,7 +328,7 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UserHandleGrantAccess", "ptr", hUserHandle, "ptr", hJob, "int", bGrant, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

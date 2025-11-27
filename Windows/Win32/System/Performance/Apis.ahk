@@ -987,7 +987,7 @@ class Performance {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryPerformanceCounter", lpPerformanceCountMarshal, lpPerformanceCount, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -1008,7 +1008,7 @@ class Performance {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryPerformanceFrequency", lpFrequencyMarshal, lpFrequency, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

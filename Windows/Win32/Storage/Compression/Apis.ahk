@@ -44,7 +44,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\CreateCompressor", "uint", Algorithm, "ptr", AllocationRoutines, "ptr", CompressorHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -66,7 +66,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\SetCompressorInformation", "ptr", CompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -88,7 +88,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\QueryCompressorInformation", "ptr", CompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -114,7 +114,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\Compress", "ptr", CompressorHandle, "ptr", UncompressedData, "ptr", UncompressedDataSize, "ptr", CompressedBuffer, "ptr", CompressedBufferSize, CompressedDataSizeMarshal, CompressedDataSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -133,7 +133,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\ResetCompressor", "ptr", CompressorHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -152,7 +152,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\CloseCompressor", "ptr", CompressorHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -171,7 +171,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\CreateDecompressor", "uint", Algorithm, "ptr", AllocationRoutines, "ptr", DecompressorHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -193,7 +193,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\SetDecompressorInformation", "ptr", DecompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -215,7 +215,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\QueryDecompressorInformation", "ptr", DecompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -241,7 +241,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\Decompress", "ptr", DecompressorHandle, "ptr", CompressedData, "ptr", CompressedDataSize, "ptr", UncompressedBuffer, "ptr", UncompressedBufferSize, UncompressedDataSizeMarshal, UncompressedDataSize, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -260,7 +260,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\ResetDecompressor", "ptr", DecompressorHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -279,7 +279,7 @@ class Compression {
         A_LastError := 0
 
         result := DllCall("Cabinet.dll\CloseDecompressor", "ptr", DecompressorHandle, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result

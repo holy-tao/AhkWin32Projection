@@ -3722,7 +3722,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\SetPixelFormat", "ptr", hdc, "int", format, "ptr", ppfd, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3769,7 +3769,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglCopyContext", "ptr", param0, "ptr", param1, "uint", param2, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3833,7 +3833,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglDeleteContext", "ptr", param0, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3897,7 +3897,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglMakeCurrent", "ptr", param0, "ptr", param1, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3920,7 +3920,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglShareLists", "ptr", param0, "ptr", param1, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3944,7 +3944,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontBitmapsA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3968,7 +3968,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontBitmapsW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -3989,7 +3989,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\SwapBuffers", "ptr", param0, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4017,7 +4017,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontOutlinesA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4045,7 +4045,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglUseFontOutlinesW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4142,7 +4142,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglRealizeLayerPalette", "ptr", param0, "int", param1, "int", param2, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
@@ -4162,7 +4162,7 @@ class OpenGL {
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglSwapLayerBuffers", "ptr", param0, "uint", param1, "int")
-        if(A_LastError)
+        if(!result && A_LastError)
             throw OSError()
 
         return result
