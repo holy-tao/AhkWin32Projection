@@ -26,6 +26,34 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {SYSTEMTIME}
+         */
+        SystemTime{
+            get {
+                if(!this.HasProp("__SystemTime"))
+                    this.__SystemTime := SYSTEMTIME(0, this)
+                return this.__SystemTime
+            }
+        }
+    
+        /**
+         * @type {FILETIME}
+         */
+        FileTime{
+            get {
+                if(!this.HasProp("__FileTime"))
+                    this.__FileTime := FILETIME(0, this)
+                return this.__FileTime
+            }
+        }
+    
+    }
+
     /**
      * Version of the structure. Must be RPC_EEINFO_VERSION.
      * @type {Integer}
@@ -54,24 +82,14 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * @type {SYSTEMTIME}
+     * 
+     * @type {_u_e__Union}
      */
-    SystemTime{
+    u{
         get {
-            if(!this.HasProp("__SystemTime"))
-                this.__SystemTime := SYSTEMTIME(24, this)
-            return this.__SystemTime
-        }
-    }
-
-    /**
-     * @type {FILETIME}
-     */
-    FileTime{
-        get {
-            if(!this.HasProp("__FileTime"))
-                this.__FileTime := FILETIME(24, this)
-            return this.__FileTime
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(24, this)
+            return this.__u
         }
     }
 

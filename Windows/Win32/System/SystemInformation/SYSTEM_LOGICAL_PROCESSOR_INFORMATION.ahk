@@ -93,8 +93,8 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     }
 
     class _ProcessorCore extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -107,8 +107,8 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     }
 
     class _NumaNode extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}

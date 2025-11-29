@@ -12,12 +12,12 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
     static packingSize => 8
 
     class _StreamInformation extends Win32Struct {
-        static sizeof => 64
+        static sizeof => 56
         static packingSize => 8
 
         class _DesiredStorageClass extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+            static sizeof => 8
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -38,7 +38,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         }
     
         class _DataStream extends Win32Struct {
-            static sizeof => 56
+            static sizeof => 16
             static packingSize => 8
     
             /**
@@ -76,8 +76,8 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         }
     
         class _Reparse extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+            static sizeof => 12
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -114,8 +114,8 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         }
     
         class _Ea extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+            static sizeof => 12
+            static packingSize => 4
     
             /**
              * @type {Integer}

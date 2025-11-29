@@ -13,8 +13,8 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     static packingSize => 8
 
     class _MaxFrameRate extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

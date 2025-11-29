@@ -12,50 +12,67 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct
 
     static packingSize => 8
 
-    class _s extends Win32Struct {
+    class _u_e__Union extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
-        /**
-         * @type {Integer}
-         */
-        DataOffset {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        class _s extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            DataOffset {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Array<Byte>}
+             */
+            Data{
+                get {
+                    if(!this.HasProp("__DataProxyArray"))
+                        this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                    return this.__DataProxyArray
+                }
+            }
+        
         }
     
         /**
-         * @type {Array<Byte>}
+         * @type {SERVICE_TRIGGER_CUSTOM_STATE_ID}
          */
-        Data{
+        CustomStateId{
             get {
-                if(!this.HasProp("__DataProxyArray"))
-                    this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-                return this.__DataProxyArray
+                if(!this.HasProp("__CustomStateId"))
+                    this.__CustomStateId := SERVICE_TRIGGER_CUSTOM_STATE_ID(0, this)
+                return this.__CustomStateId
+            }
+        }
+    
+        /**
+         * @type {_s}
+         */
+        s{
+            get {
+                if(!this.HasProp("__s"))
+                    this.__s := %this.__Class%._s(0, this)
+                return this.__s
             }
         }
     
     }
 
     /**
-     * @type {SERVICE_TRIGGER_CUSTOM_STATE_ID}
+     * @type {_u_e__Union}
      */
-    CustomStateId{
+    u{
         get {
-            if(!this.HasProp("__CustomStateId"))
-                this.__CustomStateId := SERVICE_TRIGGER_CUSTOM_STATE_ID(0, this)
-            return this.__CustomStateId
-        }
-    }
-
-    /**
-     * @type {_s}
-     */
-    s{
-        get {
-            if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(0, this)
-            return this.__s
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(0, this)
+            return this.__u
         }
     }
 }

@@ -24,6 +24,133 @@ class SRestriction extends Win32Struct
 
     static packingSize => 8
 
+    class _res_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {SComparePropsRestriction}
+         */
+        resCompareProps{
+            get {
+                if(!this.HasProp("__resCompareProps"))
+                    this.__resCompareProps := SComparePropsRestriction(0, this)
+                return this.__resCompareProps
+            }
+        }
+    
+        /**
+         * @type {SAndRestriction}
+         */
+        resAnd{
+            get {
+                if(!this.HasProp("__resAnd"))
+                    this.__resAnd := SAndRestriction(0, this)
+                return this.__resAnd
+            }
+        }
+    
+        /**
+         * @type {SOrRestriction}
+         */
+        resOr{
+            get {
+                if(!this.HasProp("__resOr"))
+                    this.__resOr := SOrRestriction(0, this)
+                return this.__resOr
+            }
+        }
+    
+        /**
+         * @type {SNotRestriction}
+         */
+        resNot{
+            get {
+                if(!this.HasProp("__resNot"))
+                    this.__resNot := SNotRestriction(0, this)
+                return this.__resNot
+            }
+        }
+    
+        /**
+         * @type {SContentRestriction}
+         */
+        resContent{
+            get {
+                if(!this.HasProp("__resContent"))
+                    this.__resContent := SContentRestriction(0, this)
+                return this.__resContent
+            }
+        }
+    
+        /**
+         * @type {SPropertyRestriction}
+         */
+        resProperty{
+            get {
+                if(!this.HasProp("__resProperty"))
+                    this.__resProperty := SPropertyRestriction(0, this)
+                return this.__resProperty
+            }
+        }
+    
+        /**
+         * @type {SBitMaskRestriction}
+         */
+        resBitMask{
+            get {
+                if(!this.HasProp("__resBitMask"))
+                    this.__resBitMask := SBitMaskRestriction(0, this)
+                return this.__resBitMask
+            }
+        }
+    
+        /**
+         * @type {SSizeRestriction}
+         */
+        resSize{
+            get {
+                if(!this.HasProp("__resSize"))
+                    this.__resSize := SSizeRestriction(0, this)
+                return this.__resSize
+            }
+        }
+    
+        /**
+         * @type {SExistRestriction}
+         */
+        resExist{
+            get {
+                if(!this.HasProp("__resExist"))
+                    this.__resExist := SExistRestriction(0, this)
+                return this.__resExist
+            }
+        }
+    
+        /**
+         * @type {SSubRestriction}
+         */
+        resSub{
+            get {
+                if(!this.HasProp("__resSub"))
+                    this.__resSub := SSubRestriction(0, this)
+                return this.__resSub
+            }
+        }
+    
+        /**
+         * @type {SCommentRestriction}
+         */
+        resComment{
+            get {
+                if(!this.HasProp("__resComment"))
+                    this.__resComment := SCommentRestriction(0, this)
+                return this.__resComment
+            }
+        }
+    
+    }
+
     /**
      * Type: <b>ULONG</b>
      * 
@@ -36,123 +163,14 @@ class SRestriction extends Win32Struct
     }
 
     /**
-     * @type {SComparePropsRestriction}
+     * Union of restriction structures describing the filter to be applied. The specific structure included in the <b>res</b> member depends on the value of the <b>rt</b> member. The following list gives the mapping between the structure and the restriction type.
+     * @type {_res_e__Union}
      */
-    resCompareProps{
+    res{
         get {
-            if(!this.HasProp("__resCompareProps"))
-                this.__resCompareProps := SComparePropsRestriction(8, this)
-            return this.__resCompareProps
-        }
-    }
-
-    /**
-     * @type {SAndRestriction}
-     */
-    resAnd{
-        get {
-            if(!this.HasProp("__resAnd"))
-                this.__resAnd := SAndRestriction(8, this)
-            return this.__resAnd
-        }
-    }
-
-    /**
-     * @type {SOrRestriction}
-     */
-    resOr{
-        get {
-            if(!this.HasProp("__resOr"))
-                this.__resOr := SOrRestriction(8, this)
-            return this.__resOr
-        }
-    }
-
-    /**
-     * @type {SNotRestriction}
-     */
-    resNot{
-        get {
-            if(!this.HasProp("__resNot"))
-                this.__resNot := SNotRestriction(8, this)
-            return this.__resNot
-        }
-    }
-
-    /**
-     * @type {SContentRestriction}
-     */
-    resContent{
-        get {
-            if(!this.HasProp("__resContent"))
-                this.__resContent := SContentRestriction(8, this)
-            return this.__resContent
-        }
-    }
-
-    /**
-     * @type {SPropertyRestriction}
-     */
-    resProperty{
-        get {
-            if(!this.HasProp("__resProperty"))
-                this.__resProperty := SPropertyRestriction(8, this)
-            return this.__resProperty
-        }
-    }
-
-    /**
-     * @type {SBitMaskRestriction}
-     */
-    resBitMask{
-        get {
-            if(!this.HasProp("__resBitMask"))
-                this.__resBitMask := SBitMaskRestriction(8, this)
-            return this.__resBitMask
-        }
-    }
-
-    /**
-     * @type {SSizeRestriction}
-     */
-    resSize{
-        get {
-            if(!this.HasProp("__resSize"))
-                this.__resSize := SSizeRestriction(8, this)
-            return this.__resSize
-        }
-    }
-
-    /**
-     * @type {SExistRestriction}
-     */
-    resExist{
-        get {
-            if(!this.HasProp("__resExist"))
-                this.__resExist := SExistRestriction(8, this)
-            return this.__resExist
-        }
-    }
-
-    /**
-     * @type {SSubRestriction}
-     */
-    resSub{
-        get {
-            if(!this.HasProp("__resSub"))
-                this.__resSub := SSubRestriction(8, this)
-            return this.__resSub
-        }
-    }
-
-    /**
-     * @type {SCommentRestriction}
-     */
-    resComment{
-        get {
-            if(!this.HasProp("__resComment"))
-                this.__resComment := SCommentRestriction(8, this)
-            return this.__resComment
+            if(!this.HasProp("__res"))
+                this.__res := %this.__Class%._res_e__Union(8, this)
+            return this.__res
         }
     }
 }

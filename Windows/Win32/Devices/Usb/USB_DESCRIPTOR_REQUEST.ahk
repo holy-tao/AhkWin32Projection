@@ -12,8 +12,8 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
     static packingSize => 8
 
     class _SetupPacket extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 2
 
         /**
          * @type {Integer}

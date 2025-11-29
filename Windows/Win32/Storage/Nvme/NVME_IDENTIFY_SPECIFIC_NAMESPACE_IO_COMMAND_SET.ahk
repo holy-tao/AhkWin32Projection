@@ -13,8 +13,8 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     static packingSize => 8
 
     class _ZOC extends Win32Struct {
-        static sizeof => 3968
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -47,8 +47,8 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     }
 
     class _OZCS extends Win32Struct {
-        static sizeof => 3968
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:

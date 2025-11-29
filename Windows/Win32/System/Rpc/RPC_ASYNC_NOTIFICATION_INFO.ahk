@@ -21,7 +21,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     class _APC extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -46,7 +46,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     class _IOC extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -87,7 +87,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     class _IntPtr extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 16
         static packingSize => 8
 
         /**

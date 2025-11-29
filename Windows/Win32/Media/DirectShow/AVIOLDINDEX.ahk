@@ -20,7 +20,7 @@ class AVIOLDINDEX extends Win32Struct
 
     class _avioldindex_entry extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

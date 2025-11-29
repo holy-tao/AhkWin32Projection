@@ -15,8 +15,8 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
     static packingSize => 8
 
     class _ParameterErrorLocation extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:

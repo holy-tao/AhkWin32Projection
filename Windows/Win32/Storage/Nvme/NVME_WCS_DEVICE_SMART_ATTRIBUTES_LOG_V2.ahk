@@ -12,8 +12,8 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     static packingSize => 8
 
     class _BadUserNANDBlockCount extends Win32Struct {
-        static sizeof => 504
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}
@@ -40,8 +40,8 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     }
 
     class _BadSystemNANDBlockCount extends Win32Struct {
-        static sizeof => 504
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}
@@ -68,8 +68,8 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     }
 
     class _EndToEndCorrectionCounts extends Win32Struct {
-        static sizeof => 504
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -90,8 +90,8 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     }
 
     class _UserDataEraseCounts extends Win32Struct {
-        static sizeof => 504
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -112,8 +112,8 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     }
 
     class _ThermalThrottling extends Win32Struct {
-        static sizeof => 504
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 1
 
         /**
          * @type {Integer}

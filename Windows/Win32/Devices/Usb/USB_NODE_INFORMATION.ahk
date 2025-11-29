@@ -14,6 +14,34 @@ class USB_NODE_INFORMATION extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 84
+        static packingSize => 8
+
+        /**
+         * @type {USB_HUB_INFORMATION}
+         */
+        HubInformation{
+            get {
+                if(!this.HasProp("__HubInformation"))
+                    this.__HubInformation := USB_HUB_INFORMATION(0, this)
+                return this.__HubInformation
+            }
+        }
+    
+        /**
+         * @type {USB_MI_PARENT_INFORMATION}
+         */
+        MiParentInformation{
+            get {
+                if(!this.HasProp("__MiParentInformation"))
+                    this.__MiParentInformation := USB_MI_PARENT_INFORMATION(0, this)
+                return this.__MiParentInformation
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -23,24 +51,13 @@ class USB_NODE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {USB_HUB_INFORMATION}
+     * @type {_u_e__Union}
      */
-    HubInformation{
+    u{
         get {
-            if(!this.HasProp("__HubInformation"))
-                this.__HubInformation := USB_HUB_INFORMATION(8, this)
-            return this.__HubInformation
-        }
-    }
-
-    /**
-     * @type {USB_MI_PARENT_INFORMATION}
-     */
-    MiParentInformation{
-        get {
-            if(!this.HasProp("__MiParentInformation"))
-                this.__MiParentInformation := USB_MI_PARENT_INFORMATION(8, this)
-            return this.__MiParentInformation
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(8, this)
+            return this.__u
         }
     }
 }

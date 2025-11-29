@@ -23,7 +23,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _TransferData extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -115,7 +115,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _AckData extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -153,7 +153,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _RestartHydration extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -191,7 +191,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _TransferPlaceholders extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -245,7 +245,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _AckDehydrate extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -283,8 +283,8 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _AckRename extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -305,8 +305,8 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     }
 
     class _AckDelete extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

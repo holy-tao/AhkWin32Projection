@@ -78,7 +78,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     class _ScalarPrefetch extends Win32Struct {
         static sizeof => 6
-        static packingSize => 6
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -107,8 +107,8 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     }
 
     class _BlockPrefetch extends Win32Struct {
-        static sizeof => 6
-        static packingSize => 6
+        static sizeof => 4
+        static packingSize => 2
 
         /**
          * @type {Integer}

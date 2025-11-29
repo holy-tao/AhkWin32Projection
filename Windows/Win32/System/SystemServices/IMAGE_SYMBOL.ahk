@@ -11,58 +11,75 @@ class IMAGE_SYMBOL extends Win32Struct
 
     static packingSize => 8
 
-    class _Name extends Win32Struct {
+    class _N_e__Union extends Win32Struct {
         static sizeof => 8
         static packingSize => 2
 
-        /**
-         * @type {Integer}
-         */
-        Short {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        class _Name extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Short {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Long {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
         }
     
         /**
-         * @type {Integer}
+         * @type {Array<Byte>}
          */
-        Long {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
+        ShortName{
+            get {
+                if(!this.HasProp("__ShortNameProxyArray"))
+                    this.__ShortNameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
+                return this.__ShortNameProxyArray
+            }
+        }
+    
+        /**
+         * @type {_Name}
+         */
+        Name{
+            get {
+                if(!this.HasProp("__Name"))
+                    this.__Name := %this.__Class%._Name(0, this)
+                return this.__Name
+            }
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        LongName{
+            get {
+                if(!this.HasProp("__LongNameProxyArray"))
+                    this.__LongNameProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
+                return this.__LongNameProxyArray
+            }
         }
     
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {_N_e__Union}
      */
-    ShortName{
+    N{
         get {
-            if(!this.HasProp("__ShortNameProxyArray"))
-                this.__ShortNameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__ShortNameProxyArray
-        }
-    }
-
-    /**
-     * @type {_Name}
-     */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := %this.__Class%._Name(0, this)
-            return this.__Name
-        }
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    LongName{
-        get {
-            if(!this.HasProp("__LongNameProxyArray"))
-                this.__LongNameProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-            return this.__LongNameProxyArray
+            if(!this.HasProp("__N"))
+                this.__N := %this.__Class%._N_e__Union(0, this)
+            return this.__N
         }
     }
 

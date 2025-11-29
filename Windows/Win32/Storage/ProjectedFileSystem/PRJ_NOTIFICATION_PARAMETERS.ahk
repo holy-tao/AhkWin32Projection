@@ -14,7 +14,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     static packingSize => 4
 
     class _PostCreate extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 4
         static packingSize => 4
 
         /**
@@ -28,7 +28,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     }
 
     class _FileRenamed extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 4
         static packingSize => 4
 
         /**
@@ -42,8 +42,8 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     }
 
     class _FileDeletedOnHandleClose extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {BOOLEAN}

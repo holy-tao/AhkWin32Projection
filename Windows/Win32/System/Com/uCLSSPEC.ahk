@@ -12,11 +12,11 @@ class uCLSSPEC extends Win32Struct
     static packingSize => 8
 
     class _tagged_union extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 72
         static packingSize => 8
 
         class _ByName extends Win32Struct {
-            static sizeof => 72
+            static sizeof => 16
             static packingSize => 8
     
             /**
@@ -38,7 +38,7 @@ class uCLSSPEC extends Win32Struct
         }
     
         class _ByObjectId extends Win32Struct {
-            static sizeof => 72
+            static sizeof => 16
             static packingSize => 8
     
             /**

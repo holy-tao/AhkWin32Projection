@@ -12,8 +12,8 @@ class OS_INFO_v1 extends Win32Struct
     static packingSize => 8
 
     class _s extends Win32Struct {
-        static sizeof => 352
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -64,7 +64,7 @@ class OS_INFO_v1 extends Win32Struct
 
     class _Version extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

@@ -11,6 +11,31 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _Revision_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Array<Byte>}
+         */
+        Info{
+            get {
+                if(!this.HasProp("__InfoProxyArray"))
+                    this.__InfoProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
+                return this.__InfoProxyArray
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUlonglong {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -39,21 +64,13 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {_Revision_e__Union}
      */
-    Info{
+    Revision{
         get {
-            if(!this.HasProp("__InfoProxyArray"))
-                this.__InfoProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-            return this.__InfoProxyArray
+            if(!this.HasProp("__Revision"))
+                this.__Revision := %this.__Class%._Revision_e__Union(8, this)
+            return this.__Revision
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlonglong {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
     }
 }

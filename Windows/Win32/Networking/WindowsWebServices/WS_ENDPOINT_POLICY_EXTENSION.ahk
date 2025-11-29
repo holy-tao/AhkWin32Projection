@@ -34,7 +34,7 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 8
         static packingSize => 8
 
         /**

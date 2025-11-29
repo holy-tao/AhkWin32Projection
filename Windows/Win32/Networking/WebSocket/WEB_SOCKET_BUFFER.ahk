@@ -19,7 +19,7 @@ class WEB_SOCKET_BUFFER extends Win32Struct
     static packingSize => 8
 
     class _Data extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -41,7 +41,7 @@ class WEB_SOCKET_BUFFER extends Win32Struct
     }
 
     class _CloseStatus extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**

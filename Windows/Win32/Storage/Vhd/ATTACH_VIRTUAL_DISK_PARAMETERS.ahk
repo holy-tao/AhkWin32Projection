@@ -26,8 +26,8 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}

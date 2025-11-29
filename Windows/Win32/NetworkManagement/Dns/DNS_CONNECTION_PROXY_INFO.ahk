@@ -98,7 +98,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     class _DNS_CONNECTION_PROXY_INFO_SCRIPT extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 24
         static packingSize => 8
 
         /**

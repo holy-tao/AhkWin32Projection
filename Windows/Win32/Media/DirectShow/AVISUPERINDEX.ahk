@@ -21,7 +21,7 @@ class AVISUPERINDEX extends Win32Struct
     static packingSize => 8
 
     class _avisuperindex_entry extends Win32Struct {
-        static sizeof => 8208
+        static sizeof => 16
         static packingSize => 8
 
         /**

@@ -12,7 +12,7 @@ class OS_INFO extends Win32Struct
     static packingSize => 4
 
     class _s extends Win32Struct {
-        static sizeof => 1004
+        static sizeof => 4
         static packingSize => 4
 
         /**

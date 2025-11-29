@@ -12,7 +12,7 @@ class userHENHMETAFILE extends Win32Struct
     static packingSize => 8
 
     class _u extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 24
         static packingSize => 8
 
         /**

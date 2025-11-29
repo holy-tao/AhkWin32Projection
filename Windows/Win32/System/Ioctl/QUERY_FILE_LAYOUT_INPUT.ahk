@@ -13,6 +13,45 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
 
     static packingSize => 8
 
+    class _Filter_e__Union extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {Array<CLUSTER_RANGE>}
+         */
+        ClusterRanges{
+            get {
+                if(!this.HasProp("__ClusterRangesProxyArray"))
+                    this.__ClusterRangesProxyArray := Win32FixedArray(this.ptr + 0, 1, CLUSTER_RANGE, "")
+                return this.__ClusterRangesProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<FILE_REFERENCE_RANGE>}
+         */
+        FileReferenceRanges{
+            get {
+                if(!this.HasProp("__FileReferenceRangesProxyArray"))
+                    this.__FileReferenceRangesProxyArray := Win32FixedArray(this.ptr + 0, 1, FILE_REFERENCE_RANGE, "")
+                return this.__FileReferenceRangesProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<Int32>}
+         */
+        StorageReserveIds{
+            get {
+                if(!this.HasProp("__StorageReserveIdsProxyArray"))
+                    this.__StorageReserveIdsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "int")
+                return this.__StorageReserveIdsProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -54,35 +93,13 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<CLUSTER_RANGE>}
+     * @type {_Filter_e__Union}
      */
-    ClusterRanges{
+    Filter{
         get {
-            if(!this.HasProp("__ClusterRangesProxyArray"))
-                this.__ClusterRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, CLUSTER_RANGE, "")
-            return this.__ClusterRangesProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<FILE_REFERENCE_RANGE>}
-     */
-    FileReferenceRanges{
-        get {
-            if(!this.HasProp("__FileReferenceRangesProxyArray"))
-                this.__FileReferenceRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, FILE_REFERENCE_RANGE, "")
-            return this.__FileReferenceRangesProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Int32>}
-     */
-    StorageReserveIds{
-        get {
-            if(!this.HasProp("__StorageReserveIdsProxyArray"))
-                this.__StorageReserveIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "int")
-            return this.__StorageReserveIdsProxyArray
+            if(!this.HasProp("__Filter"))
+                this.__Filter := %this.__Class%._Filter_e__Union(16, this)
+            return this.__Filter
         }
     }
 }

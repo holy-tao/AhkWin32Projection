@@ -40,8 +40,8 @@ class NET_ADDRESS_INFO extends Win32Struct
     }
 
     class _NamedAddress extends Win32Struct {
-        static sizeof => 526
-        static packingSize => 8
+        static sizeof => 524
+        static packingSize => 2
 
         /**
          * @type {String}

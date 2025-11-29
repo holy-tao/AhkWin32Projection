@@ -13,6 +13,67 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
 
     static packingSize => 4
 
+    class _Values_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Array<UInt32>}
+         */
+        pInt64{
+            get {
+                if(!this.HasProp("__pInt64ProxyArray"))
+                    this.__pInt64ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
+                return this.__pInt64ProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        pUint64{
+            get {
+                if(!this.HasProp("__pUint64ProxyArray"))
+                    this.__pUint64ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
+                return this.__pUint64ProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        ppString{
+            get {
+                if(!this.HasProp("__ppStringProxyArray"))
+                    this.__ppStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
+                return this.__ppStringProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        pFqbn{
+            get {
+                if(!this.HasProp("__pFqbnProxyArray"))
+                    this.__pFqbnProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
+                return this.__pFqbnProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        pOctetString{
+            get {
+                if(!this.HasProp("__pOctetStringProxyArray"))
+                    this.__pOctetStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
+                return this.__pOctetStringProxyArray
+            }
+        }
+    
+    }
+
     /**
      * A value that indicates an offset from the beginning of the <b>CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1</b> structure to a string of Unicode characters that contain the name of the claim security attribute. The string must be at least 4 bytes in length.
      * @type {Integer}
@@ -59,57 +120,14 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * An array of offsets from the beginning of the CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 structure. Each offset indicates the location of a claim security attribute value of the type specified in the <b>ValueType</b> member.
+     * @type {_Values_e__Union}
      */
-    pInt64{
+    Values{
         get {
-            if(!this.HasProp("__pInt64ProxyArray"))
-                this.__pInt64ProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
-            return this.__pInt64ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    pUint64{
-        get {
-            if(!this.HasProp("__pUint64ProxyArray"))
-                this.__pUint64ProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
-            return this.__pUint64ProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    ppString{
-        get {
-            if(!this.HasProp("__ppStringProxyArray"))
-                this.__ppStringProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
-            return this.__ppStringProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    pFqbn{
-        get {
-            if(!this.HasProp("__pFqbnProxyArray"))
-                this.__pFqbnProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
-            return this.__pFqbnProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    pOctetString{
-        get {
-            if(!this.HasProp("__pOctetStringProxyArray"))
-                this.__pOctetStringProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
-            return this.__pOctetStringProxyArray
+            if(!this.HasProp("__Values"))
+                this.__Values := %this.__Class%._Values_e__Union(16, this)
+            return this.__Values
         }
     }
 }

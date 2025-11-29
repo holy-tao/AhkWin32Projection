@@ -20,36 +20,54 @@ class WNV_IP_ADDRESS extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {IN_ADDR}
-     */
-    v4{
-        get {
-            if(!this.HasProp("__v4"))
-                this.__v4 := IN_ADDR(0, this)
-            return this.__v4
+    class _IP_e__Union extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {IN_ADDR}
+         */
+        v4{
+            get {
+                if(!this.HasProp("__v4"))
+                    this.__v4 := IN_ADDR(0, this)
+                return this.__v4
+            }
         }
+    
+        /**
+         * @type {IN6_ADDR}
+         */
+        v6{
+            get {
+                if(!this.HasProp("__v6"))
+                    this.__v6 := IN6_ADDR(0, this)
+                return this.__v6
+            }
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Addr{
+            get {
+                if(!this.HasProp("__AddrProxyArray"))
+                    this.__AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
+                return this.__AddrProxyArray
+            }
+        }
+    
     }
 
     /**
-     * @type {IN6_ADDR}
+     * An IP version 4 (IPv4) or IP version 6 (IPv6) address object.
+     * @type {_IP_e__Union}
      */
-    v6{
+    IP{
         get {
-            if(!this.HasProp("__v6"))
-                this.__v6 := IN6_ADDR(0, this)
-            return this.__v6
-        }
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Addr{
-        get {
-            if(!this.HasProp("__AddrProxyArray"))
-                this.__AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__AddrProxyArray
+            if(!this.HasProp("__IP"))
+                this.__IP := %this.__Class%._IP_e__Union(0, this)
+            return this.__IP
         }
     }
 }

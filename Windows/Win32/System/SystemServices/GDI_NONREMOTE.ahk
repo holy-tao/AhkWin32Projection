@@ -12,7 +12,7 @@ class GDI_NONREMOTE extends Win32Struct
     static packingSize => 8
 
     class _u extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**

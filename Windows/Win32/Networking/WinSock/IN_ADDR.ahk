@@ -23,93 +23,111 @@ class IN_ADDR extends Win32Struct
 
     static packingSize => 4
 
-    class _S_un_b extends Win32Struct {
+    class _S_un_e__Union extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
+        class _S_un_b extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 1
+    
+            /**
+             * @type {Integer}
+             */
+            s_b1 {
+                get => NumGet(this, 0, "char")
+                set => NumPut("char", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            s_b2 {
+                get => NumGet(this, 1, "char")
+                set => NumPut("char", value, this, 1)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            s_b3 {
+                get => NumGet(this, 2, "char")
+                set => NumPut("char", value, this, 2)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            s_b4 {
+                get => NumGet(this, 3, "char")
+                set => NumPut("char", value, this, 3)
+            }
+        
+        }
+    
+        class _S_un_w extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 2
+    
+            /**
+             * @type {Integer}
+             */
+            s_w1 {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            s_w2 {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+        }
+    
         /**
-         * @type {Integer}
+         * @type {_S_un_b}
          */
-        s_b1 {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        S_un_b{
+            get {
+                if(!this.HasProp("__S_un_b"))
+                    this.__S_un_b := %this.__Class%._S_un_b(0, this)
+                return this.__S_un_b
+            }
+        }
+    
+        /**
+         * @type {_S_un_w}
+         */
+        S_un_w{
+            get {
+                if(!this.HasProp("__S_un_w"))
+                    this.__S_un_w := %this.__Class%._S_un_w(0, this)
+                return this.__S_un_w
+            }
         }
     
         /**
          * @type {Integer}
          */
-        s_b2 {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        s_b3 {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        s_b4 {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
-    
-    }
-
-    class _S_un_w extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        s_w1 {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        s_w2 {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
+        S_addr {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
         }
     
     }
 
     /**
-     * @type {_S_un_b}
+     * 
+     * @type {_S_un_e__Union}
      */
-    S_un_b{
+    S_un{
         get {
-            if(!this.HasProp("__S_un_b"))
-                this.__S_un_b := %this.__Class%._S_un_b(0, this)
-            return this.__S_un_b
+            if(!this.HasProp("__S_un"))
+                this.__S_un := %this.__Class%._S_un_e__Union(0, this)
+            return this.__S_un
         }
-    }
-
-    /**
-     * @type {_S_un_w}
-     */
-    S_un_w{
-        get {
-            if(!this.HasProp("__S_un_w"))
-                this.__S_un_w := %this.__Class%._S_un_w(0, this)
-            return this.__S_un_w
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    S_addr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
     }
 }

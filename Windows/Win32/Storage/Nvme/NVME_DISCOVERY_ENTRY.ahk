@@ -11,6 +11,117 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
 
     static packingSize => 2
 
+    class _TREQ_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - SecureChannel
+         * - SqFlowControlDisable
+         * - ZeroHostIdSupport
+         * - AuthAndSecureChannel
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SecureChannel {
+            get => (this._bitfield >> 0) & 0x3
+            set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SqFlowControlDisable {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ZeroHostIdSupport {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AuthAndSecureChannel {
+            get => (this._bitfield >> 4) & 0x3
+            set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUchar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
+    class _EFLAGS_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 2
+
+        /**
+         * This bitfield backs the following members:
+         * - DuplicateReturnedInfo
+         * - ExplicitPersistentConnectionSupport
+         * - NoCDCConnectivity
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DuplicateReturnedInfo {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ExplicitPersistentConnectionSupport {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NoCDCConnectivity {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUshort {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -36,57 +147,14 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - SecureChannel
-     * - SqFlowControlDisable
-     * - ZeroHostIdSupport
-     * - AuthAndSecureChannel
-     * - Reserved
-     * @type {Integer}
+     * @type {_TREQ_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SecureChannel {
-        get => (this._bitfield >> 0) & 0x3
-        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SqFlowControlDisable {
-        get => (this._bitfield >> 2) & 0x1
-        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ZeroHostIdSupport {
-        get => (this._bitfield >> 3) & 0x1
-        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AuthAndSecureChannel {
-        get => (this._bitfield >> 4) & 0x3
-        set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    TREQ{
+        get {
+            if(!this.HasProp("__TREQ"))
+                this.__TREQ := %this.__Class%._TREQ_e__Union(3, this)
+            return this.__TREQ
+        }
     }
 
     /**
@@ -114,48 +182,14 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - DuplicateReturnedInfo
-     * - ExplicitPersistentConnectionSupport
-     * - NoCDCConnectivity
-     * - Reserved
-     * @type {Integer}
+     * @type {_EFLAGS_e__Union}
      */
-    _bitfield1 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DuplicateReturnedInfo {
-        get => (this._bitfield1 >> 0) & 0x1
-        set => this._bitfield1 := ((value & 0x1) << 0) | (this._bitfield1 & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ExplicitPersistentConnectionSupport {
-        get => (this._bitfield1 >> 1) & 0x1
-        set => this._bitfield1 := ((value & 0x1) << 1) | (this._bitfield1 & ~(0x1 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NoCDCConnectivity {
-        get => (this._bitfield1 >> 2) & 0x1
-        set => this._bitfield1 := ((value & 0x1) << 2) | (this._bitfield1 & ~(0x1 << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUshort {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+    EFLAGS{
+        get {
+            if(!this.HasProp("__EFLAGS"))
+                this.__EFLAGS := %this.__Class%._EFLAGS_e__Union(10, this)
+            return this.__EFLAGS
+        }
     }
 
     /**

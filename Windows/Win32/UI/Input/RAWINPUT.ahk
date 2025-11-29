@@ -31,6 +31,45 @@ class RAWINPUT extends Win32Struct
 
     static packingSize => 8
 
+    class _data_e__Union extends Win32Struct {
+        static sizeof => 28
+        static packingSize => 8
+
+        /**
+         * @type {RAWMOUSE}
+         */
+        mouse{
+            get {
+                if(!this.HasProp("__mouse"))
+                    this.__mouse := RAWMOUSE(0, this)
+                return this.__mouse
+            }
+        }
+    
+        /**
+         * @type {RAWKEYBOARD}
+         */
+        keyboard{
+            get {
+                if(!this.HasProp("__keyboard"))
+                    this.__keyboard := RAWKEYBOARD(0, this)
+                return this.__keyboard
+            }
+        }
+    
+        /**
+         * @type {RAWHID}
+         */
+        hid{
+            get {
+                if(!this.HasProp("__hid"))
+                    this.__hid := RAWHID(0, this)
+                return this.__hid
+            }
+        }
+    
+    }
+
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a></b>
      * 
@@ -46,35 +85,14 @@ class RAWINPUT extends Win32Struct
     }
 
     /**
-     * @type {RAWMOUSE}
+     * 
+     * @type {_data_e__Union}
      */
-    mouse{
+    data{
         get {
-            if(!this.HasProp("__mouse"))
-                this.__mouse := RAWMOUSE(24, this)
-            return this.__mouse
-        }
-    }
-
-    /**
-     * @type {RAWKEYBOARD}
-     */
-    keyboard{
-        get {
-            if(!this.HasProp("__keyboard"))
-                this.__keyboard := RAWKEYBOARD(24, this)
-            return this.__keyboard
-        }
-    }
-
-    /**
-     * @type {RAWHID}
-     */
-    hid{
-        get {
-            if(!this.HasProp("__hid"))
-                this.__hid := RAWHID(24, this)
-            return this.__hid
+            if(!this.HasProp("__data"))
+                this.__data := %this.__Class%._data_e__Union(24, this)
+            return this.__data
         }
     }
 }

@@ -15,7 +15,7 @@ class IORING_HANDLE_REF extends Win32Struct
     static packingSize => 8
 
     class HandleUnion extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**

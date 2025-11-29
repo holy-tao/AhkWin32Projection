@@ -12,6 +12,57 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
 
     static packingSize => 8
 
+    class _CATTR_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - PriorityClass
+         * - SqFlowControlDisable
+         * - IoQueueDeletion
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PriorityClass {
+            get => (this._bitfield >> 0) & 0x3
+            set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SqFlowControlDisable {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IoQueueDeletion {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUchar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -91,48 +142,14 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - PriorityClass
-     * - SqFlowControlDisable
-     * - IoQueueDeletion
-     * - Reserved
-     * @type {Integer}
+     * @type {_CATTR_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 46, "char")
-        set => NumPut("char", value, this, 46)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PriorityClass {
-        get => (this._bitfield >> 0) & 0x3
-        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SqFlowControlDisable {
-        get => (this._bitfield >> 2) & 0x1
-        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IoQueueDeletion {
-        get => (this._bitfield >> 3) & 0x1
-        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 46, "char")
-        set => NumPut("char", value, this, 46)
+    CATTR{
+        get {
+            if(!this.HasProp("__CATTR"))
+                this.__CATTR := %this.__Class%._CATTR_e__Union(46, this)
+            return this.__CATTR
+        }
     }
 
     /**

@@ -14,8 +14,8 @@ class NVME_CDW13_READ_WRITE extends Win32Struct
     static packingSize => 4
 
     class _DSM extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 2
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

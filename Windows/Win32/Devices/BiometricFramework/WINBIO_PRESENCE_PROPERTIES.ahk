@@ -16,11 +16,11 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     static packingSize => 8
 
     class _FacialFeatures extends Win32Struct {
-        static sizeof => 400
+        static sizeof => 344
         static packingSize => 8
 
         class _OpaqueEngineData extends Win32Struct {
-            static sizeof => 344
+            static sizeof => 320
             static packingSize => 8
     
             /**
@@ -77,7 +77,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     }
 
     class _Iris extends Win32Struct {
-        static sizeof => 400
+        static sizeof => 56
         static packingSize => 8
 
         /**

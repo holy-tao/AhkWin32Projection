@@ -44,6 +44,34 @@ class WMDM_PROP_DESC extends Win32Struct
 
     static packingSize => 8
 
+    class _ValidValues_e__Union extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        /**
+         * @type {WMDM_PROP_VALUES_RANGE}
+         */
+        ValidValuesRange{
+            get {
+                if(!this.HasProp("__ValidValuesRange"))
+                    this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(0, this)
+                return this.__ValidValuesRange
+            }
+        }
+    
+        /**
+         * @type {WMDM_PROP_VALUES_ENUM}
+         */
+        EnumeratedValidValues{
+            get {
+                if(!this.HasProp("__EnumeratedValidValues"))
+                    this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(0, this)
+                return this.__EnumeratedValidValues
+            }
+        }
+    
+    }
+
     /**
      * @type {PWSTR}
      */
@@ -61,24 +89,13 @@ class WMDM_PROP_DESC extends Win32Struct
     }
 
     /**
-     * @type {WMDM_PROP_VALUES_RANGE}
+     * @type {_ValidValues_e__Union}
      */
-    ValidValuesRange{
+    ValidValues{
         get {
-            if(!this.HasProp("__ValidValuesRange"))
-                this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(16, this)
-            return this.__ValidValuesRange
-        }
-    }
-
-    /**
-     * @type {WMDM_PROP_VALUES_ENUM}
-     */
-    EnumeratedValidValues{
-        get {
-            if(!this.HasProp("__EnumeratedValidValues"))
-                this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(16, this)
-            return this.__EnumeratedValidValues
+            if(!this.HasProp("__ValidValues"))
+                this.__ValidValues := %this.__Class%._ValidValues_e__Union(16, this)
+            return this.__ValidValues
         }
     }
 }

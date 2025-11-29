@@ -14,8 +14,8 @@ class LINEAGENTGROUPENTRY extends Win32Struct
     static packingSize => 8
 
     class _GroupID extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}

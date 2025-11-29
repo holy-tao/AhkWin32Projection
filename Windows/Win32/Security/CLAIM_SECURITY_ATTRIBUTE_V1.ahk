@@ -13,6 +13,52 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
 
     static packingSize => 8
 
+    class _Values_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Integer>}
+         */
+        pInt64 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Integer>}
+         */
+        pUint64 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<PWSTR>}
+         */
+        ppString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE>}
+         */
+        pFqbn {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
+         */
+        pOctetString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * A pointer to a string of Unicode characters that contains the name of the security attribute. This string must be at least 4 bytes in length.
      * @type {PWSTR}
@@ -132,42 +178,14 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Integer>}
+     * An array of security attribute values of the type specified in the <b>ValueType</b> member.
+     * @type {_Values_e__Union}
      */
-    pInt64 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pUint64 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    ppString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE>}
-     */
-    pFqbn {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
-     */
-    pOctetString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Values{
+        get {
+            if(!this.HasProp("__Values"))
+                this.__Values := %this.__Class%._Values_e__Union(24, this)
+            return this.__Values
+        }
     }
 }

@@ -14,6 +14,88 @@ class MIXERCONTROLA extends Win32Struct
 
     static packingSize => 8
 
+    class _Bounds_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        lMinimum {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        lMaximum {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwMinimum {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwMaximum {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        dwReserved{
+            get {
+                if(!this.HasProp("__dwReservedProxyArray"))
+                    this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
+                return this.__dwReservedProxyArray
+            }
+        }
+    
+    }
+
+    class _Metrics_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        cSteps {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbCustomData {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        dwReserved{
+            get {
+                if(!this.HasProp("__dwReservedProxyArray"))
+                    this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
+                return this.__dwReservedProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -71,61 +153,24 @@ class MIXERCONTROLA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Bounds_e__Union}
      */
-    lMinimum {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lMaximum {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMinimum {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMaximum {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    dwReserved{
+    Bounds{
         get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 104, 6, Primitive, "uint")
-            return this.__dwReservedProxyArray
+            if(!this.HasProp("__Bounds"))
+                this.__Bounds := %this.__Class%._Bounds_e__Union(104, this)
+            return this.__Bounds
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Metrics_e__Union}
      */
-    cSteps {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbCustomData {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+    Metrics{
+        get {
+            if(!this.HasProp("__Metrics"))
+                this.__Metrics := %this.__Class%._Metrics_e__Union(128, this)
+            return this.__Metrics
+        }
     }
 }

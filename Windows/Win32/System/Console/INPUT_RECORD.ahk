@@ -19,6 +19,67 @@ class INPUT_RECORD extends Win32Struct
 
     static packingSize => 8
 
+    class _Event_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {KEY_EVENT_RECORD}
+         */
+        KeyEvent{
+            get {
+                if(!this.HasProp("__KeyEvent"))
+                    this.__KeyEvent := KEY_EVENT_RECORD(0, this)
+                return this.__KeyEvent
+            }
+        }
+    
+        /**
+         * @type {MOUSE_EVENT_RECORD}
+         */
+        MouseEvent{
+            get {
+                if(!this.HasProp("__MouseEvent"))
+                    this.__MouseEvent := MOUSE_EVENT_RECORD(0, this)
+                return this.__MouseEvent
+            }
+        }
+    
+        /**
+         * @type {WINDOW_BUFFER_SIZE_RECORD}
+         */
+        WindowBufferSizeEvent{
+            get {
+                if(!this.HasProp("__WindowBufferSizeEvent"))
+                    this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(0, this)
+                return this.__WindowBufferSizeEvent
+            }
+        }
+    
+        /**
+         * @type {MENU_EVENT_RECORD}
+         */
+        MenuEvent{
+            get {
+                if(!this.HasProp("__MenuEvent"))
+                    this.__MenuEvent := MENU_EVENT_RECORD(0, this)
+                return this.__MenuEvent
+            }
+        }
+    
+        /**
+         * @type {FOCUS_EVENT_RECORD}
+         */
+        FocusEvent{
+            get {
+                if(!this.HasProp("__FocusEvent"))
+                    this.__FocusEvent := FOCUS_EVENT_RECORD(0, this)
+                return this.__FocusEvent
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -28,57 +89,13 @@ class INPUT_RECORD extends Win32Struct
     }
 
     /**
-     * @type {KEY_EVENT_RECORD}
+     * @type {_Event_e__Union}
      */
-    KeyEvent{
+    Event{
         get {
-            if(!this.HasProp("__KeyEvent"))
-                this.__KeyEvent := KEY_EVENT_RECORD(8, this)
-            return this.__KeyEvent
-        }
-    }
-
-    /**
-     * @type {MOUSE_EVENT_RECORD}
-     */
-    MouseEvent{
-        get {
-            if(!this.HasProp("__MouseEvent"))
-                this.__MouseEvent := MOUSE_EVENT_RECORD(8, this)
-            return this.__MouseEvent
-        }
-    }
-
-    /**
-     * @type {WINDOW_BUFFER_SIZE_RECORD}
-     */
-    WindowBufferSizeEvent{
-        get {
-            if(!this.HasProp("__WindowBufferSizeEvent"))
-                this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(8, this)
-            return this.__WindowBufferSizeEvent
-        }
-    }
-
-    /**
-     * @type {MENU_EVENT_RECORD}
-     */
-    MenuEvent{
-        get {
-            if(!this.HasProp("__MenuEvent"))
-                this.__MenuEvent := MENU_EVENT_RECORD(8, this)
-            return this.__MenuEvent
-        }
-    }
-
-    /**
-     * @type {FOCUS_EVENT_RECORD}
-     */
-    FocusEvent{
-        get {
-            if(!this.HasProp("__FocusEvent"))
-                this.__FocusEvent := FOCUS_EVENT_RECORD(8, this)
-            return this.__FocusEvent
+            if(!this.HasProp("__Event"))
+                this.__Event := %this.__Class%._Event_e__Union(8, this)
+            return this.__Event
         }
     }
 }

@@ -43,6 +43,57 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
         set => NumPut("char", value, this, 6)
     }
 
+    class _Flags_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        AsBYTE {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * This bitfield backs the following members:
+         * - NoDomainAccounting
+         * - IncreasePolicy
+         * - DecreasePolicy
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NoDomainAccounting {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IncreasePolicy {
+            get => (this._bitfield >> 1) & 0x3
+            set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DecreasePolicy {
+            get => (this._bitfield >> 3) & 0x3
+            set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -52,48 +103,14 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flags_e__Union}
      */
-    AsBYTE {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - NoDomainAccounting
-     * - IncreasePolicy
-     * - DecreasePolicy
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NoDomainAccounting {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IncreasePolicy {
-        get => (this._bitfield >> 1) & 0x3
-        set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DecreasePolicy {
-        get => (this._bitfield >> 3) & 0x3
-        set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags_e__Union(7, this)
+            return this.__Flags
+        }
     }
 
     /**

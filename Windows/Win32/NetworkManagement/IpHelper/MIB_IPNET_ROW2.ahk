@@ -33,6 +33,28 @@ class MIB_IPNET_ROW2 extends Win32Struct
 
     static packingSize => 8
 
+    class _ReachabilityTime_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        LastReachable {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastUnreachable {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet">SOCKADDR_INET</a></b>
      * 
@@ -250,18 +272,14 @@ class MIB_IPNET_ROW2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_ReachabilityTime_e__Union}
      */
-    LastReachable {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastUnreachable {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+    ReachabilityTime{
+        get {
+            if(!this.HasProp("__ReachabilityTime"))
+                this.__ReachabilityTime := %this.__Class%._ReachabilityTime_e__Union(132, this)
+            return this.__ReachabilityTime
+        }
     }
 }

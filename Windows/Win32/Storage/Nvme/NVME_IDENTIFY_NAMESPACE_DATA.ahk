@@ -16,8 +16,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     static packingSize => 8
 
     class _NSFEAT extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -77,8 +77,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _FLBAS extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -120,8 +120,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _MC extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -154,8 +154,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _DPC extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -215,8 +215,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _DPS extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -249,8 +249,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _NMIC extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -274,8 +274,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _FPI extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -307,8 +307,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _DLFEAT extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -350,8 +350,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     class _NSATTR extends Win32Struct {
-        static sizeof => 4360
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

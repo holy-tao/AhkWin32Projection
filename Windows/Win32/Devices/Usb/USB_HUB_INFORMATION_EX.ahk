@@ -13,6 +13,34 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 74
+        static packingSize => 8
+
+        /**
+         * @type {USB_HUB_DESCRIPTOR}
+         */
+        UsbHubDescriptor{
+            get {
+                if(!this.HasProp("__UsbHubDescriptor"))
+                    this.__UsbHubDescriptor := USB_HUB_DESCRIPTOR(0, this)
+                return this.__UsbHubDescriptor
+            }
+        }
+    
+        /**
+         * @type {USB_30_HUB_DESCRIPTOR}
+         */
+        Usb30HubDescriptor{
+            get {
+                if(!this.HasProp("__Usb30HubDescriptor"))
+                    this.__Usb30HubDescriptor := USB_30_HUB_DESCRIPTOR(0, this)
+                return this.__Usb30HubDescriptor
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -30,24 +58,13 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {USB_HUB_DESCRIPTOR}
+     * @type {_u_e__Union}
      */
-    UsbHubDescriptor{
+    u{
         get {
-            if(!this.HasProp("__UsbHubDescriptor"))
-                this.__UsbHubDescriptor := USB_HUB_DESCRIPTOR(8, this)
-            return this.__UsbHubDescriptor
-        }
-    }
-
-    /**
-     * @type {USB_30_HUB_DESCRIPTOR}
-     */
-    Usb30HubDescriptor{
-        get {
-            if(!this.HasProp("__Usb30HubDescriptor"))
-                this.__Usb30HubDescriptor := USB_30_HUB_DESCRIPTOR(8, this)
-            return this.__Usb30HubDescriptor
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(8, this)
+            return this.__u
         }
     }
 }

@@ -12,7 +12,7 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
     static packingSize => 8
 
     class _DriverName extends Win32Struct {
-        static sizeof => 56
+        static sizeof => 16
         static packingSize => 8
 
         /**

@@ -23,7 +23,7 @@ class TRACE_LOGFILE_HEADER32 extends Win32Struct
 
     class _VersionDetail extends Win32Struct {
         static sizeof => 4
-        static packingSize => 4
+        static packingSize => 1
 
         /**
          * @type {Integer}

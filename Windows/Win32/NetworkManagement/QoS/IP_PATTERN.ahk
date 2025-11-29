@@ -19,6 +19,94 @@ class IP_PATTERN extends Win32Struct
 
     static packingSize => 4
 
+    class _S_un_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        class _S_un_ports extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 2
+    
+            /**
+             * @type {Integer}
+             */
+            s_srcport {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            s_dstport {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+        }
+    
+        class _S_un_icmp extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 2
+    
+            /**
+             * @type {Integer}
+             */
+            s_type {
+                get => NumGet(this, 0, "char")
+                set => NumPut("char", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            s_code {
+                get => NumGet(this, 1, "char")
+                set => NumPut("char", value, this, 1)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            filler {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+        }
+    
+        /**
+         * @type {_S_un_ports}
+         */
+        S_un_ports{
+            get {
+                if(!this.HasProp("__S_un_ports"))
+                    this.__S_un_ports := %this.__Class%._S_un_ports(0, this)
+                return this.__S_un_ports
+            }
+        }
+    
+        /**
+         * @type {_S_un_icmp}
+         */
+        S_un_icmp{
+            get {
+                if(!this.HasProp("__S_un_icmp"))
+                    this.__S_un_icmp := %this.__Class%._S_un_icmp(0, this)
+                return this.__S_un_icmp
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        S_Spi {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * Reserved for future use.
      * @type {Integer}
@@ -55,86 +143,16 @@ class IP_PATTERN extends Win32Struct
         set => NumPut("uint", value, this, 12)
     }
 
-    class _S_un_ports extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        s_srcport {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        s_dstport {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-    
-    }
-
-    class _S_un_icmp extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        s_type {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        s_code {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        filler {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-    
-    }
-
     /**
-     * @type {_S_un_ports}
+     * 
+     * @type {_S_un_e__Union}
      */
-    S_un_ports{
+    S_un{
         get {
-            if(!this.HasProp("__S_un_ports"))
-                this.__S_un_ports := %this.__Class%._S_un_ports(16, this)
-            return this.__S_un_ports
+            if(!this.HasProp("__S_un"))
+                this.__S_un := %this.__Class%._S_un_e__Union(16, this)
+            return this.__S_un
         }
-    }
-
-    /**
-     * @type {_S_un_icmp}
-     */
-    S_un_icmp{
-        get {
-            if(!this.HasProp("__S_un_icmp"))
-                this.__S_un_icmp := %this.__Class%._S_un_icmp(16, this)
-            return this.__S_un_icmp
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    S_Spi {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
     }
 
     /**

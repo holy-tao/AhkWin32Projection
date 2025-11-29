@@ -22,8 +22,8 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
     static packingSize => 8
 
     class _GenericReparseBuffer extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}

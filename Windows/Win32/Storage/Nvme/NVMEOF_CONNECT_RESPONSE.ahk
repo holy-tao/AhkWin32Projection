@@ -11,82 +11,116 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
 
     static packingSize => 4
 
-    class _Success extends Win32Struct {
+    class _SCSpecific_e__Union extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
-        /**
-         * @type {Integer}
-         */
-        CNTLID {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        class _Success extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 2
+    
+            class _AUTHREQ_e__Union extends Win32Struct {
+                static sizeof => 2
+                static packingSize => 2
+        
+                /**
+                 * This bitfield backs the following members:
+                 * - Obsolete
+                 * - ATR
+                 * - ASCR
+                 * - Reserved
+                 * @type {Integer}
+                 */
+                _bitfield {
+                    get => NumGet(this, 0, "ushort")
+                    set => NumPut("ushort", value, this, 0)
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                Obsolete {
+                    get => (this._bitfield >> 0) & 0x1
+                    set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                ATR {
+                    get => (this._bitfield >> 1) & 0x1
+                    set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                ASCR {
+                    get => (this._bitfield >> 2) & 0x1
+                    set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                AsUshort {
+                    get => NumGet(this, 0, "ushort")
+                    set => NumPut("ushort", value, this, 0)
+                }
+            
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            CNTLID {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {_AUTHREQ_e__Union}
+             */
+            AUTHREQ{
+                get {
+                    if(!this.HasProp("__AUTHREQ"))
+                        this.__AUTHREQ := %this.__Class%._AUTHREQ_e__Union(2, this)
+                    return this.__AUTHREQ
+                }
+            }
+        
         }
     
         /**
-         * This bitfield backs the following members:
-         * - Obsolete
-         * - ATR
-         * - ASCR
-         * - Reserved
-         * @type {Integer}
+         * @type {_Success}
          */
-        _bitfield {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
+        Success{
+            get {
+                if(!this.HasProp("__Success"))
+                    this.__Success := %this.__Class%._Success(0, this)
+                return this.__Success
+            }
         }
     
         /**
          * @type {Integer}
          */
-        Obsolete {
-            get => (this._bitfield >> 0) & 0x1
-            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        ATR {
-            get => (this._bitfield >> 1) & 0x1
-            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        ASCR {
-            get => (this._bitfield >> 2) & 0x1
-            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
+        AsUlong {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
         }
     
     }
 
     /**
-     * @type {_Success}
+     * @type {_SCSpecific_e__Union}
      */
-    Success{
+    SCSpecific{
         get {
-            if(!this.HasProp("__Success"))
-                this.__Success := %this.__Class%._Success(0, this)
-            return this.__Success
+            if(!this.HasProp("__SCSpecific"))
+                this.__SCSpecific := %this.__Class%._SCSpecific_e__Union(0, this)
+            return this.__SCSpecific
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
     }
 
     /**

@@ -26,7 +26,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 16
         static packingSize => 8
 
         /**

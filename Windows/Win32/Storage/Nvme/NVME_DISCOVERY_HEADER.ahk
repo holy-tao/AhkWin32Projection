@@ -11,6 +11,57 @@ class NVME_DISCOVERY_HEADER extends Win32Struct
 
     static packingSize => 8
 
+    class _DLPF_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - Extended
+         * - PortLocal
+         * - AllSubsystems
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Extended {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PortLocal {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AllSubsystems {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUchar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -36,48 +87,14 @@ class NVME_DISCOVERY_HEADER extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - Extended
-     * - PortLocal
-     * - AllSubsystems
-     * - Reserved
-     * @type {Integer}
+     * @type {_DLPF_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Extended {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PortLocal {
-        get => (this._bitfield >> 1) & 0x1
-        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AllSubsystems {
-        get => (this._bitfield >> 2) & 0x1
-        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+    DLPF{
+        get {
+            if(!this.HasProp("__DLPF"))
+                this.__DLPF := %this.__Class%._DLPF_e__Union(18, this)
+            return this.__DLPF
+        }
     }
 
     /**

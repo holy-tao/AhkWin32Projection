@@ -13,28 +13,45 @@ class STORAGE_SPEC_VERSION extends Win32Struct
 
     static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    SubMinor {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    class _MinorVersion_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 2
+
+        /**
+         * @type {Integer}
+         */
+        SubMinor {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Minor {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUshort {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_MinorVersion_e__Union}
      */
-    Minor {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUshort {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    MinorVersion{
+        get {
+            if(!this.HasProp("__MinorVersion"))
+                this.__MinorVersion := %this.__Class%._MinorVersion_e__Union(0, this)
+            return this.__MinorVersion
+        }
     }
 
     /**

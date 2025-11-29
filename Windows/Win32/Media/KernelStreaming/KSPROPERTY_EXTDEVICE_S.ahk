@@ -13,6 +13,58 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 524
+        static packingSize => 8
+
+        /**
+         * @type {DEVCAPS}
+         */
+        Capabilities{
+            get {
+                if(!this.HasProp("__Capabilities"))
+                    this.__Capabilities := DEVCAPS(0, this)
+                return this.__Capabilities
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DevPort {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PowerState {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {String}
+         */
+        pawchString {
+            get => StrGet(this.ptr + 0, 259, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 259, "UTF-16")
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        NodeUniqueID{
+            get {
+                if(!this.HasProp("__NodeUniqueIDProxyArray"))
+                    this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
+                return this.__NodeUniqueIDProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {KSIDENTIFIER}
      */
@@ -25,48 +77,13 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     }
 
     /**
-     * @type {DEVCAPS}
+     * @type {_u_e__Union}
      */
-    Capabilities{
+    u{
         get {
-            if(!this.HasProp("__Capabilities"))
-                this.__Capabilities := DEVCAPS(16, this)
-            return this.__Capabilities
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DevPort {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PowerState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {String}
-     */
-    pawchString {
-        get => StrGet(this.ptr + 16, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 259, "UTF-16")
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    NodeUniqueID{
-        get {
-            if(!this.HasProp("__NodeUniqueIDProxyArray"))
-                this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
-            return this.__NodeUniqueIDProxyArray
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(16, this)
+            return this.__u
         }
     }
 }

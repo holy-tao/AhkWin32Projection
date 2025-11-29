@@ -20,6 +20,34 @@ class LINEINITIALIZEEXPARAMS extends Win32Struct
 
     static packingSize => 8
 
+    class _Handles_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 1
+
+        /**
+         * @type {HANDLE}
+         */
+        hEvent{
+            get {
+                if(!this.HasProp("__hEvent"))
+                    this.__hEvent := HANDLE(0, this)
+                return this.__hEvent
+            }
+        }
+    
+        /**
+         * @type {HANDLE}
+         */
+        hCompletionPort{
+            get {
+                if(!this.HasProp("__hCompletionPort"))
+                    this.__hCompletionPort := HANDLE(0, this)
+                return this.__hCompletionPort
+            }
+        }
+    
+    }
+
     /**
      * Total size, in bytes, allocated to this data structure.
      * @type {Integer}
@@ -58,24 +86,14 @@ class LINEINITIALIZEEXPARAMS extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * 
+     * @type {_Handles_e__Union}
      */
-    hEvent{
+    Handles{
         get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(16, this)
-            return this.__hEvent
-        }
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hCompletionPort{
-        get {
-            if(!this.HasProp("__hCompletionPort"))
-                this.__hCompletionPort := HANDLE(16, this)
-            return this.__hCompletionPort
+            if(!this.HasProp("__Handles"))
+                this.__Handles := %this.__Class%._Handles_e__Union(16, this)
+            return this.__Handles
         }
     }
 

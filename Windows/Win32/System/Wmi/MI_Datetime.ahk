@@ -15,6 +15,34 @@ class MI_Datetime extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {MI_Timestamp}
+         */
+        timestamp{
+            get {
+                if(!this.HasProp("__timestamp"))
+                    this.__timestamp := MI_Timestamp(0, this)
+                return this.__timestamp
+            }
+        }
+    
+        /**
+         * @type {MI_Interval}
+         */
+        interval{
+            get {
+                if(!this.HasProp("__interval"))
+                    this.__interval := MI_Interval(0, this)
+                return this.__interval
+            }
+        }
+    
+    }
+
     /**
      * If <b>isTimestamp</b> is nonzero, timestamp is used.  If <b>isTimestamp</b> is 0, interval is used.
      * @type {Integer}
@@ -25,24 +53,14 @@ class MI_Datetime extends Win32Struct
     }
 
     /**
-     * @type {MI_Timestamp}
+     * 
+     * @type {_u_e__Union}
      */
-    timestamp{
+    u{
         get {
-            if(!this.HasProp("__timestamp"))
-                this.__timestamp := MI_Timestamp(8, this)
-            return this.__timestamp
-        }
-    }
-
-    /**
-     * @type {MI_Interval}
-     */
-    interval{
-        get {
-            if(!this.HasProp("__interval"))
-                this.__interval := MI_Interval(8, this)
-            return this.__interval
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(8, this)
+            return this.__u
         }
     }
 }

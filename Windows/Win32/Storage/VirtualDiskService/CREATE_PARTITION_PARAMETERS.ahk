@@ -30,8 +30,8 @@ class CREATE_PARTITION_PARAMETERS extends Win32Struct
     }
 
     class _MbrPartInfo extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 1
 
         /**
          * @type {Integer}

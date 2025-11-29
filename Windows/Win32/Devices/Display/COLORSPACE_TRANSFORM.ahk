@@ -16,6 +16,56 @@ class COLORSPACE_TRANSFORM extends Win32Struct
 
     static packingSize => 8
 
+    class _Data_e__Union extends Win32Struct {
+        static sizeof => 65592
+        static packingSize => 8
+
+        /**
+         * @type {GAMMA_RAMP_RGB256x3x16}
+         */
+        Rgb256x3x16{
+            get {
+                if(!this.HasProp("__Rgb256x3x16"))
+                    this.__Rgb256x3x16 := GAMMA_RAMP_RGB256x3x16(0, this)
+                return this.__Rgb256x3x16
+            }
+        }
+    
+        /**
+         * @type {GAMMA_RAMP_DXGI_1}
+         */
+        Dxgi1{
+            get {
+                if(!this.HasProp("__Dxgi1"))
+                    this.__Dxgi1 := GAMMA_RAMP_DXGI_1(0, this)
+                return this.__Dxgi1
+            }
+        }
+    
+        /**
+         * @type {COLORSPACE_TRANSFORM_3x4}
+         */
+        T3x4{
+            get {
+                if(!this.HasProp("__T3x4"))
+                    this.__T3x4 := COLORSPACE_TRANSFORM_3x4(0, this)
+                return this.__T3x4
+            }
+        }
+    
+        /**
+         * @type {COLORSPACE_TRANSFORM_MATRIX_V2}
+         */
+        MatrixV2{
+            get {
+                if(!this.HasProp("__MatrixV2"))
+                    this.__MatrixV2 := COLORSPACE_TRANSFORM_MATRIX_V2(0, this)
+                return this.__MatrixV2
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -25,46 +75,13 @@ class COLORSPACE_TRANSFORM extends Win32Struct
     }
 
     /**
-     * @type {GAMMA_RAMP_RGB256x3x16}
+     * @type {_Data_e__Union}
      */
-    Rgb256x3x16{
+    Data{
         get {
-            if(!this.HasProp("__Rgb256x3x16"))
-                this.__Rgb256x3x16 := GAMMA_RAMP_RGB256x3x16(8, this)
-            return this.__Rgb256x3x16
-        }
-    }
-
-    /**
-     * @type {GAMMA_RAMP_DXGI_1}
-     */
-    Dxgi1{
-        get {
-            if(!this.HasProp("__Dxgi1"))
-                this.__Dxgi1 := GAMMA_RAMP_DXGI_1(8, this)
-            return this.__Dxgi1
-        }
-    }
-
-    /**
-     * @type {COLORSPACE_TRANSFORM_3x4}
-     */
-    T3x4{
-        get {
-            if(!this.HasProp("__T3x4"))
-                this.__T3x4 := COLORSPACE_TRANSFORM_3x4(8, this)
-            return this.__T3x4
-        }
-    }
-
-    /**
-     * @type {COLORSPACE_TRANSFORM_MATRIX_V2}
-     */
-    MatrixV2{
-        get {
-            if(!this.HasProp("__MatrixV2"))
-                this.__MatrixV2 := COLORSPACE_TRANSFORM_MATRIX_V2(8, this)
-            return this.__MatrixV2
+            if(!this.HasProp("__Data"))
+                this.__Data := %this.__Class%._Data_e__Union(8, this)
+            return this.__Data
         }
     }
 }

@@ -15,7 +15,7 @@ class SURFACEALIGNMENT extends Win32Struct
 
     class _Linear extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -53,7 +53,7 @@ class SURFACEALIGNMENT extends Win32Struct
 
     class _Rectangular extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

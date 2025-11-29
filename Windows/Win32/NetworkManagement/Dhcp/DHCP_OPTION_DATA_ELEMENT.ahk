@@ -16,7 +16,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     static packingSize => 8
 
     class DHCP_OPTION_ELEMENT_UNION extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 72
         static packingSize => 8
 
         /**

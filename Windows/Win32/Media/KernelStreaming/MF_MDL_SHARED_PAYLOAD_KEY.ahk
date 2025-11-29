@@ -12,7 +12,7 @@ class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
     static packingSize => 8
 
     class _combined extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**

@@ -36,8 +36,8 @@ class READER_SEL_REQUEST extends Win32Struct
     }
 
     class _ReaderAndContainerParameter extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -90,8 +90,8 @@ class READER_SEL_REQUEST extends Win32Struct
     }
 
     class _SerialNumberParameter extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}

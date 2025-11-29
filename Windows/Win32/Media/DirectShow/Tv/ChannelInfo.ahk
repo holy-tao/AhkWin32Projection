@@ -20,8 +20,8 @@ class ChannelInfo extends Win32Struct
     }
 
     class _DVB extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -50,8 +50,8 @@ class ChannelInfo extends Win32Struct
     }
 
     class _DC extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -64,8 +64,8 @@ class ChannelInfo extends Win32Struct
     }
 
     class _ATSC extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}

@@ -15,7 +15,7 @@ class DHCP_SEARCH_INFO extends Win32Struct
     static packingSize => 8
 
     class DHCP_CLIENT_SEARCH_UNION extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 32
         static packingSize => 8
 
         /**

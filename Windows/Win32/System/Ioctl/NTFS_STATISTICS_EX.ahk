@@ -22,8 +22,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     static packingSize => 8
 
     class _MftWritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -60,8 +60,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _Mft2WritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -98,8 +98,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _BitmapWritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -136,8 +136,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _MftBitmapWritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -174,7 +174,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _Allocate extends Win32Struct {
-        static sizeof => 496
+        static sizeof => 56
         static packingSize => 8
 
         /**

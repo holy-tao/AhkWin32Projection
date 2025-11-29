@@ -13,7 +13,7 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V1 extends Win32Struct
 
     class _IPv4 extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

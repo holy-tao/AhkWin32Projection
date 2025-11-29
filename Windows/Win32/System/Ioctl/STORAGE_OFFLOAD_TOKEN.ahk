@@ -51,7 +51,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
 
     class _StorageOffloadZeroDataToken extends Win32Struct {
         static sizeof => 504
-        static packingSize => 8
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}

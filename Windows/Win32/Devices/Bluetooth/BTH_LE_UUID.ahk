@@ -13,6 +13,28 @@ class BTH_LE_UUID extends Win32Struct
 
     static packingSize => 8
 
+    class _Value_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ShortUuid {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        LongUuid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * Indicates if the Low Energy (LE) UUID a 16-bit shortened value, or if it is the long 128-bit value.
      * @type {BOOLEAN}
@@ -23,18 +45,14 @@ class BTH_LE_UUID extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * The value of the UUID.
+     * @type {_Value_e__Union}
      */
-    ShortUuid {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    LongUuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Value{
+        get {
+            if(!this.HasProp("__Value"))
+                this.__Value := %this.__Class%._Value_e__Union(8, this)
+            return this.__Value
+        }
     }
 }

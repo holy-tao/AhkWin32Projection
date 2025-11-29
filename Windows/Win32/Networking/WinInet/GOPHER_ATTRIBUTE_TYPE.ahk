@@ -37,6 +37,199 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
 
     static packingSize => 8
 
+    class _AttributeType_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {GOPHER_ADMIN_ATTRIBUTE_TYPE}
+         */
+        Admin{
+            get {
+                if(!this.HasProp("__Admin"))
+                    this.__Admin := GOPHER_ADMIN_ATTRIBUTE_TYPE(0, this)
+                return this.__Admin
+            }
+        }
+    
+        /**
+         * @type {GOPHER_MOD_DATE_ATTRIBUTE_TYPE}
+         */
+        ModDate{
+            get {
+                if(!this.HasProp("__ModDate"))
+                    this.__ModDate := GOPHER_MOD_DATE_ATTRIBUTE_TYPE(0, this)
+                return this.__ModDate
+            }
+        }
+    
+        /**
+         * @type {GOPHER_TTL_ATTRIBUTE_TYPE}
+         */
+        Ttl{
+            get {
+                if(!this.HasProp("__Ttl"))
+                    this.__Ttl := GOPHER_TTL_ATTRIBUTE_TYPE(0, this)
+                return this.__Ttl
+            }
+        }
+    
+        /**
+         * @type {GOPHER_SCORE_ATTRIBUTE_TYPE}
+         */
+        Score{
+            get {
+                if(!this.HasProp("__Score"))
+                    this.__Score := GOPHER_SCORE_ATTRIBUTE_TYPE(0, this)
+                return this.__Score
+            }
+        }
+    
+        /**
+         * @type {GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE}
+         */
+        ScoreRange{
+            get {
+                if(!this.HasProp("__ScoreRange"))
+                    this.__ScoreRange := GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(0, this)
+                return this.__ScoreRange
+            }
+        }
+    
+        /**
+         * @type {GOPHER_SITE_ATTRIBUTE_TYPE}
+         */
+        Site{
+            get {
+                if(!this.HasProp("__Site"))
+                    this.__Site := GOPHER_SITE_ATTRIBUTE_TYPE(0, this)
+                return this.__Site
+            }
+        }
+    
+        /**
+         * @type {GOPHER_ORGANIZATION_ATTRIBUTE_TYPE}
+         */
+        Organization{
+            get {
+                if(!this.HasProp("__Organization"))
+                    this.__Organization := GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(0, this)
+                return this.__Organization
+            }
+        }
+    
+        /**
+         * @type {GOPHER_LOCATION_ATTRIBUTE_TYPE}
+         */
+        Location{
+            get {
+                if(!this.HasProp("__Location"))
+                    this.__Location := GOPHER_LOCATION_ATTRIBUTE_TYPE(0, this)
+                return this.__Location
+            }
+        }
+    
+        /**
+         * @type {GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE}
+         */
+        GeographicalLocation{
+            get {
+                if(!this.HasProp("__GeographicalLocation"))
+                    this.__GeographicalLocation := GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(0, this)
+                return this.__GeographicalLocation
+            }
+        }
+    
+        /**
+         * @type {GOPHER_TIMEZONE_ATTRIBUTE_TYPE}
+         */
+        TimeZone{
+            get {
+                if(!this.HasProp("__TimeZone"))
+                    this.__TimeZone := GOPHER_TIMEZONE_ATTRIBUTE_TYPE(0, this)
+                return this.__TimeZone
+            }
+        }
+    
+        /**
+         * @type {GOPHER_PROVIDER_ATTRIBUTE_TYPE}
+         */
+        Provider{
+            get {
+                if(!this.HasProp("__Provider"))
+                    this.__Provider := GOPHER_PROVIDER_ATTRIBUTE_TYPE(0, this)
+                return this.__Provider
+            }
+        }
+    
+        /**
+         * @type {GOPHER_VERSION_ATTRIBUTE_TYPE}
+         */
+        Version{
+            get {
+                if(!this.HasProp("__Version"))
+                    this.__Version := GOPHER_VERSION_ATTRIBUTE_TYPE(0, this)
+                return this.__Version
+            }
+        }
+    
+        /**
+         * @type {GOPHER_ABSTRACT_ATTRIBUTE_TYPE}
+         */
+        Abstract{
+            get {
+                if(!this.HasProp("__Abstract"))
+                    this.__Abstract := GOPHER_ABSTRACT_ATTRIBUTE_TYPE(0, this)
+                return this.__Abstract
+            }
+        }
+    
+        /**
+         * @type {GOPHER_VIEW_ATTRIBUTE_TYPE}
+         */
+        View{
+            get {
+                if(!this.HasProp("__View"))
+                    this.__View := GOPHER_VIEW_ATTRIBUTE_TYPE(0, this)
+                return this.__View
+            }
+        }
+    
+        /**
+         * @type {GOPHER_VERONICA_ATTRIBUTE_TYPE}
+         */
+        Veronica{
+            get {
+                if(!this.HasProp("__Veronica"))
+                    this.__Veronica := GOPHER_VERONICA_ATTRIBUTE_TYPE(0, this)
+                return this.__Veronica
+            }
+        }
+    
+        /**
+         * @type {GOPHER_ASK_ATTRIBUTE_TYPE}
+         */
+        Ask{
+            get {
+                if(!this.HasProp("__Ask"))
+                    this.__Ask := GOPHER_ASK_ATTRIBUTE_TYPE(0, this)
+                return this.__Ask
+            }
+        }
+    
+        /**
+         * @type {GOPHER_UNKNOWN_ATTRIBUTE_TYPE}
+         */
+        Unknown{
+            get {
+                if(!this.HasProp("__Unknown"))
+                    this.__Unknown := GOPHER_UNKNOWN_ATTRIBUTE_TYPE(0, this)
+                return this.__Unknown
+            }
+        }
+    
+    }
+
     /**
      * Name of the Gopher category for the attribute. The possible values include: 
      * 
@@ -62,189 +255,15 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {GOPHER_ADMIN_ATTRIBUTE_TYPE}
+     * Data for the Gopher attribute. The specific structure depends on the 
+     * <b>AttributeId</b> member. The definitions of these data structures are available in Wininet.h.
+     * @type {_AttributeType_e__Union}
      */
-    Admin{
+    AttributeType{
         get {
-            if(!this.HasProp("__Admin"))
-                this.__Admin := GOPHER_ADMIN_ATTRIBUTE_TYPE(8, this)
-            return this.__Admin
-        }
-    }
-
-    /**
-     * @type {GOPHER_MOD_DATE_ATTRIBUTE_TYPE}
-     */
-    ModDate{
-        get {
-            if(!this.HasProp("__ModDate"))
-                this.__ModDate := GOPHER_MOD_DATE_ATTRIBUTE_TYPE(8, this)
-            return this.__ModDate
-        }
-    }
-
-    /**
-     * @type {GOPHER_TTL_ATTRIBUTE_TYPE}
-     */
-    Ttl{
-        get {
-            if(!this.HasProp("__Ttl"))
-                this.__Ttl := GOPHER_TTL_ATTRIBUTE_TYPE(8, this)
-            return this.__Ttl
-        }
-    }
-
-    /**
-     * @type {GOPHER_SCORE_ATTRIBUTE_TYPE}
-     */
-    Score{
-        get {
-            if(!this.HasProp("__Score"))
-                this.__Score := GOPHER_SCORE_ATTRIBUTE_TYPE(8, this)
-            return this.__Score
-        }
-    }
-
-    /**
-     * @type {GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE}
-     */
-    ScoreRange{
-        get {
-            if(!this.HasProp("__ScoreRange"))
-                this.__ScoreRange := GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(8, this)
-            return this.__ScoreRange
-        }
-    }
-
-    /**
-     * @type {GOPHER_SITE_ATTRIBUTE_TYPE}
-     */
-    Site{
-        get {
-            if(!this.HasProp("__Site"))
-                this.__Site := GOPHER_SITE_ATTRIBUTE_TYPE(8, this)
-            return this.__Site
-        }
-    }
-
-    /**
-     * @type {GOPHER_ORGANIZATION_ATTRIBUTE_TYPE}
-     */
-    Organization{
-        get {
-            if(!this.HasProp("__Organization"))
-                this.__Organization := GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(8, this)
-            return this.__Organization
-        }
-    }
-
-    /**
-     * @type {GOPHER_LOCATION_ATTRIBUTE_TYPE}
-     */
-    Location{
-        get {
-            if(!this.HasProp("__Location"))
-                this.__Location := GOPHER_LOCATION_ATTRIBUTE_TYPE(8, this)
-            return this.__Location
-        }
-    }
-
-    /**
-     * @type {GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE}
-     */
-    GeographicalLocation{
-        get {
-            if(!this.HasProp("__GeographicalLocation"))
-                this.__GeographicalLocation := GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(8, this)
-            return this.__GeographicalLocation
-        }
-    }
-
-    /**
-     * @type {GOPHER_TIMEZONE_ATTRIBUTE_TYPE}
-     */
-    TimeZone{
-        get {
-            if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := GOPHER_TIMEZONE_ATTRIBUTE_TYPE(8, this)
-            return this.__TimeZone
-        }
-    }
-
-    /**
-     * @type {GOPHER_PROVIDER_ATTRIBUTE_TYPE}
-     */
-    Provider{
-        get {
-            if(!this.HasProp("__Provider"))
-                this.__Provider := GOPHER_PROVIDER_ATTRIBUTE_TYPE(8, this)
-            return this.__Provider
-        }
-    }
-
-    /**
-     * @type {GOPHER_VERSION_ATTRIBUTE_TYPE}
-     */
-    Version{
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := GOPHER_VERSION_ATTRIBUTE_TYPE(8, this)
-            return this.__Version
-        }
-    }
-
-    /**
-     * @type {GOPHER_ABSTRACT_ATTRIBUTE_TYPE}
-     */
-    Abstract{
-        get {
-            if(!this.HasProp("__Abstract"))
-                this.__Abstract := GOPHER_ABSTRACT_ATTRIBUTE_TYPE(8, this)
-            return this.__Abstract
-        }
-    }
-
-    /**
-     * @type {GOPHER_VIEW_ATTRIBUTE_TYPE}
-     */
-    View{
-        get {
-            if(!this.HasProp("__View"))
-                this.__View := GOPHER_VIEW_ATTRIBUTE_TYPE(8, this)
-            return this.__View
-        }
-    }
-
-    /**
-     * @type {GOPHER_VERONICA_ATTRIBUTE_TYPE}
-     */
-    Veronica{
-        get {
-            if(!this.HasProp("__Veronica"))
-                this.__Veronica := GOPHER_VERONICA_ATTRIBUTE_TYPE(8, this)
-            return this.__Veronica
-        }
-    }
-
-    /**
-     * @type {GOPHER_ASK_ATTRIBUTE_TYPE}
-     */
-    Ask{
-        get {
-            if(!this.HasProp("__Ask"))
-                this.__Ask := GOPHER_ASK_ATTRIBUTE_TYPE(8, this)
-            return this.__Ask
-        }
-    }
-
-    /**
-     * @type {GOPHER_UNKNOWN_ATTRIBUTE_TYPE}
-     */
-    Unknown{
-        get {
-            if(!this.HasProp("__Unknown"))
-                this.__Unknown := GOPHER_UNKNOWN_ATTRIBUTE_TYPE(8, this)
-            return this.__Unknown
+            if(!this.HasProp("__AttributeType"))
+                this.__AttributeType := %this.__Class%._AttributeType_e__Union(8, this)
+            return this.__AttributeType
         }
     }
 }
