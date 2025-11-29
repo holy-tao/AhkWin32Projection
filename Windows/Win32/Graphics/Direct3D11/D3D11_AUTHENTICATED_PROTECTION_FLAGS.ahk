@@ -17,7 +17,7 @@ class D3D11_AUTHENTICATED_PROTECTION_FLAGS extends Win32Struct
     static packingSize => 4
 
     class _Flags extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 4
         static packingSize => 4
 
         /**

@@ -15,7 +15,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
     static packingSize => 8
 
     class _ValidityPeriod extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 16
         static packingSize => 8
 
         /**

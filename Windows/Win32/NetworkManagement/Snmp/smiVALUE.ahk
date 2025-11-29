@@ -34,6 +34,69 @@ class smiVALUE extends Win32Struct
 
     static packingSize => 8
 
+    class _value_e__Union extends Win32Struct {
+        static sizeof => 23
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        sNumber {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        uNumber {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {smiCNTR64}
+         */
+        hNumber{
+            get {
+                if(!this.HasProp("__hNumber"))
+                    this.__hNumber := smiCNTR64(0, this)
+                return this.__hNumber
+            }
+        }
+    
+        /**
+         * @type {smiOCTETS}
+         */
+        string{
+            get {
+                if(!this.HasProp("__string"))
+                    this.__string := smiOCTETS(0, this)
+                return this.__string
+            }
+        }
+    
+        /**
+         * @type {smiOID}
+         */
+        oid{
+            get {
+                if(!this.HasProp("__oid"))
+                    this.__oid := smiOID(0, this)
+                return this.__oid
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        empty {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     /**
      * Type: <b>smiUINT32</b>
      * 
@@ -207,59 +270,16 @@ class smiVALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * Specifies the union of all possible WinSNMP syntax data types, including the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> descriptor types.
+     * @type {_value_e__Union}
      */
-    sNumber {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {smiCNTR64}
-     */
-    hNumber{
+    value{
         get {
-            if(!this.HasProp("__hNumber"))
-                this.__hNumber := smiCNTR64(8, this)
-            return this.__hNumber
+            if(!this.HasProp("__value"))
+                this.__value := %this.__Class%._value_e__Union(8, this)
+            return this.__value
         }
-    }
-
-    /**
-     * @type {smiOCTETS}
-     */
-    string{
-        get {
-            if(!this.HasProp("__string"))
-                this.__string := smiOCTETS(8, this)
-            return this.__string
-        }
-    }
-
-    /**
-     * @type {smiOID}
-     */
-    oid{
-        get {
-            if(!this.HasProp("__oid"))
-                this.__oid := smiOID(8, this)
-            return this.__oid
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    empty {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
     }
 }

@@ -38,6 +38,39 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
 
     static packingSize => 8
 
+    class _Value_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwValue {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {PSTR}
+         */
+        pszValue {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {FILETIME}
+         */
+        ftValue{
+            get {
+                if(!this.HasProp("__ftValue"))
+                    this.__ftValue := FILETIME(0, this)
+                return this.__ftValue
+            }
+        }
+    
+    }
+
     /**
      * 
      * @type {Integer}
@@ -48,29 +81,15 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * Union that contains the value for the option. It can be any one of the following types depending on the value of 
+     * <b>dwOption</b>:
+     * @type {_Value_e__Union}
      */
-    dwValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {FILETIME}
-     */
-    ftValue{
+    Value{
         get {
-            if(!this.HasProp("__ftValue"))
-                this.__ftValue := FILETIME(8, this)
-            return this.__ftValue
+            if(!this.HasProp("__Value"))
+                this.__Value := %this.__Class%._Value_e__Union(8, this)
+            return this.__Value
         }
     }
 }

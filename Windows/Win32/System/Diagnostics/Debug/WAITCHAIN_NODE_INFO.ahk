@@ -62,8 +62,8 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     }
 
     class _ThreadObject extends Win32Struct {
-        static sizeof => 272
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}

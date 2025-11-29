@@ -98,7 +98,7 @@ class PICTDESC extends Win32Struct
     }
 
     class _icon extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -115,7 +115,7 @@ class PICTDESC extends Win32Struct
     }
 
     class _emf extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**

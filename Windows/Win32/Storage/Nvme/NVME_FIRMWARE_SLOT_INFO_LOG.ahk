@@ -14,8 +14,8 @@ class NVME_FIRMWARE_SLOT_INFO_LOG extends Win32Struct
     static packingSize => 8
 
     class _AFI extends Win32Struct {
-        static sizeof => 512
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

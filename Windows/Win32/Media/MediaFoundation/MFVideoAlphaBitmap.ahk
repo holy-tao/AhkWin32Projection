@@ -22,6 +22,31 @@ class MFVideoAlphaBitmap extends Win32Struct
 
     static packingSize => 8
 
+    class _bitmap_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {HDC}
+         */
+        hdc{
+            get {
+                if(!this.HasProp("__hdc"))
+                    this.__hdc := HDC(0, this)
+                return this.__hdc
+            }
+        }
+    
+        /**
+         * @type {IDirect3DSurface9}
+         */
+        pDDS {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * If <b>TRUE</b>, the <b>hdc</b> member is used. Otherwise, the <b>pDDs</b> member is used.
      * @type {BOOL}
@@ -32,22 +57,15 @@ class MFVideoAlphaBitmap extends Win32Struct
     }
 
     /**
-     * @type {HDC}
+     * A union that contains the following members.
+     * @type {_bitmap_e__Union}
      */
-    hdc{
+    bitmap{
         get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(8, this)
-            return this.__hdc
+            if(!this.HasProp("__bitmap"))
+                this.__bitmap := %this.__Class%._bitmap_e__Union(8, this)
+            return this.__bitmap
         }
-    }
-
-    /**
-     * @type {IDirect3DSurface9}
-     */
-    pDDS {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 
     /**

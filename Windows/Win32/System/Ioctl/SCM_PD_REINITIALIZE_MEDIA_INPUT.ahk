@@ -12,7 +12,7 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct
     static packingSize => 4
 
     class _Options extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 4
         static packingSize => 4
 
         /**

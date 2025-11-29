@@ -12,7 +12,7 @@ class BM_REQUEST_TYPE extends Win32Struct
     static packingSize => 1
 
     class _BM extends Win32Struct {
-        static sizeof => 2
+        static sizeof => 1
         static packingSize => 1
 
         /**

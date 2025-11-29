@@ -24,8 +24,8 @@ class MIB_IF_ROW2 extends Win32Struct
     static packingSize => 8
 
     class _InterfaceAndOperStatusFlags extends Win32Struct {
-        static sizeof => 1352
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

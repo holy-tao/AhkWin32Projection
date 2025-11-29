@@ -14,6 +14,77 @@ class STGMEDIUM extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {HBITMAP}
+         */
+        hBitmap{
+            get {
+                if(!this.HasProp("__hBitmap"))
+                    this.__hBitmap := HBITMAP(0, this)
+                return this.__hBitmap
+            }
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        hMetaFilePict {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {HENHMETAFILE}
+         */
+        hEnhMetaFile{
+            get {
+                if(!this.HasProp("__hEnhMetaFile"))
+                    this.__hEnhMetaFile := HENHMETAFILE(0, this)
+                return this.__hEnhMetaFile
+            }
+        }
+    
+        /**
+         * @type {HGLOBAL}
+         */
+        hGlobal{
+            get {
+                if(!this.HasProp("__hGlobal"))
+                    this.__hGlobal := HGLOBAL(0, this)
+                return this.__hGlobal
+            }
+        }
+    
+        /**
+         * @type {PWSTR}
+         */
+        lpszFileName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {IStream}
+         */
+        pstm {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {IStorage}
+         */
+        pstg {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -23,68 +94,14 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {HBITMAP}
+     * @type {_u_e__Union}
      */
-    hBitmap{
+    u{
         get {
-            if(!this.HasProp("__hBitmap"))
-                this.__hBitmap := HBITMAP(8, this)
-            return this.__hBitmap
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(8, this)
+            return this.__u
         }
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    hMetaFilePict {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {HENHMETAFILE}
-     */
-    hEnhMetaFile{
-        get {
-            if(!this.HasProp("__hEnhMetaFile"))
-                this.__hEnhMetaFile := HENHMETAFILE(8, this)
-            return this.__hEnhMetaFile
-        }
-    }
-
-    /**
-     * @type {HGLOBAL}
-     */
-    hGlobal{
-        get {
-            if(!this.HasProp("__hGlobal"))
-                this.__hGlobal := HGLOBAL(8, this)
-            return this.__hGlobal
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    lpszFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IStream}
-     */
-    pstm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IStorage}
-     */
-    pstg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 
     /**

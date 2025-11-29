@@ -16,6 +16,45 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
 
     static packingSize => 8
 
+    class _arguments_e__Union extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        /**
+         * @type {INTERACTION_ARGUMENTS_MANIPULATION}
+         */
+        manipulation{
+            get {
+                if(!this.HasProp("__manipulation"))
+                    this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(0, this)
+                return this.__manipulation
+            }
+        }
+    
+        /**
+         * @type {INTERACTION_ARGUMENTS_TAP}
+         */
+        tap{
+            get {
+                if(!this.HasProp("__tap"))
+                    this.__tap := INTERACTION_ARGUMENTS_TAP(0, this)
+                return this.__tap
+            }
+        }
+    
+        /**
+         * @type {INTERACTION_ARGUMENTS_CROSS_SLIDE}
+         */
+        crossSlide{
+            get {
+                if(!this.HasProp("__crossSlide"))
+                    this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(0, this)
+                return this.__crossSlide
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -73,35 +112,13 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     }
 
     /**
-     * @type {INTERACTION_ARGUMENTS_MANIPULATION}
+     * @type {_arguments_e__Union}
      */
-    manipulation{
+    arguments{
         get {
-            if(!this.HasProp("__manipulation"))
-                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(32, this)
-            return this.__manipulation
-        }
-    }
-
-    /**
-     * @type {INTERACTION_ARGUMENTS_TAP}
-     */
-    tap{
-        get {
-            if(!this.HasProp("__tap"))
-                this.__tap := INTERACTION_ARGUMENTS_TAP(32, this)
-            return this.__tap
-        }
-    }
-
-    /**
-     * @type {INTERACTION_ARGUMENTS_CROSS_SLIDE}
-     */
-    crossSlide{
-        get {
-            if(!this.HasProp("__crossSlide"))
-                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(32, this)
-            return this.__crossSlide
+            if(!this.HasProp("__arguments"))
+                this.__arguments := %this.__Class%._arguments_e__Union(32, this)
+            return this.__arguments
         }
     }
 }

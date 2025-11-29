@@ -15,8 +15,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     static packingSize => 8
 
     class _CMIC extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -67,8 +67,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _OAES extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -199,8 +199,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _CTRATT extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -367,8 +367,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _RRLS extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -526,8 +526,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _OACS extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -641,8 +641,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _FRMW extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -684,8 +684,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _LPA extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -771,8 +771,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _AVSCC extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -796,8 +796,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _APSTA extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -821,8 +821,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _RPMBS extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -881,8 +881,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _HCTMA extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -906,8 +906,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _SANICAP extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -967,8 +967,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _ANACAP extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1046,8 +1046,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _SQES extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1079,8 +1079,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _CQES extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1112,8 +1112,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _ONCS extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -1200,8 +1200,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _FUSES extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -1225,8 +1225,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _FNA extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1277,8 +1277,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _VWC extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1311,8 +1311,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _NVSCC extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1336,8 +1336,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _NWPC extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1379,8 +1379,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _SGLS extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -1484,8 +1484,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _FCATT extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -1509,8 +1509,8 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     class _OFCS extends Win32Struct {
-        static sizeof => 3328
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:

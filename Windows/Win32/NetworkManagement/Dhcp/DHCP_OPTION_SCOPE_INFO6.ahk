@@ -16,7 +16,7 @@ class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct
     static packingSize => 8
 
     class DHCP_OPTION_SCOPE_UNION6 extends Win32Struct {
-        static sizeof => 64
+        static sizeof => 56
         static packingSize => 8
 
         /**

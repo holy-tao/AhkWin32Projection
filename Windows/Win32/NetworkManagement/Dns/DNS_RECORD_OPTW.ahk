@@ -14,6 +14,48 @@ class DNS_RECORD_OPTW extends Win32Struct
 
     static packingSize => 8
 
+    class _Flags_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        DW {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {DNS_RECORD_FLAGS}
+         */
+        S{
+            get {
+                if(!this.HasProp("__S"))
+                    this.__S := DNS_RECORD_FLAGS(0, this)
+                return this.__S
+            }
+        }
+    
+    }
+
+    class _Data_e__Union extends Win32Struct {
+        static sizeof => 6
+        static packingSize => 6
+
+        /**
+         * @type {DNS_OPT_DATA}
+         */
+        OPT{
+            get {
+                if(!this.HasProp("__OPT"))
+                    this.__OPT := DNS_OPT_DATA(0, this)
+                return this.__OPT
+            }
+        }
+    
+    }
+
     /**
      * @type {Pointer<DNS_RECORDW>}
      */
@@ -47,21 +89,13 @@ class DNS_RECORD_OPTW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flags_e__Union}
      */
-    DW {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {DNS_RECORD_FLAGS}
-     */
-    S{
+    Flags{
         get {
-            if(!this.HasProp("__S"))
-                this.__S := DNS_RECORD_FLAGS(20, this)
-            return this.__S
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags_e__Union(20, this)
+            return this.__Flags
         }
     }
 
@@ -93,13 +127,13 @@ class DNS_RECORD_OPTW extends Win32Struct
     }
 
     /**
-     * @type {DNS_OPT_DATA}
+     * @type {_Data_e__Union}
      */
-    OPT{
+    Data{
         get {
-            if(!this.HasProp("__OPT"))
-                this.__OPT := DNS_OPT_DATA(36, this)
-            return this.__OPT
+            if(!this.HasProp("__Data"))
+                this.__Data := %this.__Class%._Data_e__Union(36, this)
+            return this.__Data
         }
     }
 }

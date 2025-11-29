@@ -13,6 +13,56 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
 
     static packingSize => 8
 
+    class _NotifyData_e__Union extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        class _Data extends Win32Struct {
+            static sizeof => 16
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            cbBuf {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<Void>}
+             */
+            pBuf {
+                get => NumGet(this, 8, "ptr")
+                set => NumPut("ptr", value, this, 8)
+            }
+        
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        adwData{
+            get {
+                if(!this.HasProp("__adwDataProxyArray"))
+                    this.__adwDataProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
+                return this.__adwDataProxyArray
+            }
+        }
+    
+        /**
+         * @type {_Data}
+         */
+        Data{
+            get {
+                if(!this.HasProp("__Data"))
+                    this.__Data := %this.__Class%._Data(0, this)
+                return this.__Data
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -45,47 +95,14 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
         set => NumPut("uint", value, this, 8)
     }
 
-    class _Data extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        cbBuf {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Pointer<Void>}
-         */
-        pBuf {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    
-    }
-
     /**
-     * @type {Array<UInt32>}
+     * @type {_NotifyData_e__Union}
      */
-    adwData{
+    NotifyData{
         get {
-            if(!this.HasProp("__adwDataProxyArray"))
-                this.__adwDataProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
-            return this.__adwDataProxyArray
-        }
-    }
-
-    /**
-     * @type {_Data}
-     */
-    Data{
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data(16, this)
-            return this.__Data
+            if(!this.HasProp("__NotifyData"))
+                this.__NotifyData := %this.__Class%._NotifyData_e__Union(16, this)
+            return this.__NotifyData
         }
     }
 }

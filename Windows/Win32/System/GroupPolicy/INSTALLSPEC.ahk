@@ -14,7 +14,7 @@ class INSTALLSPEC extends Win32Struct
     static packingSize => 8
 
     class _AppName extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -36,7 +36,7 @@ class INSTALLSPEC extends Win32Struct
     }
 
     class _COMClass extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 16
         static packingSize => 8
 
         /**

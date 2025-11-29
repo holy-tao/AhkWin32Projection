@@ -13,6 +13,73 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        class _s extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * This bitfield backs the following members:
+             * - LongFunction
+             * - Persistent
+             * - Private
+             * @type {Integer}
+             */
+            _bitfield {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            LongFunction {
+                get => (this._bitfield >> 0) & 0x1
+                set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Persistent {
+                get => (this._bitfield >> 1) & 0x1
+                set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Private {
+                get => (this._bitfield >> 2) & 0x3FFFFFFF
+                set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
+            }
+        
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {_s}
+         */
+        s{
+            get {
+                if(!this.HasProp("__s"))
+                    this.__s := %this.__Class%._s(0, this)
+                return this.__s
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -75,64 +142,14 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
         set => NumPut("ptr", value, this, 48)
     }
 
-    class _s extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * This bitfield backs the following members:
-         * - LongFunction
-         * - Persistent
-         * - Private
-         * @type {Integer}
-         */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        LongFunction {
-            get => (this._bitfield >> 0) & 0x1
-            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Persistent {
-            get => (this._bitfield >> 1) & 0x1
-            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Private {
-            get => (this._bitfield >> 2) & 0x3FFFFFFF
-            set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
-        }
-    
-    }
-
     /**
-     * @type {Integer}
+     * @type {_u_e__Union}
      */
-    Flags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {_s}
-     */
-    s{
+    u{
         get {
-            if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(56, this)
-            return this.__s
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(56, this)
+            return this.__u
         }
     }
 

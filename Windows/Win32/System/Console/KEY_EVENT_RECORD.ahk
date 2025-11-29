@@ -13,6 +13,28 @@ class KEY_EVENT_RECORD extends Win32Struct
 
     static packingSize => 4
 
+    class _uChar_e__Union extends Win32Struct {
+        static sizeof => 3
+        static packingSize => 2
+
+        /**
+         * @type {Integer}
+         */
+        UnicodeChar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {CHAR}
+         */
+        AsciiChar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {BOOL}
      */
@@ -46,19 +68,14 @@ class KEY_EVENT_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_uChar_e__Union}
      */
-    UnicodeChar {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
-
-    /**
-     * @type {CHAR}
-     */
-    AsciiChar {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    uChar{
+        get {
+            if(!this.HasProp("__uChar"))
+                this.__uChar := %this.__Class%._uChar_e__Union(12, this)
+            return this.__uChar
+        }
     }
 
     /**

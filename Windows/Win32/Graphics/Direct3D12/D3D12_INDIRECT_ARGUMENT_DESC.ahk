@@ -28,8 +28,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _VertexBuffer extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -43,7 +43,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
 
     class _Constant extends Win32Struct {
         static sizeof => 12
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -72,8 +72,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _ConstantBufferView extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -86,8 +86,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _ShaderResourceView extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -100,8 +100,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _UnorderedAccessView extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -114,8 +114,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _IncrementingConstant extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

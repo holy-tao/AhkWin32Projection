@@ -11,6 +11,48 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
 
     static packingSize => 8
 
+    class _VconnPower_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        AsUshort {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * This bitfield backs the following members:
+         * - VConnPowerNeededForFullFunctionality
+         * - Reserved
+         * - NoVconnPowerRequired
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VConnPowerNeededForFullFunctionality {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NoVconnPowerRequired {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -60,39 +102,14 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_VconnPower_e__Union}
      */
-    AsUshort {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - VConnPowerNeededForFullFunctionality
-     * - Reserved
-     * - NoVconnPowerRequired
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VConnPowerNeededForFullFunctionality {
-        get => (this._bitfield >> 0) & 0x7
-        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NoVconnPowerRequired {
-        get => (this._bitfield >> 15) & 0x1
-        set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+    VconnPower{
+        get {
+            if(!this.HasProp("__VconnPower"))
+                this.__VconnPower := %this.__Class%._VconnPower_e__Union(6, this)
+            return this.__VconnPower
+        }
     }
 
     /**

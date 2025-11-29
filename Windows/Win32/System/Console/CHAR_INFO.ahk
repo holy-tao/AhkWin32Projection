@@ -13,20 +13,37 @@ class CHAR_INFO extends Win32Struct
 
     static packingSize => 3
 
-    /**
-     * @type {Integer}
-     */
-    UnicodeChar {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    class _Char_e__Union extends Win32Struct {
+        static sizeof => 3
+        static packingSize => 2
+
+        /**
+         * @type {Integer}
+         */
+        UnicodeChar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {CHAR}
+         */
+        AsciiChar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {CHAR}
+     * @type {_Char_e__Union}
      */
-    AsciiChar {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    Char{
+        get {
+            if(!this.HasProp("__Char"))
+                this.__Char := %this.__Class%._Char_e__Union(0, this)
+            return this.__Char
+        }
     }
 
     /**

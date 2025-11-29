@@ -12,7 +12,7 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     static packingSize => 4
 
     class _Flags extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 4
         static packingSize => 4
 
         /**

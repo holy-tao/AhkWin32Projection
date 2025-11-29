@@ -20,6 +20,63 @@ class RPC_EE_INFO_PARAM extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {PSTR}
+         */
+        AnsiString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {PWSTR}
+         */
+        UnicodeString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LVal {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SVal {
+            get => NumGet(this, 0, "short")
+            set => NumPut("short", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PVal {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {BinaryParam}
+         */
+        BVal{
+            get {
+                if(!this.HasProp("__BVal"))
+                    this.__BVal := BinaryParam(0, this)
+                return this.__BVal
+            }
+        }
+    
+    }
+
     /**
      * Type of parameter being provided as extended error information. This value determines which union member(s) is used. Valid values are the following: 
      * 
@@ -43,53 +100,14 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * 
+     * @type {_u_e__Union}
      */
-    AnsiString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    UnicodeString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LVal {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SVal {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PVal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {BinaryParam}
-     */
-    BVal{
+    u{
         get {
-            if(!this.HasProp("__BVal"))
-                this.__BVal := BinaryParam(8, this)
-            return this.__BVal
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(8, this)
+            return this.__u
         }
     }
 }

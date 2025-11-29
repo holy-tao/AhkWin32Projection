@@ -12,7 +12,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     static packingSize => 8
 
     class _SUBTAGS extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 40
         static packingSize => 8
 
         /**

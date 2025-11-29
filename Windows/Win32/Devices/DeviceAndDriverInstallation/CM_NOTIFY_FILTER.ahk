@@ -19,6 +19,90 @@ class CM_NOTIFY_FILTER extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 400
+        static packingSize => 8
+
+        class _DeviceInterface extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 8
+    
+            /**
+             * @type {Pointer<Guid>}
+             */
+            ClassGuid {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+        }
+    
+        class _DeviceHandle extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 8
+    
+            /**
+             * @type {HANDLE}
+             */
+            hTarget{
+                get {
+                    if(!this.HasProp("__hTarget"))
+                        this.__hTarget := HANDLE(0, this)
+                    return this.__hTarget
+                }
+            }
+        
+        }
+    
+        class _DeviceInstance extends Win32Struct {
+            static sizeof => 400
+            static packingSize => 2
+    
+            /**
+             * @type {String}
+             */
+            InstanceId {
+                get => StrGet(this.ptr + 0, 199, "UTF-16")
+                set => StrPut(value, this.ptr + 0, 199, "UTF-16")
+            }
+        
+        }
+    
+        /**
+         * @type {_DeviceInterface}
+         */
+        DeviceInterface{
+            get {
+                if(!this.HasProp("__DeviceInterface"))
+                    this.__DeviceInterface := %this.__Class%._DeviceInterface(0, this)
+                return this.__DeviceInterface
+            }
+        }
+    
+        /**
+         * @type {_DeviceHandle}
+         */
+        DeviceHandle{
+            get {
+                if(!this.HasProp("__DeviceHandle"))
+                    this.__DeviceHandle := %this.__Class%._DeviceHandle(0, this)
+                return this.__DeviceHandle
+            }
+        }
+    
+        /**
+         * @type {_DeviceInstance}
+         */
+        DeviceInstance{
+            get {
+                if(!this.HasProp("__DeviceInstance"))
+                    this.__DeviceInstance := %this.__Class%._DeviceInstance(0, this)
+                return this.__DeviceInstance
+            }
+        }
+    
+    }
+
     /**
      * The size of the structure.
      * @type {Integer}
@@ -55,81 +139,15 @@ class CM_NOTIFY_FILTER extends Win32Struct
         set => NumPut("uint", value, this, 12)
     }
 
-    class _DeviceInterface extends Win32Struct {
-        static sizeof => 400
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<Guid>}
-         */
-        ClassGuid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    
-    }
-
-    class _DeviceHandle extends Win32Struct {
-        static sizeof => 400
-        static packingSize => 8
-
-        /**
-         * @type {HANDLE}
-         */
-        hTarget{
-            get {
-                if(!this.HasProp("__hTarget"))
-                    this.__hTarget := HANDLE(0, this)
-                return this.__hTarget
-            }
-        }
-    
-    }
-
-    class _DeviceInstance extends Win32Struct {
-        static sizeof => 400
-        static packingSize => 8
-
-        /**
-         * @type {String}
-         */
-        InstanceId {
-            get => StrGet(this.ptr + 0, 199, "UTF-16")
-            set => StrPut(value, this.ptr + 0, 199, "UTF-16")
-        }
-    
-    }
-
     /**
-     * @type {_DeviceInterface}
+     * A union that contains information about the device to receive notifications for.
+     * @type {_u_e__Union}
      */
-    DeviceInterface{
+    u{
         get {
-            if(!this.HasProp("__DeviceInterface"))
-                this.__DeviceInterface := %this.__Class%._DeviceInterface(16, this)
-            return this.__DeviceInterface
-        }
-    }
-
-    /**
-     * @type {_DeviceHandle}
-     */
-    DeviceHandle{
-        get {
-            if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := %this.__Class%._DeviceHandle(16, this)
-            return this.__DeviceHandle
-        }
-    }
-
-    /**
-     * @type {_DeviceInstance}
-     */
-    DeviceInstance{
-        get {
-            if(!this.HasProp("__DeviceInstance"))
-                this.__DeviceInstance := %this.__Class%._DeviceInstance(16, this)
-            return this.__DeviceInstance
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(16, this)
+            return this.__u
         }
     }
 

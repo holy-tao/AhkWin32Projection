@@ -12,8 +12,8 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     static packingSize => 8
 
     class _FirmwareActivationCapability extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:

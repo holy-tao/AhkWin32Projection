@@ -12,7 +12,7 @@ class POWER_ADAPTER_POWER_STATES extends Win32Struct
     static packingSize => 4
 
     class _States extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 4
         static packingSize => 4
 
         /**

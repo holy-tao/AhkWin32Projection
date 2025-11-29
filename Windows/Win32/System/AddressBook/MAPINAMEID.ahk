@@ -13,6 +13,28 @@ class MAPINAMEID extends Win32Struct
 
     static packingSize => 8
 
+    class _Kind_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        lID {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {PWSTR}
+         */
+        lpwstrName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Pointer<Guid>}
      */
@@ -30,18 +52,13 @@ class MAPINAMEID extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Kind_e__Union}
      */
-    lID {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    lpwstrName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Kind{
+        get {
+            if(!this.HasProp("__Kind"))
+                this.__Kind := %this.__Class%._Kind_e__Union(16, this)
+            return this.__Kind
+        }
     }
 }

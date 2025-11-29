@@ -23,7 +23,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Cancel extends Win32Struct {
-        static sizeof => 56
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -132,7 +132,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _ValidateData extends Win32Struct {
-        static sizeof => 56
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -162,7 +162,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _FetchPlaceholders extends Win32Struct {
-        static sizeof => 56
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -184,8 +184,8 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _OpenCompletion extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -198,8 +198,8 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _CloseCompletion extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -212,8 +212,8 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Dehydrate extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -234,8 +234,8 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _DehydrateCompletion extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -256,8 +256,8 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Delete extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -270,8 +270,8 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _DeleteCompletion extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -284,7 +284,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Rename extends Win32Struct {
-        static sizeof => 56
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -306,7 +306,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _RenameCompletion extends Win32Struct {
-        static sizeof => 56
+        static sizeof => 16
         static packingSize => 8
 
         /**

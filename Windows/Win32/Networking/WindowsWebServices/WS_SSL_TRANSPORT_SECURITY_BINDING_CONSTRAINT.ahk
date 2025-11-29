@@ -15,8 +15,8 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {BOOL}

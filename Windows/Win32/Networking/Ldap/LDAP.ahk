@@ -27,7 +27,7 @@ class LDAP extends Win32Struct
     static packingSize => 8
 
     class _ld_sb extends Win32Struct {
-        static sizeof => 192
+        static sizeof => 88
         static packingSize => 8
 
         /**

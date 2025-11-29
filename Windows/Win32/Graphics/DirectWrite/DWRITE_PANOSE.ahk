@@ -20,8 +20,8 @@ class DWRITE_PANOSE extends Win32Struct
     static packingSize => 8
 
     class _text extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 10
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -106,8 +106,8 @@ class DWRITE_PANOSE extends Win32Struct
     }
 
     class _script extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 10
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -192,8 +192,8 @@ class DWRITE_PANOSE extends Win32Struct
     }
 
     class _decorative extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 10
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -278,8 +278,8 @@ class DWRITE_PANOSE extends Win32Struct
     }
 
     class _symbol extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 10
+        static packingSize => 1
 
         /**
          * @type {Integer}

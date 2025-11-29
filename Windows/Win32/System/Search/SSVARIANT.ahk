@@ -154,7 +154,7 @@ class SSVARIANT extends Win32Struct
     }
 
     class _BinaryVal extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -192,7 +192,7 @@ class SSVARIANT extends Win32Struct
     }
 
     class _UnknownType extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -225,7 +225,7 @@ class SSVARIANT extends Win32Struct
     }
 
     class _BLOBType extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 24
         static packingSize => 8
 
         /**

@@ -16,8 +16,8 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     static packingSize => 8
 
     class _EaInformation extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -38,8 +38,8 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     }
 
     class _SecurityInformation extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -60,8 +60,8 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     }
 
     class _StreamsInformation extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

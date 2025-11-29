@@ -14,6 +14,72 @@ class REASON_CONTEXT extends Win32Struct
 
     static packingSize => 8
 
+    class _Reason_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        class _Detailed extends Win32Struct {
+            static sizeof => 24
+            static packingSize => 8
+    
+            /**
+             * @type {HMODULE}
+             */
+            LocalizedReasonModule{
+                get {
+                    if(!this.HasProp("__LocalizedReasonModule"))
+                        this.__LocalizedReasonModule := HMODULE(0, this)
+                    return this.__LocalizedReasonModule
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            LocalizedReasonId {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            ReasonStringCount {
+                get => NumGet(this, 12, "uint")
+                set => NumPut("uint", value, this, 12)
+            }
+        
+            /**
+             * @type {Pointer<PWSTR>}
+             */
+            ReasonStrings {
+                get => NumGet(this, 16, "ptr")
+                set => NumPut("ptr", value, this, 16)
+            }
+        
+        }
+    
+        /**
+         * @type {_Detailed}
+         */
+        Detailed{
+            get {
+                if(!this.HasProp("__Detailed"))
+                    this.__Detailed := %this.__Class%._Detailed(0, this)
+                return this.__Detailed
+            }
+        }
+    
+        /**
+         * @type {PWSTR}
+         */
+        SimpleReasonString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * The version number of the structure. This parameter must be set to 
      *       <b>POWER_REQUEST_CONTEXT_VERSION</b>.
@@ -33,63 +99,15 @@ class REASON_CONTEXT extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    class _Detailed extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {HMODULE}
-         */
-        LocalizedReasonModule{
-            get {
-                if(!this.HasProp("__LocalizedReasonModule"))
-                    this.__LocalizedReasonModule := HMODULE(0, this)
-                return this.__LocalizedReasonModule
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        LocalizedReasonId {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        ReasonStringCount {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
-    
-        /**
-         * @type {Pointer<PWSTR>}
-         */
-        ReasonStrings {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    
-    }
-
     /**
-     * @type {_Detailed}
+     * A union that consists of either a <b>Detailed</b> structure or a string.
+     * @type {_Reason_e__Union}
      */
-    Detailed{
+    Reason{
         get {
-            if(!this.HasProp("__Detailed"))
-                this.__Detailed := %this.__Class%._Detailed(8, this)
-            return this.__Detailed
+            if(!this.HasProp("__Reason"))
+                this.__Reason := %this.__Class%._Reason_e__Union(8, this)
+            return this.__Reason
         }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    SimpleReasonString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 }

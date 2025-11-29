@@ -13,8 +13,8 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     static packingSize => 4
 
     class _wValue extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+        static sizeof => 4
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -43,8 +43,8 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     }
 
     class _wIndex extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+        static sizeof => 4
+        static packingSize => 1
 
         /**
          * @type {Integer}

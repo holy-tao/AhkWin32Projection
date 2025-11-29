@@ -20,8 +20,8 @@ class MIXERLINEW extends Win32Struct
     static packingSize => 8
 
     class _Target extends Win32Struct {
-        static sizeof => 288
-        static packingSize => 8
+        static sizeof => 80
+        static packingSize => 4
 
         /**
          * @type {Integer}

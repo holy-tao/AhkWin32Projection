@@ -26,7 +26,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _FromMemory extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -76,7 +76,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _FromFragmentCache extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -123,7 +123,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _Trailers extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -145,7 +145,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _FromWinHttpFastForwarding extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**

@@ -44,6 +44,188 @@ class NTMS_OBJECTINFORMATIONW extends Win32Struct
 
     static packingSize => 8
 
+    class _Info_e__Union extends Win32Struct {
+        static sizeof => 956
+        static packingSize => 8
+
+        /**
+         * @type {NTMS_DRIVEINFORMATIONW}
+         */
+        Drive{
+            get {
+                if(!this.HasProp("__Drive"))
+                    this.__Drive := NTMS_DRIVEINFORMATIONW(0, this)
+                return this.__Drive
+            }
+        }
+    
+        /**
+         * @type {NTMS_DRIVETYPEINFORMATIONW}
+         */
+        DriveType{
+            get {
+                if(!this.HasProp("__DriveType"))
+                    this.__DriveType := NTMS_DRIVETYPEINFORMATIONW(0, this)
+                return this.__DriveType
+            }
+        }
+    
+        /**
+         * @type {NTMS_LIBRARYINFORMATION}
+         */
+        Library{
+            get {
+                if(!this.HasProp("__Library"))
+                    this.__Library := NTMS_LIBRARYINFORMATION(0, this)
+                return this.__Library
+            }
+        }
+    
+        /**
+         * @type {NTMS_CHANGERINFORMATIONW}
+         */
+        Changer{
+            get {
+                if(!this.HasProp("__Changer"))
+                    this.__Changer := NTMS_CHANGERINFORMATIONW(0, this)
+                return this.__Changer
+            }
+        }
+    
+        /**
+         * @type {NTMS_CHANGERTYPEINFORMATIONW}
+         */
+        ChangerType{
+            get {
+                if(!this.HasProp("__ChangerType"))
+                    this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONW(0, this)
+                return this.__ChangerType
+            }
+        }
+    
+        /**
+         * @type {NTMS_STORAGESLOTINFORMATION}
+         */
+        StorageSlot{
+            get {
+                if(!this.HasProp("__StorageSlot"))
+                    this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(0, this)
+                return this.__StorageSlot
+            }
+        }
+    
+        /**
+         * @type {NTMS_IEDOORINFORMATION}
+         */
+        IEDoor{
+            get {
+                if(!this.HasProp("__IEDoor"))
+                    this.__IEDoor := NTMS_IEDOORINFORMATION(0, this)
+                return this.__IEDoor
+            }
+        }
+    
+        /**
+         * @type {NTMS_IEPORTINFORMATION}
+         */
+        IEPort{
+            get {
+                if(!this.HasProp("__IEPort"))
+                    this.__IEPort := NTMS_IEPORTINFORMATION(0, this)
+                return this.__IEPort
+            }
+        }
+    
+        /**
+         * @type {NTMS_PMIDINFORMATIONW}
+         */
+        PhysicalMedia{
+            get {
+                if(!this.HasProp("__PhysicalMedia"))
+                    this.__PhysicalMedia := NTMS_PMIDINFORMATIONW(0, this)
+                return this.__PhysicalMedia
+            }
+        }
+    
+        /**
+         * @type {NTMS_LMIDINFORMATION}
+         */
+        LogicalMedia{
+            get {
+                if(!this.HasProp("__LogicalMedia"))
+                    this.__LogicalMedia := NTMS_LMIDINFORMATION(0, this)
+                return this.__LogicalMedia
+            }
+        }
+    
+        /**
+         * @type {NTMS_PARTITIONINFORMATIONW}
+         */
+        Partition{
+            get {
+                if(!this.HasProp("__Partition"))
+                    this.__Partition := NTMS_PARTITIONINFORMATIONW(0, this)
+                return this.__Partition
+            }
+        }
+    
+        /**
+         * @type {NTMS_MEDIAPOOLINFORMATION}
+         */
+        MediaPool{
+            get {
+                if(!this.HasProp("__MediaPool"))
+                    this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(0, this)
+                return this.__MediaPool
+            }
+        }
+    
+        /**
+         * @type {NTMS_MEDIATYPEINFORMATION}
+         */
+        MediaType{
+            get {
+                if(!this.HasProp("__MediaType"))
+                    this.__MediaType := NTMS_MEDIATYPEINFORMATION(0, this)
+                return this.__MediaType
+            }
+        }
+    
+        /**
+         * @type {NTMS_LIBREQUESTINFORMATIONW}
+         */
+        LibRequest{
+            get {
+                if(!this.HasProp("__LibRequest"))
+                    this.__LibRequest := NTMS_LIBREQUESTINFORMATIONW(0, this)
+                return this.__LibRequest
+            }
+        }
+    
+        /**
+         * @type {NTMS_OPREQUESTINFORMATIONW}
+         */
+        OpRequest{
+            get {
+                if(!this.HasProp("__OpRequest"))
+                    this.__OpRequest := NTMS_OPREQUESTINFORMATIONW(0, this)
+                return this.__OpRequest
+            }
+        }
+    
+        /**
+         * @type {NTMS_COMPUTERINFORMATION}
+         */
+        Computer{
+            get {
+                if(!this.HasProp("__Computer"))
+                    this.__Computer := NTMS_COMPUTERINFORMATION(0, this)
+                return this.__Computer
+            }
+        }
+    
+    }
+
     /**
      * Type: <b>DWORD</b>
      * 
@@ -150,178 +332,14 @@ class NTMS_OBJECTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {NTMS_DRIVEINFORMATIONW}
+     * Device or system control object-specific information. The format of this information depends on the <b>dwType</b> member.
+     * @type {_Info_e__Union}
      */
-    Drive{
+    Info{
         get {
-            if(!this.HasProp("__Drive"))
-                this.__Drive := NTMS_DRIVEINFORMATIONW(440, this)
-            return this.__Drive
-        }
-    }
-
-    /**
-     * @type {NTMS_DRIVETYPEINFORMATIONW}
-     */
-    DriveType{
-        get {
-            if(!this.HasProp("__DriveType"))
-                this.__DriveType := NTMS_DRIVETYPEINFORMATIONW(440, this)
-            return this.__DriveType
-        }
-    }
-
-    /**
-     * @type {NTMS_LIBRARYINFORMATION}
-     */
-    Library{
-        get {
-            if(!this.HasProp("__Library"))
-                this.__Library := NTMS_LIBRARYINFORMATION(440, this)
-            return this.__Library
-        }
-    }
-
-    /**
-     * @type {NTMS_CHANGERINFORMATIONW}
-     */
-    Changer{
-        get {
-            if(!this.HasProp("__Changer"))
-                this.__Changer := NTMS_CHANGERINFORMATIONW(440, this)
-            return this.__Changer
-        }
-    }
-
-    /**
-     * @type {NTMS_CHANGERTYPEINFORMATIONW}
-     */
-    ChangerType{
-        get {
-            if(!this.HasProp("__ChangerType"))
-                this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONW(440, this)
-            return this.__ChangerType
-        }
-    }
-
-    /**
-     * @type {NTMS_STORAGESLOTINFORMATION}
-     */
-    StorageSlot{
-        get {
-            if(!this.HasProp("__StorageSlot"))
-                this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(440, this)
-            return this.__StorageSlot
-        }
-    }
-
-    /**
-     * @type {NTMS_IEDOORINFORMATION}
-     */
-    IEDoor{
-        get {
-            if(!this.HasProp("__IEDoor"))
-                this.__IEDoor := NTMS_IEDOORINFORMATION(440, this)
-            return this.__IEDoor
-        }
-    }
-
-    /**
-     * @type {NTMS_IEPORTINFORMATION}
-     */
-    IEPort{
-        get {
-            if(!this.HasProp("__IEPort"))
-                this.__IEPort := NTMS_IEPORTINFORMATION(440, this)
-            return this.__IEPort
-        }
-    }
-
-    /**
-     * @type {NTMS_PMIDINFORMATIONW}
-     */
-    PhysicalMedia{
-        get {
-            if(!this.HasProp("__PhysicalMedia"))
-                this.__PhysicalMedia := NTMS_PMIDINFORMATIONW(440, this)
-            return this.__PhysicalMedia
-        }
-    }
-
-    /**
-     * @type {NTMS_LMIDINFORMATION}
-     */
-    LogicalMedia{
-        get {
-            if(!this.HasProp("__LogicalMedia"))
-                this.__LogicalMedia := NTMS_LMIDINFORMATION(440, this)
-            return this.__LogicalMedia
-        }
-    }
-
-    /**
-     * @type {NTMS_PARTITIONINFORMATIONW}
-     */
-    Partition{
-        get {
-            if(!this.HasProp("__Partition"))
-                this.__Partition := NTMS_PARTITIONINFORMATIONW(440, this)
-            return this.__Partition
-        }
-    }
-
-    /**
-     * @type {NTMS_MEDIAPOOLINFORMATION}
-     */
-    MediaPool{
-        get {
-            if(!this.HasProp("__MediaPool"))
-                this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(440, this)
-            return this.__MediaPool
-        }
-    }
-
-    /**
-     * @type {NTMS_MEDIATYPEINFORMATION}
-     */
-    MediaType{
-        get {
-            if(!this.HasProp("__MediaType"))
-                this.__MediaType := NTMS_MEDIATYPEINFORMATION(440, this)
-            return this.__MediaType
-        }
-    }
-
-    /**
-     * @type {NTMS_LIBREQUESTINFORMATIONW}
-     */
-    LibRequest{
-        get {
-            if(!this.HasProp("__LibRequest"))
-                this.__LibRequest := NTMS_LIBREQUESTINFORMATIONW(440, this)
-            return this.__LibRequest
-        }
-    }
-
-    /**
-     * @type {NTMS_OPREQUESTINFORMATIONW}
-     */
-    OpRequest{
-        get {
-            if(!this.HasProp("__OpRequest"))
-                this.__OpRequest := NTMS_OPREQUESTINFORMATIONW(440, this)
-            return this.__OpRequest
-        }
-    }
-
-    /**
-     * @type {NTMS_COMPUTERINFORMATION}
-     */
-    Computer{
-        get {
-            if(!this.HasProp("__Computer"))
-                this.__Computer := NTMS_COMPUTERINFORMATION(440, this)
-            return this.__Computer
+            if(!this.HasProp("__Info"))
+                this.__Info := %this.__Class%._Info_e__Union(440, this)
+            return this.__Info
         }
     }
 }

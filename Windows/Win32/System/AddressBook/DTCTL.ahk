@@ -13,6 +13,116 @@ class DTCTL extends Win32Struct
 
     static packingSize => 8
 
+    class _ctl_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        lpv {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLLABEL>}
+         */
+        lplabel {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLEDIT>}
+         */
+        lpedit {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLLBX>}
+         */
+        lplbx {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLCOMBOBOX>}
+         */
+        lpcombobox {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLDDLBX>}
+         */
+        lpddlbx {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLCHECKBOX>}
+         */
+        lpcheckbox {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLGROUPBOX>}
+         */
+        lpgroupbox {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLBUTTON>}
+         */
+        lpbutton {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLRADIOBUTTON>}
+         */
+        lpradiobutton {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLMVLISTBOX>}
+         */
+        lpmvlbx {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLMVDDLBX>}
+         */
+        lpmvddlbx {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DTBLPAGE>}
+         */
+        lppage {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -62,106 +172,13 @@ class DTCTL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_ctl_e__Union}
      */
-    lpv {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLLABEL>}
-     */
-    lplabel {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLEDIT>}
-     */
-    lpedit {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLLBX>}
-     */
-    lplbx {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLCOMBOBOX>}
-     */
-    lpcombobox {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLDDLBX>}
-     */
-    lpddlbx {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLCHECKBOX>}
-     */
-    lpcheckbox {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLGROUPBOX>}
-     */
-    lpgroupbox {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLBUTTON>}
-     */
-    lpbutton {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLRADIOBUTTON>}
-     */
-    lpradiobutton {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLMVLISTBOX>}
-     */
-    lpmvlbx {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLMVDDLBX>}
-     */
-    lpmvddlbx {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<DTBLPAGE>}
-     */
-    lppage {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    ctl{
+        get {
+            if(!this.HasProp("__ctl"))
+                this.__ctl := %this.__Class%._ctl_e__Union(40, this)
+            return this.__ctl
+        }
     }
 }

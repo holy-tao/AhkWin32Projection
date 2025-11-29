@@ -14,8 +14,8 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     static packingSize => 8
 
     class _Attributes extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

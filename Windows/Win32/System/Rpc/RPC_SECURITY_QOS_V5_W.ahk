@@ -40,6 +40,20 @@ class RPC_SECURITY_QOS_V5_W extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<RPC_HTTP_TRANSPORT_CREDENTIALS_W>}
+         */
+        HttpCredentials {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * Version of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos">RPC_SECURITY_QOS</a> structure being used. This topic documents version 5 of the <b>RPC_SECURITY_QOS</b> structure. See <b>RPC_SECURITY_QOS</b>, <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v2_a">RPC_SECURITY_QOS_V2</a>, <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v3_a">RPC_SECURITY_QOS_V3</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v4_a">RPC_SECURITY_QOS_V4</a> for other versions.
      * @type {Integer}
@@ -247,11 +261,15 @@ class RPC_SECURITY_QOS_V5_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<RPC_HTTP_TRANSPORT_CREDENTIALS_W>}
+     * 
+     * @type {_u_e__Union}
      */
-    HttpCredentials {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(24, this)
+            return this.__u
+        }
     }
 
     /**

@@ -37,6 +37,78 @@ class NOTIFICATION extends Win32Struct
 
     static packingSize => 8
 
+    class _info_e__Union extends Win32Struct {
+        static sizeof => 672
+        static packingSize => 8
+
+        /**
+         * @type {ERROR_NOTIFICATION}
+         */
+        err{
+            get {
+                if(!this.HasProp("__err"))
+                    this.__err := ERROR_NOTIFICATION(0, this)
+                return this.__err
+            }
+        }
+    
+        /**
+         * @type {NEWMAIL_NOTIFICATION}
+         */
+        newmail{
+            get {
+                if(!this.HasProp("__newmail"))
+                    this.__newmail := NEWMAIL_NOTIFICATION(0, this)
+                return this.__newmail
+            }
+        }
+    
+        /**
+         * @type {OBJECT_NOTIFICATION}
+         */
+        obj{
+            get {
+                if(!this.HasProp("__obj"))
+                    this.__obj := OBJECT_NOTIFICATION(0, this)
+                return this.__obj
+            }
+        }
+    
+        /**
+         * @type {TABLE_NOTIFICATION}
+         */
+        tab{
+            get {
+                if(!this.HasProp("__tab"))
+                    this.__tab := TABLE_NOTIFICATION(0, this)
+                return this.__tab
+            }
+        }
+    
+        /**
+         * @type {EXTENDED_NOTIFICATION}
+         */
+        ext{
+            get {
+                if(!this.HasProp("__ext"))
+                    this.__ext := EXTENDED_NOTIFICATION(0, this)
+                return this.__ext
+            }
+        }
+    
+        /**
+         * @type {STATUS_OBJECT_NOTIFICATION}
+         */
+        statobj{
+            get {
+                if(!this.HasProp("__statobj"))
+                    this.__statobj := STATUS_OBJECT_NOTIFICATION(0, this)
+                return this.__statobj
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -54,68 +126,13 @@ class NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {ERROR_NOTIFICATION}
+     * @type {_info_e__Union}
      */
-    err{
+    info{
         get {
-            if(!this.HasProp("__err"))
-                this.__err := ERROR_NOTIFICATION(8, this)
-            return this.__err
-        }
-    }
-
-    /**
-     * @type {NEWMAIL_NOTIFICATION}
-     */
-    newmail{
-        get {
-            if(!this.HasProp("__newmail"))
-                this.__newmail := NEWMAIL_NOTIFICATION(8, this)
-            return this.__newmail
-        }
-    }
-
-    /**
-     * @type {OBJECT_NOTIFICATION}
-     */
-    obj{
-        get {
-            if(!this.HasProp("__obj"))
-                this.__obj := OBJECT_NOTIFICATION(8, this)
-            return this.__obj
-        }
-    }
-
-    /**
-     * @type {TABLE_NOTIFICATION}
-     */
-    tab{
-        get {
-            if(!this.HasProp("__tab"))
-                this.__tab := TABLE_NOTIFICATION(8, this)
-            return this.__tab
-        }
-    }
-
-    /**
-     * @type {EXTENDED_NOTIFICATION}
-     */
-    ext{
-        get {
-            if(!this.HasProp("__ext"))
-                this.__ext := EXTENDED_NOTIFICATION(8, this)
-            return this.__ext
-        }
-    }
-
-    /**
-     * @type {STATUS_OBJECT_NOTIFICATION}
-     */
-    statobj{
-        get {
-            if(!this.HasProp("__statobj"))
-                this.__statobj := STATUS_OBJECT_NOTIFICATION(8, this)
-            return this.__statobj
+            if(!this.HasProp("__info"))
+                this.__info := %this.__Class%._info_e__Union(8, this)
+            return this.__info
         }
     }
 }

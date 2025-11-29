@@ -15,6 +15,56 @@ class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
 
     static packingSize => 8
 
+    class _ForestTrustData_e__Union extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {LSA_UNICODE_STRING}
+         */
+        TopLevelName{
+            get {
+                if(!this.HasProp("__TopLevelName"))
+                    this.__TopLevelName := LSA_UNICODE_STRING(0, this)
+                return this.__TopLevelName
+            }
+        }
+    
+        /**
+         * @type {LSA_FOREST_TRUST_DOMAIN_INFO}
+         */
+        DomainInfo{
+            get {
+                if(!this.HasProp("__DomainInfo"))
+                    this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(0, this)
+                return this.__DomainInfo
+            }
+        }
+    
+        /**
+         * @type {LSA_FOREST_TRUST_BINARY_DATA}
+         */
+        BinaryData{
+            get {
+                if(!this.HasProp("__BinaryData"))
+                    this.__BinaryData := LSA_FOREST_TRUST_BINARY_DATA(0, this)
+                return this.__BinaryData
+            }
+        }
+    
+        /**
+         * @type {LSA_FOREST_TRUST_SCANNER_INFO}
+         */
+        ScannerInfo{
+            get {
+                if(!this.HasProp("__ScannerInfo"))
+                    this.__ScannerInfo := LSA_FOREST_TRUST_SCANNER_INFO(0, this)
+                return this.__ScannerInfo
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -40,46 +90,13 @@ class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
     }
 
     /**
-     * @type {LSA_UNICODE_STRING}
+     * @type {_ForestTrustData_e__Union}
      */
-    TopLevelName{
+    ForestTrustData{
         get {
-            if(!this.HasProp("__TopLevelName"))
-                this.__TopLevelName := LSA_UNICODE_STRING(16, this)
-            return this.__TopLevelName
-        }
-    }
-
-    /**
-     * @type {LSA_FOREST_TRUST_DOMAIN_INFO}
-     */
-    DomainInfo{
-        get {
-            if(!this.HasProp("__DomainInfo"))
-                this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(16, this)
-            return this.__DomainInfo
-        }
-    }
-
-    /**
-     * @type {LSA_FOREST_TRUST_BINARY_DATA}
-     */
-    BinaryData{
-        get {
-            if(!this.HasProp("__BinaryData"))
-                this.__BinaryData := LSA_FOREST_TRUST_BINARY_DATA(16, this)
-            return this.__BinaryData
-        }
-    }
-
-    /**
-     * @type {LSA_FOREST_TRUST_SCANNER_INFO}
-     */
-    ScannerInfo{
-        get {
-            if(!this.HasProp("__ScannerInfo"))
-                this.__ScannerInfo := LSA_FOREST_TRUST_SCANNER_INFO(16, this)
-            return this.__ScannerInfo
+            if(!this.HasProp("__ForestTrustData"))
+                this.__ForestTrustData := %this.__Class%._ForestTrustData_e__Union(16, this)
+            return this.__ForestTrustData
         }
     }
 }

@@ -13,7 +13,7 @@ class DEV_QUERY_RESULT_ACTION_DATA extends Win32Struct
     static packingSize => 8
 
     class _DEV_QUERY_RESULT_UPDATE_PAYLOAD extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 40
         static packingSize => 8
 
         /**

@@ -28,8 +28,8 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     }
 
     class _MbrPartInfo extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {Integer}

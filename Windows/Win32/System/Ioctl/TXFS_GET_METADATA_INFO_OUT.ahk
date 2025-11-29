@@ -14,7 +14,7 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
     static packingSize => 8
 
     class _TxfFileId extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 16
         static packingSize => 8
 
         /**

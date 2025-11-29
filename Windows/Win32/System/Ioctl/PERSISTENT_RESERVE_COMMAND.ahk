@@ -28,8 +28,8 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     }
 
     class _PR_IN extends Win32Struct {
-        static sizeof => 7
-        static packingSize => 4
+        static sizeof => 4
+        static packingSize => 2
 
         /**
          * This bitfield backs the following members:
@@ -69,8 +69,8 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     }
 
     class _PR_OUT extends Win32Struct {
-        static sizeof => 7
-        static packingSize => 4
+        static sizeof => 3
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

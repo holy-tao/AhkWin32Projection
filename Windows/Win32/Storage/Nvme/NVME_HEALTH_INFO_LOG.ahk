@@ -13,67 +13,84 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     static packingSize => 4
 
-    /**
-     * This bitfield backs the following members:
-     * - AvailableSpaceLow
-     * - TemperatureThreshold
-     * - ReliabilityDegraded
-     * - ReadOnly
-     * - VolatileMemoryBackupDeviceFailed
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    class _CriticalWarning_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - AvailableSpaceLow
+         * - TemperatureThreshold
+         * - ReliabilityDegraded
+         * - ReadOnly
+         * - VolatileMemoryBackupDeviceFailed
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AvailableSpaceLow {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TemperatureThreshold {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReliabilityDegraded {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadOnly {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VolatileMemoryBackupDeviceFailed {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUchar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_CriticalWarning_e__Union}
      */
-    AvailableSpaceLow {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TemperatureThreshold {
-        get => (this._bitfield >> 1) & 0x1
-        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReliabilityDegraded {
-        get => (this._bitfield >> 2) & 0x1
-        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReadOnly {
-        get => (this._bitfield >> 3) & 0x1
-        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VolatileMemoryBackupDeviceFailed {
-        get => (this._bitfield >> 4) & 0x1
-        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    CriticalWarning{
+        get {
+            if(!this.HasProp("__CriticalWarning"))
+                this.__CriticalWarning := %this.__Class%._CriticalWarning_e__Union(0, this)
+            return this.__CriticalWarning
+        }
     }
 
     /**

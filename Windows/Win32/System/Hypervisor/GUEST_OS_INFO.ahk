@@ -12,7 +12,7 @@ class GUEST_OS_INFO extends Win32Struct
     static packingSize => 8
 
     class _ClosedSource extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -81,7 +81,7 @@ class GUEST_OS_INFO extends Win32Struct
     }
 
     class _OpenSource extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 8
         static packingSize => 8
 
         /**

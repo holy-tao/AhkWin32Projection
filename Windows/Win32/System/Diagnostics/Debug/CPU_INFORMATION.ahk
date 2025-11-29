@@ -12,8 +12,8 @@ class CPU_INFORMATION extends Win32Struct
     static packingSize => 8
 
     class _X86CpuInfo extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {Array<UInt32>}
@@ -53,7 +53,7 @@ class CPU_INFORMATION extends Win32Struct
     }
 
     class _OtherCpuInfo extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 16
         static packingSize => 8
 
         /**

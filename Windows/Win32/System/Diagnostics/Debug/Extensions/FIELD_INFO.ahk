@@ -12,8 +12,8 @@ class FIELD_INFO extends Win32Struct
     static packingSize => 8
 
     class _BitField extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 2
 
         /**
          * @type {Integer}

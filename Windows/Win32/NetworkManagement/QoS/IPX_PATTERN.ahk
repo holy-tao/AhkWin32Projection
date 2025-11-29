@@ -14,8 +14,8 @@ class IPX_PATTERN extends Win32Struct
     static packingSize => 8
 
     class _Src extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}

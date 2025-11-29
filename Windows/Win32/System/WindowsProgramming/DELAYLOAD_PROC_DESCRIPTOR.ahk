@@ -11,6 +11,28 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
 
     static packingSize => 8
 
+    class _Description_e__Union extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {PSTR}
+         */
+        Name {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Ordinal {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,18 +42,13 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {_Description_e__Union}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Ordinal {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := %this.__Class%._Description_e__Union(8, this)
+            return this.__Description
+        }
     }
 }

@@ -17,20 +17,60 @@ class DBID extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    class _uGuid_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        guid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        pguid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _uName_e__Union extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {PWSTR}
+         */
+        pwszName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ulPropid {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * 
+     * @type {_uGuid_e__Union}
      */
-    pguid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    uGuid{
+        get {
+            if(!this.HasProp("__uGuid"))
+                this.__uGuid := %this.__Class%._uGuid_e__Union(0, this)
+            return this.__uGuid
+        }
     }
 
     /**
@@ -43,18 +83,14 @@ class DBID extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * 
+     * @type {_uName_e__Union}
      */
-    pwszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ulPropid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    uName{
+        get {
+            if(!this.HasProp("__uName"))
+                this.__uName := %this.__Class%._uName_e__Union(16, this)
+            return this.__uName
+        }
     }
 }

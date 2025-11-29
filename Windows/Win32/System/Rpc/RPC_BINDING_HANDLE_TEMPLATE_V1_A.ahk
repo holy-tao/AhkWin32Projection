@@ -53,6 +53,20 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
 
     static packingSize => 8
 
+    class _u1_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Integer>}
+         */
+        Reserved {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * The version of this structure. For <b>RPC_BINDING_HANDLE_TEMPLATE_V1</b> this must be set to 1.
      * @type {Integer}
@@ -116,11 +130,15 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Integer>}
+     * 
+     * @type {_u1_e__Union}
      */
-    Reserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    u1{
+        get {
+            if(!this.HasProp("__u1"))
+                this.__u1 := %this.__Class%._u1_e__Union(32, this)
+            return this.__u1
+        }
     }
 
     /**

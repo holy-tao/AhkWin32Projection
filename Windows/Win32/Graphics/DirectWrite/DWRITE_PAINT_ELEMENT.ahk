@@ -16,12 +16,12 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
     static packingSize => 8
 
     class PAINT_UNION extends Win32Struct {
-        static sizeof => 240
+        static sizeof => 232
         static packingSize => 8
 
         class PAINT_LAYERS extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -34,7 +34,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_SOLID_GLYPH extends Win32Struct {
-            static sizeof => 232
+            static sizeof => 40
             static packingSize => 8
     
             /**
@@ -59,8 +59,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_LINEAR_GRADIENT extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 32
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -129,8 +129,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_RADIAL_GRADIENT extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 32
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -199,8 +199,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_SWEEP_GRADIENT extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 24
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -253,8 +253,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_GLYPH extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -267,7 +267,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_COLOR_GLYPH extends Win32Struct {
-            static sizeof => 232
+            static sizeof => 24
             static packingSize => 8
     
             /**
@@ -292,8 +292,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_COMPOSITE extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 4
     
             /**
              * @type {Integer}

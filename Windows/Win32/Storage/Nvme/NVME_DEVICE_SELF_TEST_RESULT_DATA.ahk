@@ -14,8 +14,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     static packingSize => 8
 
     class _Status extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -47,8 +47,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     class _ValidDiagnostics extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -99,8 +99,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     class _StatusCodeType extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

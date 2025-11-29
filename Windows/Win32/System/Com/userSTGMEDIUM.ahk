@@ -12,11 +12,11 @@ class userSTGMEDIUM extends Win32Struct
     static packingSize => 8
 
     class _STGMEDIUM_UNION extends Win32Struct {
-        static sizeof => 72
+        static sizeof => 64
         static packingSize => 8
 
         class _u extends Win32Struct {
-            static sizeof => 64
+            static sizeof => 56
             static packingSize => 8
     
             /**

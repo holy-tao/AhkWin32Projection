@@ -17,6 +17,45 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
 
     static packingSize => 8
 
+    class _PhySpecificAttributes_e__Union extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}
+         */
+        HRDSSSAttributes{
+            get {
+                if(!this.HasProp("__HRDSSSAttributes"))
+                    this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(0, this)
+                return this.__HRDSSSAttributes
+            }
+        }
+    
+        /**
+         * @type {DOT11_OFDM_PHY_ATTRIBUTES}
+         */
+        OFDMAttributes{
+            get {
+                if(!this.HasProp("__OFDMAttributes"))
+                    this.__OFDMAttributes := DOT11_OFDM_PHY_ATTRIBUTES(0, this)
+                return this.__OFDMAttributes
+            }
+        }
+    
+        /**
+         * @type {DOT11_ERP_PHY_ATTRIBUTES}
+         */
+        ERPAttributes{
+            get {
+                if(!this.HasProp("__ERPAttributes"))
+                    this.__ERPAttributes := DOT11_ERP_PHY_ATTRIBUTES(0, this)
+                return this.__ERPAttributes
+            }
+        }
+    
+    }
+
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
@@ -85,35 +124,13 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}
+     * @type {_PhySpecificAttributes_e__Union}
      */
-    HRDSSSAttributes{
+    PhySpecificAttributes{
         get {
-            if(!this.HasProp("__HRDSSSAttributes"))
-                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(24, this)
-            return this.__HRDSSSAttributes
-        }
-    }
-
-    /**
-     * @type {DOT11_OFDM_PHY_ATTRIBUTES}
-     */
-    OFDMAttributes{
-        get {
-            if(!this.HasProp("__OFDMAttributes"))
-                this.__OFDMAttributes := DOT11_OFDM_PHY_ATTRIBUTES(24, this)
-            return this.__OFDMAttributes
-        }
-    }
-
-    /**
-     * @type {DOT11_ERP_PHY_ATTRIBUTES}
-     */
-    ERPAttributes{
-        get {
-            if(!this.HasProp("__ERPAttributes"))
-                this.__ERPAttributes := DOT11_ERP_PHY_ATTRIBUTES(24, this)
-            return this.__ERPAttributes
+            if(!this.HasProp("__PhySpecificAttributes"))
+                this.__PhySpecificAttributes := %this.__Class%._PhySpecificAttributes_e__Union(24, this)
+            return this.__PhySpecificAttributes
         }
     }
 

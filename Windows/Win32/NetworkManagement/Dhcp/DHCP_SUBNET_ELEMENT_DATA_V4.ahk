@@ -14,7 +14,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
     static packingSize => 8
 
     class DHCP_SUBNET_ELEMENT_UNION_V4 extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 40
         static packingSize => 8
 
         /**

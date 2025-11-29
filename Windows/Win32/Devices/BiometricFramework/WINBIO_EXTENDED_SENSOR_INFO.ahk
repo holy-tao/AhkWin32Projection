@@ -15,6 +15,205 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _Specific_e__Union extends Win32Struct {
+        static sizeof => 1084
+        static packingSize => 8
+
+        class _FacialFeatures extends Win32Struct {
+            static sizeof => 1080
+            static packingSize => 8
+    
+            class _HardwareInfo extends Win32Struct {
+                static sizeof => 1044
+                static packingSize => 4
+        
+                /**
+                 * @type {String}
+                 */
+                ColorSensorId {
+                    get => StrGet(this.ptr + 0, 259, "UTF-16")
+                    set => StrPut(value, this.ptr + 0, 259, "UTF-16")
+                }
+            
+                /**
+                 * @type {String}
+                 */
+                InfraredSensorId {
+                    get => StrGet(this.ptr + 520, 259, "UTF-16")
+                    set => StrPut(value, this.ptr + 520, 259, "UTF-16")
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                InfraredSensorRotationAngle {
+                    get => NumGet(this, 1040, "uint")
+                    set => NumPut("uint", value, this, 1040)
+                }
+            
+            }
+        
+            /**
+             * @type {RECT}
+             */
+            FrameSize{
+                get {
+                    if(!this.HasProp("__FrameSize"))
+                        this.__FrameSize := RECT(0, this)
+                    return this.__FrameSize
+                }
+            }
+        
+            /**
+             * @type {POINT}
+             */
+            FrameOffset{
+                get {
+                    if(!this.HasProp("__FrameOffset"))
+                        this.__FrameOffset := POINT(16, this)
+                    return this.__FrameOffset
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            MandatoryOrientation {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+            /**
+             * @type {_HardwareInfo}
+             */
+            HardwareInfo{
+                get {
+                    if(!this.HasProp("__HardwareInfo"))
+                        this.__HardwareInfo := %this.__Class%._HardwareInfo(32, this)
+                    return this.__HardwareInfo
+                }
+            }
+        
+        }
+    
+        class _Fingerprint extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Reserved {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        class _Iris extends Win32Struct {
+            static sizeof => 32
+            static packingSize => 8
+    
+            /**
+             * @type {RECT}
+             */
+            FrameSize{
+                get {
+                    if(!this.HasProp("__FrameSize"))
+                        this.__FrameSize := RECT(0, this)
+                    return this.__FrameSize
+                }
+            }
+        
+            /**
+             * @type {POINT}
+             */
+            FrameOffset{
+                get {
+                    if(!this.HasProp("__FrameOffset"))
+                        this.__FrameOffset := POINT(16, this)
+                    return this.__FrameOffset
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            MandatoryOrientation {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+        }
+    
+        class _Voice extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Reserved {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Null {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {_FacialFeatures}
+         */
+        FacialFeatures{
+            get {
+                if(!this.HasProp("__FacialFeatures"))
+                    this.__FacialFeatures := %this.__Class%._FacialFeatures(0, this)
+                return this.__FacialFeatures
+            }
+        }
+    
+        /**
+         * @type {_Fingerprint}
+         */
+        Fingerprint{
+            get {
+                if(!this.HasProp("__Fingerprint"))
+                    this.__Fingerprint := %this.__Class%._Fingerprint(0, this)
+                return this.__Fingerprint
+            }
+        }
+    
+        /**
+         * @type {_Iris}
+         */
+        Iris{
+            get {
+                if(!this.HasProp("__Iris"))
+                    this.__Iris := %this.__Class%._Iris(0, this)
+                return this.__Iris
+            }
+        }
+    
+        /**
+         * @type {_Voice}
+         */
+        Voice{
+            get {
+                if(!this.HasProp("__Voice"))
+                    this.__Voice := %this.__Class%._Voice(0, this)
+                return this.__Voice
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -31,196 +230,14 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    class _FacialFeatures extends Win32Struct {
-        static sizeof => 1084
-        static packingSize => 8
-
-        class _HardwareInfo extends Win32Struct {
-            static sizeof => 1080
-            static packingSize => 8
-    
-            /**
-             * @type {String}
-             */
-            ColorSensorId {
-                get => StrGet(this.ptr + 0, 259, "UTF-16")
-                set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-            }
-        
-            /**
-             * @type {String}
-             */
-            InfraredSensorId {
-                get => StrGet(this.ptr + 520, 259, "UTF-16")
-                set => StrPut(value, this.ptr + 520, 259, "UTF-16")
-            }
-        
-            /**
-             * @type {Integer}
-             */
-            InfraredSensorRotationAngle {
-                get => NumGet(this, 1040, "uint")
-                set => NumPut("uint", value, this, 1040)
-            }
-        
-        }
-    
-        /**
-         * @type {RECT}
-         */
-        FrameSize{
-            get {
-                if(!this.HasProp("__FrameSize"))
-                    this.__FrameSize := RECT(0, this)
-                return this.__FrameSize
-            }
-        }
-    
-        /**
-         * @type {POINT}
-         */
-        FrameOffset{
-            get {
-                if(!this.HasProp("__FrameOffset"))
-                    this.__FrameOffset := POINT(16, this)
-                return this.__FrameOffset
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        MandatoryOrientation {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-        /**
-         * @type {_HardwareInfo}
-         */
-        HardwareInfo{
-            get {
-                if(!this.HasProp("__HardwareInfo"))
-                    this.__HardwareInfo := %this.__Class%._HardwareInfo(32, this)
-                return this.__HardwareInfo
-            }
-        }
-    
-    }
-
-    class _Fingerprint extends Win32Struct {
-        static sizeof => 1084
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-    }
-
-    class _Iris extends Win32Struct {
-        static sizeof => 1084
-        static packingSize => 8
-
-        /**
-         * @type {RECT}
-         */
-        FrameSize{
-            get {
-                if(!this.HasProp("__FrameSize"))
-                    this.__FrameSize := RECT(0, this)
-                return this.__FrameSize
-            }
-        }
-    
-        /**
-         * @type {POINT}
-         */
-        FrameOffset{
-            get {
-                if(!this.HasProp("__FrameOffset"))
-                    this.__FrameOffset := POINT(16, this)
-                return this.__FrameOffset
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        MandatoryOrientation {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-    }
-
-    class _Voice extends Win32Struct {
-        static sizeof => 1084
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-    }
-
     /**
-     * @type {Integer}
+     * @type {_Specific_e__Union}
      */
-    Null {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {_FacialFeatures}
-     */
-    FacialFeatures{
+    Specific{
         get {
-            if(!this.HasProp("__FacialFeatures"))
-                this.__FacialFeatures := %this.__Class%._FacialFeatures(8, this)
-            return this.__FacialFeatures
-        }
-    }
-
-    /**
-     * @type {_Fingerprint}
-     */
-    Fingerprint{
-        get {
-            if(!this.HasProp("__Fingerprint"))
-                this.__Fingerprint := %this.__Class%._Fingerprint(8, this)
-            return this.__Fingerprint
-        }
-    }
-
-    /**
-     * @type {_Iris}
-     */
-    Iris{
-        get {
-            if(!this.HasProp("__Iris"))
-                this.__Iris := %this.__Class%._Iris(8, this)
-            return this.__Iris
-        }
-    }
-
-    /**
-     * @type {_Voice}
-     */
-    Voice{
-        get {
-            if(!this.HasProp("__Voice"))
-                this.__Voice := %this.__Class%._Voice(8, this)
-            return this.__Voice
+            if(!this.HasProp("__Specific"))
+                this.__Specific := %this.__Class%._Specific_e__Union(8, this)
+            return this.__Specific
         }
     }
 }

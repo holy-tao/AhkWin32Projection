@@ -18,6 +18,39 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
 
     static packingSize => 8
 
+    class _DebugLogStampUnits_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - BasedOnTimestamp
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BasedOnTimestamp {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUchar {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {LATENCY_MONITOR_FEATURE_STATUS}
      */
@@ -338,30 +371,14 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - BasedOnTimestamp
-     * - Reserved
-     * @type {Integer}
+     * @type {_DebugLogStampUnits_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 468, "char")
-        set => NumPut("char", value, this, 468)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BasedOnTimestamp {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUchar {
-        get => NumGet(this, 468, "char")
-        set => NumPut("char", value, this, 468)
+    DebugLogStampUnits{
+        get {
+            if(!this.HasProp("__DebugLogStampUnits"))
+                this.__DebugLogStampUnits := %this.__Class%._DebugLogStampUnits_e__Union(468, this)
+            return this.__DebugLogStampUnits
+        }
     }
 
     /**

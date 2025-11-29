@@ -18,8 +18,8 @@ class WINBIO_PRESENCE extends Win32Struct
     static packingSize => 8
 
     class _Authorization extends Win32Struct {
-        static sizeof => 552
-        static packingSize => 8
+        static sizeof => 36
+        static packingSize => 4
 
         /**
          * @type {Integer}

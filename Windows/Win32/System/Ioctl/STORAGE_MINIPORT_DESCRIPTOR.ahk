@@ -13,6 +13,48 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
 
     static packingSize => 4
 
+    class _Flags_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - LogicalPoFxForDisk
+         * - ForwardIo
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LogicalPoFxForDisk {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ForwardIo {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsBYTE {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     /**
      * Contains the size of this structure, in bytes. The value of this member will change as members are added to 
      *       the structure.
@@ -120,39 +162,14 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - LogicalPoFxForDisk
-     * - ForwardIo
-     * - Reserved
-     * @type {Integer}
+     * @type {_Flags_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LogicalPoFxForDisk {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ForwardIo {
-        get => (this._bitfield >> 1) & 0x1
-        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsBYTE {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags_e__Union(17, this)
+            return this.__Flags
+        }
     }
 
     /**

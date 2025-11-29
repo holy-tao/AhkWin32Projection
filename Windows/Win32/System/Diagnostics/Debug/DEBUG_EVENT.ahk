@@ -30,6 +30,111 @@ class DEBUG_EVENT extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 160
+        static packingSize => 8
+
+        /**
+         * @type {EXCEPTION_DEBUG_INFO}
+         */
+        Exception{
+            get {
+                if(!this.HasProp("__Exception"))
+                    this.__Exception := EXCEPTION_DEBUG_INFO(0, this)
+                return this.__Exception
+            }
+        }
+    
+        /**
+         * @type {CREATE_THREAD_DEBUG_INFO}
+         */
+        CreateThread{
+            get {
+                if(!this.HasProp("__CreateThread"))
+                    this.__CreateThread := CREATE_THREAD_DEBUG_INFO(0, this)
+                return this.__CreateThread
+            }
+        }
+    
+        /**
+         * @type {CREATE_PROCESS_DEBUG_INFO}
+         */
+        CreateProcessInfo{
+            get {
+                if(!this.HasProp("__CreateProcessInfo"))
+                    this.__CreateProcessInfo := CREATE_PROCESS_DEBUG_INFO(0, this)
+                return this.__CreateProcessInfo
+            }
+        }
+    
+        /**
+         * @type {EXIT_THREAD_DEBUG_INFO}
+         */
+        ExitThread{
+            get {
+                if(!this.HasProp("__ExitThread"))
+                    this.__ExitThread := EXIT_THREAD_DEBUG_INFO(0, this)
+                return this.__ExitThread
+            }
+        }
+    
+        /**
+         * @type {EXIT_PROCESS_DEBUG_INFO}
+         */
+        ExitProcess{
+            get {
+                if(!this.HasProp("__ExitProcess"))
+                    this.__ExitProcess := EXIT_PROCESS_DEBUG_INFO(0, this)
+                return this.__ExitProcess
+            }
+        }
+    
+        /**
+         * @type {LOAD_DLL_DEBUG_INFO}
+         */
+        LoadDll{
+            get {
+                if(!this.HasProp("__LoadDll"))
+                    this.__LoadDll := LOAD_DLL_DEBUG_INFO(0, this)
+                return this.__LoadDll
+            }
+        }
+    
+        /**
+         * @type {UNLOAD_DLL_DEBUG_INFO}
+         */
+        UnloadDll{
+            get {
+                if(!this.HasProp("__UnloadDll"))
+                    this.__UnloadDll := UNLOAD_DLL_DEBUG_INFO(0, this)
+                return this.__UnloadDll
+            }
+        }
+    
+        /**
+         * @type {OUTPUT_DEBUG_STRING_INFO}
+         */
+        DebugString{
+            get {
+                if(!this.HasProp("__DebugString"))
+                    this.__DebugString := OUTPUT_DEBUG_STRING_INFO(0, this)
+                return this.__DebugString
+            }
+        }
+    
+        /**
+         * @type {RIP_INFO}
+         */
+        RipInfo{
+            get {
+                if(!this.HasProp("__RipInfo"))
+                    this.__RipInfo := RIP_INFO(0, this)
+                return this.__RipInfo
+            }
+        }
+    
+    }
+
     /**
      * Type: <b>DWORD</b>
      * @type {Integer}
@@ -66,101 +171,16 @@ class DEBUG_EVENT extends Win32Struct
     }
 
     /**
-     * @type {EXCEPTION_DEBUG_INFO}
+     * Any additional information relating to the debugging event. This union takes on the type and value 
+     *       appropriate to the type of debugging event, as described in the <b>dwDebugEventCode</b> 
+     *       member.
+     * @type {_u_e__Union}
      */
-    Exception{
+    u{
         get {
-            if(!this.HasProp("__Exception"))
-                this.__Exception := EXCEPTION_DEBUG_INFO(16, this)
-            return this.__Exception
-        }
-    }
-
-    /**
-     * @type {CREATE_THREAD_DEBUG_INFO}
-     */
-    CreateThread{
-        get {
-            if(!this.HasProp("__CreateThread"))
-                this.__CreateThread := CREATE_THREAD_DEBUG_INFO(16, this)
-            return this.__CreateThread
-        }
-    }
-
-    /**
-     * @type {CREATE_PROCESS_DEBUG_INFO}
-     */
-    CreateProcessInfo{
-        get {
-            if(!this.HasProp("__CreateProcessInfo"))
-                this.__CreateProcessInfo := CREATE_PROCESS_DEBUG_INFO(16, this)
-            return this.__CreateProcessInfo
-        }
-    }
-
-    /**
-     * @type {EXIT_THREAD_DEBUG_INFO}
-     */
-    ExitThread{
-        get {
-            if(!this.HasProp("__ExitThread"))
-                this.__ExitThread := EXIT_THREAD_DEBUG_INFO(16, this)
-            return this.__ExitThread
-        }
-    }
-
-    /**
-     * @type {EXIT_PROCESS_DEBUG_INFO}
-     */
-    ExitProcess{
-        get {
-            if(!this.HasProp("__ExitProcess"))
-                this.__ExitProcess := EXIT_PROCESS_DEBUG_INFO(16, this)
-            return this.__ExitProcess
-        }
-    }
-
-    /**
-     * @type {LOAD_DLL_DEBUG_INFO}
-     */
-    LoadDll{
-        get {
-            if(!this.HasProp("__LoadDll"))
-                this.__LoadDll := LOAD_DLL_DEBUG_INFO(16, this)
-            return this.__LoadDll
-        }
-    }
-
-    /**
-     * @type {UNLOAD_DLL_DEBUG_INFO}
-     */
-    UnloadDll{
-        get {
-            if(!this.HasProp("__UnloadDll"))
-                this.__UnloadDll := UNLOAD_DLL_DEBUG_INFO(16, this)
-            return this.__UnloadDll
-        }
-    }
-
-    /**
-     * @type {OUTPUT_DEBUG_STRING_INFO}
-     */
-    DebugString{
-        get {
-            if(!this.HasProp("__DebugString"))
-                this.__DebugString := OUTPUT_DEBUG_STRING_INFO(16, this)
-            return this.__DebugString
-        }
-    }
-
-    /**
-     * @type {RIP_INFO}
-     */
-    RipInfo{
-        get {
-            if(!this.HasProp("__RipInfo"))
-                this.__RipInfo := RIP_INFO(16, this)
-            return this.__RipInfo
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(16, this)
+            return this.__u
         }
     }
 }

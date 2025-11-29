@@ -11,35 +11,52 @@ class IMAGE_THUNK_DATA32 extends Win32Struct
 
     static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    ForwarderString {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _u1_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        ForwarderString {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Function {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Ordinal {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AddressOfData {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_u1_e__Union}
      */
-    Function {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Ordinal {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AddressOfData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    u1{
+        get {
+            if(!this.HasProp("__u1"))
+                this.__u1 := %this.__Class%._u1_e__Union(0, this)
+            return this.__u1
+        }
     }
 }

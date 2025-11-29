@@ -19,12 +19,12 @@ class XPS_COLOR extends Win32Struct
     static packingSize => 8
 
     class XPS_COLOR_VALUE extends Win32Struct {
-        static sizeof => 72
+        static sizeof => 64
         static packingSize => 8
 
         class _sRGB extends Win32Struct {
-            static sizeof => 64
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 1
     
             /**
              * @type {Integer}
@@ -61,8 +61,8 @@ class XPS_COLOR extends Win32Struct
         }
     
         class _scRGB extends Win32Struct {
-            static sizeof => 64
-            static packingSize => 8
+            static sizeof => 16
+            static packingSize => 4
     
             /**
              * @type {Float}
@@ -99,8 +99,8 @@ class XPS_COLOR extends Win32Struct
         }
     
         class _context extends Win32Struct {
-            static sizeof => 64
-            static packingSize => 8
+            static sizeof => 40
+            static packingSize => 4
     
             /**
              * @type {Integer}

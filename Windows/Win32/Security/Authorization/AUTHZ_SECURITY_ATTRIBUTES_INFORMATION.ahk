@@ -13,6 +13,20 @@ class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
 
     static packingSize => 8
 
+    class _Attribute_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_V1>}
+         */
+        pAttributeV1 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * The  version of this structure. Currently the only value supported is 1.
      * @type {Integer}
@@ -41,10 +55,14 @@ class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_V1>}
+     * 
+     * @type {_Attribute_e__Union}
      */
-    pAttributeV1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Attribute{
+        get {
+            if(!this.HasProp("__Attribute"))
+                this.__Attribute := %this.__Class%._Attribute_e__Union(8, this)
+            return this.__Attribute
+        }
     }
 }

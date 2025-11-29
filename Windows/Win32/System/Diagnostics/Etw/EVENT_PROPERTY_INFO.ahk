@@ -38,7 +38,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 
     class _nonStructType extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -68,7 +68,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 
     class _structType extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -98,7 +98,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 
     class _customSchemaType extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

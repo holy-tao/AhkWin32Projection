@@ -14,6 +14,28 @@ class LDAPModW extends Win32Struct
 
     static packingSize => 8
 
+    class _mod_vals_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<PWSTR>}
+         */
+        modv_strvals {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Pointer<LDAP_BERVAL>>}
+         */
+        modv_bvals {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -31,18 +53,13 @@ class LDAPModW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {_mod_vals_e__Union}
      */
-    modv_strvals {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<LDAP_BERVAL>>}
-     */
-    modv_bvals {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    mod_vals{
+        get {
+            if(!this.HasProp("__mod_vals"))
+                this.__mod_vals := %this.__Class%._mod_vals_e__Union(16, this)
+            return this.__mod_vals
+        }
     }
 }

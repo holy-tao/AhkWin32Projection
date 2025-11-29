@@ -19,6 +19,34 @@ class INPUTCONTEXT extends Win32Struct
 
     static packingSize => 8
 
+    class _lfFont_e__Union extends Win32Struct {
+        static sizeof => 96
+        static packingSize => 8
+
+        /**
+         * @type {LOGFONTA}
+         */
+        A{
+            get {
+                if(!this.HasProp("__A"))
+                    this.__A := LOGFONTA(0, this)
+                return this.__A
+            }
+        }
+    
+        /**
+         * @type {LOGFONTW}
+         */
+        W{
+            get {
+                if(!this.HasProp("__W"))
+                    this.__W := LOGFONTW(0, this)
+                return this.__W
+            }
+        }
+    
+    }
+
     /**
      * @type {HWND}
      */
@@ -77,24 +105,13 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {LOGFONTA}
+     * @type {_lfFont_e__Union}
      */
-    A{
+    lfFont{
         get {
-            if(!this.HasProp("__A"))
-                this.__A := LOGFONTA(40, this)
-            return this.__A
-        }
-    }
-
-    /**
-     * @type {LOGFONTW}
-     */
-    W{
-        get {
-            if(!this.HasProp("__W"))
-                this.__W := LOGFONTW(40, this)
-            return this.__W
+            if(!this.HasProp("__lfFont"))
+                this.__lfFont := %this.__Class%._lfFont_e__Union(40, this)
+            return this.__lfFont
         }
     }
 

@@ -12,8 +12,8 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
     static packingSize => 4
 
     class _ATTRIB extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 4
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

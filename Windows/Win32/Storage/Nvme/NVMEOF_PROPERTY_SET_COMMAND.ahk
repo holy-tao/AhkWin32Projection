@@ -12,8 +12,8 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
     static packingSize => 8
 
     class _ATTRIB extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:
@@ -32,6 +32,53 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
         PropertySize {
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+    }
+
+    class _VALUE_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        class _FourBytes extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Value {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Reserved {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+        }
+    
+        /**
+         * @type {_FourBytes}
+         */
+        FourBytes{
+            get {
+                if(!this.HasProp("__FourBytes"))
+                    this.__FourBytes := %this.__Class%._FourBytes(0, this)
+                return this.__FourBytes
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EightBytes {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
         }
     
     }
@@ -109,45 +156,15 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
         set => NumPut("uint", value, this, 44)
     }
 
-    class _FourBytes extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-    }
-
     /**
-     * @type {_FourBytes}
+     * @type {_VALUE_e__Union}
      */
-    FourBytes{
+    VALUE{
         get {
-            if(!this.HasProp("__FourBytes"))
-                this.__FourBytes := %this.__Class%._FourBytes(48, this)
-            return this.__FourBytes
+            if(!this.HasProp("__VALUE"))
+                this.__VALUE := %this.__Class%._VALUE_e__Union(48, this)
+            return this.__VALUE
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EightBytes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
     }
 
     /**

@@ -12,6 +12,34 @@ class IEEE1394_API_REQUEST extends Win32Struct
 
     static packingSize => 8
 
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {IEEE1394_VDEV_PNP_REQUEST}
+         */
+        AddVirtualDevice{
+            get {
+                if(!this.HasProp("__AddVirtualDevice"))
+                    this.__AddVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(0, this)
+                return this.__AddVirtualDevice
+            }
+        }
+    
+        /**
+         * @type {IEEE1394_VDEV_PNP_REQUEST}
+         */
+        RemoveVirtualDevice{
+            get {
+                if(!this.HasProp("__RemoveVirtualDevice"))
+                    this.__RemoveVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(0, this)
+                return this.__RemoveVirtualDevice
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -29,24 +57,13 @@ class IEEE1394_API_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {IEEE1394_VDEV_PNP_REQUEST}
+     * @type {_u_e__Union}
      */
-    AddVirtualDevice{
+    u{
         get {
-            if(!this.HasProp("__AddVirtualDevice"))
-                this.__AddVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(8, this)
-            return this.__AddVirtualDevice
-        }
-    }
-
-    /**
-     * @type {IEEE1394_VDEV_PNP_REQUEST}
-     */
-    RemoveVirtualDevice{
-        get {
-            if(!this.HasProp("__RemoveVirtualDevice"))
-                this.__RemoveVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(8, this)
-            return this.__RemoveVirtualDevice
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(8, this)
+            return this.__u
         }
     }
 }

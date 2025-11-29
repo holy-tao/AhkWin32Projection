@@ -14,7 +14,7 @@ class NET_LUID_LH extends Win32Struct
     static packingSize => 8
 
     class _Info extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
