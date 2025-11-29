@@ -127,7 +127,8 @@ class Catalog {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("WINTRUST.dll\CryptCATOpen", "ptr", pwszFileName, "uint", fdwOpenFlags, "ptr", hProv, "uint", dwPublicVersion, "uint", dwEncodingType, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -167,7 +168,8 @@ class Catalog {
      */
     static CryptCATHandleFromStore(pCatStore) {
         result := DllCall("WINTRUST.dll\CryptCATHandleFromStore", "ptr", pCatStore, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

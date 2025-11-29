@@ -4189,7 +4189,8 @@ class ActiveDirectory {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
         result := DllCall("dsuiext.dll\DsGetIcon", "uint", dwFlags, "ptr", pszObjectClass, "int", cxImage, "int", cyImage, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**

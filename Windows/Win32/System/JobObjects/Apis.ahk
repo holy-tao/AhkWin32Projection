@@ -77,7 +77,8 @@ class JobObjects {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -120,7 +121,8 @@ class JobObjects {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -368,7 +370,8 @@ class JobObjects {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -398,7 +401,8 @@ class JobObjects {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

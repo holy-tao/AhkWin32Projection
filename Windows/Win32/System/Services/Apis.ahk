@@ -1863,7 +1863,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SC_HANDLE({Value: result}, True)
+        resultHandle := SC_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2072,7 +2073,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SC_HANDLE({Value: result}, True)
+        resultHandle := SC_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3084,7 +3086,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SC_HANDLE({Value: result}, True)
+        resultHandle := SC_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3148,7 +3151,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SC_HANDLE({Value: result}, True)
+        resultHandle := SC_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3235,7 +3239,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SC_HANDLE({Value: result}, True)
+        resultHandle := SC_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3322,7 +3327,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SC_HANDLE({Value: result}, True)
+        resultHandle := SC_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4089,7 +4095,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SERVICE_STATUS_HANDLE({Value: result}, True)
+        resultHandle := SERVICE_STATUS_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4150,7 +4157,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SERVICE_STATUS_HANDLE({Value: result}, True)
+        resultHandle := SERVICE_STATUS_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4209,7 +4217,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SERVICE_STATUS_HANDLE({Value: result}, True)
+        resultHandle := SERVICE_STATUS_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4268,7 +4277,8 @@ class Services {
         if(A_LastError)
             throw OSError()
 
-        return SERVICE_STATUS_HANDLE({Value: result}, True)
+        resultHandle := SERVICE_STATUS_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

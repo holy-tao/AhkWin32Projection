@@ -139,7 +139,8 @@ class LibraryLoader {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
-        return HRSRC({Value: result}, True)
+        resultHandle := HRSRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -290,7 +291,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, False)
+        resultHandle := HMODULE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -320,7 +322,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, False)
+        resultHandle := HMODULE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -467,7 +470,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -521,7 +525,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -550,7 +555,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HGLOBAL({Value: result}, False)
+        resultHandle := HGLOBAL({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -1212,7 +1218,8 @@ class LibraryLoader {
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
         result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
-        return HRSRC({Value: result}, True)
+        resultHandle := HRSRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1250,7 +1257,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1288,7 +1296,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1383,7 +1392,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1539,7 +1549,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HRSRC({Value: result}, True)
+        resultHandle := HRSRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1581,7 +1592,8 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HRSRC({Value: result}, True)
+        resultHandle := HRSRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1755,7 +1767,9 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: LibraryLoader.EndUpdateResourceA})
+        return resultHandle
     }
 
     /**
@@ -1781,7 +1795,9 @@ class LibraryLoader {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: LibraryLoader.EndUpdateResourceW})
+        return resultHandle
     }
 
     /**

@@ -685,7 +685,8 @@ class DataExchange {
         hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
 
         result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", hConvList, "ptr", pCC, "ptr")
-        return HCONVLIST({Value: result}, True)
+        resultHandle := HCONVLIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -707,7 +708,8 @@ class DataExchange {
         hConvPrev := hConvPrev is Win32Handle ? NumGet(hConvPrev, "ptr") : hConvPrev
 
         result := DllCall("USER32.dll\DdeQueryNextServer", "ptr", hConvList, "ptr", hConvPrev, "ptr")
-        return HCONV({Value: result}, True)
+        resultHandle := HCONV({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -763,7 +765,8 @@ class DataExchange {
         hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
 
         result := DllCall("USER32.dll\DdeConnect", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", pCC, "ptr")
-        return HCONV({Value: result}, True)
+        resultHandle := HCONV({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -807,7 +810,8 @@ class DataExchange {
         hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
 
         result := DllCall("USER32.dll\DdeReconnect", "ptr", hConv, "ptr")
-        return HCONV({Value: result}, True)
+        resultHandle := HCONV({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1009,7 +1013,8 @@ class DataExchange {
         hsz2 := hsz2 is Win32Handle ? NumGet(hsz2, "ptr") : hsz2
 
         result := DllCall("USER32.dll\DdeNameService", "uint", idInst, "ptr", hsz1, "ptr", hsz2, "uint", afCmd, "ptr")
-        return HDDEDATA({Value: result}, True)
+        resultHandle := HDDEDATA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1073,7 +1078,8 @@ class DataExchange {
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, "ptr", hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, "ptr")
-        return HDDEDATA({Value: result}, True)
+        resultHandle := HDDEDATA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1116,7 +1122,8 @@ class DataExchange {
         hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
 
         result := DllCall("USER32.dll\DdeCreateDataHandle", "uint", idInst, "ptr", pSrc, "uint", cb, "uint", cbOff, "ptr", hszItem, "uint", wFmt, "uint", afCmd, "ptr")
-        return HDDEDATA({Value: result}, True)
+        resultHandle := HDDEDATA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1147,7 +1154,8 @@ class DataExchange {
         hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
         result := DllCall("USER32.dll\DdeAddData", "ptr", hData, "ptr", pSrc, "uint", cb, "uint", cbOff, "ptr")
-        return HDDEDATA({Value: result}, True)
+        resultHandle := HDDEDATA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1532,7 +1540,8 @@ class DataExchange {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("USER32.dll\DdeCreateStringHandleA", "uint", idInst, "ptr", psz, "int", iCodePage, "ptr")
-        return HSZ({Value: result}, True)
+        resultHandle := HSZ({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1560,7 +1569,8 @@ class DataExchange {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("USER32.dll\DdeCreateStringHandleW", "uint", idInst, "ptr", psz, "int", iCodePage, "ptr")
-        return HSZ({Value: result}, True)
+        resultHandle := HSZ({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1765,7 +1775,8 @@ class DataExchange {
         hdcRef := hdcRef is Win32Handle ? NumGet(hdcRef, "ptr") : hdcRef
 
         result := DllCall("GDI32.dll\SetWinMetaFileBits", "uint", nSize, "ptr", lpMeta16Data, "ptr", hdcRef, "ptr", lpMFP, "ptr")
-        return HENHMETAFILE({Value: result}, True)
+        resultHandle := HENHMETAFILE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1843,7 +1854,8 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1866,7 +1878,8 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1886,7 +1899,8 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1939,7 +1953,8 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1962,7 +1977,8 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -2218,7 +2234,8 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**

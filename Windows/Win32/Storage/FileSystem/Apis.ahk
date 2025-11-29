@@ -2196,7 +2196,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2643,7 +2644,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2851,7 +2853,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindCloseChangeNotification})
+        return resultHandle
     }
 
     /**
@@ -2881,7 +2885,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindCloseChangeNotification})
+        return resultHandle
     }
 
     /**
@@ -2931,7 +2937,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -2981,7 +2989,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -3087,7 +3097,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -3193,7 +3205,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -3221,7 +3235,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeClose})
+        return resultHandle
     }
 
     /**
@@ -6897,7 +6913,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7073,7 +7090,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -7184,7 +7203,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -7889,7 +7910,8 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("KERNEL32.dll\CreateFile3", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7905,7 +7927,8 @@ class FileSystem {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         result := DllCall("KERNEL32.dll\CreateDirectory2A", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, "int", DirectoryFlags, "ptr", lpSecurityAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7921,7 +7944,8 @@ class FileSystem {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         result := DllCall("KERNEL32.dll\CreateDirectory2W", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, "int", DirectoryFlags, "ptr", lpSecurityAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8319,7 +8343,8 @@ class FileSystem {
         hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8356,7 +8381,8 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8396,7 +8422,8 @@ class FileSystem {
         lpFindFileDataMarshal := lpFindFileData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10284,7 +10311,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13551,7 +13579,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13573,7 +13602,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13799,7 +13829,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13824,7 +13855,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13847,7 +13879,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14025,7 +14058,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14050,7 +14084,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14228,7 +14263,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14253,7 +14289,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -20914,7 +20951,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -21378,7 +21416,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -21417,7 +21456,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -21927,7 +21967,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -22001,7 +22043,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -23736,7 +23780,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -23776,7 +23822,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -24063,7 +24111,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeClose})
+        return resultHandle
     }
 
     /**
@@ -24122,7 +24172,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeMountPointClose})
+        return resultHandle
     }
 
     /**
@@ -24151,7 +24203,9 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeMountPointClose})
+        return resultHandle
     }
 
     /**
@@ -24676,7 +24730,8 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

@@ -672,7 +672,8 @@ class Dialogs {
      */
     static FindTextA(param0) {
         result := DllCall("COMDLG32.dll\FindTextA", "ptr", param0, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -688,7 +689,8 @@ class Dialogs {
      */
     static FindTextW(param0) {
         result := DllCall("COMDLG32.dll\FindTextW", "ptr", param0, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -704,7 +706,8 @@ class Dialogs {
      */
     static ReplaceTextA(param0) {
         result := DllCall("COMDLG32.dll\ReplaceTextA", "ptr", param0, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -720,7 +723,8 @@ class Dialogs {
      */
     static ReplaceTextW(param0) {
         result := DllCall("COMDLG32.dll\ReplaceTextW", "ptr", param0, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**

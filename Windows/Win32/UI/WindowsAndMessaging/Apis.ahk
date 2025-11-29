@@ -8319,7 +8319,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HDEVNOTIFY({Value: result}, True)
+        resultHandle := HDEVNOTIFY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8354,7 +8355,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HDEVNOTIFY({Value: result}, True)
+        resultHandle := HDEVNOTIFY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9214,7 +9216,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9295,7 +9298,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9931,7 +9935,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HDWP({Value: result}, True)
+        resultHandle := HDWP({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9978,7 +9983,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HDWP({Value: result}, True)
+        resultHandle := HDWP({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10143,7 +10149,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10182,7 +10189,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10227,7 +10235,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10272,7 +10281,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10492,7 +10502,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10800,7 +10811,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10839,7 +10851,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12299,7 +12312,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HACCEL({Value: result}, True)
+        resultHandle := HACCEL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12328,7 +12342,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HACCEL({Value: result}, True)
+        resultHandle := HACCEL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12352,7 +12367,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HACCEL({Value: result}, True)
+        resultHandle := HACCEL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12376,7 +12392,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HACCEL({Value: result}, True)
+        resultHandle := HACCEL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12558,7 +12575,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12587,7 +12605,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12612,7 +12631,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12637,7 +12657,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12655,7 +12676,8 @@ class WindowsAndMessaging {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\GetMenu", "ptr", hWnd, "ptr")
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13052,7 +13074,8 @@ class WindowsAndMessaging {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\GetSystemMenu", "ptr", hWnd, "int", bRevert, "ptr")
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13072,7 +13095,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13092,7 +13116,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13235,7 +13260,8 @@ class WindowsAndMessaging {
         hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("USER32.dll\GetSubMenu", "ptr", hMenu, "int", nPos, "ptr")
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15230,7 +15256,8 @@ class WindowsAndMessaging {
      */
     static GetForegroundWindow() {
         result := DllCall("USER32.dll\GetForegroundWindow", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15606,7 +15633,8 @@ class WindowsAndMessaging {
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         result := DllCall("USER32.dll\GetPropA", "ptr", hWnd, "ptr", lpString, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15628,7 +15656,8 @@ class WindowsAndMessaging {
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         result := DllCall("USER32.dll\GetPropW", "ptr", hWnd, "ptr", lpString, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15655,7 +15684,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15682,7 +15712,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17049,7 +17080,8 @@ class WindowsAndMessaging {
         hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
 
         result := DllCall("USER32.dll\SetCursor", "ptr", hCursor, "ptr")
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17130,7 +17162,8 @@ class WindowsAndMessaging {
      */
     static GetCursor() {
         result := DllCall("USER32.dll\GetCursor", "ptr")
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17417,7 +17450,8 @@ class WindowsAndMessaging {
      */
     static WindowFromPoint(Point) {
         result := DllCall("USER32.dll\WindowFromPoint", "ptr", Point, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17433,7 +17467,8 @@ class WindowsAndMessaging {
      */
     static WindowFromPhysicalPoint(Point) {
         result := DllCall("USER32.dll\WindowFromPhysicalPoint", "ptr", Point, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17460,7 +17495,8 @@ class WindowsAndMessaging {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         result := DllCall("USER32.dll\ChildWindowFromPoint", "ptr", hWndParent, "ptr", Point, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17566,7 +17602,8 @@ class WindowsAndMessaging {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\ChildWindowFromPointEx", "ptr", hwnd, "ptr", pt, "uint", flags, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17978,7 +18015,8 @@ class WindowsAndMessaging {
      */
     static GetDesktopWindow() {
         result := DllCall("USER32.dll\GetDesktopWindow", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18011,7 +18049,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18041,7 +18080,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18098,7 +18138,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18131,7 +18172,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18178,7 +18220,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18225,7 +18268,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18238,7 +18282,8 @@ class WindowsAndMessaging {
      */
     static GetShellWindow() {
         result := DllCall("USER32.dll\GetShellWindow", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18415,7 +18460,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18486,7 +18532,8 @@ class WindowsAndMessaging {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\GetLastActivePopup", "ptr", hWnd, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18510,7 +18557,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18521,7 +18569,8 @@ class WindowsAndMessaging {
      */
     static SetWindowsHookA(nFilterType, pfnFilterProc) {
         result := DllCall("USER32.dll\SetWindowsHookA", "int", nFilterType, "ptr", pfnFilterProc, "ptr")
-        return HHOOK({Value: result}, True)
+        resultHandle := HHOOK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18532,7 +18581,8 @@ class WindowsAndMessaging {
      */
     static SetWindowsHookW(nFilterType, pfnFilterProc) {
         result := DllCall("USER32.dll\SetWindowsHookW", "int", nFilterType, "ptr", pfnFilterProc, "ptr")
-        return HHOOK({Value: result}, True)
+        resultHandle := HHOOK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18575,7 +18625,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HHOOK({Value: result}, True)
+        resultHandle := HHOOK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18607,7 +18658,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HHOOK({Value: result}, True)
+        resultHandle := HHOOK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18908,7 +18960,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HCURSOR({Value: result}, False)
+        resultHandle := HCURSOR({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -19120,7 +19173,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HCURSOR({Value: result}, False)
+        resultHandle := HCURSOR({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -19166,7 +19220,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19212,7 +19267,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19260,7 +19316,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19342,7 +19399,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19371,7 +19429,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19529,7 +19588,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19649,7 +19709,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19688,7 +19749,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19758,7 +19820,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19828,7 +19891,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19861,7 +19925,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19933,7 +19998,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19958,7 +20024,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -20348,7 +20415,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -20401,7 +20469,8 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -26554,7 +26623,8 @@ class WindowsAndMessaging {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\GetAncestor", "ptr", hwnd, "uint", gaFlags, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -26575,7 +26645,8 @@ class WindowsAndMessaging {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("USER32.dll\RealChildWindowFromPoint", "ptr", hwndParent, "ptr", ptParentClientCoords, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**

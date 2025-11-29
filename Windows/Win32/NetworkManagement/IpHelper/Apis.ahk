@@ -2402,7 +2402,9 @@ class IpHelper {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: IpHelper.IcmpCloseHandle})
+        return resultHandle
     }
 
     /**
@@ -2420,7 +2422,9 @@ class IpHelper {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: IpHelper.IcmpCloseHandle})
+        return resultHandle
     }
 
     /**

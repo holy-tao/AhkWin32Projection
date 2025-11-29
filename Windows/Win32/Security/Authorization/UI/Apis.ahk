@@ -171,7 +171,8 @@ class UI {
         if(A_LastError)
             throw OSError()
 
-        return HPROPSHEETPAGE({Value: result}, True)
+        resultHandle := HPROPSHEETPAGE({Value: result}, True)
+        return resultHandle
     }
 
     /**

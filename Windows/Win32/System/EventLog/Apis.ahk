@@ -62,7 +62,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -228,7 +229,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -370,7 +372,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -397,7 +400,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -543,7 +547,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -777,7 +782,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -853,7 +859,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1030,7 +1037,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1109,7 +1117,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1184,7 +1193,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1204,7 +1214,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1435,7 +1446,8 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return EVT_HANDLE({Value: result}, True)
+        resultHandle := EVT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1808,7 +1820,9 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        return resultHandle
     }
 
     /**
@@ -1835,7 +1849,9 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        return resultHandle
     }
 
     /**
@@ -1866,7 +1882,9 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: EventLog.DeregisterEventSource})
+        return resultHandle
     }
 
     /**
@@ -1897,7 +1915,9 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: EventLog.DeregisterEventSource})
+        return resultHandle
     }
 
     /**
@@ -1922,7 +1942,9 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        return resultHandle
     }
 
     /**
@@ -1947,7 +1969,9 @@ class EventLog {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        return resultHandle
     }
 
     /**

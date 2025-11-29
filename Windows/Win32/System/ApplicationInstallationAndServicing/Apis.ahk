@@ -27131,7 +27131,8 @@ class ApplicationInstallationAndServicing {
      */
     static MsiCreateRecord(cParams) {
         result := DllCall("msi.dll\MsiCreateRecord", "uint", cParams, "ptr")
-        return MSIHANDLE({Value: result}, True)
+        resultHandle := MSIHANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -27372,7 +27373,8 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetActiveDatabase", "ptr", hInstall, "ptr")
-        return MSIHANDLE({Value: result}, True)
+        resultHandle := MSIHANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -28756,7 +28758,8 @@ class ApplicationInstallationAndServicing {
      */
     static MsiGetLastErrorRecord() {
         result := DllCall("msi.dll\MsiGetLastErrorRecord", "ptr")
-        return MSIHANDLE({Value: result}, True)
+        resultHandle := MSIHANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -29642,7 +29645,9 @@ class ApplicationInstallationAndServicing {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: ApplicationInstallationAndServicing.ReleaseActCtx})
+        return resultHandle
     }
 
     /**
@@ -29665,7 +29670,9 @@ class ApplicationInstallationAndServicing {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: ApplicationInstallationAndServicing.ReleaseActCtx})
+        return resultHandle
     }
 
     /**

@@ -5871,7 +5871,8 @@ class Accessibility {
         hmodWinEventProc := hmodWinEventProc is Win32Handle ? NumGet(hmodWinEventProc, "ptr") : hmodWinEventProc
 
         result := DllCall("USER32.dll\SetWinEventHook", "uint", eventMin, "uint", eventMax, "ptr", hmodWinEventProc, "ptr", pfnWinEventProc, "uint", idProcess, "uint", idThread, "uint", dwFlags, "ptr")
-        return HWINEVENTHOOK({Value: result}, True)
+        resultHandle := HWINEVENTHOOK({Value: result}, True)
+        return resultHandle
     }
 
     /**

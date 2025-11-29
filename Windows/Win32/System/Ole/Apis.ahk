@@ -16048,7 +16048,8 @@ class Ole {
         hSrc := hSrc is Win32Handle ? NumGet(hSrc, "ptr") : hSrc
 
         result := DllCall("OLE32.dll\OleDuplicateData", "ptr", hSrc, "ushort", cfFormat, "uint", uiFlags, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -16434,7 +16435,8 @@ class Ole {
         lpszPath := lpszPath is String ? StrPtr(lpszPath) : lpszPath
 
         result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel, "ptr")
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -16450,7 +16452,8 @@ class Ole {
         lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
 
         result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel, "ptr")
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -16476,7 +16479,8 @@ class Ole {
         if(A_LastError)
             throw OSError()
 
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17265,7 +17269,8 @@ class Ole {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon, "ptr")
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**

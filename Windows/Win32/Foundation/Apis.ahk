@@ -35146,7 +35146,8 @@ class Foundation {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, "ptr")
-        return BSTR({Value: result}, True)
+        resultHandle := BSTR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -35202,7 +35203,8 @@ class Foundation {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, "ptr")
-        return BSTR({Value: result}, True)
+        resultHandle := BSTR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -35332,7 +35334,8 @@ class Foundation {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, "ptr")
-        return BSTR({Value: result}, True)
+        resultHandle := BSTR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -35638,7 +35641,8 @@ class Foundation {
         if(A_LastError)
             throw OSError()
 
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -35662,7 +35666,8 @@ class Foundation {
         if(A_LastError)
             throw OSError()
 
-        return HLOCAL({Value: result}, True)
+        resultHandle := HLOCAL({Value: result}, True)
+        return resultHandle
     }
 
     /**

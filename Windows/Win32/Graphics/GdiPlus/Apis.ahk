@@ -7267,7 +7267,8 @@ class GdiPlus {
      */
     static GdipCreateHalftonePalette() {
         result := DllCall("gdiplus.dll\GdipCreateHalftonePalette", "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**

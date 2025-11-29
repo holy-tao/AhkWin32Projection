@@ -98,7 +98,9 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Memory.HeapDestroy})
+        return resultHandle
     }
 
     /**
@@ -347,7 +349,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -1060,7 +1063,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1097,7 +1101,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1132,7 +1137,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1183,7 +1189,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1624,7 +1631,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1895,7 +1903,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2005,7 +2014,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2038,7 +2048,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2622,7 +2633,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2697,7 +2709,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2837,7 +2850,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2937,7 +2951,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3171,7 +3186,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3205,7 +3221,8 @@ class Memory {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
         result := DllCall("api-ms-win-core-memory-l1-1-8.dll\OpenDedicatedMemoryPartition", "ptr", Partition, "uint", DedicatedMemoryTypeId, "uint", DesiredAccess, "int", InheritHandle, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3320,7 +3337,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3389,7 +3407,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3508,7 +3527,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HGLOBAL({Value: result}, True)
+        resultHandle := HGLOBAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3529,7 +3549,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HLOCAL({Value: result}, True)
+        resultHandle := HLOCAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3600,7 +3621,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HLOCAL({Value: result}, True)
+        resultHandle := HLOCAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3647,7 +3669,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HLOCAL({Value: result}, True)
+        resultHandle := HLOCAL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3800,7 +3823,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3905,7 +3929,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3942,7 +3967,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4012,7 +4038,8 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        resultHandle := MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
+        return resultHandle
     }
 
     /**

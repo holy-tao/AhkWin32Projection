@@ -4237,7 +4237,8 @@ class Bluetooth {
         if(A_LastError)
             throw OSError()
 
-        return HBLUETOOTH_RADIO_FIND({Value: result}, True)
+        resultHandle := HBLUETOOTH_RADIO_FIND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4427,7 +4428,8 @@ class Bluetooth {
         if(A_LastError)
             throw OSError()
 
-        return HBLUETOOTH_DEVICE_FIND({Value: result}, True)
+        resultHandle := HBLUETOOTH_DEVICE_FIND({Value: result}, True)
+        return resultHandle
     }
 
     /**

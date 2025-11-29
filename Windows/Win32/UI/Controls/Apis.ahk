@@ -10821,7 +10821,8 @@ class Controls {
      */
     static CreatePropertySheetPageA(constPropSheetPagePointer) {
         result := DllCall("COMCTL32.dll\CreatePropertySheetPageA", "ptr", constPropSheetPagePointer, "ptr")
-        return HPROPSHEETPAGE({Value: result}, True)
+        resultHandle := HPROPSHEETPAGE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10837,7 +10838,8 @@ class Controls {
      */
     static CreatePropertySheetPageW(constPropSheetPagePointer) {
         result := DllCall("COMCTL32.dll\CreatePropertySheetPageW", "ptr", constPropSheetPagePointer, "ptr")
-        return HPROPSHEETPAGE({Value: result}, True)
+        resultHandle := HPROPSHEETPAGE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11053,7 +11055,8 @@ class Controls {
      */
     static ImageList_Create(cx, cy, flags, cInitial, cGrow) {
         result := DllCall("COMCTL32.dll\ImageList_Create", "int", cx, "int", cy, "uint", flags, "int", cInitial, "int", cGrow, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11415,7 +11418,8 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
         result := DllCall("COMCTL32.dll\ImageList_GetIcon", "ptr", himl, "int", i, "uint", flags, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11505,7 +11509,8 @@ class Controls {
         lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
 
         result := DllCall("COMCTL32.dll\ImageList_LoadImageA", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11595,7 +11600,8 @@ class Controls {
         lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
 
         result := DllCall("COMCTL32.dll\ImageList_LoadImageW", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11788,7 +11794,8 @@ class Controls {
      */
     static ImageList_GetDragImage(ppt, pptHotspot) {
         result := DllCall("COMCTL32.dll\ImageList_GetDragImage", "ptr", ppt, "ptr", pptHotspot, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11804,7 +11811,8 @@ class Controls {
      */
     static ImageList_Read(pstm) {
         result := DllCall("COMCTL32.dll\ImageList_Read", "ptr", pstm, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12048,7 +12056,8 @@ class Controls {
         himl2 := himl2 is Win32Handle ? NumGet(himl2, "ptr") : himl2
 
         result := DllCall("COMCTL32.dll\ImageList_Merge", "ptr", himl1, "int", i1, "ptr", himl2, "int", i2, "int", dx, "int", dy, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12066,7 +12075,8 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
         result := DllCall("COMCTL32.dll\ImageList_Duplicate", "ptr", himl, "ptr")
-        return HIMAGELIST({Value: result}, True)
+        resultHandle := HIMAGELIST({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12153,7 +12163,8 @@ class Controls {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12206,7 +12217,8 @@ class Controls {
         if(A_LastError)
             throw OSError()
 
-        return HBITMAP({Value: result}, True)
+        resultHandle := HBITMAP({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12385,7 +12397,8 @@ class Controls {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12418,7 +12431,8 @@ class Controls {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12632,7 +12646,8 @@ class Controls {
         hBuddy := hBuddy is Win32Handle ? NumGet(hBuddy, "ptr") : hBuddy
 
         result := DllCall("COMCTL32.dll\CreateUpDownControl", "uint", dwStyle, "int", x, "int", y, "int", cx, "int", cy, "ptr", hParent, "int", nID, "ptr", hInst, "ptr", hBuddy, "int", nUpper, "int", nLower, "int", nPos, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12925,7 +12940,8 @@ class Controls {
      */
     static DSA_Create(cbItem, cItemGrow) {
         result := DllCall("COMCTL32.dll\DSA_Create", "int", cbItem, "int", cItemGrow, "ptr")
-        return HDSA({Value: result}, True)
+        resultHandle := HDSA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13143,7 +13159,8 @@ class Controls {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
         result := DllCall("COMCTL32.dll\DSA_Clone", "ptr", hdsa, "ptr")
-        return HDSA({Value: result}, True)
+        resultHandle := HDSA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13201,7 +13218,8 @@ class Controls {
      */
     static DPA_Create(cItemGrow) {
         result := DllCall("COMCTL32.dll\DPA_Create", "int", cItemGrow, "ptr")
-        return HDPA({Value: result}, True)
+        resultHandle := HDPA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13222,7 +13240,8 @@ class Controls {
         hheap := hheap is Win32Handle ? NumGet(hheap, "ptr") : hheap
 
         result := DllCall("COMCTL32.dll\DPA_CreateEx", "int", cpGrow, "ptr", hheap, "ptr")
-        return HDPA({Value: result}, True)
+        resultHandle := HDPA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13248,7 +13267,8 @@ class Controls {
         hdpaNew := hdpaNew is Win32Handle ? NumGet(hdpaNew, "ptr") : hdpaNew
 
         result := DllCall("COMCTL32.dll\DPA_Clone", "ptr", hdpa, "ptr", hdpaNew, "ptr")
-        return HDPA({Value: result}, True)
+        resultHandle := HDPA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14519,7 +14539,8 @@ class Controls {
         pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UXTHEME.dll\OpenThemeData", "ptr", hwnd, "ptr", pszClassList, "ptr")
-        return HTHEME({Value: result}, True)
+        resultHandle := HTHEME({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14542,7 +14563,8 @@ class Controls {
         pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UXTHEME.dll\OpenThemeDataEx", "ptr", hwnd, "ptr", pszClassList, "uint", dwFlags, "ptr")
-        return HTHEME({Value: result}, True)
+        resultHandle := HTHEME({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15740,7 +15762,8 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemeSysColorBrush", "ptr", hTheme, "int", iColorId, "ptr")
-        return HBRUSH({Value: result}, True)
+        resultHandle := HBRUSH({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -16103,7 +16126,8 @@ class Controls {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UXTHEME.dll\GetWindowTheme", "ptr", hwnd, "ptr")
-        return HTHEME({Value: result}, True)
+        resultHandle := HTHEME({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -16794,7 +16818,8 @@ class Controls {
      */
     static GetBufferedPaintTargetDC(hBufferedPaint) {
         result := DllCall("UxTheme.dll\GetBufferedPaintTargetDC", "ptr", hBufferedPaint, "ptr")
-        return HDC({Value: result}, True)
+        resultHandle := HDC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -16810,7 +16835,8 @@ class Controls {
      */
     static GetBufferedPaintDC(hBufferedPaint) {
         result := DllCall("UxTheme.dll\GetBufferedPaintDC", "ptr", hBufferedPaint, "ptr")
-        return HDC({Value: result}, True)
+        resultHandle := HDC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17185,7 +17211,8 @@ class Controls {
         if(A_LastError)
             throw OSError()
 
-        return HSYNTHETICPOINTERDEVICE({Value: result}, True)
+        resultHandle := HSYNTHETICPOINTERDEVICE({Value: result}, True)
+        return resultHandle
     }
 
     /**

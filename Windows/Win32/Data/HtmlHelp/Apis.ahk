@@ -1264,7 +1264,8 @@ class HtmlHelp {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1298,7 +1299,8 @@ class HtmlHelp {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
 ;@endregion Methods

@@ -627,7 +627,8 @@ class Pipes {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1140,7 +1141,8 @@ class Pipes {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

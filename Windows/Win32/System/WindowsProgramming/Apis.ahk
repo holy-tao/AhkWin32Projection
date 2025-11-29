@@ -3812,7 +3812,8 @@ class WindowsProgramming {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3827,7 +3828,8 @@ class WindowsProgramming {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5697,7 +5699,8 @@ class WindowsProgramming {
      */
     static DCIOpenProvider() {
         result := DllCall("DCIMAN32.dll\DCIOpenProvider", "ptr")
-        return HDC({Value: result}, True)
+        resultHandle := HDC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5811,7 +5814,8 @@ class WindowsProgramming {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd, "ptr")
-        return HWINWATCH({Value: result}, True)
+        resultHandle := HWINWATCH({Value: result}, True)
+        return resultHandle
     }
 
     /**

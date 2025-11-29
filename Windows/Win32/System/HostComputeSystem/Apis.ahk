@@ -62,7 +62,8 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsCreateOperation", contextMarshal, context, "ptr", callback, "ptr")
-        return HCS_OPERATION({Value: result}, True)
+        resultHandle := HCS_OPERATION({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -76,7 +77,8 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", "int", eventTypes, contextMarshal, context, "ptr", callback, "ptr")
-        return HCS_OPERATION({Value: result}, True)
+        resultHandle := HCS_OPERATION({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -133,7 +135,8 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetComputeSystemFromOperation", "ptr", operation, "ptr")
-        return HCS_SYSTEM({Value: result}, True)
+        resultHandle := HCS_SYSTEM({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -146,7 +149,8 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetProcessFromOperation", "ptr", operation, "ptr")
-        return HCS_PROCESS({Value: result}, True)
+        resultHandle := HCS_PROCESS({Value: result}, True)
+        return resultHandle
     }
 
     /**

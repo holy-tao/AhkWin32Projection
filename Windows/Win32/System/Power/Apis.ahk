@@ -3808,7 +3808,8 @@ class Power {
         if(A_LastError)
             throw OSError()
 
-        return HPOWERNOTIFY({Value: result}, True)
+        resultHandle := HPOWERNOTIFY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3857,7 +3858,8 @@ class Power {
         if(A_LastError)
             throw OSError()
 
-        return HPOWERNOTIFY({Value: result}, True)
+        resultHandle := HPOWERNOTIFY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3966,7 +3968,8 @@ class Power {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

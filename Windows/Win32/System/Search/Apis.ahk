@@ -19223,7 +19223,8 @@ class Search {
         pwchInstanceName := pwchInstanceName is String ? StrPtr(pwchInstanceName) : pwchInstanceName
 
         result := DllCall("odbcbcp.dll\SQLInitEnumServers", "ptr", pwchServerName, "ptr", pwchInstanceName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

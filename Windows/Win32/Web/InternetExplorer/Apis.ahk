@@ -2645,7 +2645,8 @@ class InternetExplorer {
         hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
 
         result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2726,7 +2727,8 @@ class InternetExplorer {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("Ieframe.dll\IEFindFirstFile", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

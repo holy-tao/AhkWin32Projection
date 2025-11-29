@@ -999,7 +999,8 @@ class Communication {
      */
     static OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
         result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

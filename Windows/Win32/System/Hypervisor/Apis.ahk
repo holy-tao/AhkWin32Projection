@@ -2193,7 +2193,8 @@ class Hypervisor {
         vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolProviderHandle", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

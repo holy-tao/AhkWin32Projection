@@ -19868,7 +19868,8 @@ class NetManagement {
         lpszSource := lpszSource is String ? StrPtr(lpszSource) : lpszSource
 
         result := DllCall("rtutils.dll\RouterLogRegisterA", "ptr", lpszSource, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -19996,7 +19997,8 @@ class NetManagement {
         lpszSource := lpszSource is String ? StrPtr(lpszSource) : lpszSource
 
         result := DllCall("rtutils.dll\RouterLogRegisterW", "ptr", lpszSource, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

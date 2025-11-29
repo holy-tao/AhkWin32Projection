@@ -4554,7 +4554,8 @@ class Display {
      */
     static BRUSHOBJ_hGetColorTransform(pbo) {
         result := DllCall("GDI32.dll\BRUSHOBJ_hGetColorTransform", "ptr", pbo, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5117,7 +5118,8 @@ class Display {
      */
     static XLATEOBJ_hGetColorTransform(pxlo) {
         result := DllCall("GDI32.dll\XLATEOBJ_hGetColorTransform", "ptr", pxlo, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5137,7 +5139,8 @@ class Display {
         pvBitsMarshal := pvBits is VarRef ? "ptr" : "ptr"
 
         result := DllCall("GDI32.dll\EngCreateBitmap", "ptr", sizl, "int", lWidth, "uint", iFormat, "uint", fl, pvBitsMarshal, pvBits, "ptr")
-        return HBITMAP({Value: result}, True)
+        resultHandle := HBITMAP({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5153,7 +5156,8 @@ class Display {
         dhsurf := dhsurf is Win32Handle ? NumGet(dhsurf, "ptr") : dhsurf
 
         result := DllCall("GDI32.dll\EngCreateDeviceSurface", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
-        return HSURF({Value: result}, True)
+        resultHandle := HSURF({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5169,7 +5173,8 @@ class Display {
         dhsurf := dhsurf is Win32Handle ? NumGet(dhsurf, "ptr") : dhsurf
 
         result := DllCall("GDI32.dll\EngCreateDeviceBitmap", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
-        return HBITMAP({Value: result}, True)
+        resultHandle := HBITMAP({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5295,7 +5300,8 @@ class Display {
         pulColorsMarshal := pulColors is VarRef ? "uint*" : "ptr"
 
         result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, pulColorsMarshal, pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue, "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5836,7 +5842,8 @@ class Display {
         pwsz := pwsz is String ? StrPtr(pwsz) : pwsz
 
         result := DllCall("GDI32.dll\EngLoadModule", "ptr", pwsz, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5879,7 +5886,8 @@ class Display {
      */
     static EngCreateSemaphore() {
         result := DllCall("GDI32.dll\EngCreateSemaphore", "ptr")
-        return HSEMAPHORE({Value: result}, True)
+        resultHandle := HSEMAPHORE({Value: result}, True)
+        return resultHandle
     }
 
     /**

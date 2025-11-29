@@ -12356,7 +12356,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12380,7 +12381,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12404,7 +12406,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13332,7 +13335,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13369,7 +13373,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13398,7 +13403,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13441,7 +13447,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14002,7 +14009,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14026,7 +14034,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14050,7 +14059,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14078,7 +14088,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14106,7 +14117,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14129,7 +14141,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14179,7 +14192,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14207,7 +14221,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14248,7 +14263,8 @@ class DeviceAndDriverInstallation {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17427,7 +17443,8 @@ class DeviceAndDriverInstallation {
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
         result := DllCall("SETUPAPI.dll\SetupDiGetWizardPage", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InstallWizardData, "uint", PageType, "uint", Flags, "ptr")
-        return HPROPSHEETPAGE({Value: result}, True)
+        resultHandle := HPROPSHEETPAGE({Value: result}, True)
+        return resultHandle
     }
 
     /**

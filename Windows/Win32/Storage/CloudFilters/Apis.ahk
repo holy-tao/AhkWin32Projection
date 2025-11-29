@@ -296,7 +296,8 @@ class CloudFilters {
         ProtectedHandle := ProtectedHandle is Win32Handle ? NumGet(ProtectedHandle, "ptr") : ProtectedHandle
 
         result := DllCall("cldapi.dll\CfGetWin32HandleFromProtectedHandle", "ptr", ProtectedHandle, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

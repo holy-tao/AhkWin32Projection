@@ -32500,7 +32500,8 @@ class Cryptography {
         if(A_LastError)
             throw OSError()
 
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -32514,7 +32515,8 @@ class Cryptography {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
         result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", hCertStore, "ptr")
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -42030,7 +42032,8 @@ class Cryptography {
         if(A_LastError)
             throw OSError()
 
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -43164,7 +43167,8 @@ class Cryptography {
         if(A_LastError)
             throw OSError()
 
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -43239,7 +43243,8 @@ class Cryptography {
         if(A_LastError)
             throw OSError()
 
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -45123,7 +45128,8 @@ class Cryptography {
         if(A_LastError)
             throw OSError()
 
-        return HCERTSTORE({Value: result}, True)
+        resultHandle := HCERTSTORE({Value: result}, True)
+        return resultHandle
     }
 
     /**

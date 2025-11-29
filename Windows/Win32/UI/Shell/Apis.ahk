@@ -11568,7 +11568,9 @@ class Shell {
         plEventMarshal := plEvent is VarRef ? "int*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Shell.SHChangeNotification_Unlock})
+        return resultHandle
     }
 
     /**
@@ -14046,7 +14048,8 @@ class Shell {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
-        return HPSXA({Value: result}, True)
+        resultHandle := HPSXA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14756,7 +14759,8 @@ class Shell {
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
         result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
-        return HINSTANCE({Value: result}, False)
+        resultHandle := HINSTANCE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -14965,7 +14969,8 @@ class Shell {
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
         result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
-        return HINSTANCE({Value: result}, False)
+        resultHandle := HINSTANCE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -15062,7 +15067,8 @@ class Shell {
         lpResult := lpResult is String ? StrPtr(lpResult) : lpResult
 
         result := DllCall("SHELL32.dll\FindExecutableA", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, "ptr")
-        return HINSTANCE({Value: result}, True)
+        resultHandle := HINSTANCE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15159,7 +15165,8 @@ class Shell {
         lpResult := lpResult is String ? StrPtr(lpResult) : lpResult
 
         result := DllCall("SHELL32.dll\FindExecutableW", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, "ptr")
-        return HINSTANCE({Value: result}, True)
+        resultHandle := HINSTANCE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15251,7 +15258,8 @@ class Shell {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15288,7 +15296,8 @@ class Shell {
         piIconMarshal := piIcon is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconA", "ptr", hInst, "ptr", pszIconPath, piIconMarshal, piIcon, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15325,7 +15334,8 @@ class Shell {
         piIconMarshal := piIcon is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconW", "ptr", hInst, "ptr", pszIconPath, piIconMarshal, piIcon, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15366,7 +15376,8 @@ class Shell {
         piIconIdMarshal := piIconId is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconExA", "ptr", hInst, "ptr", pszIconPath, piIconIndexMarshal, piIconIndex, piIconIdMarshal, piIconId, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15407,7 +15418,8 @@ class Shell {
         piIconIdMarshal := piIconId is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconExW", "ptr", hInst, "ptr", pszIconPath, piIconIndexMarshal, piIconIndex, piIconIdMarshal, piIconId, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15436,7 +15448,8 @@ class Shell {
         pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
 
         result := DllCall("SHELL32.dll\ExtractIconA", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15465,7 +15478,8 @@ class Shell {
         pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
 
         result := DllCall("SHELL32.dll\ExtractIconW", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -22977,7 +22991,8 @@ class Shell {
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey, "ptr")
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -26204,7 +26219,8 @@ class Shell {
      */
     static SHAllocShared(pvData, dwSize, dwProcessId) {
         result := DllCall("SHLWAPI.dll\SHAllocShared", "ptr", pvData, "uint", dwSize, "uint", dwProcessId, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -26643,7 +26659,8 @@ class Shell {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc, "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**

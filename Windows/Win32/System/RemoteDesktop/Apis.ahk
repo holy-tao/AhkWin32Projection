@@ -1488,7 +1488,8 @@ class RemoteDesktop {
         pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1504,7 +1505,8 @@ class RemoteDesktop {
         pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1520,7 +1522,8 @@ class RemoteDesktop {
         pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1536,7 +1539,8 @@ class RemoteDesktop {
         pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2306,7 +2310,9 @@ class RemoteDesktop {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: RemoteDesktop.WTSVirtualChannelClose})
+        return resultHandle
     }
 
     /**
@@ -2346,7 +2352,9 @@ class RemoteDesktop {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: RemoteDesktop.WTSVirtualChannelClose})
+        return resultHandle
     }
 
     /**
@@ -3134,7 +3142,8 @@ class RemoteDesktop {
      */
     static WTSCloudAuthOpen(activityId) {
         result := DllCall("WTSAPI32.dll\WTSCloudAuthOpen", "ptr", activityId, "ptr")
-        return WTS_CLOUD_AUTH_HANDLE({Value: result}, True)
+        resultHandle := WTS_CLOUD_AUTH_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

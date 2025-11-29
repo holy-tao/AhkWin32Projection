@@ -2032,7 +2032,8 @@ class PropertiesSystem {
         pszPIF := pszPIF is String ? StrPtr(pszPIF) : pszPIF
 
         result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, "uint", hInf, "uint", flOpt, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2115,7 +2116,8 @@ class PropertiesSystem {
         hProps := hProps is Win32Handle ? NumGet(hProps, "ptr") : hProps
 
         result := DllCall("SHELL32.dll\PifMgr_CloseProperties", "ptr", hProps, "uint", flOpt, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

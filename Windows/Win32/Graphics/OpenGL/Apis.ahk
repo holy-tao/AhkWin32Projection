@@ -3793,7 +3793,8 @@ class OpenGL {
         if(A_LastError)
             throw OSError()
 
-        return HGLRC({Value: result}, True)
+        resultHandle := HGLRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3815,7 +3816,8 @@ class OpenGL {
         if(A_LastError)
             throw OSError()
 
-        return HGLRC({Value: result}, True)
+        resultHandle := HGLRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3847,7 +3849,8 @@ class OpenGL {
      */
     static wglGetCurrentContext() {
         result := DllCall("OPENGL32.dll\wglGetCurrentContext", "ptr")
-        return HGLRC({Value: result}, True)
+        resultHandle := HGLRC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3858,7 +3861,8 @@ class OpenGL {
      */
     static wglGetCurrentDC() {
         result := DllCall("OPENGL32.dll\wglGetCurrentDC", "ptr")
-        return HDC({Value: result}, True)
+        resultHandle := HDC({Value: result}, True)
+        return resultHandle
     }
 
     /**

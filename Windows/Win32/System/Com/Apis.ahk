@@ -509,7 +509,8 @@ class Com {
         lpszLibName := lpszLibName is String ? StrPtr(lpszLibName) : lpszLibName
 
         result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree, "ptr")
-        return HINSTANCE({Value: result}, True)
+        resultHandle := HINSTANCE({Value: result}, True)
+        return resultHandle
     }
 
     /**

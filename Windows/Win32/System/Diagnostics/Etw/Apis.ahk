@@ -5523,7 +5523,8 @@ class Etw {
         if(A_LastError)
             throw OSError()
 
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5729,7 +5730,8 @@ class Etw {
         BufferCompletionContextMarshal := BufferCompletionContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5744,7 +5746,8 @@ class Etw {
         LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLogger", "ptr", LoggerName, "ptr", Options, "ptr", LogFileHeader, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5762,7 +5765,8 @@ class Etw {
         MemoryPartitionHandle := MemoryPartitionHandle is Win32Handle ? NumGet(MemoryPartitionHandle, "ptr") : MemoryPartitionHandle
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, "ptr", Options, "ptr", AllocationSize, "ptr", MemoryPartitionHandle, "ptr", LogFileHeader, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5777,7 +5781,8 @@ class Etw {
         LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromFile", "ptr", LogFileName, "ptr", Options, "ptr", LogFileHeader, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5945,7 +5950,8 @@ class Etw {
         if(A_LastError)
             throw OSError()
 
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

@@ -63,7 +63,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -116,7 +117,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -176,7 +178,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -236,7 +239,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -283,7 +287,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -330,7 +335,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -372,7 +378,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -580,7 +587,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -611,7 +619,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -642,7 +651,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -669,7 +679,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -696,7 +707,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -816,7 +828,8 @@ class StationsAndDesktops {
         if(A_LastError)
             throw OSError()
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**

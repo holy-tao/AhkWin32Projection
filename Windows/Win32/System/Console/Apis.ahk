@@ -1013,7 +1013,8 @@ class Console {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1904,7 +1905,8 @@ class Console {
      */
     static GetConsoleWindow() {
         result := DllCall("KERNEL32.dll\GetConsoleWindow", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2387,7 +2389,8 @@ class Console {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
 
         result := DllCall("KERNEL32.dll\ConsoleMenuControl", "ptr", hConsoleOutput, "uint", dwCommandIdLow, "uint", dwCommandIdHigh, "ptr")
-        return HMENU({Value: result}, True)
+        resultHandle := HMENU({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2752,7 +2755,8 @@ class Console {
         lpConsoleDevice := lpConsoleDevice is String ? StrPtr(lpConsoleDevice) : lpConsoleDevice
 
         result := DllCall("KERNEL32.dll\OpenConsoleW", "ptr", lpConsoleDevice, "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwShareMode, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2767,7 +2771,8 @@ class Console {
         hSourceHandle := hSourceHandle is Win32Handle ? NumGet(hSourceHandle, "ptr") : hSourceHandle
 
         result := DllCall("KERNEL32.dll\DuplicateConsoleHandle", "ptr", hSourceHandle, "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwOptions, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2800,7 +2805,8 @@ class Console {
      */
     static GetConsoleInputWaitHandle() {
         result := DllCall("KERNEL32.dll\GetConsoleInputWaitHandle", "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2828,7 +2834,8 @@ class Console {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**

@@ -7215,7 +7215,8 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7231,7 +7232,8 @@ class Printing {
         hSpoolFile := hSpoolFile is Win32Handle ? NumGet(hSpoolFile, "ptr") : hSpoolFile
 
         result := DllCall("winspool.drv\CommitSpoolData", "ptr", hPrinter, "ptr", hSpoolFile, "uint", cbCommit, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7468,7 +7470,8 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return PRINTER_HANDLE({Value: result}, True)
+        resultHandle := PRINTER_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7490,7 +7493,8 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return PRINTER_HANDLE({Value: result}, True)
+        resultHandle := PRINTER_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8834,7 +8838,8 @@ class Printing {
         pPrinterNotifyOptionsMarshal := pPrinterNotifyOptions is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winspool.drv\FindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFilter, "uint", fdwOptions, pPrinterNotifyOptionsMarshal, pPrinterNotifyOptions, "ptr")
-        return FINDPRINTERCHANGENOTIFICATION_HANDLE({Value: result}, True)
+        resultHandle := FINDPRINTERCHANGENOTIFICATION_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9609,7 +9614,8 @@ class Printing {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd, "uint", Flags, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10452,7 +10458,8 @@ class Printing {
         pwszDocName := pwszDocName is String ? StrPtr(pwszDocName) : pwszDocName
 
         result := DllCall("GDI32.dll\GdiGetSpoolFileHandle", "ptr", pwszPrinterName, "ptr", pDevmode, "ptr", pwszDocName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10488,7 +10495,8 @@ class Printing {
         SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
 
         result := DllCall("GDI32.dll\GdiGetDC", "ptr", SpoolFileHandle, "ptr")
-        return HDC({Value: result}, True)
+        resultHandle := HDC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10504,7 +10512,8 @@ class Printing {
         pdwPageTypeMarshal := pdwPageType is VarRef ? "uint*" : "ptr"
 
         result := DllCall("GDI32.dll\GdiGetPageHandle", "ptr", SpoolFileHandle, "uint", Page, pdwPageTypeMarshal, pdwPageType, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10646,7 +10655,8 @@ class Printing {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\CreatePrinterIC", "ptr", hPrinter, "ptr", pDevMode, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10700,7 +10710,8 @@ class Printing {
      */
     static RevertToPrinterSelf() {
         result := DllCall("SPOOLSS.dll\RevertToPrinterSelf", "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

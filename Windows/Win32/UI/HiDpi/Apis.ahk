@@ -52,7 +52,8 @@ class HiDpi {
         pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UxTheme.dll\OpenThemeDataForDpi", "ptr", hwnd, "ptr", pszClassList, "uint", dpi, "ptr")
-        return HTHEME({Value: result}, True)
+        resultHandle := HTHEME({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -246,7 +247,8 @@ class HiDpi {
         dpiContext := dpiContext is Win32Handle ? NumGet(dpiContext, "ptr") : dpiContext
 
         result := DllCall("USER32.dll\SetThreadDpiAwarenessContext", "ptr", dpiContext, "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -257,7 +259,8 @@ class HiDpi {
      */
     static GetThreadDpiAwarenessContext() {
         result := DllCall("USER32.dll\GetThreadDpiAwarenessContext", "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -271,7 +274,8 @@ class HiDpi {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\GetWindowDpiAwarenessContext", "ptr", hwnd, "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -420,7 +424,8 @@ class HiDpi {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("USER32.dll\GetDpiAwarenessContextForProcess", "ptr", hProcess, "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**

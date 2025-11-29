@@ -9304,7 +9304,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9371,7 +9372,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9585,7 +9587,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10169,7 +10172,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10298,7 +10302,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10386,7 +10391,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10418,7 +10424,8 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12122,7 +12129,8 @@ class WinInet {
         lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", pdwModifiedMarshal, pdwModified, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, "uint", dwOptions, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12138,7 +12146,8 @@ class WinInet {
         lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", pdwModifiedMarshal, pdwModified, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, "uint", dwOptions, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

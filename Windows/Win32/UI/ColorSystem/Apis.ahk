@@ -527,7 +527,8 @@ class ColorSystem {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -577,7 +578,8 @@ class ColorSystem {
      */
     static CreateColorSpaceA(lplcs) {
         result := DllCall("GDI32.dll\CreateColorSpaceA", "ptr", lplcs, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -591,7 +593,8 @@ class ColorSystem {
      */
     static CreateColorSpaceW(lplcs) {
         result := DllCall("GDI32.dll\CreateColorSpaceW", "ptr", lplcs, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -609,7 +612,8 @@ class ColorSystem {
         hcs := hcs is Win32Handle ? NumGet(hcs, "ptr") : hcs
 
         result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**

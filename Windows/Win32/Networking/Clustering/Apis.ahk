@@ -6146,7 +6146,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10956,7 +10957,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10977,7 +10979,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10998,7 +11001,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11019,7 +11023,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11040,7 +11045,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11061,7 +11067,8 @@ class Clustering {
         if(A_LastError)
             throw OSError()
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**

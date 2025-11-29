@@ -721,7 +721,8 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -749,7 +750,8 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -776,7 +778,8 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -999,7 +1002,8 @@ class KeyboardAndMouse {
      */
     static GetKeyboardLayout(idThread) {
         result := DllCall("USER32.dll\GetKeyboardLayout", "uint", idThread, "ptr")
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1202,7 +1206,8 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1215,7 +1220,8 @@ class KeyboardAndMouse {
      */
     static GetActiveWindow() {
         result := DllCall("USER32.dll\GetActiveWindow", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1228,7 +1234,8 @@ class KeyboardAndMouse {
      */
     static GetFocus() {
         result := DllCall("USER32.dll\GetFocus", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2526,7 +2533,8 @@ class KeyboardAndMouse {
      */
     static GetCapture() {
         result := DllCall("USER32.dll\GetCapture", "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2544,7 +2552,8 @@ class KeyboardAndMouse {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\SetCapture", "ptr", hWnd, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2655,7 +2664,8 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**

@@ -1202,7 +1202,8 @@ class Threading {
      */
     static GetCurrentProcessToken() {
         result := DllCall("FORCEINLINE\GetCurrentProcessToken", "ptr")
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -1212,7 +1213,8 @@ class Threading {
      */
     static GetCurrentThreadToken() {
         result := DllCall("FORCEINLINE\GetCurrentThreadToken", "ptr")
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -1222,7 +1224,8 @@ class Threading {
      */
     static GetCurrentThreadEffectiveToken() {
         result := DllCall("FORCEINLINE\GetCurrentThreadEffectiveToken", "ptr")
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -2464,7 +2467,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2511,7 +2515,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2548,7 +2553,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2609,7 +2615,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2670,7 +2677,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2702,7 +2710,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2734,7 +2743,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2769,7 +2779,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2802,7 +2813,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2974,7 +2986,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3039,7 +3052,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3090,7 +3104,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3141,7 +3156,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3189,7 +3205,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3249,7 +3266,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3595,7 +3613,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3635,7 +3654,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3809,7 +3829,8 @@ class Threading {
      */
     static GetCurrentProcess() {
         result := DllCall("KERNEL32.dll\GetCurrentProcess", "ptr")
-        return HANDLE({Value: result}, False)
+        resultHandle := HANDLE({Value: result}, False)
+        return resultHandle
     }
 
     /**
@@ -4018,7 +4039,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4105,7 +4127,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4116,7 +4139,8 @@ class Threading {
      */
     static GetCurrentThread() {
         result := DllCall("KERNEL32.dll\GetCurrentThread", "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4152,7 +4176,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5780,7 +5805,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5951,7 +5977,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -6976,7 +7003,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7160,7 +7188,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return PTP_POOL({Value: result}, True)
+        resultHandle := PTP_POOL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7289,7 +7318,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return PTP_CLEANUP_GROUP({Value: result}, True)
+        resultHandle := PTP_CLEANUP_GROUP({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7538,7 +7568,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return PTP_WORK({Value: result}, True)
+        resultHandle := PTP_WORK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7625,7 +7656,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return PTP_TIMER({Value: result}, True)
+        resultHandle := PTP_TIMER({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7747,7 +7779,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return PTP_WAIT({Value: result}, True)
+        resultHandle := PTP_WAIT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7862,7 +7895,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return PTP_IO({Value: result}, True)
+        resultHandle := PTP_IO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8125,7 +8159,9 @@ class Threading {
         lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\CreatePrivateNamespaceW", "ptr", lpPrivateNamespaceAttributes, lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Threading.ClosePrivateNamespace})
+        return resultHandle
     }
 
     /**
@@ -8141,7 +8177,9 @@ class Threading {
         lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceW", lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Threading.ClosePrivateNamespace})
+        return resultHandle
     }
 
     /**
@@ -8180,7 +8218,9 @@ class Threading {
         Name := Name is String ? StrPtr(Name) : Name
 
         result := DllCall("KERNEL32.dll\CreateBoundaryDescriptorW", "ptr", Name, "uint", Flags, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Threading.DeleteBoundaryDescriptor})
+        return resultHandle
     }
 
     /**
@@ -8439,7 +8479,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8508,7 +8549,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8579,7 +8621,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8650,7 +8693,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9532,7 +9576,8 @@ class Threading {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("OLEACC.dll\GetProcessHandleFromHwnd", "ptr", hwnd, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10773,7 +10818,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10788,7 +10834,8 @@ class Threading {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         result := DllCall("KERNEL32.dll\CreateWaitableTimerA", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10803,7 +10850,8 @@ class Threading {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         result := DllCall("KERNEL32.dll\OpenWaitableTimerA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10851,7 +10899,8 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10867,7 +10916,8 @@ class Threading {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         result := DllCall("KERNEL32.dll\CreateWaitableTimerExA", "ptr", lpTimerAttributes, "ptr", lpTimerName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11287,7 +11337,8 @@ class Threading {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\SetTimerQueueTimer", "ptr", TimerQueue, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "int", PreferIo, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11329,7 +11380,9 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Threading.ClosePrivateNamespace})
+        return resultHandle
     }
 
     /**
@@ -11346,7 +11399,9 @@ class Threading {
         lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceA", lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Threading.ClosePrivateNamespace})
+        return resultHandle
     }
 
     /**
@@ -11369,7 +11424,9 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: Threading.DeleteBoundaryDescriptor})
+        return resultHandle
     }
 
     /**

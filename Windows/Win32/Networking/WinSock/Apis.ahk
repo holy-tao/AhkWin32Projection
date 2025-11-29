@@ -7047,7 +7047,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return SOCKET({Value: result}, True)
+        resultHandle := SOCKET({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10098,7 +10099,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return SOCKET({Value: result}, True)
+        resultHandle := SOCKET({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11422,7 +11424,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11575,7 +11578,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11725,7 +11729,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -11874,7 +11879,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12020,7 +12026,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12171,7 +12178,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12662,7 +12670,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return SOCKET({Value: result}, True)
+        resultHandle := SOCKET({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13438,7 +13447,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return WSAEVENT({Value: result}, True)
+        resultHandle := WSAEVENT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -15009,7 +15019,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return SOCKET({Value: result}, True)
+        resultHandle := SOCKET({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17506,7 +17517,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return SOCKET({Value: result}, True)
+        resultHandle := SOCKET({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -18201,7 +18213,8 @@ class WinSock {
         if(A_LastError)
             throw OSError()
 
-        return SOCKET({Value: result}, True)
+        resultHandle := SOCKET({Value: result}, True)
+        return resultHandle
     }
 
     /**

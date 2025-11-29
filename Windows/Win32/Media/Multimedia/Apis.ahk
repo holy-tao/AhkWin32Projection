@@ -23419,7 +23419,8 @@ class Multimedia {
      */
     static mciGetCreatorTask(mciId) {
         result := DllCall("WINMM.dll\mciGetCreatorTask", "uint", mciId, "ptr")
-        return HTASK({Value: result}, True)
+        resultHandle := HTASK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -23535,7 +23536,8 @@ class Multimedia {
         szSectionName := szSectionName is String ? StrPtr(szSectionName) : szSectionName
 
         result := DllCall("WINMM.dll\OpenDriver", "ptr", szDriverName, "ptr", szSectionName, "ptr", lParam2, "ptr")
-        return HDRVR({Value: result}, True)
+        resultHandle := HDRVR({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -23613,7 +23615,8 @@ class Multimedia {
         hDriver := hDriver is Win32Handle ? NumGet(hDriver, "ptr") : hDriver
 
         result := DllCall("WINMM.dll\DrvGetModuleHandle", "ptr", hDriver, "ptr")
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -23627,7 +23630,8 @@ class Multimedia {
         hDriver := hDriver is Win32Handle ? NumGet(hDriver, "ptr") : hDriver
 
         result := DllCall("WINMM.dll\GetDriverModuleHandle", "ptr", hDriver, "ptr")
-        return HMODULE({Value: result}, True)
+        resultHandle := HMODULE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -24015,7 +24019,8 @@ class Multimedia {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
         result := DllCall("WINMM.dll\mmioOpenA", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen, "ptr")
-        return HMMIO({Value: result}, True)
+        resultHandle := HMMIO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -24150,7 +24155,8 @@ class Multimedia {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
         result := DllCall("WINMM.dll\mmioOpenW", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen, "ptr")
-        return HMMIO({Value: result}, True)
+        resultHandle := HMMIO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25293,7 +25299,8 @@ class Multimedia {
      */
     static ICOpen(fccType, fccHandler, wMode) {
         result := DllCall("MSVFW32.dll\ICOpen", "uint", fccType, "uint", fccHandler, "uint", wMode, "ptr")
-        return HIC({Value: result}, True)
+        resultHandle := HIC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25341,7 +25348,8 @@ class Multimedia {
      */
     static ICOpenFunction(fccType, fccHandler, wMode, lpfnHandler) {
         result := DllCall("MSVFW32.dll\ICOpenFunction", "uint", fccType, "uint", fccHandler, "uint", wMode, "ptr", lpfnHandler, "ptr")
-        return HIC({Value: result}, True)
+        resultHandle := HIC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25657,7 +25665,8 @@ class Multimedia {
      */
     static ICLocate(fccType, fccHandler, lpbiIn, lpbiOut, wFlags) {
         result := DllCall("MSVFW32.dll\ICLocate", "uint", fccType, "uint", fccHandler, "ptr", lpbiIn, "ptr", lpbiOut, "ushort", wFlags, "ptr")
-        return HIC({Value: result}, True)
+        resultHandle := HIC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25676,7 +25685,8 @@ class Multimedia {
         hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
 
         result := DllCall("MSVFW32.dll\ICGetDisplayFormat", "ptr", hic, "ptr", lpbiIn, "ptr", lpbiOut, "int", BitDepth, "int", dx, "int", dy, "ptr")
-        return HIC({Value: result}, True)
+        resultHandle := HIC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25699,7 +25709,8 @@ class Multimedia {
         plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
 
         result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "int", lQuality, plSizeMarshal, plSize, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25719,7 +25730,8 @@ class Multimedia {
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
         result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -25873,7 +25885,8 @@ class Multimedia {
      */
     static DrawDibGetPalette(hdd) {
         result := DllCall("MSVFW32.dll\DrawDibGetPalette", "ptr", hdd, "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -27663,7 +27676,8 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("MSVFW32.dll\MCIWndCreateA", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -27763,7 +27777,8 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("MSVFW32.dll\MCIWndCreateW", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -27796,7 +27811,8 @@ class Multimedia {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("AVICAP32.dll\capCreateCaptureWindowA", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -27839,7 +27855,8 @@ class Multimedia {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("AVICAP32.dll\capCreateCaptureWindowW", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
