@@ -20,8 +20,9 @@ class CompositionSwapchain {
      */
     static CreatePresentationFactory(d3dDevice, riid) {
         result := DllCall("dcomp.dll\CreatePresentationFactory", "ptr", d3dDevice, "ptr", riid, "ptr*", &presentationFactory := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return presentationFactory
     }

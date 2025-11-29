@@ -178,8 +178,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -201,8 +202,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -228,8 +230,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetEnvironmentVariableA", "ptr", lpName, "ptr", lpBuffer, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -257,8 +260,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetEnvironmentVariableW", "ptr", lpName, "ptr", lpBuffer, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -286,8 +290,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -316,8 +321,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -348,8 +354,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsA", "ptr", lpSrc, "ptr", lpDst, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -380,8 +387,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsW", "ptr", lpSrc, "ptr", lpDst, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -499,8 +507,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\CreateEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, "ptr", hToken, "int", bInherit, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -523,8 +532,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\DestroyEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -561,8 +571,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -599,8 +610,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -665,8 +677,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsEnclaveTypeSupported", "uint", flEnclaveType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -767,8 +780,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, lpEnclaveErrorMarshal, lpEnclaveError, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -841,8 +855,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, lpEnclaveErrorMarshal, lpEnclaveError, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -919,8 +934,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, lpEnclaveErrorMarshal, lpEnclaveError, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -960,8 +976,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", lpEnclaveAddressMarshal, lpEnclaveAddress, "ptr", lpImageName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -988,8 +1005,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, lpParameterMarshal, lpParameter, "int", fWaitForThread, lpReturnValueMarshal, lpReturnValue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1009,8 +1027,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("vertdll.dll\TerminateEnclave", lpAddressMarshal, lpAddress, "int", fWait, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1049,8 +1068,9 @@ class Environment {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", lpAddressMarshal, lpAddress, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1068,8 +1088,9 @@ class Environment {
         EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : "ptr"
 
         result := DllCall("vertdll.dll\EnclaveGetAttestationReport", EnclaveDataMarshal, EnclaveData, "ptr", Report, "uint", BufferSize, "uint*", &OutputSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return OutputSize
     }
@@ -1085,8 +1106,9 @@ class Environment {
      */
     static EnclaveVerifyAttestationReport(EnclaveType, Report, ReportSize) {
         result := DllCall("vertdll.dll\EnclaveVerifyAttestationReport", "uint", EnclaveType, "ptr", Report, "uint", ReportSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1136,8 +1158,9 @@ class Environment {
      */
     static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize) {
         result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, "uint*", &ProtectedBlobSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ProtectedBlobSize
     }
@@ -1178,8 +1201,9 @@ class Environment {
         UnsealingFlagsMarshal := UnsealingFlags is VarRef ? "uint*" : "ptr"
 
         result := DllCall("vertdll.dll\EnclaveUnsealData", "ptr", ProtectedBlob, "uint", ProtectedBlobSize, "ptr", DecryptedData, "uint", BufferSize, DecryptedDataSizeMarshal, DecryptedDataSize, "ptr", SealingIdentity, UnsealingFlagsMarshal, UnsealingFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1195,8 +1219,9 @@ class Environment {
      */
     static EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize) {
         result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "ptr", TrustletBindingData, "ptr", EncryptedData, "uint", BufferSize, "uint*", &EncryptedDataSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return EncryptedDataSize
     }
@@ -1211,8 +1236,9 @@ class Environment {
      */
     static EnclaveGetEnclaveInformation(InformationSize, EnclaveInformation) {
         result := DllCall("vertdll.dll\EnclaveGetEnclaveInformation", "uint", InformationSize, "ptr", EnclaveInformation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1233,8 +1259,9 @@ class Environment {
      */
     static EnclaveRestrictContainingProcessAccess(RestrictAccess) {
         result := DllCall("vertdll.dll\EnclaveRestrictContainingProcessAccess", "int", RestrictAccess, "int*", &PreviouslyRestricted := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return PreviouslyRestricted
     }
@@ -1248,8 +1275,9 @@ class Environment {
      */
     static EnclaveCopyIntoEnclave(EnclaveAddress, UnsecureAddress, NumberOfBytes) {
         result := DllCall("vertdll.dll\EnclaveCopyIntoEnclave", "ptr", EnclaveAddress, "ptr", UnsecureAddress, "ptr", NumberOfBytes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1263,8 +1291,9 @@ class Environment {
      */
     static EnclaveCopyOutOfEnclave(UnsecureAddress, EnclaveAddress, NumberOfBytes) {
         result := DllCall("vertdll.dll\EnclaveCopyOutOfEnclave", "ptr", UnsecureAddress, "ptr", EnclaveAddress, "ptr", NumberOfBytes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

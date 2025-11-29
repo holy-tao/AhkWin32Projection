@@ -114,8 +114,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateUdpMessageParameters() {
         result := DllCall("wsdapi.dll\WSDCreateUdpMessageParameters", "ptr*", &ppTxParams := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDUdpMessageParameters(ppTxParams)
     }
@@ -128,8 +129,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateUdpAddress() {
         result := DllCall("wsdapi.dll\WSDCreateUdpAddress", "ptr*", &ppAddress := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDUdpAddress(ppAddress)
     }
@@ -142,8 +144,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateHttpMessageParameters() {
         result := DllCall("wsdapi.dll\WSDCreateHttpMessageParameters", "ptr*", &ppTxParams := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDHttpMessageParameters(ppTxParams)
     }
@@ -156,8 +159,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateHttpAddress() {
         result := DllCall("wsdapi.dll\WSDCreateHttpAddress", "ptr*", &ppAddress := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDHttpAddress(ppAddress)
     }
@@ -170,8 +174,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateOutboundAttachment() {
         result := DllCall("wsdapi.dll\WSDCreateOutboundAttachment", "ptr*", &ppAttachment := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDOutboundAttachment(ppAttachment)
     }
@@ -189,8 +194,9 @@ class WebServicesOnDevices {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr*", &ppName := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppName
     }
@@ -205,8 +211,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLCreateContext() {
         result := DllCall("wsdapi.dll\WSDXMLCreateContext", "ptr*", &ppContext := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDXMLContext(ppContext)
     }
@@ -222,8 +229,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryProvider(pContext) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider", "ptr", pContext, "ptr*", &ppProvider := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDiscoveryProvider(ppProvider)
     }
@@ -241,8 +249,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppProvider := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDiscoveryProvider(ppProvider)
     }
@@ -258,8 +267,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryPublisher(pContext) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher", "ptr", pContext, "ptr*", &ppPublisher := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDiscoveryPublisher(ppPublisher)
     }
@@ -277,8 +287,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppPublisher := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDiscoveryPublisher(ppPublisher)
     }
@@ -303,8 +314,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceProxy := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDDeviceProxy(ppDeviceProxy)
     }
@@ -332,8 +344,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceProxy := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDDeviceProxy(ppDeviceProxy)
     }
@@ -360,8 +373,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDDeviceProxy(ppDeviceProxy)
     }
@@ -407,8 +421,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceHost := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDDeviceHost(ppDeviceHost)
     }
@@ -459,8 +474,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr*", ppHostAddresses, "uint", dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDDeviceHost(ppDeviceHost)
     }
@@ -506,8 +522,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWSDDeviceHost(ppDeviceHost)
     }
@@ -570,8 +587,9 @@ class WebServicesOnDevices {
      */
     static WSDSetConfigurationOption(dwOption, pVoid, cbInBuffer) {
         result := DllCall("wsdapi.dll\WSDSetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbInBuffer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -645,8 +663,9 @@ class WebServicesOnDevices {
      */
     static WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
         result := DllCall("wsdapi.dll\WSDGetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbOutBuffer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -732,8 +751,9 @@ class WebServicesOnDevices {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr*", &ppAny := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppAny
     }
@@ -752,8 +772,9 @@ class WebServicesOnDevices {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("wsdapi.dll\WSDXMLGetValueFromAny", "ptr", pszNamespace, "ptr", pszName, "ptr", pAny, "ptr*", &ppszValue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszValue
     }
@@ -797,8 +818,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLAddSibling(pFirst, pSecond) {
         result := DllCall("wsdapi.dll\WSDXMLAddSibling", "ptr", pFirst, "ptr", pSecond, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -842,8 +864,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLAddChild(pParent, pChild) {
         result := DllCall("wsdapi.dll\WSDXMLAddChild", "ptr", pParent, "ptr", pChild, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -886,8 +909,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLCleanupElement(pAny) {
         result := DllCall("wsdapi.dll\WSDXMLCleanupElement", "ptr", pAny, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -919,8 +943,9 @@ class WebServicesOnDevices {
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
         result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr*", &ppFault := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppFault
     }
@@ -950,8 +975,9 @@ class WebServicesOnDevices {
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
         result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr*", &ppFault := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppFault
     }
@@ -1024,8 +1050,9 @@ class WebServicesOnDevices {
         cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1098,8 +1125,9 @@ class WebServicesOnDevices {
         cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

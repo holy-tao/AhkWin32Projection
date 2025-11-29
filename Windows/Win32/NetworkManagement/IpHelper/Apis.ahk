@@ -2399,8 +2399,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpCreateFile", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, True)
         resultHandle.DefineProp("Free", {Call: IpHelper.IcmpCloseHandle})
@@ -2419,8 +2420,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\Icmp6CreateFile", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, True)
         resultHandle.DefineProp("Free", {Call: IpHelper.IcmpCloseHandle})
@@ -2441,8 +2443,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpCloseHandle", "ptr", IcmpHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2554,8 +2557,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho", "ptr", IcmpHandle, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2684,8 +2688,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2812,8 +2817,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", SourceAddress, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2963,8 +2969,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", SourceAddress, "ptr", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2987,8 +2994,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpParseReplies", "ptr", ReplyBuffer, "uint", ReplySize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3040,8 +3048,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\Icmp6ParseReplies", "ptr", ReplyBuffer, "uint", ReplySize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3680,9 +3689,7 @@ class IpHelper {
     /**
      * Retrieves data about the module that issued the context bind for a specific IPv4 TCP endpoint in a MIB table row.
      * @param {Pointer<MIB_TCPROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcprow_owner_module">MIB_TCPROW_OWNER_MODULE</a> structure that contains the IPv4 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module. The <b>TCPIP_OWNER_MODULE_INFO_CLASS</b> enumeration is defined in the <i>Iprtrmib.h</i> header file.
-     * 
-     *  This parameter must be set to <b>TCPIP_OWNER_MODULE_INFO_BASIC</b>.
+     * @param {Integer} Class_R 
      * @param {Pointer} pBuffer A pointer a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter. 
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -3770,10 +3777,10 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-getownermodulefromtcpentry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromTcpEntry(pTcpEntry, Class, pBuffer, pdwSize) {
+    static GetOwnerModuleFromTcpEntry(pTcpEntry, Class_R, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -3956,7 +3963,7 @@ class IpHelper {
     /**
      * Retrieves data about the module that issued the context bind for a specific IPv4 UDP endpoint in a MIB table row.
      * @param {Pointer<MIB_UDPROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow_owner_module">MIB_UDPROW_OWNER_MODULE</a> structure that contains the IPv4 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module.
+     * @param {Integer} Class_R 
      * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -3996,10 +4003,10 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-getownermodulefromudpentry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromUdpEntry(pUdpEntry, Class, pBuffer, pdwSize) {
+    static GetOwnerModuleFromUdpEntry(pUdpEntry, Class_R, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -5092,9 +5099,7 @@ class IpHelper {
     /**
      * Retrieves data about the module that issued the context bind for a specific IPv6 TCP endpoint in a MIB table row.
      * @param {Pointer<MIB_TCP6ROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_module">MIB_TCP6ROW_OWNER_MODULE</a> structure that contains the IPv6 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module. The <b>TCPIP_OWNER_MODULE_INFO_CLASS</b> enumeration is defined in the <i>Iprtrmib.h</i> header file.
-     * 
-     *  This parameter must be set to <b>TCPIP_OWNER_MODULE_INFO_BASIC</b>.
+     * @param {Integer} Class_R 
      * @param {Pointer} pBuffer A pointer to a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -5182,10 +5187,10 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromTcp6Entry(pTcpEntry, Class, pBuffer, pdwSize) {
+    static GetOwnerModuleFromTcp6Entry(pTcpEntry, Class_R, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -5276,7 +5281,7 @@ class IpHelper {
     /**
      * Retrieves data about the module that issued the context bind for a specific IPv6 UDP endpoint in a MIB table row.
      * @param {Pointer<MIB_UDP6ROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6row_owner_module">MIB_UDP6ROW_OWNER_MODULE</a> structure that contains the IPv6 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module.
+     * @param {Integer} Class_R 
      * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -5316,10 +5321,10 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-getownermodulefromudp6entry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromUdp6Entry(pUdpEntry, Class, pBuffer, pdwSize) {
+    static GetOwnerModuleFromUdp6Entry(pUdpEntry, Class_R, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -5327,16 +5332,16 @@ class IpHelper {
      * 
      * @param {Integer} ulPid 
      * @param {Pointer<Integer>} pInfo 
-     * @param {Integer} Class 
+     * @param {Integer} Class_R 
      * @param {Pointer} pBuffer 
      * @param {Pointer<Integer>} pdwSize 
      * @returns {Integer} 
      */
-    static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class, pBuffer, pdwSize) {
+    static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class_R, pBuffer, pdwSize) {
         pInfoMarshal := pInfo is VarRef ? "uint*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -8276,8 +8281,9 @@ class IpHelper {
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, HopCountMarshal, HopCount, "uint", MaxHops, RTTMarshal, RTT, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8527,7 +8533,7 @@ class IpHelper {
     /**
      * The GetIpErrorString function retrieves an IP Helper error string.
      * @param {Integer} ErrorCode The error code to be retrieved. The possible values for this parameter are defined in the <i>Ipexport.h</i> header file.
-     * @param {PWSTR} Buffer A pointer to the buffer that contains the error code string if the function returns with NO_ERROR.
+     * @param {PWSTR} Buffer_R 
      * @param {Pointer<Integer>} Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
      * @returns {Integer} Returns NO_ERROR upon success.
      * 
@@ -8535,12 +8541,12 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-getiperrorstring
      * @since windows5.1.2600
      */
-    static GetIpErrorString(ErrorCode, Buffer, Size) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static GetIpErrorString(ErrorCode, Buffer_R, Size) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         SizeMarshal := Size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer, SizeMarshal, Size, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer_R, SizeMarshal, Size, "uint")
         return result
     }
 

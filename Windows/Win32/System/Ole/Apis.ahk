@@ -2416,8 +2416,9 @@ class Ole {
      */
     static SafeArrayAllocDescriptor(cDims) {
         result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, "ptr*", &ppsaOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsaOut
     }
@@ -2431,8 +2432,9 @@ class Ole {
      */
     static SafeArrayAllocDescriptorEx(vt, cDims) {
         result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, "ptr*", &ppsaOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsaOut
     }
@@ -2485,8 +2487,9 @@ class Ole {
      */
     static SafeArrayAllocData(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayAllocData", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2569,8 +2572,9 @@ class Ole {
      */
     static SafeArrayCopyData(psaSource, psaTarget) {
         result := DllCall("OLEAUT32.dll\SafeArrayCopyData", "ptr", psaSource, "ptr", psaTarget, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2639,8 +2643,9 @@ class Ole {
      */
     static SafeArrayDestroyDescriptor(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayDestroyDescriptor", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2711,8 +2716,9 @@ class Ole {
      */
     static SafeArrayDestroyData(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayDestroyData", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2726,8 +2732,9 @@ class Ole {
      */
     static SafeArrayAddRef(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, "ptr*", &ppDataToRelease := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppDataToRelease
     }
@@ -2780,8 +2787,9 @@ class Ole {
      */
     static SafeArrayDestroy(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayDestroy", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2835,8 +2843,9 @@ class Ole {
      */
     static SafeArrayRedim(psa, psaboundNew) {
         result := DllCall("OLEAUT32.dll\SafeArrayRedim", "ptr", psa, "ptr", psaboundNew, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2872,8 +2881,9 @@ class Ole {
      */
     static SafeArrayGetUBound(psa, nDim) {
         result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, "int*", &plUbound := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plUbound
     }
@@ -2887,8 +2897,9 @@ class Ole {
      */
     static SafeArrayGetLBound(psa, nDim) {
         result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, "int*", &plLbound := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plLbound
     }
@@ -2941,8 +2952,9 @@ class Ole {
      */
     static SafeArrayLock(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayLock", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2995,8 +3007,9 @@ class Ole {
      */
     static SafeArrayUnlock(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayUnlock", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3009,8 +3022,9 @@ class Ole {
      */
     static SafeArrayAccessData(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, "ptr*", &ppvData := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvData
     }
@@ -3063,8 +3077,9 @@ class Ole {
      */
     static SafeArrayUnaccessData(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayUnaccessData", "ptr", psa, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3080,8 +3095,9 @@ class Ole {
         rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, rgIndicesMarshal, rgIndices, "ptr", &pv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pv
     }
@@ -3150,8 +3166,9 @@ class Ole {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
         result := DllCall("OLEAUT32.dll\SafeArrayPutElement", "ptr", psa, rgIndicesMarshal, rgIndices, pvMarshal, pv, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3164,8 +3181,9 @@ class Ole {
      */
     static SafeArrayCopy(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, "ptr*", &ppsaOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsaOut
     }
@@ -3181,8 +3199,9 @@ class Ole {
         rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, rgIndicesMarshal, rgIndices, "ptr*", &ppvData := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvData
     }
@@ -3225,8 +3244,9 @@ class Ole {
      */
     static SafeArraySetRecordInfo(psa, prinfo) {
         result := DllCall("OLEAUT32.dll\SafeArraySetRecordInfo", "ptr", psa, "ptr", prinfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3239,8 +3259,9 @@ class Ole {
      */
     static SafeArrayGetRecordInfo(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayGetRecordInfo", "ptr", psa, "ptr*", &prinfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IRecordInfo(prinfo)
     }
@@ -3283,8 +3304,9 @@ class Ole {
      */
     static SafeArraySetIID(psa, guid) {
         result := DllCall("OLEAUT32.dll\SafeArraySetIID", "ptr", psa, "ptr", guid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3327,8 +3349,9 @@ class Ole {
      */
     static SafeArrayGetIID(psa, pguid) {
         result := DllCall("OLEAUT32.dll\SafeArrayGetIID", "ptr", psa, "ptr", pguid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3341,8 +3364,9 @@ class Ole {
      */
     static SafeArrayGetVartype(psa) {
         result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, "ushort*", &pvt := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pvt
     }
@@ -3386,8 +3410,9 @@ class Ole {
         bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
 
         result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr*", &ppsa := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsa
     }
@@ -3401,8 +3426,9 @@ class Ole {
     static BstrFromVector(psa) {
         pbstr := BSTR()
         result := DllCall("OLEAUT32.dll\BstrFromVector", "ptr", psa, "ptr", pbstr, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstr
     }
@@ -3415,8 +3441,9 @@ class Ole {
      */
     static VarUI1FromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3429,8 +3456,9 @@ class Ole {
      */
     static VarUI1FromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3443,8 +3471,9 @@ class Ole {
      */
     static VarUI1FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3457,8 +3486,9 @@ class Ole {
      */
     static VarUI1FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3471,8 +3501,9 @@ class Ole {
      */
     static VarUI1FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3485,8 +3516,9 @@ class Ole {
      */
     static VarUI1FromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3499,8 +3531,9 @@ class Ole {
      */
     static VarUI1FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3534,8 +3567,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3549,8 +3583,9 @@ class Ole {
      */
     static VarUI1FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3563,8 +3598,9 @@ class Ole {
      */
     static VarUI1FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3577,8 +3613,9 @@ class Ole {
      */
     static VarUI1FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3591,8 +3628,9 @@ class Ole {
      */
     static VarUI1FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3605,8 +3643,9 @@ class Ole {
      */
     static VarUI1FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3619,8 +3658,9 @@ class Ole {
      */
     static VarUI1FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3633,8 +3673,9 @@ class Ole {
      */
     static VarUI1FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, "char*", &pbOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbOut
     }
@@ -3647,8 +3688,9 @@ class Ole {
      */
     static VarI2FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3661,8 +3703,9 @@ class Ole {
      */
     static VarI2FromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3675,8 +3718,9 @@ class Ole {
      */
     static VarI2FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3689,8 +3733,9 @@ class Ole {
      */
     static VarI2FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3703,8 +3748,9 @@ class Ole {
      */
     static VarI2FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3795,8 +3841,9 @@ class Ole {
         psOutMarshal := psOut is VarRef ? "short*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarI2FromCy", "ptr", cyIn, psOutMarshal, psOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3809,8 +3856,9 @@ class Ole {
      */
     static VarI2FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3864,8 +3912,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3879,8 +3928,9 @@ class Ole {
      */
     static VarI2FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3893,8 +3943,9 @@ class Ole {
      */
     static VarI2FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3907,8 +3958,9 @@ class Ole {
      */
     static VarI2FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3921,8 +3973,9 @@ class Ole {
      */
     static VarI2FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3935,8 +3988,9 @@ class Ole {
      */
     static VarI2FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3949,8 +4003,9 @@ class Ole {
      */
     static VarI2FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3963,8 +4018,9 @@ class Ole {
      */
     static VarI2FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, "short*", &psOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return psOut
     }
@@ -3977,8 +4033,9 @@ class Ole {
      */
     static VarI4FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -3991,8 +4048,9 @@ class Ole {
      */
     static VarI4FromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4005,8 +4063,9 @@ class Ole {
      */
     static VarI4FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4019,8 +4078,9 @@ class Ole {
      */
     static VarI4FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4033,8 +4093,9 @@ class Ole {
      */
     static VarI4FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4047,8 +4108,9 @@ class Ole {
      */
     static VarI4FromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4061,8 +4123,9 @@ class Ole {
      */
     static VarI4FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4116,8 +4179,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4131,8 +4195,9 @@ class Ole {
      */
     static VarI4FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4145,8 +4210,9 @@ class Ole {
      */
     static VarI4FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4159,8 +4225,9 @@ class Ole {
      */
     static VarI4FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4173,8 +4240,9 @@ class Ole {
      */
     static VarI4FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4187,8 +4255,9 @@ class Ole {
      */
     static VarI4FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4201,8 +4270,9 @@ class Ole {
      */
     static VarI4FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4215,8 +4285,9 @@ class Ole {
      */
     static VarI4FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, "int*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -4229,8 +4300,9 @@ class Ole {
      */
     static VarI8FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4243,8 +4315,9 @@ class Ole {
      */
     static VarI8FromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4257,8 +4330,9 @@ class Ole {
      */
     static VarI8FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4271,8 +4345,9 @@ class Ole {
      */
     static VarI8FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4285,8 +4360,9 @@ class Ole {
      */
     static VarI8FromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4299,8 +4375,9 @@ class Ole {
      */
     static VarI8FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4334,8 +4411,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4349,8 +4427,9 @@ class Ole {
      */
     static VarI8FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4363,8 +4442,9 @@ class Ole {
      */
     static VarI8FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4377,8 +4457,9 @@ class Ole {
      */
     static VarI8FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4391,8 +4472,9 @@ class Ole {
      */
     static VarI8FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4405,8 +4487,9 @@ class Ole {
      */
     static VarI8FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4419,8 +4502,9 @@ class Ole {
      */
     static VarI8FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4433,8 +4517,9 @@ class Ole {
      */
     static VarI8FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, "int64*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -4447,8 +4532,9 @@ class Ole {
      */
     static VarR4FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4461,8 +4547,9 @@ class Ole {
      */
     static VarR4FromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4475,8 +4562,9 @@ class Ole {
      */
     static VarR4FromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4489,8 +4577,9 @@ class Ole {
      */
     static VarR4FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4503,8 +4592,9 @@ class Ole {
      */
     static VarR4FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4595,8 +4685,9 @@ class Ole {
         pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarR4FromCy", "ptr", cyIn, pfltOutMarshal, pfltOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4609,8 +4700,9 @@ class Ole {
      */
     static VarR4FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4664,8 +4756,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4679,8 +4772,9 @@ class Ole {
      */
     static VarR4FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4693,8 +4787,9 @@ class Ole {
      */
     static VarR4FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4707,8 +4802,9 @@ class Ole {
      */
     static VarR4FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4721,8 +4817,9 @@ class Ole {
      */
     static VarR4FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4735,8 +4832,9 @@ class Ole {
      */
     static VarR4FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4749,8 +4847,9 @@ class Ole {
      */
     static VarR4FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4763,8 +4862,9 @@ class Ole {
      */
     static VarR4FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, "float*", &pfltOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfltOut
     }
@@ -4777,8 +4877,9 @@ class Ole {
      */
     static VarR8FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -4791,8 +4892,9 @@ class Ole {
      */
     static VarR8FromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -4805,8 +4907,9 @@ class Ole {
      */
     static VarR8FromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -4819,8 +4922,9 @@ class Ole {
      */
     static VarR8FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -4833,8 +4937,9 @@ class Ole {
      */
     static VarR8FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -4925,8 +5030,9 @@ class Ole {
         pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarR8FromCy", "ptr", cyIn, pdblOutMarshal, pdblOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4939,8 +5045,9 @@ class Ole {
      */
     static VarR8FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -4994,8 +5101,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5009,8 +5117,9 @@ class Ole {
      */
     static VarR8FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5023,8 +5132,9 @@ class Ole {
      */
     static VarR8FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5115,8 +5225,9 @@ class Ole {
         pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarR8FromI1", "char", cIn, pdblOutMarshal, pdblOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5129,8 +5240,9 @@ class Ole {
      */
     static VarR8FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5143,8 +5255,9 @@ class Ole {
      */
     static VarR8FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5157,8 +5270,9 @@ class Ole {
      */
     static VarR8FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5171,8 +5285,9 @@ class Ole {
      */
     static VarR8FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, "double*", &pdblOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblOut
     }
@@ -5185,8 +5300,9 @@ class Ole {
      */
     static VarDateFromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5199,8 +5315,9 @@ class Ole {
      */
     static VarDateFromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5213,8 +5330,9 @@ class Ole {
      */
     static VarDateFromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5227,8 +5345,9 @@ class Ole {
      */
     static VarDateFromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5241,8 +5360,9 @@ class Ole {
      */
     static VarDateFromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5255,8 +5375,9 @@ class Ole {
      */
     static VarDateFromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5269,8 +5390,9 @@ class Ole {
      */
     static VarDateFromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5335,8 +5457,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5350,8 +5473,9 @@ class Ole {
      */
     static VarDateFromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5364,8 +5488,9 @@ class Ole {
      */
     static VarDateFromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5378,8 +5503,9 @@ class Ole {
      */
     static VarDateFromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5392,8 +5518,9 @@ class Ole {
      */
     static VarDateFromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5406,8 +5533,9 @@ class Ole {
      */
     static VarDateFromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5420,8 +5548,9 @@ class Ole {
      */
     static VarDateFromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5434,8 +5563,9 @@ class Ole {
      */
     static VarDateFromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -5524,8 +5654,9 @@ class Ole {
      */
     static VarCyFromUI1(bIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromUI1", "char", bIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5614,8 +5745,9 @@ class Ole {
      */
     static VarCyFromI2(sIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromI2", "short", sIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5704,8 +5836,9 @@ class Ole {
      */
     static VarCyFromI4(lIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromI4", "int", lIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5794,8 +5927,9 @@ class Ole {
      */
     static VarCyFromI8(i64In, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromI8", "int64", i64In, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5884,8 +6018,9 @@ class Ole {
      */
     static VarCyFromR4(fltIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromR4", "float", fltIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5974,8 +6109,9 @@ class Ole {
      */
     static VarCyFromR8(dblIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromR8", "double", dblIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6064,8 +6200,9 @@ class Ole {
      */
     static VarCyFromDate(dateIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromDate", "double", dateIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6195,8 +6332,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarCyFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6286,8 +6424,9 @@ class Ole {
      */
     static VarCyFromDisp(pdispIn, lcid, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6376,8 +6515,9 @@ class Ole {
      */
     static VarCyFromBool(boolIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromBool", "short", boolIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6466,8 +6606,9 @@ class Ole {
      */
     static VarCyFromI1(cIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromI1", "char", cIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6556,8 +6697,9 @@ class Ole {
      */
     static VarCyFromUI2(uiIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromUI2", "ushort", uiIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6646,8 +6788,9 @@ class Ole {
      */
     static VarCyFromUI4(ulIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromUI4", "uint", ulIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6736,8 +6879,9 @@ class Ole {
      */
     static VarCyFromUI8(ui64In, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromUI8", "uint", ui64In, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6826,8 +6970,9 @@ class Ole {
      */
     static VarCyFromDec(pdecIn, pcyOut) {
         result := DllCall("OLEAUT32.dll\VarCyFromDec", "ptr", pdecIn, "ptr", pcyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6860,8 +7005,9 @@ class Ole {
     static VarBstrFromUI1(bVal, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI1", "char", bVal, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -6877,8 +7023,9 @@ class Ole {
     static VarBstrFromI2(iVal, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI2", "short", iVal, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -6894,8 +7041,9 @@ class Ole {
     static VarBstrFromI4(lIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI4", "int", lIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -6911,8 +7059,9 @@ class Ole {
     static VarBstrFromI8(i64In, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI8", "int64", i64In, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -6945,8 +7094,9 @@ class Ole {
     static VarBstrFromR4(fltIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromR4", "float", fltIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -6979,8 +7129,9 @@ class Ole {
     static VarBstrFromR8(dblIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromR8", "double", dblIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7023,8 +7174,9 @@ class Ole {
     static VarBstrFromCy(cyIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromCy", "ptr", cyIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7120,8 +7272,9 @@ class Ole {
     static VarBstrFromDate(dateIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromDate", "double", dateIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7137,8 +7290,9 @@ class Ole {
     static VarBstrFromDisp(pdispIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromDisp", "ptr", pdispIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7181,8 +7335,9 @@ class Ole {
     static VarBstrFromBool(boolIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromBool", "short", boolIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7198,8 +7353,9 @@ class Ole {
     static VarBstrFromI1(cIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI1", "char", cIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7232,8 +7388,9 @@ class Ole {
     static VarBstrFromUI2(uiIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI2", "ushort", uiIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7249,8 +7406,9 @@ class Ole {
     static VarBstrFromUI4(ulIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI4", "uint", ulIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7266,8 +7424,9 @@ class Ole {
     static VarBstrFromUI8(ui64In, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI8", "uint", ui64In, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7322,8 +7481,9 @@ class Ole {
     static VarBstrFromDec(pdecIn, lcid, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromDec", "ptr", pdecIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -7336,8 +7496,9 @@ class Ole {
      */
     static VarBoolFromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7350,8 +7511,9 @@ class Ole {
      */
     static VarBoolFromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7364,8 +7526,9 @@ class Ole {
      */
     static VarBoolFromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7378,8 +7541,9 @@ class Ole {
      */
     static VarBoolFromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7392,8 +7556,9 @@ class Ole {
      */
     static VarBoolFromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7406,8 +7571,9 @@ class Ole {
      */
     static VarBoolFromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7420,8 +7586,9 @@ class Ole {
      */
     static VarBoolFromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7434,8 +7601,9 @@ class Ole {
      */
     static VarBoolFromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7479,8 +7647,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7494,8 +7663,9 @@ class Ole {
      */
     static VarBoolFromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7508,8 +7678,9 @@ class Ole {
      */
     static VarBoolFromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7522,8 +7693,9 @@ class Ole {
      */
     static VarBoolFromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7536,8 +7708,9 @@ class Ole {
      */
     static VarBoolFromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7550,8 +7723,9 @@ class Ole {
      */
     static VarBoolFromUI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7564,8 +7738,9 @@ class Ole {
      */
     static VarBoolFromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "short*", &pboolOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pboolOut
     }
@@ -7656,8 +7831,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI1", "char", bIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7748,8 +7924,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromI2", "short", uiIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7840,8 +8017,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromI4", "int", lIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7932,8 +8110,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromI8", "int64", i64In, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8024,8 +8203,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromR4", "float", fltIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8116,8 +8296,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromR8", "double", dblIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8208,8 +8389,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromDate", "double", dateIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8300,8 +8482,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromCy", "ptr", cyIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8412,8 +8595,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8505,8 +8689,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8597,8 +8782,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromBool", "short", boolIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8689,8 +8875,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI2", "ushort", uiIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8781,8 +8968,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI4", "uint", ulIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8873,8 +9061,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI8", "uint", i64In, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8965,8 +9154,9 @@ class Ole {
         pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromDec", "ptr", pdecIn, "ptr", pcOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8979,8 +9169,9 @@ class Ole {
      */
     static VarUI2FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -8993,8 +9184,9 @@ class Ole {
      */
     static VarUI2FromI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9007,8 +9199,9 @@ class Ole {
      */
     static VarUI2FromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9021,8 +9214,9 @@ class Ole {
      */
     static VarUI2FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9035,8 +9229,9 @@ class Ole {
      */
     static VarUI2FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9127,8 +9322,9 @@ class Ole {
         puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarUI2FromR8", "double", dblIn, puiOutMarshal, puiOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9141,8 +9337,9 @@ class Ole {
      */
     static VarUI2FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9155,8 +9352,9 @@ class Ole {
      */
     static VarUI2FromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9210,8 +9408,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9225,8 +9424,9 @@ class Ole {
      */
     static VarUI2FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9239,8 +9439,9 @@ class Ole {
      */
     static VarUI2FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9253,8 +9454,9 @@ class Ole {
      */
     static VarUI2FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9267,8 +9469,9 @@ class Ole {
      */
     static VarUI2FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9281,8 +9484,9 @@ class Ole {
      */
     static VarUI2FromUI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9295,8 +9499,9 @@ class Ole {
      */
     static VarUI2FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, "ushort*", &puiOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiOut
     }
@@ -9309,8 +9514,9 @@ class Ole {
      */
     static VarUI4FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9323,8 +9529,9 @@ class Ole {
      */
     static VarUI4FromI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9337,8 +9544,9 @@ class Ole {
      */
     static VarUI4FromI4(lIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9351,8 +9559,9 @@ class Ole {
      */
     static VarUI4FromI8(i64In) {
         result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, "uint*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -9365,8 +9574,9 @@ class Ole {
      */
     static VarUI4FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9379,8 +9589,9 @@ class Ole {
      */
     static VarUI4FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9393,8 +9604,9 @@ class Ole {
      */
     static VarUI4FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9407,8 +9619,9 @@ class Ole {
      */
     static VarUI4FromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9462,8 +9675,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9477,8 +9691,9 @@ class Ole {
      */
     static VarUI4FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9491,8 +9706,9 @@ class Ole {
      */
     static VarUI4FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9505,8 +9721,9 @@ class Ole {
      */
     static VarUI4FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9519,8 +9736,9 @@ class Ole {
      */
     static VarUI4FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9533,8 +9751,9 @@ class Ole {
      */
     static VarUI4FromUI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, "uint*", &plOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plOut
     }
@@ -9547,8 +9766,9 @@ class Ole {
      */
     static VarUI4FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, "uint*", &pulOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulOut
     }
@@ -9561,8 +9781,9 @@ class Ole {
      */
     static VarUI8FromUI1(bIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9575,8 +9796,9 @@ class Ole {
      */
     static VarUI8FromI2(sIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9589,8 +9811,9 @@ class Ole {
      */
     static VarUI8FromI8(ui64In) {
         result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9603,8 +9826,9 @@ class Ole {
      */
     static VarUI8FromR4(fltIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9617,8 +9841,9 @@ class Ole {
      */
     static VarUI8FromR8(dblIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9631,8 +9856,9 @@ class Ole {
      */
     static VarUI8FromCy(cyIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9645,8 +9871,9 @@ class Ole {
      */
     static VarUI8FromDate(dateIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9680,8 +9907,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9695,8 +9923,9 @@ class Ole {
      */
     static VarUI8FromDisp(pdispIn, lcid) {
         result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9709,8 +9938,9 @@ class Ole {
      */
     static VarUI8FromBool(boolIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9723,8 +9953,9 @@ class Ole {
      */
     static VarUI8FromI1(cIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9737,8 +9968,9 @@ class Ole {
      */
     static VarUI8FromUI2(uiIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9751,8 +9983,9 @@ class Ole {
      */
     static VarUI8FromUI4(ulIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9765,8 +9998,9 @@ class Ole {
      */
     static VarUI8FromDec(pdecIn) {
         result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, "uint*", &pi64Out := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pi64Out
     }
@@ -9855,8 +10089,9 @@ class Ole {
      */
     static VarDecFromUI1(bIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromUI1", "char", bIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9945,8 +10180,9 @@ class Ole {
      */
     static VarDecFromI2(uiIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromI2", "short", uiIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10035,8 +10271,9 @@ class Ole {
      */
     static VarDecFromI4(lIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromI4", "int", lIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10125,8 +10362,9 @@ class Ole {
      */
     static VarDecFromI8(i64In, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromI8", "int64", i64In, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10215,8 +10453,9 @@ class Ole {
      */
     static VarDecFromR4(fltIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromR4", "float", fltIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10305,8 +10544,9 @@ class Ole {
      */
     static VarDecFromR8(dblIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromR8", "double", dblIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10395,8 +10635,9 @@ class Ole {
      */
     static VarDecFromDate(dateIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromDate", "double", dateIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10485,8 +10726,9 @@ class Ole {
      */
     static VarDecFromCy(cyIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromCy", "ptr", cyIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10616,8 +10858,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarDecFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10707,8 +10950,9 @@ class Ole {
      */
     static VarDecFromDisp(pdispIn, lcid, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10797,8 +11041,9 @@ class Ole {
      */
     static VarDecFromBool(boolIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromBool", "short", boolIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10887,8 +11132,9 @@ class Ole {
      */
     static VarDecFromI1(cIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromI1", "char", cIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10977,8 +11223,9 @@ class Ole {
      */
     static VarDecFromUI2(uiIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromUI2", "ushort", uiIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11067,8 +11314,9 @@ class Ole {
      */
     static VarDecFromUI4(ulIn, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromUI4", "uint", ulIn, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11157,8 +11405,9 @@ class Ole {
      */
     static VarDecFromUI8(ui64In, pdecOut) {
         result := DllCall("OLEAUT32.dll\VarDecFromUI8", "uint", ui64In, "ptr", pdecOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11176,8 +11425,9 @@ class Ole {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "char*", &rgbDig := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return rgbDig
     }
@@ -11239,8 +11489,9 @@ class Ole {
         rgbDigMarshal := rgbDig is VarRef ? "char*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarNumFromParseNum", "ptr", pnumprs, rgbDigMarshal, rgbDig, "uint", dwVtBits, "ptr", pvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11255,8 +11506,9 @@ class Ole {
      */
     static VarAdd(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarAdd", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11271,8 +11523,9 @@ class Ole {
      */
     static VarAnd(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarAnd", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11287,8 +11540,9 @@ class Ole {
      */
     static VarCat(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarCat", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11303,8 +11557,9 @@ class Ole {
      */
     static VarDiv(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarDiv", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11319,8 +11574,9 @@ class Ole {
      */
     static VarEqv(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarEqv", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11335,8 +11591,9 @@ class Ole {
      */
     static VarIdiv(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarIdiv", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11351,8 +11608,9 @@ class Ole {
      */
     static VarImp(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarImp", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11367,8 +11625,9 @@ class Ole {
      */
     static VarMod(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarMod", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11383,8 +11642,9 @@ class Ole {
      */
     static VarMul(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarMul", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11399,8 +11659,9 @@ class Ole {
      */
     static VarOr(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarOr", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11415,8 +11676,9 @@ class Ole {
      */
     static VarPow(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarPow", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11431,8 +11693,9 @@ class Ole {
      */
     static VarSub(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarSub", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11447,8 +11710,9 @@ class Ole {
      */
     static VarXor(pvarLeft, pvarRight, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarXor", "ptr", pvarLeft, "ptr", pvarRight, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11462,8 +11726,9 @@ class Ole {
      */
     static VarAbs(pvarIn, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarAbs", "ptr", pvarIn, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11477,8 +11742,9 @@ class Ole {
      */
     static VarFix(pvarIn, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarFix", "ptr", pvarIn, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11492,8 +11758,9 @@ class Ole {
      */
     static VarInt(pvarIn, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarInt", "ptr", pvarIn, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11507,8 +11774,9 @@ class Ole {
      */
     static VarNeg(pvarIn, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarNeg", "ptr", pvarIn, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11522,8 +11790,9 @@ class Ole {
      */
     static VarNot(pvarIn, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarNot", "ptr", pvarIn, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11538,8 +11807,9 @@ class Ole {
      */
     static VarRound(pvarIn, cDecimals, pvarResult) {
         result := DllCall("OLEAUT32.dll\VarRound", "ptr", pvarIn, "int", cDecimals, "ptr", pvarResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11696,8 +11966,9 @@ class Ole {
      */
     static VarDecAdd(pdecLeft, pdecRight, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecAdd", "ptr", pdecLeft, "ptr", pdecRight, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11712,8 +11983,9 @@ class Ole {
      */
     static VarDecDiv(pdecLeft, pdecRight, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecDiv", "ptr", pdecLeft, "ptr", pdecRight, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11728,8 +12000,9 @@ class Ole {
      */
     static VarDecMul(pdecLeft, pdecRight, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecMul", "ptr", pdecLeft, "ptr", pdecRight, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11744,8 +12017,9 @@ class Ole {
      */
     static VarDecSub(pdecLeft, pdecRight, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecSub", "ptr", pdecLeft, "ptr", pdecRight, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11759,8 +12033,9 @@ class Ole {
      */
     static VarDecAbs(pdecIn, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecAbs", "ptr", pdecIn, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11774,8 +12049,9 @@ class Ole {
      */
     static VarDecFix(pdecIn, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecFix", "ptr", pdecIn, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11789,8 +12065,9 @@ class Ole {
      */
     static VarDecInt(pdecIn, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecInt", "ptr", pdecIn, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11804,8 +12081,9 @@ class Ole {
      */
     static VarDecNeg(pdecIn, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecNeg", "ptr", pdecIn, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11820,8 +12098,9 @@ class Ole {
      */
     static VarDecRound(pdecIn, cDecimals, pdecResult) {
         result := DllCall("OLEAUT32.dll\VarDecRound", "ptr", pdecIn, "int", cDecimals, "ptr", pdecResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11974,8 +12253,9 @@ class Ole {
      */
     static VarCyAdd(cyLeft, cyRight, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyAdd", "ptr", cyLeft, "ptr", cyRight, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11990,8 +12270,9 @@ class Ole {
      */
     static VarCyMul(cyLeft, cyRight, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyMul", "ptr", cyLeft, "ptr", cyRight, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12006,8 +12287,9 @@ class Ole {
      */
     static VarCyMulI4(cyLeft, lRight, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyMulI4", "ptr", cyLeft, "int", lRight, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12022,8 +12304,9 @@ class Ole {
      */
     static VarCyMulI8(cyLeft, lRight, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyMulI8", "ptr", cyLeft, "int64", lRight, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12038,8 +12321,9 @@ class Ole {
      */
     static VarCySub(cyLeft, cyRight, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCySub", "ptr", cyLeft, "ptr", cyRight, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12053,8 +12337,9 @@ class Ole {
      */
     static VarCyAbs(cyIn, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyAbs", "ptr", cyIn, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12068,8 +12353,9 @@ class Ole {
      */
     static VarCyFix(cyIn, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyFix", "ptr", cyIn, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12083,8 +12369,9 @@ class Ole {
      */
     static VarCyInt(cyIn, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyInt", "ptr", cyIn, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12098,8 +12385,9 @@ class Ole {
      */
     static VarCyNeg(cyIn, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyNeg", "ptr", cyIn, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12114,8 +12402,9 @@ class Ole {
      */
     static VarCyRound(cyIn, cDecimals, pcyResult) {
         result := DllCall("OLEAUT32.dll\VarCyRound", "ptr", cyIn, "int", cDecimals, "ptr", pcyResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12271,8 +12560,9 @@ class Ole {
 
         pbstrResult := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrCat", "ptr", bstrLeft, "ptr", bstrRight, "ptr", pbstrResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrResult
     }
@@ -12407,8 +12697,9 @@ class Ole {
         bstrRight := bstrRight is Win32Handle ? NumGet(bstrRight, "ptr") : bstrRight
 
         result := DllCall("OLEAUT32.dll\VarBstrCmp", "ptr", bstrLeft, "ptr", bstrRight, "uint", lcid, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12422,8 +12713,9 @@ class Ole {
      */
     static VarR8Pow(dblLeft, dblRight) {
         result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, "double*", &pdblResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblResult
     }
@@ -12506,8 +12798,9 @@ class Ole {
      */
     static VarR8Round(dblIn, cDecimals) {
         result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, "double*", &pdblResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblResult
     }
@@ -12521,8 +12814,9 @@ class Ole {
      */
     static VarDateFromUdate(pudateIn, dwFlags) {
         result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -12537,8 +12831,9 @@ class Ole {
      */
     static VarDateFromUdateEx(pudateIn, lcid, dwFlags) {
         result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, "double*", &pdateOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdateOut
     }
@@ -12593,8 +12888,9 @@ class Ole {
      */
     static VarUdateFromDate(dateIn, dwFlags, pudateOut) {
         result := DllCall("OLEAUT32.dll\VarUdateFromDate", "double", dateIn, "uint", dwFlags, "ptr", pudateOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12607,8 +12903,9 @@ class Ole {
      */
     static GetAltMonthNames(lcid) {
         result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr*", &prgp := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return prgp
     }
@@ -12776,8 +13073,9 @@ class Ole {
 
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormat", "ptr", pvarIn, "ptr", pstrFormat, "int", iFirstDay, "int", iFirstWeek, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -12855,8 +13153,9 @@ class Ole {
     static VarFormatDateTime(pvarIn, iNamedFormat, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatDateTime", "ptr", pvarIn, "int", iNamedFormat, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -12997,8 +13296,9 @@ class Ole {
     static VarFormatNumber(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatNumber", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -13139,8 +13439,9 @@ class Ole {
     static VarFormatPercent(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatPercent", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -13281,8 +13582,9 @@ class Ole {
     static VarFormatCurrency(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatCurrency", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -13490,8 +13792,9 @@ class Ole {
     static VarWeekdayName(iWeekday, fAbbrev, iFirstDay, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarWeekdayName", "int", iWeekday, "int", fAbbrev, "int", iFirstDay, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -13507,8 +13810,9 @@ class Ole {
     static VarMonthName(iMonth, fAbbrev, dwFlags) {
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarMonthName", "int", iMonth, "int", fAbbrev, "uint", dwFlags, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -13530,8 +13834,9 @@ class Ole {
 
         pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -13744,8 +14049,9 @@ class Ole {
         pcbActualMarshal := pcbActual is VarRef ? "int*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, rgbTokMarshal, rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, pcbActualMarshal, pcbActual, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13790,8 +14096,9 @@ class Ole {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr*", &pptlib := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ITypeLib(pptlib)
     }
@@ -13807,8 +14114,9 @@ class Ole {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr*", &pptlib := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ITypeLib(pptlib)
     }
@@ -13824,8 +14132,9 @@ class Ole {
      */
     static LoadRegTypeLib(rguid, wVerMajor, wVerMinor, lcid) {
         result := DllCall("OLEAUT32.dll\LoadRegTypeLib", "ptr", rguid, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "ptr*", &pptlib := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ITypeLib(pptlib)
     }
@@ -13842,8 +14151,9 @@ class Ole {
     static QueryPathOfRegTypeLib(guid, wMaj, wMin, lcid) {
         lpbstrPathName := BSTR()
         result := DllCall("OLEAUT32.dll\QueryPathOfRegTypeLib", "ptr", guid, "ushort", wMaj, "ushort", wMin, "uint", lcid, "ptr", lpbstrPathName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lpbstrPathName
     }
@@ -13943,8 +14253,9 @@ class Ole {
         szHelpDir := szHelpDir is String ? StrPtr(szHelpDir) : szHelpDir
 
         result := DllCall("OLEAUT32.dll\RegisterTypeLib", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14043,8 +14354,9 @@ class Ole {
      */
     static UnRegisterTypeLib(libID, wVerMajor, wVerMinor, lcid, syskind) {
         result := DllCall("OLEAUT32.dll\UnRegisterTypeLib", "ptr", libID, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "int", syskind, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14144,8 +14456,9 @@ class Ole {
         szHelpDir := szHelpDir is String ? StrPtr(szHelpDir) : szHelpDir
 
         result := DllCall("OLEAUT32.dll\RegisterTypeLibForUser", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14244,8 +14557,9 @@ class Ole {
      */
     static UnRegisterTypeLibForUser(libID, wMajorVerNum, wMinorVerNum, lcid, syskind) {
         result := DllCall("OLEAUT32.dll\UnRegisterTypeLibForUser", "ptr", libID, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "uint", lcid, "int", syskind, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14261,8 +14575,9 @@ class Ole {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ICreateTypeLib(ppctlib)
     }
@@ -14278,8 +14593,9 @@ class Ole {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ICreateTypeLib2(ppctlib)
     }
@@ -14295,8 +14611,9 @@ class Ole {
      */
     static DispGetParam(pdispparams, position, vtTarg, pvarResult) {
         result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, "uint*", &puArgErr := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puArgErr
     }
@@ -14313,8 +14630,9 @@ class Ole {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, rgszNamesMarshal, rgszNames, "uint", cNames, "int*", &rgdispid := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return rgdispid
     }
@@ -14536,8 +14854,9 @@ class Ole {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\DispInvoke", _thisMarshal, _this, "ptr", ptinfo, "int", dispidMember, "ushort", wFlags, "ptr", pparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14551,8 +14870,9 @@ class Ole {
      */
     static CreateDispTypeInfo(pidata, lcid) {
         result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", "ptr", pidata, "uint", lcid, "ptr*", &pptinfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ITypeInfo(pptinfo)
     }
@@ -14569,8 +14889,9 @@ class Ole {
         pvThisMarshal := pvThis is VarRef ? "ptr" : "ptr"
 
         result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, pvThisMarshal, pvThis, "ptr", ptinfo, "ptr*", &ppunkStdDisp := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppunkStdDisp)
     }
@@ -14594,8 +14915,9 @@ class Ole {
         prgpvargMarshal := prgpvarg is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, prgvtMarshal, prgvt, prgpvargMarshal, prgpvarg, "ptr", pvargResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14613,8 +14935,9 @@ class Ole {
         pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
 
         result := DllCall("OLEAUT32.dll\RegisterActiveObject", "ptr", punk, "ptr", rclsid, "uint", dwFlags, pdwRegisterMarshal, pdwRegister, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14629,8 +14952,9 @@ class Ole {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLEAUT32.dll\RevokeActiveObject", "uint", dwRegister, "ptr", pvReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14645,8 +14969,9 @@ class Ole {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLEAUT32.dll\GetActiveObject", "ptr", rclsid, "ptr", pvReserved, "ptr*", &ppunk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppunk)
     }
@@ -14658,8 +14983,9 @@ class Ole {
      */
     static CreateErrorInfo() {
         result := DllCall("OLEAUT32.dll\CreateErrorInfo", "ptr*", &pperrinfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ICreateErrorInfo(pperrinfo)
     }
@@ -14672,8 +14998,9 @@ class Ole {
      */
     static GetRecordInfoFromTypeInfo(pTypeInfo) {
         result := DllCall("OLEAUT32.dll\GetRecordInfoFromTypeInfo", "ptr", pTypeInfo, "ptr*", &ppRecInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IRecordInfo(ppRecInfo)
     }
@@ -14690,8 +15017,9 @@ class Ole {
      */
     static GetRecordInfoFromGuids(rGuidTypeLib, uVerMajor, uVerMinor, lcid, rGuidTypeInfo) {
         result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", "ptr", rGuidTypeLib, "uint", uVerMajor, "uint", uVerMinor, "uint", lcid, "ptr", rGuidTypeInfo, "ptr*", &ppRecInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IRecordInfo(ppRecInfo)
     }
@@ -14825,8 +15153,9 @@ class Ole {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\OleInitialize", "ptr", pvReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14861,8 +15190,9 @@ class Ole {
      */
     static OleQueryLinkFromData(pSrcDataObject) {
         result := DllCall("OLE32.dll\OleQueryLinkFromData", "ptr", pSrcDataObject, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14905,8 +15235,9 @@ class Ole {
      */
     static OleQueryCreateFromData(pSrcDataObject) {
         result := DllCall("OLE32.dll\OleQueryCreateFromData", "ptr", pSrcDataObject, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14925,8 +15256,9 @@ class Ole {
      */
     static OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg) {
         result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -14973,8 +15305,9 @@ class Ole {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14993,8 +15326,9 @@ class Ole {
      */
     static OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg) {
         result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15052,8 +15386,9 @@ class Ole {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15072,8 +15407,9 @@ class Ole {
      */
     static OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg) {
         result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15100,8 +15436,9 @@ class Ole {
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15120,8 +15457,9 @@ class Ole {
      */
     static OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientSite, pStg) {
         result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15140,8 +15478,9 @@ class Ole {
      */
     static OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
         result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15199,8 +15538,9 @@ class Ole {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15221,8 +15561,9 @@ class Ole {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15282,8 +15623,9 @@ class Ole {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15305,8 +15647,9 @@ class Ole {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15367,8 +15710,9 @@ class Ole {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15384,8 +15728,9 @@ class Ole {
      */
     static OleLoad(pStg, riid, pClientSite) {
         result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15421,8 +15766,9 @@ class Ole {
      */
     static OleSave(pPS, pStg, fSameAsLoad) {
         result := DllCall("OLE32.dll\OleSave", "ptr", pPS, "ptr", pStg, "int", fSameAsLoad, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15437,8 +15783,9 @@ class Ole {
      */
     static OleLoadFromStream(pStm, iidInterface) {
         result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -15485,8 +15832,9 @@ class Ole {
      */
     static OleSaveToStream(pPStm, pStm) {
         result := DllCall("OLE32.dll\OleSaveToStream", "ptr", pPStm, "ptr", pStm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15541,8 +15889,9 @@ class Ole {
      */
     static OleSetContainedObject(pUnknown, fContained) {
         result := DllCall("OLE32.dll\OleSetContainedObject", "ptr", pUnknown, "int", fContained, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15597,8 +15946,9 @@ class Ole {
      */
     static OleNoteObjectVisible(pUnknown, fVisible) {
         result := DllCall("ole32.dll\OleNoteObjectVisible", "ptr", pUnknown, "int", fVisible, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15659,8 +16009,9 @@ class Ole {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("OLE32.dll\RegisterDragDrop", "ptr", hwnd, "ptr", pDropTarget, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15716,8 +16067,9 @@ class Ole {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("OLE32.dll\RevokeDragDrop", "ptr", hwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15796,8 +16148,9 @@ class Ole {
      */
     static OleSetClipboard(pDataObj) {
         result := DllCall("OLE32.dll\OleSetClipboard", "ptr", pDataObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15810,8 +16163,9 @@ class Ole {
      */
     static OleGetClipboard() {
         result := DllCall("OLE32.dll\OleGetClipboard", "ptr*", &ppDataObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDataObject(ppDataObj)
     }
@@ -15864,8 +16218,9 @@ class Ole {
         dataDescriptionMarshal := dataDescription is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr*", dataObject, dataEnterpriseIdMarshal, dataEnterpriseId, sourceDescriptionMarshal, sourceDescription, targetDescriptionMarshal, targetDescription, dataDescriptionMarshal, dataDescription, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15907,8 +16262,9 @@ class Ole {
      */
     static OleFlushClipboard() {
         result := DllCall("OLE32.dll\OleFlushClipboard", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15941,8 +16297,9 @@ class Ole {
      */
     static OleIsCurrentClipboard(pDataObj) {
         result := DllCall("OLE32.dll\OleIsCurrentClipboard", "ptr", pDataObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15978,8 +16335,9 @@ class Ole {
         hwndActiveObject := hwndActiveObject is Win32Handle ? NumGet(hwndActiveObject, "ptr") : hwndActiveObject
 
         result := DllCall("OLE32.dll\OleSetMenuDescriptor", "ptr", holemenu, "ptr", hwndFrame, "ptr", hwndActiveObject, "ptr", lpFrame, "ptr", lpActiveObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15993,8 +16351,9 @@ class Ole {
      */
     static OleDestroyMenuDescriptor(holemenu) {
         result := DllCall("OLE32.dll\OleDestroyMenuDescriptor", "ptr", holemenu, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16029,8 +16388,9 @@ class Ole {
      */
     static OleTranslateAccelerator(lpFrame, lpFrameInfo, lpmsg) {
         result := DllCall("OLE32.dll\OleTranslateAccelerator", "ptr", lpFrame, "ptr", lpFrameInfo, "ptr", lpmsg, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16150,8 +16510,9 @@ class Ole {
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
 
         result := DllCall("OLE32.dll\OleDraw", "ptr", pUnknown, "uint", dwAspect, "ptr", hdcDraw, "ptr", lprcBounds, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16183,8 +16544,9 @@ class Ole {
      */
     static OleRun(pUnknown) {
         result := DllCall("OLE32.dll\OleRun", "ptr", pUnknown, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16252,8 +16614,9 @@ class Ole {
      */
     static OleLockRunning(pUnknown, fLock, fLastUnlockCloses) {
         result := DllCall("OLE32.dll\OleLockRunning", "ptr", pUnknown, "int", fLock, "int", fLastUnlockCloses, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16362,8 +16725,9 @@ class Ole {
      */
     static CreateOleAdviseHolder() {
         result := DllCall("OLE32.dll\CreateOleAdviseHolder", "ptr*", &ppOAHolder := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IOleAdviseHolder(ppOAHolder)
     }
@@ -16379,8 +16743,9 @@ class Ole {
      */
     static OleCreateDefaultHandler(clsid, pUnkOuter, riid) {
         result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &lplpObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lplpObj
     }
@@ -16398,8 +16763,9 @@ class Ole {
      */
     static OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid) {
         result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, "ptr*", &lplpObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lplpObj
     }
@@ -16476,8 +16842,9 @@ class Ole {
         A_LastError := 0
 
         result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HGLOBAL({Value: result}, True)
         return resultHandle
@@ -16493,8 +16860,9 @@ class Ole {
      */
     static OleRegGetUserType(clsid, dwFormOfType) {
         result := DllCall("OLE32.dll\OleRegGetUserType", "ptr", clsid, "uint", dwFormOfType, "ptr*", &pszUserType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pszUserType
     }
@@ -16509,8 +16877,9 @@ class Ole {
      */
     static OleRegGetMiscStatus(clsid, dwAspect) {
         result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, "uint*", &pdwStatus := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwStatus
     }
@@ -16525,8 +16894,9 @@ class Ole {
      */
     static OleRegEnumFormatEtc(clsid, dwDirection) {
         result := DllCall("ole32.dll\OleRegEnumFormatEtc", "ptr", clsid, "uint", dwDirection, "ptr*", &ppenum := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumFORMATETC(ppenum)
     }
@@ -16540,8 +16910,9 @@ class Ole {
      */
     static OleRegEnumVerbs(clsid) {
         result := DllCall("OLE32.dll\OleRegEnumVerbs", "ptr", clsid, "ptr*", &ppenum := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumOLEVERB(ppenum)
     }
@@ -16560,8 +16931,9 @@ class Ole {
         pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", "ptr", lpolestream, "ptr", pstg, "ptr", ptd, "uint", opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16608,8 +16980,9 @@ class Ole {
      */
     static OleDoAutoConvert(pStg, pClsidNew) {
         result := DllCall("ole32.dll\OleDoAutoConvert", "ptr", pStg, "ptr", pClsidNew, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16676,8 +17049,9 @@ class Ole {
      */
     static OleGetAutoConvert(clsidOld, pClsidNew) {
         result := DllCall("OLE32.dll\OleGetAutoConvert", "ptr", clsidOld, "ptr", pClsidNew, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16754,8 +17128,9 @@ class Ole {
      */
     static OleSetAutoConvert(clsidOld, clsidNew) {
         result := DllCall("ole32.dll\OleSetAutoConvert", "ptr", clsidOld, "ptr", clsidNew, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16782,8 +17157,9 @@ class Ole {
         pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", "ptr", polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, "ptr", pmedium, "uint", opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16951,8 +17327,9 @@ class Ole {
         lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
 
         result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr*", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16995,8 +17372,9 @@ class Ole {
      */
     static OleCreatePropertyFrameIndirect(lpParams) {
         result := DllCall("OLEAUT32.dll\OleCreatePropertyFrameIndirect", "ptr", lpParams, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17013,8 +17391,9 @@ class Ole {
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
 
         result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "uint*", &lpcolorref := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lpcolorref
     }
@@ -17029,8 +17408,9 @@ class Ole {
      */
     static OleCreateFontIndirect(lpFontDesc, riid) {
         result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, "ptr*", &lplpvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lplpvObj
     }
@@ -17046,8 +17426,9 @@ class Ole {
      */
     static OleCreatePictureIndirect(lpPictDesc, riid, fOwn) {
         result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, "ptr*", &lplpvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lplpvObj
     }
@@ -17064,8 +17445,9 @@ class Ole {
      */
     static OleLoadPicture(lpstream, lSize, fRunmode, riid) {
         result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "ptr*", &lplpvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lplpvObj
     }
@@ -17085,8 +17467,9 @@ class Ole {
      */
     static OleLoadPictureEx(lpstream, lSize, fRunmode, riid, xSizeDesired, ySizeDesired, dwFlags) {
         result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", &lplpvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lplpvObj
     }
@@ -17107,8 +17490,9 @@ class Ole {
         szURLorPath := szURLorPath is String ? StrPtr(szURLorPath) : szURLorPath
 
         result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr*", &ppvRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvRet
     }
@@ -17121,8 +17505,9 @@ class Ole {
      */
     static OleLoadPictureFile(varFileName) {
         result := DllCall("OLEAUT32.dll\OleLoadPictureFile", "ptr", varFileName, "ptr*", &lplpdispPicture := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDispatch(lplpdispPicture)
     }
@@ -17189,8 +17574,9 @@ class Ole {
      */
     static OleLoadPictureFileEx(varFileName, xSizeDesired, ySizeDesired, dwFlags) {
         result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", "ptr", varFileName, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", &lplpdispPicture := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDispatch(lplpdispPicture)
     }
@@ -17250,8 +17636,9 @@ class Ole {
         bstrFileName := bstrFileName is Win32Handle ? NumGet(bstrFileName, "ptr") : bstrFileName
 
         result := DllCall("OLEAUT32.dll\OleSavePictureFile", "ptr", lpdispPicture, "ptr", bstrFileName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

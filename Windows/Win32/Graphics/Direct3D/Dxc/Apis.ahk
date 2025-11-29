@@ -230,8 +230,9 @@ class Dxc {
      */
     static DxcCreateInstance(rclsid, riid) {
         result := DllCall("dxcompiler.dll\DxcCreateInstance", "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -245,8 +246,9 @@ class Dxc {
      */
     static DxcCreateInstance2(pMalloc, rclsid, riid) {
         result := DllCall("dxcompiler.dll\DxcCreateInstance2", "ptr", pMalloc, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }

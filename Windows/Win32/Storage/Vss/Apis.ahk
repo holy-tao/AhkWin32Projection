@@ -435,8 +435,9 @@ class Vss {
      */
     static CreateVssExpressWriterInternal() {
         result := DllCall("VSSAPI.dll\CreateVssExpressWriterInternal", "ptr*", &ppWriter := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IVssExpressWriter(ppWriter)
     }

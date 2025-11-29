@@ -40,8 +40,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\InitializeTouchInjection", "uint", maxCount, "uint", dwMode, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -62,8 +63,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\InjectTouchInput", "uint", count, "ptr", contacts, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -84,8 +86,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerType", "uint", pointerId, pointerTypeMarshal, pointerType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -106,8 +109,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerCursorId", "uint", pointerId, cursorIdMarshal, cursorId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -126,8 +130,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerInfo", "uint", pointerId, "ptr", pointerInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -149,8 +154,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", pointerInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -172,8 +178,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerFrameInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", pointerInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -199,8 +206,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerFrameInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", pointerInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -219,8 +227,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerTouchInfo", "uint", pointerId, "ptr", touchInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -242,8 +251,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerTouchInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", touchInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -265,8 +275,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerFrameTouchInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", touchInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -292,8 +303,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", touchInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -312,8 +324,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerPenInfo", "uint", pointerId, "ptr", penInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -344,8 +357,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerPenInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", penInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -367,8 +381,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerFramePenInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", penInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -395,8 +410,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", penInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -414,8 +430,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SkipPointerFrameMessages", "uint", pointerId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -447,8 +464,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\InjectSyntheticPointerInput", "ptr", device, "ptr", pointerInfo, "uint", count, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -479,8 +497,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnableMouseInPointer", "int", fEnable, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -517,8 +536,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerInputTransform", "uint", pointerId, "uint", historyCount, "ptr", inputTransform, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -539,8 +559,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerDevices", deviceCountMarshal, deviceCount, "ptr", pointerDevices, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -561,8 +582,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerDevice", "ptr", device, "ptr", pointerDevice, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -590,8 +612,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerDeviceProperties", "ptr", device, propertyCountMarshal, propertyCount, "ptr", pointerProperties, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -611,8 +634,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerDeviceRects", "ptr", device, "ptr", pointerDeviceRect, "ptr", displayRect, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -634,8 +658,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPointerDeviceCursors", "ptr", device, cursorCountMarshal, cursorCount, "ptr", deviceCursors, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -657,8 +682,9 @@ class Pointer {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetRawPointerDeviceData", "uint", pointerId, "uint", historyCount, "uint", propertiesCount, "ptr", pProperties, pValuesMarshal, pValues, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

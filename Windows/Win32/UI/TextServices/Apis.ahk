@@ -2279,8 +2279,9 @@ class TextServices {
      */
     static InitLocalMsCtfMonitor(dwFlags) {
         result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2302,8 +2303,9 @@ class TextServices {
      */
     static UninitLocalMsCtfMonitor() {
         result := DllCall("MsCtfMonitor.dll\UninitLocalMsCtfMonitor", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

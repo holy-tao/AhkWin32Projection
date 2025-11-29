@@ -779,8 +779,9 @@ class Dialogs {
      */
     static PrintDlgExA(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExA", "ptr", pPD, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -793,8 +794,9 @@ class Dialogs {
      */
     static PrintDlgExW(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExW", "ptr", pPD, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

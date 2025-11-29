@@ -1038,8 +1038,9 @@ class TpmBaseServices {
         pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
         result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1059,8 +1060,9 @@ class TpmBaseServices {
         pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
         result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

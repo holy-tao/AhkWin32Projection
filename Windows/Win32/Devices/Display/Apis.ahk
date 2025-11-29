@@ -3851,8 +3851,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3866,8 +3867,9 @@ class Display {
      */
     static GetNumberOfPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9) {
         result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint*", &pdwNumberOfPhysicalMonitors := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwNumberOfPhysicalMonitors
     }
@@ -3887,8 +3889,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3904,8 +3907,9 @@ class Display {
      */
     static GetPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
         result := DllCall("dxva2.dll\GetPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3923,8 +3927,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", hMonitor, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3941,8 +3946,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DestroyPhysicalMonitors", "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3968,8 +3974,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", "ptr", hMonitor, "char", bVCPCode, pvctMarshal, pvct, pdwCurrentValueMarshal, pdwCurrentValue, pdwMaximumValueMarshal, pdwMaximumValue, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4003,8 +4010,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SaveCurrentSettings", "ptr", hMonitor, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4025,8 +4033,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetCapabilitiesStringLength", "ptr", hMonitor, pdwCapabilitiesStringLengthInCharactersMarshal, pdwCapabilitiesStringLengthInCharacters, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4047,8 +4056,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\CapabilitiesRequestAndCapabilitiesReply", "ptr", hMonitor, "ptr", pszASCIICapabilitiesString, "uint", dwCapabilitiesStringLengthInCharacters, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4067,8 +4077,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetTimingReport", "ptr", hMonitor, "ptr", pmtrMonitorTimingReport, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4107,8 +4118,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SaveCurrentMonitorSettings", "ptr", hMonitor, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4129,8 +4141,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorTechnologyType", "ptr", hMonitor, pdtyDisplayTechnologyTypeMarshal, pdtyDisplayTechnologyType, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4155,8 +4168,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorBrightness", "ptr", hMonitor, pdwMinimumBrightnessMarshal, pdwMinimumBrightness, pdwCurrentBrightnessMarshal, pdwCurrentBrightness, pdwMaximumBrightnessMarshal, pdwMaximumBrightness, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4181,8 +4195,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorContrast", "ptr", hMonitor, pdwMinimumContrastMarshal, pdwMinimumContrast, pdwCurrentContrastMarshal, pdwCurrentContrast, pdwMaximumContrastMarshal, pdwMaximumContrast, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4203,8 +4218,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorColorTemperature", "ptr", hMonitor, pctCurrentColorTemperatureMarshal, pctCurrentColorTemperature, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4230,8 +4246,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, pdwMinimumDriveMarshal, pdwMinimumDrive, pdwCurrentDriveMarshal, pdwCurrentDrive, pdwMaximumDriveMarshal, pdwMaximumDrive, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4257,8 +4274,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, pdwMinimumGainMarshal, pdwMinimumGain, pdwCurrentGainMarshal, pdwCurrentGain, pdwMaximumGainMarshal, pdwMaximumGain, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4277,8 +4295,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorBrightness", "ptr", hMonitor, "uint", dwNewBrightness, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4297,8 +4316,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorContrast", "ptr", hMonitor, "uint", dwNewContrast, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4317,8 +4337,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorColorTemperature", "ptr", hMonitor, "int", ctCurrentColorTemperature, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4368,8 +4389,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DegaussMonitor", "ptr", hMonitor, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4395,8 +4417,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, pdwMinimumWidthOrHeightMarshal, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeightMarshal, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeightMarshal, pdwMaximumWidthOrHeight, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4422,8 +4445,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, pdwMinimumPositionMarshal, pdwMinimumPosition, pdwCurrentPositionMarshal, pdwCurrentPosition, pdwMaximumPositionMarshal, pdwMaximumPosition, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4443,8 +4467,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, "uint", dwNewDisplayAreaWidthOrHeight, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4464,8 +4489,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, "uint", dwNewPosition, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4483,8 +4509,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\RestoreMonitorFactoryColorDefaults", "ptr", hMonitor, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4502,8 +4529,9 @@ class Display {
         A_LastError := 0
 
         result := DllCall("dxva2.dll\RestoreMonitorFactoryDefaults", "ptr", hMonitor, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -20,8 +20,9 @@ class Direct3D11 {
      */
     static CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice) {
         result := DllCall("d3d11.dll\CreateDirect3D11DeviceFromDXGIDevice", "ptr", dxgiDevice, "ptr*", &graphicsDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IInspectable(graphicsDevice)
     }
@@ -34,8 +35,9 @@ class Direct3D11 {
      */
     static CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface) {
         result := DllCall("d3d11.dll\CreateDirect3D11SurfaceFromDXGISurface", "ptr", dgxiSurface, "ptr*", &graphicsSurface := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IInspectable(graphicsSurface)
     }

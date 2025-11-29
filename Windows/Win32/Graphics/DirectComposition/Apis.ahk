@@ -48,8 +48,9 @@ class DirectComposition {
      */
     static DCompositionCreateDevice(dxgiDevice, iid) {
         result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return dcompositionDevice
     }
@@ -64,8 +65,9 @@ class DirectComposition {
      */
     static DCompositionCreateDevice2(renderingDevice, iid) {
         result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return dcompositionDevice
     }
@@ -85,8 +87,9 @@ class DirectComposition {
      */
     static DCompositionCreateDevice3(renderingDevice, iid) {
         result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return dcompositionDevice
     }
@@ -106,8 +109,9 @@ class DirectComposition {
     static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
         surfaceHandle := HANDLE()
         result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, "ptr", securityAttributes, "ptr", surfaceHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return surfaceHandle
     }
@@ -132,8 +136,9 @@ class DirectComposition {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -158,8 +163,9 @@ class DirectComposition {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -172,8 +178,9 @@ class DirectComposition {
      */
     static DCompositionGetFrameId(frameIdType) {
         result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", &frameId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return frameId
     }
@@ -189,8 +196,9 @@ class DirectComposition {
      */
     static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) {
         result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", &actualTargetIdCount := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return actualTargetIdCount
     }
@@ -204,8 +212,9 @@ class DirectComposition {
      */
     static DCompositionGetTargetStatistics(frameId, targetId, targetStats) {
         result := DllCall("dcomp.dll\DCompositionGetTargetStatistics", "uint", frameId, "ptr", targetId, "ptr", targetStats, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -218,8 +227,9 @@ class DirectComposition {
      */
     static DCompositionBoostCompositorClock(enable) {
         result := DllCall("dcomp.dll\DCompositionBoostCompositorClock", "int", enable, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

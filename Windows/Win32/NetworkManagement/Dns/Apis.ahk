@@ -2626,8 +2626,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsServiceBrowse", "ptr", pRequest, "ptr", pCancel, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2643,8 +2644,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsServiceBrowseCancel", "ptr", pCancelHandle, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2661,8 +2663,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsServiceResolve", "ptr", pRequest, "ptr", pCancel, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2678,8 +2681,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsServiceResolveCancel", "ptr", pCancelHandle, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2696,8 +2700,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsServiceRegister", "ptr", pRequest, "ptr", pCancel, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2714,8 +2719,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsServiceDeRegister", "ptr", pRequest, "ptr", pCancel, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2744,8 +2750,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsStartMulticastQuery", "ptr", pQueryRequest, "ptr", pHandle, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2761,8 +2768,9 @@ class Dns {
         A_LastError := 0
 
         result := DllCall("DNSAPI.dll\DnsStopMulticastQuery", "ptr", pHandle, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

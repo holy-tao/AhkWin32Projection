@@ -59,8 +59,9 @@ class PrintTicket {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
         result := DllCall("prntvpt.dll\PTQuerySchemaVersionSupport", "ptr", pszPrinterName, "uint*", &pMaxVersion := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pMaxVersion
     }
@@ -78,8 +79,9 @@ class PrintTicket {
 
         phProvider := HPTPROVIDER()
         result := DllCall("prntvpt.dll\PTOpenProvider", "ptr", pszPrinterName, "uint", dwVersion, "ptr", phProvider, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phProvider
     }
@@ -103,8 +105,9 @@ class PrintTicket {
         pUsedVersionMarshal := pUsedVersion is VarRef ? "uint*" : "ptr"
 
         result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, "ptr", phProvider, pUsedVersionMarshal, pUsedVersion, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -124,8 +127,9 @@ class PrintTicket {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
         result := DllCall("prntvpt.dll\PTCloseProvider", "ptr", hProvider, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -143,8 +147,9 @@ class PrintTicket {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("prntvpt.dll\PTReleaseMemory", pBufferMarshal, pBuffer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -163,8 +168,9 @@ class PrintTicket {
 
         pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTGetPrintCapabilities", "ptr", hProvider, "ptr", pPrintTicket, "ptr", pCapabilities, "ptr", pbstrErrorMessage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrErrorMessage
     }
@@ -183,8 +189,9 @@ class PrintTicket {
 
         pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", "ptr", hProvider, "ptr", pPrintTicket, "ptr", pDeviceCapabilities, "ptr", pbstrErrorMessage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrErrorMessage
     }
@@ -205,8 +212,9 @@ class PrintTicket {
 
         pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrErrorMessage
     }
@@ -233,8 +241,9 @@ class PrintTicket {
 
         pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", "ptr", hProvider, "ptr", pBaseTicket, "ptr", pDeltaTicket, "int", scope, "ptr", pResultTicket, "ptr", pbstrErrorMessage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrErrorMessage
     }
@@ -265,8 +274,9 @@ class PrintTicket {
         ppDevmodeMarshal := ppDevmode is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, pcbDevmodeMarshal, pcbDevmode, ppDevmodeMarshal, ppDevmode, "ptr", pbstrErrorMessage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -290,8 +300,9 @@ class PrintTicket {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
         result := DllCall("prntvpt.dll\PTConvertDevModeToPrintTicket", "ptr", hProvider, "uint", cbDevmode, "ptr", pDevmode, "int", scope, "ptr", pPrintTicket, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

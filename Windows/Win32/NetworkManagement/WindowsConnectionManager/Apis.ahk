@@ -179,8 +179,9 @@ class WindowsConnectionManager {
         destinationHostName := destinationHostName is String ? StrPtr(destinationHostName) : destinationHostName
 
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", &interfaceIndex := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return interfaceIndex
     }
@@ -198,8 +199,9 @@ class WindowsConnectionManager {
 
         registrationHandle := HANDLE()
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return registrationHandle
     }
@@ -215,8 +217,9 @@ class WindowsConnectionManager {
         registrationHandle := registrationHandle is Win32Handle ? NumGet(registrationHandle, "ptr") : registrationHandle
 
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandUnRegisterNotification", "ptr", registrationHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -255,8 +258,9 @@ class WindowsConnectionManager {
         ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
         result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return InterfaceContextTable
     }

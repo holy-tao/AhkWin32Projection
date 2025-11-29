@@ -527,7 +527,7 @@ class SerialCommunication {
     /**
      * ComDBGetCurrentPortUsage returns information about the COM port numbers that are currently logged as &quot;in use&quot; in the COM port database.
      * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
-     * @param {Pointer} Buffer Pointer to a caller-allocated buffer in which the routine returns information about COM port number. See the Remarks section for more information.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize Specifies the size, in bytes, of a caller-allocated buffer at <i>Buffer</i>.
      * @param {Integer} ReportType Specifies one of the following flags.
      * 
@@ -601,12 +601,12 @@ class SerialCommunication {
      * </table>
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbgetcurrentportusage
      */
-    static ComDBGetCurrentPortUsage(HComDB, Buffer, BufferSize, ReportType, MaxPortsReported) {
+    static ComDBGetCurrentPortUsage(HComDB, Buffer_R, BufferSize, ReportType, MaxPortsReported) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
 
         MaxPortsReportedMarshal := MaxPortsReported is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, MaxPortsReportedMarshal, MaxPortsReported, "int")
+        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer_R, "uint", BufferSize, "uint", ReportType, MaxPortsReportedMarshal, MaxPortsReported, "int")
         return result
     }
 

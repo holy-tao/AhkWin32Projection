@@ -489,8 +489,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AllocConsole", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -502,8 +503,9 @@ class Console {
      */
     static AllocConsoleWithOptions(options) {
         result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, "int*", &result := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -517,8 +519,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeConsole", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -533,8 +536,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AttachConsole", "uint", dwProcessId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -548,8 +552,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleCP", "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -563,8 +568,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleOutputCP", "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -584,8 +590,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleMode", "ptr", hConsoleHandle, lpModeMarshal, lpMode, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -603,8 +610,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleMode", "ptr", hConsoleHandle, "uint", dwMode, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -624,8 +632,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNumberOfConsoleInputEvents", "ptr", hConsoleInput, lpNumberOfEventsMarshal, lpNumberOfEvents, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -647,8 +656,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -670,8 +680,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -693,8 +704,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PeekConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -716,8 +728,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PeekConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -741,8 +754,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleA", "ptr", hConsoleInput, lpBufferMarshal, lpBuffer, "uint", nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "ptr", pInputControl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -766,8 +780,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleW", "ptr", hConsoleInput, lpBufferMarshal, lpBuffer, "uint", nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "ptr", pInputControl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -792,8 +807,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleA", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -818,8 +834,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleW", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -835,8 +852,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", "ptr", HandlerRoutine, "int", Add, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -856,8 +874,9 @@ class Console {
 
         phPC := HPCON()
         result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phPC
     }
@@ -873,8 +892,9 @@ class Console {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
 
         result := DllCall("KERNEL32.dll\ResizePseudoConsole", "ptr", hPC, "ptr", size, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -900,8 +920,9 @@ class Console {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
 
         result := DllCall("KERNEL32.dll\ReleasePseudoConsole", "ptr", hPC, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -924,8 +945,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -948,8 +970,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -972,8 +995,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort", wAttribute, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -989,8 +1013,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GenerateConsoleCtrlEvent", "uint", dwCtrlEvent, "uint", dwProcessGroupId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1010,8 +1035,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlags, "ptr", lpScreenBufferData, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
@@ -1029,8 +1055,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleActiveScreenBuffer", "ptr", hConsoleOutput, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1047,8 +1074,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FlushConsoleInputBuffer", "ptr", hConsoleInput, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1063,8 +1091,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleCP", "uint", wCodePageID, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1079,8 +1108,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleOutputCP", "uint", wCodePageID, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1098,8 +1128,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleCursorInfo", "ptr", hConsoleOutput, "ptr", lpConsoleCursorInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1117,8 +1148,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleCursorInfo", "ptr", hConsoleOutput, "ptr", lpConsoleCursorInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1136,8 +1168,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleScreenBufferInfo", "ptr", hConsoleOutput, "ptr", lpConsoleScreenBufferInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1155,8 +1188,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleScreenBufferInfoEx", "ptr", hConsoleOutput, "ptr", lpConsoleScreenBufferInfoEx, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1174,8 +1208,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleScreenBufferInfoEx", "ptr", hConsoleOutput, "ptr", lpConsoleScreenBufferInfoEx, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1193,8 +1228,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleScreenBufferSize", "ptr", hConsoleOutput, "ptr", dwSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1212,8 +1248,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleCursorPosition", "ptr", hConsoleOutput, "ptr", dwCursorPosition, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1230,8 +1267,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLargestConsoleWindowSize", "ptr", hConsoleOutput, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1249,8 +1287,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleTextAttribute", "ptr", hConsoleOutput, "ushort", wAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1269,8 +1308,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleWindowInfo", "ptr", hConsoleOutput, "int", bAbsolute, "ptr", lpConsoleWindow, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1294,8 +1334,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1319,8 +1360,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1344,8 +1386,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", "ptr", hConsoleOutput, lpAttributeMarshal, lpAttribute, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1369,8 +1412,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1394,8 +1438,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1419,8 +1464,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", "ptr", hConsoleOutput, lpAttributeMarshal, lpAttribute, "uint", nLength, "ptr", dwReadCoord, lpNumberOfAttrsReadMarshal, lpNumberOfAttrsRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1442,8 +1488,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1465,8 +1512,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1487,8 +1535,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ScrollConsoleScreenBufferA", "ptr", hConsoleOutput, "ptr", lpScrollRectangle, "ptr", lpClipRectangle, "ptr", dwDestinationOrigin, "ptr", lpFill, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1509,8 +1558,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ScrollConsoleScreenBufferW", "ptr", hConsoleOutput, "ptr", lpScrollRectangle, "ptr", lpClipRectangle, "ptr", dwDestinationOrigin, "ptr", lpFill, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1531,8 +1581,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputA", "ptr", hConsoleOutput, "ptr", lpBuffer, "ptr", dwBufferSize, "ptr", dwBufferCoord, "ptr", lpWriteRegion, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1553,8 +1604,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputW", "ptr", hConsoleOutput, "ptr", lpBuffer, "ptr", dwBufferSize, "ptr", dwBufferCoord, "ptr", lpWriteRegion, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1575,8 +1627,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputA", "ptr", hConsoleOutput, "ptr", lpBuffer, "ptr", dwBufferSize, "ptr", dwBufferCoord, "ptr", lpReadRegion, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1597,8 +1650,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputW", "ptr", hConsoleOutput, "ptr", lpBuffer, "ptr", dwBufferSize, "ptr", dwBufferCoord, "ptr", lpReadRegion, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1616,8 +1670,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleTitleA", "ptr", lpConsoleTitle, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1635,8 +1690,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleTitleW", "ptr", lpConsoleTitle, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1654,8 +1710,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleA", "ptr", lpConsoleTitle, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1673,8 +1730,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleW", "ptr", lpConsoleTitle, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1691,8 +1749,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleTitleA", "ptr", lpConsoleTitle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1709,8 +1768,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleTitleW", "ptr", lpConsoleTitle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1727,8 +1787,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNumberOfConsoleMouseButtons", lpNumberOfMouseButtonsMarshal, lpNumberOfMouseButtons, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1746,8 +1807,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleFontSize", "ptr", hConsoleOutput, "uint", nFont, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1766,8 +1828,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCurrentConsoleFont", "ptr", hConsoleOutput, "int", bMaximumWindow, "ptr", lpConsoleCurrentFont, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1786,8 +1849,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCurrentConsoleFontEx", "ptr", hConsoleOutput, "int", bMaximumWindow, "ptr", lpConsoleCurrentFontEx, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1806,8 +1870,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCurrentConsoleFontEx", "ptr", hConsoleOutput, "int", bMaximumWindow, "ptr", lpConsoleCurrentFontEx, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1822,8 +1887,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleSelectionInfo", "ptr", lpConsoleSelectionInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1838,8 +1904,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleHistoryInfo", "ptr", lpConsoleHistoryInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1854,8 +1921,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleHistoryInfo", "ptr", lpConsoleHistoryInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1872,8 +1940,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleDisplayMode", lpModeFlagsMarshal, lpModeFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1892,8 +1961,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleDisplayMode", "ptr", hConsoleOutput, "uint", dwFlags, "ptr", lpNewScreenBufferDimensions, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1925,8 +1995,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddConsoleAliasA", "ptr", Source, "ptr", Target, "ptr", ExeName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1947,8 +2018,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddConsoleAliasW", "ptr", Source, "ptr", Target, "ptr", ExeName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1970,8 +2042,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasA", "ptr", Source, "ptr", TargetBuffer, "uint", TargetBufferLength, "ptr", ExeName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1993,8 +2066,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasW", "ptr", Source, "ptr", TargetBuffer, "uint", TargetBufferLength, "ptr", ExeName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2060,8 +2134,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasesA", "ptr", AliasBuffer, "uint", AliasBufferLength, "ptr", ExeName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2081,8 +2156,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasesW", "ptr", AliasBuffer, "uint", AliasBufferLength, "ptr", ExeName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2100,8 +2176,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesA", "ptr", ExeNameBuffer, "uint", ExeNameBufferLength, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2119,8 +2196,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesW", "ptr", ExeNameBuffer, "uint", ExeNameBufferLength, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2149,27 +2227,27 @@ class Console {
 
     /**
      * 
-     * @param {Integer} Number 
+     * @param {Integer} Number_R 
      * @param {PSTR} ExeName 
      * @returns {BOOL} 
      */
-    static SetConsoleNumberOfCommandsA(Number, ExeName) {
+    static SetConsoleNumberOfCommandsA(Number_R, ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", Number, "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", Number_R, "ptr", ExeName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Number 
+     * @param {Integer} Number_R 
      * @param {PWSTR} ExeName 
      * @returns {BOOL} 
      */
-    static SetConsoleNumberOfCommandsW(Number, ExeName) {
+    static SetConsoleNumberOfCommandsW(Number_R, ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", Number, "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", Number_R, "ptr", ExeName, "int")
         return result
     }
 
@@ -2238,8 +2316,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleProcessList", lpdwProcessListMarshal, lpdwProcessList, "uint", dwProcessCount, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2831,8 +2910,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStdHandle", "uint", nStdHandle, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, False)
         return resultHandle
@@ -2851,8 +2931,9 @@ class Console {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetStdHandle", "uint", nStdHandle, "ptr", hHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

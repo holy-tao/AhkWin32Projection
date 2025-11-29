@@ -87,7 +87,7 @@ class ProcessSnapshotting {
      * Queries the snapshot.
      * @param {HPSS} SnapshotHandle A handle to the snapshot to query.
      * @param {Integer} InformationClass An enumerator member that selects what information to query. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_query_information_class">PSS_QUERY_INFORMATION_CLASS</a>.
-     * @param {Pointer} Buffer The information that this function provides.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength The size of <i>Buffer</i>, in bytes.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or one of the following error codes.
      * 
@@ -147,10 +147,10 @@ class ProcessSnapshotting {
      * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-pssquerysnapshot
      * @since windows8.1
      */
-    static PssQuerySnapshot(SnapshotHandle, InformationClass, Buffer, BufferLength) {
+    static PssQuerySnapshot(SnapshotHandle, InformationClass, Buffer_R, BufferLength) {
         SnapshotHandle := SnapshotHandle is Win32Handle ? NumGet(SnapshotHandle, "ptr") : SnapshotHandle
 
-        result := DllCall("KERNEL32.dll\PssQuerySnapshot", "ptr", SnapshotHandle, "int", InformationClass, "ptr", Buffer, "uint", BufferLength, "uint")
+        result := DllCall("KERNEL32.dll\PssQuerySnapshot", "ptr", SnapshotHandle, "int", InformationClass, "ptr", Buffer_R, "uint", BufferLength, "uint")
         return result
     }
 
@@ -159,7 +159,7 @@ class ProcessSnapshotting {
      * @param {HPSS} SnapshotHandle A handle to the snapshot.
      * @param {Integer} InformationClass The type of information to return. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a>.
      * @param {HPSSWALK} WalkMarkerHandle A handle to a walk marker. The walk marker indicates the walk position from which data is to be returned. <b>PssWalkSnapshot</b> advances the walk marker to the next walk position in time order before returning to the caller.
-     * @param {Pointer<Void>} Buffer The snapshot information that this function returns.
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Integer} BufferLength The size of <i>Buffer</i>, in bytes.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or one of the following error codes.
      * 
@@ -241,13 +241,13 @@ class ProcessSnapshotting {
      * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalksnapshot
      * @since windows8.1
      */
-    static PssWalkSnapshot(SnapshotHandle, InformationClass, WalkMarkerHandle, Buffer, BufferLength) {
+    static PssWalkSnapshot(SnapshotHandle, InformationClass, WalkMarkerHandle, Buffer_R, BufferLength) {
         SnapshotHandle := SnapshotHandle is Win32Handle ? NumGet(SnapshotHandle, "ptr") : SnapshotHandle
         WalkMarkerHandle := WalkMarkerHandle is Win32Handle ? NumGet(WalkMarkerHandle, "ptr") : WalkMarkerHandle
 
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\PssWalkSnapshot", "ptr", SnapshotHandle, "int", InformationClass, "ptr", WalkMarkerHandle, BufferMarshal, Buffer, "uint", BufferLength, "uint")
+        result := DllCall("KERNEL32.dll\PssWalkSnapshot", "ptr", SnapshotHandle, "int", InformationClass, "ptr", WalkMarkerHandle, Buffer_RMarshal, Buffer_R, "uint", BufferLength, "uint")
         return result
     }
 

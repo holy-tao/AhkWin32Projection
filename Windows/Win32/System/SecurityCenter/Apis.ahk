@@ -26,8 +26,9 @@ class SecurityCenter {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, "ptr", phCallbackRegistration, "ptr", lpCallbackAddress, pContextMarshal, pContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -43,8 +44,9 @@ class SecurityCenter {
         hRegistrationHandle := hRegistrationHandle is Win32Handle ? NumGet(hRegistrationHandle, "ptr") : hRegistrationHandle
 
         result := DllCall("WSCAPI.dll\WscUnRegisterChanges", "ptr", hRegistrationHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -55,8 +57,9 @@ class SecurityCenter {
      */
     static WscRegisterForUserNotifications() {
         result := DllCall("WSCAPI.dll\WscRegisterForUserNotifications", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -73,8 +76,9 @@ class SecurityCenter {
         pHealthMarshal := pHealth is VarRef ? "int*" : "ptr"
 
         result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", "uint", Providers, pHealthMarshal, pHealth, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -85,8 +89,9 @@ class SecurityCenter {
      */
     static WscQueryAntiMalwareUri() {
         result := DllCall("WSCAPI.dll\WscQueryAntiMalwareUri", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -97,8 +102,9 @@ class SecurityCenter {
      */
     static WscGetAntiMalwareUri() {
         result := DllCall("WSCAPI.dll\WscGetAntiMalwareUri", "ptr*", &ppszUri := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszUri
     }

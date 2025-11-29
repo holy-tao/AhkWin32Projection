@@ -4531,8 +4531,9 @@ class Gdi {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\BitBlt", "ptr", hdc, "int", x, "int", y, "int", cx, "int", cy, "ptr", hdcSrc, "int", x1, "int", y1, "uint", rop, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5909,8 +5910,9 @@ class Gdi {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\CreateScalableFontResourceA", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5937,8 +5939,9 @@ class Gdi {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\CreateScalableFontResourceW", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9806,8 +9809,9 @@ class Gdi {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\GetLayout", "ptr", hdc, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11085,8 +11089,9 @@ class Gdi {
         A_LastError := 0
 
         result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc, "ptr", pbmi, "uint", usage, ppvBitsMarshal, ppvBits, "ptr", hSection, "uint", offset, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
@@ -14478,8 +14483,9 @@ class Gdi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetSysColors", "int", cElements, lpaElementsMarshal, lpaElements, lpaRgbValuesMarshal, lpaRgbValues, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

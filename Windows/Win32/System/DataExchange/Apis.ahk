@@ -419,8 +419,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DdeSetQualityOfService", "ptr", hwndClient, "ptr", pqosNew, "ptr", pqosPrev, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -449,8 +450,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ImpersonateDdeClientWindow", "ptr", hWndClient, "ptr", hWndServer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -980,8 +982,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1798,8 +1801,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenClipboard", "ptr", hWndNewOwner, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1818,8 +1822,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseClipboard", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1851,8 +1856,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClipboardOwner", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -1875,8 +1881,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClipboardViewer", "ptr", hWndNewViewer, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -1896,8 +1903,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClipboardViewer", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -1950,8 +1958,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClipboardData", "uint", uFormat, "ptr", hMem, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
@@ -1974,8 +1983,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClipboardData", "uint", uFormat, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, False)
         return resultHandle
@@ -2000,8 +2010,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterClipboardFormatA", "ptr", lpszFormat, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2025,8 +2036,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterClipboardFormatW", "ptr", lpszFormat, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2045,8 +2057,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CountClipboardFormats", "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2077,8 +2090,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnumClipboardFormats", "uint", format, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2110,8 +2124,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClipboardFormatNameA", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2143,8 +2158,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClipboardFormatNameW", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2163,8 +2179,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EmptyClipboard", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2186,8 +2203,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2213,8 +2231,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetPriorityClipboardFormat", paFormatPriorityListMarshal, paFormatPriorityList, "int", cFormats, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2231,8 +2250,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetOpenClipboardWindow", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -2255,8 +2275,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2278,8 +2299,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2308,8 +2330,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetUpdatedClipboardFormats", lpuiFormatsMarshal, lpuiFormats, "uint", cFormats, pcFormatsOutMarshal, pcFormatsOut, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2331,8 +2354,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalDeleteAtom", "ushort", nAtom, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2376,8 +2400,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteAtom", "ushort", nAtom, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2403,8 +2428,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomA", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2430,8 +2456,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomW", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2453,8 +2480,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomExA", "ptr", lpString, "uint", Flags, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2476,8 +2504,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomExW", "ptr", lpString, "uint", Flags, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2503,8 +2532,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalFindAtomA", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2530,8 +2560,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalFindAtomW", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2563,8 +2594,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalGetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2596,8 +2628,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalGetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2623,8 +2656,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddAtomA", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2650,8 +2684,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddAtomW", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2677,8 +2712,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindAtomA", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2704,8 +2740,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindAtomW", "ptr", lpString, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2737,8 +2774,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2770,8 +2808,9 @@ class DataExchange {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

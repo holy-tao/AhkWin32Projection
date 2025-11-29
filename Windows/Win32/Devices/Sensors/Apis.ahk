@@ -2679,8 +2679,9 @@ class Sensors {
      */
     static InitPropVariantFromFloat(fltVal, ppropvar) {
         result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromFloat", "float", fltVal, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3017,13 +3018,13 @@ class Sensors {
 
     /**
      * 
-     * @param {Pointer<Integer>} Buffer 
+     * @param {Pointer<Integer>} Buffer_R 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SerializationBufferFree(Buffer) {
-        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+    static SerializationBufferFree(Buffer_R) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
 
-        DllCall("SensorsUtilsV2.dll\SerializationBufferFree", BufferMarshal, Buffer)
+        DllCall("SensorsUtilsV2.dll\SerializationBufferFree", Buffer_RMarshal, Buffer_R)
     }
 
     /**
@@ -3130,8 +3131,9 @@ class Sensors {
      */
     static InitPropVariantFromCLSIDArray(members, size, ppropvar) {
         result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", "ptr", members, "uint", size, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

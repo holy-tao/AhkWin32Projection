@@ -20,8 +20,9 @@ class Pdf {
      */
     static PdfCreateRenderer(pDevice) {
         result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", &ppRenderer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IPdfRendererNative(ppRenderer)
     }

@@ -2701,8 +2701,9 @@ class Direct3D11 {
         pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
 
         result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr*", ppDevice, pFeatureLevelMarshal, pFeatureLevel, "ptr*", ppImmediateContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2799,8 +2800,9 @@ class Direct3D11 {
         pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
 
         result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, pFeatureLevelMarshal, pFeatureLevel, "ptr*", ppImmediateContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2874,8 +2876,9 @@ class Direct3D11 {
      */
     static D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps, Flags) {
         result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pTrace, "uint", StartStep, "uint", NumSteps, "uint", Flags, "ptr*", &ppDisassembly := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DBlob(ppDisassembly)
     }
@@ -2898,8 +2901,9 @@ class Direct3D11 {
      */
     static D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount) {
         result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr*", &ppScan := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11Scan(ppScan)
     }
@@ -2919,8 +2923,9 @@ class Direct3D11 {
      */
     static D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize) {
         result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr*", &ppScan := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11SegmentedScan(ppScan)
     }
@@ -2947,8 +2952,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, "ptr", pDesc, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }
@@ -2974,8 +2980,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }
@@ -3001,8 +3008,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }
@@ -3031,8 +3039,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }
@@ -3061,8 +3070,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }
@@ -3094,8 +3104,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }
@@ -3127,8 +3138,9 @@ class Direct3D11 {
      */
     static D3DX11CreateFFT3DComplex(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ID3DX11FFT(ppFFT)
     }

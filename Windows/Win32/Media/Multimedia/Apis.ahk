@@ -26312,8 +26312,9 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr*", &ppfile := 0, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIFile(ppfile)
     }
@@ -26376,8 +26377,9 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr*", &ppfile := 0, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIFile(ppfile)
     }
@@ -26393,8 +26395,9 @@ class Multimedia {
      */
     static AVIFileInfoW(pfile, pfi, lSize) {
         result := DllCall("AVIFIL32.dll\AVIFileInfoW", "ptr", pfile, "ptr", pfi, "int", lSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26410,8 +26413,9 @@ class Multimedia {
      */
     static AVIFileInfoA(pfile, pfi, lSize) {
         result := DllCall("AVIFIL32.dll\AVIFileInfoA", "ptr", pfile, "ptr", pfi, "int", lSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26452,8 +26456,9 @@ class Multimedia {
      */
     static AVIFileGetStream(pfile, fccType, lParam) {
         result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr*", &ppavi := 0, "uint", fccType, "int", lParam, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppavi)
     }
@@ -26468,8 +26473,9 @@ class Multimedia {
      */
     static AVIFileCreateStreamW(pfile, psi) {
         result := DllCall("AVIFIL32.dll\AVIFileCreateStreamW", "ptr", pfile, "ptr*", &ppavi := 0, "ptr", psi, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppavi)
     }
@@ -26484,8 +26490,9 @@ class Multimedia {
      */
     static AVIFileCreateStreamA(pfile, psi) {
         result := DllCall("AVIFIL32.dll\AVIFileCreateStreamA", "ptr", pfile, "ptr*", &ppavi := 0, "ptr", psi, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppavi)
     }
@@ -26502,8 +26509,9 @@ class Multimedia {
      */
     static AVIFileWriteData(pfile, ckid, lpData, cbData) {
         result := DllCall("AVIFIL32.dll\AVIFileWriteData", "ptr", pfile, "uint", ckid, "ptr", lpData, "int", cbData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26522,8 +26530,9 @@ class Multimedia {
         lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVIFileReadData", "ptr", pfile, "uint", ckid, "ptr", lpData, lpcbDataMarshal, lpcbData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26537,8 +26546,9 @@ class Multimedia {
      */
     static AVIFileEndRecord(pfile) {
         result := DllCall("AVIFIL32.dll\AVIFileEndRecord", "ptr", pfile, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26582,8 +26592,9 @@ class Multimedia {
      */
     static AVIStreamInfoW(pavi, psi, lSize) {
         result := DllCall("AVIFIL32.dll\AVIStreamInfoW", "ptr", pavi, "ptr", psi, "int", lSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26601,8 +26612,9 @@ class Multimedia {
      */
     static AVIStreamInfoA(pavi, psi, lSize) {
         result := DllCall("AVIFIL32.dll\AVIStreamInfoA", "ptr", pavi, "ptr", psi, "int", lSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26670,8 +26682,9 @@ class Multimedia {
         lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVIStreamReadFormat", "ptr", pavi, "int", lPos, "ptr", lpFormat, lpcbFormatMarshal, lpcbFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26688,8 +26701,9 @@ class Multimedia {
      */
     static AVIStreamSetFormat(pavi, lPos, lpFormat, cbFormat) {
         result := DllCall("AVIFIL32.dll\AVIStreamSetFormat", "ptr", pavi, "int", lPos, "ptr", lpFormat, "int", cbFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26708,8 +26722,9 @@ class Multimedia {
         lpcbMarshal := lpcb is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVIStreamReadData", "ptr", pavi, "uint", fcc, "ptr", lp, lpcbMarshal, lpcb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26726,8 +26741,9 @@ class Multimedia {
      */
     static AVIStreamWriteData(pavi, fcc, lp, cb) {
         result := DllCall("AVIFIL32.dll\AVIStreamWriteData", "ptr", pavi, "uint", fcc, "ptr", lp, "int", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26790,8 +26806,9 @@ class Multimedia {
         plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVIStreamRead", "ptr", pavi, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26832,8 +26849,9 @@ class Multimedia {
         plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVIStreamWrite", "ptr", pavi, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "uint", dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26902,8 +26920,9 @@ class Multimedia {
      */
     static AVIStreamBeginStreaming(pavi, lStart, lEnd, lRate) {
         result := DllCall("AVIFIL32.dll\AVIStreamBeginStreaming", "ptr", pavi, "int", lStart, "int", lEnd, "int", lRate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26917,8 +26936,9 @@ class Multimedia {
      */
     static AVIStreamEndStreaming(pavi) {
         result := DllCall("AVIFIL32.dll\AVIStreamEndStreaming", "ptr", pavi, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26960,8 +26980,9 @@ class Multimedia {
      */
     static AVIStreamGetFrameClose(pg) {
         result := DllCall("AVIFIL32.dll\AVIStreamGetFrameClose", "ptr", pg, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27006,8 +27027,9 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppavi)
     }
@@ -27052,8 +27074,9 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppavi)
     }
@@ -27069,8 +27092,9 @@ class Multimedia {
      */
     static AVIStreamCreate(lParam1, lParam2, pclsidHandler) {
         result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr*", &ppavi := 0, "int", lParam1, "int", lParam2, "ptr", pclsidHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppavi)
     }
@@ -27086,8 +27110,9 @@ class Multimedia {
      */
     static AVIMakeCompressedStream(ppsSource, lpOptions, pclsidHandler) {
         result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr*", &ppsCompressed := 0, "ptr", ppsSource, "ptr", lpOptions, "ptr", pclsidHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppsCompressed)
     }
@@ -27108,8 +27133,9 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, "CDecl int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27132,8 +27158,9 @@ class Multimedia {
         plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27154,8 +27181,9 @@ class Multimedia {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, "CDecl int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27178,8 +27206,9 @@ class Multimedia {
         plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27237,8 +27266,9 @@ class Multimedia {
         plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\AVISaveOptionsFree", "int", nStreams, plpOptionsMarshal, plpOptions, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27285,8 +27315,9 @@ class Multimedia {
         lpszFilter := lpszFilter is String ? StrPtr(lpszFilter) : lpszFilter
 
         result := DllCall("AVIFIL32.dll\AVIBuildFilterW", "ptr", lpszFilter, "int", cbFilter, "int", fSaving, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27333,8 +27364,9 @@ class Multimedia {
         lpszFilter := lpszFilter is String ? StrPtr(lpszFilter) : lpszFilter
 
         result := DllCall("AVIFIL32.dll\AVIBuildFilterA", "ptr", lpszFilter, "int", cbFilter, "int", fSaving, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27349,8 +27381,9 @@ class Multimedia {
      */
     static AVIMakeFileFromStreams(nStreams, papStreams) {
         result := DllCall("AVIFIL32.dll\AVIMakeFileFromStreams", "ptr*", &ppfile := 0, "int", nStreams, "ptr*", papStreams, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIFile(ppfile)
     }
@@ -27367,8 +27400,9 @@ class Multimedia {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
         result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", hGlobal, "ptr*", &ppstream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppstream)
     }
@@ -27382,8 +27416,9 @@ class Multimedia {
      */
     static AVIPutFileOnClipboard(pf) {
         result := DllCall("AVIFIL32.dll\AVIPutFileOnClipboard", "ptr", pf, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27396,8 +27431,9 @@ class Multimedia {
      */
     static AVIGetFromClipboard() {
         result := DllCall("AVIFIL32.dll\AVIGetFromClipboard", "ptr*", &lppf := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIFile(lppf)
     }
@@ -27410,8 +27446,9 @@ class Multimedia {
      */
     static AVIClearClipboard() {
         result := DllCall("AVIFIL32.dll\AVIClearClipboard", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27425,8 +27462,9 @@ class Multimedia {
      */
     static CreateEditableStream(psSource) {
         result := DllCall("AVIFIL32.dll\CreateEditableStream", "ptr*", &ppsEditable := 0, "ptr", psSource, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppsEditable)
     }
@@ -27445,8 +27483,9 @@ class Multimedia {
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppResult)
     }
@@ -27465,8 +27504,9 @@ class Multimedia {
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppResult)
     }
@@ -27488,8 +27528,9 @@ class Multimedia {
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("AVIFIL32.dll\EditStreamPaste", "ptr", pavi, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, "int", lStart, "int", lEnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27503,8 +27544,9 @@ class Multimedia {
      */
     static EditStreamClone(pavi) {
         result := DllCall("AVIFIL32.dll\EditStreamClone", "ptr", pavi, "ptr*", &ppResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAVIStream(ppResult)
     }
@@ -27521,8 +27563,9 @@ class Multimedia {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         result := DllCall("AVIFIL32.dll\EditStreamSetNameA", "ptr", pavi, "ptr", lpszName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27539,8 +27582,9 @@ class Multimedia {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         result := DllCall("AVIFIL32.dll\EditStreamSetNameW", "ptr", pavi, "ptr", lpszName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27556,8 +27600,9 @@ class Multimedia {
      */
     static EditStreamSetInfoW(pavi, lpInfo, cbInfo) {
         result := DllCall("AVIFIL32.dll\EditStreamSetInfoW", "ptr", pavi, "ptr", lpInfo, "int", cbInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27573,8 +27618,9 @@ class Multimedia {
      */
     static EditStreamSetInfoA(pavi, lpInfo, cbInfo) {
         result := DllCall("AVIFIL32.dll\EditStreamSetInfoA", "ptr", pavi, "ptr", lpInfo, "int", cbInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

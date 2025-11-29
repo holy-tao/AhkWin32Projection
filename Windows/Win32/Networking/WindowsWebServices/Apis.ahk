@@ -1032,8 +1032,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsStartReaderCanonicalization", readerMarshal, reader, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1080,8 +1081,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsEndReaderCanonicalization", readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1144,8 +1146,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsStartWriterCanonicalization", writerMarshal, writer, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1192,8 +1195,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsEndWriterCanonicalization", writerMarshal, writer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1206,10 +1210,7 @@ class WindowsWebServices {
      * The value of this parameter may be <b>NULL</b>, in which case, the <i>propertyCount</i> parameter must be 0 (zero).
      * @param {Integer} propertyCount The number of properties in the <i>properties</i> array.
      * @param {Pointer<WS_ERROR>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Pointer<WS_XML_BUFFER>} On   success, a pointer that receives the address of the  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> structure representing the created XML buffer. The memory for this buffer is released when its heap is reset or released.
-     *         
-     * 
-     * The XML buffer is initially  empty.
+     * @returns {Pointer<WS_XML_BUFFER>} 
      * @see https://docs.microsoft.com/windows/win32/api//webservices/nf-webservices-wscreatexmlbuffer
      * @since windows6.1
      */
@@ -1217,11 +1218,12 @@ class WindowsWebServices {
         heapMarshal := heap is VarRef ? "ptr*" : "ptr"
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsCreateXmlBuffer", heapMarshal, heap, "ptr", properties, "uint", propertyCount, "ptr*", &buffer := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        result := DllCall("webservices.dll\WsCreateXmlBuffer", heapMarshal, heap, "ptr", properties, "uint", propertyCount, "ptr*", &buffer_R := 0, errorMarshal, error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
-        return buffer
+        return buffer_R
     }
 
     /**
@@ -1254,8 +1256,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRemoveNode", "ptr", nodePosition, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1280,8 +1283,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateReader", "ptr", properties, "uint", propertyCount, "ptr*", &reader := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return reader
     }
@@ -1313,8 +1317,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetInput", readerMarshal, reader, "ptr", encoding, "ptr", input, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1322,7 +1327,7 @@ class WindowsWebServices {
     /**
      * Sets Reader input to a specified XML buffer. Reader properties specified to WsSetInputToBuffer override properties set by WsCreateReader.
      * @param {Pointer<WS_XML_READER>} reader A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> object for which the input will be set.
-     * @param {Pointer<WS_XML_BUFFER>} buffer A pointer to the XML buffer to read.
+     * @param {Pointer<WS_XML_BUFFER>} buffer_R 
      * @param {Pointer<WS_XML_READER_PROPERTY>} properties A pointer that references an array of optional Reader properties.  <div class="alert"><b>Note</b>  For more information see <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_property">WS_XML_READER_PROPERTY</a>.</div>
      * <div> </div>.
      * @param {Integer} propertyCount The number of properties.
@@ -1331,14 +1336,15 @@ class WindowsWebServices {
      * @see https://docs.microsoft.com/windows/win32/api//webservices/nf-webservices-wssetinputtobuffer
      * @since windows6.1
      */
-    static WsSetInputToBuffer(reader, buffer, properties, propertyCount, error) {
+    static WsSetInputToBuffer(reader, buffer_R, properties, propertyCount, error) {
         readerMarshal := reader is VarRef ? "ptr*" : "ptr"
-        bufferMarshal := buffer is VarRef ? "ptr*" : "ptr"
+        buffer_RMarshal := buffer_R is VarRef ? "ptr*" : "ptr"
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsSetInputToBuffer", readerMarshal, reader, bufferMarshal, buffer, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        result := DllCall("webservices.dll\WsSetInputToBuffer", readerMarshal, reader, buffer_RMarshal, buffer_R, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1392,8 +1398,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetReaderProperty", readerMarshal, reader, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1411,8 +1418,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetReaderNode", xmlReaderMarshal, xmlReader, "ptr*", &node := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return node
     }
@@ -1452,8 +1460,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsFillReader", readerMarshal, reader, "uint", minSize, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1500,8 +1509,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadStartElement", readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1523,8 +1533,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadToStartElement", readerMarshal, reader, "ptr", localName, "ptr", ns, "int*", &found := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return found
     }
@@ -1561,8 +1572,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadStartAttribute", readerMarshal, reader, "uint", attributeIndex, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1599,8 +1611,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadEndAttribute", readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1648,8 +1661,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadNode", readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1696,8 +1710,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSkipNode", readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1744,8 +1759,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadEndElement", readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1768,8 +1784,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsFindAttribute", readerMarshal, reader, "ptr", localName, "ptr", ns, "int", required, "uint*", &attributeIndex := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return attributeIndex
     }
@@ -1819,8 +1836,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadValue", readerMarshal, reader, "int", valueType, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1844,8 +1862,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadChars", readerMarshal, reader, "ptr", chars, "uint", maxCharCount, "uint*", &actualCharCount := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return actualCharCount
     }
@@ -1899,8 +1918,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadCharsUtf8", readerMarshal, reader, bytesMarshal, bytes, "uint", maxByteCount, actualByteCountMarshal, actualByteCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1922,8 +1942,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadBytes", readerMarshal, reader, "ptr", bytes, "uint", maxByteCount, "uint*", &actualByteCount := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return actualByteCount
     }
@@ -1950,8 +1971,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadArray", readerMarshal, reader, "ptr", localName, "ptr", ns, "int", valueType, "ptr", array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, "uint*", &actualItemCount := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return actualItemCount
     }
@@ -1988,8 +2010,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetReaderPosition", readerMarshal, reader, "ptr", nodePosition, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2037,8 +2060,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetReaderPosition", readerMarshal, reader, "ptr", nodePosition, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2057,8 +2081,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsMoveReader", readerMarshal, reader, "int", moveTo, "int*", &found := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return found
     }
@@ -2080,8 +2105,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateWriter", "ptr", properties, "uint", propertyCount, "ptr*", &writer := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return writer
     }
@@ -2141,8 +2167,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetOutput", writerMarshal, writer, "ptr", encoding, "ptr", output, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2150,7 +2177,7 @@ class WindowsWebServices {
     /**
      * This operation positions the Writer at the end of the specified buffer.
      * @param {Pointer<WS_XML_WRITER>} writer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object for which the output is set.  The pointer must reference a valid <b>XML Writer</b> object.
-     * @param {Pointer<WS_XML_BUFFER>} buffer A pointer to the buffer where the Writer sends the data.
+     * @param {Pointer<WS_XML_BUFFER>} buffer_R 
      * @param {Pointer<WS_XML_WRITER_PROPERTY>} properties A WS_XML_WRITER_PROPERTY pointer that  references an "array" of optional Writer properties.
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<WS_ERROR>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
@@ -2176,14 +2203,15 @@ class WindowsWebServices {
      * @see https://docs.microsoft.com/windows/win32/api//webservices/nf-webservices-wssetoutputtobuffer
      * @since windows6.1
      */
-    static WsSetOutputToBuffer(writer, buffer, properties, propertyCount, error) {
+    static WsSetOutputToBuffer(writer, buffer_R, properties, propertyCount, error) {
         writerMarshal := writer is VarRef ? "ptr*" : "ptr"
-        bufferMarshal := buffer is VarRef ? "ptr*" : "ptr"
+        buffer_RMarshal := buffer_R is VarRef ? "ptr*" : "ptr"
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsSetOutputToBuffer", writerMarshal, writer, bufferMarshal, buffer, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        result := DllCall("webservices.dll\WsSetOutputToBuffer", writerMarshal, writer, buffer_RMarshal, buffer_R, "ptr", properties, "uint", propertyCount, errorMarshal, error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2224,8 +2252,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetWriterProperty", writerMarshal, writer, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2281,8 +2310,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsFlushWriter", writerMarshal, writer, "uint", minSize, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2356,8 +2386,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteStartElement", writerMarshal, writer, "ptr", prefix, "ptr", localName, "ptr", ns, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2426,8 +2457,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteEndStartElement", writerMarshal, writer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2506,8 +2538,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteXmlnsAttribute", writerMarshal, writer, "ptr", prefix, "ptr", ns, "int", singleQuote, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2588,8 +2621,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteStartAttribute", writerMarshal, writer, "ptr", prefix, "ptr", localName, "ptr", ns, "int", singleQuote, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2636,8 +2670,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteEndAttribute", writerMarshal, writer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2689,8 +2724,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteValue", writerMarshal, writer, "int", valueType, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2750,8 +2786,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteXmlBuffer", writerMarshal, writer, xmlBufferMarshal, xmlBuffer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2771,8 +2808,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadXmlBuffer", readerMarshal, reader, heapMarshal, heap, "ptr*", &xmlBuffer := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return xmlBuffer
     }
@@ -2841,8 +2879,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteXmlBufferToBytes", writerMarshal, writer, xmlBufferMarshal, xmlBuffer, "ptr", encoding, "ptr", properties, "uint", propertyCount, heapMarshal, heap, bytesMarshal, bytes, byteCountMarshal, byteCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2868,8 +2907,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadXmlBufferFromBytes", readerMarshal, reader, "ptr", encoding, "ptr", properties, "uint", propertyCount, "ptr", bytes, "uint", byteCount, heapMarshal, heap, "ptr*", &xmlBuffer := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return xmlBuffer
     }
@@ -2897,8 +2937,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteArray", writerMarshal, writer, "ptr", localName, "ptr", ns, "int", valueType, "ptr", array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2952,8 +2993,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteQualifiedName", writerMarshal, writer, "ptr", prefix, "ptr", localName, "ptr", ns, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3004,8 +3046,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteChars", writerMarshal, writer, "ptr", chars, "uint", charCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3055,8 +3098,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteCharsUtf8", writerMarshal, writer, bytesMarshal, bytes, "uint", byteCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3116,8 +3160,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteBytes", writerMarshal, writer, "ptr", bytes, "uint", byteCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3167,8 +3212,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsPushBytes", writerMarshal, writer, "ptr", callback, callbackStateMarshal, callbackState, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3229,8 +3275,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsPullBytes", writerMarshal, writer, "ptr", callback, callbackStateMarshal, callbackState, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3277,8 +3324,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteEndElement", writerMarshal, writer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3328,8 +3376,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteText", writerMarshal, writer, "ptr", text, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3376,8 +3425,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteStartCData", writerMarshal, writer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3424,8 +3474,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteEndCData", writerMarshal, writer, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3495,8 +3546,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteNode", writerMarshal, writer, "ptr", node, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3520,8 +3572,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetPrefixFromNamespace", writerMarshal, writer, "ptr", ns, "int", required, "ptr*", &prefix := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return prefix
     }
@@ -3558,8 +3611,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetWriterPosition", writerMarshal, writer, "ptr", nodePosition, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3607,8 +3661,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetWriterPosition", writerMarshal, writer, "ptr", nodePosition, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3631,8 +3686,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsMoveWriter", writerMarshal, writer, "int", moveTo, "int*", &found := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return found
     }
@@ -3656,8 +3712,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, "uint", charCount, trimmedCharsMarshal, trimmedChars, trimmedCountMarshal, trimmedCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3695,8 +3752,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsVerifyXmlNCName", "ptr", ncNameChars, "uint", ncNameCharCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3754,8 +3812,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsXmlStringEquals", "ptr", string1, "ptr", string2, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3776,8 +3835,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetNamespaceFromPrefix", readerMarshal, reader, "ptr", prefix, "int", required, "ptr*", &ns := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ns
     }
@@ -3820,8 +3880,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadQualifiedName", readerMarshal, reader, heapMarshal, heap, "ptr", prefix, "ptr", localName, "ptr", ns, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3876,8 +3937,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetXmlAttribute", readerMarshal, reader, "ptr", localName, heapMarshal, heap, valueCharsMarshal, valueChars, valueCharCountMarshal, valueCharCount, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3937,8 +3999,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCopyNode", writerMarshal, writer, readerMarshal, reader, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3964,8 +4027,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAsyncExecute", "ptr", asyncState, "ptr", operation, "int", callbackModel, callbackStateMarshal, callbackState, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3995,8 +4059,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateChannel", "int", channelType, "int", channelBinding, "ptr", properties, "uint", propertyCount, "ptr", securityDescription, "ptr*", &channel := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return channel
     }
@@ -4343,8 +4408,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsOpenChannel", channelMarshal, channel, "ptr", endpointAddress, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4776,8 +4842,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSendMessage", channelMarshal, channel, messageMarshal, message, "ptr", messageDescription, "int", writeOption, "ptr", bodyValue, "uint", bodyValueSize, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4834,8 +4901,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReceiveMessage", channelMarshal, channel, messageMarshal, message, messageDescriptionsMarshal, messageDescriptions, "uint", messageDescriptionCount, "int", receiveOption, "int", readBodyOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "uint*", &index := 0, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return index
     }
@@ -5307,8 +5375,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRequestReply", channelMarshal, channel, requestMessageMarshal, requestMessage, "ptr", requestMessageDescription, "int", writeOption, "ptr", requestBodyValue, "uint", requestBodyValueSize, replyMessageMarshal, replyMessage, "ptr", replyMessageDescription, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5501,8 +5570,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSendReplyMessage", channelMarshal, channel, replyMessageMarshal, replyMessage, "ptr", replyMessageDescription, "int", writeOption, "ptr", replyBodyValue, "uint", replyBodyValueSize, requestMessageMarshal, requestMessage, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5684,8 +5754,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSendFaultMessageForError", channelMarshal, channel, replyMessageMarshal, replyMessage, faultErrorMarshal, faultError, "int", faultErrorCode, "int", faultDisclosure, requestMessageMarshal, requestMessage, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5751,8 +5822,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetChannelProperty", channelMarshal, channel, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5817,8 +5889,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetChannelProperty", channelMarshal, channel, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6232,8 +6305,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteMessageStart", channelMarshal, channel, messageMarshal, message, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6647,8 +6721,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteMessageEnd", channelMarshal, channel, messageMarshal, message, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7086,8 +7161,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadMessageStart", channelMarshal, channel, messageMarshal, message, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7501,8 +7577,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadMessageEnd", channelMarshal, channel, messageMarshal, message, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7653,8 +7730,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCloseChannel", channelMarshal, channel, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7703,8 +7781,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAbortChannel", channelMarshal, channel, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7758,8 +7837,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetChannel", channelMarshal, channel, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7812,8 +7892,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAbandonMessage", channelMarshal, channel, messageMarshal, message, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7851,8 +7932,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsShutdownSessionChannel", channelMarshal, channel, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7875,8 +7957,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetOperationContextProperty", contextMarshal, context, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7893,8 +7976,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetDictionary", "int", encoding, "ptr*", &dictionary := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return dictionary
     }
@@ -7992,8 +8076,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadEndpointAddressExtension", readerMarshal, reader, "ptr", endpointAddress, "int", extensionType, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8008,8 +8093,9 @@ class WindowsWebServices {
      */
     static WsCreateError(properties, propertyCount) {
         result := DllCall("webservices.dll\WsCreateError", "ptr", properties, "uint", propertyCount, "ptr*", &error := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return error
     }
@@ -8067,8 +8153,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAddErrorString", errorMarshal, error, "ptr", string, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8125,8 +8212,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetErrorString", errorMarshal, error, "uint", index, "ptr", string, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8196,8 +8284,9 @@ class WindowsWebServices {
         destinationMarshal := destination is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCopyError", sourceMarshal, source, destinationMarshal, destination, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8206,7 +8295,7 @@ class WindowsWebServices {
      * Retrieves a property of an WS_ERROR object referenced by the error parameter.
      * @param {Pointer<WS_ERROR>} error A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object with the property to retrieve.
      * @param {Integer} id An identifier of the property to retrieve.
-     * @param {Pointer} buffer A pointer referencing the location to store the retrieved property.
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferSize The number of bytes allocated by the caller to
      *                     store the retrieved property.
      * @returns {HRESULT} This function can return one of these values.
@@ -8253,12 +8342,13 @@ class WindowsWebServices {
      * @see https://docs.microsoft.com/windows/win32/api//webservices/nf-webservices-wsgeterrorproperty
      * @since windows6.1
      */
-    static WsGetErrorProperty(error, id, buffer, bufferSize) {
+    static WsGetErrorProperty(error, id, buffer_R, bufferSize) {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsGetErrorProperty", errorMarshal, error, "int", id, "ptr", buffer, "uint", bufferSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        result := DllCall("webservices.dll\WsGetErrorProperty", errorMarshal, error, "int", id, "ptr", buffer_R, "uint", bufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8321,8 +8411,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetErrorProperty", errorMarshal, error, "int", id, "ptr", value, "uint", valueSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8356,8 +8447,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetError", errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8381,12 +8473,7 @@ class WindowsWebServices {
      * Retrieves a Fault error property of an WS_ERROR object referenced by the error parameter.
      * @param {Pointer<WS_ERROR>} error A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object with the property to retrieve.
      * @param {Integer} id Represents an identifier of the fault error property to retrieve.
-     * @param {Pointer} buffer A pointer referencing the location to store the retrieved fault error property.
-     *                     
-     * 
-     * <div class="alert"><b>Note</b>  The pointer must have an alignment compatible with the type
-     *                     of the property.</div>
-     * <div> </div>
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferSize The number of bytes allocated by the caller to
      *                     store the retrieved property.
      * @returns {HRESULT} This function can return one of these values.
@@ -8422,12 +8509,13 @@ class WindowsWebServices {
      * @see https://docs.microsoft.com/windows/win32/api//webservices/nf-webservices-wsgetfaulterrorproperty
      * @since windows6.1
      */
-    static WsGetFaultErrorProperty(error, id, buffer, bufferSize) {
+    static WsGetFaultErrorProperty(error, id, buffer_R, bufferSize) {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsGetFaultErrorProperty", errorMarshal, error, "int", id, "ptr", buffer, "uint", bufferSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        result := DllCall("webservices.dll\WsGetFaultErrorProperty", errorMarshal, error, "int", id, "ptr", buffer_R, "uint", bufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8490,8 +8578,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetFaultErrorProperty", errorMarshal, error, "int", id, "ptr", value, "uint", valueSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8559,8 +8648,9 @@ class WindowsWebServices {
         heapMarshal := heap is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateFaultFromError", errorMarshal, error, "int", faultErrorCode, "int", faultDisclosure, heapMarshal, heap, "ptr", fault, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8632,8 +8722,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetFaultErrorDetail", errorMarshal, error, "ptr", faultDetailDescription, "int", writeOption, "ptr", value, "uint", valueSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8721,8 +8812,9 @@ class WindowsWebServices {
         heapMarshal := heap is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetFaultErrorDetail", errorMarshal, error, "ptr", faultDetailDescription, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8748,8 +8840,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateHeap", "ptr", maxSize, "ptr", trimSize, "ptr", properties, "uint", propertyCount, "ptr*", &heap := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return heap
     }
@@ -8776,8 +8869,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAlloc", heapMarshal, heap, "ptr", size, "ptr*", &ptr := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ptr
     }
@@ -8800,8 +8894,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetHeapProperty", heapMarshal, heap, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8824,8 +8919,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetHeap", heapMarshal, heap, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8868,8 +8964,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateListener", "int", channelType, "int", channelBinding, "ptr", properties, "uint", propertyCount, "ptr", securityDescription, "ptr*", &listener := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return listener
     }
@@ -9028,8 +9125,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsOpenListener", listenerMarshal, listener, "ptr", url, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9212,8 +9310,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAcceptChannel", listenerMarshal, listener, channelMarshal, channel, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9308,8 +9407,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCloseListener", listenerMarshal, listener, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9327,8 +9427,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAbortListener", listenerMarshal, listener, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9365,8 +9466,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetListener", listenerMarshal, listener, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9433,8 +9535,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetListenerProperty", listenerMarshal, listener, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9499,8 +9602,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetListenerProperty", listenerMarshal, listener, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9525,8 +9629,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateChannelForListener", listenerMarshal, listener, "ptr", properties, "uint", propertyCount, "ptr*", &channel := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return channel
     }
@@ -9551,8 +9656,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateMessage", "int", envelopeVersion, "int", addressingVersion, "ptr", properties, "uint", propertyCount, "ptr*", &message := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return message
     }
@@ -9577,8 +9683,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateMessageForChannel", channelMarshal, channel, "ptr", properties, "uint", propertyCount, "ptr*", &message := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return message
     }
@@ -9649,8 +9756,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsInitializeMessage", messageMarshal, message, "int", initialization, sourceMessageMarshal, sourceMessage, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9686,8 +9794,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetMessage", messageMarshal, message, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9722,8 +9831,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetHeaderAttributes", messageMarshal, message, readerMarshal, reader, "uint*", &headerAttributes := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return headerAttributes
     }
@@ -9829,8 +9939,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetHeader", messageMarshal, message, "int", headerType, "int", valueType, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9874,8 +9985,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetCustomHeader", messageMarshal, message, "ptr", customHeaderDescription, "int", repeatingOption, "uint", headerIndex, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "uint*", &headerAttributes := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return headerAttributes
     }
@@ -9934,8 +10046,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRemoveHeader", messageMarshal, message, "int", headerType, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10021,8 +10134,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetHeader", messageMarshal, message, "int", headerType, "int", valueType, "int", writeOption, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10095,8 +10209,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRemoveCustomHeader", messageMarshal, message, "ptr", headerName, "ptr", headerNs, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10176,8 +10291,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAddCustomHeader", messageMarshal, message, "ptr", headerDescription, "int", writeOption, "ptr", value, "uint", valueSize, "uint", headerAttributes, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10246,8 +10362,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAddMappedHeader", messageMarshal, message, "ptr", headerName, "int", valueType, "int", writeOption, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10299,8 +10416,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRemoveMappedHeader", messageMarshal, message, "ptr", headerName, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10421,8 +10539,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetMappedHeader", messageMarshal, message, "ptr", headerName, "int", repeatingOption, "uint", headerIndex, "int", valueType, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10498,8 +10617,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteBody", messageMarshal, message, "ptr", bodyDescription, "int", writeOption, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10575,8 +10695,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadBody", messageMarshal, message, "ptr", bodyDescription, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10653,8 +10774,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteEnvelopeStart", messageMarshal, message, writerMarshal, writer, "ptr", doneCallback, doneCallbackStateMarshal, doneCallbackState, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10723,8 +10845,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteEnvelopeEnd", messageMarshal, message, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10810,8 +10933,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadEnvelopeStart", messageMarshal, message, readerMarshal, reader, "ptr", doneCallback, doneCallbackStateMarshal, doneCallbackState, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10880,8 +11004,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadEnvelopeEnd", messageMarshal, message, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10944,8 +11069,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetMessageProperty", messageMarshal, message, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11010,8 +11136,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsSetMessageProperty", messageMarshal, message, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11101,8 +11228,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAddressMessage", messageMarshal, message, "ptr", address, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11184,8 +11312,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCheckMustUnderstandHeaders", messageMarshal, message, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11256,8 +11385,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsMarkHeaderAsUnderstood", messageMarshal, message, "ptr", headerPosition, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11357,8 +11487,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsFillBody", messageMarshal, message, "uint", minSize, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11453,8 +11584,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsFlushBody", messageMarshal, message, "uint", minSize, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11494,8 +11626,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRequestSecurityToken", channelMarshal, channel, "ptr", properties, "uint", propertyCount, "ptr*", &token := 0, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return token
     }
@@ -11562,8 +11695,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetSecurityTokenProperty", securityTokenMarshal, securityToken, "int", id, "ptr", value, "uint", valueSize, heapMarshal, heap, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11616,8 +11750,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateXmlSecurityToken", tokenXmlMarshal, tokenXml, "ptr", tokenKey, "ptr", properties, "uint", propertyCount, "ptr*", &token := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return token
     }
@@ -11648,8 +11783,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRevokeSecurityContext", securityContextMarshal, securityContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11710,8 +11846,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetSecurityContextProperty", securityContextMarshal, securityContext, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11788,8 +11925,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadElement", readerMarshal, reader, "ptr", elementDescription, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11866,8 +12004,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadAttribute", readerMarshal, reader, "ptr", attributeDescription, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11948,8 +12087,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadType", readerMarshal, reader, "int", typeMapping, "int", type, typeDescriptionMarshal, typeDescription, "int", readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12015,8 +12155,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteElement", writerMarshal, writer, "ptr", elementDescription, "int", writeOption, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12082,8 +12223,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteAttribute", writerMarshal, writer, "ptr", attributeDescription, "int", writeOption, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12161,8 +12303,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsWriteType", writerMarshal, writer, "int", typeMapping, "int", type, typeDescriptionMarshal, typeDescription, "int", writeOption, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12184,8 +12327,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsRegisterOperationForCancel", contextMarshal, context, "ptr", cancelCallback, "ptr", freestateCallback, userStateMarshal, userState, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12226,8 +12370,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetServiceHostProperty", serviceHostMarshal, serviceHost, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12252,8 +12397,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateServiceHost", endpointsMarshal, endpoints, "ushort", endpointCount, "ptr", serviceProperties, "uint", servicePropertyCount, "ptr*", &serviceHost := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return serviceHost
     }
@@ -12402,8 +12548,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsOpenServiceHost", serviceHostMarshal, serviceHost, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12496,8 +12643,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCloseServiceHost", serviceHostMarshal, serviceHost, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12533,8 +12681,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAbortServiceHost", serviceHostMarshal, serviceHost, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12595,8 +12744,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetServiceHost", serviceHostMarshal, serviceHost, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12637,8 +12787,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetServiceProxyProperty", serviceProxyMarshal, serviceProxy, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12669,8 +12820,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateServiceProxy", "int", channelType, "int", channelBinding, "ptr", securityDescription, "ptr", properties, "uint", propertyCount, "ptr", channelProperties, "uint", channelPropertyCount, "ptr*", &serviceProxy := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return serviceProxy
     }
@@ -13022,8 +13174,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsOpenServiceProxy", serviceProxyMarshal, serviceProxy, "ptr", address, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13174,8 +13327,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCloseServiceProxy", serviceProxyMarshal, serviceProxy, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13211,8 +13365,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAbortServiceProxy", serviceProxyMarshal, serviceProxy, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13277,8 +13432,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetServiceProxy", serviceProxyMarshal, serviceProxy, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13327,8 +13483,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsAbandonCall", serviceProxyMarshal, serviceProxy, "uint", callId, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13453,8 +13610,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCall", serviceProxyMarshal, serviceProxy, "ptr", operation, argumentsMarshal, arguments, heapMarshal, heap, "ptr", callProperties, "uint", callPropertyCount, "ptr", asyncContext, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13474,8 +13632,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsDecodeUrl", "ptr", url, "uint", flags, heapMarshal, heap, "ptr*", &outUrl := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return outUrl
     }
@@ -13548,8 +13707,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsEncodeUrl", "ptr", url, "uint", flags, heapMarshal, heap, "ptr", outUrl, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13625,8 +13785,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCombineUrl", "ptr", baseUrl, "ptr", referenceUrl, "uint", flags, heapMarshal, heap, "ptr", resultUrl, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13673,8 +13834,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsDateTimeToFileTime", "ptr", dateTime, "ptr", fileTime, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13721,8 +13883,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsFileTimeToDateTime", "ptr", fileTime, "ptr", dateTime, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13744,8 +13907,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateMetadata", "ptr", properties, "uint", propertyCount, "ptr*", &metadata := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return metadata
     }
@@ -13880,8 +14044,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsReadMetadata", metadataMarshal, metadata, readerMarshal, reader, "ptr", url, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13937,8 +14102,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsResetMetadata", metadataMarshal, metadata, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14001,8 +14167,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetMetadataProperty", metadataMarshal, metadata, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14026,8 +14193,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetMissingMetadataDocumentAddress", metadataMarshal, metadata, "ptr*", &address := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return address
     }
@@ -14088,8 +14256,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetMetadataEndpoints", metadataMarshal, metadata, "ptr", endpoints, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14188,8 +14357,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsMatchPolicyAlternative", policyMarshal, policy, "uint", alternativeIndex, "ptr", policyConstraints, "int", matchRequired, heapMarshal, heap, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14252,8 +14422,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetPolicyProperty", policyMarshal, policy, "int", id, "ptr", value, "uint", valueSize, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14271,8 +14442,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsGetPolicyAlternativeCount", policyMarshal, policy, "uint*", &count := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return count
     }
@@ -14307,8 +14479,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateServiceProxyFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "int", templateType, "ptr", templateValue, "uint", templateSize, templateDescriptionMarshal, templateDescription, "uint", templateDescriptionSize, "ptr*", &serviceProxy := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return serviceProxy
     }
@@ -14340,8 +14513,9 @@ class WindowsWebServices {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webservices.dll\WsCreateServiceEndpointFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "ptr", addressUrl, "ptr", contract, "ptr", authorizationCallback, heapMarshal, heap, "int", templateType, "ptr", templateValue, "uint", templateSize, templateDescriptionMarshal, templateDescription, "uint", templateDescriptionSize, "ptr*", &serviceEndpoint := 0, errorMarshal, error, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return serviceEndpoint
     }
@@ -14363,8 +14537,9 @@ class WindowsWebServices {
      */
     static WebAuthNIsUserVerifyingPlatformAuthenticatorAvailable() {
         result := DllCall("webauthn.dll\WebAuthNIsUserVerifyingPlatformAuthenticatorAvailable", "int*", &pbIsUserVerifyingPlatformAuthenticatorAvailable := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbIsUserVerifyingPlatformAuthenticatorAvailable
     }
@@ -14384,8 +14559,9 @@ class WindowsWebServices {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorMakeCredential", "ptr", hWnd, "ptr", pRpInformation, "ptr", pUserInformation, "ptr", pPubKeyCredParams, "ptr", pWebAuthNClientData, "ptr", pWebAuthNMakeCredentialOptions, "ptr*", &ppWebAuthNCredentialAttestation := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppWebAuthNCredentialAttestation
     }
@@ -14404,8 +14580,9 @@ class WindowsWebServices {
         pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
 
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr*", &ppWebAuthNAssertion := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppWebAuthNAssertion
     }
@@ -14438,8 +14615,9 @@ class WindowsWebServices {
      */
     static WebAuthNGetCancellationId(pCancellationId) {
         result := DllCall("webauthn.dll\WebAuthNGetCancellationId", "ptr", pCancellationId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14452,8 +14630,9 @@ class WindowsWebServices {
      */
     static WebAuthNCancelCurrentOperation(pCancellationId) {
         result := DllCall("webauthn.dll\WebAuthNCancelCurrentOperation", "ptr", pCancellationId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14466,8 +14645,9 @@ class WindowsWebServices {
      */
     static WebAuthNGetPlatformCredentialList(pGetCredentialsOptions) {
         result := DllCall("webauthn.dll\WebAuthNGetPlatformCredentialList", "ptr", pGetCredentialsOptions, "ptr*", &ppCredentialDetailsList := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppCredentialDetailsList
     }
@@ -14491,8 +14671,9 @@ class WindowsWebServices {
      */
     static WebAuthNDeletePlatformCredential(cbCredentialId, pbCredentialId) {
         result := DllCall("webauthn.dll\WebAuthNDeletePlatformCredential", "uint", cbCredentialId, "ptr", pbCredentialId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14516,8 +14697,9 @@ class WindowsWebServices {
      */
     static WebAuthNGetW3CExceptionDOMError(hr) {
         result := DllCall("webauthn.dll\WebAuthNGetW3CExceptionDOMError", "int", hr, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

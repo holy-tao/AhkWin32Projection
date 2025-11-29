@@ -20,8 +20,9 @@ class XmlLite {
      */
     static CreateXmlReader(riid, pMalloc) {
         result := DllCall("XmlLite.dll\CreateXmlReader", "ptr", riid, "ptr*", &ppvObject := 0, "ptr", pMalloc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
@@ -39,8 +40,9 @@ class XmlLite {
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
         result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppInput)
     }
@@ -59,8 +61,9 @@ class XmlLite {
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
         result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppInput)
     }
@@ -73,8 +76,9 @@ class XmlLite {
      */
     static CreateXmlWriter(riid, pMalloc) {
         result := DllCall("XmlLite.dll\CreateXmlWriter", "ptr", riid, "ptr*", &ppvObject := 0, "ptr", pMalloc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
@@ -88,8 +92,9 @@ class XmlLite {
      */
     static CreateXmlWriterOutputWithEncodingCodePage(pOutputStream, pMalloc, nEncodingCodePage) {
         result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "ptr*", &ppOutput := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppOutput)
     }
@@ -105,8 +110,9 @@ class XmlLite {
         pwszEncodingName := pwszEncodingName is String ? StrPtr(pwszEncodingName) : pwszEncodingName
 
         result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingName", "ptr", pOutputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "ptr*", &ppOutput := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppOutput)
     }

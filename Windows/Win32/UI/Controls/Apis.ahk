@@ -10922,8 +10922,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("COMCTL32.dll\PropertySheetA", "ptr", param0, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10992,8 +10993,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("COMCTL32.dll\PropertySheetW", "ptr", param0, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11886,8 +11888,9 @@ class Controls {
      */
     static ImageList_ReadEx(dwFlags, pstm, riid) {
         result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -11944,8 +11947,9 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
         result := DllCall("COMCTL32.dll\ImageList_WriteEx", "ptr", himl, "uint", dwFlags, "ptr", pstm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12097,8 +12101,9 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
         result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -12160,8 +12165,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("COMCTL32.dll\CreateToolbarEx", "ptr", hwnd, "uint", ws, "uint", wID, "int", nBitmaps, "ptr", hBMInst, "ptr", wBMID, "ptr", lpButtons, "int", iNumButtons, "int", dxButton, "int", dyButton, "int", dxBitmap, "int", dyBitmap, "uint", uStructSize, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -12214,8 +12220,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("COMCTL32.dll\CreateMappedBitmap", "ptr", hInstance, "ptr", idBitmap, "uint", wFlags, "ptr", lpColorMap, "int", iNumMaps, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
@@ -12394,8 +12401,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("COMCTL32.dll\CreateStatusWindowA", "int", style, "ptr", lpszText, "ptr", hwndParent, "uint", wID, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -12428,8 +12436,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("COMCTL32.dll\CreateStatusWindowW", "int", style, "ptr", lpszText, "ptr", hwndParent, "uint", wID, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HWND({Value: result}, True)
         return resultHandle
@@ -12727,8 +12736,9 @@ class Controls {
         pfVerificationFlagCheckedMarshal := pfVerificationFlagChecked is VarRef ? "int*" : "ptr"
 
         result := DllCall("COMCTL32.dll\TaskDialogIndirect", "ptr", pTaskConfig, pnButtonMarshal, pnButton, pnRadioButtonMarshal, pnRadioButton, pfVerificationFlagCheckedMarshal, pfVerificationFlagChecked, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12886,8 +12896,9 @@ class Controls {
         pszIcon := pszIcon is String ? StrPtr(pszIcon) : pszIcon
 
         result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, "int*", &pnButton := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnButton
     }
@@ -13554,8 +13565,9 @@ class Controls {
 
         phdpa := HDPA()
         result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr", phdpa, "ptr", pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phdpa
     }
@@ -13626,8 +13638,9 @@ class Controls {
         pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("COMCTL32.dll\DPA_SaveStream", "ptr", hdpa, "ptr", pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14105,8 +14118,9 @@ class Controls {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("COMCTL32.dll\UninitializeFlatSB", "ptr", param0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14163,8 +14177,9 @@ class Controls {
 
         phico := HICON()
         result := DllCall("COMCTL32.dll\LoadIconMetric", "ptr", hinst, "ptr", pszName, "int", lims, "ptr", phico, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phico
     }
@@ -14314,8 +14329,9 @@ class Controls {
 
         phico := HICON()
         result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", "ptr", hinst, "ptr", pszName, "int", cx, "int", cy, "ptr", phico, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phico
     }
@@ -14382,8 +14398,9 @@ class Controls {
      */
     static ImageList_CoCreateInstance(rclsid, punkOuter, riid) {
         result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -14471,8 +14488,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "int", eProperty, "ptr", pvProperty, "uint", cbSize, "uint*", &pcbSizeOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbSizeOut
     }
@@ -14493,8 +14511,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "uint", dwTransformIndex, "ptr", pTransform, "uint", cbSize, "uint*", &pcbSizeOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbSizeOut
     }
@@ -14514,8 +14533,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeTimingFunction", "ptr", hTheme, "int", iTimingFunctionId, "ptr", pTimingFunction, "uint", cbSize, "uint*", &pcbSizeOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbSizeOut
     }
@@ -14582,8 +14602,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\CloseThemeData", "ptr", hTheme, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14619,8 +14640,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\DrawThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pClipRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14656,8 +14678,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\DrawThemeBackgroundEx", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pOptions, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14706,8 +14729,9 @@ class Controls {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("UxTheme.dll\DrawThemeText", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchText, "uint", dwTextFlags, "uint", dwTextFlags2, "ptr", pRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14743,8 +14767,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\GetThemeBackgroundContentRect", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pBoundingRect, "ptr", pContentRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14780,8 +14805,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\GetThemeBackgroundExtent", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pContentRect, "ptr", pExtentRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14815,8 +14841,9 @@ class Controls {
 
         pRegion := HRGN()
         result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pRegion, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pRegion
     }
@@ -14853,8 +14880,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\GetThemePartSize", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", prc, "int", eSize, "ptr", psz, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14900,8 +14928,9 @@ class Controls {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("UxTheme.dll\GetThemeTextExtent", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchCharCount, "uint", dwTextFlags, "ptr", pBoundingRect, "ptr", pExtentRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14934,8 +14963,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UxTheme.dll\GetThemeTextMetrics", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", ptm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14979,8 +15009,9 @@ class Controls {
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
         result := DllCall("UxTheme.dll\HitTestThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "uint", dwOptions, "ptr", pRect, "ptr", hrgn, "ptr", ptTest, "ushort*", &pwHitTestCode := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pwHitTestCode
     }
@@ -15115,8 +15146,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UxTheme.dll\DrawThemeEdge", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pDestRect, "uint", uEdge, "uint", uFlags, "ptr", pContentRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15156,8 +15188,9 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
         result := DllCall("UxTheme.dll\DrawThemeIcon", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", himl, "int", iImageIndex, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15292,8 +15325,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeColor", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint*", &pColor := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pColor
     }
@@ -15324,8 +15358,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\GetThemeMetric", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &piVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return piVal
     }
@@ -15361,8 +15396,9 @@ class Controls {
         pszBuff := pszBuff is String ? StrPtr(pszBuff) : pszBuff
 
         result := DllCall("UxTheme.dll\GetThemeString", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pszBuff, "int", cchMaxBuffChars, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15389,8 +15425,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemeBool", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &pfVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfVal
     }
@@ -15419,8 +15456,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeInt", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &piVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return piVal
     }
@@ -15449,8 +15487,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeEnumValue", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &piVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return piVal
     }
@@ -15482,8 +15521,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemePosition", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pPoint, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15519,8 +15559,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\GetThemeFont", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pFont, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15552,8 +15593,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UXTHEME.dll\GetThemeRect", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pRect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15592,8 +15634,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\GetThemeMargins", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", prc, "ptr", pMargins, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15625,8 +15668,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemeIntList", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pIntList, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15653,8 +15697,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemePropertyOrigin", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &pOrigin := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pOrigin
     }
@@ -15682,8 +15727,9 @@ class Controls {
         pszSubIdList := pszSubIdList is String ? StrPtr(pszSubIdList) : pszSubIdList
 
         result := DllCall("UXTHEME.dll\SetWindowTheme", "ptr", hwnd, "ptr", pszSubAppName, "ptr", pszSubIdList, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15719,8 +15765,9 @@ class Controls {
         pszThemeFileName := pszThemeFileName is String ? StrPtr(pszThemeFileName) : pszThemeFileName
 
         result := DllCall("UxTheme.dll\GetThemeFilename", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pszThemeFileName, "int", cchMaxBuffChars, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15951,8 +15998,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemeSysFont", "ptr", hTheme, "int", iFontId, "ptr", plf, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15980,8 +16028,9 @@ class Controls {
         pszStringBuff := pszStringBuff is String ? StrPtr(pszStringBuff) : pszStringBuff
 
         result := DllCall("UxTheme.dll\GetThemeSysString", "ptr", hTheme, "int", iStringId, "ptr", pszStringBuff, "int", cchMaxStringChars, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16021,8 +16070,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemeSysInt", "ptr", hTheme, "int", iIntId, "int*", &piValue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return piValue
     }
@@ -16232,8 +16282,9 @@ class Controls {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UxTheme.dll\EnableThemeDialogTexture", "ptr", hwnd, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16430,8 +16481,9 @@ class Controls {
         pszSizeBuff := pszSizeBuff is String ? StrPtr(pszSizeBuff) : pszSizeBuff
 
         result := DllCall("UXTHEME.dll\GetCurrentThemeName", "ptr", pszThemeFileName, "int", cchMaxNameChars, "ptr", pszColorBuff, "int", cchMaxColorChars, "ptr", pszSizeBuff, "int", cchMaxSizeChars, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16460,8 +16512,9 @@ class Controls {
         pszValueBuff := pszValueBuff is String ? StrPtr(pszValueBuff) : pszValueBuff
 
         result := DllCall("UxTheme.dll\GetThemeDocumentationProperty", "ptr", pszThemeName, "ptr", pszPropertyName, "ptr", pszValueBuff, "int", cchMaxValChars, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16488,8 +16541,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UXTHEME.dll\DrawThemeParentBackground", "ptr", hwnd, "ptr", hdc, "ptr", prc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16505,8 +16559,9 @@ class Controls {
      */
     static EnableTheming(fEnable) {
         result := DllCall("UxTheme.dll\EnableTheming", "int", fEnable, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16534,8 +16589,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("UxTheme.dll\DrawThemeParentBackgroundEx", "ptr", hwnd, "ptr", hdc, "uint", dwFlags, "ptr", prc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16562,8 +16618,9 @@ class Controls {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UXTHEME.dll\SetWindowThemeAttribute", "ptr", hwnd, "int", eAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16609,8 +16666,9 @@ class Controls {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("UXTHEME.dll\DrawThemeTextEx", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchText, "uint", dwTextFlags, "ptr", pRect, "ptr", pOptions, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16641,8 +16699,9 @@ class Controls {
 
         phBitmap := HBITMAP()
         result := DllCall("UXTHEME.dll\GetThemeBitmap", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint", dwFlags, "ptr", phBitmap, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phBitmap
     }
@@ -16684,8 +16743,9 @@ class Controls {
         pcbStreamMarshal := pcbStream is VarRef ? "uint*" : "ptr"
 
         result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, ppvStreamMarshal, ppvStream, pcbStreamMarshal, pcbStream, "ptr", hInst, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16700,8 +16760,9 @@ class Controls {
      */
     static BufferedPaintInit() {
         result := DllCall("UXTHEME.dll\BufferedPaintInit", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16716,8 +16777,9 @@ class Controls {
      */
     static BufferedPaintUnInit() {
         result := DllCall("UXTHEME.dll\BufferedPaintUnInit", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16755,8 +16817,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("UXTHEME.dll\BeginBufferedPaint", "ptr", hdcTarget, "ptr", prcTarget, "int", dwFormat, "ptr", pPaintParams, "ptr", phdc, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16777,8 +16840,9 @@ class Controls {
      */
     static EndBufferedPaint(hBufferedPaint, fUpdateTarget) {
         result := DllCall("UXTHEME.dll\EndBufferedPaint", "ptr", hBufferedPaint, "int", fUpdateTarget, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16799,8 +16863,9 @@ class Controls {
      */
     static GetBufferedPaintTargetRect(hBufferedPaint, prc) {
         result := DllCall("UxTheme.dll\GetBufferedPaintTargetRect", "ptr", hBufferedPaint, "ptr", prc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16861,8 +16926,9 @@ class Controls {
         pcxRowMarshal := pcxRow is VarRef ? "int*" : "ptr"
 
         result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, ppbBufferMarshal, ppbBuffer, pcxRowMarshal, pcxRow, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16883,8 +16949,9 @@ class Controls {
      */
     static BufferedPaintClear(hBufferedPaint, prc) {
         result := DllCall("UXTHEME.dll\BufferedPaintClear", "ptr", hBufferedPaint, "ptr", prc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16908,8 +16975,9 @@ class Controls {
      */
     static BufferedPaintSetAlpha(hBufferedPaint, prc, alpha) {
         result := DllCall("UxTheme.dll\BufferedPaintSetAlpha", "ptr", hBufferedPaint, "ptr", prc, "char", alpha, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16929,8 +16997,9 @@ class Controls {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UXTHEME.dll\BufferedPaintStopAllAnimations", "ptr", hwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16991,8 +17060,9 @@ class Controls {
      */
     static EndBufferedAnimation(hbpAnimation, fUpdateTarget) {
         result := DllCall("UxTheme.dll\EndBufferedAnimation", "ptr", hbpAnimation, "int", fUpdateTarget, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17059,8 +17129,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
         result := DllCall("UxTheme.dll\GetThemeTransitionDuration", "ptr", hTheme, "int", iPartId, "int", iStateIdFrom, "int", iStateIdTo, "int", iPropId, "uint*", &pdwDuration := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwDuration
     }
@@ -17088,8 +17159,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CheckDlgButton", "ptr", hDlg, "int", nIDButton, "uint", uCheck, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17122,8 +17194,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CheckRadioButton", "ptr", hDlg, "int", nIDFirstButton, "int", nIDLastButton, "int", nIDCheckButton, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17208,8 +17281,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateSyntheticPointerDevice", "int", pointerType, "uint", maxCount, "int", mode, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HSYNTHETICPOINTERDEVICE({Value: result}, True)
         return resultHandle
@@ -17231,8 +17305,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterTouchHitTestingWindow", "ptr", hwnd, "uint", value, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17252,8 +17327,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EvaluateProximityToRect", "ptr", controlBoundingBox, "ptr", pHitTestingInput, "ptr", pProximityEval, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17278,8 +17354,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EvaluateProximityToPolygon", "uint", numVertices, "ptr", controlPolygon, "ptr", pHitTestingInput, "ptr", pProximityEval, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17296,8 +17373,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\PackTouchHitTestingProximityEvaluation", "ptr", pHitTestingInput, "ptr", pProximityEval, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17372,8 +17450,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetScrollPos", "ptr", hWnd, "int", nBar, "int", nPos, "int", bRedraw, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17408,8 +17487,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetScrollRange", "ptr", hWnd, "int", nBar, "int", nMinPos, "int", nMaxPos, "int", bRedraw, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17438,8 +17518,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShowScrollBar", "ptr", hWnd, "int", wBar, "int", bShow, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17466,8 +17547,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnableScrollBar", "ptr", hWnd, "uint", wSBflags, "uint", wArrows, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17580,8 +17662,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectExA", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17617,8 +17700,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectExW", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17661,8 +17745,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirListComboBoxA", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDComboBox, "int", nIDStaticPath, "uint", uFiletype, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17705,8 +17790,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirListComboBoxW", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDComboBox, "int", nIDStaticPath, "uint", uFiletype, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17742,8 +17828,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectComboBoxExA", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17779,8 +17866,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\DlgDirSelectComboBoxExW", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17838,8 +17926,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetComboBoxInfo", "ptr", hwndCombo, "ptr", pcbi, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17881,8 +17970,9 @@ class Controls {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterPointerDeviceNotifications", "ptr", window, "int", notifyRange, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

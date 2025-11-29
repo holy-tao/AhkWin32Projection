@@ -616,8 +616,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalMemoryStatusEx", "ptr", lpBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -742,8 +743,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetLocalTime", "ptr", lpSystemTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -796,8 +798,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, lpTimeAdjustmentDisabledMarshal, lpTimeAdjustmentDisabled, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -825,8 +828,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, lpTimeAdjustmentDisabledMarshal, lpTimeAdjustmentDisabled, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -848,8 +852,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemDirectoryA", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -871,8 +876,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemDirectoryW", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -904,8 +910,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -937,8 +944,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -962,8 +970,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -987,8 +996,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1138,8 +1148,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1289,8 +1300,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1312,8 +1324,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameExW", "int", NameType, "ptr", lpBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1339,8 +1352,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemTime", "ptr", lpSystemTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1369,8 +1383,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVersionExA", "ptr", lpVersionInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1399,15 +1414,16 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVersionExW", "ptr", lpVersionInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves information about logical processors and related hardware.
-     * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
@@ -1416,14 +1432,15 @@ class SystemInformation {
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformation
      * @since windows6.0.6000
      */
-    static GetLogicalProcessorInformation(Buffer, ReturnedLength) {
+    static GetLogicalProcessorInformation(Buffer_R, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1504,7 +1521,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
@@ -1513,14 +1530,15 @@ class SystemInformation {
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
      * @since windows6.1
      */
-    static GetLogicalProcessorInformationEx(RelationshipType, Buffer, ReturnedLength) {
+    static GetLogicalProcessorInformationEx(RelationshipType, Buffer_R, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1641,8 +1659,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumSystemFirmwareTables", "uint", FirmwareTableProviderSignature, "ptr", pFirmwareTableEnumBuffer, "uint", BufferSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1673,8 +1692,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemFirmwareTable", "uint", FirmwareTableProviderSignature, "uint", FirmwareTableID, "ptr", pFirmwareTableBuffer, "uint", BufferSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1743,8 +1763,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", TotalMemoryInKilobytesMarshal, TotalMemoryInKilobytes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1790,8 +1811,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemTimeAdjustment", "uint", dwTimeAdjustment, "int", bTimeAdjustmentDisabled, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1815,8 +1837,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\SetSystemTimeAdjustmentPrecise", "uint", dwTimeAdjustment, "int", bTimeAdjustmentDisabled, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1824,7 +1847,7 @@ class SystemInformation {
     /**
      * Retrieves the cycle time each processor in the specified processor group spent executing deferred procedure calls (DPCs) and interrupt service routines (ISRs) since the processor became active.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer} Buffer A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1834,14 +1857,15 @@ class SystemInformation {
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getprocessorsystemcycletime
      * @since windows6.1
      */
-    static GetProcessorSystemCycleTime(Group, Buffer, ReturnedLength) {
+    static GetProcessorSystemCycleTime(Group, Buffer_R, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1866,8 +1890,9 @@ class SystemInformation {
      */
     static GetIntegratedDisplaySize() {
         result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", "double*", &sizeInInches := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return sizeInInches
     }
@@ -1894,8 +1919,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameA", "ptr", lpComputerName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1922,8 +1948,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameW", "ptr", lpComputerName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1945,8 +1972,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameExA", "int", NameType, "ptr", lpBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1999,8 +2027,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryA", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2024,8 +2053,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryW", "ptr", lpBuffer, "uint", uSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2048,8 +2078,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2A", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2072,8 +2103,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2W", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2089,11 +2121,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "int*", &MachineIsSupported := 0, "int")
-        if(A_LastError)
-            throw OSError()
-
-        if(result != 0)
-            throw OSError(result)
+        if(A_LastError || result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return MachineIsSupported
     }
@@ -2127,14 +2157,14 @@ class SystemInformation {
     /**
      * 
      * @param {Integer} DataId 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Integer} Size 
      * @returns {Integer} 
      */
-    static RtlGetSystemGlobalData(DataId, Buffer, Size) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static RtlGetSystemGlobalData(DataId, Buffer_R, Size) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, BufferMarshal, Buffer, "uint", Size, "uint")
+        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, Buffer_RMarshal, Buffer_R, "uint", Size, "uint")
         return result
     }
 
@@ -2293,8 +2323,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFirmwareType", FirmwareTypeMarshal, FirmwareType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2326,8 +2357,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VerifyVersionInfoA", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2359,8 +2391,9 @@ class SystemInformation {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VerifyVersionInfoW", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

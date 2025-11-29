@@ -22,8 +22,9 @@ class CallObj {
      */
     static CoGetInterceptor(iidIntercepted, punkOuter, iid) {
         result := DllCall("ole32.dll\CoGetInterceptor", "ptr", iidIntercepted, "ptr", punkOuter, "ptr", iid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -38,8 +39,9 @@ class CallObj {
      */
     static CoGetInterceptorFromTypeInfo(iidIntercepted, punkOuter, typeInfo, iid) {
         result := DllCall("ole32.dll\CoGetInterceptorFromTypeInfo", "ptr", iidIntercepted, "ptr", punkOuter, "ptr", typeInfo, "ptr", iid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }

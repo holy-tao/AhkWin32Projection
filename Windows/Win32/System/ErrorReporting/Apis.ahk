@@ -257,8 +257,9 @@ class ErrorReporting {
 
         phReportHandle := HREPORT()
         result := DllCall("wer.dll\WerReportCreate", "ptr", pwzEventType, "int", repType, "ptr", pReportInformation, "ptr", phReportHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phReportHandle
     }
@@ -308,8 +309,9 @@ class ErrorReporting {
         pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
         result := DllCall("wer.dll\WerReportSetParameter", "ptr", hReportHandle, "uint", dwparamID, "ptr", pwzName, "ptr", pwzValue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -358,8 +360,9 @@ class ErrorReporting {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
         result := DllCall("wer.dll\WerReportAddFile", "ptr", hReportHandle, "ptr", pwzPath, "int", repFileType, "uint", dwFileFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -378,8 +381,9 @@ class ErrorReporting {
         pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
         result := DllCall("wer.dll\WerReportSetUIOption", "ptr", hReportHandle, "int", repUITypeID, "ptr", pwzValue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -397,8 +401,9 @@ class ErrorReporting {
         hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
 
         result := DllCall("wer.dll\WerReportSubmit", "ptr", hReportHandle, "int", consent, "uint", dwFlags, "int*", &pSubmitResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pSubmitResult
     }
@@ -439,8 +444,9 @@ class ErrorReporting {
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
         result := DllCall("wer.dll\WerReportAddDump", "ptr", hReportHandle, "ptr", hProcess, "ptr", hThread, "int", dumpType, "ptr", pExceptionParam, "ptr", pDumpCustomOptions, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -456,8 +462,9 @@ class ErrorReporting {
         hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
 
         result := DllCall("wer.dll\WerReportCloseHandle", "ptr", hReportHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -504,8 +511,9 @@ class ErrorReporting {
         pwzFile := pwzFile is String ? StrPtr(pwzFile) : pwzFile
 
         result := DllCall("KERNEL32.dll\WerRegisterFile", "ptr", pwzFile, "int", regFileType, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -550,8 +558,9 @@ class ErrorReporting {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
         result := DllCall("KERNEL32.dll\WerUnregisterFile", "ptr", pwzFilePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -597,8 +606,9 @@ class ErrorReporting {
         pvAddressMarshal := pvAddress is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\WerRegisterMemoryBlock", pvAddressMarshal, pvAddress, "uint", dwSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -643,8 +653,9 @@ class ErrorReporting {
         pvAddressMarshal := pvAddress is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\WerUnregisterMemoryBlock", pvAddressMarshal, pvAddress, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -712,8 +723,9 @@ class ErrorReporting {
         addressMarshal := address is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\WerRegisterExcludedMemoryBlock", addressMarshal, address, "uint", size, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -747,8 +759,9 @@ class ErrorReporting {
         addressMarshal := address is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\WerUnregisterExcludedMemoryBlock", addressMarshal, address, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -817,8 +830,9 @@ class ErrorReporting {
         value := value is String ? StrPtr(value) : value
 
         result := DllCall("KERNEL32.dll\WerRegisterCustomMetadata", "ptr", key, "ptr", value, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -834,8 +848,9 @@ class ErrorReporting {
         key := key is String ? StrPtr(key) : key
 
         result := DllCall("KERNEL32.dll\WerUnregisterCustomMetadata", "ptr", key, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -901,8 +916,9 @@ class ErrorReporting {
      */
     static WerRegisterAdditionalProcess(processId, captureExtraInfoForThreadId) {
         result := DllCall("KERNEL32.dll\WerRegisterAdditionalProcess", "uint", processId, "uint", captureExtraInfoForThreadId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -945,8 +961,9 @@ class ErrorReporting {
      */
     static WerUnregisterAdditionalProcess(processId) {
         result := DllCall("KERNEL32.dll\WerUnregisterAdditionalProcess", "uint", processId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -991,8 +1008,9 @@ class ErrorReporting {
         localAppDataRelativePath := localAppDataRelativePath is String ? StrPtr(localAppDataRelativePath) : localAppDataRelativePath
 
         result := DllCall("KERNEL32.dll\WerRegisterAppLocalDump", "ptr", localAppDataRelativePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1005,8 +1023,9 @@ class ErrorReporting {
      */
     static WerUnregisterAppLocalDump() {
         result := DllCall("KERNEL32.dll\WerUnregisterAppLocalDump", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1020,8 +1039,9 @@ class ErrorReporting {
      */
     static WerSetFlags(dwFlags) {
         result := DllCall("KERNEL32.dll\WerSetFlags", "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1037,8 +1057,9 @@ class ErrorReporting {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("KERNEL32.dll\WerGetFlags", "ptr", hProcess, "uint*", &pdwFlags := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwFlags
     }
@@ -1073,8 +1094,9 @@ class ErrorReporting {
         pwzExeName := pwzExeName is String ? StrPtr(pwzExeName) : pwzExeName
 
         result := DllCall("wer.dll\WerAddExcludedApplication", "ptr", pwzExeName, "int", bAllUsers, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1111,8 +1133,9 @@ class ErrorReporting {
         pwzExeName := pwzExeName is String ? StrPtr(pwzExeName) : pwzExeName
 
         result := DllCall("wer.dll\WerRemoveExcludedApplication", "ptr", pwzExeName, "int", bAllUsers, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1160,8 +1183,9 @@ class ErrorReporting {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\WerRegisterRuntimeExceptionModule", "ptr", pwszOutOfProcessCallbackDll, pContextMarshal, pContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1209,8 +1233,9 @@ class ErrorReporting {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\WerUnregisterRuntimeExceptionModule", "ptr", pwszOutOfProcessCallbackDll, pContextMarshal, pContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1225,8 +1250,9 @@ class ErrorReporting {
     static WerStoreOpen(repStoreType) {
         phReportStore := HREPORTSTORE()
         result := DllCall("wer.dll\WerStoreOpen", "int", repStoreType, "ptr", phReportStore, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phReportStore
     }
@@ -1255,8 +1281,9 @@ class ErrorReporting {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
         result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore, "ptr*", &ppszReportKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszReportKey
     }
@@ -1272,8 +1299,9 @@ class ErrorReporting {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
         result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore, "ptr*", &ppszReportKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszReportKey
     }
@@ -1321,8 +1349,9 @@ class ErrorReporting {
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV2", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1339,8 +1368,9 @@ class ErrorReporting {
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV3", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1364,8 +1394,9 @@ class ErrorReporting {
      */
     static WerStorePurge() {
         result := DllCall("wer.dll\WerStorePurge", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1379,8 +1410,9 @@ class ErrorReporting {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
         result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore, "uint*", &pdwReportCount := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwReportCount
     }
@@ -1394,8 +1426,9 @@ class ErrorReporting {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
         result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore, "uint*", &pqwSizeInBytes := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pqwSizeInBytes
     }
@@ -1412,8 +1445,9 @@ class ErrorReporting {
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV1", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1430,8 +1464,9 @@ class ErrorReporting {
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "int*", &pSubmitResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pSubmitResult
     }
@@ -1564,8 +1599,9 @@ class ErrorReporting {
         A_LastError := 0
 
         result := DllCall("faultrep.dll\AddERExcludedApplicationA", "ptr", szApplication, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1585,8 +1621,9 @@ class ErrorReporting {
         A_LastError := 0
 
         result := DllCall("faultrep.dll\AddERExcludedApplicationW", "ptr", wszApplication, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1604,8 +1641,9 @@ class ErrorReporting {
         pwzHungApplicationName := pwzHungApplicationName is String ? StrPtr(pwzHungApplicationName) : pwzHungApplicationName
 
         result := DllCall("faultrep.dll\WerReportHang", "ptr", hwndHungApp, "ptr", pwzHungApplicationName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

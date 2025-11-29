@@ -24305,8 +24305,9 @@ class ApplicationInstallationAndServicing {
         pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
 
         result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", &ppcCertContext := 0, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppcCertContext
     }
@@ -24353,8 +24354,9 @@ class ApplicationInstallationAndServicing {
         pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
 
         result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", &ppcCertContext := 0, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppcCertContext
     }
@@ -28788,8 +28790,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("sfc.dll\SfcGetNextProtectedFile", "ptr", RpcHandle, "ptr", ProtFileData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -29642,8 +29645,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateActCtxA", "ptr", pActCtx, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, True)
         resultHandle.DefineProp("Free", {Call: ApplicationInstallationAndServicing.ReleaseActCtx})
@@ -29667,8 +29671,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateActCtxW", "ptr", pActCtx, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         resultHandle := HANDLE({Value: result}, True)
         resultHandle.DefineProp("Free", {Call: ApplicationInstallationAndServicing.ReleaseActCtx})
@@ -29726,8 +29731,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ZombifyActCtx", "ptr", hActCtx, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -29754,8 +29760,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, lpCookieMarshal, lpCookie, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -29826,8 +29833,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeactivateActCtx", "uint", dwFlags, "ptr", ulCookie, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -29849,8 +29857,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCurrentActCtx", "ptr", lphActCtx, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -29912,8 +29921,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -29975,8 +29985,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionStringW", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -30040,8 +30051,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionGuid", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpGuidToFind, "ptr", ReturnedData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -30249,8 +30261,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, pvSubInstanceMarshal, pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, pcbWrittenOrRequiredMarshal, pcbWrittenOrRequired, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -30286,8 +30299,9 @@ class ApplicationInstallationAndServicing {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, pdwWrittenOrRequiredMarshal, pdwWrittenOrRequired, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

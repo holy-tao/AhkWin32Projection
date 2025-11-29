@@ -10657,8 +10657,9 @@ class MediaFoundation {
      */
     static DXVAHD_CreateDevice(pD3DDevice, pContentDesc, Usage, pPlugin) {
         result := DllCall("dxva2.dll\DXVAHD_CreateDevice", "ptr", pD3DDevice, "ptr", pContentDesc, "int", Usage, "ptr", pPlugin, "ptr*", &ppDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDXVAHD_Device(ppDevice)
     }
@@ -10675,8 +10676,9 @@ class MediaFoundation {
         pResetTokenMarshal := pResetToken is VarRef ? "uint*" : "ptr"
 
         result := DllCall("dxva2.dll\DXVA2CreateDirect3DDeviceManager9", pResetTokenMarshal, pResetToken, "ptr*", ppDeviceManager, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10704,8 +10706,9 @@ class MediaFoundation {
      */
     static DXVA2CreateVideoService(pDD, riid) {
         result := DllCall("dxva2.dll\DXVA2CreateVideoService", "ptr", pDD, "ptr", riid, "ptr*", &ppService := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppService
     }
@@ -10754,8 +10757,9 @@ class MediaFoundation {
         pppOPMVideoOutputArrayMarshal := pppOPMVideoOutputArray is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, pppOPMVideoOutputArrayMarshal, pppOPMVideoOutputArray, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10798,8 +10802,9 @@ class MediaFoundation {
      */
     static OPMGetVideoOutputForTarget(pAdapterLuid, VidPnTarget, vos) {
         result := DllCall("dxva2.dll\OPMGetVideoOutputForTarget", "ptr", pAdapterLuid, "uint", VidPnTarget, "int", vos, "ptr*", &ppOPMVideoOutput := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IOPMVideoOutput(ppOPMVideoOutput)
     }
@@ -10846,8 +10851,9 @@ class MediaFoundation {
         pppOPMVideoOutputArrayMarshal := pppOPMVideoOutputArray is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("dxva2.dll\OPMGetVideoOutputsFromIDirect3DDevice9Object", "ptr", pDirect3DDevice9, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, pppOPMVideoOutputArrayMarshal, pppOPMVideoOutputArray, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10881,8 +10887,9 @@ class MediaFoundation {
      */
     static MFSerializeAttributesToStream(pAttr, dwOptions, pStm) {
         result := DllCall("MFPlat.dll\MFSerializeAttributesToStream", "ptr", pAttr, "uint", dwOptions, "ptr", pStm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10916,8 +10923,9 @@ class MediaFoundation {
      */
     static MFDeserializeAttributesFromStream(pAttr, dwOptions, pStm) {
         result := DllCall("MFPlat.dll\MFDeserializeAttributesFromStream", "ptr", pAttr, "uint", dwOptions, "ptr", pStm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10931,8 +10939,9 @@ class MediaFoundation {
      */
     static MFCreateTransformActivate() {
         result := DllCall("MFPlat.dll\MFCreateTransformActivate", "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -10946,8 +10955,9 @@ class MediaFoundation {
      */
     static MFCreateMediaSession(pConfiguration) {
         result := DllCall("MF.dll\MFCreateMediaSession", "ptr", pConfiguration, "ptr*", &ppMediaSession := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSession(ppMediaSession)
     }
@@ -10983,8 +10993,9 @@ class MediaFoundation {
      */
     static MFCreatePMPMediaSession(dwCreationFlags, pConfiguration, ppMediaSession, ppEnablerActivate) {
         result := DllCall("MF.dll\MFCreatePMPMediaSession", "uint", dwCreationFlags, "ptr", pConfiguration, "ptr*", ppMediaSession, "ptr*", ppEnablerActivate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10997,8 +11008,9 @@ class MediaFoundation {
      */
     static MFCreateSourceResolver() {
         result := DllCall("MFPlat.dll\MFCreateSourceResolver", "ptr*", &ppISourceResolver := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSourceResolver(ppISourceResolver)
     }
@@ -11011,8 +11023,9 @@ class MediaFoundation {
      */
     static CreatePropertyStore() {
         result := DllCall("MFPlat.dll\CreatePropertyStore", "ptr*", &ppStore := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IPropertyStore(ppStore)
     }
@@ -11044,8 +11057,9 @@ class MediaFoundation {
      */
     static MFGetSupportedSchemes(pPropVarSchemeArray) {
         result := DllCall("MFPlat.dll\MFGetSupportedSchemes", "ptr", pPropVarSchemeArray, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11078,8 +11092,9 @@ class MediaFoundation {
      */
     static MFGetSupportedMimeTypes(pPropVarMimeTypeArray) {
         result := DllCall("MFPlat.dll\MFGetSupportedMimeTypes", "ptr", pPropVarMimeTypeArray, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11092,8 +11107,9 @@ class MediaFoundation {
      */
     static MFCreateTopology() {
         result := DllCall("MF.dll\MFCreateTopology", "ptr*", &ppTopo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTopology(ppTopo)
     }
@@ -11107,8 +11123,9 @@ class MediaFoundation {
      */
     static MFCreateTopologyNode(NodeType) {
         result := DllCall("MF.dll\MFCreateTopologyNode", "int", NodeType, "ptr*", &ppNode := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTopologyNode(ppNode)
     }
@@ -11136,8 +11153,9 @@ class MediaFoundation {
      */
     static MFGetTopoNodeCurrentType(pNode, dwStreamIndex, fOutput) {
         result := DllCall("MF.dll\MFGetTopoNodeCurrentType", "ptr", pNode, "uint", dwStreamIndex, "int", fOutput, "ptr*", &ppType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppType)
     }
@@ -11153,8 +11171,9 @@ class MediaFoundation {
      */
     static MFGetService(punkObject, guidService, riid) {
         result := DllCall("MF.dll\MFGetService", "ptr", punkObject, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
@@ -11178,8 +11197,9 @@ class MediaFoundation {
      */
     static MFCreatePresentationClock() {
         result := DllCall("MF.dll\MFCreatePresentationClock", "ptr*", &ppPresentationClock := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPresentationClock(ppPresentationClock)
     }
@@ -11192,8 +11212,9 @@ class MediaFoundation {
      */
     static MFCreateSystemTimeSource() {
         result := DllCall("MFPlat.dll\MFCreateSystemTimeSource", "ptr*", &ppSystemTimeSource := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPresentationTimeSource(ppSystemTimeSource)
     }
@@ -11208,8 +11229,9 @@ class MediaFoundation {
      */
     static MFCreatePresentationDescriptor(cStreamDescriptors, apStreamDescriptors) {
         result := DllCall("MFPlat.dll\MFCreatePresentationDescriptor", "uint", cStreamDescriptors, "ptr*", apStreamDescriptors, "ptr*", &ppPresentationDescriptor := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPresentationDescriptor(ppPresentationDescriptor)
     }
@@ -11252,8 +11274,9 @@ class MediaFoundation {
      */
     static MFRequireProtectedEnvironment(pPresentationDescriptor) {
         result := DllCall("MF.dll\MFRequireProtectedEnvironment", "ptr", pPresentationDescriptor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11290,8 +11313,9 @@ class MediaFoundation {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFSerializePresentationDescriptor", "ptr", pPD, pcbDataMarshal, pcbData, ppbDataMarshal, ppbData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11308,8 +11332,9 @@ class MediaFoundation {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFDeserializePresentationDescriptor", "uint", cbData, pbDataMarshal, pbData, "ptr*", &ppPD := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPresentationDescriptor(ppPD)
     }
@@ -11325,8 +11350,9 @@ class MediaFoundation {
      */
     static MFCreateStreamDescriptor(dwStreamIdentifier, cMediaTypes, apMediaTypes) {
         result := DllCall("MFPlat.dll\MFCreateStreamDescriptor", "uint", dwStreamIdentifier, "uint", cMediaTypes, "ptr*", apMediaTypes, "ptr*", &ppDescriptor := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFStreamDescriptor(ppDescriptor)
     }
@@ -11339,8 +11365,9 @@ class MediaFoundation {
      */
     static MFCreateSimpleTypeHandler() {
         result := DllCall("MF.dll\MFCreateSimpleTypeHandler", "ptr*", &ppHandler := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaTypeHandler(ppHandler)
     }
@@ -11373,8 +11400,9 @@ class MediaFoundation {
      */
     static MFShutdownObject(pUnk) {
         result := DllCall("MF.dll\MFShutdownObject", "ptr", pUnk, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11388,8 +11416,9 @@ class MediaFoundation {
      */
     static MFCreateAudioRenderer(pAudioAttributes) {
         result := DllCall("MF.dll\MFCreateAudioRenderer", "ptr", pAudioAttributes, "ptr*", &ppSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppSink)
     }
@@ -11402,8 +11431,9 @@ class MediaFoundation {
      */
     static MFCreateAudioRendererActivate() {
         result := DllCall("MF.dll\MFCreateAudioRendererActivate", "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -11419,8 +11449,9 @@ class MediaFoundation {
         hwndVideo := hwndVideo is Win32Handle ? NumGet(hwndVideo, "ptr") : hwndVideo
 
         result := DllCall("MF.dll\MFCreateVideoRendererActivate", "ptr", hwndVideo, "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -11440,8 +11471,9 @@ class MediaFoundation {
      */
     static MFCreateMPEG4MediaSink(pIByteStream, pVideoMediaType, pAudioMediaType) {
         result := DllCall("MF.dll\MFCreateMPEG4MediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr*", &ppIMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppIMediaSink)
     }
@@ -11461,8 +11493,9 @@ class MediaFoundation {
      */
     static MFCreate3GPMediaSink(pIByteStream, pVideoMediaType, pAudioMediaType) {
         result := DllCall("MF.dll\MFCreate3GPMediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr*", &ppIMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppIMediaSink)
     }
@@ -11476,8 +11509,9 @@ class MediaFoundation {
      */
     static MFCreateMP3MediaSink(pTargetByteStream) {
         result := DllCall("MF.dll\MFCreateMP3MediaSink", "ptr", pTargetByteStream, "ptr*", &ppMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppMediaSink)
     }
@@ -11511,8 +11545,9 @@ class MediaFoundation {
      */
     static MFCreateAC3MediaSink(pTargetByteStream, pAudioMediaType) {
         result := DllCall("MF.dll\MFCreateAC3MediaSink", "ptr", pTargetByteStream, "ptr", pAudioMediaType, "ptr*", &ppMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppMediaSink)
     }
@@ -11552,8 +11587,9 @@ class MediaFoundation {
      */
     static MFCreateADTSMediaSink(pTargetByteStream, pAudioMediaType) {
         result := DllCall("MF.dll\MFCreateADTSMediaSink", "ptr", pTargetByteStream, "ptr", pAudioMediaType, "ptr*", &ppMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppMediaSink)
     }
@@ -11569,8 +11605,9 @@ class MediaFoundation {
      */
     static MFCreateMuxSink(guidOutputSubType, pOutputAttributes, pOutputByteStream) {
         result := DllCall("MF.dll\MFCreateMuxSink", "ptr", guidOutputSubType, "ptr", pOutputAttributes, "ptr", pOutputByteStream, "ptr*", &ppMuxSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppMuxSink)
     }
@@ -11590,8 +11627,9 @@ class MediaFoundation {
      */
     static MFCreateFMPEG4MediaSink(pIByteStream, pVideoMediaType, pAudioMediaType) {
         result := DllCall("MF.dll\MFCreateFMPEG4MediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr*", &ppIMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppIMediaSink)
     }
@@ -11607,8 +11645,9 @@ class MediaFoundation {
      */
     static MFCreateAVIMediaSink(pIByteStream, pVideoMediaType, pAudioMediaType) {
         result := DllCall("mfsrcsnk.dll\MFCreateAVIMediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr*", &ppIMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppIMediaSink)
     }
@@ -11623,8 +11662,9 @@ class MediaFoundation {
      */
     static MFCreateWAVEMediaSink(pTargetByteStream, pAudioMediaType) {
         result := DllCall("mfsrcsnk.dll\MFCreateWAVEMediaSink", "ptr", pTargetByteStream, "ptr", pAudioMediaType, "ptr*", &ppMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppMediaSink)
     }
@@ -11637,8 +11677,9 @@ class MediaFoundation {
      */
     static MFCreateTopoLoader() {
         result := DllCall("MF.dll\MFCreateTopoLoader", "ptr*", &ppObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTopoLoader(ppObj)
     }
@@ -11653,8 +11694,9 @@ class MediaFoundation {
      */
     static MFCreateSampleGrabberSinkActivate(pIMFMediaType, pIMFSampleGrabberSinkCallback) {
         result := DllCall("MF.dll\MFCreateSampleGrabberSinkActivate", "ptr", pIMFMediaType, "ptr", pIMFSampleGrabberSinkCallback, "ptr*", &ppIActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppIActivate)
     }
@@ -11667,8 +11709,9 @@ class MediaFoundation {
      */
     static MFCreateStandardQualityManager() {
         result := DllCall("MF.dll\MFCreateStandardQualityManager", "ptr*", &ppQualityManager := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFQualityManager(ppQualityManager)
     }
@@ -11682,8 +11725,9 @@ class MediaFoundation {
      */
     static MFCreateSequencerSource(pReserved) {
         result := DllCall("MF.dll\MFCreateSequencerSource", "ptr", pReserved, "ptr*", &ppSequencerSource := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSequencerSource(ppSequencerSource)
     }
@@ -11699,8 +11743,9 @@ class MediaFoundation {
      */
     static MFCreateSequencerSegmentOffset(dwId, hnsOffset, pvarSegmentOffset) {
         result := DllCall("MF.dll\MFCreateSequencerSegmentOffset", "uint", dwId, "int64", hnsOffset, "ptr", pvarSegmentOffset, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11714,8 +11759,9 @@ class MediaFoundation {
      */
     static MFCreateAggregateSource(pSourceCollection) {
         result := DllCall("MF.dll\MFCreateAggregateSource", "ptr", pSourceCollection, "ptr*", &ppAggSource := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSource(ppAggSource)
     }
@@ -11728,8 +11774,9 @@ class MediaFoundation {
      */
     static MFCreateCredentialCache() {
         result := DllCall("MF.dll\MFCreateCredentialCache", "ptr*", &ppCache := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFNetCredentialCache(ppCache)
     }
@@ -11749,8 +11796,9 @@ class MediaFoundation {
         pszProtocol := pszProtocol is String ? StrPtr(pszProtocol) : pszProtocol
 
         result := DllCall("MF.dll\MFCreateProxyLocator", "ptr", pszProtocol, "ptr", pProxyConfig, "ptr*", &ppProxyLocator := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFNetProxyLocator(ppProxyLocator)
     }
@@ -11785,8 +11833,9 @@ class MediaFoundation {
         ppvHandlerMarshal := ppvHandler is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("MF.dll\MFCreateNetSchemePlugin", "ptr", riid, ppvHandlerMarshal, ppvHandler, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11800,8 +11849,9 @@ class MediaFoundation {
      */
     static MFCreatePMPServer(dwCreationFlags) {
         result := DllCall("MF.dll\MFCreatePMPServer", "uint", dwCreationFlags, "ptr*", &ppPMPServer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPMPServer(ppPMPServer)
     }
@@ -11814,8 +11864,9 @@ class MediaFoundation {
      */
     static MFCreateRemoteDesktopPlugin() {
         result := DllCall("MF.dll\MFCreateRemoteDesktopPlugin", "ptr*", &ppPlugin := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFRemoteDesktopPlugin(ppPlugin)
     }
@@ -11828,8 +11879,9 @@ class MediaFoundation {
      */
     static CreateNamedPropertyStore() {
         result := DllCall("MF.dll\CreateNamedPropertyStore", "ptr*", &ppStore := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return INamedPropertyStore(ppStore)
     }
@@ -11842,8 +11894,9 @@ class MediaFoundation {
      */
     static MFCreateSampleCopierMFT() {
         result := DllCall("MF.dll\MFCreateSampleCopierMFT", "ptr*", &ppCopierMFT := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTransform(ppCopierMFT)
     }
@@ -11856,8 +11909,9 @@ class MediaFoundation {
      */
     static MFCreateTranscodeProfile() {
         result := DllCall("MF.dll\MFCreateTranscodeProfile", "ptr*", &ppTranscodeProfile := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTranscodeProfile(ppTranscodeProfile)
     }
@@ -11875,8 +11929,9 @@ class MediaFoundation {
         pwszOutputFilePath := pwszOutputFilePath is String ? StrPtr(pwszOutputFilePath) : pwszOutputFilePath
 
         result := DllCall("MF.dll\MFCreateTranscodeTopology", "ptr", pSrc, "ptr", pwszOutputFilePath, "ptr", pProfile, "ptr*", &ppTranscodeTopo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTopology(ppTranscodeTopo)
     }
@@ -11892,8 +11947,9 @@ class MediaFoundation {
      */
     static MFCreateTranscodeTopologyFromByteStream(pSrc, pOutputStream, pProfile) {
         result := DllCall("MF.dll\MFCreateTranscodeTopologyFromByteStream", "ptr", pSrc, "ptr", pOutputStream, "ptr", pProfile, "ptr*", &ppTranscodeTopo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTopology(ppTranscodeTopo)
     }
@@ -11946,8 +12002,9 @@ class MediaFoundation {
      */
     static MFTranscodeGetAudioOutputAvailableTypes(guidSubType, dwMFTFlags, pCodecConfig) {
         result := DllCall("MF.dll\MFTranscodeGetAudioOutputAvailableTypes", "ptr", guidSubType, "uint", dwMFTFlags, "ptr", pCodecConfig, "ptr*", &ppAvailableTypes := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFCollection(ppAvailableTypes)
     }
@@ -11960,8 +12017,9 @@ class MediaFoundation {
      */
     static MFCreateTranscodeSinkActivate() {
         result := DllCall("MF.dll\MFCreateTranscodeSinkActivate", "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -11974,8 +12032,9 @@ class MediaFoundation {
      */
     static MFCreateTrackedSample() {
         result := DllCall("MFPlat.dll\MFCreateTrackedSample", "ptr*", &ppMFSample := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFTrackedSample(ppMFSample)
     }
@@ -11989,8 +12048,9 @@ class MediaFoundation {
      */
     static MFCreateMFByteStreamOnStream(pStream) {
         result := DllCall("MFPlat.dll\MFCreateMFByteStreamOnStream", "ptr", pStream, "ptr*", &ppByteStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(ppByteStream)
     }
@@ -12004,8 +12064,9 @@ class MediaFoundation {
      */
     static MFCreateStreamOnMFByteStream(pByteStream) {
         result := DllCall("MFPlat.dll\MFCreateStreamOnMFByteStream", "ptr", pByteStream, "ptr*", &ppStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStream(ppStream)
     }
@@ -12019,8 +12080,9 @@ class MediaFoundation {
      */
     static MFCreateMFByteStreamOnStreamEx(punkStream) {
         result := DllCall("MFPlat.dll\MFCreateMFByteStreamOnStreamEx", "ptr", punkStream, "ptr*", &ppByteStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(ppByteStream)
     }
@@ -12035,8 +12097,9 @@ class MediaFoundation {
      */
     static MFCreateStreamOnMFByteStreamEx(pByteStream, riid) {
         result := DllCall("MFPlat.dll\MFCreateStreamOnMFByteStreamEx", "ptr", pByteStream, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -12050,8 +12113,9 @@ class MediaFoundation {
      */
     static MFCreateMediaTypeFromProperties(punkStream) {
         result := DllCall("MFPlat.dll\MFCreateMediaTypeFromProperties", "ptr", punkStream, "ptr*", &ppMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppMediaType)
     }
@@ -12066,8 +12130,9 @@ class MediaFoundation {
      */
     static MFCreatePropertiesFromMediaType(pMediaType, riid) {
         result := DllCall("MFPlat.dll\MFCreatePropertiesFromMediaType", "ptr", pMediaType, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -12123,8 +12188,9 @@ class MediaFoundation {
         pcSourceActivateMarshal := pcSourceActivate is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MF.dll\MFEnumDeviceSources", "ptr", pAttributes, pppSourceActivateMarshal, pppSourceActivate, pcSourceActivateMarshal, pcSourceActivate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12138,8 +12204,9 @@ class MediaFoundation {
      */
     static MFCreateDeviceSource(pAttributes) {
         result := DllCall("MF.dll\MFCreateDeviceSource", "ptr", pAttributes, "ptr*", &ppSource := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSource(ppSource)
     }
@@ -12220,8 +12287,9 @@ class MediaFoundation {
      */
     static MFCreateDeviceSourceActivate(pAttributes) {
         result := DllCall("MF.dll\MFCreateDeviceSourceActivate", "ptr", pAttributes, "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -12234,8 +12302,9 @@ class MediaFoundation {
      */
     static MFCreateProtectedEnvironmentAccess() {
         result := DllCall("MF.dll\MFCreateProtectedEnvironmentAccess", "ptr*", &ppAccess := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFProtectedEnvironmentAccess(ppAccess)
     }
@@ -12257,8 +12326,9 @@ class MediaFoundation {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("MF.dll\MFLoadSignedLibrary", "ptr", pszName, "ptr*", &ppLib := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSignedLibrary(ppLib)
     }
@@ -12271,8 +12341,9 @@ class MediaFoundation {
      */
     static MFGetSystemId() {
         result := DllCall("MF.dll\MFGetSystemId", "ptr*", &ppId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSystemId(ppId)
     }
@@ -12287,8 +12358,9 @@ class MediaFoundation {
      */
     static MFGetLocalId(verifier, size) {
         result := DllCall("MF.dll\MFGetLocalId", "ptr", verifier, "uint", size, "ptr*", &id := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return id
     }
@@ -12302,8 +12374,9 @@ class MediaFoundation {
      */
     static MFCreateContentProtectionDevice(ProtectionSystemId) {
         result := DllCall("MFPlat.dll\MFCreateContentProtectionDevice", "ptr", ProtectionSystemId, "ptr*", &ContentProtectionDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFContentProtectionDevice(ContentProtectionDevice)
     }
@@ -12317,8 +12390,9 @@ class MediaFoundation {
      */
     static MFIsContentProtectionDeviceSupported(ProtectionSystemId) {
         result := DllCall("MFPlat.dll\MFIsContentProtectionDeviceSupported", "ptr", ProtectionSystemId, "int*", &isSupported := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return isSupported
     }
@@ -12334,8 +12408,9 @@ class MediaFoundation {
      */
     static MFCreateContentDecryptorContext(guidMediaProtectionSystemId, pD3DManager, pContentProtectionDevice) {
         result := DllCall("MFPlat.dll\MFCreateContentDecryptorContext", "ptr", guidMediaProtectionSystemId, "ptr", pD3DManager, "ptr", pContentProtectionDevice, "ptr*", &ppContentDecryptorContext := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFContentDecryptorContext(ppContentDecryptorContext)
     }
@@ -12351,8 +12426,9 @@ class MediaFoundation {
         SensorGroupSymbolicLink := SensorGroupSymbolicLink is String ? StrPtr(SensorGroupSymbolicLink) : SensorGroupSymbolicLink
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorGroup", "ptr", SensorGroupSymbolicLink, "ptr*", &ppSensorGroup := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSensorGroup(ppSensorGroup)
     }
@@ -12368,8 +12444,9 @@ class MediaFoundation {
      */
     static MFCreateSensorStream(StreamId, pAttributes, pMediaTypeCollection) {
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorStream", "uint", StreamId, "ptr", pAttributes, "ptr", pMediaTypeCollection, "ptr*", &ppStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSensorStream(ppStream)
     }
@@ -12387,8 +12464,9 @@ class MediaFoundation {
         Constraints := Constraints is String ? StrPtr(Constraints) : Constraints
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfile", "ptr", ProfileType, "uint", ProfileIndex, "ptr", Constraints, "ptr*", &ppProfile := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSensorProfile(ppProfile)
     }
@@ -12401,8 +12479,9 @@ class MediaFoundation {
      */
     static MFCreateSensorProfileCollection() {
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfileCollection", "ptr*", &ppSensorProfile := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSensorProfileCollection(ppSensorProfile)
     }
@@ -12415,8 +12494,9 @@ class MediaFoundation {
      */
     static MFCreateSensorActivityMonitor(pCallback) {
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorActivityMonitor", "ptr", pCallback, "ptr*", &ppActivityMonitor := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSensorActivityMonitor(ppActivityMonitor)
     }
@@ -12427,8 +12507,9 @@ class MediaFoundation {
      */
     static MFCreateExtendedCameraIntrinsics() {
         result := DllCall("MFCORE.dll\MFCreateExtendedCameraIntrinsics", "ptr*", &ppExtendedCameraIntrinsics := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFExtendedCameraIntrinsics(ppExtendedCameraIntrinsics)
     }
@@ -12440,8 +12521,9 @@ class MediaFoundation {
      */
     static MFCreateExtendedCameraIntrinsicModel(distortionModelType) {
         result := DllCall("MFCORE.dll\MFCreateExtendedCameraIntrinsicModel", "int", distortionModelType, "ptr*", &ppExtendedCameraIntrinsicModel := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFExtendedCameraIntrinsicModel(ppExtendedCameraIntrinsicModel)
     }
@@ -12459,8 +12541,9 @@ class MediaFoundation {
         displayMonitorDeviceId := displayMonitorDeviceId is String ? StrPtr(displayMonitorDeviceId) : displayMonitorDeviceId
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateRelativePanelWatcher", "ptr", videoDeviceId, "ptr", displayMonitorDeviceId, "ptr*", &ppRelativePanelWatcher := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFRelativePanelWatcher(ppRelativePanelWatcher)
     }
@@ -12476,8 +12559,9 @@ class MediaFoundation {
         symbolicLink := symbolicLink is String ? StrPtr(symbolicLink) : symbolicLink
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateCameraOcclusionStateMonitor", "ptr", symbolicLink, "ptr", callback, "ptr*", &occlusionStateMonitor := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFCameraOcclusionStateMonitor(occlusionStateMonitor)
     }
@@ -12493,8 +12577,9 @@ class MediaFoundation {
         symbolicLink := symbolicLink is String ? StrPtr(symbolicLink) : symbolicLink
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateCameraControlMonitor", "ptr", symbolicLink, "ptr", callback, "ptr*", &ppCameraControlMonitor := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFCameraControlMonitor(ppCameraControlMonitor)
     }
@@ -12507,8 +12592,9 @@ class MediaFoundation {
      */
     static MFCreateASFContentInfo() {
         result := DllCall("MF.dll\MFCreateASFContentInfo", "ptr*", &ppIContentInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFContentInfo(ppIContentInfo)
     }
@@ -12521,8 +12607,9 @@ class MediaFoundation {
      */
     static MFCreateASFIndexer() {
         result := DllCall("MF.dll\MFCreateASFIndexer", "ptr*", &ppIIndexer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFIndexer(ppIIndexer)
     }
@@ -12537,8 +12624,9 @@ class MediaFoundation {
      */
     static MFCreateASFIndexerByteStream(pIContentByteStream, cbIndexStartOffset) {
         result := DllCall("MF.dll\MFCreateASFIndexerByteStream", "ptr", pIContentByteStream, "uint", cbIndexStartOffset, "ptr*", &pIIndexByteStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(pIIndexByteStream)
     }
@@ -12551,8 +12639,9 @@ class MediaFoundation {
      */
     static MFCreateASFSplitter() {
         result := DllCall("MF.dll\MFCreateASFSplitter", "ptr*", &ppISplitter := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFSplitter(ppISplitter)
     }
@@ -12565,8 +12654,9 @@ class MediaFoundation {
      */
     static MFCreateASFProfile() {
         result := DllCall("MF.dll\MFCreateASFProfile", "ptr*", &ppIProfile := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFProfile(ppIProfile)
     }
@@ -12580,8 +12670,9 @@ class MediaFoundation {
      */
     static MFCreateASFProfileFromPresentationDescriptor(pIPD) {
         result := DllCall("MF.dll\MFCreateASFProfileFromPresentationDescriptor", "ptr", pIPD, "ptr*", &ppIProfile := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFProfile(ppIProfile)
     }
@@ -12595,8 +12686,9 @@ class MediaFoundation {
      */
     static MFCreatePresentationDescriptorFromASFProfile(pIProfile) {
         result := DllCall("MF.dll\MFCreatePresentationDescriptorFromASFProfile", "ptr", pIProfile, "ptr*", &ppIPD := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPresentationDescriptor(ppIPD)
     }
@@ -12609,8 +12701,9 @@ class MediaFoundation {
      */
     static MFCreateASFMultiplexer() {
         result := DllCall("MF.dll\MFCreateASFMultiplexer", "ptr*", &ppIMultiplexer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFMultiplexer(ppIMultiplexer)
     }
@@ -12624,8 +12717,9 @@ class MediaFoundation {
      */
     static MFCreateASFStreamSelector(pIASFProfile) {
         result := DllCall("MF.dll\MFCreateASFStreamSelector", "ptr", pIASFProfile, "ptr*", &ppSelector := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFASFStreamSelector(ppSelector)
     }
@@ -12639,8 +12733,9 @@ class MediaFoundation {
      */
     static MFCreateASFMediaSink(pIByteStream) {
         result := DllCall("MF.dll\MFCreateASFMediaSink", "ptr", pIByteStream, "ptr*", &ppIMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppIMediaSink)
     }
@@ -12657,8 +12752,9 @@ class MediaFoundation {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("MF.dll\MFCreateASFMediaSinkActivate", "ptr", pwszFileName, "ptr", pContentInfo, "ptr*", &ppIActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppIActivate)
     }
@@ -12673,8 +12769,9 @@ class MediaFoundation {
      */
     static MFCreateWMVEncoderActivate(pMediaType, pEncodingConfigurationProperties) {
         result := DllCall("MF.dll\MFCreateWMVEncoderActivate", "ptr", pMediaType, "ptr", pEncodingConfigurationProperties, "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -12689,8 +12786,9 @@ class MediaFoundation {
      */
     static MFCreateWMAEncoderActivate(pMediaType, pEncodingConfigurationProperties) {
         result := DllCall("MF.dll\MFCreateWMAEncoderActivate", "ptr", pMediaType, "ptr", pEncodingConfigurationProperties, "ptr*", &ppActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppActivate)
     }
@@ -12704,8 +12802,9 @@ class MediaFoundation {
      */
     static MFCreateASFStreamingMediaSink(pIByteStream) {
         result := DllCall("MF.dll\MFCreateASFStreamingMediaSink", "ptr", pIByteStream, "ptr*", &ppIMediaSink := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaSink(ppIMediaSink)
     }
@@ -12720,8 +12819,9 @@ class MediaFoundation {
      */
     static MFCreateASFStreamingMediaSinkActivate(pByteStreamActivate, pContentInfo) {
         result := DllCall("MF.dll\MFCreateASFStreamingMediaSinkActivate", "ptr", pByteStreamActivate, "ptr", pContentInfo, "ptr*", &ppIActivate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(ppIActivate)
     }
@@ -12735,8 +12835,9 @@ class MediaFoundation {
      */
     static MFCreateD3D12SynchronizationObject(pDevice, riid) {
         result := DllCall("MFPlat.dll\MFCreateD3D12SynchronizationObject", "ptr", pDevice, "ptr", riid, "ptr*", &ppvSyncObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvSyncObject
     }
@@ -12847,8 +12948,9 @@ class MediaFoundation {
      */
     static MFStartup(Version, dwFlags) {
         result := DllCall("MFPlat.dll\MFStartup", "uint", Version, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12861,8 +12963,9 @@ class MediaFoundation {
      */
     static MFShutdown() {
         result := DllCall("MFPlat.dll\MFShutdown", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12893,8 +12996,9 @@ class MediaFoundation {
      */
     static MFLockPlatform() {
         result := DllCall("MFPlat.dll\MFLockPlatform", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12925,8 +13029,9 @@ class MediaFoundation {
      */
     static MFUnlockPlatform() {
         result := DllCall("MFPlat.dll\MFUnlockPlatform", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12982,8 +13087,9 @@ class MediaFoundation {
      */
     static MFPutWorkItem(dwQueue, pCallback, pState) {
         result := DllCall("MFPlat.dll\MFPutWorkItem", "uint", dwQueue, "ptr", pCallback, "ptr", pState, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13040,8 +13146,9 @@ class MediaFoundation {
      */
     static MFPutWorkItem2(dwQueue, Priority, pCallback, pState) {
         result := DllCall("MFPlat.dll\MFPutWorkItem2", "uint", dwQueue, "int", Priority, "ptr", pCallback, "ptr", pState, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13096,8 +13203,9 @@ class MediaFoundation {
      */
     static MFPutWorkItemEx(dwQueue, pResult) {
         result := DllCall("MFPlat.dll\MFPutWorkItemEx", "uint", dwQueue, "ptr", pResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13153,8 +13261,9 @@ class MediaFoundation {
      */
     static MFPutWorkItemEx2(dwQueue, Priority, pResult) {
         result := DllCall("MFPlat.dll\MFPutWorkItemEx2", "uint", dwQueue, "int", Priority, "ptr", pResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13174,8 +13283,9 @@ class MediaFoundation {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", "ptr", hEvent, "int", Priority, "ptr", pResult, "uint*", &pKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pKey
     }
@@ -13196,8 +13306,9 @@ class MediaFoundation {
      */
     static MFAllocateSerialWorkQueue(dwWorkQueue) {
         result := DllCall("MFPlat.dll\MFAllocateSerialWorkQueue", "uint", dwWorkQueue, "uint*", &pdwWorkQueue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwWorkQueue
     }
@@ -13212,8 +13323,9 @@ class MediaFoundation {
      */
     static MFScheduleWorkItemEx(pResult, Timeout) {
         result := DllCall("MFPlat.dll\MFScheduleWorkItemEx", "ptr", pResult, "int64", Timeout, "uint*", &pKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pKey
     }
@@ -13229,8 +13341,9 @@ class MediaFoundation {
      */
     static MFScheduleWorkItem(pCallback, pState, Timeout) {
         result := DllCall("MFPlat.dll\MFScheduleWorkItem", "ptr", pCallback, "ptr", pState, "int64", Timeout, "uint*", &pKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pKey
     }
@@ -13244,8 +13357,9 @@ class MediaFoundation {
      */
     static MFCancelWorkItem(Key) {
         result := DllCall("MFPlat.dll\MFCancelWorkItem", "uint", Key, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13258,8 +13372,9 @@ class MediaFoundation {
      */
     static MFGetTimerPeriodicity() {
         result := DllCall("MFPlat.dll\MFGetTimerPeriodicity", "uint*", &Periodicity := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return Periodicity
     }
@@ -13274,8 +13389,9 @@ class MediaFoundation {
      */
     static MFAddPeriodicCallback(Callback, pContext) {
         result := DllCall("MFPlat.dll\MFAddPeriodicCallback", "ptr", Callback, "ptr", pContext, "uint*", &pdwKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwKey
     }
@@ -13307,8 +13423,9 @@ class MediaFoundation {
      */
     static MFRemovePeriodicCallback(dwKey) {
         result := DllCall("MFPlat.dll\MFRemovePeriodicCallback", "uint", dwKey, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13359,8 +13476,9 @@ class MediaFoundation {
      */
     static MFAllocateWorkQueueEx(WorkQueueType) {
         result := DllCall("MFPlat.dll\MFAllocateWorkQueueEx", "int", WorkQueueType, "uint*", &pdwWorkQueue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwWorkQueue
     }
@@ -13373,8 +13491,9 @@ class MediaFoundation {
      */
     static MFAllocateWorkQueue() {
         result := DllCall("MFPlat.dll\MFAllocateWorkQueue", "uint*", &pdwWorkQueue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwWorkQueue
     }
@@ -13388,8 +13507,9 @@ class MediaFoundation {
      */
     static MFLockWorkQueue(dwWorkQueue) {
         result := DllCall("MFPlat.dll\MFLockWorkQueue", "uint", dwWorkQueue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13421,8 +13541,9 @@ class MediaFoundation {
      */
     static MFUnlockWorkQueue(dwWorkQueue) {
         result := DllCall("MFPlat.dll\MFUnlockWorkQueue", "uint", dwWorkQueue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13460,8 +13581,9 @@ class MediaFoundation {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
         result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "ptr", pDoneCallback, "ptr", pDoneState, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13482,8 +13604,9 @@ class MediaFoundation {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
         result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSSEx", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "int", lPriority, "ptr", pDoneCallback, "ptr", pDoneState, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13497,8 +13620,9 @@ class MediaFoundation {
      */
     static MFEndRegisterWorkQueueWithMMCSS(pResult) {
         result := DllCall("MFPlat.dll\MFEndRegisterWorkQueueWithMMCSS", "ptr", pResult, "uint*", &pdwTaskId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwTaskId
     }
@@ -13532,8 +13656,9 @@ class MediaFoundation {
      */
     static MFBeginUnregisterWorkQueueWithMMCSS(dwWorkQueueId, pDoneCallback, pDoneState) {
         result := DllCall("MFPlat.dll\MFBeginUnregisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", pDoneCallback, "ptr", pDoneState, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13565,8 +13690,9 @@ class MediaFoundation {
      */
     static MFEndUnregisterWorkQueueWithMMCSS(pResult) {
         result := DllCall("MFPlat.dll\MFEndUnregisterWorkQueueWithMMCSS", "ptr", pResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13615,8 +13741,9 @@ class MediaFoundation {
         pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", "uint", dwWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13630,8 +13757,9 @@ class MediaFoundation {
      */
     static MFGetWorkQueueMMCSSTaskId(dwWorkQueueId) {
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSTaskId", "uint", dwWorkQueueId, "uint*", &pdwTaskId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwTaskId
     }
@@ -13651,8 +13779,9 @@ class MediaFoundation {
         pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, pdwTaskIdMarshal, pdwTaskId, "int", lPriority, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13665,8 +13794,9 @@ class MediaFoundation {
      */
     static MFUnregisterPlatformFromMMCSS() {
         result := DllCall("MFPlat.dll\MFUnregisterPlatformFromMMCSS", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13688,8 +13818,9 @@ class MediaFoundation {
         pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, "int", BasePriority, pdwTaskIdMarshal, pdwTaskId, "uint*", &pID := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pID
     }
@@ -13703,8 +13834,9 @@ class MediaFoundation {
      */
     static MFGetWorkQueueMMCSSPriority(dwWorkQueueId) {
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSPriority", "uint", dwWorkQueueId, "int*", &lPriority := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return lPriority
     }
@@ -13720,8 +13852,9 @@ class MediaFoundation {
      */
     static MFCreateAsyncResult(punkObject, pCallback, punkState) {
         result := DllCall("MFPlat.dll\MFCreateAsyncResult", "ptr", punkObject, "ptr", pCallback, "ptr", punkState, "ptr*", &ppAsyncResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFAsyncResult(ppAsyncResult)
     }
@@ -13776,8 +13909,9 @@ class MediaFoundation {
      */
     static MFInvokeCallback(pAsyncResult) {
         result := DllCall("MFPlat.dll\MFInvokeCallback", "ptr", pAsyncResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13796,8 +13930,9 @@ class MediaFoundation {
         pwszFileURL := pwszFileURL is String ? StrPtr(pwszFileURL) : pwszFileURL
 
         result := DllCall("MFPlat.dll\MFCreateFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", pwszFileURL, "ptr*", &ppIByteStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(ppIByteStream)
     }
@@ -13813,8 +13948,9 @@ class MediaFoundation {
      */
     static MFCreateTempFile(AccessMode, OpenMode, fFlags) {
         result := DllCall("MFPlat.dll\MFCreateTempFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr*", &ppIByteStream := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(ppIByteStream)
     }
@@ -13835,8 +13971,9 @@ class MediaFoundation {
         pwszFilePath := pwszFilePath is String ? StrPtr(pwszFilePath) : pwszFilePath
 
         result := DllCall("MFPlat.dll\MFBeginCreateFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", pwszFilePath, "ptr", pCallback, "ptr", pState, "ptr*", &ppCancelCookie := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppCancelCookie)
     }
@@ -13850,8 +13987,9 @@ class MediaFoundation {
      */
     static MFEndCreateFile(pResult) {
         result := DllCall("MFPlat.dll\MFEndCreateFile", "ptr", pResult, "ptr*", &ppFile := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(ppFile)
     }
@@ -13883,8 +14021,9 @@ class MediaFoundation {
      */
     static MFCancelCreateFile(pCancelCookie) {
         result := DllCall("MFPlat.dll\MFCancelCreateFile", "ptr", pCancelCookie, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13898,8 +14037,9 @@ class MediaFoundation {
      */
     static MFCreateMemoryBuffer(cbMaxLength) {
         result := DllCall("MFPlat.dll\MFCreateMemoryBuffer", "uint", cbMaxLength, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -13915,8 +14055,9 @@ class MediaFoundation {
      */
     static MFCreateMediaBufferWrapper(pBuffer, cbOffset, dwLength) {
         result := DllCall("MFPlat.dll\MFCreateMediaBufferWrapper", "ptr", pBuffer, "uint", cbOffset, "uint", dwLength, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -13932,8 +14073,9 @@ class MediaFoundation {
      */
     static MFCreateLegacyMediaBufferOnMFMediaBuffer(pSample, pMFMediaBuffer, cbOffset) {
         result := DllCall("MFPlat.dll\MFCreateLegacyMediaBufferOnMFMediaBuffer", "ptr", pSample, "ptr", pMFMediaBuffer, "uint", cbOffset, "ptr*", &ppMediaBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMediaBuffer(ppMediaBuffer)
     }
@@ -13975,8 +14117,9 @@ class MediaFoundation {
         pResetTokenMarshal := pResetToken is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFLockDXGIDeviceManager", pResetTokenMarshal, pResetToken, "ptr*", ppManager, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13989,8 +14132,9 @@ class MediaFoundation {
      */
     static MFUnlockDXGIDeviceManager() {
         result := DllCall("MFPlat.dll\MFUnlockDXGIDeviceManager", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14009,8 +14153,9 @@ class MediaFoundation {
      */
     static MFCreateDXSurfaceBuffer(riid, punkSurface, fBottomUpWhenLinear) {
         result := DllCall("MFPlat.dll\MFCreateDXSurfaceBuffer", "ptr", riid, "ptr", punkSurface, "int", fBottomUpWhenLinear, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -14025,8 +14170,9 @@ class MediaFoundation {
      */
     static MFCreateWICBitmapBuffer(riid, punkSurface) {
         result := DllCall("MFPlat.dll\MFCreateWICBitmapBuffer", "ptr", riid, "ptr", punkSurface, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -14046,8 +14192,9 @@ class MediaFoundation {
      */
     static MFCreateDXGISurfaceBuffer(riid, punkSurface, uSubresourceIndex, fBottomUpWhenLinear) {
         result := DllCall("MFPlat.dll\MFCreateDXGISurfaceBuffer", "ptr", riid, "ptr", punkSurface, "uint", uSubresourceIndex, "int", fBottomUpWhenLinear, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -14062,8 +14209,9 @@ class MediaFoundation {
      */
     static MFCreateDXGICrossAdapterBuffer(riid, punkDevice, pMediaType, uSubresource) {
         result := DllCall("MFPlat.DLL\MFCreateDXGICrossAdapterBuffer", "ptr", riid, "ptr", punkDevice, "ptr", pMediaType, "uint", uSubresource, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -14077,8 +14225,9 @@ class MediaFoundation {
      */
     static MFCreateVideoSampleAllocatorEx(riid) {
         result := DllCall("MFPlat.dll\MFCreateVideoSampleAllocatorEx", "ptr", riid, "ptr*", &ppSampleAllocator := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppSampleAllocator
     }
@@ -14095,8 +14244,9 @@ class MediaFoundation {
         resetTokenMarshal := resetToken is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCreateDXGIDeviceManager", resetTokenMarshal, resetToken, "ptr*", ppDeviceManager, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14108,8 +14258,9 @@ class MediaFoundation {
      */
     static MFGetDXGIDeviceManageMode(pDeviceManager) {
         result := DllCall("MFPlat.DLL\MFGetDXGIDeviceManageMode", "ptr", pDeviceManager, "int*", &mode := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return mode
     }
@@ -14252,8 +14403,9 @@ class MediaFoundation {
      */
     static MFCreateAlignedMemoryBuffer(cbMaxLength, cbAligment) {
         result := DllCall("MFPlat.dll\MFCreateAlignedMemoryBuffer", "uint", cbMaxLength, "uint", cbAligment, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -14270,8 +14422,9 @@ class MediaFoundation {
      */
     static MFCreateMediaEvent(met, guidExtendedType, hrStatus, pvValue) {
         result := DllCall("MFPlat.dll\MFCreateMediaEvent", "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pvValue, "ptr*", &ppEvent := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaEvent(ppEvent)
     }
@@ -14284,8 +14437,9 @@ class MediaFoundation {
      */
     static MFCreateEventQueue() {
         result := DllCall("MFPlat.dll\MFCreateEventQueue", "ptr*", &ppMediaEventQueue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaEventQueue(ppMediaEventQueue)
     }
@@ -14298,8 +14452,9 @@ class MediaFoundation {
      */
     static MFCreateSample() {
         result := DllCall("MFPlat.dll\MFCreateSample", "ptr*", &ppIMFSample := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSample(ppIMFSample)
     }
@@ -14313,8 +14468,9 @@ class MediaFoundation {
      */
     static MFCreateAttributes(cInitialSize) {
         result := DllCall("MFPlat.dll\MFCreateAttributes", "ptr*", &ppMFAttributes := 0, "uint", cInitialSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFAttributes(ppMFAttributes)
     }
@@ -14359,8 +14515,9 @@ class MediaFoundation {
      */
     static MFInitAttributesFromBlob(pAttributes, pBuf, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitAttributesFromBlob", "ptr", pAttributes, "ptr", pBuf, "uint", cbBufSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14374,8 +14531,9 @@ class MediaFoundation {
      */
     static MFGetAttributesAsBlobSize(pAttributes) {
         result := DllCall("MFPlat.dll\MFGetAttributesAsBlobSize", "ptr", pAttributes, "uint*", &pcbBufSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbBufSize
     }
@@ -14420,8 +14578,9 @@ class MediaFoundation {
      */
     static MFGetAttributesAsBlob(pAttributes, pBuf, cbBufSize) {
         result := DllCall("MFPlat.dll\MFGetAttributesAsBlob", "ptr", pAttributes, "ptr", pBuf, "uint", cbBufSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14542,8 +14701,9 @@ class MediaFoundation {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("MFPlat.dll\MFTRegister", "ptr", clsidMFT, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "ptr", pAttributes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14557,8 +14717,9 @@ class MediaFoundation {
      */
     static MFTUnregister(clsidMFT) {
         result := DllCall("MFPlat.dll\MFTUnregister", "ptr", clsidMFT, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14581,8 +14742,9 @@ class MediaFoundation {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("MFPlat.dll\MFTRegisterLocal", "ptr", pClassFactory, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14625,8 +14787,9 @@ class MediaFoundation {
      */
     static MFTUnregisterLocal(pClassFactory) {
         result := DllCall("MFPlat.dll\MFTUnregisterLocal", "ptr", pClassFactory, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14649,8 +14812,9 @@ class MediaFoundation {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("MFPlat.dll\MFTRegisterLocalByCLSID", "ptr", clisdMFT, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14693,8 +14857,9 @@ class MediaFoundation {
      */
     static MFTUnregisterLocalByCLSID(clsidMFT) {
         result := DllCall("MFPlat.dll\MFTUnregisterLocalByCLSID", "ptr", clsidMFT, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14727,8 +14892,9 @@ class MediaFoundation {
         pcMFTsMarshal := pcMFTs is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFTEnum", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, ppclsidMFTMarshal, ppclsidMFT, pcMFTsMarshal, pcMFTs, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14754,8 +14920,9 @@ class MediaFoundation {
         pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFTEnumEx", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14800,8 +14967,9 @@ class MediaFoundation {
         pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFTEnum2", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14829,8 +14997,9 @@ class MediaFoundation {
         pcOutputTypesMarshal := pcOutputTypes is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, pszNameMarshal, pszName, ppInputTypesMarshal, ppInputTypes, pcInputTypesMarshal, pcInputTypes, ppOutputTypesMarshal, ppOutputTypes, pcOutputTypesMarshal, pcOutputTypes, "ptr*", ppAttributes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14843,8 +15012,9 @@ class MediaFoundation {
      */
     static MFGetPluginControl() {
         result := DllCall("MFPlat.dll\MFGetPluginControl", "ptr*", &ppPluginControl := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPluginControl(ppPluginControl)
     }
@@ -14865,8 +15035,9 @@ class MediaFoundation {
      */
     static MFGetMFTMerit(pMFT, cbVerifier, verifier) {
         result := DllCall("MFPlat.dll\MFGetMFTMerit", "ptr", pMFT, "uint", cbVerifier, "ptr", verifier, "uint*", &merit := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return merit
     }
@@ -14888,8 +15059,9 @@ class MediaFoundation {
         szScheme := szScheme is String ? StrPtr(szScheme) : szScheme
 
         result := DllCall("MFPlat.dll\MFRegisterLocalSchemeHandler", "ptr", szScheme, "ptr", pActivate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14908,8 +15080,9 @@ class MediaFoundation {
         szMimeType := szMimeType is String ? StrPtr(szMimeType) : szMimeType
 
         result := DllCall("MFPlat.dll\MFRegisterLocalByteStreamHandler", "ptr", szFileExtension, "ptr", szMimeType, "ptr", pActivate, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14923,8 +15096,9 @@ class MediaFoundation {
      */
     static MFCreateMFByteStreamWrapper(pStream) {
         result := DllCall("MFPlat.dll\MFCreateMFByteStreamWrapper", "ptr", pStream, "ptr*", &ppStreamWrapper := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFByteStream(ppStreamWrapper)
     }
@@ -14954,8 +15128,9 @@ class MediaFoundation {
         szActivatableClassId := szActivatableClassId is String ? StrPtr(szActivatableClassId) : szActivatableClassId
 
         result := DllCall("MFPlat.dll\MFCreateMediaExtensionActivate", "ptr", szActivatableClassId, "ptr", pConfiguration, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
@@ -14969,8 +15144,9 @@ class MediaFoundation {
      */
     static MFCreateMuxStreamAttributes(pAttributesToMux) {
         result := DllCall("MFPlat.dll\MFCreateMuxStreamAttributes", "ptr", pAttributesToMux, "ptr*", &ppMuxAttribs := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFAttributes(ppMuxAttribs)
     }
@@ -14984,8 +15160,9 @@ class MediaFoundation {
      */
     static MFCreateMuxStreamMediaType(pMediaTypesToMux) {
         result := DllCall("MFPlat.dll\MFCreateMuxStreamMediaType", "ptr", pMediaTypesToMux, "ptr*", &ppMuxMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppMuxMediaType)
     }
@@ -14999,8 +15176,9 @@ class MediaFoundation {
      */
     static MFCreateMuxStreamSample(pSamplesToMux) {
         result := DllCall("MFPlat.dll\MFCreateMuxStreamSample", "ptr", pSamplesToMux, "ptr*", &ppMuxSample := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSample(ppMuxSample)
     }
@@ -15059,8 +15237,9 @@ class MediaFoundation {
      */
     static MFValidateMediaTypeSize(FormatType, pBlock, cbSize) {
         result := DllCall("MFPlat.dll\MFValidateMediaTypeSize", "ptr", FormatType, "ptr", pBlock, "uint", cbSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15073,8 +15252,9 @@ class MediaFoundation {
      */
     static MFCreateMediaType() {
         result := DllCall("MFPlat.dll\MFCreateMediaType", "ptr*", &ppMFType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppMFType)
     }
@@ -15093,8 +15273,9 @@ class MediaFoundation {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCreateMFVideoFormatFromMFMediaType", "ptr", pMFType, ppMFVFMarshal, ppMFVF, pcbSizeMarshal, pcbSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15132,8 +15313,9 @@ class MediaFoundation {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, ppWFMarshal, ppWF, pcbSizeMarshal, pcbSize, "uint", Flags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15150,8 +15332,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromVideoInfoHeader(pMFType, pVIH, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader", "ptr", pMFType, "ptr", pVIH, "uint", cbBufSize, "ptr", pSubtype, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15186,8 +15369,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromVideoInfoHeader2(pMFType, pVIH2, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader2", "ptr", pMFType, "ptr", pVIH2, "uint", cbBufSize, "ptr", pSubtype, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15222,8 +15406,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromMPEG1VideoInfo(pMFType, pMP1VI, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG1VideoInfo", "ptr", pMFType, "ptr", pMP1VI, "uint", cbBufSize, "ptr", pSubtype, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15258,8 +15443,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromMPEG2VideoInfo(pMFType, pMP2VI, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG2VideoInfo", "ptr", pMFType, "ptr", pMP2VI, "uint", cbBufSize, "ptr", pSubtype, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15310,8 +15496,9 @@ class MediaFoundation {
         pbKnownMarshal := pbKnown is VarRef ? "int*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCalculateBitmapImageSize", "ptr", pBMIH, "uint", cbBufSize, pcbImageSizeMarshal, pcbImageSize, pbKnownMarshal, pbKnown, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15327,8 +15514,9 @@ class MediaFoundation {
      */
     static MFCalculateImageSize(guidSubtype, unWidth, unHeight) {
         result := DllCall("MFPlat.dll\MFCalculateImageSize", "ptr", guidSubtype, "uint", unWidth, "uint", unHeight, "uint*", &pcbImageSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbImageSize
     }
@@ -15343,8 +15531,9 @@ class MediaFoundation {
      */
     static MFFrameRateToAverageTimePerFrame(unNumerator, unDenominator) {
         result := DllCall("MFPlat.dll\MFFrameRateToAverageTimePerFrame", "uint", unNumerator, "uint", unDenominator, "uint*", &punAverageTimePerFrame := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return punAverageTimePerFrame
     }
@@ -15381,8 +15570,9 @@ class MediaFoundation {
         punDenominatorMarshal := punDenominator is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFAverageTimePerFrameToFrameRate", "uint", unAverageTimePerFrame, punNumeratorMarshal, punNumerator, punDenominatorMarshal, punDenominator, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15416,8 +15606,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromWaveFormatEx(pMFType, pWaveFormat, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromWaveFormatEx", "ptr", pMFType, "ptr", pWaveFormat, "uint", cbBufSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15433,8 +15624,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromMFVideoFormat(pMFType, pMFVF, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromMFVideoFormat", "ptr", pMFType, "ptr", pMFVF, "uint", cbBufSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15467,8 +15659,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromAMMediaType(pMFType, pAMType) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromAMMediaType", "ptr", pMFType, "ptr", pAMType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15513,8 +15706,9 @@ class MediaFoundation {
      */
     static MFInitAMMediaTypeFromMFMediaType(pMFType, guidFormatBlockType, pAMType) {
         result := DllCall("MFPlat.dll\MFInitAMMediaTypeFromMFMediaType", "ptr", pMFType, "ptr", guidFormatBlockType, "ptr", pAMType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15550,8 +15744,9 @@ class MediaFoundation {
         ppAMTypeMarshal := ppAMType is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCreateAMMediaTypeFromMFMediaType", "ptr", pMFType, "ptr", guidFormatBlockType, ppAMTypeMarshal, ppAMType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15592,8 +15787,9 @@ class MediaFoundation {
      */
     static MFWrapMediaType(pOrig, MajorType, SubType) {
         result := DllCall("MFPlat.dll\MFWrapMediaType", "ptr", pOrig, "ptr", MajorType, "ptr", SubType, "ptr*", &ppWrap := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppWrap)
     }
@@ -15607,8 +15803,9 @@ class MediaFoundation {
      */
     static MFUnwrapMediaType(pWrap) {
         result := DllCall("MFPlat.dll\MFUnwrapMediaType", "ptr", pWrap, "ptr*", &ppOrig := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppOrig)
     }
@@ -15623,8 +15820,9 @@ class MediaFoundation {
      */
     static MFGetStrideForBitmapInfoHeader(format, dwWidth) {
         result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, "int*", &pStride := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pStride
     }
@@ -15638,8 +15836,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMediaType(pVideoFormat) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaType", "ptr", pVideoFormat, "ptr*", &ppIVideoMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFVideoMediaType(ppIVideoMediaType)
     }
@@ -15653,8 +15852,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMediaTypeFromSubtype(pAMSubtype) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromSubtype", "ptr", pAMSubtype, "ptr*", &ppIVideoMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFVideoMediaType(ppIVideoMediaType)
     }
@@ -15716,8 +15916,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMediaTypeFromBitMapInfoHeader(pbmihBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, qwFramesPerSecondNumerator, qwFramesPerSecondDenominator, dwMaxBitRate) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeader", "ptr", pbmihBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, "int", InterlaceMode, "uint", VideoFlags, "uint", qwFramesPerSecondNumerator, "uint", qwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr*", &ppIVideoMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFVideoMediaType(ppIVideoMediaType)
     }
@@ -15733,8 +15934,9 @@ class MediaFoundation {
      */
     static MFGetPlaneSize(format, dwWidth, dwHeight) {
         result := DllCall("EVR.dll\MFGetPlaneSize", "uint", format, "uint", dwWidth, "uint", dwHeight, "uint*", &pdwPlaneSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwPlaneSize
     }
@@ -15758,8 +15960,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMediaTypeFromBitMapInfoHeaderEx(pbmihBitMapInfoHeader, cbBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, dwFramesPerSecondNumerator, dwFramesPerSecondDenominator, dwMaxBitRate) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeaderEx", "ptr", pbmihBitMapInfoHeader, "uint", cbBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, "int", InterlaceMode, "uint", VideoFlags, "uint", dwFramesPerSecondNumerator, "uint", dwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr*", &ppIVideoMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFVideoMediaType(ppIVideoMediaType)
     }
@@ -15787,8 +15990,9 @@ class MediaFoundation {
         pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCreateMediaTypeFromRepresentation", "ptr", guidRepresentation, pvRepresentationMarshal, pvRepresentation, "ptr*", &ppIMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaType(ppIMediaType)
     }
@@ -15802,8 +16006,9 @@ class MediaFoundation {
      */
     static MFCreateAudioMediaType(pAudioFormat) {
         result := DllCall("MFPlat.dll\MFCreateAudioMediaType", "ptr", pAudioFormat, "ptr*", &ppIAudioMediaType := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFAudioMediaType(ppIAudioMediaType)
     }
@@ -15830,8 +16035,9 @@ class MediaFoundation {
      */
     static MFInitVideoFormat(pVideoFormat, type) {
         result := DllCall("MFPlat.dll\MFInitVideoFormat", "ptr", pVideoFormat, "int", type, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15848,8 +16054,9 @@ class MediaFoundation {
      */
     static MFInitVideoFormat_RGB(pVideoFormat, dwWidth, dwHeight, D3Dfmt) {
         result := DllCall("MFPlat.dll\MFInitVideoFormat_RGB", "ptr", pVideoFormat, "uint", dwWidth, "uint", dwHeight, "uint", D3Dfmt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15863,8 +16070,9 @@ class MediaFoundation {
      */
     static MFConvertColorInfoToDXVA(pFromFormat) {
         result := DllCall("MFPlat.dll\MFConvertColorInfoToDXVA", "uint*", &pdwToDXVA := 0, "ptr", pFromFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwToDXVA
     }
@@ -15879,8 +16087,9 @@ class MediaFoundation {
      */
     static MFConvertColorInfoFromDXVA(pToFormat, dwFromDXVA) {
         result := DllCall("MFPlat.dll\MFConvertColorInfoFromDXVA", "ptr", pToFormat, "uint", dwFromDXVA, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15900,8 +16109,9 @@ class MediaFoundation {
         pSrcMarshal := pSrc is VarRef ? "char*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFCopyImage", "char*", &pDest := 0, "int", lDestStride, pSrcMarshal, pSrc, "int", lSrcStride, "uint", dwWidthInBytes, "uint", dwLines, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pDest
     }
@@ -15918,8 +16128,9 @@ class MediaFoundation {
         pSrcMarshal := pSrc is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFConvertFromFP16Array", "float*", &pDest := 0, pSrcMarshal, pSrc, "uint", dwCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pDest
     }
@@ -15936,8 +16147,9 @@ class MediaFoundation {
         pSrcMarshal := pSrc is VarRef ? "float*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFConvertToFP16Array", "ushort*", &pDest := 0, pSrcMarshal, pSrc, "uint", dwCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pDest
     }
@@ -15958,8 +16170,9 @@ class MediaFoundation {
      */
     static MFCreate2DMediaBuffer(dwWidth, dwHeight, dwFourCC, fBottomUp) {
         result := DllCall("MFPlat.dll\MFCreate2DMediaBuffer", "uint", dwWidth, "uint", dwHeight, "uint", dwFourCC, "int", fBottomUp, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -15976,8 +16189,9 @@ class MediaFoundation {
      */
     static MFCreateMediaBufferFromMediaType(pMediaType, llDuration, dwMinLength, dwMinAlignment) {
         result := DllCall("MFPlat.dll\MFCreateMediaBufferFromMediaType", "ptr", pMediaType, "int64", llDuration, "uint", dwMinLength, "uint", dwMinAlignment, "ptr*", &ppBuffer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFMediaBuffer(ppBuffer)
     }
@@ -15990,8 +16204,9 @@ class MediaFoundation {
      */
     static MFCreateCollection() {
         result := DllCall("MFPlat.dll\MFCreateCollection", "ptr*", &ppIMFCollection := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFCollection(ppIMFCollection)
     }
@@ -16052,8 +16267,9 @@ class MediaFoundation {
      */
     static MFGetContentProtectionSystemCLSID(guidProtectionSystemID, pclsid) {
         result := DllCall("MFPlat.dll\MFGetContentProtectionSystemCLSID", "ptr", guidProtectionSystemID, "ptr", pclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16069,8 +16285,9 @@ class MediaFoundation {
      */
     static MFCombineSamples(pSample, pSampleToAdd, dwMaxMergedDurationInMS) {
         result := DllCall("MFPlat.dll\MFCombineSamples", "ptr", pSample, "ptr", pSampleToAdd, "uint", dwMaxMergedDurationInMS, "int*", &pMerged := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pMerged
     }
@@ -16089,8 +16306,9 @@ class MediaFoundation {
         pdwOutputSampleCountMarshal := pdwOutputSampleCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MFPlat.dll\MFSplitSample", "ptr", pSample, "ptr*", pOutputSamples, "uint", dwOutputSampleMaxCount, pdwOutputSampleCountMarshal, pdwOutputSampleCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16107,8 +16325,9 @@ class MediaFoundation {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromURL", "ptr", pwszURL, "ptr", pAttributes, "ptr*", &ppSourceReader := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSourceReader(ppSourceReader)
     }
@@ -16123,8 +16342,9 @@ class MediaFoundation {
      */
     static MFCreateSourceReaderFromByteStream(pByteStream, pAttributes) {
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromByteStream", "ptr", pByteStream, "ptr", pAttributes, "ptr*", &ppSourceReader := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSourceReader(ppSourceReader)
     }
@@ -16139,8 +16359,9 @@ class MediaFoundation {
      */
     static MFCreateSourceReaderFromMediaSource(pMediaSource, pAttributes) {
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromMediaSource", "ptr", pMediaSource, "ptr", pAttributes, "ptr*", &ppSourceReader := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSourceReader(ppSourceReader)
     }
@@ -16160,8 +16381,9 @@ class MediaFoundation {
         pwszOutputURL := pwszOutputURL is String ? StrPtr(pwszOutputURL) : pwszOutputURL
 
         result := DllCall("MFReadWrite.dll\MFCreateSinkWriterFromURL", "ptr", pwszOutputURL, "ptr", pByteStream, "ptr", pAttributes, "ptr*", &ppSinkWriter := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSinkWriter(ppSinkWriter)
     }
@@ -16176,8 +16398,9 @@ class MediaFoundation {
      */
     static MFCreateSinkWriterFromMediaSink(pMediaSink, pAttributes) {
         result := DllCall("MFReadWrite.dll\MFCreateSinkWriterFromMediaSink", "ptr", pMediaSink, "ptr", pAttributes, "ptr*", &ppSinkWriter := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSinkWriter(ppSinkWriter)
     }
@@ -16192,8 +16415,9 @@ class MediaFoundation {
      */
     static MFCreateVideoPresenter(pOwner, riidDevice, riid) {
         result := DllCall("EVR.dll\MFCreateVideoPresenter", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, "ptr*", &ppVideoPresenter := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppVideoPresenter
     }
@@ -16208,8 +16432,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMixer(pOwner, riidDevice, riid) {
         result := DllCall("EVR.dll\MFCreateVideoMixer", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -16249,8 +16474,9 @@ class MediaFoundation {
         ppvVideoPresenterMarshal := ppvVideoPresenter is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("EVR.dll\MFCreateVideoMixerAndPresenter", "ptr", pMixerOwner, "ptr", pPresenterOwner, "ptr", riidMixer, ppvVideoMixerMarshal, ppvVideoMixer, "ptr", riidPresenter, ppvVideoPresenterMarshal, ppvVideoPresenter, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16263,8 +16489,9 @@ class MediaFoundation {
      */
     static MFCreateVideoRenderer(riidRenderer) {
         result := DllCall("MF.dll\MFCreateVideoRenderer", "ptr", riidRenderer, "ptr*", &ppVideoRenderer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppVideoRenderer
     }
@@ -16278,8 +16505,9 @@ class MediaFoundation {
      */
     static MFCreateVideoSampleFromSurface(pUnkSurface) {
         result := DllCall("EVR.dll\MFCreateVideoSampleFromSurface", "ptr", pUnkSurface, "ptr*", &ppSample := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFSample(ppSample)
     }
@@ -16292,8 +16520,9 @@ class MediaFoundation {
      */
     static MFCreateVideoSampleAllocator(riid) {
         result := DllCall("EVR.dll\MFCreateVideoSampleAllocator", "ptr", riid, "ptr*", &ppSampleAllocator := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppSampleAllocator
     }
@@ -16322,8 +16551,9 @@ class MediaFoundation {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "int", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", hWnd, "ptr*", &ppMediaPlayer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFPMediaPlayer(ppMediaPlayer)
     }
@@ -16341,8 +16571,9 @@ class MediaFoundation {
         classId := classId is String ? StrPtr(classId) : classId
 
         result := DllCall("MF.dll\MFCreateEncryptedMediaExtensionsStoreActivate", "ptr", pmpHost, "ptr", objectStream, "ptr", classId, "ptr*", &activate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFActivate(activate)
     }
@@ -16364,8 +16595,9 @@ class MediaFoundation {
         sourceId := sourceId is String ? StrPtr(sourceId) : sourceId
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateVirtualCamera", "int", type, "int", lifetime, "int", access, "ptr", friendlyName, "ptr", sourceId, "ptr", categories, "uint", categoryCount, "ptr*", &virtualCamera := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMFVirtualCamera(virtualCamera)
     }
@@ -16378,8 +16610,9 @@ class MediaFoundation {
      */
     static MFIsVirtualCameraTypeSupported(type) {
         result := DllCall("MFSENSORGROUP.dll\MFIsVirtualCameraTypeSupported", "int", type, "int*", &supported := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return supported
     }
@@ -16391,8 +16624,9 @@ class MediaFoundation {
      */
     static OPMXboxEnableHDCP(HDCPType) {
         result := DllCall("OPMXbox.dll\OPMXboxEnableHDCP", "int", HDCPType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16406,8 +16640,9 @@ class MediaFoundation {
         pHDCPStatusMarshal := pHDCPStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatus", pHDCPStatusMarshal, pHDCPStatus, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16423,8 +16658,9 @@ class MediaFoundation {
         pHDCPTypeMarshal := pHDCPType is VarRef ? "int*" : "ptr"
 
         result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatusAndType", pHDCPStatusMarshal, pHDCPStatus, pHDCPTypeMarshal, pHDCPType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

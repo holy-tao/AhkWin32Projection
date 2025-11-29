@@ -407,8 +407,9 @@ class StructuredStorage {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         result := DllCall("OLE32.dll\CoGetInstanceFromFile", "ptr", pServerInfo, "ptr", pClsid, "ptr", punkOuter, "uint", dwClsCtx, "uint", grfMode, "ptr", pwszName, "uint", dwCount, "ptr", pResults, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -468,8 +469,9 @@ class StructuredStorage {
      */
     static CoGetInstanceFromIStorage(pServerInfo, pClsid, punkOuter, dwClsCtx, pstg, dwCount, pResults) {
         result := DllCall("OLE32.dll\CoGetInstanceFromIStorage", "ptr", pServerInfo, "ptr", pClsid, "ptr", punkOuter, "uint", dwClsCtx, "ptr", pstg, "uint", dwCount, "ptr", pResults, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -485,8 +487,9 @@ class StructuredStorage {
      */
     static StgOpenAsyncDocfileOnIFillLockBytes(pflb, grfMode, asyncFlags) {
         result := DllCall("ole32.dll\StgOpenAsyncDocfileOnIFillLockBytes", "ptr", pflb, "uint", grfMode, "uint", asyncFlags, "ptr*", &ppstgOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStorage(ppstgOpen)
     }
@@ -500,8 +503,9 @@ class StructuredStorage {
      */
     static StgGetIFillLockBytesOnILockBytes(pilb) {
         result := DllCall("ole32.dll\StgGetIFillLockBytesOnILockBytes", "ptr", pilb, "ptr*", &ppflb := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IFillLockBytes(ppflb)
     }
@@ -517,8 +521,9 @@ class StructuredStorage {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         result := DllCall("ole32.dll\StgGetIFillLockBytesOnFile", "ptr", pwcsName, "ptr*", &ppflb := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IFillLockBytes(ppflb)
     }
@@ -537,8 +542,9 @@ class StructuredStorage {
         pwcsDfName := pwcsDfName is String ? StrPtr(pwcsDfName) : pwcsDfName
 
         result := DllCall("dflayout.dll\StgOpenLayoutDocfile", "ptr", pwcsDfName, "uint", grfMode, "uint", reserved, "ptr*", &ppstgOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStorage(ppstgOpen)
     }
@@ -556,8 +562,9 @@ class StructuredStorage {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
         result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr*", &ppstm := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStream(ppstm)
     }
@@ -573,8 +580,9 @@ class StructuredStorage {
     static GetHGlobalFromStream(pstm) {
         phglobal := HGLOBAL()
         result := DllCall("OLE32.dll\GetHGlobalFromStream", "ptr", pstm, "ptr", phglobal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phglobal
     }
@@ -589,8 +597,9 @@ class StructuredStorage {
      */
     static CoGetInterfaceAndReleaseStream(pStm, iid) {
         result := DllCall("OLE32.dll\CoGetInterfaceAndReleaseStream", "ptr", pStm, "ptr", iid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -607,8 +616,9 @@ class StructuredStorage {
      */
     static PropVariantCopy(pvarDest, pvarSrc) {
         result := DllCall("OLE32.dll\PropVariantCopy", "ptr", pvarDest, "ptr", pvarSrc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -624,8 +634,9 @@ class StructuredStorage {
      */
     static PropVariantClear(pvar) {
         result := DllCall("OLE32.dll\PropVariantClear", "ptr", pvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -643,8 +654,9 @@ class StructuredStorage {
      */
     static FreePropVariantArray(cVariants, rgvars) {
         result := DllCall("OLE32.dll\FreePropVariantArray", "uint", cVariants, "ptr", rgvars, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -664,8 +676,9 @@ class StructuredStorage {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         result := DllCall("OLE32.dll\StgCreateDocfile", "ptr", pwcsName, "uint", grfMode, "uint", reserved, "ptr*", &ppstgOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStorage(ppstgOpen)
     }
@@ -683,8 +696,9 @@ class StructuredStorage {
      */
     static StgCreateDocfileOnILockBytes(plkbyt, grfMode, reserved) {
         result := DllCall("OLE32.dll\StgCreateDocfileOnILockBytes", "ptr", plkbyt, "uint", grfMode, "uint", reserved, "ptr*", &ppstgOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStorage(ppstgOpen)
     }
@@ -710,8 +724,9 @@ class StructuredStorage {
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstgOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStorage(ppstgOpen)
     }
@@ -736,8 +751,9 @@ class StructuredStorage {
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstgOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStorage(ppstgOpen)
     }
@@ -755,8 +771,9 @@ class StructuredStorage {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         result := DllCall("OLE32.dll\StgIsStorageFile", "ptr", pwcsName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -773,8 +790,9 @@ class StructuredStorage {
      */
     static StgIsStorageILockBytes(plkbyt) {
         result := DllCall("OLE32.dll\StgIsStorageILockBytes", "ptr", plkbyt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -795,8 +813,9 @@ class StructuredStorage {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         result := DllCall("OLE32.dll\StgSetTimes", "ptr", lpszName, "ptr", pctime, "ptr", patime, "ptr", pmtime, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -859,8 +878,9 @@ class StructuredStorage {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppObjectOpen
     }
@@ -897,8 +917,9 @@ class StructuredStorage {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppObjectOpen
     }
@@ -918,8 +939,9 @@ class StructuredStorage {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\StgCreatePropStg", "ptr", pUnk, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", dwReserved, "ptr*", &ppPropStg := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IPropertyStorage(ppPropStg)
     }
@@ -938,8 +960,9 @@ class StructuredStorage {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\StgOpenPropStg", "ptr", pUnk, "ptr", fmtid, "uint", grfFlags, "uint", dwReserved, "ptr*", &ppPropStg := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IPropertyStorage(ppPropStg)
     }
@@ -956,8 +979,9 @@ class StructuredStorage {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\StgCreatePropSetStg", "ptr", pStorage, "uint", dwReserved, "ptr*", &ppPropSetStg := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IPropertySetStorage(ppPropSetStg)
     }
@@ -974,8 +998,9 @@ class StructuredStorage {
         oszName := oszName is String ? StrPtr(oszName) : oszName
 
         result := DllCall("OLE32.dll\FmtIdToPropStgName", "ptr", pfmtid, "ptr", oszName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -992,8 +1017,9 @@ class StructuredStorage {
         oszName := oszName is String ? StrPtr(oszName) : oszName
 
         result := DllCall("OLE32.dll\PropStgNameToFmtId", "ptr", oszName, "ptr", pfmtid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1012,8 +1038,9 @@ class StructuredStorage {
      */
     static ReadClassStg(pStg, pclsid) {
         result := DllCall("OLE32.dll\ReadClassStg", "ptr", pStg, "ptr", pclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1028,8 +1055,9 @@ class StructuredStorage {
      */
     static WriteClassStg(pStg, rclsid) {
         result := DllCall("OLE32.dll\WriteClassStg", "ptr", pStg, "ptr", rclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1047,8 +1075,9 @@ class StructuredStorage {
      */
     static ReadClassStm(pStm, pclsid) {
         result := DllCall("OLE32.dll\ReadClassStm", "ptr", pStm, "ptr", pclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1063,8 +1092,9 @@ class StructuredStorage {
      */
     static WriteClassStm(pStm, rclsid) {
         result := DllCall("OLE32.dll\WriteClassStm", "ptr", pStm, "ptr", rclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1081,8 +1111,9 @@ class StructuredStorage {
     static GetHGlobalFromILockBytes(plkbyt) {
         phglobal := HGLOBAL()
         result := DllCall("OLE32.dll\GetHGlobalFromILockBytes", "ptr", plkbyt, "ptr", phglobal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phglobal
     }
@@ -1100,8 +1131,9 @@ class StructuredStorage {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
         result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr*", &pplkbyt := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ILockBytes(pplkbyt)
     }
@@ -1117,8 +1149,9 @@ class StructuredStorage {
      */
     static GetConvertStg(pStg) {
         result := DllCall("OLE32.dll\GetConvertStg", "ptr", pStg, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1190,8 +1223,9 @@ class StructuredStorage {
         lpszUserType := lpszUserType is String ? StrPtr(lpszUserType) : lpszUserType
 
         result := DllCall("OLE32.dll\WriteFmtUserTypeStg", "ptr", pstg, "ushort", cf, "ptr", lpszUserType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1214,8 +1248,9 @@ class StructuredStorage {
         lplpszUserTypeMarshal := lplpszUserType is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("OLE32.dll\ReadFmtUserTypeStg", "ptr", pstg, pcfMarshal, pcf, lplpszUserTypeMarshal, lplpszUserType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1233,8 +1268,9 @@ class StructuredStorage {
      */
     static OleConvertOLESTREAMToIStorage(lpolestream, pstg, ptd) {
         result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage", "ptr", lpolestream, "ptr", pstg, "ptr", ptd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1250,8 +1286,9 @@ class StructuredStorage {
      */
     static OleConvertIStorageToOLESTREAM(pstg, lpolestream) {
         result := DllCall("ole32.dll\OleConvertIStorageToOLESTREAM", "ptr", pstg, "ptr", lpolestream, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1270,8 +1307,9 @@ class StructuredStorage {
      */
     static SetConvertStg(pStg, fConvert) {
         result := DllCall("OLE32.dll\SetConvertStg", "ptr", pStg, "int", fConvert, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1293,8 +1331,9 @@ class StructuredStorage {
      */
     static OleConvertIStorageToOLESTREAMEx(pstg, cfFormat, lWidth, lHeight, dwSize, pmedium, polestm) {
         result := DllCall("ole32.dll\OleConvertIStorageToOLESTREAMEx", "ptr", pstg, "ushort", cfFormat, "int", lWidth, "int", lHeight, "uint", dwSize, "ptr", pmedium, "ptr", polestm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1320,8 +1359,9 @@ class StructuredStorage {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx", "ptr", polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, "ptr", pmedium, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1336,8 +1376,9 @@ class StructuredStorage {
      */
     static PropVariantToWinRTPropertyValue(propvar, riid) {
         result := DllCall("PROPSYS.dll\PropVariantToWinRTPropertyValue", "ptr", propvar, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -1352,8 +1393,9 @@ class StructuredStorage {
      */
     static WinRTPropertyValueToPropVariant(punkPropertyValue, ppropvar) {
         result := DllCall("PROPSYS.dll\WinRTPropertyValueToPropVariant", "ptr", punkPropertyValue, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1379,8 +1421,9 @@ class StructuredStorage {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromResource", "ptr", hinst, "uint", id, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1404,8 +1447,9 @@ class StructuredStorage {
      */
     static InitPropVariantFromBuffer(pv, cb, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromBuffer", "ptr", pv, "uint", cb, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1426,8 +1470,9 @@ class StructuredStorage {
      */
     static InitPropVariantFromCLSID(clsid, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromCLSID", "ptr", clsid, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1448,8 +1493,9 @@ class StructuredStorage {
      */
     static InitPropVariantFromGUIDAsString(guid, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromGUIDAsString", "ptr", guid, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1470,8 +1516,9 @@ class StructuredStorage {
      */
     static InitPropVariantFromFileTime(pftIn, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromFileTime", "ptr", pftIn, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1495,8 +1542,9 @@ class StructuredStorage {
      */
     static InitPropVariantFromPropVariantVectorElem(propvarIn, iElem, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromPropVariantVectorElem", "ptr", propvarIn, "uint", iElem, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1517,8 +1565,9 @@ class StructuredStorage {
      */
     static InitPropVariantVectorFromPropVariant(propvarSingle, ppropvarVector) {
         result := DllCall("PROPSYS.dll\InitPropVariantVectorFromPropVariant", "ptr", propvarSingle, "ptr", ppropvarVector, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1544,8 +1593,9 @@ class StructuredStorage {
         prgfMarshal := prgf is VarRef ? "int*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromBooleanVector", prgfMarshal, prgf, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1571,8 +1621,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "short*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromInt16Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1598,8 +1649,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromUInt16Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1625,8 +1677,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "int*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromInt32Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1652,8 +1705,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromUInt32Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1679,8 +1733,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromInt64Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1706,8 +1761,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromUInt64Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1733,8 +1789,9 @@ class StructuredStorage {
         prgnMarshal := prgn is VarRef ? "double*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromDoubleVector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1758,8 +1815,9 @@ class StructuredStorage {
      */
     static InitPropVariantFromFileTimeVector(prgft, cElems, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromFileTimeVector", "ptr", prgft, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1785,8 +1843,9 @@ class StructuredStorage {
         prgszMarshal := prgsz is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromStringVector", prgszMarshal, prgsz, "uint", cElems, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1809,8 +1868,9 @@ class StructuredStorage {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromStringAsVector", "ptr", psz, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2001,8 +2061,9 @@ class StructuredStorage {
      */
     static PropVariantToBoolean(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToBoolean", "ptr", propvarIn, "int*", &pfRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfRet
     }
@@ -2020,8 +2081,9 @@ class StructuredStorage {
      */
     static PropVariantToInt16(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToInt16", "ptr", propvarIn, "short*", &piRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return piRet
     }
@@ -2039,8 +2101,9 @@ class StructuredStorage {
      */
     static PropVariantToUInt16(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToUInt16", "ptr", propvarIn, "ushort*", &puiRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return puiRet
     }
@@ -2058,8 +2121,9 @@ class StructuredStorage {
      */
     static PropVariantToInt32(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToInt32", "ptr", propvarIn, "int*", &plRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return plRet
     }
@@ -2077,8 +2141,9 @@ class StructuredStorage {
      */
     static PropVariantToUInt32(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToUInt32", "ptr", propvarIn, "uint*", &pulRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulRet
     }
@@ -2096,8 +2161,9 @@ class StructuredStorage {
      */
     static PropVariantToInt64(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToInt64", "ptr", propvarIn, "int64*", &pllRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pllRet
     }
@@ -2115,8 +2181,9 @@ class StructuredStorage {
      */
     static PropVariantToUInt64(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToUInt64", "ptr", propvarIn, "uint*", &pullRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pullRet
     }
@@ -2134,8 +2201,9 @@ class StructuredStorage {
      */
     static PropVariantToDouble(propvarIn) {
         result := DllCall("PROPSYS.dll\PropVariantToDouble", "ptr", propvarIn, "double*", &pdblRet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdblRet
     }
@@ -2200,8 +2268,9 @@ class StructuredStorage {
      */
     static PropVariantToBuffer(propvar, pv, cb) {
         result := DllCall("PROPSYS.dll\PropVariantToBuffer", "ptr", propvar, "ptr", pv, "uint", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2267,8 +2336,9 @@ class StructuredStorage {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("PROPSYS.dll\PropVariantToString", "ptr", propvar, "ptr", psz, "uint", cch, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2289,8 +2359,9 @@ class StructuredStorage {
      */
     static PropVariantToGUID(propvar, pguid) {
         result := DllCall("PROPSYS.dll\PropVariantToGUID", "ptr", propvar, "ptr", pguid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2308,8 +2379,9 @@ class StructuredStorage {
      */
     static PropVariantToStringAlloc(propvar) {
         result := DllCall("PROPSYS.dll\PropVariantToStringAlloc", "ptr", propvar, "ptr*", &ppszOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszOut
     }
@@ -2328,8 +2400,9 @@ class StructuredStorage {
     static PropVariantToBSTR(propvar) {
         pbstrOut := BSTR()
         result := DllCall("PROPSYS.dll\PropVariantToBSTR", "ptr", propvar, "ptr", pbstrOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstrOut
     }
@@ -2353,8 +2426,9 @@ class StructuredStorage {
      */
     static PropVariantToFileTime(propvar, pstfOut, pftOut) {
         result := DllCall("PROPSYS.dll\PropVariantToFileTime", "ptr", propvar, "int", pstfOut, "ptr", pftOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2440,8 +2514,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", "ptr", propvar, prgfMarshal, prgf, "uint", crgf, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2511,8 +2586,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToInt16Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2582,8 +2658,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToUInt16Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2653,8 +2730,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToInt32Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2724,8 +2802,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToUInt32Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2795,8 +2874,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToInt64Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2866,8 +2946,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToUInt64Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2897,8 +2978,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToDoubleVector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2922,8 +3004,9 @@ class StructuredStorage {
      */
     static PropVariantToFileTimeVector(propvar, prgft, crgft) {
         result := DllCall("PROPSYS.dll\PropVariantToFileTimeVector", "ptr", propvar, "ptr", prgft, "uint", crgft, "uint*", &pcElem := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcElem
     }
@@ -2993,8 +3076,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToStringVector", "ptr", propvar, prgszMarshal, prgsz, "uint", crgsz, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3050,8 +3134,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToBooleanVectorAlloc", "ptr", propvar, pprgfMarshal, pprgf, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3107,8 +3192,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3164,8 +3250,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3221,8 +3308,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3278,8 +3366,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3335,8 +3424,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3392,8 +3482,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3420,8 +3511,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3477,8 +3569,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToFileTimeVectorAlloc", "ptr", propvar, pprgftMarshal, pprgft, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3534,8 +3627,9 @@ class StructuredStorage {
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\PropVariantToStringVectorAlloc", "ptr", propvar, pprgszMarshal, pprgsz, pcElemMarshal, pcElem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3556,8 +3650,9 @@ class StructuredStorage {
      */
     static PropVariantGetBooleanElem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetBooleanElem", "ptr", propvar, "uint", iElem, "int*", &pfVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfVal
     }
@@ -3578,8 +3673,9 @@ class StructuredStorage {
      */
     static PropVariantGetInt16Elem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetInt16Elem", "ptr", propvar, "uint", iElem, "short*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3600,8 +3696,9 @@ class StructuredStorage {
      */
     static PropVariantGetUInt16Elem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetUInt16Elem", "ptr", propvar, "uint", iElem, "ushort*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3622,8 +3719,9 @@ class StructuredStorage {
      */
     static PropVariantGetInt32Elem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetInt32Elem", "ptr", propvar, "uint", iElem, "int*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3644,8 +3742,9 @@ class StructuredStorage {
      */
     static PropVariantGetUInt32Elem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetUInt32Elem", "ptr", propvar, "uint", iElem, "uint*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3666,8 +3765,9 @@ class StructuredStorage {
      */
     static PropVariantGetInt64Elem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetInt64Elem", "ptr", propvar, "uint", iElem, "int64*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3688,8 +3788,9 @@ class StructuredStorage {
      */
     static PropVariantGetUInt64Elem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetUInt64Elem", "ptr", propvar, "uint", iElem, "uint*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3710,8 +3811,9 @@ class StructuredStorage {
      */
     static PropVariantGetDoubleElem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetDoubleElem", "ptr", propvar, "uint", iElem, "double*", &pnVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pnVal
     }
@@ -3735,8 +3837,9 @@ class StructuredStorage {
      */
     static PropVariantGetFileTimeElem(propvar, iElem, pftVal) {
         result := DllCall("PROPSYS.dll\PropVariantGetFileTimeElem", "ptr", propvar, "uint", iElem, "ptr", pftVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3757,8 +3860,9 @@ class StructuredStorage {
      */
     static PropVariantGetStringElem(propvar, iElem) {
         result := DllCall("PROPSYS.dll\PropVariantGetStringElem", "ptr", propvar, "uint", iElem, "ptr*", &ppszVal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszVal
     }
@@ -3830,8 +3934,9 @@ class StructuredStorage {
      */
     static PropVariantChangeType(ppropvarDest, propvarSrc, flags, vt) {
         result := DllCall("PROPSYS.dll\PropVariantChangeType", "ptr", ppropvarDest, "ptr", propvarSrc, "int", flags, "ushort", vt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3852,8 +3957,9 @@ class StructuredStorage {
      */
     static PropVariantToVariant(pPropVar, pVar) {
         result := DllCall("PROPSYS.dll\PropVariantToVariant", "ptr", pPropVar, "ptr", pVar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3874,8 +3980,9 @@ class StructuredStorage {
      */
     static VariantToPropVariant(pVar, pPropVar) {
         result := DllCall("PROPSYS.dll\VariantToPropVariant", "ptr", pVar, "ptr", pPropVar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3894,8 +4001,9 @@ class StructuredStorage {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
         result := DllCall("PROPSYS.dll\StgSerializePropVariant", "ptr", ppropvar, ppPropMarshal, ppProp, pcbMarshal, pcb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3911,8 +4019,9 @@ class StructuredStorage {
      */
     static StgDeserializePropVariant(pprop, cbMax, ppropvar) {
         result := DllCall("PROPSYS.dll\StgDeserializePropVariant", "ptr", pprop, "uint", cbMax, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -8,6 +8,7 @@
 #Include .\IFileOperation.ahk
 #Include ..\..\System\Com\IMalloc.ahk
 #Include .\IShellItem.ahk
+#Include ..\..\System\Com\Apis.ahk
 #Include .\IShellFolder.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
@@ -8102,8 +8103,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LoadUserProfileA", "ptr", hToken, "ptr", lpProfileInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8132,8 +8134,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LoadUserProfileW", "ptr", hToken, "ptr", lpProfileInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8159,8 +8162,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\UnloadUserProfile", "ptr", hToken, "ptr", hProfile, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8191,8 +8195,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetProfilesDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8223,8 +8228,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetProfilesDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8244,8 +8250,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetProfileType", dwFlagsMarshal, dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8281,8 +8288,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\DeleteProfileA", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8318,8 +8326,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\DeleteProfileW", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8379,8 +8388,9 @@ class Shell {
         pszProfilePath := pszProfilePath is String ? StrPtr(pszProfilePath) : pszProfilePath
 
         result := DllCall("USERENV.dll\CreateProfile", "ptr", pszUserSid, "ptr", pszUserName, "ptr", pszProfilePath, "uint", cchProfilePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8411,8 +8421,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8443,8 +8454,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8475,8 +8487,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8507,8 +8520,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8543,8 +8557,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetUserProfileDirectoryA", "ptr", hToken, "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8579,8 +8594,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetUserProfileDirectoryW", "ptr", hToken, "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8604,8 +8620,9 @@ class Shell {
      */
     static InitPropVariantFromStrRet(pstrret, pidl, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromStrRet", "ptr", pstrret, "ptr", pidl, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8626,8 +8643,9 @@ class Shell {
      */
     static PropVariantToStrRet(propvar, pstrret) {
         result := DllCall("PROPSYS.dll\PropVariantToStrRet", "ptr", propvar, "ptr", pstrret, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8651,8 +8669,9 @@ class Shell {
      */
     static InitVariantFromStrRet(pstrret, pidl, pvar) {
         result := DllCall("PROPSYS.dll\InitVariantFromStrRet", "ptr", pstrret, "ptr", pidl, "ptr", pvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8673,8 +8692,9 @@ class Shell {
      */
     static VariantToStrRet(varIn, pstrret) {
         result := DllCall("PROPSYS.dll\VariantToStrRet", "ptr", varIn, "ptr", pstrret, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8831,8 +8851,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowContextHelpId", "ptr", param0, "uint", param1, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8871,8 +8892,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuContextHelpId", "ptr", param0, "uint", param1, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8924,8 +8946,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\WinHelpA", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8961,8 +8984,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("USER32.dll\WinHelpW", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9002,8 +9026,9 @@ class Shell {
      */
     static SHCreateItemFromIDList(pidl, riid) {
         result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9036,8 +9061,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9065,8 +9091,9 @@ class Shell {
      */
     static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid) {
         result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, "ptr*", &ppvItem := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvItem
     }
@@ -9096,8 +9123,9 @@ class Shell {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9126,8 +9154,9 @@ class Shell {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
         result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9145,8 +9174,9 @@ class Shell {
      */
     static SHGetIDListFromObject(punk) {
         result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, "ptr*", &ppidl := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidl
     }
@@ -9167,8 +9197,9 @@ class Shell {
      */
     static SHGetItemFromObject(punk, riid) {
         result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9189,8 +9220,9 @@ class Shell {
      */
     static SHGetNameFromIDList(pidl, sigdnName) {
         result := DllCall("SHELL32.dll\SHGetNameFromIDList", "ptr", pidl, "int", sigdnName, "ptr*", &ppszName := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszName
     }
@@ -9214,8 +9246,9 @@ class Shell {
      */
     static SHGetItemFromDataObject(pdtobj, dwFlags, riid) {
         result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9244,8 +9277,9 @@ class Shell {
         ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, ppidlMarshal, ppidl, "ptr*", &ppsiItemArray := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IShellItemArray(ppsiItemArray)
     }
@@ -9266,8 +9300,9 @@ class Shell {
      */
     static SHCreateShellItemArrayFromDataObject(pdo, riid) {
         result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9290,8 +9325,9 @@ class Shell {
         rgpidlMarshal := rgpidl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, rgpidlMarshal, rgpidl, "ptr*", &ppsiItemArray := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IShellItemArray(ppsiItemArray)
     }
@@ -9312,8 +9348,9 @@ class Shell {
      */
     static SHCreateShellItemArrayFromShellItem(psi, riid) {
         result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9331,8 +9368,9 @@ class Shell {
      */
     static SHCreateAssociationRegistration(riid) {
         result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9350,8 +9388,9 @@ class Shell {
      */
     static SHCreateDefaultExtractIcon(riid) {
         result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -9371,8 +9410,9 @@ class Shell {
         AppID := AppID is String ? StrPtr(AppID) : AppID
 
         result := DllCall("SHELL32.dll\SetCurrentProcessExplicitAppUserModelID", "ptr", AppID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9387,8 +9427,9 @@ class Shell {
      */
     static GetCurrentProcessExplicitAppUserModelID() {
         result := DllCall("SHELL32.dll\GetCurrentProcessExplicitAppUserModelID", "ptr*", &AppID := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return AppID
     }
@@ -9412,8 +9453,9 @@ class Shell {
      */
     static SHGetTemporaryPropertyForItem(psi, propkey, ppropvar) {
         result := DllCall("SHELL32.dll\SHGetTemporaryPropertyForItem", "ptr", psi, "ptr", propkey, "ptr", ppropvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9437,8 +9479,9 @@ class Shell {
      */
     static SHSetTemporaryPropertyForItem(psi, propkey, propvar) {
         result := DllCall("SHELL32.dll\SHSetTemporaryPropertyForItem", "ptr", psi, "ptr", propkey, "ptr", propvar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9472,8 +9515,9 @@ class Shell {
         pszInstruction := pszInstruction is String ? StrPtr(pszInstruction) : pszInstruction
 
         result := DllCall("SHELL32.dll\SHShowManageLibraryUI", "ptr", psiLibrary, "ptr", hwndOwner, "ptr", pszTitle, "ptr", pszInstruction, "int", lmdOptions, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9491,8 +9535,9 @@ class Shell {
      */
     static SHResolveLibrary(psiLibrary) {
         result := DllCall("SHELL32.dll\SHResolveLibrary", "ptr", psiLibrary, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9513,8 +9558,9 @@ class Shell {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr*", &ppEnumHandler := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumAssocHandlers(ppEnumHandler)
     }
@@ -9537,8 +9583,9 @@ class Shell {
         protocol := protocol is String ? StrPtr(protocol) : protocol
 
         result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr*", &enumHandlers := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return enumHandlers
     }
@@ -9668,8 +9715,9 @@ class Shell {
      */
     static SHCreateDefaultPropertiesOp(psi) {
         result := DllCall("SHELL32.dll\SHCreateDefaultPropertiesOp", "ptr", psi, "ptr*", &ppFileOp := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IFileOperation(ppFileOp)
     }
@@ -9698,8 +9746,9 @@ class Shell {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", hwnd, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9714,8 +9763,9 @@ class Shell {
      */
     static SHGetMalloc() {
         result := DllCall("SHELL32.dll\SHGetMalloc", "ptr*", &ppMalloc := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMalloc(ppMalloc)
     }
@@ -10008,8 +10058,9 @@ class Shell {
      */
     static ILSaveToStream(pstm, pidl) {
         result := DllCall("SHELL32.dll\ILSaveToStream", "ptr", pstm, "ptr", pidl, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10030,8 +10081,9 @@ class Shell {
      */
     static ILLoadFromStreamEx(pstm) {
         result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, "ptr*", &pidl := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pidl
     }
@@ -10092,8 +10144,9 @@ class Shell {
         rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr*", &ppidl := 0, rgfInOutMarshal, rgfInOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidl
     }
@@ -10497,8 +10550,9 @@ class Shell {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10522,8 +10576,9 @@ class Shell {
      */
     static SHCreateShellItem(pidlParent, psfParent, pidl) {
         result := DllCall("SHELL32.dll\SHCreateShellItem", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr*", &ppsi := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IShellItem(ppsi)
     }
@@ -10543,8 +10598,9 @@ class Shell {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr*", &ppidl := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidl
     }
@@ -10686,8 +10742,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10737,8 +10794,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10768,8 +10826,9 @@ class Shell {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", &ppidl := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidl
     }
@@ -10841,8 +10900,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetFolderPathA", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10914,8 +10974,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetFolderPathW", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10951,8 +11012,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10988,8 +11050,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11019,8 +11082,9 @@ class Shell {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", &ppidl := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidl
     }
@@ -11074,8 +11138,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11107,8 +11172,10 @@ class Shell {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", &ppszPath := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            Com.CoTaskMemFree(ppszPath)
+            throw OSError(A_LastError || result)
+        }
 
         return ppszPath
     }
@@ -11143,8 +11210,9 @@ class Shell {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -11168,8 +11236,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSetFolderCustomSettings", "ptr", pfcs, "ptr", pszPath, "uint", dwReadWrite, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11227,8 +11296,9 @@ class Shell {
      */
     static SHLoadInProc(rclsid) {
         result := DllCall("SHELL32.dll\SHLoadInProc", "ptr", rclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11243,8 +11313,9 @@ class Shell {
      */
     static SHGetDesktopFolder() {
         result := DllCall("SHELL32.dll\SHGetDesktopFolder", "ptr*", &ppshf := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IShellFolder(ppshf)
     }
@@ -11607,8 +11678,9 @@ class Shell {
      */
     static SHGetRealIDL(psf, pidlSimple) {
         result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, "ptr*", &ppidlReal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidlReal
     }
@@ -11623,8 +11695,9 @@ class Shell {
      */
     static SHGetInstanceExplorer() {
         result := DllCall("SHELL32.dll\SHGetInstanceExplorer", "ptr*", &ppunk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppunk)
     }
@@ -11654,8 +11727,9 @@ class Shell {
      */
     static SHGetDataFromIDListA(psf, pidl, nFormat, pv, cb) {
         result := DllCall("SHELL32.dll\SHGetDataFromIDListA", "ptr", psf, "ptr", pidl, "int", nFormat, "ptr", pv, "int", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11685,8 +11759,9 @@ class Shell {
      */
     static SHGetDataFromIDListW(psf, pidl, nFormat, pv, cb) {
         result := DllCall("SHELL32.dll\SHGetDataFromIDListW", "ptr", psf, "ptr", pidl, "int", nFormat, "ptr", pv, "int", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11772,8 +11847,9 @@ class Shell {
         pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
         result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -11805,8 +11881,9 @@ class Shell {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr", pdtInner, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -11832,8 +11909,9 @@ class Shell {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr*", &ppdtobj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDataObject(ppdtobj)
     }
@@ -11854,8 +11932,9 @@ class Shell {
      */
     static SHCreateStdEnumFmtEtc(cfmt, afmt) {
         result := DllCall("SHELL32.dll\SHCreateStdEnumFmtEtc", "uint", cfmt, "ptr", afmt, "ptr*", &ppenumFormatEtc := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumFORMATETC(ppenumFormatEtc)
     }
@@ -11888,8 +11967,9 @@ class Shell {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", &pdwEffect := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwEffect
     }
@@ -12234,8 +12314,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, dirsMarshal, dirs, "uint", fFlags, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12899,8 +12980,9 @@ class Shell {
      */
     static AssocGetDetailsOfPropKey(psf, pidl, pkey, pv) {
         result := DllCall("SHELL32.dll\AssocGetDetailsOfPropKey", "ptr", psf, "ptr", pidl, "ptr", pkey, "ptr", pv, "int*", &pfFoundPropKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfFoundPropKey
     }
@@ -12925,8 +13007,9 @@ class Shell {
         pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
 
         result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd, "ptr", pszRemoteName, "uint", dwType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13095,8 +13178,9 @@ class Shell {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("SHELL32.dll\SHOpenWithDialog", "ptr", hwndParent, "ptr", poainfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13344,8 +13428,9 @@ class Shell {
      */
     static SHCreateShellFolderView(pcsfv) {
         result := DllCall("SHELL32.dll\SHCreateShellFolderView", "ptr", pcsfv, "ptr*", &ppsv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IShellView(ppsv)
     }
@@ -13393,8 +13478,9 @@ class Shell {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", &ppcm := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IContextMenu(ppcm)
     }
@@ -13415,8 +13501,9 @@ class Shell {
      */
     static SHCreateDefaultContextMenu(pdcm, riid) {
         result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -13462,8 +13549,9 @@ class Shell {
      */
     static SHCreateShellFolderViewEx(pcsfv) {
         result := DllCall("SHELL32.dll\SHCreateShellFolderViewEx", "ptr", pcsfv, "ptr*", &ppsv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IShellView(ppsv)
     }
@@ -13531,8 +13619,9 @@ class Shell {
         ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHBindToParent", "ptr", pidl, "ptr", riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13565,8 +13654,9 @@ class Shell {
         ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, "ptr", pidl, "ptr", riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13602,8 +13692,9 @@ class Shell {
         ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, "ptr", pidl, "ptr", ppbc, "ptr", riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13631,8 +13722,9 @@ class Shell {
      */
     static SHBindToObject(psf, pidl, pbc, riid) {
         result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -13667,8 +13759,9 @@ class Shell {
         psfgaoOutMarshal := psfgaoOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, ppidlMarshal, ppidl, "uint", sfgaoIn, psfgaoOutMarshal, psfgaoOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13696,8 +13789,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13725,8 +13819,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13752,8 +13847,9 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -13776,8 +13872,9 @@ class Shell {
         hwndEdit := hwndEdit is Win32Handle ? NumGet(hwndEdit, "ptr") : hwndEdit
 
         result := DllCall("SHELL32.dll\SHLimitInputEdit", "ptr", hwndEdit, "ptr", psf, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13881,8 +13978,9 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHELL32.dll\SHCLSIDFromString", "ptr", psz, "ptr", pclsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13941,8 +14039,9 @@ class Shell {
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
         result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -14184,8 +14283,9 @@ class Shell {
      */
     static SHMultiFileProperties(pdtobj, dwFlags) {
         result := DllCall("SHELL32.dll\SHMultiFileProperties", "ptr", pdtobj, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14200,8 +14300,9 @@ class Shell {
      */
     static SHCreateQueryCancelAutoPlayMoniker() {
         result := DllCall("SHELL32.dll\SHCreateQueryCancelAutoPlayMoniker", "ptr*", &ppmoniker := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMoniker(ppmoniker)
     }
@@ -14303,8 +14404,9 @@ class Shell {
         hwndNotify := hwndNotify is Win32Handle ? NumGet(hwndNotify, "ptr") : hwndNotify
 
         result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RegisterScaleChangeNotifications", "int", displayDevice, "ptr", hwndNotify, "uint", uMsgNotify, "uint*", &pdwCookie := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwCookie
     }
@@ -14325,8 +14427,9 @@ class Shell {
      */
     static RevokeScaleChangeNotifications(displayDevice, dwCookie) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RevokeScaleChangeNotifications", "int", displayDevice, "uint", dwCookie, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14345,8 +14448,9 @@ class Shell {
         hMon := hMon is Win32Handle ? NumGet(hMon, "ptr") : hMon
 
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetScaleFactorForMonitor", "ptr", hMon, "int*", &pScale := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pScale
     }
@@ -14362,8 +14466,9 @@ class Shell {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\RegisterScaleChangeEvent", "ptr", hEvent, "ptr*", &pdwCookie := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwCookie
     }
@@ -14377,8 +14482,9 @@ class Shell {
      */
     static UnregisterScaleChangeEvent(dwCookie) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\UnregisterScaleChangeEvent", "ptr", dwCookie, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14421,8 +14527,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\CommandLineToArgvW", "ptr", lpCmdLine, pNumArgsMarshal, pNumArgs, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15607,8 +15714,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\ExtractIconExA", "ptr", lpszFile, "int", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIcons, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15653,8 +15761,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\ExtractIconExW", "ptr", lpszFile, "int", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIcons, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15822,8 +15931,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\SHFileOperationA", "ptr", lpFileOp, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15991,8 +16101,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\SHFileOperationW", "ptr", lpFileOp, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16027,8 +16138,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\ShellExecuteExA", "ptr", pExecInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16048,8 +16160,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\ShellExecuteExW", "ptr", pExecInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16069,8 +16182,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHELL32.dll\SHCreateProcessAsUserW", "ptr", pscpi, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16111,8 +16225,9 @@ class Shell {
         ppszParametersMarshal := ppszParameters is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHELL32.dll\SHEvaluateSystemCommandTemplate", "ptr", pszCmdTemplate, ppszApplicationMarshal, ppszApplication, ppszCommandLineMarshal, ppszCommandLine, ppszParametersMarshal, ppszParameters, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16136,8 +16251,9 @@ class Shell {
      */
     static AssocCreateForClasses(rgClasses, cClasses, riid) {
         result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -16160,8 +16276,9 @@ class Shell {
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHQueryRecycleBinA", "ptr", pszRootPath, "ptr", pSHQueryRBInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16184,8 +16301,9 @@ class Shell {
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHQueryRecycleBinW", "ptr", pszRootPath, "ptr", pSHQueryRBInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16210,8 +16328,9 @@ class Shell {
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16236,8 +16355,9 @@ class Shell {
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16252,8 +16372,9 @@ class Shell {
      */
     static SHQueryUserNotificationState() {
         result := DllCall("SHELL32.dll\SHQueryUserNotificationState", "int*", &pquns := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pquns
     }
@@ -16308,8 +16429,9 @@ class Shell {
      */
     static Shell_NotifyIconGetRect(identifier, iconLocation) {
         result := DllCall("SHELL32.dll\Shell_NotifyIconGetRect", "ptr", identifier, "ptr", iconLocation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16519,8 +16641,9 @@ class Shell {
      */
     static SHGetStockIconInfo(siid, uFlags, psii) {
         result := DllCall("SHELL32.dll\SHGetStockIconInfo", "int", siid, "uint", uFlags, "ptr", psii, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16721,8 +16844,9 @@ class Shell {
      */
     static SHLoadNonloadedIconOverlayIdentifiers() {
         result := DllCall("SHELL32.dll\SHLoadNonloadedIconOverlayIdentifiers", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16742,8 +16866,9 @@ class Shell {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
         result := DllCall("SHELL32.dll\SHIsFileAvailableOffline", "ptr", pwszPath, "uint*", &pdwStatus := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwStatus
     }
@@ -16770,8 +16895,9 @@ class Shell {
         pszResModule := pszResModule is String ? StrPtr(pszResModule) : pszResModule
 
         result := DllCall("SHELL32.dll\SHSetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "int", idsRes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16791,8 +16917,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHRemoveLocalizedName", "ptr", pszPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16819,8 +16946,9 @@ class Shell {
         pszResModule := pszResModule is String ? StrPtr(pszResModule) : pszResModule
 
         result := DllCall("SHELL32.dll\SHGetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "uint", cch, "int*", &pidsRes := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pidsRes
     }
@@ -16861,8 +16989,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16903,8 +17032,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16958,8 +17088,9 @@ class Shell {
         pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
 
         result := DllCall("SHELL32.dll\SHEnumerateUnreadMailAccountsW", "ptr", hKeyUser, "uint", dwIndex, "ptr", pszMailAddress, "int", cchMailAddress, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16993,8 +17124,9 @@ class Shell {
         pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
         result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", "ptr", hKeyUser, "ptr", pszMailAddress, "uint*", &pdwCount := 0, "ptr", pFileTime, "ptr", pszShellExecuteCommand, "int", cchShellExecuteCommand, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwCount
     }
@@ -17061,8 +17193,9 @@ class Shell {
         pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
         result := DllCall("SHELL32.dll\SHSetUnreadMailCountW", "ptr", pszMailAddress, "uint", dwCount, "ptr", pszShellExecuteCommand, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17102,8 +17235,9 @@ class Shell {
      */
     static SHGetImageList(iImageList, riid) {
         result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -17136,8 +17270,9 @@ class Shell {
         pszDrive := pszDrive is String ? StrPtr(pszDrive) : pszDrive
 
         result := DllCall("SHELL32.dll\SHGetDriveMedia", "ptr", pszDrive, "uint*", &pdwMediaContent := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwMediaContent
     }
@@ -17522,8 +17657,9 @@ class Shell {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatByteSizeEx", "uint", ull, "int", flags, "ptr", pszBuf, "uint", cchBuf, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18805,8 +18941,9 @@ class Shell {
      */
     static StrRetToStrA(pstr, pidl) {
         result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsz
     }
@@ -18827,8 +18964,9 @@ class Shell {
      */
     static StrRetToStrW(pstr, pidl) {
         result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsz
     }
@@ -18857,8 +18995,9 @@ class Shell {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18887,8 +19026,9 @@ class Shell {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18912,8 +19052,9 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\SHStrDupA", "ptr", psz, "ptr*", &ppwsz := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwsz
     }
@@ -18937,8 +19078,9 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\SHStrDupW", "ptr", psz, "ptr*", &ppwsz := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwsz
     }
@@ -19014,8 +19156,9 @@ class Shell {
     static StrRetToBSTR(pstr, pidl) {
         pbstr := BSTR()
         result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr, "ptr", pidl, "ptr", pbstr, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbstr
     }
@@ -19044,8 +19187,9 @@ class Shell {
         pszOutBuf := pszOutBuf is String ? StrPtr(pszOutBuf) : pszOutBuf
 
         result := DllCall("SHLWAPI.dll\SHLoadIndirectString", "ptr", pszSource, "ptr", pszOutBuf, "uint", cchOutBuf, "ptr*", ppvReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19513,8 +19657,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathCanonicalizeA", "ptr", pszBuf, "ptr", pszPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19540,8 +19685,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathCanonicalizeW", "ptr", pszBuf, "ptr", pszPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19769,8 +19915,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathFileExistsA", "ptr", pszPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19792,8 +19939,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\PathFileExistsW", "ptr", pszPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20911,8 +21059,9 @@ class Shell {
         pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecExA", "ptr", pszFile, "ptr", pszSpec, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20968,8 +21117,9 @@ class Shell {
         pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecExW", "ptr", pszFile, "ptr", pszSpec, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21916,8 +22066,9 @@ class Shell {
         pcchCombinedMarshal := pcchCombined is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlCombineA", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, pcchCombinedMarshal, pcchCombined, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21982,8 +22133,9 @@ class Shell {
         pcchCombinedMarshal := pcchCombined is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlCombineW", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, pcchCombinedMarshal, pcchCombined, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22015,8 +22167,9 @@ class Shell {
         pcchCanonicalizedMarshal := pcchCanonicalized is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlCanonicalizeA", "ptr", pszUrl, "ptr", pszCanonicalized, pcchCanonicalizedMarshal, pcchCanonicalized, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22048,8 +22201,9 @@ class Shell {
         pcchCanonicalizedMarshal := pcchCanonicalized is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlCanonicalizeW", "ptr", pszUrl, "ptr", pszCanonicalized, pcchCanonicalizedMarshal, pcchCanonicalized, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22235,8 +22389,9 @@ class Shell {
         pcchUnescapedMarshal := pcchUnescaped is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlUnescapeA", "ptr", pszUrl, "ptr", pszUnescaped, pcchUnescapedMarshal, pcchUnescaped, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22268,8 +22423,9 @@ class Shell {
         pcchUnescapedMarshal := pcchUnescaped is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlUnescapeW", "ptr", pszUrl, "ptr", pszUnescaped, pcchUnescapedMarshal, pcchUnescaped, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22305,8 +22461,9 @@ class Shell {
         pcchEscapedMarshal := pcchEscaped is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlEscapeA", "ptr", pszUrl, "ptr", pszEscaped, pcchEscapedMarshal, pcchEscaped, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22342,8 +22499,9 @@ class Shell {
         pcchEscapedMarshal := pcchEscaped is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlEscapeW", "ptr", pszUrl, "ptr", pszEscaped, pcchEscapedMarshal, pcchEscaped, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22375,8 +22533,9 @@ class Shell {
         pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlCreateFromPathA", "ptr", pszPath, "ptr", pszUrl, pcchUrlMarshal, pcchUrl, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22408,8 +22567,9 @@ class Shell {
         pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlCreateFromPathW", "ptr", pszPath, "ptr", pszUrl, pcchUrlMarshal, pcchUrl, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22441,8 +22601,9 @@ class Shell {
         pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlA", "ptr", pszUrl, "ptr", pszPath, pcchPathMarshal, pcchPath, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22474,8 +22635,9 @@ class Shell {
         pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlW", "ptr", pszUrl, "ptr", pszPath, pcchPathMarshal, pcchPath, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22498,8 +22660,9 @@ class Shell {
         pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlAlloc", "ptr", pszIn, "ptr*", &ppszOut := 0, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszOut
     }
@@ -22525,8 +22688,9 @@ class Shell {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlHashA", "ptr", pszUrl, "ptr", pbHash, "uint", cbHash, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22552,8 +22716,9 @@ class Shell {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlHashW", "ptr", pszUrl, "ptr", pbHash, "uint", cbHash, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22586,8 +22751,9 @@ class Shell {
         pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlGetPartW", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, "uint", dwPart, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22620,8 +22786,9 @@ class Shell {
         pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlGetPartA", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, "uint", dwPart, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22693,8 +22860,9 @@ class Shell {
         pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlApplySchemeA", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22766,8 +22934,9 @@ class Shell {
         pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\UrlApplySchemeW", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22794,8 +22963,9 @@ class Shell {
      */
     static HashData(pbData, cbData, pbHash, cbHash) {
         result := DllCall("SHLWAPI.dll\HashData", "ptr", pbData, "uint", cbData, "ptr", pbHash, "uint", cbHash, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22822,8 +22992,9 @@ class Shell {
         pszTranslatedUrl := pszTranslatedUrl is String ? StrPtr(pszTranslatedUrl) : pszTranslatedUrl
 
         result := DllCall("SHLWAPI.dll\UrlFixupW", "ptr", pcszUrl, "ptr", pszTranslatedUrl, "uint", cchMax, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22846,8 +23017,9 @@ class Shell {
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
         result := DllCall("SHLWAPI.dll\ParseURLA", "ptr", pcszURL, "ptr", ppu, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22870,8 +23042,9 @@ class Shell {
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
         result := DllCall("SHLWAPI.dll\ParseURLW", "ptr", pcszURL, "ptr", ppu, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24741,8 +24914,9 @@ class Shell {
      */
     static AssocCreate(clsid, riid) {
         result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -25025,8 +25199,9 @@ class Shell {
 
         phkeyOut := HKEY()
         result := DllCall("SHLWAPI.dll\AssocQueryKeyA", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phkeyOut
     }
@@ -25057,8 +25232,9 @@ class Shell {
 
         phkeyOut := HKEY()
         result := DllCall("SHLWAPI.dll\AssocQueryKeyW", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phkeyOut
     }
@@ -25107,8 +25283,9 @@ class Shell {
         ppszTypeMarshal := ppszType is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\AssocGetPerceivedType", "ptr", pszExt, ptypeMarshal, ptype, pflagMarshal, pflag, ppszTypeMarshal, ppszType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25249,8 +25426,9 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr*", &ppstm := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStream(ppstm)
     }
@@ -25273,8 +25451,9 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr*", &ppstm := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStream(ppstm)
     }
@@ -25306,8 +25485,9 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr*", &ppstm := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStream(ppstm)
     }
@@ -25357,8 +25537,9 @@ class Shell {
         pcchLanguagesMarshal := pcchLanguages is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\GetAcceptLanguagesA", "ptr", pszLanguages, pcchLanguagesMarshal, pcchLanguages, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25389,8 +25570,9 @@ class Shell {
         pcchLanguagesMarshal := pcchLanguages is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\GetAcceptLanguagesW", "ptr", pszLanguages, pcchLanguagesMarshal, pcchLanguages, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25459,8 +25641,9 @@ class Shell {
     static IUnknown_GetWindow(punk) {
         phwnd := HWND()
         result := DllCall("SHLWAPI.dll\IUnknown_GetWindow", "ptr", punk, "ptr", phwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phwnd
     }
@@ -25481,8 +25664,9 @@ class Shell {
      */
     static IUnknown_SetSite(punk, punkSite) {
         result := DllCall("SHLWAPI.dll\IUnknown_SetSite", "ptr", punk, "ptr", punkSite, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25503,8 +25687,9 @@ class Shell {
      */
     static IUnknown_GetSite(punk, riid) {
         result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -25528,8 +25713,9 @@ class Shell {
      */
     static IUnknown_QueryService(punk, guidService, riid) {
         result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, "ptr*", &ppvOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvOut
     }
@@ -25553,8 +25739,9 @@ class Shell {
      */
     static IStream_Read(pstm, pv, cb) {
         result := DllCall("SHLWAPI.dll\IStream_Read", "ptr", pstm, "ptr", pv, "uint", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25578,8 +25765,9 @@ class Shell {
      */
     static IStream_Write(pstm, pv, cb) {
         result := DllCall("SHLWAPI.dll\IStream_Write", "ptr", pstm, "ptr", pv, "uint", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25597,8 +25785,9 @@ class Shell {
      */
     static IStream_Reset(pstm) {
         result := DllCall("SHLWAPI.dll\IStream_Reset", "ptr", pstm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25616,8 +25805,9 @@ class Shell {
      */
     static IStream_Size(pstm) {
         result := DllCall("SHLWAPI.dll\IStream_Size", "ptr", pstm, "uint*", &pui := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pui
     }
@@ -25652,8 +25842,9 @@ class Shell {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, "ptr", riidEvent, "int", fConnect, "ptr", punkTarget, pdwCookieMarshal, pdwCookie, "ptr*", ppcpOut, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25671,8 +25862,9 @@ class Shell {
      */
     static IStream_ReadPidl(pstm) {
         result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, "ptr*", &ppidlOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppidlOut
     }
@@ -25693,8 +25885,9 @@ class Shell {
      */
     static IStream_WritePidl(pstm, pidlWrite) {
         result := DllCall("SHLWAPI.dll\IStream_WritePidl", "ptr", pstm, "ptr", pidlWrite, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25712,8 +25905,9 @@ class Shell {
      */
     static IStream_ReadStr(pstm) {
         result := DllCall("SHLWAPI.dll\IStream_ReadStr", "ptr", pstm, "ptr*", &ppsz := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppsz
     }
@@ -25736,8 +25930,9 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\IStream_WriteStr", "ptr", pstm, "ptr", psz, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25761,8 +25956,9 @@ class Shell {
      */
     static IStream_Copy(pstmFrom, pstmTo, cb) {
         result := DllCall("SHLWAPI.dll\IStream_Copy", "ptr", pstmFrom, "ptr", pstmTo, "uint", cb, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -25794,8 +25990,9 @@ class Shell {
         pszBagName := pszBagName is String ? StrPtr(pszBagName) : pszBagName
 
         result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -26243,8 +26440,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHFreeShared", "ptr", hData, "uint", dwProcessId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26285,8 +26483,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHUnlockShared", pvDataMarshal, pvData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26374,8 +26573,9 @@ class Shell {
         thatMarshal := that is VarRef ? "ptr" : "ptr"
 
         result := DllCall("SHLWAPI.dll\QISearch", thatMarshal, that, "ptr", pqit, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -26436,8 +26636,9 @@ class Shell {
      */
     static SHGetInverseCMAP(pbMap, cbMap) {
         result := DllCall("SHLWAPI.dll\SHGetInverseCMAP", "ptr", pbMap, "uint", cbMap, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26460,8 +26661,9 @@ class Shell {
         hwndEdit := hwndEdit is Win32Handle ? NumGet(hwndEdit, "ptr") : hwndEdit
 
         result := DllCall("SHLWAPI.dll\SHAutoComplete", "ptr", hwndEdit, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26481,8 +26683,9 @@ class Shell {
         pcRefMarshal := pcRef is VarRef ? "int*" : "ptr"
 
         result := DllCall("SHLWAPI.dll\SHCreateThreadRef", pcRefMarshal, pcRef, "ptr*", &ppunk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppunk)
     }
@@ -26500,8 +26703,9 @@ class Shell {
      */
     static SHSetThreadRef(punk) {
         result := DllCall("SHLWAPI.dll\SHSetThreadRef", "ptr", punk, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26516,8 +26720,9 @@ class Shell {
      */
     static SHGetThreadRef() {
         result := DllCall("SHLWAPI.dll\SHGetThreadRef", "ptr*", &ppunk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppunk)
     }
@@ -26587,8 +26792,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26622,8 +26828,9 @@ class Shell {
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "ptr", pHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26638,8 +26845,9 @@ class Shell {
      */
     static SHReleaseThreadRef() {
         result := DllCall("SHLWAPI.dll\SHReleaseThreadRef", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26762,8 +26970,9 @@ class Shell {
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -26785,8 +26994,9 @@ class Shell {
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -26802,8 +27012,9 @@ class Shell {
      */
     static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid) {
         result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -26815,8 +27026,9 @@ class Shell {
      */
     static HlinkQueryCreateFromData(piDataObj) {
         result := DllCall("hlink.dll\HlinkQueryCreateFromData", "ptr", piDataObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26831,8 +27043,9 @@ class Shell {
      */
     static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData) {
         result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -26845,8 +27058,9 @@ class Shell {
      */
     static HlinkCreateBrowseContext(piunkOuter, riid) {
         result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -26869,8 +27083,9 @@ class Shell {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
         result := DllCall("hlink.dll\HlinkNavigateToStringReference", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pihlsite, "uint", dwSiteData, "ptr", pihlframe, "uint", grfHLNF, "ptr", pibc, "ptr", pibsc, "ptr", pihlbc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26887,8 +27102,9 @@ class Shell {
      */
     static HlinkNavigate(pihl, pihlframe, grfHLNF, pbc, pibsc, pihlbc) {
         result := DllCall("hlink.dll\HlinkNavigate", "ptr", pihl, "ptr", pihlframe, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlbc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26911,8 +27127,9 @@ class Shell {
         puHLIDMarshal := puHLID is VarRef ? "uint*" : "ptr"
 
         result := DllCall("hlink.dll\HlinkOnNavigate", "ptr", pihlframe, "ptr", pihlbc, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, puHLIDMarshal, puHLID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26932,8 +27149,9 @@ class Shell {
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkUpdateStackItem", "ptr", pihlframe, "ptr", pihlbc, "uint", uHLID, "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26948,8 +27166,9 @@ class Shell {
      */
     static HlinkOnRenameDocument(dwReserved, pihlbc, pimkOld, pimkNew) {
         result := DllCall("hlink.dll\HlinkOnRenameDocument", "uint", dwReserved, "ptr", pihlbc, "ptr", pimkOld, "ptr", pimkNew, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26967,8 +27186,9 @@ class Shell {
      */
     static HlinkResolveMonikerForData(pimkReference, reserved, pibc, cFmtetc, rgFmtetc, pibsc, pimkBase) {
         result := DllCall("hlink.dll\HlinkResolveMonikerForData", "ptr", pimkReference, "uint", reserved, "ptr", pibc, "uint", cFmtetc, "ptr", rgFmtetc, "ptr", pibsc, "ptr", pimkBase, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -26988,8 +27208,9 @@ class Shell {
         pwzReference := pwzReference is String ? StrPtr(pwzReference) : pwzReference
 
         result := DllCall("hlink.dll\HlinkResolveStringForData", "ptr", pwzReference, "uint", reserved, "ptr", pibc, "uint", cFmtetc, "ptr", rgFmtetc, "ptr", pibsc, "ptr", pimkBase, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27008,8 +27229,9 @@ class Shell {
         pcchEatenMarshal := pcchEaten is VarRef ? "uint*" : "ptr"
 
         result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, pcchEatenMarshal, pcchEaten, "ptr*", &ppimk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMoniker(ppimk)
     }
@@ -27031,8 +27253,9 @@ class Shell {
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
         result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObj
     }
@@ -27045,8 +27268,9 @@ class Shell {
      */
     static HlinkPreprocessMoniker(pibc, pimkIn) {
         result := DllCall("hlink.dll\HlinkPreprocessMoniker", "ptr", pibc, "ptr", pimkIn, "ptr*", &ppimkOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMoniker(ppimkOut)
     }
@@ -27060,8 +27284,9 @@ class Shell {
      */
     static OleSaveToStreamEx(piunk, pistm, fClearDirty) {
         result := DllCall("hlink.dll\OleSaveToStreamEx", "ptr", piunk, "ptr", pistm, "int", fClearDirty, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27076,8 +27301,9 @@ class Shell {
         pwzReference := pwzReference is String ? StrPtr(pwzReference) : pwzReference
 
         result := DllCall("hlink.dll\HlinkSetSpecialReference", "uint", uReference, "ptr", pwzReference, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27089,8 +27315,9 @@ class Shell {
      */
     static HlinkGetSpecialReference(uReference) {
         result := DllCall("hlink.dll\HlinkGetSpecialReference", "uint", uReference, "ptr*", &ppwzReference := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwzReference
     }
@@ -27109,8 +27336,9 @@ class Shell {
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcut", "uint", grfHLSHORTCUTF, "ptr", pihl, "ptr", pwzDir, "ptr", pwzFileName, "ptr*", &ppwzShortcutFile := 0, "uint", dwReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwzShortcutFile
     }
@@ -27131,8 +27359,9 @@ class Shell {
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcutFromMoniker", "uint", grfHLSHORTCUTF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr*", &ppwzShortcutFile := 0, "uint", dwReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwzShortcutFile
     }
@@ -27154,8 +27383,9 @@ class Shell {
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcutFromString", "uint", grfHLSHORTCUTF, "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr*", &ppwzShortcutFile := 0, "uint", dwReserved, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwzShortcutFile
     }
@@ -27176,8 +27406,9 @@ class Shell {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27195,8 +27426,9 @@ class Shell {
         ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr*", ppimkTarget, ppwzLocationMarshal, ppwzLocation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27215,8 +27447,9 @@ class Shell {
         ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("hlink.dll\HlinkResolveShortcutToString", "ptr", pwzShortcutFileName, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27230,8 +27463,9 @@ class Shell {
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkIsShortcut", "ptr", pwzFileName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27247,8 +27481,9 @@ class Shell {
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
         result := DllCall("hlink.dll\HlinkGetValueFromParams", "ptr", pwzParams, "ptr", pwzName, "ptr*", &ppwzValue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwzValue
     }
@@ -27263,8 +27498,9 @@ class Shell {
         pwzURL := pwzURL is String ? StrPtr(pwzURL) : pwzURL
 
         result := DllCall("hlink.dll\HlinkTranslateURL", "ptr", pwzURL, "uint", grfFlags, "ptr*", &ppwzTranslatedURL := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppwzTranslatedURL
     }
@@ -27352,8 +27588,9 @@ class Shell {
         pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslashEx", "ptr", pszPath, "ptr", cchPath, ppszEndMarshal, ppszEnd, pcchRemainingMarshal, pcchRemaining, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27384,8 +27621,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchSkipRoot", "ptr", pszPath, "ptr*", &ppszRootEnd := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszRootEnd
     }
@@ -27417,8 +27655,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveFileSpec", "ptr", pszPath, "ptr", cchPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27435,8 +27674,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchFindExtension", "ptr", pszPath, "ptr", cchPath, "ptr*", &ppszExt := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszExt
     }
@@ -27504,8 +27744,9 @@ class Shell {
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddExtension", "ptr", pszPath, "ptr", cchPath, "ptr", pszExt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27524,8 +27765,9 @@ class Shell {
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRenameExtension", "ptr", pszPath, "ptr", cchPath, "ptr", pszExt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27542,8 +27784,9 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveExtension", "ptr", pszPath, "ptr", cchPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27685,8 +27928,9 @@ class Shell {
         pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCanonicalizeEx", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27742,8 +27986,9 @@ class Shell {
         pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCanonicalize", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27883,8 +28128,9 @@ class Shell {
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombineEx", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -27952,8 +28198,9 @@ class Shell {
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombine", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -28079,8 +28326,9 @@ class Shell {
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppendEx", "ptr", pszPath, "ptr", cchPath, "ptr", pszMore, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -28136,8 +28384,9 @@ class Shell {
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppend", "ptr", pszPath, "ptr", cchPath, "ptr", pszMore, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -28251,8 +28500,9 @@ class Shell {
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "ptr*", &ppszPathOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszPathOut
     }
@@ -28349,8 +28599,9 @@ class Shell {
         pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCanonicalize", "ptr", pszPathIn, "uint", dwFlags, "ptr*", &ppszPathOut := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszPathOut
     }

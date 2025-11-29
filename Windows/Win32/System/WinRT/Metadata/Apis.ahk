@@ -989,8 +989,9 @@ class Metadata {
      */
     static MetaDataGetDispenser(rclsid, riid) {
         result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -1082,8 +1083,9 @@ class Metadata {
         typeDefTokenMarshal := typeDefToken is VarRef ? "uint*" : "ptr"
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr*", metaDataImport, typeDefTokenMarshal, typeDefToken, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1152,8 +1154,9 @@ class Metadata {
         typeNamePartsMarshal := typeNameParts is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, partsCountMarshal, partsCount, typeNamePartsMarshal, typeNameParts, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1255,8 +1258,9 @@ class Metadata {
         subNamespacesMarshal := subNamespaces is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, metaDataFilePathsMarshal, metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, subNamespacesMarshal, subNamespaces, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1282,8 +1286,9 @@ class Metadata {
         name := name is String ? StrPtr(name) : name
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "int*", &present := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return present
     }
@@ -1306,8 +1311,9 @@ class Metadata {
         name := name is String ? StrPtr(name) : name
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "int*", &present := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return present
     }
@@ -1318,8 +1324,9 @@ class Metadata {
      */
     static RoCreateNonAgilePropertySet() {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr*", &ppPropertySet := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppPropertySet
     }
@@ -1330,8 +1337,9 @@ class Metadata {
      */
     static RoCreatePropertySetSerializer() {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr*", &ppPropertySetSerializer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppPropertySetSerializer
     }
@@ -1364,8 +1372,9 @@ class Metadata {
 
         pExtra := ROPARAMIIDHANDLE()
         result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pExtra
     }

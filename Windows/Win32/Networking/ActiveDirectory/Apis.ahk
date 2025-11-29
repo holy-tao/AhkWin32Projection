@@ -3559,8 +3559,9 @@ class ActiveDirectory {
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3578,8 +3579,9 @@ class ActiveDirectory {
      */
     static ADsBuildEnumerator(pADsContainer) {
         result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr*", &ppEnumVariant := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumVARIANT(ppEnumVariant)
     }
@@ -3597,8 +3599,9 @@ class ActiveDirectory {
      */
     static ADsFreeEnumerator(pEnumVariant) {
         result := DllCall("ACTIVEDS.dll\ADsFreeEnumerator", "ptr", pEnumVariant, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3629,8 +3632,9 @@ class ActiveDirectory {
         pcElementsFetchedMarshal := pcElementsFetched is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsEnumerateNext", "ptr", pEnumVariant, "uint", cElements, "ptr", pvar, pcElementsFetchedMarshal, pcElementsFetched, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3658,8 +3662,9 @@ class ActiveDirectory {
         lppPathNamesMarshal := lppPathNames is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayStr", lppPathNamesMarshal, lppPathNames, "uint", dwPathNames, "ptr", pVar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3687,8 +3692,9 @@ class ActiveDirectory {
         lpdwObjectTypesMarshal := lpdwObjectTypes is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayInt", lpdwObjectTypesMarshal, lpdwObjectTypes, "uint", dwObjectTypes, "ptr", pVar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3729,8 +3735,9 @@ class ActiveDirectory {
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3767,11 +3774,9 @@ class ActiveDirectory {
         A_LastError := 0
 
         result := DllCall("ACTIVEDS.dll\ADsGetLastError", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", dwErrorBufLen, "ptr", lpNameBuf, "uint", dwNameBufLen, "int")
-        if(A_LastError)
-            throw OSError()
-
-        if(result != 0)
-            throw OSError(result)
+        if(A_LastError || result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3997,8 +4002,9 @@ class ActiveDirectory {
         pbSrcDataMarshal := pbSrcData is VarRef ? "char*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsEncodeBinaryData", pbSrcDataMarshal, pbSrcData, "uint", dwSrcLen, "ptr*", &ppszDestData := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszDestData
     }
@@ -4017,8 +4023,9 @@ class ActiveDirectory {
         pdwDestLenMarshal := pdwDestLen is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, ppbDestDataMarshal, ppbDestData, pdwDestLenMarshal, pdwDestLen, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4036,8 +4043,9 @@ class ActiveDirectory {
         pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, ppAdsValuesMarshal, ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4051,8 +4059,9 @@ class ActiveDirectory {
      */
     static AdsTypeToPropVariant(pAdsValues, dwNumValues, pVariant) {
         result := DllCall("ACTIVEDS.dll\AdsTypeToPropVariant", "ptr", pAdsValues, "uint", dwNumValues, "ptr", pVariant, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4102,8 +4111,9 @@ class ActiveDirectory {
         passWord := passWord is String ? StrPtr(passWord) : passWord
 
         result := DllCall("ACTIVEDS.dll\BinarySDToSecurityDescriptor", "ptr", pSecurityDescriptor, "ptr", pVarsec, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4145,8 +4155,9 @@ class ActiveDirectory {
         pdwSDLengthMarshal := pdwSDLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\SecurityDescriptorToBinarySD", "ptr", vVarSecDes, "ptr", ppSecurityDescriptor, pdwSDLengthMarshal, pdwSDLength, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4207,8 +4218,9 @@ class ActiveDirectory {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("dsuiext.dll\DsGetFriendlyClassName", "ptr", pszObjectClass, "ptr", pszBuffer, "uint", cchBuffer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4226,8 +4238,9 @@ class ActiveDirectory {
         pwzADsObjName := pwzADsObjName is String ? StrPtr(pwzADsObjName) : pwzADsObjName
 
         result := DllCall("dsprop.dll\ADsPropCreateNotifyObj", "ptr", pAppThdDataObj, "ptr", pwzADsObjName, "ptr", phNotifyObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6761,35 +6774,33 @@ class ActiveDirectory {
      * Retrieves state data for the computer.
      * @param {PWSTR} lpServer Pointer to null-terminated Unicode string that contains the name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} InfoLevel Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level">DSROLE_PRIMARY_DOMAIN_INFO_LEVEL</a> values that specify the type of data to retrieve. This parameter also determines the format of the data supplied in <i>Buffer</i>.
-     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the address of a buffer that receives the requested data. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
-     * 
-     * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolefreememory">DsRoleFreeMemory</a>.
+     * @param {Pointer<Pointer<Integer>>} Buffer_R 
      * @returns {Integer} If the function is successful, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following values.
      * @see https://docs.microsoft.com/windows/win32/api//dsrole/nf-dsrole-dsrolegetprimarydomaininformation
      * @since windows6.0.6000
      */
-    static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer) {
+    static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer_R) {
         lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, BufferMarshal, Buffer, "uint")
+        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, Buffer_RMarshal, Buffer_R, "uint")
         return result
     }
 
     /**
      * Frees memory allocated by the DsRoleGetPrimaryDomainInformation function.
-     * @param {Pointer<Void>} Buffer Pointer to the buffer to be freed.
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//dsrole/nf-dsrole-dsrolefreememory
      * @since windows6.0.6000
      */
-    static DsRoleFreeMemory(Buffer) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static DsRoleFreeMemory(Buffer_R) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        DllCall("NETAPI32.dll\DsRoleFreeMemory", BufferMarshal, Buffer)
+        DllCall("NETAPI32.dll\DsRoleFreeMemory", Buffer_RMarshal, Buffer_R)
     }
 
     /**

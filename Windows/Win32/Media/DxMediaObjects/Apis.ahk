@@ -150,8 +150,9 @@ class DxMediaObjects {
         szName := szName is String ? StrPtr(szName) : szName
 
         result := DllCall("msdmo.dll\DMORegister", "ptr", szName, "ptr", clsidDMO, "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -184,8 +185,9 @@ class DxMediaObjects {
      */
     static DMOUnregister(clsidDMO, guidCategory) {
         result := DllCall("msdmo.dll\DMOUnregister", "ptr", clsidDMO, "ptr", guidCategory, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -203,8 +205,9 @@ class DxMediaObjects {
      */
     static DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
         result := DllCall("msdmo.dll\DMOEnum", "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "ptr*", &ppEnum := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumDMO(ppEnum)
     }
@@ -266,8 +269,9 @@ class DxMediaObjects {
         pulOutputTypesSuppliedMarshal := pulOutputTypesSupplied is VarRef ? "uint*" : "ptr"
 
         result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -323,8 +327,9 @@ class DxMediaObjects {
         szName := szName is String ? StrPtr(szName) : szName
 
         result := DllCall("msdmo.dll\DMOGetName", "ptr", clsidDMO, "ptr", szName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -380,8 +385,9 @@ class DxMediaObjects {
      */
     static MoInitMediaType(pmt, cbFormat) {
         result := DllCall("msdmo.dll\MoInitMediaType", "ptr", pmt, "uint", cbFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -423,8 +429,9 @@ class DxMediaObjects {
      */
     static MoFreeMediaType(pmt) {
         result := DllCall("msdmo.dll\MoFreeMediaType", "ptr", pmt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -480,8 +487,9 @@ class DxMediaObjects {
      */
     static MoCopyMediaType(pmtDest, pmtSrc) {
         result := DllCall("msdmo.dll\MoCopyMediaType", "ptr", pmtDest, "ptr", pmtSrc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -537,8 +545,9 @@ class DxMediaObjects {
         ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, "uint", cbFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -580,8 +589,9 @@ class DxMediaObjects {
      */
     static MoDeleteMediaType(pmt) {
         result := DllCall("msdmo.dll\MoDeleteMediaType", "ptr", pmt, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -637,8 +647,9 @@ class DxMediaObjects {
         ppmtDestMarshal := ppmtDest is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("msdmo.dll\MoDuplicateMediaType", ppmtDestMarshal, ppmtDest, "ptr", pmtSrc, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

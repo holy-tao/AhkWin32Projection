@@ -47,8 +47,9 @@ class CloudFilters {
      */
     static CfGetPlatformInfo(PlatformVersion) {
         result := DllCall("cldapi.dll\CfGetPlatformInfo", "ptr", PlatformVersion, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -67,8 +68,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfRegisterSyncRoot", "ptr", SyncRootPath, "ptr", Registration, "ptr", Policies, "int", RegisterFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -84,8 +86,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfUnregisterSyncRoot", "ptr", SyncRootPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -107,8 +110,9 @@ class CloudFilters {
 
         ConnectionKey := CF_CONNECTION_KEY()
         result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, "ptr", CallbackTable, CallbackContextMarshal, CallbackContext, "int", ConnectFlags, "ptr", ConnectionKey, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ConnectionKey
     }
@@ -124,8 +128,9 @@ class CloudFilters {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
 
         result := DllCall("cldapi.dll\CfDisconnectSyncRoot", "ptr", ConnectionKey, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -141,8 +146,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfGetTransferKey", "ptr", FileHandle, "int64*", &TransferKey := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return TransferKey
     }
@@ -173,8 +179,9 @@ class CloudFilters {
      */
     static CfExecute(OpInfo, OpParams) {
         result := DllCall("cldapi.dll\CfExecute", "ptr", OpInfo, "ptr", OpParams, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -191,8 +198,9 @@ class CloudFilters {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
 
         result := DllCall("cldapi.dll\CfUpdateSyncProviderStatus", "ptr", ConnectionKey, "uint", ProviderStatus, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -208,8 +216,9 @@ class CloudFilters {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
 
         result := DllCall("cldapi.dll\CfQuerySyncProviderStatus", "ptr", ConnectionKey, "uint*", &ProviderStatus := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ProviderStatus
     }
@@ -226,8 +235,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfReportSyncStatus", "ptr", SyncRootPath, "ptr", SyncStatus, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -246,8 +256,9 @@ class CloudFilters {
         BaseDirectoryPath := BaseDirectoryPath is String ? StrPtr(BaseDirectoryPath) : BaseDirectoryPath
 
         result := DllCall("cldapi.dll\CfCreatePlaceholders", "ptr", BaseDirectoryPath, "ptr", PlaceholderArray, "uint", PlaceholderCount, "int", CreateFlags, "uint*", &EntriesProcessed := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return EntriesProcessed
     }
@@ -265,8 +276,9 @@ class CloudFilters {
 
         ProtectedHandle := HANDLE()
         result := DllCall("cldapi.dll\CfOpenFileWithOplock", "ptr", FilePath, "int", Flags, "ptr", ProtectedHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ProtectedHandle
     }
@@ -343,8 +355,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfConvertToPlaceholder", "ptr", FileHandle, "ptr", FileIdentity, "uint", FileIdentityLength, "int", ConvertFlags, "int64*", &ConvertUsn := 0, "ptr", Overlapped, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ConvertUsn
     }
@@ -374,8 +387,9 @@ class CloudFilters {
         UpdateUsnMarshal := UpdateUsn is VarRef ? "int64*" : "ptr"
 
         result := DllCall("cldapi.dll\CfUpdatePlaceholder", "ptr", FileHandle, "ptr", FsMetadata, "ptr", FileIdentity, "uint", FileIdentityLength, "ptr", DehydrateRangeArray, "uint", DehydrateRangeCount, "int", UpdateFlags, UpdateUsnMarshal, UpdateUsn, "ptr", Overlapped, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -395,8 +409,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfRevertPlaceholder", "ptr", FileHandle, "int", RevertFlags, "ptr", Overlapped, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -418,8 +433,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfHydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", HydrateFlags, "ptr", Overlapped, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -437,8 +453,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfDehydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", DehydrateFlags, "ptr", Overlapped, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -457,8 +474,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfSetPinState", "ptr", FileHandle, "int", PinState, "int", PinFlags, "ptr", Overlapped, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -479,8 +497,9 @@ class CloudFilters {
         InSyncUsnMarshal := InSyncUsn is VarRef ? "int64*" : "ptr"
 
         result := DllCall("cldapi.dll\CfSetInSyncState", "ptr", FileHandle, "int", InSyncState, "int", InSyncFlags, InSyncUsnMarshal, InSyncUsn, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -497,8 +516,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfSetCorrelationVector", "ptr", FileHandle, "ptr", CorrelationVector, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -515,8 +535,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfGetCorrelationVector", "ptr", FileHandle, "ptr", CorrelationVector, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -575,8 +596,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfGetPlaceholderInfo", "ptr", FileHandle, "int", InfoClass, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", &ReturnedLength := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ReturnedLength
     }
@@ -599,8 +621,9 @@ class CloudFilters {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("cldapi.dll\CfGetSyncRootInfoByPath", "ptr", FilePath, "int", InfoClass, InfoBufferMarshal, InfoBuffer, "uint", InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -623,8 +646,9 @@ class CloudFilters {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("cldapi.dll\CfGetSyncRootInfoByHandle", "ptr", FileHandle, "int", InfoClass, InfoBufferMarshal, InfoBuffer, "uint", InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -645,8 +669,9 @@ class CloudFilters {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfo", "ptr", FileHandle, "int", InfoClass, "int64", StartingOffset, "int64", Length, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", &ReturnedLength := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ReturnedLength
     }
@@ -668,8 +693,9 @@ class CloudFilters {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
 
         result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfoForHydration", "ptr", ConnectionKey, "int64", TransferKey, "int64", FileId, "int", InfoClass, "int64", StartingOffset, "int64", RangeLength, "ptr", InfoBuffer, "uint", InfoBufferSize, "uint*", &InfoBufferWritten := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return InfoBufferWritten
     }
@@ -688,8 +714,9 @@ class CloudFilters {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
 
         result := DllCall("cldapi.dll\CfReportProviderProgress", "ptr", ConnectionKey, "int64", TransferKey, "int64", ProviderProgressTotal, "int64", ProviderProgressCompleted, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -709,8 +736,9 @@ class CloudFilters {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
 
         result := DllCall("cldapi.dll\CfReportProviderProgress2", "ptr", ConnectionKey, "int64", TransferKey, "int64", RequestKey, "int64", ProviderProgressTotal, "int64", ProviderProgressCompleted, "uint", TargetSessionId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -34,8 +34,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EnumProcesses", "ptr", lpidProcess, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -62,8 +63,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -90,8 +92,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "uint", dwFilterFlag, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -119,8 +122,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -148,8 +152,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -179,8 +184,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -210,8 +216,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -240,8 +247,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -262,8 +270,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EmptyWorkingSet", "ptr", hProcess, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -284,8 +293,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\InitializeProcessForWsWatch", "ptr", hProcess, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -318,8 +328,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetWsChanges", "ptr", hProcess, "ptr", lpWatchInfo, "uint", cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -349,8 +360,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, cbMarshal, cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -377,8 +389,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetMappedFileNameW", "ptr", hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -405,8 +418,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetMappedFileNameA", "ptr", hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -429,8 +443,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -457,8 +472,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -485,8 +501,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -511,8 +528,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -537,8 +555,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -571,8 +590,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\QueryWorkingSet", "ptr", hProcess, "ptr", pv, "uint", cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -594,8 +614,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\QueryWorkingSetEx", "ptr", hProcess, "ptr", pv, "uint", cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -622,8 +643,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetProcessMemoryInfo", "ptr", Process, "ptr", ppsmemCounters, "uint", cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -645,8 +667,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -668,8 +691,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -691,8 +715,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -718,8 +743,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetProcessImageFileNameA", "ptr", hProcess, "ptr", lpImageFileName, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -745,8 +771,9 @@ class ProcessStatus {
         A_LastError := 0
 
         result := DllCall("PSAPI.dll\GetProcessImageFileNameW", "ptr", hProcess, "ptr", lpImageFileName, "uint", nSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
