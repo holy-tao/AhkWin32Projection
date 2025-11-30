@@ -1181,8 +1181,9 @@ class Rpc {
      */
     static IUnknown_QueryInterface_Proxy(This_R, riid) {
         result := DllCall("RPCRT4.dll\IUnknown_QueryInterface_Proxy", "ptr", This_R, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
@@ -10260,13 +10261,13 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Void>} Object 
+     * @param {Pointer<Void>} Object_R 
      * @returns {String} Nothing - always returns an empty string
      */
-    static I_RpcFree(Object) {
-        ObjectMarshal := Object is VarRef ? "ptr" : "ptr"
+    static I_RpcFree(Object_R) {
+        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
 
-        DllCall("RPCRT4.dll\I_RpcFree", ObjectMarshal, Object)
+        DllCall("RPCRT4.dll\I_RpcFree", Object_RMarshal, Object_R)
     }
 
     /**
@@ -10788,36 +10789,36 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Pointer<Integer>} BufferSize 
      * @param {Pointer<Integer>} AddressFormat 
      * @returns {Integer} 
      */
-    static I_RpcServerInqLocalConnAddress(Binding, Buffer, BufferSize, AddressFormat) {
+    static I_RpcServerInqLocalConnAddress(Binding, Buffer_R, BufferSize, AddressFormat) {
         BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
         AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\I_RpcServerInqLocalConnAddress", BindingMarshal, Binding, BufferMarshal, Buffer, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, "int")
+        result := DllCall("RPCRT4.dll\I_RpcServerInqLocalConnAddress", BindingMarshal, Binding, Buffer_RMarshal, Buffer_R, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Pointer<Integer>} BufferSize 
      * @param {Pointer<Integer>} AddressFormat 
      * @returns {Integer} 
      */
-    static I_RpcServerInqRemoteConnAddress(Binding, Buffer, BufferSize, AddressFormat) {
+    static I_RpcServerInqRemoteConnAddress(Binding, Buffer_R, BufferSize, AddressFormat) {
         BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
         AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\I_RpcServerInqRemoteConnAddress", BindingMarshal, Binding, BufferMarshal, Buffer, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, "int")
+        result := DllCall("RPCRT4.dll\I_RpcServerInqRemoteConnAddress", BindingMarshal, Binding, Buffer_RMarshal, Buffer_R, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, "int")
         return result
     }
 
@@ -19802,8 +19803,9 @@ class Rpc {
      */
     static NdrGetDcomProtocolVersion(pStubMsg, pVersion) {
         result := DllCall("RPCRT4.dll\NdrGetDcomProtocolVersion", "ptr", pStubMsg, "ptr", pVersion, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21223,7 +21225,7 @@ class Rpc {
 
     /**
      * The MesDecodeBufferHandleCreate function creates a decoding handle and initializes it for a (fixed) buffer style of serialization.
-     * @param {Pointer} Buffer Pointer to the buffer containing the data to decode.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize Bytes of data to decode in the buffer.
      * @param {Pointer<Pointer<Void>>} pHandle Pointer to the address to which the handle will be written.
      * @returns {Integer} <table>
@@ -21284,10 +21286,10 @@ class Rpc {
      * @see https://docs.microsoft.com/windows/win32/api//midles/nf-midles-mesdecodebufferhandlecreate
      * @since windows5.0
      */
-    static MesDecodeBufferHandleCreate(Buffer, BufferSize, pHandle) {
+    static MesDecodeBufferHandleCreate(Buffer_R, BufferSize, pHandle) {
         pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", "ptr", Buffer, "uint", BufferSize, pHandleMarshal, pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", "ptr", Buffer_R, "uint", BufferSize, pHandleMarshal, pHandle, "int")
         return result
     }
 

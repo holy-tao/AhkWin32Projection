@@ -55,8 +55,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreatePipe", "ptr", hReadPipe, "ptr", hWritePipe, "ptr", lpPipeAttributes, "uint", nSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -95,8 +96,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ConnectNamedPipe", "ptr", hNamedPipe, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -118,8 +120,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DisconnectNamedPipe", "ptr", hNamedPipe, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -223,8 +226,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, lpModeMarshal, lpMode, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -257,8 +261,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, lpBytesReadMarshal, lpBytesRead, lpTotalBytesAvailMarshal, lpTotalBytesAvail, lpBytesLeftThisMessageMarshal, lpBytesLeftThisMessage, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -324,8 +329,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReadMarshal, lpBytesRead, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -627,7 +633,8 @@ class Pipes {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -684,8 +691,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ImpersonateNamedPipeClient", "ptr", hNamedPipe, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -721,8 +729,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, lpFlagsMarshal, lpFlags, lpOutBufferSizeMarshal, lpOutBufferSize, lpInBufferSizeMarshal, lpInBufferSize, lpMaxInstancesMarshal, lpMaxInstances, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1137,10 +1146,12 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -1182,8 +1193,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1257,8 +1269,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReadMarshal, lpBytesRead, "uint", nTimeOut, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1285,8 +1298,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WaitNamedPipeA", "ptr", lpNamedPipeName, "uint", nTimeOut, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1310,8 +1324,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameA", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1336,8 +1351,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, ClientProcessIdMarshal, ClientProcessId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1362,8 +1378,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, ClientSessionIdMarshal, ClientSessionId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1388,8 +1405,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, ServerProcessIdMarshal, ServerProcessId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1414,8 +1432,9 @@ class Pipes {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, ServerSessionIdMarshal, ServerSessionId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

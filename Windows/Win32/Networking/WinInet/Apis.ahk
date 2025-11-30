@@ -4644,8 +4644,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTimeA", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4667,8 +4668,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTimeW", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4690,8 +4692,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTime", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4714,8 +4717,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeToSystemTimeA", "ptr", lpszTime, "ptr", pst, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4738,8 +4742,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeToSystemTimeW", "ptr", lpszTime, "ptr", pst, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4762,8 +4767,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeToSystemTime", "ptr", lpszTime, "ptr", pst, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4788,8 +4794,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCrackUrlA", "ptr", lpszUrl, "uint", dwUrlLength, "uint", dwFlags, "ptr", lpUrlComponents, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4814,8 +4821,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCrackUrlW", "ptr", lpszUrl, "uint", dwUrlLength, "uint", dwFlags, "ptr", lpUrlComponents, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4842,8 +4850,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCreateUrlA", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, lpdwUrlLengthMarshal, lpdwUrlLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4870,8 +4879,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCreateUrlW", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, lpdwUrlLengthMarshal, lpdwUrlLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4951,8 +4961,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCanonicalizeUrlA", "ptr", lpszUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5032,8 +5043,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCanonicalizeUrlW", "ptr", lpszUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5113,8 +5125,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCombineUrlA", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5194,8 +5207,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCombineUrlW", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5240,8 +5254,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetOpenA", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5286,8 +5301,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetOpenW", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5306,8 +5322,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCloseHandle", hInternetMarshal, hInternet, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5345,8 +5362,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetConnectA", hInternetMarshal, hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5384,8 +5402,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetConnectW", hInternetMarshal, hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5418,8 +5437,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetOpenUrlA", hInternetMarshal, hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5452,8 +5472,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetOpenUrlW", hInternetMarshal, hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5482,8 +5503,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetReadFile", hFileMarshal, hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToRead, lpdwNumberOfBytesReadMarshal, lpdwNumberOfBytesRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5509,8 +5531,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetReadFileExA", hFileMarshal, hFile, "ptr", lpBuffersOut, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5536,8 +5559,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetReadFileExW", hFileMarshal, hFile, "ptr", lpBuffersOut, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5581,8 +5605,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetFilePointer", hFileMarshal, hFile, "int", lDistanceToMove, lpDistanceToMoveHighMarshal, lpDistanceToMoveHigh, "uint", dwMoveMethod, "ptr", dwContext, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5610,8 +5635,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetWriteFile", hFileMarshal, hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToWrite, lpdwNumberOfBytesWrittenMarshal, lpdwNumberOfBytesWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5639,8 +5665,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetQueryDataAvailable", hFileMarshal, hFile, lpdwNumberOfBytesAvailableMarshal, lpdwNumberOfBytesAvailable, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5670,8 +5697,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetFindNextFileA", hFindMarshal, hFind, lpvFindDataMarshal, lpvFindData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5701,8 +5729,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetFindNextFileW", hFindMarshal, hFind, lpvFindDataMarshal, lpvFindData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5732,8 +5761,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetQueryOptionA", hInternetMarshal, hInternet, "uint", dwOption, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5763,8 +5793,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetQueryOptionW", hInternetMarshal, hInternet, "uint", dwOption, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5793,8 +5824,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetOptionA", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5823,8 +5855,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetOptionW", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5886,8 +5919,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetLockRequestFile", hInternetMarshal, hInternet, "ptr", lphLockRequestInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5907,8 +5941,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetUnlockRequestFile", "ptr", hLockRequestInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5935,8 +5970,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetLastResponseInfoA", lpdwErrorMarshal, lpdwError, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5963,8 +5999,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetLastResponseInfoW", lpdwErrorMarshal, lpdwError, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6040,8 +6077,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpFindFirstFileA", hConnectMarshal, hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6071,8 +6109,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpFindFirstFileW", hConnectMarshal, hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6221,8 +6260,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetFileA", hConnectMarshal, hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, "int", fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6371,8 +6411,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetFileW", hConnectMarshal, hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, "int", fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6399,8 +6440,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpPutFileA", hConnectMarshal, hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6427,8 +6469,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpPutFileW", hConnectMarshal, hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6491,8 +6534,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpDeleteFileA", hConnectMarshal, hConnect, "ptr", lpszFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6515,8 +6559,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpDeleteFileW", hConnectMarshal, hConnect, "ptr", lpszFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6540,8 +6585,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRenameFileA", hConnectMarshal, hConnect, "ptr", lpszExisting, "ptr", lpszNew, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6565,8 +6611,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRenameFileW", hConnectMarshal, hConnect, "ptr", lpszExisting, "ptr", lpszNew, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6592,8 +6639,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpOpenFileA", hConnectMarshal, hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6619,8 +6667,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpOpenFileW", hConnectMarshal, hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6644,8 +6693,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCreateDirectoryA", hConnectMarshal, hConnect, "ptr", lpszDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6669,8 +6719,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCreateDirectoryW", hConnectMarshal, hConnect, "ptr", lpszDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6693,8 +6744,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRemoveDirectoryA", hConnectMarshal, hConnect, "ptr", lpszDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6717,8 +6769,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRemoveDirectoryW", hConnectMarshal, hConnect, "ptr", lpszDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6741,8 +6794,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpSetCurrentDirectoryA", hConnectMarshal, hConnect, "ptr", lpszDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6765,8 +6819,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpSetCurrentDirectoryW", hConnectMarshal, hConnect, "ptr", lpszDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6790,8 +6845,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetCurrentDirectoryA", hConnectMarshal, hConnect, "ptr", lpszCurrentDirectory, lpdwCurrentDirectoryMarshal, lpdwCurrentDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6815,8 +6871,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetCurrentDirectoryW", hConnectMarshal, hConnect, "ptr", lpszCurrentDirectory, lpdwCurrentDirectoryMarshal, lpdwCurrentDirectory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6846,8 +6903,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCommandA", hConnectMarshal, hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, phFtpCommandMarshal, phFtpCommand, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6877,8 +6935,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCommandW", hConnectMarshal, hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, phFtpCommandMarshal, phFtpCommand, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6936,8 +6995,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherCreateLocatorA", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6978,8 +7038,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherCreateLocatorW", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7002,8 +7063,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetLocatorTypeA", "ptr", lpszLocator, lpdwGopherTypeMarshal, lpdwGopherType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7026,8 +7088,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetLocatorTypeW", "ptr", lpszLocator, lpdwGopherTypeMarshal, lpdwGopherType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7066,8 +7129,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherFindFirstFileA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7106,8 +7170,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherFindFirstFileW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7138,8 +7203,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherOpenFileA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7170,8 +7236,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherOpenFileW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7215,8 +7282,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7260,8 +7328,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7329,8 +7398,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpOpenRequestA", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7398,8 +7468,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpOpenRequestW", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7426,8 +7497,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpAddRequestHeadersA", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwModifiers, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7454,8 +7526,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpAddRequestHeadersW", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwModifiers, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7483,8 +7556,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpSendRequestA", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7512,8 +7586,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpSendRequestW", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7542,8 +7617,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpSendRequestExA", hRequestMarshal, hRequest, "ptr", lpBuffersIn, "ptr", lpBuffersOut, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7572,8 +7648,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpSendRequestExW", hRequestMarshal, hRequest, "ptr", lpBuffersIn, "ptr", lpBuffersOut, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7600,8 +7677,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpEndRequestA", hRequestMarshal, hRequest, "ptr", lpBuffersOut, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7628,8 +7706,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpEndRequestW", hRequestMarshal, hRequest, "ptr", lpBuffersOut, "uint", dwFlags, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7662,8 +7741,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpQueryInfoA", hRequestMarshal, hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7696,8 +7776,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpQueryInfoW", hRequestMarshal, hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7720,8 +7801,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7744,8 +7826,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7824,8 +7907,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, lpdwSizeMarshal, lpdwSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7904,8 +7988,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, lpdwSizeMarshal, lpdwSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7990,8 +8075,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "ptr", dwReserved, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8076,8 +8162,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "ptr", dwReserved, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8160,8 +8247,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, lpdwSizeMarshal, lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8244,8 +8332,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, lpdwSizeMarshal, lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8359,8 +8448,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCheckConnectionA", "ptr", lpszUrl, "uint", dwFlags, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8389,8 +8479,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCheckConnectionW", "ptr", lpszUrl, "uint", dwFlags, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8410,8 +8501,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\ResumeSuspendedDownload", hRequestMarshal, hRequest, "uint", dwResultCode, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8691,8 +8783,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheEntryA", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8720,8 +8813,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheEntryW", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8884,8 +8978,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CommitUrlCacheEntryA", "ptr", lpszUrlName, "ptr", lpszLocalFileName, "ptr", ExpireTime, "ptr", LastModifiedTime, "uint", CacheEntryType, lpHeaderInfoMarshal, lpHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9048,8 +9143,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CommitUrlCacheEntryW", "ptr", lpszUrlName, "ptr", lpszLocalFileName, "ptr", ExpireTime, "ptr", LastModifiedTime, "uint", CacheEntryType, "ptr", lpszHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9108,8 +9204,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9168,8 +9265,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9190,8 +9288,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\UnlockUrlCacheEntryFileA", "ptr", lpszUrlName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9212,8 +9311,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\UnlockUrlCacheEntryFileW", "ptr", lpszUrlName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9234,8 +9334,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\UnlockUrlCacheEntryFile", "ptr", lpszUrlName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9301,10 +9402,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9368,10 +9471,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9397,8 +9502,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\ReadUrlCacheEntryStream", "ptr", hUrlCacheStream, "uint", dwLocation, "ptr", lpBuffer, lpdwLenMarshal, lpdwLen, "uint", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9437,8 +9543,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\UnlockUrlCacheEntryStream", "ptr", hUrlCacheStream, "uint", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9497,8 +9604,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9557,8 +9665,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9582,10 +9691,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheGroup", "uint", dwFlags, "uint", dwFilter, "ptr", lpSearchCondition, "uint", dwSearchCondition, lpGroupIdMarshal, lpGroupId, "ptr", lpReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9608,8 +9719,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheGroup", "ptr", hFind, lpGroupIdMarshal, lpGroupId, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9635,8 +9747,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheGroupAttributeA", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, lpcbGroupInfoMarshal, lpcbGroupInfo, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9662,8 +9775,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheGroupAttributeW", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, lpcbGroupInfoMarshal, lpcbGroupInfo, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9685,8 +9799,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\SetUrlCacheGroupAttributeA", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9708,8 +9823,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\SetUrlCacheGroupAttributeW", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9770,8 +9886,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoExA", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9832,8 +9949,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoExW", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9885,8 +10003,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\SetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint", dwFieldControl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9938,8 +10057,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\SetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint", dwFieldControl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9960,8 +10080,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheGroup", "uint", dwFlags, "ptr", lpReserved, "int64")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9983,8 +10104,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheGroup", "int64", GroupId, "uint", dwFlags, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10166,10 +10288,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryExA", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10295,10 +10419,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryExW", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10323,8 +10449,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheEntryExA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10351,8 +10478,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheEntryExW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10383,10 +10511,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryA", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10415,10 +10545,12 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryW", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10474,8 +10606,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheEntryA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10533,8 +10666,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheEntryW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10554,8 +10688,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindCloseUrlCache", "ptr", hEnumHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10603,8 +10738,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheEntryA", "ptr", lpszUrlName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10652,8 +10788,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheEntryW", "ptr", lpszUrlName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10701,8 +10838,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheEntry", "ptr", lpszUrlName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10964,8 +11102,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGoOnlineA", "ptr", lpszURL, "ptr", hwndParent, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11028,8 +11167,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGoOnlineW", "ptr", lpszURL, "ptr", hwndParent, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11092,8 +11232,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGoOnline", "ptr", lpszURL, "ptr", hwndParent, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11115,8 +11256,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetAutodial", "uint", dwFlags, "ptr", hwndParent, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11136,8 +11278,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetAutodialHangup", "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11159,8 +11302,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetConnectedState", lpdwFlagsMarshal, lpdwFlags, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11186,8 +11330,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetConnectedStateExA", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11213,8 +11358,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetConnectedStateExW", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11241,8 +11387,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetInitializeAutoProxyDll", "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11264,8 +11411,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DetectAutoProxyUrl", "ptr", pszAutoProxyUrl, "uint", cchAutoProxyUrl, "uint", dwDetectFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11312,8 +11460,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetConnectedStateEx", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, "uint", dwNameLen, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12034,8 +12183,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheContainerA", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12063,8 +12213,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheContainerW", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12083,8 +12234,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheContainerA", "ptr", Name, "uint", dwOptions, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12103,8 +12255,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheContainerW", "ptr", Name, "uint", dwOptions, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12122,7 +12275,8 @@ class WinInet {
         lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", pdwModifiedMarshal, pdwModified, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, "uint", dwOptions, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12138,7 +12292,8 @@ class WinInet {
         lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", pdwModifiedMarshal, pdwModified, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, "uint", dwOptions, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12188,8 +12343,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FreeUrlCacheSpaceA", "ptr", lpszCachePath, "uint", dwSize, "uint", dwFilter, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12209,8 +12365,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\FreeUrlCacheSpaceW", "ptr", lpszCachePath, "uint", dwSize, "uint", dwFilter, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12260,8 +12417,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheConfigInfoA", "ptr", lpCacheConfigInfo, "uint*", lpcbCacheConfigInfo, "uint", dwFieldControl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12285,8 +12443,9 @@ class WinInet {
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheConfigInfoW", "ptr", lpCacheConfigInfo, "uint*", lpcbCacheConfigInfo, "uint", dwFieldControl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

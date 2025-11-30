@@ -74,8 +74,9 @@ class DXCore {
      */
     static DXCoreCreateAdapterFactory(riid) {
         result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, "ptr*", &ppvFactory := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvFactory
     }

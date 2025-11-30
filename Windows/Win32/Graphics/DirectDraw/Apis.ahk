@@ -4717,8 +4717,9 @@ class DirectDraw {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("DDRAW.dll\DirectDrawEnumerateW", "ptr", lpCallback, lpContextMarshal, lpContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4736,8 +4737,9 @@ class DirectDraw {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("DDRAW.dll\DirectDrawEnumerateA", "ptr", lpCallback, lpContextMarshal, lpContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4758,8 +4760,9 @@ class DirectDraw {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("DDRAW.dll\DirectDrawEnumerateExW", "ptr", lpCallback, lpContextMarshal, lpContext, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4780,8 +4783,9 @@ class DirectDraw {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("DDRAW.dll\DirectDrawEnumerateExA", "ptr", lpCallback, lpContextMarshal, lpContext, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4795,8 +4799,9 @@ class DirectDraw {
      */
     static DirectDrawCreate(lpGUID, pUnkOuter) {
         result := DllCall("DDRAW.dll\DirectDrawCreate", "ptr", lpGUID, "ptr*", &lplpDD := 0, "ptr", pUnkOuter, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDirectDraw(lplpDD)
     }
@@ -4827,8 +4832,9 @@ class DirectDraw {
         lplpDDMarshal := lplpDD is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("DDRAW.dll\DirectDrawCreateEx", "ptr", lpGuid, lplpDDMarshal, lplpDD, "ptr", iid, "ptr", pUnkOuter, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4842,8 +4848,9 @@ class DirectDraw {
      */
     static DirectDrawCreateClipper(dwFlags, pUnkOuter) {
         result := DllCall("DDRAW.dll\DirectDrawCreateClipper", "uint", dwFlags, "ptr*", &lplpDDClipper := 0, "ptr", pUnkOuter, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDirectDrawClipper(lplpDDClipper)
     }

@@ -91,8 +91,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -119,8 +120,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -144,8 +146,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FileTimeToSystemTime", "ptr", lpFileTime, "ptr", lpSystemTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -176,8 +179,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SystemTimeToFileTime", "ptr", lpSystemTime, "ptr", lpFileTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -247,8 +251,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTimeZoneInformation", "ptr", lpTimeZoneInformation, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -268,8 +273,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetTimeZoneInformation", "ptr", lpTimeZoneInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -288,8 +294,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDynamicTimeZoneInformation", "ptr", lpTimeZoneInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -358,8 +365,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDynamicTimeZoneInformation", "ptr", pTimeZoneInformation, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -380,8 +388,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", "ushort", wYear, "ptr", pdtzi, "ptr", ptzi, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -488,8 +497,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -510,8 +520,9 @@ class Time {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

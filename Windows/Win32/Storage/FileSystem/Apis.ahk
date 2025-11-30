@@ -1501,8 +1501,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SearchPathW", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1549,8 +1550,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SearchPathA", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1674,8 +1676,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryA", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1744,8 +1747,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2193,10 +2197,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2640,10 +2646,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2670,8 +2678,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DefineDosDeviceW", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2700,8 +2709,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileA", "ptr", lpFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2730,8 +2740,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileW", "ptr", lpFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2753,8 +2764,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteVolumeMountPointW", "ptr", lpszVolumeMountPoint, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2773,8 +2785,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FileTimeToLocalFileTime", "ptr", lpFileTime, "ptr", lpLocalFileTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2795,8 +2808,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindClose", "ptr", hFindFile, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2818,8 +2832,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindCloseChangeNotification", "ptr", hChangeHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2848,10 +2863,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstChangeNotificationA", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindCloseChangeNotification})
+        return resultHandle
     }
 
     /**
@@ -2878,10 +2896,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstChangeNotificationW", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindCloseChangeNotification})
+        return resultHandle
     }
 
     /**
@@ -2928,10 +2949,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileA", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -2978,10 +3002,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileW", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -3084,10 +3111,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileExA", "ptr", lpFileName, "int", fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -3190,10 +3220,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileExW", "ptr", lpFileName, "int", fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -3218,10 +3251,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeW", "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeClose})
+        return resultHandle
     }
 
     /**
@@ -3241,8 +3277,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextChangeNotification", "ptr", hChangeHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3273,8 +3310,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextFileA", "ptr", hFindFile, "ptr", lpFindFileData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3305,8 +3343,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextFileW", "ptr", hFindFile, "ptr", lpFindFileData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3335,8 +3374,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeW", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3358,8 +3398,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindVolumeClose", "ptr", hFindVolume, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3389,8 +3430,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FlushFileBuffers", "ptr", hFile, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3431,8 +3473,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceA", "ptr", lpRootPathName, lpSectorsPerClusterMarshal, lpSectorsPerCluster, lpBytesPerSectorMarshal, lpBytesPerSector, lpNumberOfFreeClustersMarshal, lpNumberOfFreeClusters, lpTotalNumberOfClustersMarshal, lpTotalNumberOfClusters, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3473,8 +3516,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceW", "ptr", lpRootPathName, lpSectorsPerClusterMarshal, lpSectorsPerCluster, lpBytesPerSectorMarshal, lpBytesPerSector, lpNumberOfFreeClustersMarshal, lpNumberOfFreeClusters, lpTotalNumberOfClustersMarshal, lpTotalNumberOfClusters, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3528,8 +3572,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExA", "ptr", lpDirectoryName, lpFreeBytesAvailableToCallerMarshal, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytesMarshal, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytesMarshal, lpTotalNumberOfFreeBytes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3583,8 +3628,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExW", "ptr", lpDirectoryName, lpFreeBytesAvailableToCallerMarshal, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytesMarshal, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytesMarshal, lpTotalNumberOfFreeBytes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3600,8 +3646,9 @@ class FileSystem {
         rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
 
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationA", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3617,8 +3664,9 @@ class FileSystem {
         rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
 
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationW", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3868,8 +3916,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesA", "ptr", lpFileName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3901,8 +3950,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesW", "ptr", lpFileName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3960,8 +4010,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesExA", "ptr", lpFileName, "int", fInfoLevelId, lpFileInformationMarshal, lpFileInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4019,8 +4070,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesExW", "ptr", lpFileName, "int", fInfoLevelId, lpFileInformationMarshal, lpFileInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4047,8 +4099,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileInformationByHandle", "ptr", hFile, "ptr", lpFileInformation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4084,8 +4137,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileSize", "ptr", hFile, lpFileSizeHighMarshal, lpFileSizeHigh, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4113,8 +4167,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileSizeEx", "ptr", hFile, lpFileSizeMarshal, lpFileSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4210,8 +4265,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileType", "ptr", hFile, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4293,8 +4349,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleA", "ptr", hFile, "ptr", lpszFilePath, "uint", cchFilePath, "uint", dwFlags, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4376,8 +4433,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleW", "ptr", hFile, "ptr", lpszFilePath, "uint", cchFilePath, "uint", dwFlags, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4414,8 +4472,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileTime", "ptr", hFile, "ptr", lpCreationTime, "ptr", lpLastAccessTime, "ptr", lpLastWriteTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4465,8 +4524,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4516,8 +4576,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4535,8 +4596,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalDrives", "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4566,8 +4628,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalDriveStringsW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4610,8 +4673,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameA", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4654,8 +4718,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameW", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4713,8 +4778,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetShortPathNameW", "ptr", lpszLongPath, "ptr", lpszShortPath, "uint", cchBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4778,8 +4844,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTempFileNameW", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5084,8 +5151,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeInformationByHandleW", "ptr", hFile, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5412,8 +5480,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeInformationW", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5440,8 +5509,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNameW", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5464,8 +5534,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalFileTimeToFileTime", "ptr", lpLocalFileTime, "ptr", lpFileTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5491,8 +5562,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LockFile", "ptr", hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5521,8 +5593,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LockFileEx", "ptr", hFile, "uint", dwFlags, "uint", dwReserved, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5567,8 +5640,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryDosDeviceW", "ptr", lpDeviceName, "ptr", lpTargetPath, "uint", ucchMax, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5640,8 +5714,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadFile", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5722,8 +5797,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadFileEx", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5809,8 +5885,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadFileScatter", "ptr", hFile, "ptr", aSegmentArray, "uint", nNumberOfBytesToRead, "uint*", lpReserved, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5840,8 +5917,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryA", "ptr", lpPathName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5871,8 +5949,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryW", "ptr", lpPathName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5896,8 +5975,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEndOfFile", "ptr", hFile, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6039,8 +6119,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesA", "ptr", lpFileName, "uint", dwFileAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6182,8 +6263,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesW", "ptr", lpFileName, "uint", dwFileAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6219,8 +6301,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileInformationByHandle", "ptr", hFile, "int", FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6300,8 +6383,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFilePointer", "ptr", hFile, "int", lDistanceToMove, lpDistanceToMoveHighMarshal, lpDistanceToMoveHigh, "uint", dwMoveMethod, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6332,8 +6416,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFilePointerEx", "ptr", hFile, "int64", liDistanceToMove, lpNewFilePointerMarshal, lpNewFilePointer, "uint", dwMoveMethod, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6379,8 +6464,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileTime", "ptr", hFile, "ptr", lpCreationTime, "ptr", lpLastAccessTime, "ptr", lpLastWriteTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6408,8 +6494,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileValidData", "ptr", hFile, "int64", ValidDataLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6436,8 +6523,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UnlockFile", "ptr", hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6470,8 +6558,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UnlockFileEx", "ptr", hFile, "uint", dwReserved, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6555,8 +6644,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteFile", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6644,8 +6734,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteFileEx", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6729,8 +6820,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteFileGather", "ptr", hFile, "ptr", aSegmentArray, "uint", nNumberOfBytesToWrite, "uint*", lpReserved, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6759,8 +6851,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTempPathW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6784,8 +6877,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6821,8 +6915,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameW", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, lpcchReturnLengthMarshal, lpcchReturnLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6894,10 +6989,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFile2", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -6922,8 +7019,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileIoOverlappedRange", "ptr", FileHandle, OverlappedRangeStartMarshal, OverlappedRangeStart, "uint", Length, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6967,8 +7065,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeA", "ptr", lpFileName, lpFileSizeHighMarshal, lpFileSizeHigh, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7012,8 +7111,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeW", "ptr", lpFileName, lpFileSizeHighMarshal, lpFileSizeHigh, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7070,10 +7170,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstStreamW", "ptr", lpFileName, "int", InfoLevel, lpFindStreamDataMarshal, lpFindStreamData, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -7100,8 +7203,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextStreamW", "ptr", hFindStream, lpFindStreamDataMarshal, lpFindStreamData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7143,8 +7247,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTempPathA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7181,10 +7286,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileNameW", "ptr", lpFileName, "uint", dwFlags, StringLengthMarshal, StringLength, "ptr", LinkName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -7214,8 +7322,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextFileNameW", "ptr", hFindStream, StringLengthMarshal, StringLength, "ptr", LinkName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7542,8 +7651,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeInformationA", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7607,8 +7717,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTempFileNameA", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7832,8 +7943,7 @@ class FileSystem {
      * Retrieves the path of the directory designated for temporary files, based on the privileges of the calling process.
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PWSTR} Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
-     *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
+     * @param {PWSTR} Buffer_R 
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -7845,10 +7955,10 @@ class FileSystem {
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-gettemppath2w
      */
-    static GetTempPath2W(BufferLength, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static GetTempPath2W(BufferLength, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer, "uint")
+        result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -7856,8 +7966,7 @@ class FileSystem {
      * Retrieves the path of the directory designated for temporary files, based on the privileges of the calling process.
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PSTR} Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
-     *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
+     * @param {PSTR} Buffer_R 
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -7869,10 +7978,10 @@ class FileSystem {
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-gettemppath2a
      */
-    static GetTempPath2A(BufferLength, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static GetTempPath2A(BufferLength, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer, "uint")
+        result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -7889,7 +7998,8 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("KERNEL32.dll\CreateFile3", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7905,7 +8015,8 @@ class FileSystem {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         result := DllCall("KERNEL32.dll\CreateDirectory2A", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, "int", DirectoryFlags, "ptr", lpSecurityAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -7921,7 +8032,8 @@ class FileSystem {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         result := DllCall("KERNEL32.dll\CreateDirectory2W", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, "int", DirectoryFlags, "ptr", lpSecurityAttributes, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8319,7 +8431,8 @@ class FileSystem {
         hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8356,7 +8469,8 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -8396,7 +8510,8 @@ class FileSystem {
         lpFindFileDataMarshal := lpFindFileData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9494,8 +9609,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeA", "ptr", lptstrFilename, lpdwHandleMarshal, lpdwHandle, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9524,8 +9640,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeW", "ptr", lptstrFilename, lpdwHandleMarshal, lpdwHandle, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9566,8 +9683,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoA", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9608,8 +9726,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoW", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9672,8 +9791,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeExA", "uint", dwFlags, "ptr", lpwstrFilename, lpdwHandleMarshal, lpdwHandle, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9736,8 +9856,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeExW", "uint", dwFlags, "ptr", lpwstrFilename, lpdwHandleMarshal, lpdwHandle, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9820,8 +9941,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoExA", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9904,8 +10026,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoExW", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10281,10 +10404,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\CreateLogFile", "ptr", pszLogFileName, "uint", fDesiredAccess, "uint", dwShareMode, "ptr", psaLogFile, "uint", fCreateDisposition, "uint", fFlagsAndAttributes, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10304,8 +10429,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", hLog, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10340,8 +10466,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\DeleteLogFile", "ptr", pszLogFileName, pvReservedMarshal, pvReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10383,8 +10510,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog, pcbContainerMarshal, pcbContainer, "ptr", pwszContainerPath, pReservedMarshal, pReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10429,8 +10557,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10464,8 +10593,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog, "ptr", pwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10506,8 +10636,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10541,8 +10672,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", hLog, "ptr", plsnArchiveTail, pReservedMarshal, pReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10570,8 +10702,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", hLog, "ptr", plsnEnd, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10597,8 +10730,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\TruncateLog", pvMarshalMarshal, pvMarshal, "ptr", plsnEnd, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10680,8 +10814,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10762,8 +10897,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ScanLogContainers", "ptr", pcxScan, "char", eScanMode, pReservedMarshal, pReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10794,8 +10930,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AlignReservedLog", pvMarshalMarshal, pvMarshal, "uint", cReservedRecords, rgcbReservationMarshal, rgcbReservation, pcbAlignReservationMarshal, pcbAlignReservation, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10824,8 +10961,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AllocReservedLog", pvMarshalMarshal, pvMarshal, "uint", cReservedRecords, pcbAdjustmentMarshal, pcbAdjustment, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10868,8 +11006,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\FreeReservedLog", pvMarshalMarshal, pvMarshal, "uint", cReservedRecords, pcbAdjustmentMarshal, pcbAdjustment, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10901,8 +11040,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", hLog, "ptr", pinfoBuffer, cbBufferMarshal, cbBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10926,8 +11066,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", hLog, "int", eMode, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10968,8 +11109,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReadLogRestartArea", pvMarshalMarshal, pvMarshal, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsn, ppvContextMarshal, ppvContext, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11003,8 +11145,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", pvReadContextMarshal, pvReadContext, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsnRestart, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11041,8 +11184,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\WriteLogRestartArea", pvMarshalMarshal, pvMarshal, pvRestartBufferMarshal, pvRestartBuffer, "uint", cbRestartBuffer, "ptr", plsnBase, "uint", fFlags, pcbWrittenMarshal, pcbWritten, "ptr", plsnNext, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11091,8 +11235,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AdvanceLogBase", pvMarshalMarshal, pvMarshal, "ptr", plsnBase, "uint", fFlags, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11116,8 +11261,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", hLog, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11177,8 +11323,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11200,8 +11347,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\DeleteLogMarshallingArea", pvMarshalMarshal, pvMarshal, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11245,8 +11393,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReserveAndAppendLog", pvMarshalMarshal, pvMarshal, "ptr", rgWriteEntries, "uint", cWriteEntries, "ptr", plsnUndoNext, "ptr", plsnPrevious, "uint", cReserveRecords, rgcbReservationMarshal, rgcbReservation, "uint", fFlags, "ptr", plsn, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11291,8 +11440,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReserveAndAppendLogAligned", pvMarshalMarshal, pvMarshal, "ptr", rgWriteEntries, "uint", cWriteEntries, "uint", cbEntryAlignment, "ptr", plsnUndoNext, "ptr", plsnPrevious, "uint", cReserveRecords, rgcbReservationMarshal, rgcbReservation, "uint", fFlags, "ptr", plsn, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11317,8 +11467,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\FlushLogBuffers", pvMarshalMarshal, pvMarshal, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11349,8 +11500,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\FlushLogToLsn", pvMarshalContextMarshal, pvMarshalContext, "ptr", plsnFlush, "ptr", plsnLastFlushed, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11439,8 +11591,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReadLogRecord", pvMarshalMarshal, pvMarshal, "ptr", plsnFirst, "int", eContextMode, ppvReadBufferMarshal, ppvReadBuffer, pcbReadBufferMarshal, pcbReadBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, ppvReadContextMarshal, ppvReadContext, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11520,8 +11673,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReadNextLogRecord", pvReadContextMarshal, pvReadContext, ppvBufferMarshal, ppvBuffer, pcbBufferMarshal, pcbBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "ptr", pOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11543,8 +11697,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\TerminateReadLog", pvCursorContextMarshal, pvCursorContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11599,8 +11754,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11636,8 +11792,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReadLogArchiveMetadata", pvArchiveContextMarshal, pvArchiveContext, "uint", cbOffset, "uint", cbBytesToRead, pbReadBufferMarshal, pbReadBuffer, pcbBytesReadMarshal, pcbBytesRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11669,8 +11826,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\GetNextLogArchiveExtent", pvArchiveContextMarshal, pvArchiveContext, "ptr", rgadExtent, "uint", cDescriptors, pcDescriptorsReturnedMarshal, pcDescriptorsReturned, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11692,8 +11850,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\TerminateLogArchive", pvArchiveContextMarshal, pvArchiveContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11736,8 +11895,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ValidateLog", "ptr", pszLogFileName, "ptr", psaLogFile, "ptr", pinfoBuffer, pcbBufferMarshal, pcbBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11776,8 +11936,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11812,8 +11973,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", hLog, pvStatsBufferMarshal, pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11836,8 +11998,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", hLog, "ptr", pCallbacks, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11859,8 +12022,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", hLog, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11883,8 +12047,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", hLog, "ptr", pNotification, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11906,8 +12071,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", hLog, "ptr", pPolicy, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11929,8 +12095,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", hLog, "int", ePolicyType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11956,8 +12123,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", hLog, "int", ePolicyType, "ptr", pPolicyBuffer, pcbPolicyBufferMarshal, pcbPolicyBuffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11983,8 +12151,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", hLog, pDesiredSizeMarshal, pDesiredSize, pResultingSizeMarshal, pResultingSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12006,8 +12175,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\HandleLogFull", "ptr", hLog, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12031,8 +12201,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", hLog, "uint", dwReason, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12056,8 +12227,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", hLog, "uint", cbThreshold, "int", fEnable, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12210,8 +12382,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EncryptionDisable", "ptr", DirPath, "int", Disable, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12539,8 +12712,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetExpandedNameA", "ptr", lpszSource, "ptr", lpszBuffer, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12568,8 +12742,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetExpandedNameW", "ptr", lpszSource, "ptr", lpszBuffer, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12990,8 +13165,9 @@ class FileSystem {
         FileOrVolumeHandle := FileOrVolumeHandle is Win32Handle ? NumGet(FileOrVolumeHandle, "ptr") : FileOrVolumeHandle
 
         result := DllCall("WOFUTIL.dll\WofGetDriverVersion", "ptr", FileOrVolumeHandle, "uint", Provider, "uint*", &WofVersion := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return WofVersion
     }
@@ -13050,8 +13226,9 @@ class FileSystem {
         ExternalFileInfoMarshal := ExternalFileInfo is VarRef ? "ptr" : "ptr"
 
         result := DllCall("WOFUTIL.dll\WofSetFileDataLocation", "ptr", FileHandle, "uint", Provider, ExternalFileInfoMarshal, ExternalFileInfo, "uint", Length, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13115,8 +13292,9 @@ class FileSystem {
         BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, IsExternalFileMarshal, IsExternalFile, ProviderMarshal, Provider, ExternalFileInfoMarshal, ExternalFileInfo, BufferLengthMarshal, BufferLength, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13144,8 +13322,9 @@ class FileSystem {
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, UserDataMarshal, UserData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13164,8 +13343,9 @@ class FileSystem {
         WimPath := WimPath is String ? StrPtr(WimPath) : WimPath
 
         result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, "int64*", &DataSourceId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return DataSourceId
     }
@@ -13185,8 +13365,9 @@ class FileSystem {
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, UserDataMarshal, UserData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13202,8 +13383,9 @@ class FileSystem {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimSuspendEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13219,8 +13401,9 @@ class FileSystem {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimRemoveEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13238,8 +13421,9 @@ class FileSystem {
         NewWimPath := NewWimPath is String ? StrPtr(NewWimPath) : NewWimPath
 
         result := DllCall("WOFUTIL.dll\WofWimUpdateEntry", "ptr", VolumeName, "int64", DataSourceId, "ptr", NewWimPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13259,8 +13443,9 @@ class FileSystem {
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, UserDataMarshal, UserData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13287,8 +13472,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "ptr", TxfFileId, TxfLogContextMarshal, TxfLogContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13332,8 +13518,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("txfw32.dll\TxfLogDestroyReadContext", TxfLogContextMarshal, TxfLogContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13342,7 +13529,7 @@ class FileSystem {
      * Reads the redo records from the log.
      * @param {Pointer<Void>} TxfLogContext A pointer to the context.
      * @param {Integer} BufferLength The size of the output buffer, in bytes.
-     * @param {Pointer} Buffer A pointer to the buffer that receives the records. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_log_record_base">TXF_LOG_RECORD_BASE</a>.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BytesUsed The number of bytes written to the output buffer.
      * @param {Pointer<Integer>} RecordCount The number of records written to the output buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -13408,16 +13595,17 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//txfw32/nf-txfw32-txflogreadrecords
      * @since windows6.0.6000
      */
-    static TxfLogReadRecords(TxfLogContext, BufferLength, Buffer, BytesUsed, RecordCount) {
+    static TxfLogReadRecords(TxfLogContext, BufferLength, Buffer_R, BytesUsed, RecordCount) {
         TxfLogContextMarshal := TxfLogContext is VarRef ? "ptr" : "ptr"
         BytesUsedMarshal := BytesUsed is VarRef ? "uint*" : "ptr"
         RecordCountMarshal := RecordCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", Buffer, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", Buffer_R, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13548,10 +13736,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13570,10 +13760,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenTransaction", "uint", dwDesiredAccess, "ptr", TransactionId, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13595,8 +13787,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CommitTransaction", "ptr", TransactionHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13621,8 +13814,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CommitTransactionAsync", "ptr", TransactionHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13642,8 +13836,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RollbackTransaction", "ptr", TransactionHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13663,8 +13858,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RollbackTransactionAsync", "ptr", TransactionHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13688,8 +13884,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetTransactionId", "ptr", TransactionHandle, "ptr", TransactionId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13724,8 +13921,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, OutcomeMarshal, Outcome, IsolationLevelMarshal, IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, "uint", BufferLength, "ptr", Description, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13753,8 +13951,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13796,10 +13995,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateTransactionManager", "ptr", lpTransactionAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13821,10 +14022,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenTransactionManager", "ptr", LogFileName, "uint", DesiredAccess, "uint", OpenOptions, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13844,10 +14047,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenTransactionManagerById", "ptr", TransactionManagerId, "uint", DesiredAccess, "uint", OpenOptions, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13870,8 +14075,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13898,8 +14104,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RollforwardTransactionManager", "ptr", TransactionManagerHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13924,8 +14131,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RecoverTransactionManager", "ptr", TransactionManagerHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13951,8 +14159,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetCurrentClockTransactionManager", "ptr", TransactionManagerHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13976,8 +14185,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetTransactionManagerId", "ptr", TransactionManagerHandle, "ptr", TransactionManagerId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14022,10 +14232,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateResourceManager", "ptr", lpResourceManagerAttributes, "ptr", ResourceManagerId, "uint", CreateOptions, "ptr", TmHandle, "ptr", Description, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14047,10 +14259,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenResourceManager", "uint", dwDesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerId, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14073,8 +14287,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RecoverResourceManager", "ptr", ResourceManagerHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14108,8 +14323,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetNotificationResourceManager", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", NotificationLength, "uint", dwMilliseconds, ReturnLengthMarshal, ReturnLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14143,8 +14359,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetNotificationResourceManagerAsync", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", TransactionNotificationLength, ReturnLengthMarshal, ReturnLength, "ptr", lpOverlapped, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14169,8 +14386,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\SetResourceManagerCompletionPort", "ptr", ResourceManagerHandle, "ptr", IoCompletionPortHandle, "ptr", CompletionKey, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14225,10 +14443,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateEnlistment", "ptr", lpEnlistmentAttributes, "ptr", ResourceManagerHandle, "ptr", TransactionHandle, "uint", NotificationMask, "uint", CreateOptions, EnlistmentKeyMarshal, EnlistmentKey, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14250,10 +14470,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenEnlistment", "uint", dwDesiredAccess, "ptr", ResourceManagerHandle, "ptr", EnlistmentId, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14279,8 +14501,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RecoverEnlistment", "ptr", EnlistmentHandle, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14289,7 +14512,7 @@ class FileSystem {
      * Retrieves an opaque structure of recovery data from KTM.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer<Void>} Buffer A pointer to a buffer that receives the enlistment recovery information.
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Pointer<Integer>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -14299,17 +14522,18 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//ktmw32/nf-ktmw32-getenlistmentrecoveryinformation
      * @since windows6.0.6000
      */
-    static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer, BufferUsed) {
+    static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_R, BufferUsed) {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, BufferMarshal, Buffer, BufferUsedMarshal, BufferUsed, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_RMarshal, Buffer_R, BufferUsedMarshal, BufferUsed, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14333,8 +14557,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetEnlistmentId", "ptr", EnlistmentHandle, "ptr", EnlistmentId, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14343,7 +14568,7 @@ class FileSystem {
      * Sets an opaque, user-defined structure of recovery data from KTM.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of <i>Buffer</i>, in bytes.
-     * @param {Pointer<Void>} Buffer The recovery information.
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -14352,16 +14577,17 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//ktmw32/nf-ktmw32-setenlistmentrecoveryinformation
      * @since windows6.0.6000
      */
-    static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer) {
+    static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_R) {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, BufferMarshal, Buffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_RMarshal, Buffer_R, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14388,8 +14614,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\PrepareEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14416,8 +14643,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\PrePrepareEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14448,8 +14676,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CommitEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14477,8 +14706,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RollbackEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14508,8 +14738,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\PrePrepareComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14539,8 +14770,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\PrepareComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14570,8 +14802,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\ReadOnlyEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14601,8 +14834,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CommitComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14630,8 +14864,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RollbackComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14661,8 +14896,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\SinglePhaseReject", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15994,10 +16230,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Integer} Options This parameter must be zero.
-     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
+     * @param {Pointer<Pointer<Integer>>} Buffer_R 
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -16005,12 +16238,12 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//lmstats/nf-lmstats-netstatisticsget
      * @since windows5.1.2600
      */
-    static NetStatisticsGet(ServerName, Service, Level, Options, Buffer) {
+    static NetStatisticsGet(ServerName, Service, Level, Options, Buffer_R) {
         ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
         ServiceMarshal := Service is VarRef ? "char*" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, BufferMarshal, Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, Buffer_RMarshal, Buffer_R, "uint")
         return result
     }
 
@@ -16022,8 +16255,9 @@ class FileSystem {
      */
     static QueryIoRingCapabilities(capabilities) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\QueryIoRingCapabilities", "ptr", capabilities, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16054,8 +16288,9 @@ class FileSystem {
     static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
         h := HIORING()
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return h
     }
@@ -16071,8 +16306,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\GetIoRingInfo", "ptr", ioRing, "ptr", info, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16089,8 +16325,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", "ptr", ioRing, "uint", waitOperations, "uint", milliseconds, "uint*", &submittedEntries := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return submittedEntries
     }
@@ -16105,8 +16342,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CloseIoRing", "ptr", ioRing, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16137,8 +16375,9 @@ class FileSystem {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SetIoRingCompletionEvent", "ptr", ioRing, "ptr", hEvent, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16156,8 +16395,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", file, "ptr", opToCancel, "ptr", userData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16178,8 +16418,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16197,8 +16438,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", userData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16216,8 +16458,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", userData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16238,8 +16481,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16257,8 +16501,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", userData, "int", sqeFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16279,8 +16524,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16302,8 +16548,9 @@ class FileSystem {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16324,8 +16571,9 @@ class FileSystem {
         exceptionPathsMarshal := exceptionPaths is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, "int", createBindLinkFlags, "uint", exceptionCount, exceptionPathsMarshal, exceptionPaths, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16339,8 +16587,9 @@ class FileSystem {
         virtualPath := virtualPath is String ? StrPtr(virtualPath) : virtualPath
 
         result := DllCall("BINDFLTAPI.dll\RemoveBindLink", "ptr", virtualPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16381,8 +16630,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", OldValueMarshal, OldValue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16403,8 +16653,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\Wow64RevertWow64FsRedirection", OlValueMarshal, OlValue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16520,8 +16771,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetBinaryTypeA", "ptr", lpApplicationName, lpBinaryTypeMarshal, lpBinaryType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16637,8 +16889,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetBinaryTypeW", "ptr", lpApplicationName, lpBinaryTypeMarshal, lpBinaryType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16680,8 +16933,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetShortPathNameA", "ptr", lpszLongPath, "ptr", lpszShortPath, "uint", cchBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16725,8 +16979,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameTransactedA", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "ptr", hTransaction, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16770,8 +17025,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameTransactedW", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "ptr", hTransaction, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16846,8 +17102,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileCompletionNotificationModes", "ptr", FileHandle, "char", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16908,8 +17165,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileShortNameA", "ptr", hFile, "ptr", lpShortName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16970,8 +17228,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileShortNameW", "ptr", hFile, "ptr", lpShortName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18889,8 +19148,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EncryptFileA", "ptr", lpFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18916,8 +19176,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EncryptFileW", "ptr", lpFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18943,8 +19204,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DecryptFileA", "ptr", lpFileName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -18970,8 +19232,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DecryptFileW", "ptr", lpFileName, "uint", dwReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19106,8 +19369,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\FileEncryptionStatusA", "ptr", lpFileName, lpStatusMarshal, lpStatus, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19242,8 +19506,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\FileEncryptionStatusW", "ptr", lpFileName, lpStatusMarshal, lpStatus, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19583,8 +19848,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenFile", "ptr", lpFileName, "ptr", lpReOpenBuff, "uint", uStyle, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19648,8 +19914,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, "int", bAbort, "int", bProcessSecurity, lpContextMarshal, lpContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19683,8 +19950,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, lpdwLowByteSeekedMarshal, lpdwLowByteSeeked, lpdwHighByteSeekedMarshal, lpdwHighByteSeeked, lpContextMarshal, lpContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19744,8 +20012,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, "int", bAbort, "int", bProcessSecurity, lpContextMarshal, lpContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19775,8 +20044,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalDriveStringsA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19855,8 +20125,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSearchPathMode", "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19938,8 +20209,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryExA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20021,8 +20293,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryExW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20115,8 +20388,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryTransactedA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20209,8 +20483,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryTransactedW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20243,8 +20518,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedA", "ptr", lpPathName, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20277,8 +20553,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedW", "ptr", lpPathName, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20324,8 +20601,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameTransactedA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "ptr", hTransaction, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20371,8 +20649,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameTransactedW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "ptr", hTransaction, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20401,8 +20680,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DefineDosDeviceA", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20447,8 +20727,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryDosDeviceA", "ptr", lpDeviceName, "ptr", lpTargetPath, "uint", ucchMax, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -20911,10 +21192,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileTransactedA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, pusMiniVersionMarshal, pusMiniVersion, "ptr", lpExtendedParameter, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -21375,10 +21658,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileTransactedW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, pusMiniVersionMarshal, pusMiniVersion, "ptr", lpExtendedParameter, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -21414,10 +21699,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReOpenFile", "ptr", hOriginalFile, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwFlagsAndAttributes, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -21458,8 +21745,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesTransactedA", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21502,8 +21790,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesTransactedW", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21568,8 +21857,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesTransactedA", "ptr", lpFileName, "int", fInfoLevelId, lpFileInformationMarshal, lpFileInformation, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21634,8 +21924,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesTransactedW", "ptr", lpFileName, "int", fInfoLevelId, lpFileInformationMarshal, lpFileInformation, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21675,8 +21966,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeTransactedA", "ptr", lpFileName, lpFileSizeHighMarshal, lpFileSizeHigh, "ptr", hTransaction, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21716,8 +22008,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeTransactedW", "ptr", lpFileName, lpFileSizeHighMarshal, lpFileSizeHigh, "ptr", hTransaction, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21749,8 +22042,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileTransactedA", "ptr", lpFileName, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21782,8 +22076,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileTransactedW", "ptr", lpFileName, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21816,8 +22111,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21850,8 +22146,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21924,10 +22221,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileTransactedA", "ptr", lpFileName, "int", fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -21998,10 +22298,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileTransactedW", "ptr", lpFileName, "int", fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -22046,8 +22349,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22094,8 +22398,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22249,8 +22554,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22404,8 +22710,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22534,8 +22841,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22664,8 +22972,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22775,8 +23084,9 @@ class FileSystem {
         pwszNewFileName := pwszNewFileName is String ? StrPtr(pwszNewFileName) : pwszNewFileName
 
         result := DllCall("KERNEL32.dll\CopyFile2", "ptr", pwszExistingFileName, "ptr", pwszNewFileName, "ptr", pExtendedParameters, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22816,8 +23126,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22857,8 +23168,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22917,8 +23229,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22977,8 +23290,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23058,8 +23372,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23139,8 +23454,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23199,8 +23515,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "uint", dwFlags, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23259,8 +23576,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "uint", dwFlags, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23383,8 +23701,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReplaceFileA", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23507,8 +23826,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReplaceFileW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23552,8 +23872,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23597,8 +23918,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23637,8 +23959,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkTransactedA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23677,8 +24000,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkTransactedW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23733,10 +24057,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstStreamTransactedW", "ptr", lpFileName, "int", InfoLevel, lpFindStreamDataMarshal, lpFindStreamData, "uint", dwFlags, "ptr", hTransaction, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -23773,10 +24100,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileNameTransactedW", "ptr", lpFileName, "uint", dwFlags, StringLengthMarshal, StringLength, "ptr", LinkName, "ptr", hTransaction, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        return resultHandle
     }
 
     /**
@@ -23802,8 +24132,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeLabelA", "ptr", lpRootPathName, "ptr", lpVolumeName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23831,8 +24162,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeLabelW", "ptr", lpRootPathName, "ptr", lpVolumeName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23882,8 +24214,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileBandwidthReservation", "ptr", hFile, "uint", nPeriodMilliseconds, "uint", nBytesPerPeriod, "int", bDiscardable, lpTransferSizeMarshal, lpTransferSize, lpNumOutstandingRequestsMarshal, lpNumOutstandingRequests, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23925,8 +24258,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileBandwidthReservation", "ptr", hFile, lpPeriodMillisecondsMarshal, lpPeriodMilliseconds, lpBytesPerPeriodMarshal, lpBytesPerPeriod, pDiscardableMarshal, pDiscardable, lpTransferSizeMarshal, lpTransferSize, lpNumOutstandingRequestsMarshal, lpNumOutstandingRequests, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23976,8 +24310,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", "ptr", hDirectory, "ptr", lpBuffer, "uint", nBufferLength, "int", bWatchSubtree, "uint", dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24032,8 +24367,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", "ptr", hDirectory, "ptr", lpBuffer, "uint", nBufferLength, "int", bWatchSubtree, "uint", dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int", ReadDirectoryNotifyInformationClass, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24060,10 +24396,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeA", "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeClose})
+        return resultHandle
     }
 
     /**
@@ -24090,8 +24429,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeA", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24119,10 +24459,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointA", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeMountPointClose})
+        return resultHandle
     }
 
     /**
@@ -24148,10 +24491,13 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointW", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeMountPointClose})
+        return resultHandle
     }
 
     /**
@@ -24178,8 +24524,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeMountPointA", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24208,8 +24555,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeMountPointW", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24231,8 +24579,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindVolumeMountPointClose", "ptr", hFindVolumeMountPoint, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24261,8 +24610,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24291,8 +24641,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24314,8 +24665,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteVolumeMountPointA", "ptr", lpszVolumeMountPoint, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24339,8 +24691,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24372,8 +24725,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNameA", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24409,8 +24763,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameA", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, lpcchReturnLengthMarshal, lpcchReturnLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24442,8 +24797,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileInformationByHandleEx", "ptr", hFile, "int", FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24673,10 +25029,12 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenFileById", "ptr", hVolumeHint, "ptr", lpFileId, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlagsAndAttributes, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -24757,8 +25115,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24841,8 +25200,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24901,8 +25261,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24961,8 +25322,9 @@ class FileSystem {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -987,8 +987,9 @@ class Performance {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryPerformanceCounter", lpPerformanceCountMarshal, lpPerformanceCount, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1008,8 +1009,9 @@ class Performance {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryPerformanceFrequency", lpFrequencyMarshal, lpFrequency, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1315,8 +1317,9 @@ class Performance {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\PerfCreateInstance", "ptr", ProviderHandle, "ptr", CounterSetGuid, "ptr", Name, "uint", Id, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1365,8 +1368,9 @@ class Performance {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\PerfQueryInstance", "ptr", ProviderHandle, "ptr", CounterSetGuid, "ptr", Name, "uint", Id, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

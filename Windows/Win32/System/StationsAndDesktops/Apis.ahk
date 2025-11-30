@@ -60,10 +60,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDesktopA", "ptr", lpszDesktop, "ptr", lpszDevice, "ptr", pDevmode, "uint", dwFlags, "uint", dwDesiredAccess, "ptr", lpsa, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -113,10 +115,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDesktopW", "ptr", lpszDesktop, "ptr", lpszDevice, "ptr", pDevmode, "uint", dwFlags, "uint", dwDesiredAccess, "ptr", lpsa, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -173,10 +177,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDesktopExA", "ptr", lpszDesktop, "ptr", lpszDevice, "ptr", pDevmode, "uint", dwFlags, "uint", dwDesiredAccess, "ptr", lpsa, "uint", ulHeapSize, "ptr", pvoid, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -233,10 +239,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDesktopExW", "ptr", lpszDesktop, "ptr", lpszDevice, "ptr", pDevmode, "uint", dwFlags, "uint", dwDesiredAccess, "ptr", lpsa, "uint", ulHeapSize, "ptr", pvoid, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -280,10 +288,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenDesktopA", "ptr", lpszDesktop, "uint", dwFlags, "int", fInherit, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -327,10 +337,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenDesktopW", "ptr", lpszDesktop, "uint", dwFlags, "int", fInherit, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -369,10 +381,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenInputDesktop", "uint", dwFlags, "int", fInherit, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -402,8 +416,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnumDesktopsA", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -435,8 +450,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnumDesktopsW", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -470,8 +486,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", lParam, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -502,8 +519,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SwitchDesktop", "ptr", hDesktop, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -529,8 +547,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetThreadDesktop", "ptr", hDesktop, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -554,8 +573,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseDesktop", "ptr", hDesktop, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -577,10 +597,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetThreadDesktop", "uint", dwThreadId, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDESK({Value: result}, True)
+        resultHandle := HDESK({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -608,10 +630,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateWindowStationA", "ptr", lpwinsta, "uint", dwFlags, "uint", dwDesiredAccess, "ptr", lpsa, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -639,10 +663,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateWindowStationW", "ptr", lpwinsta, "uint", dwFlags, "uint", dwDesiredAccess, "ptr", lpsa, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -666,10 +692,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenWindowStationA", "ptr", lpszWinSta, "int", fInherit, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -693,10 +721,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenWindowStationW", "ptr", lpszWinSta, "int", fInherit, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -717,8 +747,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", lParam, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -741,8 +772,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", lParam, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -767,8 +799,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseWindowStation", "ptr", hWinSta, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -794,8 +827,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", hWinSta, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -813,10 +847,12 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetProcessWindowStation", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HWINSTA({Value: result}, True)
+        resultHandle := HWINSTA({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -845,8 +881,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -877,8 +914,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -940,8 +978,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1003,8 +1042,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1050,8 +1090,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1097,8 +1138,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1178,8 +1220,9 @@ class StationsAndDesktops {
         A_LastError := 0
 
         result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

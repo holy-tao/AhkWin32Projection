@@ -2448,8 +2448,9 @@ class Direct3D12 {
      */
     static D3D12SerializeRootSignature(pRootSignature, Version, ppBlob, ppErrorBlob) {
         result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2472,8 +2473,9 @@ class Direct3D12 {
      */
     static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
         result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppRootSignatureDeserializer
     }
@@ -2496,8 +2498,9 @@ class Direct3D12 {
      */
     static D3D12SerializeVersionedRootSignature(pRootSignature, ppBlob, ppErrorBlob) {
         result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", "ptr", pRootSignature, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2520,8 +2523,9 @@ class Direct3D12 {
      */
     static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
         result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppRootSignatureDeserializer
     }
@@ -2553,8 +2557,9 @@ class Direct3D12 {
      */
     static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid) {
         result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr*", &ppDevice := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppDevice
     }
@@ -2576,8 +2581,9 @@ class Direct3D12 {
      */
     static D3D12GetDebugInterface(riid) {
         result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr*", &ppvDebug := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvDebug
     }
@@ -2612,8 +2618,9 @@ class Direct3D12 {
         pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
 
         result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, "ptr", pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2627,8 +2634,9 @@ class Direct3D12 {
      */
     static D3D12GetInterface(rclsid, riid) {
         result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr*", &ppvDebug := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvDebug
     }

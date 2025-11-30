@@ -81,8 +81,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetRawInputDeviceInfoA", "ptr", hDevice, "uint", uiCommand, "ptr", pData, pcbSizeMarshal, pcbSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -119,8 +120,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetRawInputDeviceInfoW", "ptr", hDevice, "uint", uiCommand, "ptr", pData, pcbSizeMarshal, pcbSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -150,8 +152,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetRawInputBuffer", "ptr", pData, pcbSizeMarshal, pcbSize, "uint", cbSizeHeader, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -177,8 +180,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterRawInputDevices", "ptr", pRawInputDevices, "uint", uiNumDevices, "uint", cbSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -208,8 +212,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetRegisteredRawInputDevices", "ptr", pRawInputDevices, puiNumDevicesMarshal, puiNumDevices, "uint", cbSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -241,8 +246,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetRawInputDeviceList", "ptr", pRawInputDeviceList, puiNumDevicesMarshal, puiNumDevices, "uint", cbSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -285,8 +291,9 @@ class Input {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetCurrentInputMessageSource", "ptr", inputMessageSource, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

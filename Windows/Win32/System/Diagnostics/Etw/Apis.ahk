@@ -5345,11 +5345,7 @@ class Etw {
 
     /**
      * The GetTraceLoggerHandle function retrieves the handle of the event tracing session. Providers can only call this function from their ControlCallback function.
-     * @param {Pointer<Void>} Buffer Pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/ETW/wnode-header">WNODE_HEADER</a> structure. ETW passes this structure to the provider's 
-     * <a href="https://docs.microsoft.com/windows/desktop/ETW/controlcallback">ControlCallback</a> function in the <i>Buffer</i> parameter.
-     * 
-     * The <b>HistoricalContext</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/wnode-header">WNODE_HEADER</a> contains the session's handle.
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {Integer} If the function succeeds, it returns the event tracing session handle.
      * 						
      * 
@@ -5358,14 +5354,15 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//evntrace/nf-evntrace-gettraceloggerhandle
      * @since windows5.0
      */
-    static GetTraceLoggerHandle(Buffer) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static GetTraceLoggerHandle(Buffer_R) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", BufferMarshal, Buffer, "uint")
-        if(A_LastError)
-            throw OSError()
+        result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", Buffer_RMarshal, Buffer_R, "uint")
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5392,8 +5389,9 @@ class Etw {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetTraceEnableLevel", "uint", TraceHandle, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5420,8 +5418,9 @@ class Etw {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetTraceEnableFlags", "uint", TraceHandle, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5520,10 +5519,12 @@ class Etw {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenTraceW", "ptr", Logfile, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5729,7 +5730,8 @@ class Etw {
         BufferCompletionContextMarshal := BufferCompletionContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5744,7 +5746,8 @@ class Etw {
         LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLogger", "ptr", LoggerName, "ptr", Options, "ptr", LogFileHeader, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5762,7 +5765,8 @@ class Etw {
         MemoryPartitionHandle := MemoryPartitionHandle is Win32Handle ? NumGet(MemoryPartitionHandle, "ptr") : MemoryPartitionHandle
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, "ptr", Options, "ptr", AllocationSize, "ptr", MemoryPartitionHandle, "ptr", LogFileHeader, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -5777,46 +5781,47 @@ class Etw {
         LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
         result := DllCall("ADVAPI32.dll\OpenTraceFromFile", "ptr", LogFileName, "ptr", Options, "ptr", LogFileHeader, "ptr")
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * 
      * @param {PROCESSTRACE_HANDLE} TraceHandle 
-     * @param {Pointer<ETW_BUFFER_HEADER>} Buffer 
+     * @param {Pointer<ETW_BUFFER_HEADER>} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferincrementreference
      */
-    static ProcessTraceBufferIncrementReference(TraceHandle, Buffer) {
+    static ProcessTraceBufferIncrementReference(TraceHandle, Buffer_R) {
         TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
 
-        result := DllCall("ADVAPI32.dll\ProcessTraceBufferIncrementReference", "ptr", TraceHandle, "ptr", Buffer, "uint")
+        result := DllCall("ADVAPI32.dll\ProcessTraceBufferIncrementReference", "ptr", TraceHandle, "ptr", Buffer_R, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<ETW_BUFFER_HEADER>} Buffer 
+     * @param {Pointer<ETW_BUFFER_HEADER>} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferdecrementreference
      */
-    static ProcessTraceBufferDecrementReference(Buffer) {
-        result := DllCall("ADVAPI32.dll\ProcessTraceBufferDecrementReference", "ptr", Buffer, "uint")
+    static ProcessTraceBufferDecrementReference(Buffer_R) {
+        result := DllCall("ADVAPI32.dll\ProcessTraceBufferDecrementReference", "ptr", Buffer_R, "uint")
         return result
     }
 
     /**
      * 
      * @param {PROCESSTRACE_HANDLE} TraceHandle 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtraceaddbuffertobufferstream
      */
-    static ProcessTraceAddBufferToBufferStream(TraceHandle, Buffer, BufferSize) {
+    static ProcessTraceAddBufferToBufferStream(TraceHandle, Buffer_R, BufferSize) {
         TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
 
-        result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", "ptr", TraceHandle, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", "ptr", TraceHandle, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
@@ -5942,10 +5947,12 @@ class Etw {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenTraceA", "ptr", Logfile, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return PROCESSTRACE_HANDLE({Value: result}, True)
+        resultHandle := PROCESSTRACE_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -6851,7 +6858,7 @@ class Etw {
     /**
      * Retrieves the permissions for the specified controller or provider.
      * @param {Pointer<Guid>} Guid GUID that uniquely identifies the provider or session.
-     * @param {Pointer} Buffer Application-allocated buffer that will contain the security descriptor of the controller or provider.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize Size of the security descriptor buffer, in bytes. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_MORE_DATA and this parameter receives the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful.
      * 
@@ -6877,10 +6884,10 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//evntcons/nf-evntcons-eventaccessquery
      * @since windows6.0.6000
      */
-    static EventAccessQuery(Guid, Buffer, BufferSize) {
+    static EventAccessQuery(Guid, Buffer_R, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\EventAccessQuery", "ptr", Guid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("ADVAPI32.dll\EventAccessQuery", "ptr", Guid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7125,7 +7132,7 @@ class Etw {
      * @param {Pointer<EVENT_RECORD>} Event The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">EVENT_RECORD</a> structure.
      * @param {Integer} TdhContextCount Number of elements in <i>pTdhContext</i>.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Array of context values for WPP or classic ETW events only; otherwise, <b>NULL</b>. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">TDH_CONTEXT</a> structure.  The array must not contain duplicate context types.
-     * @param {Pointer} Buffer User-allocated buffer to receive the event information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_event_info">TRACE_EVENT_INFO</a> structure.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7193,10 +7200,10 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhgeteventinformation
      * @since windows6.0.6000
      */
-    static TdhGetEventInformation(Event, TdhContextCount, TdhContext, Buffer, BufferSize) {
+    static TdhGetEventInformation(Event, TdhContextCount, TdhContext, Buffer_R, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhGetEventInformation", "ptr", Event, "uint", TdhContextCount, "ptr", TdhContext, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("TDH.dll\TdhGetEventInformation", "ptr", Event, "uint", TdhContextCount, "ptr", TdhContext, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7488,16 +7495,16 @@ class Etw {
     /**
      * 
      * @param {Integer} filter 
-     * @param {Pointer} buffer 
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferSize 
      * @param {Pointer<Integer>} bufferRequired 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhenumerateprovidersfordecodingsource
      */
-    static TdhEnumerateProvidersForDecodingSource(filter, buffer, bufferSize, bufferRequired) {
+    static TdhEnumerateProvidersForDecodingSource(filter, buffer_R, bufferSize, bufferRequired) {
         bufferRequiredMarshal := bufferRequired is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", buffer, "uint", bufferSize, bufferRequiredMarshal, bufferRequired, "uint")
+        result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", buffer_R, "uint", bufferSize, bufferRequiredMarshal, bufferRequired, "uint")
         return result
     }
 
@@ -7666,7 +7673,7 @@ class Etw {
      * @param {Integer} TdhContextCount Not used.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Not used.
      * @param {Pointer<Integer>} FilterCount The number of filter structures that the <i>pBuffer</i> buffer contains. Is zero if the <i>pBuffer</i> buffer is insufficient.
-     * @param {Pointer} Buffer User-allocated buffer to receive the filter information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_filter_info">PROVIDER_FILTER_INFO</a> structure.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7723,11 +7730,11 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhenumerateproviderfilters
      * @since windows6.1
      */
-    static TdhEnumerateProviderFilters(Guid, TdhContextCount, TdhContext, FilterCount, Buffer, BufferSize) {
+    static TdhEnumerateProviderFilters(Guid, TdhContextCount, TdhContext, FilterCount, Buffer_R, BufferSize) {
         FilterCountMarshal := FilterCount is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhEnumerateProviderFilters", "ptr", Guid, "uint", TdhContextCount, "ptr", TdhContext, FilterCountMarshal, FilterCount, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("tdh.dll\TdhEnumerateProviderFilters", "ptr", Guid, "uint", TdhContextCount, "ptr", TdhContext, FilterCountMarshal, FilterCount, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7874,7 +7881,7 @@ class Etw {
      * @param {Integer} UserDataLength The size, in bytes, of the <i>UserData</i> buffer. See Remarks.
      * @param {Pointer} UserData The buffer that contains the event data. See Remarks.
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the <i>Buffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
-     * @param {Pointer} Buffer A caller-allocated buffer that contains the formatted property value. To determine the required buffer size, set this parameterto <b>NULL</b> and <i>BufferSize</i> to zero.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} UserDataConsumed The length, in bytes, of the consumed event data. Use this value to adjust the values of the <i>UserData</i> and <i>UserDataLength</i> parameters. See Remarks.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7920,11 +7927,11 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhformatproperty
      * @since windows6.1
      */
-    static TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, PropertyOutType, PropertyLength, UserDataLength, UserData, BufferSize, Buffer, UserDataConsumed) {
+    static TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, PropertyOutType, PropertyLength, UserDataLength, UserData, BufferSize, Buffer_R, UserDataConsumed) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
         UserDataConsumedMarshal := UserDataConsumed is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", UserData, BufferSizeMarshal, BufferSize, "ptr", Buffer, UserDataConsumedMarshal, UserDataConsumed, "uint")
+        result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", UserData, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, UserDataConsumedMarshal, UserDataConsumed, "uint")
         return result
     }
 
@@ -8089,9 +8096,7 @@ class Etw {
      * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} Buffer Type: <b>PBYTE</b>
-     * 
-     * User-allocated buffer that receives the property data.
+     * @param {Pointer} Buffer_R 
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8138,13 +8143,13 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhgetwppproperty
      * @since windows8.0
      */
-    static TdhGetWppProperty(Handle, EventRecord, PropertyName, BufferSize, Buffer) {
+    static TdhGetWppProperty(Handle, EventRecord, PropertyName, BufferSize, Buffer_R) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
         PropertyName := PropertyName is String ? StrPtr(PropertyName) : PropertyName
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -8159,9 +8164,7 @@ class Etw {
      * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} Buffer Type: <b>PBYTE</b>
-     * 
-     * User-allocated buffer that receives the property data.
+     * @param {Pointer} Buffer_R 
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8208,12 +8211,12 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhgetwppmessage
      * @since windows8.0
      */
-    static TdhGetWppMessage(Handle, EventRecord, BufferSize, Buffer) {
+    static TdhGetWppMessage(Handle, EventRecord, BufferSize, Buffer_R) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", Handle, "ptr", EventRecord, BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", Handle, "ptr", EventRecord, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -8307,7 +8310,7 @@ class Etw {
     /**
      * Retrieves the list of events present in the provider manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose list of events you want to retrieve.
-     * @param {Pointer} Buffer A user-allocated buffer to receive the list of events. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_event_info">PROVIDER_EVENT_INFO</a>  structure.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>ProviderInfo</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8375,10 +8378,10 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhenumeratemanifestproviderevents
      * @since windows8.1
      */
-    static TdhEnumerateManifestProviderEvents(ProviderGuid, Buffer, BufferSize) {
+    static TdhEnumerateManifestProviderEvents(ProviderGuid, Buffer_R, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", "ptr", ProviderGuid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", "ptr", ProviderGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -8386,7 +8389,7 @@ class Etw {
      * Retrieves metadata about an event in a manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose event metadata you want to retrieve.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor A pointer to the event descriptor that contains information such as event id, version, op-code, and keyword. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a> structure
-     * @param {Pointer} Buffer A user-allocated buffer to receive the metadata about an event in  a provider manifest. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_event_info">TRACE_EVENT_INFO</a> structure.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>Buffer</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8454,10 +8457,10 @@ class Etw {
      * @see https://docs.microsoft.com/windows/win32/api//tdh/nf-tdh-tdhgetmanifesteventinformation
      * @since windows8.1
      */
-    static TdhGetManifestEventInformation(ProviderGuid, EventDescriptor, Buffer, BufferSize) {
+    static TdhGetManifestEventInformation(ProviderGuid, EventDescriptor, Buffer_R, BufferSize) {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TDH.dll\TdhGetManifestEventInformation", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("TDH.dll\TdhGetManifestEventInformation", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 

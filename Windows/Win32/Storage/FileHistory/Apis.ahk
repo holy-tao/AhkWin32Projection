@@ -235,8 +235,9 @@ class FileHistory {
     static FhServiceOpenPipe(StartServiceIfStopped) {
         Pipe := FH_SERVICE_PIPE_HANDLE()
         result := DllCall("fhsvcctl.dll\FhServiceOpenPipe", "int", StartServiceIfStopped, "ptr", Pipe, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return Pipe
     }
@@ -253,8 +254,9 @@ class FileHistory {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
         result := DllCall("fhsvcctl.dll\FhServiceClosePipe", "ptr", Pipe, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -274,8 +276,9 @@ class FileHistory {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
         result := DllCall("fhsvcctl.dll\FhServiceStartBackup", "ptr", Pipe, "int", LowPriorityIo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -295,8 +298,9 @@ class FileHistory {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
         result := DllCall("fhsvcctl.dll\FhServiceStopBackup", "ptr", Pipe, "int", StopTracking, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -313,8 +317,9 @@ class FileHistory {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
         result := DllCall("fhsvcctl.dll\FhServiceReloadConfiguration", "ptr", Pipe, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -331,8 +336,9 @@ class FileHistory {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
         result := DllCall("fhsvcctl.dll\FhServiceBlockBackup", "ptr", Pipe, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -349,8 +355,9 @@ class FileHistory {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
         result := DllCall("fhsvcctl.dll\FhServiceUnblockBackup", "ptr", Pipe, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

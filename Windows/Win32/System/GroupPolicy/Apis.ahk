@@ -532,8 +532,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RefreshPolicy", "int", bMachine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -553,8 +554,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RefreshPolicyEx", "int", bMachine, "uint", dwOptions, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -573,10 +575,12 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\EnterCriticalPolicySection", "int", bMachine, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -596,8 +600,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LeaveCriticalPolicySection", "ptr", hSection, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -620,8 +625,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RegisterGPNotification", "ptr", hEvent, "int", bMachine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -643,8 +649,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\UnregisterGPNotification", "ptr", hEvent, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -691,8 +698,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -739,8 +747,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -762,8 +771,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\FreeGPOListA", "ptr", pGPOList, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -785,8 +795,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\FreeGPOListW", "ptr", pGPOList, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -902,11 +913,9 @@ class GroupPolicy {
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "int")
-        if(A_LastError)
-            throw OSError()
-
-        if(result != 0)
-            throw OSError(result)
+        if(A_LastError || result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -930,8 +939,9 @@ class GroupPolicy {
         pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -949,8 +959,9 @@ class GroupPolicy {
      */
     static RsopSetPolicySettingStatus(dwFlags, pServices, pSettingInstance, nInfo, pStatus) {
         result := DllCall("USERENV.dll\RsopSetPolicySettingStatus", "uint", dwFlags, "ptr", pServices, "ptr", pSettingInstance, "uint", nInfo, "ptr", pStatus, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -966,8 +977,9 @@ class GroupPolicy {
      */
     static RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
         result := DllCall("USERENV.dll\RsopResetPolicySettingStatus", "uint", dwFlags, "ptr", pServices, "ptr", pSettingInstance, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1125,8 +1137,9 @@ class GroupPolicy {
         lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\CreateGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int", fHighPriority, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1144,8 +1157,9 @@ class GroupPolicy {
         lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\DeleteGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1161,8 +1175,9 @@ class GroupPolicy {
         lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\DeleteAllGPOLinks", "ptr", lpContainer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1178,8 +1193,9 @@ class GroupPolicy {
      */
     static BrowseForGPO(lpBrowseInfo) {
         result := DllCall("GPEDIT.dll\BrowseForGPO", "ptr", lpBrowseInfo, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1198,8 +1214,9 @@ class GroupPolicy {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GPEDIT.dll\ImportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1217,8 +1234,9 @@ class GroupPolicy {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GPEDIT.dll\ExportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

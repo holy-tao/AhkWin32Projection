@@ -3521,7 +3521,7 @@ class HttpServer {
      * @param {PWSTR} UrlPrefix Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that contains the name of the fragment to be retrieved. This must match a UrlPrefix string used in a previous successful call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a>.
      * @param {Pointer<HTTP_BYTE_RANGE>} ByteRange Optional pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_byte_range">HTTP_BYTE_RANGE</a> structure that indicates a starting offset in the specified fragment and byte-count to be returned. <b>NULL</b> if not used, in which case the entire fragment is returned.
-     * @param {Pointer} Buffer Pointer to a buffer into which the function copies the requested fragment.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength Size, in bytes, of the <i>pBuffer</i> buffer.
      * @param {Pointer<Integer>} BytesRead Optional pointer to a variable that receives the number of bytes to be written into the output buffer. If <i>BufferLength</i> is less than this number, the call fails with a return of ERROR_INSUFFICIENT_BUFFER, and the value pointed to by <i>pBytesRead</i> can be used to determine the minimum length of buffer required for the call to succeed. 
      * 
@@ -3587,13 +3587,13 @@ class HttpServer {
      * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpreadfragmentfromcache
      * @since windows6.0.6000
      */
-    static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer, BufferLength, BytesRead, Overlapped) {
+    static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer_R, BufferLength, BytesRead, Overlapped) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
         BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer_R, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped, "uint")
         return result
     }
 
@@ -4386,14 +4386,14 @@ class HttpServer {
      * 
      * @param {HTTPAPI_VERSION} Version 
      * @param {Integer} Extension 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    static HttpGetExtension(Version, Extension, Buffer, BufferSize) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static HttpGetExtension(Version, Extension, Buffer_R, BufferSize) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, BufferMarshal, Buffer, "uint", BufferSize, "uint")
+        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, Buffer_RMarshal, Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 

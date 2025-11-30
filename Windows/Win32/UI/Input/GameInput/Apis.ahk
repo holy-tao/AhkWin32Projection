@@ -53,8 +53,9 @@ class GameInput {
      */
     static GameInputCreate() {
         result := DllCall("GameInput.dll\GameInputCreate", "ptr*", &gameInput := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IGameInput(gameInput)
     }

@@ -5138,8 +5138,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfInformationA", InfSpecMarshal, InfSpec, "uint", SearchControl, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5172,8 +5173,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfInformationW", InfSpecMarshal, InfSpec, "uint", SearchControl, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5202,8 +5204,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryInfFileInformationA", "ptr", InfInformation, "uint", InfIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5232,8 +5235,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryInfFileInformationW", "ptr", InfInformation, "uint", InfIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5261,8 +5265,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryInfOriginalFileInformationA", "ptr", InfInformation, "uint", InfIndex, "ptr", AlternatePlatformInfo, "ptr", OriginalFileInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5290,8 +5295,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryInfOriginalFileInformationW", "ptr", InfInformation, "uint", InfIndex, "ptr", AlternatePlatformInfo, "ptr", OriginalFileInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5323,8 +5329,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryInfVersionInformationA", "ptr", InfInformation, "uint", InfIndex, "ptr", Key, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5356,8 +5363,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryInfVersionInformationW", "ptr", InfInformation, "uint", InfIndex, "ptr", Key, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5384,8 +5392,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfDriverStoreLocationA", "ptr", FileName, "ptr", AlternatePlatformInfo, "ptr", LocaleName, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5412,8 +5421,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfDriverStoreLocationW", "ptr", FileName, "ptr", AlternatePlatformInfo, "ptr", LocaleName, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5439,8 +5449,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfPublishedNameA", "ptr", DriverStoreLocation, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5466,8 +5477,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfPublishedNameW", "ptr", DriverStoreLocation, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5495,8 +5507,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfFileListA", "ptr", DirectoryPath, "uint", InfStyle, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5524,8 +5537,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetInfFileListW", "ptr", DirectoryPath, "uint", InfStyle, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5551,8 +5565,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenInfFileW", "ptr", FileName, "ptr", InfClass, "uint", InfStyle, ErrorLineMarshal, ErrorLine, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5578,8 +5593,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenInfFileA", "ptr", FileName, "ptr", InfClass, "uint", InfStyle, ErrorLineMarshal, ErrorLine, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5596,8 +5612,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenMasterInf", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5627,8 +5644,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenAppendInfFileW", "ptr", FileName, InfHandleMarshal, InfHandle, ErrorLineMarshal, ErrorLine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5658,8 +5676,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenAppendInfFileA", "ptr", FileName, InfHandleMarshal, InfHandle, ErrorLineMarshal, ErrorLine, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5697,8 +5716,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFindFirstLineA", InfHandleMarshal, InfHandle, "ptr", Section, "ptr", Key, "ptr", Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5723,8 +5743,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFindFirstLineW", InfHandleMarshal, InfHandle, "ptr", Section, "ptr", Key, "ptr", Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5743,8 +5764,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFindNextLine", "ptr", ContextIn, "ptr", ContextOut, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5768,8 +5790,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFindNextMatchLineA", "ptr", ContextIn, "ptr", Key, "ptr", ContextOut, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5793,8 +5816,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFindNextMatchLineW", "ptr", ContextIn, "ptr", Key, "ptr", ContextOut, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5820,8 +5844,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetLineByIndexA", InfHandleMarshal, InfHandle, "ptr", Section, "uint", Index, "ptr", Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5847,8 +5872,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetLineByIndexW", InfHandleMarshal, InfHandle, "ptr", Section, "uint", Index, "ptr", Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5873,8 +5899,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetLineCountA", InfHandleMarshal, InfHandle, "ptr", Section, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5899,8 +5926,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetLineCountW", InfHandleMarshal, InfHandle, "ptr", Section, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5932,8 +5960,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetLineTextA", "ptr", Context, InfHandleMarshal, InfHandle, "ptr", Section, "ptr", Key, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5965,8 +5994,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetLineTextW", "ptr", Context, InfHandleMarshal, InfHandle, "ptr", Section, "ptr", Key, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5983,8 +6013,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFieldCount", "ptr", Context, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6011,8 +6042,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetStringFieldA", "ptr", Context, "uint", FieldIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6039,8 +6071,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetStringFieldW", "ptr", Context, "uint", FieldIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6070,8 +6103,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetIntField", "ptr", Context, "uint", FieldIndex, IntegerValueMarshal, IntegerValue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6098,8 +6132,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetMultiSzFieldA", "ptr", Context, "uint", FieldIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6126,8 +6161,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetMultiSzFieldW", "ptr", Context, "uint", FieldIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6156,8 +6192,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetBinaryField", "ptr", Context, "uint", FieldIndex, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6187,8 +6224,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoA", "ptr", SourceFileName, ActualSourceFileNameMarshal, ActualSourceFileName, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6218,8 +6256,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoW", "ptr", SourceFileName, ActualSourceFileNameMarshal, ActualSourceFileName, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6254,8 +6293,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoExA", "ptr", SourceFileName, "ptr", ActualSourceFileNameBuffer, "uint", ActualSourceFileNameBufferLen, RequiredBufferLenMarshal, RequiredBufferLen, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6290,8 +6330,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoExW", "ptr", SourceFileName, "ptr", ActualSourceFileNameBuffer, "uint", ActualSourceFileNameBufferLen, RequiredBufferLenMarshal, RequiredBufferLen, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6320,8 +6361,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDecompressOrCopyFileA", "ptr", SourceFileName, "ptr", TargetFileName, CompressionTypeMarshal, CompressionType, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6350,8 +6392,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDecompressOrCopyFileW", "ptr", SourceFileName, "ptr", TargetFileName, CompressionTypeMarshal, CompressionType, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6383,8 +6426,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetSourceFileLocationA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", FileName, SourceIdMarshal, SourceId, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6416,8 +6460,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetSourceFileLocationW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", FileName, SourceIdMarshal, SourceId, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6447,8 +6492,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetSourceFileSizeA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", FileName, "ptr", Section, FileSizeMarshal, FileSize, "uint", RoundingFactor, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6478,8 +6524,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetSourceFileSizeW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", FileName, "ptr", Section, FileSizeMarshal, FileSize, "uint", RoundingFactor, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6510,8 +6557,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetTargetPathA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", Section, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6542,8 +6590,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetTargetPathW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", Section, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6566,8 +6615,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetSourceListA", "uint", Flags, SourceListMarshal, SourceList, "uint", SourceCount, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6590,8 +6640,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetSourceListW", "uint", Flags, SourceListMarshal, SourceList, "uint", SourceCount, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6607,8 +6658,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCancelTemporarySourceList", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6630,8 +6682,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddToSourceListA", "uint", Flags, "ptr", Source, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6653,8 +6706,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddToSourceListW", "uint", Flags, "ptr", Source, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6676,8 +6730,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveFromSourceListA", "uint", Flags, "ptr", Source, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6699,8 +6754,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveFromSourceListW", "uint", Flags, "ptr", Source, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6725,8 +6781,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQuerySourceListA", "uint", Flags, ListMarshal, List, CountMarshal, Count, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6751,8 +6808,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQuerySourceListW", "uint", Flags, ListMarshal, List, CountMarshal, Count, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6775,8 +6833,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFreeSourceListA", ListMarshal, List, "uint", Count, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6799,8 +6858,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupFreeSourceListW", ListMarshal, List, "uint", Count, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6846,8 +6906,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupPromptForDiskA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, "uint", DiskPromptStyle, "ptr", PathBuffer, "uint", PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6893,8 +6954,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupPromptForDiskW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, "uint", DiskPromptStyle, "ptr", PathBuffer, "uint", PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6952,8 +7014,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCopyErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", SourceFile, "ptr", TargetPathFile, "uint", Win32ErrorCode, "uint", Style, "ptr", PathBuffer, "uint", PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7011,8 +7074,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCopyErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", SourceFile, "ptr", TargetPathFile, "uint", Win32ErrorCode, "uint", Style, "ptr", PathBuffer, "uint", PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7041,8 +7105,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRenameErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7071,8 +7136,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRenameErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7099,8 +7165,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDeleteErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", File, "uint", Win32ErrorCode, "uint", Style, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7127,8 +7194,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDeleteErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", File, "uint", Win32ErrorCode, "uint", Style, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7157,8 +7225,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupBackupErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7187,8 +7256,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupBackupErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7213,8 +7283,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdA", InfHandleMarshal, InfHandle, "uint", Id, "ptr", Directory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7239,8 +7310,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdW", InfHandleMarshal, InfHandle, "uint", Id, "ptr", Directory, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7268,8 +7340,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdExA", InfHandleMarshal, InfHandle, "uint", Id, "ptr", Directory, "uint", Flags, "uint", Reserved1, "ptr", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7297,8 +7370,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdExW", InfHandleMarshal, InfHandle, "uint", Id, "ptr", Directory, "uint", Flags, "uint", Reserved1, "ptr", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7327,8 +7401,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetSourceInfoA", InfHandleMarshal, InfHandle, "uint", SourceId, "uint", InfoDesired, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7357,8 +7432,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetSourceInfoW", InfHandleMarshal, InfHandle, "uint", SourceId, "uint", InfoDesired, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7393,8 +7469,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7429,8 +7506,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7467,8 +7545,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, FileWasInUseMarshal, FileWasInUse, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7505,8 +7584,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, FileWasInUseMarshal, FileWasInUse, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7522,8 +7602,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenFileQueue", "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7562,8 +7643,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetFileQueueAlternatePlatformA", QueueHandleMarshal, QueueHandle, "ptr", AlternatePlatformInfo, "ptr", AlternateDefaultCatalogFile, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7588,8 +7670,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetFileQueueAlternatePlatformW", QueueHandleMarshal, QueueHandle, "ptr", AlternatePlatformInfo, "ptr", AlternateDefaultCatalogFile, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7614,8 +7697,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetPlatformPathOverrideA", "ptr", Override, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7640,8 +7724,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetPlatformPathOverrideW", "ptr", Override, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7679,8 +7764,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueCopyA", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, "ptr", SourcePath, "ptr", SourceFilename, "ptr", SourceDescription, "ptr", SourceTagfile, "ptr", TargetDirectory, "ptr", TargetFilename, "uint", CopyStyle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7718,8 +7804,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueCopyW", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, "ptr", SourcePath, "ptr", SourceFilename, "ptr", SourceDescription, "ptr", SourceTagfile, "ptr", TargetDirectory, "ptr", TargetFilename, "uint", CopyStyle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7739,8 +7826,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueCopyIndirectA", "ptr", CopyParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7760,8 +7848,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueCopyIndirectW", "ptr", CopyParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7793,8 +7882,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueDefaultCopyA", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, "ptr", SourceRootPath, "ptr", SourceFilename, "ptr", TargetFilename, "uint", CopyStyle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7826,8 +7916,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueDefaultCopyW", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, "ptr", SourceRootPath, "ptr", SourceFilename, "ptr", TargetFilename, "uint", CopyStyle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7859,8 +7950,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueCopySectionA", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", Section, "uint", CopyStyle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7892,8 +7984,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueCopySectionW", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", Section, "uint", CopyStyle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7920,8 +8013,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueDeleteA", QueueHandleMarshal, QueueHandle, "ptr", PathPart1, "ptr", PathPart2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7948,8 +8042,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueDeleteW", QueueHandleMarshal, QueueHandle, "ptr", PathPart1, "ptr", PathPart2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7978,8 +8073,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueDeleteSectionA", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", Section, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8008,8 +8104,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueDeleteSectionW", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", Section, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8040,8 +8137,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueRenameA", QueueHandleMarshal, QueueHandle, "ptr", SourcePath, "ptr", SourceFilename, "ptr", TargetPath, "ptr", TargetFilename, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8072,8 +8170,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueRenameW", QueueHandleMarshal, QueueHandle, "ptr", SourcePath, "ptr", SourceFilename, "ptr", TargetPath, "ptr", TargetFilename, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8102,8 +8201,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueRenameSectionA", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", Section, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8132,8 +8232,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueueRenameSectionW", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", Section, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8166,8 +8267,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", "ptr", Owner, QueueHandleMarshal, QueueHandle, "ptr", MsgHandler, ContextMarshal, Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8200,8 +8302,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", "ptr", Owner, QueueHandleMarshal, QueueHandle, "ptr", MsgHandler, ContextMarshal, Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8379,8 +8482,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, "uint", Flags, "ptr", Window, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8558,8 +8662,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, "uint", Flags, "ptr", Window, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8632,8 +8737,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFileQueueCount", FileQueueMarshal, FileQueue, "uint", SubQueueFileOp, NumOperationsMarshal, NumOperations, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8690,8 +8796,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupGetFileQueueFlags", FileQueueMarshal, FileQueue, FlagsMarshal, Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8768,8 +8875,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupSetFileQueueFlags", FileQueueMarshal, FileQueue, "uint", FlagMask, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8846,8 +8954,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCopyOEMInfA", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, "uint", OEMSourceMediaType, "uint", CopyStyle, "ptr", DestinationInfFileName, "uint", DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -8924,8 +9033,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCopyOEMInfW", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, "uint", OEMSourceMediaType, "uint", CopyStyle, "ptr", DestinationInfFileName, "uint", DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9037,8 +9147,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupUninstallNewlyCopiedInfs", FileQueueMarshal, FileQueue, "uint", Flags, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9059,8 +9170,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCreateDiskSpaceListA", "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9081,8 +9193,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupCreateDiskSpaceListW", "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9106,8 +9219,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDuplicateDiskSpaceListA", DiskSpaceMarshal, DiskSpace, "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9131,8 +9245,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDuplicateDiskSpaceListW", DiskSpaceMarshal, DiskSpace, "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9153,8 +9268,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDestroyDiskSpaceList", DiskSpaceMarshal, DiskSpace, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9185,8 +9301,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryDrivesInDiskSpaceListA", DiskSpaceMarshal, DiskSpace, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9217,8 +9334,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryDrivesInDiskSpaceListW", DiskSpaceMarshal, DiskSpace, "ptr", ReturnBuffer, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9305,8 +9423,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQuerySpaceRequiredOnDriveA", DiskSpaceMarshal, DiskSpace, "ptr", DriveSpec, SpaceRequiredMarshal, SpaceRequired, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9393,8 +9512,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQuerySpaceRequiredOnDriveW", DiskSpaceMarshal, DiskSpace, "ptr", DriveSpec, SpaceRequiredMarshal, SpaceRequired, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9421,8 +9541,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAdjustDiskSpaceListA", DiskSpaceMarshal, DiskSpace, "ptr", DriveRoot, "int64", Amount, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9449,8 +9570,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAdjustDiskSpaceListW", DiskSpaceMarshal, DiskSpace, "ptr", DriveRoot, "int64", Amount, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9479,8 +9601,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddToDiskSpaceListA", DiskSpaceMarshal, DiskSpace, "ptr", TargetFilespec, "int64", FileSize, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9509,8 +9632,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddToDiskSpaceListW", DiskSpaceMarshal, DiskSpace, "ptr", TargetFilespec, "int64", FileSize, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9541,8 +9665,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddSectionToDiskSpaceListA", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", SectionName, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9573,8 +9698,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddSectionToDiskSpaceListW", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", SectionName, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9604,8 +9730,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddInstallSectionToDiskSpaceListA", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, "ptr", SectionName, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9635,8 +9762,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupAddInstallSectionToDiskSpaceListW", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, "ptr", SectionName, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9666,8 +9794,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveFromDiskSpaceListA", DiskSpaceMarshal, DiskSpace, "ptr", TargetFilespec, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9697,8 +9826,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveFromDiskSpaceListW", DiskSpaceMarshal, DiskSpace, "ptr", TargetFilespec, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9729,8 +9859,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveSectionFromDiskSpaceListA", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", SectionName, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9761,8 +9892,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveSectionFromDiskSpaceListW", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", SectionName, "uint", Operation, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9792,8 +9924,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveInstallSectionFromDiskSpaceListA", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, "ptr", SectionName, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9823,8 +9956,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveInstallSectionFromDiskSpaceListW", DiskSpaceMarshal, DiskSpace, InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, "ptr", SectionName, "ptr", Reserved1, "uint", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9852,8 +9986,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupIterateCabinetA", "ptr", CabinetFile, "uint", Reserved, "ptr", MsgHandler, ContextMarshal, Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9881,8 +10016,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupIterateCabinetW", "ptr", CabinetFile, "uint", Reserved, "ptr", MsgHandler, ContextMarshal, Context, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9916,8 +10052,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupPromptReboot", FileQueueMarshal, FileQueue, "ptr", Owner, "int", ScanOnly, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9941,8 +10078,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallback", "ptr", OwnerWindow, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9979,8 +10117,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         DllCall("SETUPAPI.dll\SetupTermDefaultQueueCallback", ContextMarshal, Context)
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError)
+        }
 
     }
 
@@ -10248,8 +10387,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDefaultQueueCallbackA", ContextMarshal, Context, "uint", Notification, "ptr", Param1, "ptr", Param2, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10518,8 +10658,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDefaultQueueCallbackW", ContextMarshal, Context, "uint", Notification, "ptr", Param1, "ptr", Param2, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10593,8 +10734,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", "ptr", Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, "uint", Flags, "ptr", RelativeKeyRoot, "ptr", SourceRootPath, "uint", CopyFlags, "ptr", MsgHandler, ContextMarshal, Context, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10668,8 +10810,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", "ptr", Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, "uint", Flags, "ptr", RelativeKeyRoot, "ptr", SourceRootPath, "uint", CopyFlags, "ptr", MsgHandler, ContextMarshal, Context, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10706,8 +10849,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFilesFromInfSectionA", InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, FileQueueMarshal, FileQueue, "ptr", SectionName, "ptr", SourceRootPath, "uint", CopyFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10744,8 +10888,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallFilesFromInfSectionW", InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, FileQueueMarshal, FileQueue, "ptr", SectionName, "ptr", SourceRootPath, "uint", CopyFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10923,8 +11068,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionA", InfHandleMarshal, InfHandle, "ptr", SectionName, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11102,8 +11248,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionW", InfHandleMarshal, InfHandle, "ptr", SectionName, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11295,8 +11442,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionExA", InfHandleMarshal, InfHandle, "ptr", SectionName, "uint", Flags, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", Reserved1, "ptr", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11488,8 +11636,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionExW", InfHandleMarshal, InfHandle, "ptr", SectionName, "uint", Flags, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", Reserved1, "ptr", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11697,8 +11846,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInitializeFileLogA", "ptr", LogFileName, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11718,8 +11868,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupInitializeFileLogW", "ptr", LogFileName, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11741,8 +11892,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupTerminateFileLog", FileLogHandleMarshal, FileLogHandle, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11779,8 +11931,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupLogFileA", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", SourceFilename, "ptr", TargetFilename, "uint", Checksum, "ptr", DiskTagfile, "ptr", DiskDescription, "ptr", OtherInfo, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11817,8 +11970,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupLogFileW", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", SourceFilename, "ptr", TargetFilename, "uint", Checksum, "ptr", DiskTagfile, "ptr", DiskDescription, "ptr", OtherInfo, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11845,8 +11999,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveFileLogEntryA", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11873,8 +12028,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupRemoveFileLogEntryW", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -11968,8 +12124,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryFileLogA", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, "int", DesiredInfo, "ptr", DataOut, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12063,8 +12220,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupQueryFileLogW", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, "int", DesiredInfo, "ptr", DataOut, "uint", ReturnBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12080,8 +12238,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupOpenLog", "int", Erase, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12103,8 +12262,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupLogErrorA", "ptr", MessageString, "uint", Severity, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12126,8 +12286,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupLogErrorW", "ptr", MessageString, "uint", Severity, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12353,10 +12514,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoList", "ptr", ClassGuid, "ptr", hwndParent, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12377,10 +12540,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoListExA", "ptr", ClassGuid, "ptr", hwndParent, "ptr", MachineName, "ptr", Reserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12401,10 +12566,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoListExW", "ptr", ClassGuid, "ptr", hwndParent, "ptr", MachineName, "ptr", Reserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -12421,8 +12588,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInfoListClass", "ptr", DeviceInfoSet, "ptr", ClassGuid, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12441,8 +12609,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInfoListDetailA", "ptr", DeviceInfoSet, "ptr", DeviceInfoSetDetailData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12461,8 +12630,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInfoListDetailW", "ptr", DeviceInfoSet, "ptr", DeviceInfoSetDetailData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12489,8 +12659,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoA", "ptr", DeviceInfoSet, "ptr", DeviceName, "ptr", ClassGuid, "ptr", DeviceDescription, "ptr", hwndParent, "uint", CreationFlags, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12517,8 +12688,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoW", "ptr", DeviceInfoSet, "ptr", DeviceName, "ptr", ClassGuid, "ptr", DeviceDescription, "ptr", hwndParent, "uint", CreationFlags, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12542,8 +12714,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInfoA", "ptr", DeviceInfoSet, "ptr", DeviceInstanceId, "ptr", hwndParent, "uint", OpenFlags, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12567,8 +12740,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInfoW", "ptr", DeviceInfoSet, "ptr", DeviceInstanceId, "ptr", hwndParent, "uint", OpenFlags, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12593,8 +12767,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstanceIdA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DeviceInstanceId, "uint", DeviceInstanceIdSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12619,8 +12794,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstanceIdW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DeviceInstanceId, "uint", DeviceInstanceIdSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12639,8 +12815,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDeleteDeviceInfo", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12660,8 +12837,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiEnumDeviceInfo", "ptr", DeviceInfoSet, "uint", MemberIndex, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12679,8 +12857,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDestroyDeviceInfoList", "ptr", DeviceInfoSet, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12704,8 +12883,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiEnumDeviceInterfaces", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InterfaceClassGuid, "uint", MemberIndex, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12729,8 +12909,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InterfaceClassGuid, "ptr", ReferenceString, "uint", CreationFlags, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12754,8 +12935,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InterfaceClassGuid, "ptr", ReferenceString, "uint", CreationFlags, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12777,8 +12959,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceA", "ptr", DeviceInfoSet, "ptr", DevicePath, "uint", OpenFlags, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12800,8 +12983,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceW", "ptr", DeviceInfoSet, "ptr", DevicePath, "uint", OpenFlags, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12865,8 +13049,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceAlias", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "ptr", AliasInterfaceClassGuid, "ptr", AliasDeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12885,8 +13070,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDeleteDeviceInterfaceData", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12907,8 +13093,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiRemoveDeviceInterface", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12933,8 +13120,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceDetailA", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "ptr", DeviceInterfaceDetailData, "uint", DeviceInterfaceDetailDataSize, RequiredSizeMarshal, RequiredSize, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12961,8 +13149,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceDetailW", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "ptr", DeviceInterfaceDetailData, "uint", DeviceInterfaceDetailDataSize, RequiredSizeMarshal, RequiredSize, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12981,8 +13170,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallDeviceInterfaces", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13004,8 +13194,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInterfaceDefault", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Flags, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13047,8 +13238,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, "ptr", CompareProc, CompareContextMarshal, CompareContext, "ptr", DupDeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13070,8 +13262,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiBuildDriverInfoList", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", DriverType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13089,8 +13282,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCancelDriverInfoSearch", "ptr", DeviceInfoSet, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13112,8 +13306,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiEnumDriverInfoA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", DriverType, "uint", MemberIndex, "ptr", DriverInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13135,8 +13330,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiEnumDriverInfoW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", DriverType, "uint", MemberIndex, "ptr", DriverInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13156,8 +13352,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDriverA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13177,8 +13374,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDriverW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13198,8 +13396,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDriverA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13219,8 +13418,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDriverW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13245,8 +13445,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDriverInfoDetailA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "ptr", DriverInfoDetailData, "uint", DriverInfoDetailDataSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13271,8 +13472,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDriverInfoDetailW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "ptr", DriverInfoDetailData, "uint", DriverInfoDetailDataSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13292,8 +13494,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDestroyDriverInfoList", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", DriverType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13329,10 +13532,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsA", "ptr", ClassGuid, "ptr", Enumerator, "ptr", hwndParent, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13366,10 +13571,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsW", "ptr", ClassGuid, "ptr", Enumerator, "ptr", hwndParent, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13395,10 +13602,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsExA", "ptr", ClassGuid, "ptr", Enumerator, "ptr", hwndParent, "uint", Flags, "ptr", DeviceInfoSet, "ptr", MachineName, "ptr", Reserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13438,10 +13647,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsExW", "ptr", ClassGuid, "ptr", Enumerator, "ptr", hwndParent, "uint", Flags, "ptr", DeviceInfoSet, "ptr", MachineName, "ptr", Reserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HDEVINFO({Value: result}, True)
+        resultHandle := HDEVINFO({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -13464,8 +13675,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetINFClassA", "ptr", InfName, "ptr", ClassGuid, "ptr", ClassName, "uint", ClassNameSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13490,8 +13702,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetINFClassW", "ptr", InfName, "ptr", ClassGuid, "ptr", ClassName, "uint", ClassNameSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13514,8 +13727,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoList", "uint", Flags, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13541,8 +13755,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoListExA", "uint", Flags, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13568,8 +13783,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoListExW", "uint", Flags, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13592,8 +13808,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionA", "ptr", ClassGuid, "ptr", ClassDescription, "uint", ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13616,8 +13833,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionW", "ptr", ClassGuid, "ptr", ClassDescription, "uint", ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13644,8 +13862,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionExA", "ptr", ClassGuid, "ptr", ClassDescription, "uint", ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13672,8 +13891,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionExW", "ptr", ClassGuid, "ptr", ClassDescription, "uint", ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13699,8 +13919,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCallClassInstaller", "uint", InstallFunction, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13719,8 +13940,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSelectDevice", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13739,8 +13961,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSelectBestCompatDrv", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13759,8 +13982,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallDevice", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13779,8 +14003,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallDriverFiles", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13799,8 +14024,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiRegisterCoDeviceInstallers", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13834,8 +14060,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiUnremoveDevice", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13853,8 +14080,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiRestartDevices", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13873,8 +14101,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiChangeState", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13898,8 +14127,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallClassA", "ptr", hwndParent, "ptr", InfFileName, "uint", Flags, FileQueueMarshal, FileQueue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13923,8 +14153,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallClassW", "ptr", hwndParent, "ptr", InfFileName, "uint", Flags, FileQueueMarshal, FileQueue, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13951,8 +14182,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallClassExA", "ptr", hwndParent, "ptr", InfFileName, "uint", Flags, FileQueueMarshal, FileQueue, "ptr", InterfaceClassGuid, "ptr", Reserved1, "ptr", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13979,8 +14211,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiInstallClassExW", "ptr", hwndParent, "ptr", InfFileName, "uint", Flags, FileQueueMarshal, FileQueue, "ptr", InterfaceClassGuid, "ptr", Reserved1, "ptr", Reserved2, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -13999,10 +14232,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKey", "ptr", ClassGuid, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14023,10 +14258,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExA", "ptr", ClassGuid, "uint", samDesired, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14047,10 +14284,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExW", "ptr", ClassGuid, "uint", samDesired, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14075,10 +14314,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyA", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14103,10 +14344,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyW", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14126,10 +14369,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14148,8 +14393,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDeleteDeviceInterfaceRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14176,10 +14422,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14204,10 +14452,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14245,10 +14495,12 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiOpenDevRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14268,8 +14520,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDeleteDevRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14292,8 +14545,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileList", HwProfileListMarshal, HwProfileList, "uint", HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14321,8 +14575,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileListExA", HwProfileListMarshal, HwProfileList, "uint", HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14350,8 +14605,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileListExW", HwProfileListMarshal, HwProfileList, "uint", HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14474,8 +14730,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDevicePropertyKeys", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", PropertyKeyArray, "uint", PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14633,8 +14890,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDevicePropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", PropertyKey, PropertyTypeMarshal, PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14789,8 +15047,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDevicePropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", PropertyKey, "uint", PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14912,8 +15171,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfacePropertyKeys", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "ptr", PropertyKeyArray, "uint", PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15072,8 +15332,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfacePropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "ptr", PropertyKey, PropertyTypeMarshal, PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15228,8 +15489,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInterfacePropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "ptr", PropertyKey, "uint", PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15371,8 +15633,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyKeys", "ptr", ClassGuid, "ptr", PropertyKeyArray, "uint", PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15530,8 +15793,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyKeysExW", "ptr", ClassGuid, "ptr", PropertyKeyArray, "uint", PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15698,8 +15962,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyW", "ptr", ClassGuid, "ptr", PropertyKey, PropertyTypeMarshal, PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -15882,8 +16147,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyExW", "ptr", ClassGuid, "ptr", PropertyKey, PropertyTypeMarshal, PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16035,8 +16301,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetClassPropertyW", "ptr", ClassGuid, "ptr", PropertyKey, "uint", PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "uint", Flags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16204,8 +16471,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetClassPropertyExW", "ptr", ClassGuid, "ptr", PropertyKey, "uint", PropertyType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16232,8 +16500,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceRegistryPropertyA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Property, PropertyRegDataTypeMarshal, PropertyRegDataType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16260,8 +16529,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceRegistryPropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Property, PropertyRegDataTypeMarshal, PropertyRegDataType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16290,8 +16560,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassRegistryPropertyA", "ptr", ClassGuid, "uint", Property, PropertyRegDataTypeMarshal, PropertyRegDataType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16320,8 +16591,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassRegistryPropertyW", "ptr", ClassGuid, "uint", Property, PropertyRegDataTypeMarshal, PropertyRegDataType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16343,8 +16615,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDeviceRegistryPropertyA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Property, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16366,8 +16639,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDeviceRegistryPropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Property, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16391,8 +16665,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetClassRegistryPropertyA", "ptr", ClassGuid, "uint", Property, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16416,8 +16691,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetClassRegistryPropertyW", "ptr", ClassGuid, "uint", Property, "ptr", PropertyBuffer, "uint", PropertyBufferSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16437,8 +16713,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstallParamsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DeviceInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16458,8 +16735,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstallParamsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DeviceInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16483,8 +16761,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassInstallParamsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", ClassInstallParams, "uint", ClassInstallParamsSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16508,8 +16787,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassInstallParamsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", ClassInstallParams, "uint", ClassInstallParamsSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16529,8 +16809,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInstallParamsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DeviceInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16550,8 +16831,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInstallParamsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DeviceInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16572,8 +16854,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetClassInstallParamsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", ClassInstallParams, "uint", ClassInstallParamsSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16596,8 +16879,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetClassInstallParamsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", ClassInstallParams, "uint", ClassInstallParamsSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16618,8 +16902,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDriverInstallParamsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "ptr", DriverInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16640,8 +16925,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetDriverInstallParamsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "ptr", DriverInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16662,8 +16948,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDriverInstallParamsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "ptr", DriverInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16684,8 +16971,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetDriverInstallParamsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "ptr", DriverInstallParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16705,8 +16993,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiLoadClassIcon", "ptr", ClassGuid, "ptr", LargeIcon, MiniIconIndexMarshal, MiniIconIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16729,8 +17018,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiLoadDeviceIcon", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", cxIcon, "uint", cyIcon, "uint", Flags, "ptr", hIcon, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16903,8 +17193,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassBitmapIndex", "ptr", ClassGuid, MiniIconIndexMarshal, MiniIconIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16920,8 +17211,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassImageList", "ptr", ClassImageListData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16942,8 +17234,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassImageListExA", "ptr", ClassImageListData, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16964,8 +17257,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassImageListExW", "ptr", ClassImageListData, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16985,8 +17279,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassImageIndex", "ptr", ClassImageListData, "ptr", ClassGuid, ImageIndexMarshal, ImageIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17002,8 +17297,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiDestroyClassImageList", "ptr", ClassImageListData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17028,8 +17324,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDevPropertySheetsA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", PropertySheetHeader, "uint", PropertySheetHeaderPageListSize, RequiredSizeMarshal, RequiredSize, "uint", PropertySheetType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17054,8 +17351,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetClassDevPropertySheetsW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", PropertySheetHeader, "uint", PropertySheetHeaderPageListSize, RequiredSizeMarshal, RequiredSize, "uint", PropertySheetType, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17074,8 +17372,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiAskForOEMDisk", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17096,8 +17395,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSelectOEMDrv", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17120,8 +17420,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidA", "ptr", ClassGuid, "ptr", ClassName, "uint", ClassNameSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17144,8 +17445,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidW", "ptr", ClassGuid, "ptr", ClassName, "uint", ClassNameSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17172,8 +17474,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidExA", "ptr", ClassGuid, "ptr", ClassName, "uint", ClassNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17200,8 +17503,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidExW", "ptr", ClassGuid, "ptr", ClassName, "uint", ClassNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17224,8 +17528,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameA", "ptr", ClassName, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17248,8 +17553,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameW", "ptr", ClassName, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17276,8 +17582,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameExA", "ptr", ClassName, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17304,8 +17611,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameExW", "ptr", ClassName, "ptr", ClassGuidList, "uint", ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17328,8 +17636,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameA", "uint", HwProfile, "ptr", FriendlyName, "uint", FriendlyNameSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17352,8 +17661,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameW", "uint", HwProfile, "ptr", FriendlyName, "uint", FriendlyNameSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17380,8 +17690,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameExA", "uint", HwProfile, "ptr", FriendlyName, "uint", FriendlyNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17408,8 +17719,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameExW", "uint", HwProfile, "ptr", FriendlyName, "uint", FriendlyNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17427,7 +17739,8 @@ class DeviceAndDriverInstallation {
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
         result := DllCall("SETUPAPI.dll\SetupDiGetWizardPage", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InstallWizardData, "uint", PageType, "uint", Flags, "ptr")
-        return HPROPSHEETPAGE({Value: result}, True)
+        resultHandle := HPROPSHEETPAGE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -17444,8 +17757,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDevice", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17464,8 +17778,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDevice", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17490,8 +17805,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetActualModelsSectionA", "ptr", Context, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17516,8 +17832,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetActualModelsSectionW", "ptr", Context, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17545,8 +17862,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17574,8 +17892,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17606,8 +17925,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17638,8 +17958,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "ptr", Reserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17648,7 +17969,7 @@ class DeviceAndDriverInstallation {
      * The SetupEnumInfSections function retrieves section names from an INF file.
      * @param {Pointer<Void>} InfHandle Handle to the INF file that is to be queried.
      * @param {Integer} Index The zero-based index of the section name to retrieve. This index may not correspond to the order of sections as they appear in the INF file.
-     * @param {PSTR} Buffer Pointer to a buffer that receives the section name. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the name. Using this technique, you can avoid errors caused by an insufficient buffer size. This parameter is optional. For more information, see the Remarks section.
+     * @param {PSTR} Buffer_R 
      * @param {Integer} Size Size of the buffer pointed to by <i>ReturnBuffer</i> in characters. This number includes the terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} SizeNeeded Pointer to a location that receives the required size of the buffer pointed to by <i>ReturnBuffer</i>. The size is specified as the number of characters required to store the section name, including the terminating <b>NULL</b> character.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -17661,17 +17982,18 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//setupapi/nf-setupapi-setupenuminfsectionsa
      * @since windows5.1.2600
      */
-    static SetupEnumInfSectionsA(InfHandle, Index, Buffer, Size, SizeNeeded) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static SetupEnumInfSectionsA(InfHandle, Index, Buffer_R, Size, SizeNeeded) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         SizeNeededMarshal := SizeNeeded is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsA", InfHandleMarshal, InfHandle, "uint", Index, "ptr", Buffer, "uint", Size, SizeNeededMarshal, SizeNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsA", InfHandleMarshal, InfHandle, "uint", Index, "ptr", Buffer_R, "uint", Size, SizeNeededMarshal, SizeNeeded, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17680,7 +18002,7 @@ class DeviceAndDriverInstallation {
      * The SetupEnumInfSections function retrieves section names from an INF file.
      * @param {Pointer<Void>} InfHandle Handle to the INF file that is to be queried.
      * @param {Integer} Index The zero-based index of the section name to retrieve. This index may not correspond to the order of sections as they appear in the INF file.
-     * @param {PWSTR} Buffer Pointer to a buffer that receives the section name. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the name. Using this technique, you can avoid errors caused by an insufficient buffer size. This parameter is optional. For more information, see the Remarks section.
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} Size Size of the buffer pointed to by <i>ReturnBuffer</i> in characters. This number includes the terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} SizeNeeded Pointer to a location that receives the required size of the buffer pointed to by <i>ReturnBuffer</i>. The size is specified as the number of characters required to store the section name, including the terminating <b>NULL</b> character.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -17693,17 +18015,18 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//setupapi/nf-setupapi-setupenuminfsectionsw
      * @since windows5.1.2600
      */
-    static SetupEnumInfSectionsW(InfHandle, Index, Buffer, Size, SizeNeeded) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static SetupEnumInfSectionsW(InfHandle, Index, Buffer_R, Size, SizeNeeded) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         SizeNeededMarshal := SizeNeeded is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsW", InfHandleMarshal, InfHandle, "uint", Index, "ptr", Buffer, "uint", Size, SizeNeededMarshal, SizeNeeded, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsW", InfHandleMarshal, InfHandle, "uint", Index, "ptr", Buffer_R, "uint", Size, SizeNeededMarshal, SizeNeeded, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17766,8 +18089,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetCustomDevicePropertyA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", CustomPropertyName, "uint", Flags, PropertyRegDataTypeMarshal, PropertyRegDataType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -17796,8 +18120,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("SETUPAPI.dll\SetupDiGetCustomDevicePropertyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", CustomPropertyName, "uint", Flags, PropertyRegDataTypeMarshal, PropertyRegDataType, "ptr", PropertyBuffer, "uint", PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -19029,44 +19354,44 @@ class DeviceAndDriverInstallation {
     /**
      * The CM_Enumerate_Enumerators function enumerates the local machine's device enumerators by supplying each enumerator's name.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PSTR} Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <i>puLength</i>).
+     * @param {PSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_enumerate_enumeratorsa
      */
-    static CM_Enumerate_EnumeratorsA(ulEnumIndex, Buffer, pulLength, ulFlags) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Enumerate_EnumeratorsA(ulEnumIndex, Buffer_R, pulLength, ulFlags) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Enumerate_EnumeratorsA", "uint", ulEnumIndex, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Enumerate_EnumeratorsA", "uint", ulEnumIndex, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Enumerate_Enumerators function enumerates the local machine's device enumerators by supplying each enumerator's name.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PWSTR} Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <i>puLength</i>).
+     * @param {PWSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_enumerate_enumeratorsw
      * @since windows5.0
      */
-    static CM_Enumerate_EnumeratorsW(ulEnumIndex, Buffer, pulLength, ulFlags) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Enumerate_EnumeratorsW(ulEnumIndex, Buffer_R, pulLength, ulFlags) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Enumerate_EnumeratorsW", "uint", ulEnumIndex, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Enumerate_EnumeratorsW", "uint", ulEnumIndex, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Enumerate_Enumerators_Ex function enumerates a local or a remote machine's device enumerators, by supplying each enumerator's name.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PSTR} Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <b>puLength</b>).
+     * @param {PSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinea">CM_Connect_Machine</a>.
@@ -19076,19 +19401,19 @@ class DeviceAndDriverInstallation {
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_enumerate_enumerators_exa
      */
-    static CM_Enumerate_Enumerators_ExA(ulEnumIndex, Buffer, pulLength, ulFlags, hMachine) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Enumerate_Enumerators_ExA(ulEnumIndex, Buffer_R, pulLength, ulFlags, hMachine) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExA", "uint", ulEnumIndex, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExA", "uint", ulEnumIndex, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
     /**
      * The CM_Enumerate_Enumerators_Ex function enumerates a local or a remote machine's device enumerators, by supplying each enumerator's name.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PWSTR} Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <b>puLength</b>).
+     * @param {PWSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
@@ -19099,12 +19424,12 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_enumerate_enumerators_exw
      * @since windows5.0
      */
-    static CM_Enumerate_Enumerators_ExW(ulEnumIndex, Buffer, pulLength, ulFlags, hMachine) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Enumerate_Enumerators_ExW(ulEnumIndex, Buffer_R, pulLength, ulFlags, hMachine) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExW", "uint", ulEnumIndex, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExW", "uint", ulEnumIndex, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -19437,74 +19762,74 @@ class DeviceAndDriverInstallation {
     /**
      * 
      * @param {Pointer<Guid>} ClassGuid 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_namea
      */
-    static CM_Get_Class_NameA(ClassGuid, Buffer, pulLength, ulFlags) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Class_NameA(ClassGuid, Buffer_R, pulLength, ulFlags) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Class_NameA", "ptr", ClassGuid, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Class_NameA", "ptr", ClassGuid, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} ClassGuid 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_namew
      */
-    static CM_Get_Class_NameW(ClassGuid, Buffer, pulLength, ulFlags) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Class_NameW(ClassGuid, Buffer_R, pulLength, ulFlags) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Class_NameW", "ptr", ClassGuid, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Class_NameW", "ptr", ClassGuid, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} ClassGuid 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_name_exa
      */
-    static CM_Get_Class_Name_ExA(ClassGuid, Buffer, pulLength, ulFlags, hMachine) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Class_Name_ExA(ClassGuid, Buffer_R, pulLength, ulFlags, hMachine) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExA", "ptr", ClassGuid, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExA", "ptr", ClassGuid, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} ClassGuid 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_name_exw
      */
-    static CM_Get_Class_Name_ExW(ClassGuid, Buffer, pulLength, ulFlags, hMachine) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Class_Name_ExW(ClassGuid, Buffer_R, pulLength, ulFlags, hMachine) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExW", "ptr", ClassGuid, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExW", "ptr", ClassGuid, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -19621,40 +19946,40 @@ class DeviceAndDriverInstallation {
     /**
      * The CM_Get_Device_ID function retrieves the device instance ID for a specified device instance on the local machine.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {PSTR} Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size">CM_Get_Device_ID_Size</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_ida
      */
-    static CM_Get_Device_IDA(dnDevInst, Buffer, BufferLen, ulFlags) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Device_IDA(dnDevInst, Buffer_R, BufferLen, ulFlags) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_IDA", "uint", dnDevInst, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_IDA", "uint", dnDevInst, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID function retrieves the device instance ID for a specified device instance on the local machine.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {PWSTR} Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size">CM_Get_Device_ID_Size</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_idw
      * @since windows5.0
      */
-    static CM_Get_Device_IDW(dnDevInst, Buffer, BufferLen, ulFlags) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Device_IDW(dnDevInst, Buffer_R, BufferLen, ulFlags) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_IDW", "uint", dnDevInst, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_IDW", "uint", dnDevInst, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID_Ex function retrieves the device instance ID for a specified device instance on a local or a remote machine.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {PSTR} Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size_ex">CM_Get_Device_ID_Size_Ex</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
@@ -19664,17 +19989,17 @@ class DeviceAndDriverInstallation {
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_id_exa
      */
-    static CM_Get_Device_ID_ExA(dnDevInst, Buffer, BufferLen, ulFlags, hMachine) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Device_ID_ExA(dnDevInst, Buffer_R, BufferLen, ulFlags, hMachine) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExA", "uint", dnDevInst, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExA", "uint", dnDevInst, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID_Ex function retrieves the device instance ID for a specified device instance on a local or a remote machine.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {PWSTR} Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size_ex">CM_Get_Device_ID_Size_Ex</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
@@ -19685,53 +20010,53 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_id_exw
      * @since windows5.0
      */
-    static CM_Get_Device_ID_ExW(dnDevInst, Buffer, BufferLen, ulFlags, hMachine) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static CM_Get_Device_ID_ExW(dnDevInst, Buffer_R, BufferLen, ulFlags, hMachine) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExW", "uint", dnDevInst, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExW", "uint", dnDevInst, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID_List function retrieves a list of device instance IDs for the local computer's device instances.
      * @param {PSTR} pszFilter Caller-supplied pointer to a character string that is either set to a subset of the computer's device instance identifiers (IDs), or to <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PSTR} Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_sizea">CM_Get_Device_ID_List_Size</a>.
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the following caller-supplied bit flags that specifies search filters:
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista
      * @since windows5.0
      */
-    static CM_Get_Device_ID_ListA(pszFilter, Buffer, BufferLen, ulFlags) {
+    static CM_Get_Device_ID_ListA(pszFilter, Buffer_R, BufferLen, ulFlags) {
         pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListA", "ptr", pszFilter, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListA", "ptr", pszFilter, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID_List function retrieves a list of device instance IDs for the local computer's device instances.
      * @param {PWSTR} pszFilter Caller-supplied pointer to a character string that is either set to a subset of the computer's device instance identifiers (IDs), or to <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PWSTR} Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_sizea">CM_Get_Device_ID_List_Size</a>.
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the following caller-supplied bit flags that specifies search filters:
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_id_listw
      * @since windows5.0
      */
-    static CM_Get_Device_ID_ListW(pszFilter, Buffer, BufferLen, ulFlags) {
+    static CM_Get_Device_ID_ListW(pszFilter, Buffer_R, BufferLen, ulFlags) {
         pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListW", "ptr", pszFilter, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListW", "ptr", pszFilter, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID_List_Ex function retrieves a list of device instance IDs for the device instances on a local or a remote machine.
      * @param {PSTR} pszFilter Caller-supplied pointer to a character string specifying a subset of the machine's device instance identifiers, or <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PSTR} Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_size_exa">CM_Get_Device_ID_List_Size_Ex</a>.
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the optional, caller-supplied bit flags that specify search filters. If no flags are specified, the function supplies all instance identifiers for all device instances. For a list of bit flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinea">CM_Connect_Machine</a>.
@@ -19741,18 +20066,18 @@ class DeviceAndDriverInstallation {
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_exa
      */
-    static CM_Get_Device_ID_List_ExA(pszFilter, Buffer, BufferLen, ulFlags, hMachine) {
+    static CM_Get_Device_ID_List_ExA(pszFilter, Buffer_R, BufferLen, ulFlags, hMachine) {
         pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExA", "ptr", pszFilter, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExA", "ptr", pszFilter, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
     /**
      * The CM_Get_Device_ID_List_Ex function retrieves a list of device instance IDs for the device instances on a local or a remote machine.
      * @param {PWSTR} pszFilter Caller-supplied pointer to a character string specifying a subset of the machine's device instance identifiers, or <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PWSTR} Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_size_exw">CM_Get_Device_ID_List_Size_Ex</a>.
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the optional, caller-supplied bit flags that specify search filters. If no flags are specified, the function supplies all instance identifiers for all device instances. For a list of bit flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
@@ -19763,11 +20088,11 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_exw
      * @since windows5.0
      */
-    static CM_Get_Device_ID_List_ExW(pszFilter, Buffer, BufferLen, ulFlags, hMachine) {
+    static CM_Get_Device_ID_List_ExW(pszFilter, Buffer_R, BufferLen, ulFlags, hMachine) {
         pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExW", "ptr", pszFilter, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExW", "ptr", pszFilter, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -19973,7 +20298,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be obtained from the registry. These constants are defined in <i>Cfgmgr32.h</i>.
      * @param {Pointer<Integer>} pulRegDataType Optional, can be <b>NULL</b>. A pointer to a location that receives the registry data type, specified as a REG_-prefixed constant defined in <i>Winnt.h</i>.
-     * @param {Pointer} Buffer Optional, can be <b>NULL</b>. A pointer to a caller-supplied buffer that receives the requested device property. If this value is <b>NULL</b>, the function supplies only the length of the requested data in the address pointed to by <i>pulLength</i>.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength A pointer to a ULONG variable into which the function stores the length, in bytes, of the requested device property.
      * 
      * If the <i>Buffer</i> parameter is set to <b>NULL</b>, the ULONG variable must be set to zero.
@@ -19983,11 +20308,11 @@ class DeviceAndDriverInstallation {
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_propertya
      */
-    static CM_Get_DevNode_Registry_PropertyA(dnDevInst, ulProperty, pulRegDataType, Buffer, pulLength, ulFlags) {
+    static CM_Get_DevNode_Registry_PropertyA(dnDevInst, ulProperty, pulRegDataType, Buffer_R, pulLength, ulFlags) {
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyA", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyA", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
@@ -19996,7 +20321,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be obtained from the registry. These constants are defined in <i>Cfgmgr32.h</i>.
      * @param {Pointer<Integer>} pulRegDataType Optional, can be <b>NULL</b>. A pointer to a location that receives the registry data type, specified as a REG_-prefixed constant defined in <i>Winnt.h</i>.
-     * @param {Pointer} Buffer Optional, can be <b>NULL</b>. A pointer to a caller-supplied buffer that receives the requested device property. If this value is <b>NULL</b>, the function supplies only the length of the requested data in the address pointed to by <i>pulLength</i>.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength A pointer to a ULONG variable into which the function stores the length, in bytes, of the requested device property.
      * 
      * If the <i>Buffer</i> parameter is set to <b>NULL</b>, the ULONG variable must be set to zero.
@@ -20007,11 +20332,11 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_propertyw
      * @since windows5.0
      */
-    static CM_Get_DevNode_Registry_PropertyW(dnDevInst, ulProperty, pulRegDataType, Buffer, pulLength, ulFlags) {
+    static CM_Get_DevNode_Registry_PropertyW(dnDevInst, ulProperty, pulRegDataType, Buffer_R, pulLength, ulFlags) {
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyW", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyW", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
@@ -20020,18 +20345,18 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_property_exa
      */
-    static CM_Get_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, pulRegDataType, Buffer, pulLength, ulFlags, hMachine) {
+    static CM_Get_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, pulRegDataType, Buffer_R, pulLength, ulFlags, hMachine) {
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExA", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExA", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -20040,18 +20365,18 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_property_exw
      */
-    static CM_Get_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, pulRegDataType, Buffer, pulLength, ulFlags, hMachine) {
+    static CM_Get_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, pulRegDataType, Buffer_R, pulLength, ulFlags, hMachine) {
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExW", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExW", "uint", dnDevInst, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -20060,19 +20385,19 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_propertya
      */
-    static CM_Get_DevNode_Custom_PropertyA(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer, pulLength, ulFlags) {
+    static CM_Get_DevNode_Custom_PropertyA(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer_R, pulLength, ulFlags) {
         pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyA", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyA", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
@@ -20081,19 +20406,19 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PWSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_propertyw
      */
-    static CM_Get_DevNode_Custom_PropertyW(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer, pulLength, ulFlags) {
+    static CM_Get_DevNode_Custom_PropertyW(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer_R, pulLength, ulFlags) {
         pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyW", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyW", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "uint")
         return result
     }
 
@@ -20102,20 +20427,20 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_property_exa
      */
-    static CM_Get_DevNode_Custom_Property_ExA(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer, pulLength, ulFlags, hMachine) {
+    static CM_Get_DevNode_Custom_Property_ExA(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer_R, pulLength, ulFlags, hMachine) {
         pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExA", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExA", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -20124,20 +20449,20 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PWSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_property_exw
      */
-    static CM_Get_DevNode_Custom_Property_ExW(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer, pulLength, ulFlags, hMachine) {
+    static CM_Get_DevNode_Custom_Property_ExW(dnDevInst, pszCustomPropertyName, pulRegDataType, Buffer_R, pulLength, ulFlags, hMachine) {
         pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExW", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExW", "uint", dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -20632,7 +20957,7 @@ class DeviceAndDriverInstallation {
      * The CM_Get_Device_Interface_List function retrieves a list of device interface instances that belong to a specified device interface class.
      * @param {Pointer<Guid>} InterfaceClassGuid Supplies a GUID that identifies a device interface class.
      * @param {PSTR} pDeviceID Caller-supplied pointer to a NULL-terminated string that represents a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. If specified, the function retrieves device interfaces that are supported by the device for the specified class. If this value is <b>NULL</b>, or if it points to a zero-length string, the function retrieves all interfaces that belong to the specified class.
-     * @param {PSTR} Buffer Caller-supplied pointer to a buffer that receives multiple, NULL-terminated Unicode strings, each representing the symbolic link name of an interface instance.
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied value that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i>. Call <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea">CM_Get_Device_Interface_List_Size</a> to determine the required buffer size.
      * @param {Integer} ulFlags Contains one of the following caller-supplied flags:
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the error codes with the CR_ prefix as defined in <i>Cfgmgr32.h</i>.
@@ -20659,11 +20984,11 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_interface_lista
      * @since windows5.0
      */
-    static CM_Get_Device_Interface_ListA(InterfaceClassGuid, pDeviceID, Buffer, BufferLen, ulFlags) {
+    static CM_Get_Device_Interface_ListA(InterfaceClassGuid, pDeviceID, Buffer_R, BufferLen, ulFlags) {
         pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListA", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListA", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
@@ -20671,7 +20996,7 @@ class DeviceAndDriverInstallation {
      * The CM_Get_Device_Interface_List function retrieves a list of device interface instances that belong to a specified device interface class.
      * @param {Pointer<Guid>} InterfaceClassGuid Supplies a GUID that identifies a device interface class.
      * @param {PWSTR} pDeviceID Caller-supplied pointer to a NULL-terminated string that represents a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. If specified, the function retrieves device interfaces that are supported by the device for the specified class. If this value is <b>NULL</b>, or if it points to a zero-length string, the function retrieves all interfaces that belong to the specified class.
-     * @param {PWSTR} Buffer Caller-supplied pointer to a buffer that receives multiple, NULL-terminated Unicode strings, each representing the symbolic link name of an interface instance.
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied value that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i>. Call <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea">CM_Get_Device_Interface_List_Size</a> to determine the required buffer size.
      * @param {Integer} ulFlags Contains one of the following caller-supplied flags:
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the error codes with the CR_ prefix as defined in <i>Cfgmgr32.h</i>.
@@ -20698,11 +21023,11 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_device_interface_listw
      * @since windows5.0
      */
-    static CM_Get_Device_Interface_ListW(InterfaceClassGuid, pDeviceID, Buffer, BufferLen, ulFlags) {
+    static CM_Get_Device_Interface_ListW(InterfaceClassGuid, pDeviceID, Buffer_R, BufferLen, ulFlags) {
         pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListW", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListW", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
@@ -20710,18 +21035,18 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PSTR} pDeviceID 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferLen 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_exa
      */
-    static CM_Get_Device_Interface_List_ExA(InterfaceClassGuid, pDeviceID, Buffer, BufferLen, ulFlags, hMachine) {
+    static CM_Get_Device_Interface_List_ExA(InterfaceClassGuid, pDeviceID, Buffer_R, BufferLen, ulFlags, hMachine) {
         pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExA", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExA", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -20729,18 +21054,18 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PWSTR} pDeviceID 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferLen 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_exw
      */
-    static CM_Get_Device_Interface_List_ExW(InterfaceClassGuid, pDeviceID, Buffer, BufferLen, ulFlags, hMachine) {
+    static CM_Get_Device_Interface_List_ExW(InterfaceClassGuid, pDeviceID, Buffer_R, BufferLen, ulFlags, hMachine) {
         pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExW", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExW", "ptr", InterfaceClassGuid, "ptr", pDeviceID, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -21171,7 +21496,7 @@ class DeviceAndDriverInstallation {
     /**
      * The CM_Get_Res_Des_Data function retrieves the information stored in a resource descriptor on the local machine.
      * @param {Pointer} rdResDes Caller-supplied handle to a resource descriptor, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_res_des">CM_Get_Next_Res_Des</a>.
-     * @param {Pointer} Buffer Address of a buffer to receive the contents of a resource descriptor. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_res_des_data_size">CM_Get_Res_Des_Data_Size</a>.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
@@ -21181,15 +21506,15 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_res_des_data
      * @since windows5.0
      */
-    static CM_Get_Res_Des_Data(rdResDes, Buffer, BufferLen, ulFlags) {
-        result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data", "ptr", rdResDes, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "uint")
+    static CM_Get_Res_Des_Data(rdResDes, Buffer_R, BufferLen, ulFlags) {
+        result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data", "ptr", rdResDes, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "uint")
         return result
     }
 
     /**
      * The CM_Get_Res_Des_Data_Ex function retrieves the information stored in a resource descriptor on a local or a remote machine.
      * @param {Pointer} rdResDes Caller-supplied handle to a resource descriptor, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_res_des_ex">CM_Get_Next_Res_Des_Ex</a>.
-     * @param {Pointer} Buffer Address of a buffer to receive the contents of a resource descriptor. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_res_des_data_size_ex">CM_Get_Res_Des_Data_Size_Ex</a>.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLen Caller-supplied length of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
@@ -21203,8 +21528,8 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_res_des_data_ex
      * @since windows5.0
      */
-    static CM_Get_Res_Des_Data_Ex(rdResDes, Buffer, BufferLen, ulFlags, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Ex", "ptr", rdResDes, "ptr", Buffer, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
+    static CM_Get_Res_Des_Data_Ex(rdResDes, Buffer_R, BufferLen, ulFlags, hMachine) {
+        result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Ex", "ptr", rdResDes, "ptr", Buffer_R, "uint", BufferLen, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -21296,8 +21621,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("CFGMGR32.dll\CM_Get_Version", "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -21316,8 +21642,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("CFGMGR32.dll\CM_Get_Version_Ex", "ptr", hMachine, "ushort")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -22472,14 +22799,14 @@ class DeviceAndDriverInstallation {
      * The CM_Set_DevNode_Registry_Property function sets a specified device property in the registry.
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be set in the registry. These constants are defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} Buffer A pointer to a caller-supplied buffer that supplies the requested device property, formatted appropriately for the property's data type.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} ulLength The length, in bytes, of the supplied device property.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_propertya
      */
-    static CM_Set_DevNode_Registry_PropertyA(dnDevInst, ulProperty, Buffer, ulLength, ulFlags) {
-        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyA", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer, "uint", ulLength, "uint", ulFlags, "uint")
+    static CM_Set_DevNode_Registry_PropertyA(dnDevInst, ulProperty, Buffer_R, ulLength, ulFlags) {
+        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyA", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer_R, "uint", ulLength, "uint", ulFlags, "uint")
         return result
     }
 
@@ -22487,15 +22814,15 @@ class DeviceAndDriverInstallation {
      * The CM_Set_DevNode_Registry_Property function sets a specified device property in the registry.
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be set in the registry. These constants are defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} Buffer A pointer to a caller-supplied buffer that supplies the requested device property, formatted appropriately for the property's data type.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} ulLength The length, in bytes, of the supplied device property.
      * @param {Integer} ulFlags Not used, must be zero.
      * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_propertyw
      * @since windows5.0
      */
-    static CM_Set_DevNode_Registry_PropertyW(dnDevInst, ulProperty, Buffer, ulLength, ulFlags) {
-        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyW", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer, "uint", ulLength, "uint", ulFlags, "uint")
+    static CM_Set_DevNode_Registry_PropertyW(dnDevInst, ulProperty, Buffer_R, ulLength, ulFlags) {
+        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyW", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer_R, "uint", ulLength, "uint", ulFlags, "uint")
         return result
     }
 
@@ -22503,15 +22830,15 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} ulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_property_exa
      */
-    static CM_Set_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, Buffer, ulLength, ulFlags, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExA", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+    static CM_Set_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, Buffer_R, ulLength, ulFlags, hMachine) {
+        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExA", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer_R, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -22519,15 +22846,15 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} ulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_property_exw
      */
-    static CM_Set_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, Buffer, ulLength, ulFlags, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExW", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+    static CM_Set_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, Buffer_R, ulLength, ulFlags, hMachine) {
+        result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExW", "uint", dnDevInst, "uint", ulProperty, "ptr", Buffer_R, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -23013,18 +23340,18 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">device setup class</a> for which to retrieve a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to be retrieved. This value must be one of the following CM_CRP_<i>Xxx</i> values that are defined in <i>Cfgmgr32.h</i>:
      * @param {Pointer<Integer>} pulRegDataType A pointer to a variable of type ULONG that receives the REG_<i>Xxx</i> constant that represents the data type of the requested property. The REG_<i>Xxx</i> constants are defined in <i>Winnt.h</i> and are described in the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_key_value_basic_information">KEY_VALUE_BASIC_INFORMATION</a> structure. This parameter is optional and can be set to <b>NULL</b>.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the requested property data. For more information about this parameter and the buffer-size parameter <i>pulLength</i>, see the following <b>Remarks</b> section.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength A pointer to variable of type ULONG whose value, on input, is the size, in bytes, of the buffer that is supplied by <i>Buffer</i>. On return, <b>CM_Get_Class_Registry_Property </b>sets this variable to the size, in bytes, of the requested property.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine from which to retrieve the specified device class property. This parameter is optional, and, if it is set to <b>NULL</b>, the property is retrieved from the local machine.
      * @returns {Integer} If the operation succeeds, <b>CM_Get_Class_Registry_Property </b>returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertya
      */
-    static CM_Get_Class_Registry_PropertyA(ClassGuid, ulProperty, pulRegDataType, Buffer, pulLength, ulFlags, hMachine) {
+    static CM_Get_Class_Registry_PropertyA(ClassGuid, ulProperty, pulRegDataType, Buffer_R, pulLength, ulFlags, hMachine) {
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyA", "ptr", ClassGuid, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyA", "ptr", ClassGuid, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -23033,7 +23360,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">device setup class</a> for which to retrieve a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to be retrieved. This value must be one of the following CM_CRP_<i>Xxx</i> values that are defined in <i>Cfgmgr32.h</i>:
      * @param {Pointer<Integer>} pulRegDataType A pointer to a variable of type ULONG that receives the REG_<i>Xxx</i> constant that represents the data type of the requested property. The REG_<i>Xxx</i> constants are defined in <i>Winnt.h</i> and are described in the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_key_value_basic_information">KEY_VALUE_BASIC_INFORMATION</a> structure. This parameter is optional and can be set to <b>NULL</b>.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the requested property data. For more information about this parameter and the buffer-size parameter <i>pulLength</i>, see the following <b>Remarks</b> section.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pulLength A pointer to variable of type ULONG whose value, on input, is the size, in bytes, of the buffer that is supplied by <i>Buffer</i>. On return, <b>CM_Get_Class_Registry_Property </b>sets this variable to the size, in bytes, of the requested property.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine from which to retrieve the specified device class property. This parameter is optional, and, if it is set to <b>NULL</b>, the property is retrieved from the local machine.
@@ -23041,11 +23368,11 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertyw
      * @since windows5.0
      */
-    static CM_Get_Class_Registry_PropertyW(ClassGuid, ulProperty, pulRegDataType, Buffer, pulLength, ulFlags, hMachine) {
+    static CM_Get_Class_Registry_PropertyW(ClassGuid, ulProperty, pulRegDataType, Buffer_R, pulLength, ulFlags, hMachine) {
         pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
         pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyW", "ptr", ClassGuid, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+        result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyW", "ptr", ClassGuid, "uint", ulProperty, pulRegDataTypeMarshal, pulRegDataType, "ptr", Buffer_R, pulLengthMarshal, pulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -23053,15 +23380,15 @@ class DeviceAndDriverInstallation {
      * The CM_Set_Class_Registry_Property function sets or deletes a property of a device setup class.
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the device setup class for which to set a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to set. This value must be one of the CM_CRP_<i>Xxx</i> values that are described for the <i>ulProperty</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertya">CM_Get_Class_Registry_Property</a> function.
-     * @param {Pointer} Buffer A pointer to a buffer that contains the property data. This parameter is optional and can be set to <b>NULL</b>. For more information about setting this parameter and the corresponding <i>ulLength</i> parameter, see the following <b>Remarks</b> section.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} ulLength A value of type ULONG that specifies the size, in bytes, of the property data.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine on which to set the specified <a href="https://docs.microsoft.com/windows-hardware/drivers/install/accessing-device-setup-class-properties">device setup class property</a>. This parameter is optional. If set to <b>NULL</b>, the property is set on the local machine.
      * @returns {Integer} If the operation succeeds, <b>CM_Set_Class_Registry_Property </b>returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_set_class_registry_propertya
      */
-    static CM_Set_Class_Registry_PropertyA(ClassGuid, ulProperty, Buffer, ulLength, ulFlags, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyA", "ptr", ClassGuid, "uint", ulProperty, "ptr", Buffer, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+    static CM_Set_Class_Registry_PropertyA(ClassGuid, ulProperty, Buffer_R, ulLength, ulFlags, hMachine) {
+        result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyA", "ptr", ClassGuid, "uint", ulProperty, "ptr", Buffer_R, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -23069,7 +23396,7 @@ class DeviceAndDriverInstallation {
      * The CM_Set_Class_Registry_Property function sets or deletes a property of a device setup class.
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the device setup class for which to set a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to set. This value must be one of the CM_CRP_<i>Xxx</i> values that are described for the <i>ulProperty</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertyw">CM_Get_Class_Registry_Property</a> function.
-     * @param {Pointer} Buffer A pointer to a buffer that contains the property data. This parameter is optional and can be set to <b>NULL</b>. For more information about setting this parameter and the corresponding <i>ulLength</i> parameter, see the following <b>Remarks</b> section.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} ulLength A value of type ULONG that specifies the size, in bytes, of the property data.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine on which to set the specified <a href="https://docs.microsoft.com/windows-hardware/drivers/install/accessing-device-setup-class-properties">device setup class property</a>. This parameter is optional. If set to <b>NULL</b>, the property is set on the local machine.
@@ -23077,8 +23404,8 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/nf-cfgmgr32-cm_set_class_registry_propertyw
      * @since windows5.0
      */
-    static CM_Set_Class_Registry_PropertyW(ClassGuid, ulProperty, Buffer, ulLength, ulFlags, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyW", "ptr", ClassGuid, "uint", ulProperty, "ptr", Buffer, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
+    static CM_Set_Class_Registry_PropertyW(ClassGuid, ulProperty, Buffer_R, ulLength, ulFlags, hMachine) {
+        result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyW", "ptr", ClassGuid, "uint", ulProperty, "ptr", Buffer_R, "uint", ulLength, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -23237,8 +23564,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesA", "ptr", hwndParent, "ptr", HardwareId, "ptr", FullInfPath, "uint", InstallFlags, bRebootRequiredMarshal, bRebootRequired, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23333,8 +23661,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesW", "ptr", hwndParent, "ptr", HardwareId, "ptr", FullInfPath, "uint", InstallFlags, bRebootRequiredMarshal, bRebootRequired, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23400,8 +23729,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiInstallDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23482,8 +23812,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiInstallDriverW", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23564,8 +23895,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiInstallDriverA", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23629,8 +23961,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiUninstallDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23654,8 +23987,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiUninstallDriverW", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23736,8 +24070,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiUninstallDriverA", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23813,8 +24148,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiShowUpdateDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -23898,8 +24234,9 @@ class DeviceAndDriverInstallation {
         A_LastError := 0
 
         result := DllCall("newdev.dll\DiRollbackDriver", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", hwndParent, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

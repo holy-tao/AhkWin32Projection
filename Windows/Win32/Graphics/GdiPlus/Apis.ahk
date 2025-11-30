@@ -3347,16 +3347,16 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<Integer>} buffer 
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Integer} bufferSize 
      * @param {Pointer<Integer>} sizeFilled 
      * @returns {Integer} 
      */
-    static GdipGetRegionData(region, buffer, bufferSize, sizeFilled) {
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+    static GdipGetRegionData(region, buffer_R, bufferSize, sizeFilled) {
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
         sizeFilledMarshal := sizeFilled is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, bufferMarshal, buffer, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, buffer_RMarshal, buffer_R, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
         return result
     }
 
@@ -5884,11 +5884,11 @@ class GdiPlus {
      * @param {Pointer<GpImage>} image 
      * @param {Pointer<Guid>} clsidEncoder 
      * @param {Integer} size 
-     * @param {Pointer<EncoderParameters>} buffer 
+     * @param {Pointer<EncoderParameters>} buffer_R 
      * @returns {Integer} 
      */
-    static GdipGetEncoderParameterList(image, clsidEncoder, size, buffer) {
-        result := DllCall("gdiplus.dll\GdipGetEncoderParameterList", "ptr", image, "ptr", clsidEncoder, "uint", size, "ptr", buffer, "int")
+    static GdipGetEncoderParameterList(image, clsidEncoder, size, buffer_R) {
+        result := DllCall("gdiplus.dll\GdipGetEncoderParameterList", "ptr", image, "ptr", clsidEncoder, "uint", size, "ptr", buffer_R, "int")
         return result
     }
 
@@ -6036,11 +6036,11 @@ class GdiPlus {
      * @param {Pointer<GpImage>} image 
      * @param {Integer} propId 
      * @param {Integer} propSize 
-     * @param {Pointer<PropertyItem>} buffer 
+     * @param {Pointer<PropertyItem>} buffer_R 
      * @returns {Integer} 
      */
-    static GdipGetPropertyItem(image, propId, propSize, buffer) {
-        result := DllCall("gdiplus.dll\GdipGetPropertyItem", "ptr", image, "uint", propId, "uint", propSize, "ptr", buffer, "int")
+    static GdipGetPropertyItem(image, propId, propSize, buffer_R) {
+        result := DllCall("gdiplus.dll\GdipGetPropertyItem", "ptr", image, "uint", propId, "uint", propSize, "ptr", buffer_R, "int")
         return result
     }
 
@@ -7267,7 +7267,8 @@ class GdiPlus {
      */
     static GdipCreateHalftonePalette() {
         result := DllCall("gdiplus.dll\GdipCreateHalftonePalette", "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**

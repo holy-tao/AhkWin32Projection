@@ -696,8 +696,9 @@ class BiometricFramework {
         BspCountMarshal := BspCount is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, BspSchemaArrayMarshal, BspSchemaArray, BspCountMarshal, BspCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -767,8 +768,9 @@ class BiometricFramework {
         UnitCountMarshal := UnitCount is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, UnitSchemaArrayMarshal, UnitSchemaArray, UnitCountMarshal, UnitCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -827,8 +829,9 @@ class BiometricFramework {
         StorageCountMarshal := StorageCount is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, StorageSchemaArrayMarshal, StorageSchemaArray, StorageCountMarshal, StorageCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -861,8 +864,9 @@ class BiometricFramework {
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, "uint*", &FrameworkHandle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return FrameworkHandle
     }
@@ -876,8 +880,9 @@ class BiometricFramework {
      */
     static WinBioCloseFramework(FrameworkHandle) {
         result := DllCall("winbio.dll\WinBioCloseFramework", "uint", FrameworkHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -943,8 +948,9 @@ class BiometricFramework {
      */
     static WinBioAsyncEnumServiceProviders(FrameworkHandle, Factor) {
         result := DllCall("winbio.dll\WinBioAsyncEnumServiceProviders", "uint", FrameworkHandle, "uint", Factor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1032,8 +1038,9 @@ class BiometricFramework {
      */
     static WinBioAsyncEnumBiometricUnits(FrameworkHandle, Factor) {
         result := DllCall("winbio.dll\WinBioAsyncEnumBiometricUnits", "uint", FrameworkHandle, "uint", Factor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1099,8 +1106,9 @@ class BiometricFramework {
      */
     static WinBioAsyncEnumDatabases(FrameworkHandle, Factor) {
         result := DllCall("winbio.dll\WinBioAsyncEnumDatabases", "uint", FrameworkHandle, "uint", Factor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1172,8 +1180,9 @@ class BiometricFramework {
      */
     static WinBioAsyncMonitorFrameworkChanges(FrameworkHandle, ChangeTypes) {
         result := DllCall("winbio.dll\WinBioAsyncMonitorFrameworkChanges", "uint", FrameworkHandle, "uint", ChangeTypes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1298,8 +1307,9 @@ class BiometricFramework {
         UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "uint*", &SessionHandle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return SessionHandle
     }
@@ -1443,8 +1453,9 @@ class BiometricFramework {
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, "uint*", &SessionHandle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return SessionHandle
     }
@@ -1476,8 +1487,9 @@ class BiometricFramework {
      */
     static WinBioCloseSession(SessionHandle) {
         result := DllCall("winbio.dll\WinBioCloseSession", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1602,8 +1614,9 @@ class BiometricFramework {
         RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioVerify", "uint", SessionHandle, "ptr", Identity, "char", SubFactor, UnitIdMarshal, UnitId, MatchMarshal, Match, RejectDetailMarshal, RejectDetail, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1663,8 +1676,9 @@ class BiometricFramework {
         VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioVerifyWithCallback", "uint", SessionHandle, "ptr", Identity, "char", SubFactor, "ptr", VerifyCallback, VerifyCallbackContextMarshal, VerifyCallbackContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1761,8 +1775,9 @@ class BiometricFramework {
         RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioIdentify", "uint", SessionHandle, UnitIdMarshal, UnitId, "ptr", Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1809,8 +1824,9 @@ class BiometricFramework {
         IdentifyCallbackContextMarshal := IdentifyCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioIdentifyWithCallback", "uint", SessionHandle, "ptr", IdentifyCallback, IdentifyCallbackContextMarshal, IdentifyCallbackContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1842,8 +1858,9 @@ class BiometricFramework {
      */
     static WinBioWait(SessionHandle) {
         result := DllCall("winbio.dll\WinBioWait", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1875,8 +1892,9 @@ class BiometricFramework {
      */
     static WinBioCancel(SessionHandle) {
         result := DllCall("winbio.dll\WinBioCancel", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1890,8 +1908,9 @@ class BiometricFramework {
      */
     static WinBioLocateSensor(SessionHandle) {
         result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, "uint*", &UnitId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return UnitId
     }
@@ -1938,8 +1957,9 @@ class BiometricFramework {
         LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", "uint", SessionHandle, "ptr", LocateCallback, LocateCallbackContextMarshal, LocateCallbackContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2017,8 +2037,9 @@ class BiometricFramework {
      */
     static WinBioEnrollBegin(SessionHandle, SubFactor, UnitId) {
         result := DllCall("winbio.dll\WinBioEnrollBegin", "uint", SessionHandle, "char", SubFactor, "uint", UnitId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2075,8 +2096,9 @@ class BiometricFramework {
      */
     static WinBioEnrollSelect(SessionHandle, SelectorValue) {
         result := DllCall("winbio.dll\WinBioEnrollSelect", "uint", SessionHandle, "uint", SelectorValue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2103,8 +2125,9 @@ class BiometricFramework {
      */
     static WinBioEnrollCapture(SessionHandle) {
         result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, "uint*", &RejectDetail := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return RejectDetail
     }
@@ -2162,8 +2185,9 @@ class BiometricFramework {
         EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", "uint", SessionHandle, "ptr", EnrollCallback, EnrollCallbackContextMarshal, EnrollCallbackContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2178,8 +2202,9 @@ class BiometricFramework {
      */
     static WinBioEnrollCommit(SessionHandle, Identity) {
         result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, "ptr", Identity, "char*", &IsNewTemplate := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IsNewTemplate
     }
@@ -2233,8 +2258,9 @@ class BiometricFramework {
      */
     static WinBioEnrollDiscard(SessionHandle) {
         result := DllCall("winbio.dll\WinBioEnrollDiscard", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2317,8 +2343,9 @@ class BiometricFramework {
         SubFactorCountMarshal := SubFactorCount is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, SubFactorArrayMarshal, SubFactorArray, SubFactorCountMarshal, SubFactorCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2331,8 +2358,9 @@ class BiometricFramework {
      */
     static WinBioImproveBegin(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioImproveBegin", "uint", SessionHandle, "uint", UnitId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2344,8 +2372,9 @@ class BiometricFramework {
      */
     static WinBioImproveEnd(SessionHandle) {
         result := DllCall("winbio.dll\WinBioImproveEnd", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2436,8 +2465,9 @@ class BiometricFramework {
         EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioRegisterEventMonitor", "uint", SessionHandle, "uint", EventMask, "ptr", EventCallback, EventCallbackContextMarshal, EventCallbackContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2469,8 +2499,9 @@ class BiometricFramework {
      */
     static WinBioUnregisterEventMonitor(SessionHandle) {
         result := DllCall("winbio.dll\WinBioUnregisterEventMonitor", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2529,8 +2560,9 @@ class BiometricFramework {
      */
     static WinBioMonitorPresence(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioMonitorPresence", "uint", SessionHandle, "uint", UnitId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2665,8 +2697,9 @@ class BiometricFramework {
         RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, UnitIdMarshal, UnitId, SampleMarshal, Sample, SampleSizeMarshal, SampleSize, RejectDetailMarshal, RejectDetail, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2772,8 +2805,9 @@ class BiometricFramework {
         CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", "uint", SessionHandle, "char", Purpose, "char", Flags, "ptr", CaptureCallback, CaptureCallbackContextMarshal, CaptureCallbackContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2841,8 +2875,9 @@ class BiometricFramework {
      */
     static WinBioDeleteTemplate(SessionHandle, UnitId, Identity, SubFactor) {
         result := DllCall("winbio.dll\WinBioDeleteTemplate", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "char", SubFactor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2908,8 +2943,9 @@ class BiometricFramework {
      */
     static WinBioLockUnit(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioLockUnit", "uint", SessionHandle, "uint", UnitId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2964,8 +3000,9 @@ class BiometricFramework {
      */
     static WinBioUnlockUnit(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioUnlockUnit", "uint", SessionHandle, "uint", UnitId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2989,8 +3026,9 @@ class BiometricFramework {
         ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return OperationStatus
     }
@@ -3014,8 +3052,9 @@ class BiometricFramework {
         ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return OperationStatus
     }
@@ -3215,8 +3254,9 @@ class BiometricFramework {
         PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3332,8 +3372,9 @@ class BiometricFramework {
      */
     static WinBioSetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
         result := DllCall("winbio.dll\WinBioSetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr", PropertyBufferSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3367,8 +3408,9 @@ class BiometricFramework {
         AddressMarshal := Address is VarRef ? "ptr" : "ptr"
 
         result := DllCall("winbio.dll\WinBioFree", AddressMarshal, Address, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3473,8 +3515,9 @@ class BiometricFramework {
      */
     static WinBioSetCredential(Type, Credential, CredentialSize, Format) {
         result := DllCall("winbio.dll\WinBioSetCredential", "int", Type, "ptr", Credential, "ptr", CredentialSize, "int", Format, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3518,8 +3561,9 @@ class BiometricFramework {
      */
     static WinBioRemoveCredential(Identity, Type) {
         result := DllCall("winbio.dll\WinBioRemoveCredential", "ptr", Identity, "int", Type, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3532,8 +3576,9 @@ class BiometricFramework {
      */
     static WinBioRemoveAllCredentials() {
         result := DllCall("winbio.dll\WinBioRemoveAllCredentials", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3546,8 +3591,9 @@ class BiometricFramework {
      */
     static WinBioRemoveAllDomainCredentials() {
         result := DllCall("winbio.dll\WinBioRemoveAllDomainCredentials", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3562,8 +3608,9 @@ class BiometricFramework {
      */
     static WinBioGetCredentialState(Identity, Type) {
         result := DllCall("winbio.dll\WinBioGetCredentialState", "ptr", Identity, "int", Type, "int*", &CredentialState := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return CredentialState
     }
@@ -3661,8 +3708,9 @@ class BiometricFramework {
      */
     static WinBioLogonIdentifiedUser(SessionHandle) {
         result := DllCall("winbio.dll\WinBioLogonIdentifiedUser", "uint", SessionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3691,8 +3739,9 @@ class BiometricFramework {
      */
     static WinBioGetEnrolledFactors(AccountOwner) {
         result := DllCall("winbio.dll\WinBioGetEnrolledFactors", "ptr", AccountOwner, "uint*", &EnrolledFactors := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return EnrolledFactors
     }
@@ -3748,8 +3797,9 @@ class BiometricFramework {
      */
     static WinBioIsESSCapable() {
         result := DllCall("winbio.dll\WinBioIsESSCapable", "char*", &Value := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return Value
     }
@@ -3780,8 +3830,9 @@ class BiometricFramework {
      */
     static WinBioAcquireFocus() {
         result := DllCall("winbio.dll\WinBioAcquireFocus", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3812,8 +3863,9 @@ class BiometricFramework {
      */
     static WinBioReleaseFocus() {
         result := DllCall("winbio.dll\WinBioReleaseFocus", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3824,8 +3876,9 @@ class BiometricFramework {
      */
     static EXPERIMENTAL_WinBioGetEssState() {
         result := DllCall("winbio.dll\EXPERIMENTAL_WinBioGetEssState", "uint*", &EssState := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return EssState
     }

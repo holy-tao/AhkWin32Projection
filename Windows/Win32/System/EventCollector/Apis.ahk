@@ -57,8 +57,9 @@ class EventCollector {
         A_LastError := 0
 
         result := DllCall("WecApi.dll\EcOpenSubscriptionEnum", "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -97,8 +98,9 @@ class EventCollector {
         A_LastError := 0
 
         result := DllCall("WecApi.dll\EcOpenSubscription", "ptr", SubscriptionName, "uint", AccessMask, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -284,13 +286,13 @@ class EventCollector {
 
     /**
      * Closes a handle received from other Event Collector functions.
-     * @param {Pointer} Object A valid open handle returned from an event collector management API call.
+     * @param {Pointer} Object_R 
      * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecclose
      * @since windows6.0.6000
      */
-    static EcClose(Object) {
-        result := DllCall("WecApi.dll\EcClose", "ptr", Object, "int")
+    static EcClose(Object_R) {
+        result := DllCall("WecApi.dll\EcClose", "ptr", Object_R, "int")
         return result
     }
 

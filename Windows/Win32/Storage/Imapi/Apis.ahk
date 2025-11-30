@@ -1509,8 +1509,9 @@ class Imapi {
         lppPropAttrArrayMarshal := lppPropAttrArray is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTagArray, lppPropAttrArrayMarshal, lppPropAttrArray, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1529,8 +1530,9 @@ class Imapi {
         lppPropProblemsMarshal := lppPropProblems is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, lppPropProblemsMarshal, lppPropProblems, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

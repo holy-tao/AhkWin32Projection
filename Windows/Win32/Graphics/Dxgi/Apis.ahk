@@ -234,8 +234,9 @@ class Dxgi {
      */
     static CreateDXGIFactory(riid) {
         result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr*", &ppFactory := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppFactory
     }
@@ -254,8 +255,9 @@ class Dxgi {
      */
     static CreateDXGIFactory1(riid) {
         result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, "ptr*", &ppFactory := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppFactory
     }
@@ -284,8 +286,9 @@ class Dxgi {
      */
     static CreateDXGIFactory2(Flags, riid) {
         result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, "ptr*", &ppFactory := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppFactory
     }
@@ -300,8 +303,9 @@ class Dxgi {
      */
     static DXGIGetDebugInterface1(Flags, riid) {
         result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, "ptr*", &pDebug := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pDebug
     }
@@ -316,8 +320,9 @@ class Dxgi {
      */
     static DXGIDeclareAdapterRemovalSupport() {
         result := DllCall("dxgi.dll\DXGIDeclareAdapterRemovalSupport", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -329,8 +334,9 @@ class Dxgi {
      */
     static DXGIDisableVBlankVirtualization() {
         result := DllCall("dxgi.dll\DXGIDisableVBlankVirtualization", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

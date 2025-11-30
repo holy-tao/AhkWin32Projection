@@ -1671,7 +1671,7 @@ class Dhcp {
      * @param {PWSTR} adapterName GUID of the adapter for which this request is meant.  This parameter must not be <b>NULL</b>.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} classId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to use to send on the wire. This parameter is optional.
      * @param {DHCPV6CAPI_PARAMS_ARRAY} recdParams A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array">DHCPV6CAPI_PARAMS_ARRAY</a> structure that contains the parameters to be received from the DHCPV6 server.
-     * @param {Pointer<Integer>} buffer A buffer to contain information returned by some pointers in <i>recdParams</i>.
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Pointer<Integer>} pSize Size of the buffer.  When the function returns ERROR_MORE_DATA, this parameter will contain the size, in bytes, required to complete the operation.  If the function is successful, this parameter contains the number of bytes used.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
      * 
@@ -1725,14 +1725,14 @@ class Dhcp {
      * @see https://docs.microsoft.com/windows/win32/api//dhcpv6csdk/nf-dhcpv6csdk-dhcpv6requestparams
      * @since windows6.0.6000
      */
-    static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer, pSize) {
+    static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer_R, pSize) {
         adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
         reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, reservedMarshal, reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, bufferMarshal, buffer, pSizeMarshal, pSize, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, reservedMarshal, reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, buffer_RMarshal, buffer_R, pSizeMarshal, pSize, "uint")
         return result
     }
 
@@ -2021,7 +2021,7 @@ class Dhcp {
      * @param {DHCPCAPI_PARAMS_ARRAY} SendParams Optional data to be requested, in addition to the data requested in the <i>RecdParams</i> array. The <i>SendParams</i> parameter cannot contain any of the standard options that the DHCP client sends by default.
      * @param {DHCPCAPI_PARAMS_ARRAY} RecdParams Array of DHCP data the caller is interested in receiving. This array must be empty prior to the 
      * <b>DhcpRequestParams</b> function call.
-     * @param {Pointer} Buffer Buffer used for storing the data associated with requests made in <i>RecdParams</i>.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} pSize Size of <i>Buffer</i>. 
      * 
      * 
@@ -2068,14 +2068,14 @@ class Dhcp {
      * @see https://docs.microsoft.com/windows/win32/api//dhcpcsdk/nf-dhcpcsdk-dhcprequestparams
      * @since windows5.0
      */
-    static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, Buffer, pSize, RequestIdStr) {
+    static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, Buffer_R, pSize, RequestIdStr) {
         AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
         RequestIdStr := RequestIdStr is String ? StrPtr(RequestIdStr) : RequestIdStr
 
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, ReservedMarshal, Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer, pSizeMarshal, pSize, "ptr", RequestIdStr, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, ReservedMarshal, Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer_R, pSizeMarshal, pSize, "ptr", RequestIdStr, "uint")
         return result
     }
 

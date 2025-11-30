@@ -3244,8 +3244,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSetStatusCallback", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, "uint", dwNotificationFlags, "ptr", dwReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3284,8 +3285,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpTimeFromSystemTime", "ptr", pst, "ptr", pwszTime, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3324,8 +3326,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpTimeToSystemTime", "ptr", pwszTime, "ptr", pst, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3443,8 +3446,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpCrackUrl", "ptr", pwszUrl, "uint", dwUrlLength, "uint", dwFlags, "ptr", lpUrlComponents, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3500,8 +3504,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpCreateUrl", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", pwszUrl, pdwUrlLengthMarshal, pdwUrlLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3516,8 +3521,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpCheckPlatform", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3564,8 +3570,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpGetDefaultProxyConfiguration", "ptr", pProxyInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3612,8 +3619,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSetDefaultProxyConfiguration", "ptr", pProxyInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3694,8 +3702,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpOpen", "ptr", pszAgentW, "uint", dwAccessType, "ptr", pszProxyW, "ptr", pszProxyBypassW, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3754,8 +3763,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpCloseHandle", hInternetMarshal, hInternet, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3866,8 +3876,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpConnect", hSessionMarshal, hSession, "ptr", pswzServerName, "ushort", nServerPort, "uint", dwReserved, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3988,8 +3999,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpReadData", hRequestMarshal, hRequest, "ptr", lpBuffer, "uint", dwNumberOfBytesToRead, lpdwNumberOfBytesReadMarshal, lpdwNumberOfBytesRead, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4119,8 +4131,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpWriteData", hRequestMarshal, hRequest, "ptr", lpBuffer, "uint", dwNumberOfBytesToWrite, lpdwNumberOfBytesWrittenMarshal, lpdwNumberOfBytesWritten, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4227,8 +4240,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpQueryDataAvailable", hRequestMarshal, hRequest, lpdwNumberOfBytesAvailableMarshal, lpdwNumberOfBytesAvailable, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4320,8 +4334,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpQueryOption", hInternetMarshal, hInternet, "uint", dwOption, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4447,8 +4462,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSetOption", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4538,8 +4554,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSetTimeouts", hInternetMarshal, hInternet, "int", nResolveTimeout, "int", nConnectTimeout, "int", nSendTimeout, "int", nReceiveTimeout, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4645,8 +4662,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpOpenRequest", hConnectMarshal, hConnect, "ptr", pwszVerb, "ptr", pwszObjectName, "ptr", pwszVersion, "ptr", pwszReferrer, ppwszAcceptTypesMarshal, ppwszAcceptTypes, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4792,8 +4810,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpAddRequestHeaders", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwModifiers, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5071,8 +5090,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSendRequest", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, "uint", dwTotalLength, "ptr", dwContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5238,8 +5258,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSetCredentials", hRequestMarshal, hRequest, "uint", AuthTargets, "uint", AuthScheme, "ptr", pwszUserName, "ptr", pwszPassword, pAuthParamsMarshal, pAuthParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5447,8 +5468,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpQueryAuthSchemes", hRequestMarshal, hRequest, lpdwSupportedSchemesMarshal, lpdwSupportedSchemes, lpdwFirstSchemeMarshal, lpdwFirstScheme, pdwAuthTargetMarshal, pdwAuthTarget, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5712,8 +5734,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpReceiveResponse", hRequestMarshal, hRequest, lpReservedMarshal, lpReserved, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5821,8 +5844,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpQueryHeaders", hRequestMarshal, hRequest, "uint", dwInfoLevel, "ptr", pwszName, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5962,8 +5986,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpDetectAutoProxyConfigUrl", "uint", dwAutoDetectFlags, ppwstrAutoConfigUrlMarshal, ppwstrAutoConfigUrl, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6110,8 +6135,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrl", hSessionMarshal, hSession, "ptr", lpcwszUrl, "ptr", pAutoProxyOptions, "ptr", pProxyInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6598,8 +6624,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpGetIEProxyConfigForCurrentUser", "ptr", pProxyConfig, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6693,8 +6720,9 @@ class WinHttp {
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpWebSocketCompleteUpgrade", hRequestMarshal, hRequest, "ptr", pContext, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

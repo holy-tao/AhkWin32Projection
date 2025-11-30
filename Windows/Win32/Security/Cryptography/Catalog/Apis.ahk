@@ -127,7 +127,8 @@ class Catalog {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("WINTRUST.dll\CryptCATOpen", "ptr", pwszFileName, "uint", fdwOpenFlags, "ptr", hProv, "uint", dwPublicVersion, "uint", dwEncodingType, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -167,7 +168,8 @@ class Catalog {
      */
     static CryptCATHandleFromStore(pCatStore) {
         result := DllCall("WINTRUST.dll\CryptCATHandleFromStore", "ptr", pCatStore, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -217,8 +219,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATPersistStore", "ptr", hCatalog, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -375,8 +378,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATPutCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, pbDataMarshal, pbData, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -493,8 +497,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATGetAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -556,8 +561,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATPutMemberInfo", "ptr", hCatalog, "ptr", pwszFileName, "ptr", pwszReferenceTag, "ptr", pgSubjectType, "uint", dwCertVersion, "uint", cbSIPIndirectData, pbSIPIndirectDataMarshal, pbSIPIndirectData, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -701,8 +707,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATPutAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, pbDataMarshal, pbData, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -838,8 +845,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", phCatAdminMarshal, phCatAdmin, "ptr", pgSubsystem, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -911,8 +919,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", phCatAdminMarshal, phCatAdmin, "ptr", pgSubsystem, "ptr", pwszHashAlgorithm, "ptr", pStrongHashPolicy, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -964,8 +973,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminEnumCatalogFromHash", "ptr", hCatAdmin, "ptr", pbHash, "uint", cbHash, "uint", dwFlags, phPrevCatInfoMarshal, phPrevCatInfo, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1061,8 +1071,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", "ptr", hCatAdmin, "ptr", hFile, pcbHashMarshal, pcbHash, "ptr", pbHash, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1086,8 +1097,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAddCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", pwszSelectBaseName, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1109,8 +1121,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminRemoveCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1130,8 +1143,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATCatalogInfoFromContext", "ptr", hCatInfo, "ptr", psCatInfo, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1154,8 +1168,9 @@ class Catalog {
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminResolveCatalogPath", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", psCatInfo, "uint", dwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -52,7 +52,8 @@ class HiDpi {
         pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UxTheme.dll\OpenThemeDataForDpi", "ptr", hwnd, "ptr", pszClassList, "uint", dpi, "ptr")
-        return HTHEME({Value: result}, True)
+        resultHandle := HTHEME({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -70,8 +71,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDialogControlDpiChangeBehavior", "ptr", hWnd, "int", mask, "int", values, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -89,8 +91,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetDialogControlDpiChangeBehavior", "ptr", hWnd, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -112,8 +115,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDialogDpiChangeBehavior", "ptr", hDlg, "int", mask, "int", values, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -131,8 +135,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetDialogDpiChangeBehavior", "ptr", hDlg, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -151,8 +156,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetSystemMetricsForDpi", "int", nIndex, "uint", dpi, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -174,8 +180,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\AdjustWindowRectExForDpi", "ptr", lpRect, "uint", dwStyle, "int", bMenu, "uint", dwExStyle, "uint", dpi, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -229,8 +236,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, pvParamMarshal, pvParam, "uint", fWinIni, "uint", dpi, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -246,7 +254,8 @@ class HiDpi {
         dpiContext := dpiContext is Win32Handle ? NumGet(dpiContext, "ptr") : dpiContext
 
         result := DllCall("USER32.dll\SetThreadDpiAwarenessContext", "ptr", dpiContext, "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -257,7 +266,8 @@ class HiDpi {
      */
     static GetThreadDpiAwarenessContext() {
         result := DllCall("USER32.dll\GetThreadDpiAwarenessContext", "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -271,7 +281,8 @@ class HiDpi {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\GetWindowDpiAwarenessContext", "ptr", hwnd, "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -384,8 +395,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\EnableNonClientDpiScaling", "ptr", hwnd, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -405,8 +417,9 @@ class HiDpi {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetProcessDpiAwarenessContext", "ptr", value, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -420,7 +433,8 @@ class HiDpi {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("USER32.dll\GetDpiAwarenessContextForProcess", "ptr", hProcess, "ptr")
-        return DPI_AWARENESS_CONTEXT({Value: result}, True)
+        resultHandle := DPI_AWARENESS_CONTEXT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -509,8 +523,9 @@ class HiDpi {
      */
     static SetProcessDpiAwareness(value) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\SetProcessDpiAwareness", "int", value, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -526,8 +541,9 @@ class HiDpi {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", "ptr", hprocess, "int*", &value := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return value
     }
@@ -578,8 +594,9 @@ class HiDpi {
         dpiYMarshal := dpiY is VarRef ? "uint*" : "ptr"
 
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", "ptr", hmonitor, "int", dpiType, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

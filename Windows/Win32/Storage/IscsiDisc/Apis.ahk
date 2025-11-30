@@ -950,19 +950,19 @@ class IscsiDisc {
      * @param {PWSTR} DiscoveryMechanism 
      * @param {Integer} InfoClass 
      * @param {Pointer<Integer>} BufferSize 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
      * @since windows6.0.6000
      */
-    static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
+    static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_R) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, BufferMarshal, Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_RMarshal, Buffer_R, "uint")
         return result
     }
 
@@ -972,19 +972,19 @@ class IscsiDisc {
      * @param {PSTR} DiscoveryMechanism 
      * @param {Integer} InfoClass 
      * @param {Pointer<Integer>} BufferSize 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
      * @since windows6.0.6000
      */
-    static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
+    static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_R) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, BufferMarshal, Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_RMarshal, Buffer_R, "uint")
         return result
     }
 
@@ -1053,17 +1053,17 @@ class IscsiDisc {
      * 
      * @param {BOOLEAN} ForceUpdate 
      * @param {Pointer<Integer>} BufferSize 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsw
      * @since windows6.0.6000
      */
-    static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -1071,17 +1071,17 @@ class IscsiDisc {
      * 
      * @param {BOOLEAN} ForceUpdate 
      * @param {Pointer<Integer>} BufferSize 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa
      * @since windows6.0.6000
      */
-    static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -1558,34 +1558,34 @@ class IscsiDisc {
     /**
      * 
      * @param {Pointer<Integer>} BufferSize 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlistw
      * @since windows6.0.6000
      */
-    static ReportIScsiInitiatorListW(BufferSize, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportIScsiInitiatorListW(BufferSize, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} BufferSize 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlista
      * @since windows6.0.6000
      */
-    static ReportIScsiInitiatorListA(BufferSize, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportIScsiInitiatorListA(BufferSize, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -1924,34 +1924,34 @@ class IscsiDisc {
     /**
      * 
      * @param {Pointer<Integer>} BufferSizeInChar 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlistw
      * @since windows6.0.6000
      */
-    static ReportISNSServerListW(BufferSizeInChar, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportISNSServerListW(BufferSizeInChar, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} BufferSizeInChar 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlista
      * @since windows6.0.6000
      */
-    static ReportISNSServerListA(BufferSizeInChar, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportISNSServerListA(BufferSizeInChar, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -2126,34 +2126,34 @@ class IscsiDisc {
     /**
      * 
      * @param {Pointer<Integer>} BufferSizeInChar 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
      * @since windows6.0.6000
      */
-    static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} BufferSizeInChar 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
      * @since windows6.0.6000
      */
-    static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
         return result
     }
 
@@ -2296,34 +2296,34 @@ class IscsiDisc {
     /**
      * ReportRadiusServerList function retrieves the list of Remote Authentication Dail-In Service (RADIUS) servers the iSCSI initiator service uses during authentication.
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer Pointer to a buffer that receives the list of Remote Authentication Dail-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
+     * @param {PWSTR} Buffer_R 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-reportradiusserverlistw
      * @since windows6.0.6000
      */
-    static ReportRadiusServerListW(BufferSizeInChar, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportRadiusServerListW(BufferSizeInChar, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
         return result
     }
 
     /**
      * ReportRadiusServerList function retrieves the list of Remote Authentication Dail-In Service (RADIUS) servers the iSCSI initiator service uses during authentication.
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer Pointer to a buffer that receives the list of Remote Authentication Dail-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
+     * @param {PSTR} Buffer_R 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-reportradiusserverlista
      * @since windows6.0.6000
      */
-    static ReportRadiusServerListA(BufferSizeInChar, Buffer) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    static ReportRadiusServerListA(BufferSizeInChar, Buffer_R) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
         return result
     }
 

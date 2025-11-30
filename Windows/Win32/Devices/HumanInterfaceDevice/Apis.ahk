@@ -23507,8 +23507,9 @@ class HumanInterfaceDevice {
         ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, ppvOutMarshal, ppvOut, "ptr", punkOuter, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -24138,42 +24139,42 @@ class HumanInterfaceDevice {
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetPhysicalDescriptor(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetPhysicalDescriptor(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetPhysicalDescriptor", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetPhysicalDescriptor", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetManufacturerString(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetManufacturerString(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetManufacturerString", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetManufacturerString", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetProductString(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetProductString(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetProductString", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetProductString", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
@@ -24181,42 +24182,42 @@ class HumanInterfaceDevice {
      * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} StringIndex 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetIndexedString(HidDeviceObject, StringIndex, Buffer, BufferLength) {
+    static HidD_GetIndexedString(HidDeviceObject, StringIndex, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetIndexedString", "ptr", HidDeviceObject, "uint", StringIndex, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetIndexedString", "ptr", HidDeviceObject, "uint", StringIndex, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetSerialNumberString(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetSerialNumberString(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetSerialNumberString", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetSerialNumberString", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetMsGenreDescriptor(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetMsGenreDescriptor(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetMsGenreDescriptor", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetMsGenreDescriptor", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 

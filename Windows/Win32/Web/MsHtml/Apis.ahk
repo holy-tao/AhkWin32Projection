@@ -31570,8 +31570,9 @@ class MsHtml {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHDOCVW.dll\DoPrivacyDlg", "ptr", hwndOwner, "ptr", pszUrl, "ptr", pPrivacyEnum, "int", fReportAllSites, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

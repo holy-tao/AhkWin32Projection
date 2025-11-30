@@ -3024,7 +3024,8 @@ class Ime {
         lpszLayoutText := lpszLayoutText is String ? StrPtr(lpszLayoutText) : lpszLayoutText
 
         result := DllCall("IMM32.dll\ImmInstallIMEA", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3040,7 +3041,8 @@ class Ime {
         lpszLayoutText := lpszLayoutText is String ? StrPtr(lpszLayoutText) : lpszLayoutText
 
         result := DllCall("IMM32.dll\ImmInstallIMEW", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3054,7 +3056,8 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetDefaultIMEWnd", "ptr", param0, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3296,7 +3299,8 @@ class Ime {
      */
     static ImmCreateContext() {
         result := DllCall("IMM32.dll\ImmCreateContext", "ptr")
-        return HIMC({Value: result}, True)
+        resultHandle := HIMC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3324,7 +3328,8 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetContext", "ptr", param0, "ptr")
-        return HIMC({Value: result}, True)
+        resultHandle := HIMC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3356,7 +3361,8 @@ class Ime {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("IMM32.dll\ImmAssociateContext", "ptr", param0, "ptr", param1, "ptr")
-        return HIMC({Value: result}, True)
+        resultHandle := HIMC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4488,7 +4494,8 @@ class Ime {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", "uint", param0, "ptr", param1, "int", param2, "int", param3, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4559,7 +4566,8 @@ class Ime {
      */
     static ImmCreateIMCC(param0) {
         result := DllCall("IMM32.dll\ImmCreateIMCC", "uint", param0, "ptr")
-        return HIMCC({Value: result}, True)
+        resultHandle := HIMCC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4571,7 +4579,8 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmDestroyIMCC", "ptr", param0, "ptr")
-        return HIMCC({Value: result}, True)
+        resultHandle := HIMCC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4620,7 +4629,8 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmReSizeIMCC", "ptr", param0, "uint", param1, "ptr")
-        return HIMCC({Value: result}, True)
+        resultHandle := HIMCC({Value: result}, True)
+        return resultHandle
     }
 
     /**

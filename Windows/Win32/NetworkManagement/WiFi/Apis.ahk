@@ -8245,8 +8245,9 @@ class WiFi {
         A_LastError := 0
 
         result := DllCall("wlanapi.dll\WlanAllocateMemory", "uint", dwMemorySize, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

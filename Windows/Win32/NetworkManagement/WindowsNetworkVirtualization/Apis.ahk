@@ -32,7 +32,8 @@ class WindowsNetworkVirtualization {
      */
     static WnvOpen() {
         result := DllCall("wnvapi.dll\WnvOpen", "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

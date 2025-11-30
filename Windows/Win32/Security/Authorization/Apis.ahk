@@ -1470,8 +1470,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzAccessCheck", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr", phAccessCheckResults, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1548,8 +1549,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzCachedAccessCheck", "uint", Flags, "ptr", hAccessCheckResults, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pReply, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1581,8 +1583,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzOpenObjectAudit", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1603,8 +1606,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzFreeHandle", "ptr", hAccessCheckResults, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1686,8 +1690,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", "uint", Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, "ptr", phAuthzResourceManager, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1707,8 +1712,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeResourceManagerEx", "uint", Flags, "ptr", pAuthzInitInfo, "ptr", phAuthzResourceManager, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1727,8 +1733,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeRemoteResourceManager", "ptr", pRpcInitInfo, "ptr", phAuthzResourceManager, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1749,8 +1756,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzFreeResourceManager", "ptr", hAuthzResourceManager, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1782,8 +1790,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeContextFromToken", "uint", Flags, "ptr", TokenHandle, "ptr", hAuthzResourceManager, pExpirationTimeMarshal, pExpirationTime, "ptr", Identifier, DynamicGroupArgsMarshal, DynamicGroupArgs, "ptr", phAuthzClientContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1876,8 +1885,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeContextFromSid", "uint", Flags, "ptr", UserSid, "ptr", hAuthzResourceManager, pExpirationTimeMarshal, pExpirationTime, "ptr", Identifier, DynamicGroupArgsMarshal, DynamicGroupArgs, "ptr", phAuthzClientContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1906,8 +1916,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeContextFromAuthzContext", "uint", Flags, "ptr", hAuthzClientContext, pExpirationTimeMarshal, pExpirationTime, "ptr", Identifier, DynamicGroupArgsMarshal, DynamicGroupArgs, "ptr", phNewAuthzClientContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1931,8 +1942,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeCompoundContext", "ptr", UserContext, "ptr", DeviceContext, "ptr", phCompoundContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1959,8 +1971,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzAddSidsToContext", "ptr", hAuthzClientContext, "ptr", Sids, "uint", SidCount, "ptr", RestrictedSids, "uint", RestrictedSidCount, "ptr", phNewAuthzClientContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1987,8 +2000,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzModifySecurityAttributes", "ptr", hAuthzClientContext, pOperationsMarshal, pOperations, "ptr", pAttributes, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2014,8 +2028,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzModifyClaims", "ptr", hAuthzClientContext, "int", ClaimClass, pClaimOperationsMarshal, pClaimOperations, "ptr", pClaims, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2041,8 +2056,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzModifySids", "ptr", hAuthzClientContext, "int", SidClass, pSidOperationsMarshal, pSidOperations, "ptr", pSids, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2066,8 +2082,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzSetAppContainerInformation", "ptr", hAuthzClientContext, "ptr", pAppContainerSid, "uint", CapabilityCount, "ptr", pCapabilitySids, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2078,7 +2095,7 @@ class Authorization {
      * @param {Integer} InfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_context_information_class">AUTHZ_CONTEXT_INFORMATION_CLASS</a> enumeration that indicates the type of information to be returned.
      * @param {Integer} BufferSize Size of the buffer passed.
      * @param {Pointer<Integer>} pSizeRequired A pointer to a <b>DWORD</b> of  the buffer size required for returning the structure.
-     * @param {Pointer<Void>} Buffer A pointer to memory that can receive the information. The structure returned depends on the information requested in the <i>InfoClass</i> parameter.
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -2086,17 +2103,18 @@ class Authorization {
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzgetinformationfromcontext
      * @since windows5.1.2600
      */
-    static AuthzGetInformationFromContext(hAuthzClientContext, InfoClass, BufferSize, pSizeRequired, Buffer) {
+    static AuthzGetInformationFromContext(hAuthzClientContext, InfoClass, BufferSize, pSizeRequired, Buffer_R) {
         hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
 
         pSizeRequiredMarshal := pSizeRequired is VarRef ? "uint*" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, pSizeRequiredMarshal, pSizeRequired, BufferMarshal, Buffer, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, pSizeRequiredMarshal, pSizeRequired, Buffer_RMarshal, Buffer_R, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2117,8 +2135,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzFreeContext", "ptr", hAuthzClientContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2149,8 +2168,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2220,8 +2240,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2242,8 +2263,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzFreeAuditEvent", "ptr", hAuditEvent, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2300,8 +2322,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInstallSecurityEventSource", "uint", dwFlags, "ptr", pRegistration, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2324,8 +2347,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzUninstallSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2333,7 +2357,7 @@ class Authorization {
     /**
      * Retrieves the registered security event sources that are not installed by default.
      * @param {Integer} dwFlags Reserved for future use; set this parameter to zero.
-     * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} Buffer A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structures that returns the registered security event sources.
+     * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} Buffer_R 
      * @param {Pointer<Integer>} pdwCount A pointer to a  variable that receives the number of event sources found.
      * @param {Pointer<Integer>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -2342,15 +2366,16 @@ class Authorization {
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzenumeratesecurityeventsources
      * @since windowsserver2003
      */
-    static AuthzEnumerateSecurityEventSources(dwFlags, Buffer, pdwCount, pdwLength) {
+    static AuthzEnumerateSecurityEventSources(dwFlags, Buffer_R, pdwCount, pdwLength) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer, pdwCountMarshal, pdwCount, pdwLengthMarshal, pdwLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer_R, pdwCountMarshal, pdwCount, pdwLengthMarshal, pdwLength, "int")
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2372,8 +2397,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzRegisterSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr", phEventProvider, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2392,8 +2418,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzUnregisterSecurityEventSource", "uint", dwFlags, "ptr", phEventProvider, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2446,8 +2473,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, "CDecl int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2471,8 +2499,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzReportSecurityEventFromParams", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "ptr", pParams, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2495,8 +2524,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", "ptr", phCapChangeSubscription, "ptr", pfnCapChangeCallback, pCallbackContextMarshal, pCallbackContext, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2517,8 +2547,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzUnregisterCapChangeNotification", "ptr", hCapChangeSubscription, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2536,8 +2567,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzFreeCentralAccessPolicyCache", "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4140,8 +4172,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, StringSidMarshal, StringSid, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4204,8 +4237,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, StringSidMarshal, StringSid, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4264,8 +4298,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, SidMarshal, Sid, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4324,8 +4359,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, SidMarshal, Sid, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4394,8 +4430,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, SecurityDescriptorSizeMarshal, SecurityDescriptorSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4464,8 +4501,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, SecurityDescriptorSizeMarshal, SecurityDescriptorSize, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4550,8 +4588,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4636,8 +4675,9 @@ class Authorization {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

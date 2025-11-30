@@ -356,8 +356,9 @@ class MobileDeviceManagementRegistration {
      */
     static GetDeviceRegistrationInfo(DeviceInformationClass) {
         result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr*", &ppDeviceRegistrationInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppDeviceRegistrationInfo
     }
@@ -379,8 +380,9 @@ class MobileDeviceManagementRegistration {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
         result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "int*", &pfIsDeviceRegisteredWithManagement := 0, "uint", cchUPN, "ptr", pszUPN, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfIsDeviceRegisteredWithManagement
     }
@@ -393,8 +395,9 @@ class MobileDeviceManagementRegistration {
      */
     static IsManagementRegistrationAllowed() {
         result := DllCall("MDMRegistration.dll\IsManagementRegistrationAllowed", "int*", &pfIsManagementRegistrationAllowed := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfIsManagementRegistrationAllowed
     }
@@ -405,8 +408,9 @@ class MobileDeviceManagementRegistration {
      */
     static IsMdmUxWithoutAadAllowed() {
         result := DllCall("MDMRegistration.dll\IsMdmUxWithoutAadAllowed", "int*", &isEnrollmentAllowed := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return isEnrollmentAllowed
     }
@@ -423,8 +427,9 @@ class MobileDeviceManagementRegistration {
      */
     static SetManagedExternally(IsManagedExternally) {
         result := DllCall("MDMRegistration.dll\SetManagedExternally", "int", IsManagedExternally, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -442,8 +447,9 @@ class MobileDeviceManagementRegistration {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
         result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr*", &ppMgmtInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppMgmtInfo
     }
@@ -461,8 +467,9 @@ class MobileDeviceManagementRegistration {
         UserToken := UserToken is Win32Handle ? NumGet(UserToken, "ptr") : UserToken
 
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADCredentials", "ptr", UserToken, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -477,8 +484,9 @@ class MobileDeviceManagementRegistration {
      */
     static RegisterDeviceWithManagementUsingAADDeviceCredentials() {
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -492,8 +500,9 @@ class MobileDeviceManagementRegistration {
         MDMApplicationID := MDMApplicationID is String ? StrPtr(MDMApplicationID) : MDMApplicationID
 
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", "ptr", MDMApplicationID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -520,8 +529,9 @@ class MobileDeviceManagementRegistration {
         ppzsAccessToken := ppzsAccessToken is String ? StrPtr(ppzsAccessToken) : ppzsAccessToken
 
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagement", "ptr", pszUPN, "ptr", ppszMDMServiceUri, "ptr", ppzsAccessToken, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -540,8 +550,9 @@ class MobileDeviceManagementRegistration {
         enrollmentID := enrollmentID is String ? StrPtr(enrollmentID) : enrollmentID
 
         result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", "ptr", enrollmentID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -571,8 +582,9 @@ class MobileDeviceManagementRegistration {
         configStringBufferLengthMarshal := configStringBufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, "ptr", configString, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -595,8 +607,9 @@ class MobileDeviceManagementRegistration {
         configString := configString is String ? StrPtr(configString) : configString
 
         result := DllCall("MDMRegistration.dll\SetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configString, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -617,8 +630,9 @@ class MobileDeviceManagementRegistration {
         pszHyperlink := pszHyperlink is String ? StrPtr(pszHyperlink) : pszHyperlink
 
         result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", "uint", cchHyperlink, "ptr", pszHyperlink, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -639,8 +653,9 @@ class MobileDeviceManagementRegistration {
         pszDiscoveryServiceCandidate := pszDiscoveryServiceCandidate is String ? StrPtr(pszDiscoveryServiceCandidate) : pszDiscoveryServiceCandidate
 
         result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr*", &ppMgmtInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppMgmtInfo
     }
@@ -651,8 +666,9 @@ class MobileDeviceManagementRegistration {
      */
     static RegisterDeviceWithLocalManagement() {
         result := DllCall("MDMLocalManagement.dll\RegisterDeviceWithLocalManagement", "int*", &alreadyRegistered := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return alreadyRegistered
     }
@@ -666,8 +682,9 @@ class MobileDeviceManagementRegistration {
         syncMLRequest := syncMLRequest is String ? StrPtr(syncMLRequest) : syncMLRequest
 
         result := DllCall("MDMLocalManagement.dll\ApplyLocalManagementSyncML", "ptr", syncMLRequest, "ptr*", &syncMLResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return syncMLResult
     }
@@ -678,8 +695,9 @@ class MobileDeviceManagementRegistration {
      */
     static UnregisterDeviceWithLocalManagement() {
         result := DllCall("MDMLocalManagement.dll\UnregisterDeviceWithLocalManagement", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

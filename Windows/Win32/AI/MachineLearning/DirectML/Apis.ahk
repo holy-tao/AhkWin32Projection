@@ -62,8 +62,9 @@ class DirectML {
      */
     static DMLCreateDevice(d3d12Device, flags, riid) {
         result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -97,8 +98,9 @@ class DirectML {
      */
     static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid) {
         result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }

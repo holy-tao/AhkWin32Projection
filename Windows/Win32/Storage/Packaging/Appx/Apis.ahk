@@ -266,9 +266,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the structure returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package ID, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a> structure.
+     * @param {Pointer} buffer_R 
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
@@ -304,10 +302,10 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackageid
      * @since windows8.0
      */
-    static GetCurrentPackageId(bufferLength, buffer) {
+    static GetCurrentPackageId(bufferLength, buffer_R) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetCurrentPackageId", bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
+        result := DllCall("KERNEL32.dll\GetCurrentPackageId", bufferLengthMarshal, bufferLength, "ptr", buffer_R, "uint")
         return result
     }
 
@@ -475,9 +473,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the structure returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package ID, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a> structure.
+     * @param {Pointer} buffer_R 
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
@@ -513,12 +509,12 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
      * @since windows8.0
      */
-    static GetPackageId(hProcess, bufferLength, buffer) {
+    static GetPackageId(hProcess, bufferLength, buffer_R) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetPackageId", "ptr", hProcess, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
+        result := DllCall("KERNEL32.dll\GetPackageId", "ptr", hProcess, bufferLengthMarshal, bufferLength, "ptr", buffer_R, "uint")
         return result
     }
 
@@ -992,9 +988,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
+     * @param {Pointer} buffer_R 
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of structures in the buffer.
@@ -1033,11 +1027,11 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackageinfo2
      * @since windows10.0.10240
      */
-    static GetCurrentPackageInfo2(flags, packagePathType, bufferLength, buffer, count) {
+    static GetCurrentPackageInfo2(flags, packagePathType, bufferLength, buffer_R, count) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackageInfo2", "uint", flags, "int", packagePathType, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackageInfo2", "uint", flags, "int", packagePathType, bufferLengthMarshal, bufferLength, "ptr", buffer_R, countMarshal, count, "uint")
         return result
     }
 
@@ -1304,9 +1298,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the data returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package ID, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a> structure.
+     * @param {Pointer} buffer_R 
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
@@ -1342,12 +1334,12 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-packageidfromfullname
      * @since windows8.0
      */
-    static PackageIdFromFullName(packageFullName, flags, bufferLength, buffer) {
+    static PackageIdFromFullName(packageFullName, flags, bufferLength, buffer_R) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
+        result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer_R, "uint")
         return result
     }
 
@@ -1685,9 +1677,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the number of characters. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this number to fill <i>buffer</i>.
-     * @param {PWSTR} buffer Type: <b>WCHAR*</b>
-     * 
-     * The string of characters for all of the package full names.
+     * @param {PWSTR} buffer_R 
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
@@ -1712,15 +1702,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagesbypackagefamily
      * @since windows8.0
      */
-    static GetPackagesByPackageFamily(packageFamilyName, count, packageFullNames, bufferLength, buffer) {
+    static GetPackagesByPackageFamily(packageFamilyName, count, packageFullNames, bufferLength, buffer_R) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
-        buffer := buffer is String ? StrPtr(buffer) : buffer
+        buffer_R := buffer_R is String ? StrPtr(buffer_R) : buffer_R
 
         countMarshal := count is VarRef ? "uint*" : "ptr"
         packageFullNamesMarshal := packageFullNames is VarRef ? "ptr*" : "ptr"
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetPackagesByPackageFamily", "ptr", packageFamilyName, countMarshal, count, packageFullNamesMarshal, packageFullNames, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
+        result := DllCall("KERNEL32.dll\GetPackagesByPackageFamily", "ptr", packageFamilyName, countMarshal, count, packageFullNamesMarshal, packageFullNames, bufferLengthMarshal, bufferLength, "ptr", buffer_R, "uint")
         return result
     }
 
@@ -1745,9 +1735,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the number of characters. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this memory space to fill <i>buffer</i>.
-     * @param {PWSTR} buffer Type: <b>WCHAR*</b>
-     * 
-     * A pointer to memory space that receives  the string of characters for all of the package full names.
+     * @param {PWSTR} buffer_R 
      * @param {Pointer<Integer>} packageProperties Type: <b>UINT32*</b>
      * 
      * A pointer to memory space that receives  the <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package properties</a> for all of the packages that were found.
@@ -1775,16 +1763,16 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-findpackagesbypackagefamily
      * @since windows8.1
      */
-    static FindPackagesByPackageFamily(packageFamilyName, packageFilters, count, packageFullNames, bufferLength, buffer, packageProperties) {
+    static FindPackagesByPackageFamily(packageFamilyName, packageFilters, count, packageFullNames, bufferLength, buffer_R, packageProperties) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
-        buffer := buffer is String ? StrPtr(buffer) : buffer
+        buffer_R := buffer_R is String ? StrPtr(buffer_R) : buffer_R
 
         countMarshal := count is VarRef ? "uint*" : "ptr"
         packageFullNamesMarshal := packageFullNames is VarRef ? "ptr*" : "ptr"
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
         packagePropertiesMarshal := packageProperties is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, "uint", packageFilters, countMarshal, count, packageFullNamesMarshal, packageFullNames, bufferLengthMarshal, bufferLength, "ptr", buffer, packagePropertiesMarshal, packageProperties, "uint")
+        result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, "uint", packageFilters, countMarshal, count, packageFullNamesMarshal, packageFullNames, bufferLengthMarshal, bufferLength, "ptr", buffer_R, packagePropertiesMarshal, packageProperties, "uint")
         return result
     }
 
@@ -1837,9 +1825,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
+     * @param {Pointer} buffer_R 
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of structures in the buffer.
@@ -1878,11 +1864,11 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackageinfo
      * @since windows8.0
      */
-    static GetCurrentPackageInfo(flags, bufferLength, buffer, count) {
+    static GetCurrentPackageInfo(flags, bufferLength, buffer_R, count) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo", "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
+        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo", "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer_R, countMarshal, count, "uint")
         return result
     }
 
@@ -1974,9 +1960,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the package information returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
+     * @param {Pointer} buffer_R 
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of packages in the buffer.
@@ -2004,11 +1988,11 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageinfo
      * @since windows8.0
      */
-    static GetPackageInfo(packageInfoReference, flags, bufferLength, buffer, count) {
+    static GetPackageInfo(packageInfoReference, flags, bufferLength, buffer_R, count) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetPackageInfo", "ptr", packageInfoReference, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
+        result := DllCall("KERNEL32.dll\GetPackageInfo", "ptr", packageInfoReference, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer_R, countMarshal, count, "uint")
         return result
     }
 
@@ -2022,9 +2006,7 @@ class Appx {
      * A pointer to a variable that holds the size of <i>buffer</i>, in bytes. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the required size of <i>buffer</i>. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this memory space to fill <i>buffer</i>.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * A pointer to memory space that receives  the app IDs.
+     * @param {Pointer} buffer_R 
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that receives the number of app IDs in <i>buffer</i>.
@@ -2052,11 +2034,11 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageapplicationids
      * @since windows8.1
      */
-    static GetPackageApplicationIds(packageInfoReference, bufferLength, buffer, count) {
+    static GetPackageApplicationIds(packageInfoReference, bufferLength, buffer_R, count) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetPackageApplicationIds", "ptr", packageInfoReference, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
+        result := DllCall("KERNEL32.dll\GetPackageApplicationIds", "ptr", packageInfoReference, bufferLengthMarshal, bufferLength, "ptr", buffer_R, countMarshal, count, "uint")
         return result
     }
 
@@ -2074,9 +2056,7 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the package information returned, in bytes.
-     * @param {Pointer} buffer Type: <b>BYTE*</b>
-     * 
-     * The package information, represented as an array of [PACKAGE_INFO](./ns-appmodel-package_info.md) structures.
+     * @param {Pointer} buffer_R 
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of packages in the buffer.
@@ -2104,11 +2084,11 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageinfo2
      * @since windows10.0.10240
      */
-    static GetPackageInfo2(packageInfoReference, flags, packagePathType, bufferLength, buffer, count) {
+    static GetPackageInfo2(packageInfoReference, flags, packagePathType, bufferLength, buffer_R, count) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackageInfo2", "ptr", packageInfoReference, "uint", flags, "int", packagePathType, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackageInfo2", "ptr", packageInfoReference, "uint", flags, "int", packagePathType, bufferLengthMarshal, bufferLength, "ptr", buffer_R, countMarshal, count, "uint")
         return result
     }
 
@@ -2121,8 +2101,9 @@ class Appx {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\CheckIsMSIXPackage", "ptr", packageFullName, "int*", &isMSIXPackage := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return isMSIXPackage
     }
@@ -2144,8 +2125,9 @@ class Appx {
         lifetimeArtifact := lifetimeArtifact is String ? StrPtr(lifetimeArtifact) : lifetimeArtifact
 
         result := DllCall("KERNELBASE.dll\TryCreatePackageDependency", "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int", packageDependencyProcessorArchitectures, "int", lifetimeKind, "ptr", lifetimeArtifact, "int", options, "ptr*", &packageDependencyId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return packageDependencyId
     }
@@ -2167,8 +2149,9 @@ class Appx {
         lifetimeArtifact := lifetimeArtifact is String ? StrPtr(lifetimeArtifact) : lifetimeArtifact
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\TryCreatePackageDependency2", "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int", packageDependencyProcessorArchitectures, "int", lifetimeKind, "ptr", lifetimeArtifact, "int", options, "ptr", lifetimeExpiration, "ptr*", &packageDependencyId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return packageDependencyId
     }
@@ -2183,8 +2166,9 @@ class Appx {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\DeletePackageDependency", "ptr", packageDependencyId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2206,8 +2190,9 @@ class Appx {
         packageFullNameMarshal := packageFullName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, "int", rank, "int", options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2228,8 +2213,9 @@ class Appx {
         packageFullNameMarshal := packageFullName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, "int", rank, "int", options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2242,8 +2228,9 @@ class Appx {
      */
     static RemovePackageDependency(packageDependencyContext) {
         result := DllCall("KERNELBASE.dll\RemovePackageDependency", "ptr", packageDependencyContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2258,8 +2245,9 @@ class Appx {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\GetResolvedPackageFullNameForPackageDependency", "ptr", packageDependencyId, "ptr*", &packageFullName := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return packageFullName
     }
@@ -2273,8 +2261,9 @@ class Appx {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetResolvedPackageFullNameForPackageDependency2", "ptr", packageDependencyId, "ptr*", &packageFullName := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return packageFullName
     }
@@ -2287,8 +2276,9 @@ class Appx {
      */
     static GetIdForPackageDependencyContext(packageDependencyContext) {
         result := DllCall("KERNELBASE.dll\GetIdForPackageDependencyContext", "ptr", packageDependencyContext, "ptr*", &packageDependencyId := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return packageDependencyId
     }
@@ -2314,8 +2304,9 @@ class Appx {
         packageDependencyIdsMarshal := packageDependencyIds is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\FindPackageDependency", "ptr", findPackageDependencyCriteria, packageDependencyIdsCountMarshal, packageDependencyIdsCount, packageDependencyIdsMarshal, packageDependencyIds, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2344,8 +2335,9 @@ class Appx {
         optionsMarshal := options is VarRef ? "int*" : "ptr"
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetPackageDependencyInformation", "ptr", packageDependencyId, userMarshal, user, packageFamilyNameMarshal, packageFamilyName, "ptr", minVersion, packageDependencyProcessorArchitecturesMarshal, packageDependencyProcessorArchitectures, lifetimeKindMarshal, lifetimeKind, lifetimeArtifactMarshal, lifetimeArtifact, optionsMarshal, options, "ptr", lifetimeExpiration, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2366,8 +2358,9 @@ class Appx {
         processIdsMarshal := processIds is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, processIdsCountMarshal, processIdsCount, processIdsMarshal, processIds, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2541,8 +2534,9 @@ class Appx {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\CreatePackageVirtualizationContext", "ptr", packageFamilyName, "ptr*", &context := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return context
     }
@@ -2554,8 +2548,9 @@ class Appx {
      */
     static ActivatePackageVirtualizationContext(context) {
         result := DllCall("KERNEL32.dll\ActivatePackageVirtualizationContext", "ptr", context, "ptr*", &cookie := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return cookie
     }
@@ -2585,8 +2580,9 @@ class Appx {
      */
     static DuplicatePackageVirtualizationContext(sourceContext) {
         result := DllCall("KERNEL32.dll\DuplicatePackageVirtualizationContext", "ptr", sourceContext, "ptr*", &destContext := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return destContext
     }
@@ -2614,8 +2610,9 @@ class Appx {
         processesMarshal := processes is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, countMarshal, count, processesMarshal, processes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2625,16 +2622,17 @@ class Appx {
      * @param {Integer} flags 
      * @param {Integer} packageInfoType 
      * @param {Pointer<Integer>} bufferLength 
-     * @param {Pointer} buffer 
+     * @param {Pointer} buffer_R 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/appxpkg/appmodel/nf-appmodel-getcurrentpackageinfo3
      */
-    static GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, buffer) {
+    static GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, buffer_R) {
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint*", &count := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, bufferLengthMarshal, bufferLength, "ptr", buffer_R, "uint*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return count
     }

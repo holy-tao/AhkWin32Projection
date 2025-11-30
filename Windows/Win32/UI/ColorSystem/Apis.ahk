@@ -527,7 +527,8 @@ class ColorSystem {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -577,7 +578,8 @@ class ColorSystem {
      */
     static CreateColorSpaceA(lplcs) {
         result := DllCall("GDI32.dll\CreateColorSpaceA", "ptr", lplcs, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -591,7 +593,8 @@ class ColorSystem {
      */
     static CreateColorSpaceW(lplcs) {
         result := DllCall("GDI32.dll\CreateColorSpaceW", "ptr", lplcs, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -609,7 +612,8 @@ class ColorSystem {
         hcs := hcs is Win32Handle ? NumGet(hcs, "ptr") : hcs
 
         result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs, "ptr")
-        return HCOLORSPACE({Value: result}, True)
+        resultHandle := HCOLORSPACE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2723,8 +2727,9 @@ class ColorSystem {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileAddDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", setAsDefault, "int", associateAsAdvancedColor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2743,8 +2748,9 @@ class ColorSystem {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileRemoveDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", dissociateAdvancedColor, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2764,8 +2770,9 @@ class ColorSystem {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileSetDisplayDefaultAssociation", "int", scope, "ptr", profileName, "int", profileType, "int", profileSubType, "ptr", targetAdapterID, "uint", sourceID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2785,8 +2792,9 @@ class ColorSystem {
         profileCountMarshal := profileCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, profileListMarshal, profileList, profileCountMarshal, profileCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2803,8 +2811,9 @@ class ColorSystem {
      */
     static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr*", &profileName := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return profileName
     }
@@ -2818,8 +2827,9 @@ class ColorSystem {
      */
     static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", &scope := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return scope
     }
@@ -2834,8 +2844,9 @@ class ColorSystem {
      */
     static ColorProfileGetDeviceCapabilities(scope, targetAdapterID, sourceID, capsType) {
         result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, "ptr", &outputCapabilities := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return outputCapabilities
     }

@@ -3337,8 +3337,9 @@ class KernelStreaming {
 
         AllocatorHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateAllocator2", "ptr", ConnectionHandle, "ptr", AllocatorFraming, "ptr", AllocatorHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return AllocatorHandle
     }
@@ -3354,8 +3355,9 @@ class KernelStreaming {
 
         ClockHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateClock2", "ptr", ConnectionHandle, "ptr", ClockCreate, "ptr", ClockHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ClockHandle
     }
@@ -3372,8 +3374,9 @@ class KernelStreaming {
 
         ConnectionHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreatePin2", "ptr", FilterHandle, "ptr", Connect, "uint", DesiredAccess, "ptr", ConnectionHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ConnectionHandle
     }
@@ -3390,8 +3393,9 @@ class KernelStreaming {
 
         NodeHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateTopologyNode2", "ptr", ParentHandle, "ptr", NodeCreate, "uint", DesiredAccess, "ptr", NodeHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return NodeHandle
     }
@@ -3404,8 +3408,9 @@ class KernelStreaming {
      */
     static KsResolveRequiredAttributes(DataRange, Attributes) {
         result := DllCall("ksproxy.ax\KsResolveRequiredAttributes", "ptr", DataRange, "ptr", Attributes, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3419,8 +3424,9 @@ class KernelStreaming {
     static KsOpenDefaultDevice(Category, Access) {
         DeviceHandle := HANDLE()
         result := DllCall("ksproxy.ax\KsOpenDefaultDevice", "ptr", Category, "uint", Access, "ptr", DeviceHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return DeviceHandle
     }
@@ -3442,8 +3448,9 @@ class KernelStreaming {
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3459,8 +3466,9 @@ class KernelStreaming {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
         result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr*", &Items := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return Items
     }
@@ -3475,8 +3483,9 @@ class KernelStreaming {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
         result := DllCall("ksproxy.ax\KsGetMediaTypeCount", "ptr", FilterHandle, "uint", PinFactoryId, "uint*", &MediaTypeCount := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return MediaTypeCount
     }
@@ -3493,8 +3502,9 @@ class KernelStreaming {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
         result := DllCall("ksproxy.ax\KsGetMediaType", "int", Position, "ptr", AmMediaType, "ptr", FilterHandle, "uint", PinFactoryId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

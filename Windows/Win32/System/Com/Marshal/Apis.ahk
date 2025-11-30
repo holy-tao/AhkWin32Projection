@@ -1051,8 +1051,9 @@ class Marshal {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pulSize
     }
@@ -1102,8 +1103,9 @@ class Marshal {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("OLE32.dll\CoMarshalInterface", "ptr", pStm, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1118,8 +1120,9 @@ class Marshal {
      */
     static CoUnmarshalInterface(pStm, riid) {
         result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppv
     }
@@ -1174,8 +1177,9 @@ class Marshal {
      */
     static CoMarshalHresult(pstm, hresult) {
         result := DllCall("OLE32.dll\CoMarshalHresult", "ptr", pstm, "int", hresult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1189,8 +1193,9 @@ class Marshal {
      */
     static CoUnmarshalHresult(pstm) {
         result := DllCall("OLE32.dll\CoUnmarshalHresult", "ptr", pstm, "int*", &phresult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phresult
     }
@@ -1245,8 +1250,9 @@ class Marshal {
      */
     static CoReleaseMarshalData(pStm) {
         result := DllCall("OLE32.dll\CoReleaseMarshalData", "ptr", pStm, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1266,8 +1272,9 @@ class Marshal {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "ptr*", &ppMarshal := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IMarshal(ppMarshal)
     }
@@ -1311,8 +1318,9 @@ class Marshal {
      */
     static CoGetStdMarshalEx(pUnkOuter, smexflags) {
         result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr*", &ppUnkInner := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(ppUnkInner)
     }
@@ -1327,8 +1335,9 @@ class Marshal {
      */
     static CoMarshalInterThreadInterfaceInStream(riid, pUnk) {
         result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr*", &ppStm := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IStream(ppStm)
     }

@@ -72,8 +72,9 @@ class DirectWrite {
      */
     static DWriteCreateFactory(factoryType, iid) {
         result := DllCall("DWrite.dll\DWriteCreateFactory", "int", factoryType, "ptr", iid, "ptr*", &factory := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return factory
     }

@@ -52,8 +52,9 @@ class SubsystemForLinux {
         tarGzFilename := tarGzFilename is String ? StrPtr(tarGzFilename) : tarGzFilename
 
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslRegisterDistribution", "ptr", distributionName, "ptr", tarGzFilename, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -68,8 +69,9 @@ class SubsystemForLinux {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslUnregisterDistribution", "ptr", distributionName, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -86,8 +88,9 @@ class SubsystemForLinux {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslConfigureDistribution", "ptr", distributionName, "uint", defaultUID, "int", wslDistributionFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -113,8 +116,9 @@ class SubsystemForLinux {
         defaultEnvironmentVariableCountMarshal := defaultEnvironmentVariableCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, defaultEnvironmentVariablesMarshal, defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -132,8 +136,9 @@ class SubsystemForLinux {
         command := command is String ? StrPtr(command) : command
 
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "uint*", &exitCode := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return exitCode
     }
@@ -158,8 +163,9 @@ class SubsystemForLinux {
 
         process := HANDLE()
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return process
     }

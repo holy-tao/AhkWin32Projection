@@ -3593,8 +3593,9 @@ class Direct3D9 {
      */
     static Direct3DCreate9Ex(SDKVersion) {
         result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", &param1 := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IDirect3D9Ex(param1)
     }

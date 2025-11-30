@@ -1620,8 +1620,9 @@ class Imaging {
      */
     static WICConvertBitmapSource(dstFormat, pISrc) {
         result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", &ppIDst := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWICBitmapSource(ppIDst)
     }
@@ -1656,8 +1657,9 @@ class Imaging {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
         result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", &ppIBitmap := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWICBitmap(ppIBitmap)
     }
@@ -1695,8 +1697,9 @@ class Imaging {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
         result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", &ppIBitmap := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWICBitmap(ppIBitmap)
     }
@@ -1722,8 +1725,9 @@ class Imaging {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcchActual
     }
@@ -1746,8 +1750,9 @@ class Imaging {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapShortNameToGuid", "ptr", wzName, "ptr", pguid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1779,8 +1784,9 @@ class Imaging {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcchActual
     }
@@ -1807,8 +1813,9 @@ class Imaging {
      */
     static WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguidMetadataFormat) {
         result := DllCall("WindowsCodecs.dll\WICMatchMetadataContent", "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr", pIStream, "ptr", pguidMetadataFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1835,8 +1842,9 @@ class Imaging {
      */
     static WICSerializeMetadataContent(guidContainerFormat, pIWriter, dwPersistOptions, pIStream) {
         result := DllCall("WindowsCodecs.dll\WICSerializeMetadataContent", "ptr", guidContainerFormat, "ptr", pIWriter, "uint", dwPersistOptions, "ptr", pIStream, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1857,8 +1865,9 @@ class Imaging {
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter) {
         result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", &pcbSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbSize
     }

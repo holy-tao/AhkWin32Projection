@@ -764,8 +764,9 @@ class IndexServer {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
         result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppIUnk
     }
@@ -781,8 +782,9 @@ class IndexServer {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
         result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppIUnk
     }
@@ -797,8 +799,9 @@ class IndexServer {
      */
     static BindIFilterFromStorage(pStg, pUnkOuter) {
         result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppIUnk
     }
@@ -813,8 +816,9 @@ class IndexServer {
      */
     static BindIFilterFromStream(pStm, pUnkOuter) {
         result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppIUnk
     }

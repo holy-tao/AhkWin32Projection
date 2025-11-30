@@ -26,8 +26,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsEnumerateComputeSystems", "ptr", query, "ptr", operation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -45,8 +46,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsEnumerateComputeSystemsInNamespace", "ptr", idNamespace, "ptr", query, "ptr", operation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -62,7 +64,8 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsCreateOperation", contextMarshal, context, "ptr", callback, "ptr")
-        return HCS_OPERATION({Value: result}, True)
+        resultHandle := HCS_OPERATION({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -76,7 +79,8 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", "int", eventTypes, contextMarshal, context, "ptr", callback, "ptr")
-        return HCS_OPERATION({Value: result}, True)
+        resultHandle := HCS_OPERATION({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -117,8 +121,9 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsSetOperationContext", "ptr", operation, contextMarshal, context, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -133,7 +138,8 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetComputeSystemFromOperation", "ptr", operation, "ptr")
-        return HCS_SYSTEM({Value: result}, True)
+        resultHandle := HCS_SYSTEM({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -146,7 +152,8 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetProcessFromOperation", "ptr", operation, "ptr")
-        return HCS_PROCESS({Value: result}, True)
+        resultHandle := HCS_PROCESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -185,8 +192,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetOperationResult", "ptr", operation, "ptr*", &resultDocument := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return resultDocument
     }
@@ -202,8 +210,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetOperationResultAndProcessInfo", "ptr", operation, "ptr", processInformation, "ptr*", &resultDocument := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return resultDocument
     }
@@ -222,8 +231,9 @@ class HostComputeSystem {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
         result := DllCall("computecore.dll\HcsAddResourceToOperation", "ptr", operation, "int", type, "ptr", uri, "ptr", handle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -238,8 +248,9 @@ class HostComputeSystem {
         RuntimeFileName := RuntimeFileName is String ? StrPtr(RuntimeFileName) : RuntimeFileName
 
         result := DllCall("computecore.dll\HcsGetProcessorCompatibilityFromSavedState", "ptr", RuntimeFileName, "ptr*", &ProcessorFeaturesString := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ProcessorFeaturesString
     }
@@ -255,8 +266,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsWaitForOperationResult", "ptr", operation, "uint", timeoutMs, "ptr*", &resultDocument := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return resultDocument
     }
@@ -273,8 +285,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsWaitForOperationResultAndProcessInfo", "ptr", operation, "uint", timeoutMs, "ptr", processInformation, "ptr*", &resultDocument := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return resultDocument
     }
@@ -293,8 +306,9 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsSetOperationCallback", "ptr", operation, contextMarshal, context, "ptr", callback, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -309,8 +323,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsCancelOperation", "ptr", operation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -326,8 +341,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsGetOperationProperties", "ptr", operation, "ptr", options, "ptr*", &resultDocument := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return resultDocument
     }
@@ -348,8 +364,9 @@ class HostComputeSystem {
 
         computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, "ptr", operation, "ptr", securityDescriptor, "ptr", computeSystem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return computeSystem
     }
@@ -373,8 +390,9 @@ class HostComputeSystem {
 
         computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, "ptr", operation, optionsMarshal, options, "ptr", computeSystem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return computeSystem
     }
@@ -391,8 +409,9 @@ class HostComputeSystem {
 
         computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsOpenComputeSystem", "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return computeSystem
     }
@@ -410,8 +429,9 @@ class HostComputeSystem {
 
         computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsOpenComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return computeSystem
     }
@@ -442,8 +462,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsStartComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -462,8 +483,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsShutDownComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -482,8 +504,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsTerminateComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -502,8 +525,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsCrashComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -522,8 +546,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsPauseComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -542,8 +567,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsResumeComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -562,8 +588,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsSaveComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -582,8 +609,9 @@ class HostComputeSystem {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
         result := DllCall("computecore.dll\HcsGetComputeSystemProperties", "ptr", computeSystem, "ptr", operation, "ptr", propertyQuery, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -604,8 +632,9 @@ class HostComputeSystem {
         identity := identity is Win32Handle ? NumGet(identity, "ptr") : identity
 
         result := DllCall("computecore.dll\HcsModifyComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", configuration, "ptr", identity, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -621,8 +650,9 @@ class HostComputeSystem {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
         result := DllCall("computecore.dll\HcsWaitForComputeSystemExit", "ptr", computeSystem, "uint", timeoutMs, "ptr*", &result := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -642,8 +672,9 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsSetComputeSystemCallback", "ptr", computeSystem, "int", callbackOptions, contextMarshal, context, "ptr", callback, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -661,8 +692,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsInitializeLiveMigrationOnSource", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -680,8 +712,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsStartLiveMigrationOnSource", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -699,8 +732,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsStartLiveMigrationTransfer", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -718,8 +752,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsFinalizeLiveMigration", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -740,8 +775,9 @@ class HostComputeSystem {
 
         process := HCS_PROCESS()
         result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", securityDescriptor, "ptr", process, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return process
     }
@@ -759,8 +795,9 @@ class HostComputeSystem {
 
         process := HCS_PROCESS()
         result := DllCall("computecore.dll\HcsOpenProcess", "ptr", computeSystem, "uint", processId, "uint", requestedAccess, "ptr", process, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return process
     }
@@ -791,8 +828,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsTerminateProcess", "ptr", process, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -811,8 +849,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsSignalProcess", "ptr", process, "ptr", operation, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -829,8 +868,9 @@ class HostComputeSystem {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsGetProcessInfo", "ptr", process, "ptr", operation, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -849,8 +889,9 @@ class HostComputeSystem {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
         result := DllCall("computecore.dll\HcsGetProcessProperties", "ptr", process, "ptr", operation, "ptr", propertyQuery, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -869,8 +910,9 @@ class HostComputeSystem {
         settings := settings is String ? StrPtr(settings) : settings
 
         result := DllCall("computecore.dll\HcsModifyProcess", "ptr", process, "ptr", operation, "ptr", settings, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -890,8 +932,9 @@ class HostComputeSystem {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("computecore.dll\HcsSetProcessCallback", "ptr", process, "int", callbackOptions, contextMarshal, context, "ptr", callback, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -907,8 +950,9 @@ class HostComputeSystem {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
         result := DllCall("computecore.dll\HcsWaitForProcessExit", "ptr", computeSystem, "uint", timeoutMs, "ptr*", &result := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -923,8 +967,9 @@ class HostComputeSystem {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
         result := DllCall("computecore.dll\HcsGetServiceProperties", "ptr", propertyQuery, "ptr*", &result := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -939,8 +984,9 @@ class HostComputeSystem {
         settings := settings is String ? StrPtr(settings) : settings
 
         result := DllCall("computecore.dll\HcsModifyServiceSettings", "ptr", settings, "ptr*", &result := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -955,8 +1001,9 @@ class HostComputeSystem {
         settings := settings is String ? StrPtr(settings) : settings
 
         result := DllCall("computecore.dll\HcsSubmitWerReport", "ptr", settings, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -971,8 +1018,9 @@ class HostComputeSystem {
         guestStateFilePath := guestStateFilePath is String ? StrPtr(guestStateFilePath) : guestStateFilePath
 
         result := DllCall("computecore.dll\HcsCreateEmptyGuestStateFile", "ptr", guestStateFilePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -986,8 +1034,9 @@ class HostComputeSystem {
         runtimeStateFilePath := runtimeStateFilePath is String ? StrPtr(runtimeStateFilePath) : runtimeStateFilePath
 
         result := DllCall("computecore.dll\HcsCreateEmptyRuntimeStateFile", "ptr", runtimeStateFilePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1004,8 +1053,9 @@ class HostComputeSystem {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
         result := DllCall("computecore.dll\HcsGrantVmAccess", "ptr", vmId, "ptr", filePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1022,8 +1072,9 @@ class HostComputeSystem {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
         result := DllCall("computecore.dll\HcsRevokeVmAccess", "ptr", vmId, "ptr", filePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1038,8 +1089,9 @@ class HostComputeSystem {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
         result := DllCall("computecore.dll\HcsGrantVmGroupAccess", "ptr", filePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1054,8 +1106,9 @@ class HostComputeSystem {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
         result := DllCall("computecore.dll\HcsRevokeVmGroupAccess", "ptr", filePath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1074,8 +1127,9 @@ class HostComputeSystem {
         layerData := layerData is String ? StrPtr(layerData) : layerData
 
         result := DllCall("computestorage.dll\HcsImportLayer", "ptr", layerPath, "ptr", sourceFolderPath, "ptr", layerData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1096,8 +1150,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computestorage.dll\HcsExportLayer", "ptr", layerPath, "ptr", exportFolderPath, "ptr", layerData, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1118,8 +1173,9 @@ class HostComputeSystem {
         layerData := layerData is String ? StrPtr(layerData) : layerData
 
         result := DllCall("computestorage.dll\HcsExportLegacyWritableLayer", "ptr", writableLayerMountPath, "ptr", writableLayerFolderPath, "ptr", exportFolderPath, "ptr", layerData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1134,8 +1190,9 @@ class HostComputeSystem {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
 
         result := DllCall("computestorage.dll\HcsDestroyLayer", "ptr", layerPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1154,8 +1211,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computestorage.dll\HcsSetupBaseOSLayer", "ptr", layerPath, "ptr", vhdHandle, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1174,8 +1232,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computestorage.dll\HcsInitializeWritableLayer", "ptr", writableLayerPath, "ptr", layerData, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1196,8 +1255,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computestorage.dll\HcsInitializeLegacyWritableLayer", "ptr", writableLayerMountPath, "ptr", writableLayerFolderPath, "ptr", layerData, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1214,8 +1274,9 @@ class HostComputeSystem {
         layerData := layerData is String ? StrPtr(layerData) : layerData
 
         result := DllCall("computestorage.dll\HcsAttachLayerStorageFilter", "ptr", layerPath, "ptr", layerData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1230,8 +1291,9 @@ class HostComputeSystem {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
 
         result := DllCall("computestorage.dll\HcsDetachLayerStorageFilter", "ptr", layerPath, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1246,8 +1308,9 @@ class HostComputeSystem {
         vhdHandle := vhdHandle is Win32Handle ? NumGet(vhdHandle, "ptr") : vhdHandle
 
         result := DllCall("computestorage.dll\HcsFormatWritableLayerVhd", "ptr", vhdHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1262,8 +1325,9 @@ class HostComputeSystem {
         vhdHandle := vhdHandle is Win32Handle ? NumGet(vhdHandle, "ptr") : vhdHandle
 
         result := DllCall("computestorage.dll\HcsGetLayerVhdMountPath", "ptr", vhdHandle, "ptr*", &mountPath := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return mountPath
     }
@@ -1282,8 +1346,9 @@ class HostComputeSystem {
         options := options is String ? StrPtr(options) : options
 
         result := DllCall("computestorage.dll\HcsSetupBaseOSVolume", "ptr", layerPath, "ptr", volumePath, "ptr", options, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1299,8 +1364,9 @@ class HostComputeSystem {
         LayerData := LayerData is String ? StrPtr(LayerData) : LayerData
 
         result := DllCall("computestorage.dll\HcsAttachOverlayFilter", "ptr", VolumeMountPoint, "ptr", LayerData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1316,8 +1382,9 @@ class HostComputeSystem {
         LayerData := LayerData is String ? StrPtr(LayerData) : LayerData
 
         result := DllCall("computestorage.dll\HcsDetachOverlayFilter", "ptr", VolumeMountPoint, "ptr", LayerData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

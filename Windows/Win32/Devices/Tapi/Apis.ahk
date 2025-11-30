@@ -11196,8 +11196,9 @@ class Tapi {
         lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
         result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", &lppTNEF := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ITnef(lppTNEF)
     }
@@ -11219,8 +11220,9 @@ class Tapi {
         lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
         result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ITnef(lppTNEF)
     }
@@ -11238,8 +11240,9 @@ class Tapi {
         lpulSubCodepageMarshal := lpulSubCodepage is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, lpulCodepageMarshal, lpulCodepage, lpulSubCodepageMarshal, lpulSubCodepage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

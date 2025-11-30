@@ -19,8 +19,9 @@ class DeveloperLicensing {
      */
     static CheckDeveloperLicense(pExpiration) {
         result := DllCall("WSClient.dll\CheckDeveloperLicense", "ptr", pExpiration, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -36,8 +37,9 @@ class DeveloperLicensing {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WSClient.dll\AcquireDeveloperLicense", "ptr", hwndParent, "ptr", pExpiration, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -52,8 +54,9 @@ class DeveloperLicensing {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WSClient.dll\RemoveDeveloperLicense", "ptr", hwndParent, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

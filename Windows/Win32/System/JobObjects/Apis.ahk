@@ -37,8 +37,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsProcessInJob", "ptr", ProcessHandle, "ptr", JobHandle, ResultMarshal, Result, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -74,23 +75,25 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateJobObjectW", "ptr", lpJobAttributes, "ptr", lpName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Frees memory that a function related to job objects allocated. Functions related to job objects that allocate memory include QueryIoRateControlInformationJobObject.
-     * @param {Pointer<Void>} Buffer A pointer to the buffer of allocated memory that you want to free.
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-freememoryjobobject
      * @since windows10.0.10240
      */
-    static FreeMemoryJobObject(Buffer) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static FreeMemoryJobObject(Buffer_R) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        DllCall("KERNEL32.dll\FreeMemoryJobObject", BufferMarshal, Buffer)
+        DllCall("KERNEL32.dll\FreeMemoryJobObject", Buffer_RMarshal, Buffer_R)
     }
 
     /**
@@ -117,10 +120,12 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenJobObjectW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -151,8 +156,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AssignProcessToJobObject", "ptr", hJob, "ptr", hProcess, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -182,8 +188,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\TerminateJobObject", "ptr", hJob, "uint", uExitCode, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -211,8 +218,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetInformationJobObject", "ptr", hJob, "int", JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -234,8 +242,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetIoRateControlInformationJobObject", "ptr", hJob, "ptr", IoRateControlInfo, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -270,8 +279,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryInformationJobObject", "ptr", hJob, "int", JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -301,8 +311,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, InfoBlocksMarshal, InfoBlocks, InfoBlockCountMarshal, InfoBlockCount, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -328,8 +339,9 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UserHandleGrantAccess", "ptr", hUserHandle, "ptr", hJob, "int", bGrant, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -365,10 +377,12 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateJobObjectA", "ptr", lpJobAttributes, "ptr", lpName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -395,10 +409,12 @@ class JobObjects {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenJobObjectA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

@@ -126,8 +126,9 @@ class EventNotificationService {
         A_LastError := 0
 
         result := DllCall("SensApi.dll\IsDestinationReachableA", "ptr", lpszDestination, "ptr", lpQOCInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -186,8 +187,9 @@ class EventNotificationService {
         A_LastError := 0
 
         result := DllCall("SensApi.dll\IsDestinationReachableW", "ptr", lpszDestination, "ptr", lpQOCInfo, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -236,8 +238,9 @@ class EventNotificationService {
         A_LastError := 0
 
         result := DllCall("SensApi.dll\IsNetworkAlive", lpdwFlagsMarshal, lpdwFlags, "int")
-        if(!result && A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

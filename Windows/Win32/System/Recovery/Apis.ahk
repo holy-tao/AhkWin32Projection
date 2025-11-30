@@ -56,8 +56,9 @@ class Recovery {
         pvParameterMarshal := pvParameter is VarRef ? "ptr" : "ptr"
 
         result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", "ptr", pRecoveyCallback, pvParameterMarshal, pvParameter, "uint", dwPingInterval, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -88,8 +89,9 @@ class Recovery {
      */
     static UnregisterApplicationRecoveryCallback() {
         result := DllCall("KERNEL32.dll\UnregisterApplicationRecoveryCallback", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -137,8 +139,9 @@ class Recovery {
         pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
         result := DllCall("KERNEL32.dll\RegisterApplicationRestart", "ptr", pwzCommandline, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -169,8 +172,9 @@ class Recovery {
      */
     static UnregisterApplicationRestart() {
         result := DllCall("KERNEL32.dll\UnregisterApplicationRestart", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -249,8 +253,9 @@ class Recovery {
         pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, "uint*", &pdwFlags := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pdwFlags
     }
@@ -263,8 +268,9 @@ class Recovery {
      */
     static ApplicationRecoveryInProgress() {
         result := DllCall("KERNEL32.dll\ApplicationRecoveryInProgress", "int*", &pbCancelled := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pbCancelled
     }
