@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeNetwork
@@ -731,19 +730,19 @@ class HostComputeNetwork {
      * @param {Integer} Protocol 
      * @param {Integer} Access 
      * @param {Integer} Port 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} PortReservationHandle 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePort
      */
-    static HcnReserveGuestNetworkServicePort(GuestNetworkService, Protocol, Access, Port) {
+    static HcnReserveGuestNetworkServicePort(GuestNetworkService, Protocol, Access, Port, PortReservationHandle) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
-        PortReservationHandle := HANDLE()
         result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePort", GuestNetworkServiceMarshal, GuestNetworkService, "int", Protocol, "int", Access, "ushort", Port, "ptr", PortReservationHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return PortReservationHandle
+        return result
     }
 
     /**
@@ -751,19 +750,19 @@ class HostComputeNetwork {
      * @param {Pointer<Void>} GuestNetworkService 
      * @param {Integer} PortCount 
      * @param {Pointer<HCN_PORT_RANGE_RESERVATION>} PortRangeReservation 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} PortReservationHandle 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePortRange
      */
-    static HcnReserveGuestNetworkServicePortRange(GuestNetworkService, PortCount, PortRangeReservation) {
+    static HcnReserveGuestNetworkServicePortRange(GuestNetworkService, PortCount, PortRangeReservation, PortReservationHandle) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
-        PortReservationHandle := HANDLE()
         result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePortRange", GuestNetworkServiceMarshal, GuestNetworkService, "ushort", PortCount, "ptr", PortRangeReservation, "ptr", PortReservationHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return PortReservationHandle
+        return result
     }
 
     /**

@@ -1,0 +1,121 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+
+/**
+ * @namespace Windows.Wdk.Graphics.Direct3D
+ * @version v4.0.30319
+ */
+class D3DDDIARG_CREATERESOURCE extends Win32Struct
+{
+    static sizeof => 72
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    Format {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Pool {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MultisampleType {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MultisampleQuality {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Pointer<D3DDDI_SURFACEINFO>}
+     */
+    pSurfList {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SurfCount {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MipLevels {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Fvf {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    VidPnSourceId {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Pointer<D3DDDI_RATIONAL>}
+     */
+    RefreshRate {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
+     * @type {HANDLE}
+     */
+    hResource{
+        get {
+            if(!this.HasProp("__hResource"))
+                this.__hResource := HANDLE(48, this)
+            return this.__hResource
+        }
+    }
+
+    /**
+     * @type {Pointer<D3DDDI_RESOURCEFLAGS>}
+     */
+    Flags {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Rotation {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
+    }
+}

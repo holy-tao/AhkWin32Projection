@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.P2P
@@ -4697,21 +4696,72 @@ class P2P {
      * @param {HANDLE} hEvent Handle to the event for this invitation, created by a previous call to CreateEvent. The event is signaled when the status of the asynchronous invitation is updated. To obtain the response data, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgetinvitationresponse">PeerCollabGetInvitationResponse</a>.
      * 
      * If the event is not provided the caller must poll for the result by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgetinvitationresponse">PeerCollabGetInvitationResponse</a>.
-     * @returns {HANDLE} A pointer to a handle to the sent invitation. The framework will cleanup the response information after the invitation response is received if <b>NULL</b> is specified. When <b>NULL</b> is not the specified handle to the invitation provided, it must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabclosehandle">PeerCollabCloseHandle</a>.
+     * @param {Pointer<HANDLE>} phInvitation A pointer to a handle to the sent invitation. The framework will cleanup the response information after the invitation response is received if <b>NULL</b> is specified. When <b>NULL</b> is not the specified handle to the invitation provided, it must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabclosehandle">PeerCollabCloseHandle</a>.
+     * @returns {HRESULT} Returns S_OK if the function succeeds. Otherwise, the function returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory to support this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the arguments is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pcEndpoint</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>PEER_E_NOT_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  The Windows Peer infrastructure is not initialized. Calling the relevant initialization function  is required.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//p2p/nf-p2p-peercollabasyncinvitecontact
      * @deprecated 
      * @since windows6.0.6000
      */
-    static PeerCollabAsyncInviteContact(pcContact, pcEndpoint, pcInvitation, hEvent) {
+    static PeerCollabAsyncInviteContact(pcContact, pcEndpoint, pcInvitation, hEvent, phInvitation) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        phInvitation := HANDLE()
         result := DllCall("P2P.dll\PeerCollabAsyncInviteContact", "ptr", pcContact, "ptr", pcEndpoint, "ptr", pcInvitation, "ptr", hEvent, "ptr", phInvitation, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phInvitation
+        return result
     }
 
     /**
@@ -4885,21 +4935,50 @@ class P2P {
      * @param {HANDLE} hEvent Handle to the event for this invitation, created by a previous call to CreateEvent. The event is signaled when the status of the asynchronous invitation is updated. To obtain the response data, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgetinvitationresponse">PeerCollabGetInvitationResponse</a>.
      * 
      * If the event is not provided, the caller must poll for the result by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgetinvitationresponse">PeerCollabGetInvitationResponse</a>.
-     * @returns {HANDLE} A pointer to a handle to the sent invitation. If this parameter is <b>NULL</b>, the framework will cleanup the response information after the invitation response is received. If this parameter is not <b>NULL</b>, the handle must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabclosehandle">PeerCollabCloseHandle</a>.
+     * @param {Pointer<HANDLE>} phInvitation A pointer to a handle to the sent invitation. If this parameter is <b>NULL</b>, the framework will cleanup the response information after the invitation response is received. If this parameter is not <b>NULL</b>, the handle must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabclosehandle">PeerCollabCloseHandle</a>.
+     * @returns {HRESULT} Returns S_OK if the function succeeds. Otherwise, the function returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory to support this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the arguments is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//p2p/nf-p2p-peercollabasyncinviteendpoint
      * @deprecated 
      * @since windows6.0.6000
      */
-    static PeerCollabAsyncInviteEndpoint(pcEndpoint, pcInvitation, hEvent) {
+    static PeerCollabAsyncInviteEndpoint(pcEndpoint, pcInvitation, hEvent, phInvitation) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        phInvitation := HANDLE()
         result := DllCall("P2P.dll\PeerCollabAsyncInviteEndpoint", "ptr", pcEndpoint, "ptr", pcInvitation, "ptr", hEvent, "ptr", phInvitation, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phInvitation
+        return result
     }
 
     /**

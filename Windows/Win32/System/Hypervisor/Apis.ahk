@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WHV_PARTITION_HANDLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -157,16 +156,16 @@ class Hypervisor {
 
     /**
      * 
-     * @returns {WHV_PARTITION_HANDLE} 
+     * @param {Pointer<WHV_PARTITION_HANDLE>} Partition 
+     * @returns {HRESULT} 
      */
-    static WHvCreatePartition() {
-        Partition := WHV_PARTITION_HANDLE()
+    static WHvCreatePartition(Partition) {
         result := DllCall("WinHvPlatform.dll\WHvCreatePartition", "ptr", Partition, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return Partition
+        return result
     }
 
     /**
@@ -859,18 +858,18 @@ class Hypervisor {
      * @param {Integer} Flags 
      * @param {Pointer<Void>} ResourceDescriptor 
      * @param {Integer} ResourceDescriptorSizeInBytes 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} VpciResource 
+     * @returns {HRESULT} 
      */
-    static WHvAllocateVpciResource(ProviderId, Flags, ResourceDescriptor, ResourceDescriptorSizeInBytes) {
+    static WHvAllocateVpciResource(ProviderId, Flags, ResourceDescriptor, ResourceDescriptorSizeInBytes, VpciResource) {
         ResourceDescriptorMarshal := ResourceDescriptor is VarRef ? "ptr" : "ptr"
 
-        VpciResource := HANDLE()
         result := DllCall("WinHvPlatform.dll\WHvAllocateVpciResource", "ptr", ProviderId, "int", Flags, ResourceDescriptorMarshal, ResourceDescriptor, "uint", ResourceDescriptorSizeInBytes, "ptr", VpciResource, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return VpciResource
+        return result
     }
 
     /**
@@ -1154,21 +1153,18 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Pointer<WHV_TRIGGER_PARAMETERS>} Parameters 
-     * @param {Pointer<Pointer<Void>>} TriggerHandle 
      * @param {Pointer<HANDLE>} EventHandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static WHvCreateTrigger(Partition, Parameters, TriggerHandle, EventHandle) {
+    static WHvCreateTrigger(Partition, Parameters, EventHandle) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        TriggerHandleMarshal := TriggerHandle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("WinHvPlatform.dll\WHvCreateTrigger", "ptr", Partition, "ptr", Parameters, TriggerHandleMarshal, TriggerHandle, "ptr", EventHandle, "int")
+        result := DllCall("WinHvPlatform.dll\WHvCreateTrigger", "ptr", Partition, "ptr", Parameters, "ptr*", &TriggerHandle := 0, "ptr", EventHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return TriggerHandle
     }
 
     /**
@@ -1336,18 +1332,18 @@ class Hypervisor {
     /**
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} MigrationHandle 
+     * @returns {HRESULT} 
      */
-    static WHvStartPartitionMigration(Partition) {
+    static WHvStartPartitionMigration(Partition, MigrationHandle) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        MigrationHandle := HANDLE()
         result := DllCall("WinHvPlatform.dll\WHvStartPartitionMigration", "ptr", Partition, "ptr", MigrationHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return MigrationHandle
+        return result
     }
 
     /**
@@ -1385,18 +1381,18 @@ class Hypervisor {
     /**
      * 
      * @param {HANDLE} MigrationHandle 
-     * @returns {WHV_PARTITION_HANDLE} 
+     * @param {Pointer<WHV_PARTITION_HANDLE>} Partition 
+     * @returns {HRESULT} 
      */
-    static WHvAcceptPartitionMigration(MigrationHandle) {
+    static WHvAcceptPartitionMigration(MigrationHandle, Partition) {
         MigrationHandle := MigrationHandle is Win32Handle ? NumGet(MigrationHandle, "ptr") : MigrationHandle
 
-        Partition := WHV_PARTITION_HANDLE()
         result := DllCall("WinHvPlatform.dll\WHvAcceptPartitionMigration", "ptr", MigrationHandle, "ptr", Partition, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return Partition
+        return result
     }
 
     /**

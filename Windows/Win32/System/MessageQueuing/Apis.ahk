@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
 
 /**
@@ -1108,18 +1107,18 @@ class MessageQueuing {
      * @param {Pointer<MQRESTRICTION>} pRestriction 
      * @param {Pointer<MQCOLUMNSET>} pColumns 
      * @param {Pointer<MQSORTSET>} pSort 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} phEnum 
+     * @returns {HRESULT} 
      */
-    static MQLocateBegin(lpwcsContext, pRestriction, pColumns, pSort) {
+    static MQLocateBegin(lpwcsContext, pRestriction, pColumns, pSort, phEnum) {
         lpwcsContext := lpwcsContext is String ? StrPtr(lpwcsContext) : lpwcsContext
 
-        phEnum := HANDLE()
         result := DllCall("mqrt.dll\MQLocateBegin", "ptr", lpwcsContext, "ptr", pRestriction, "ptr", pColumns, "ptr", pSort, "ptr", phEnum, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phEnum
+        return result
     }
 
     /**
@@ -1238,16 +1237,16 @@ class MessageQueuing {
     /**
      * 
      * @param {Pointer} hQueue 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} phCursor 
+     * @returns {HRESULT} 
      */
-    static MQCreateCursor(hQueue) {
-        phCursor := HANDLE()
+    static MQCreateCursor(hQueue, phCursor) {
         result := DllCall("mqrt.dll\MQCreateCursor", "ptr", hQueue, "ptr", phCursor, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phCursor
+        return result
     }
 
     /**
@@ -1467,32 +1466,32 @@ class MessageQueuing {
      * 
      * @param {Pointer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} phSecurityContext 
+     * @returns {HRESULT} 
      */
-    static MQGetSecurityContext(lpCertBuffer, dwCertBufferLength) {
-        phSecurityContext := HANDLE()
+    static MQGetSecurityContext(lpCertBuffer, dwCertBufferLength, phSecurityContext) {
         result := DllCall("mqrt.dll\MQGetSecurityContext", "ptr", lpCertBuffer, "uint", dwCertBufferLength, "ptr", phSecurityContext, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phSecurityContext
+        return result
     }
 
     /**
      * 
      * @param {Pointer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
-     * @returns {HANDLE} 
+     * @param {Pointer<HANDLE>} phSecurityContext 
+     * @returns {HRESULT} 
      */
-    static MQGetSecurityContextEx(lpCertBuffer, dwCertBufferLength) {
-        phSecurityContext := HANDLE()
+    static MQGetSecurityContextEx(lpCertBuffer, dwCertBufferLength, phSecurityContext) {
         result := DllCall("mqrt.dll\MQGetSecurityContextEx", "ptr", lpCertBuffer, "uint", dwCertBufferLength, "ptr", phSecurityContext, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phSecurityContext
+        return result
     }
 
     /**

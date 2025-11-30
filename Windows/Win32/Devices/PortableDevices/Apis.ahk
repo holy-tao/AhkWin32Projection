@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 
@@ -10703,20 +10702,20 @@ class PortableDevices {
      * @param {PWSTR} pszXmlIn 
      * @param {Pointer<PWSTR>} rgszAllowedCspNodes 
      * @param {Integer} dwNumAllowedCspNodes 
-     * @returns {BSTR} 
+     * @param {Pointer<BSTR>} pbstrXmlOut 
+     * @returns {HRESULT} 
      */
-    static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes) {
+    static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes, pbstrXmlOut) {
         pszXmlIn := pszXmlIn is String ? StrPtr(pszXmlIn) : pszXmlIn
 
         rgszAllowedCspNodesMarshal := rgszAllowedCspNodes is VarRef ? "ptr*" : "ptr"
 
-        pbstrXmlOut := BSTR()
         result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, rgszAllowedCspNodesMarshal, rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pbstrXmlOut
+        return result
     }
 
 ;@endregion Methods

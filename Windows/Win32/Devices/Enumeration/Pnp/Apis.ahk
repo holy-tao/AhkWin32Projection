@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\HSWDEVICE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
@@ -258,28 +257,28 @@ class Pnp {
      * @param {Pointer<DEVPROPERTY>} pProperties An optional array of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures.  These properties are set on the device after it is created but before a notification that the device has been created are sent.  For more info, see Remarks.  This pointer can be <b>NULL</b>.
      * @param {Pointer<SW_DEVICE_CREATE_CALLBACK>} pCallback The <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nc-swdevice-sw_device_create_callback">SW_DEVICE_CREATE_CALLBACK</a> callback function that the operating system calls after PnP enumerates the device.
      * @param {Pointer<Void>} pContext An optional client context that the operating system passes to the callback function. This pointer can be <b>NULL</b>.
-     * @returns {HSWDEVICE} A pointer to a variable that receives the <b>HSWDEVICE</b> handle that represents the device.  Call <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdeviceclose">SwDeviceClose</a> to close this handle after the client app wants PnP to remove the device.
+     * @param {Pointer<HSWDEVICE>} phSwDevice A pointer to a variable that receives the <b>HSWDEVICE</b> handle that represents the device.  Call <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdeviceclose">SwDeviceClose</a> to close this handle after the client app wants PnP to remove the device.
      * 
      * <pre class="syntax" xml:space="preserve"><code>
      * DECLARE_HANDLE(HSWDEVICE);
      * typedef HSWDEVICE *PHSWDEVICE;
      * </code></pre>
+     * @returns {HRESULT} S_OK is returned if device enumeration was successfully initiated.  This does not mean that the device has been successfully enumerated.  Check the <i>CreateResult</i> parameter of the <a href="/windows/desktop/api/swdevice/nc-swdevice-sw_device_create_callback">SW_DEVICE_CREATE_CALLBACK</a> callback function to determine if the device was successfully enumerated.
      * @see https://docs.microsoft.com/windows/win32/api//swdevice/nf-swdevice-swdevicecreate
      * @since windows8.0
      */
-    static SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, cPropertyCount, pProperties, pCallback, pContext) {
+    static SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, cPropertyCount, pProperties, pCallback, pContext, phSwDevice) {
         pszEnumeratorName := pszEnumeratorName is String ? StrPtr(pszEnumeratorName) : pszEnumeratorName
         pszParentDeviceInstance := pszParentDeviceInstance is String ? StrPtr(pszParentDeviceInstance) : pszParentDeviceInstance
 
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        phSwDevice := HSWDEVICE()
         result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, "ptr", pCreateInfo, "uint", cPropertyCount, "ptr", pProperties, "ptr", pCallback, pContextMarshal, pContext, "ptr", phSwDevice, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phSwDevice
+        return result
     }
 
     /**

@@ -9212,20 +9212,20 @@ class Threading {
      * Associates a work queue with an input/output (I/O) handle.
      * @param {Integer} workQueueId The ID of the work queue to redirect the I/O handle into.
      * @param {HANDLE} hFile The network I/O handle.
-     * @returns {HANDLE} A cookie that represents the association between the network and I/O handles.
+     * @param {Pointer<HANDLE>} out A cookie that represents the association between the network and I/O handles.
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqjoinworkqueue
      * @since windows8.1
      */
-    static RtwqJoinWorkQueue(workQueueId, hFile) {
+    static RtwqJoinWorkQueue(workQueueId, hFile, out) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
-        out := HANDLE()
         result := DllCall("RTWorkQ.dll\RtwqJoinWorkQueue", "uint", workQueueId, "ptr", hFile, "ptr", out, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return out
+        return result
     }
 
     /**
@@ -9692,18 +9692,18 @@ class Threading {
      * Sets a deadline by which the work in a work queue must be completed.
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in milliseconds.
-     * @returns {HANDLE} Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
+     * @param {Pointer<HANDLE>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetdeadline
      * @since windows10.0.10240
      */
-    static RtwqSetDeadline(workQueueId, deadlineInHNS) {
-        pRequest := HANDLE()
+    static RtwqSetDeadline(workQueueId, deadlineInHNS, pRequest) {
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline", "uint", workQueueId, "int64", deadlineInHNS, "ptr", pRequest, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pRequest
+        return result
     }
 
     /**
@@ -9711,18 +9711,18 @@ class Threading {
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in milliseconds.
      * @param {Integer} preDeadlineInHNS The pre-deadline for the work in the queue to be completed, in milliseconds.
-     * @returns {HANDLE} Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
+     * @param {Pointer<HANDLE>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetdeadline2
      * @since windows10.0.10240
      */
-    static RtwqSetDeadline2(workQueueId, deadlineInHNS, preDeadlineInHNS) {
-        pRequest := HANDLE()
+    static RtwqSetDeadline2(workQueueId, deadlineInHNS, preDeadlineInHNS, pRequest) {
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline2", "uint", workQueueId, "int64", deadlineInHNS, "int64", preDeadlineInHNS, "ptr", pRequest, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pRequest
+        return result
     }
 
     /**
